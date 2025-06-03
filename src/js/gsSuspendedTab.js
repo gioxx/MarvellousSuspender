@@ -33,7 +33,7 @@ var gsSuspendedTab = (function() {
 
     gsUtils.localiseHtml(tabView.document);
 
-    const options = gsStorage.getSettings();
+    const options = await gsStorage.getSettings();
     const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
 
     // Add event listeners
@@ -140,16 +140,18 @@ var gsSuspendedTab = (function() {
 
     //Check if there are updates
     let el = _document.getElementById('tmsUpdateAvailable');
-    el.style.display = gsStorage.getOption(gsStorage.UPDATE_AVAILABLE) ? 'block' : 'none';
-    el.style.paddingTop = '80px';
-    // Prevent unsuspend by parent container
-    // Using mousedown event otherwise click can still be triggered if
-    // mouse is released outside of this element
-    _document.getElementById('gsTopBarTitle').onmousedown = function(e) {
-      e.stopPropagation();
-    };
+    gsStorage.getOption(gsStorage.UPDATE_AVAILABLE).then((update) => {
+      el.style.display = update ? 'block' : 'none';
+      el.style.paddingTop = '80px';
+      // Prevent unsuspend by parent container
+      // Using mousedown event otherwise click can still be triggered if
+      // mouse is released outside of this element
+      _document.getElementById('gsTopBarTitle').onmousedown = function(e) {
+        e.stopPropagation();
+      };
 
-    setGoToUpdateHandler(_document);
+      setGoToUpdateHandler(_document);
+    })
   }
 
   function setGoToUpdateHandler(_document) {

@@ -78,7 +78,7 @@
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(async function() {
     //Set theme
-    document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+    document.body.classList.add(await gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
     await fetchInfo();
     addFlagHtml(
       'toggleDebugInfo',
@@ -92,13 +92,8 @@
     );
     addFlagHtml(
       'toggleDiscardInPlaceOfSuspend',
-      () => gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND),
-      newVal => {
-        gsStorage.setOptionAndSync(
-          gsStorage.DISCARD_IN_PLACE_OF_SUSPEND,
-          newVal
-        );
-      }
+      async () => await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND),
+      async (newVal) => { gsStorage.setOptionAndSync(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND, newVal); }
     );
     document.getElementById('claimSuspendedTabs').onclick = async function(e) {
       const tabs = await gsChrome.tabsQuery();

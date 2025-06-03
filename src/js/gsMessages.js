@@ -27,7 +27,7 @@ var gsMessages = {
     );
   },
 
-  sendUpdateToContentScriptOfTab: function(tab) {
+  sendUpdateToContentScriptOfTab: async (tab) => {
     if (
       gsUtils.isSpecialTab(tab) ||
       gsUtils.isSuspendedTab(tab, true) ||
@@ -36,7 +36,7 @@ var gsMessages = {
       return;
     }
 
-    const ignoreForms = gsStorage.getOption(gsStorage.IGNORE_FORMS);
+    const ignoreForms = await gsStorage.getOption(gsStorage.IGNORE_FORMS);
     gsMessages.sendMessageToContentScript(
       tab.id,
       { ignoreForms },

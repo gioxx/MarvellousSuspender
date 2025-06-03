@@ -217,7 +217,9 @@
 
   function render() {
     //Set theme
-    document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+    gsStorage.getOption(gsStorage.THEME).then((theme) => {
+      document.body.classList.add(theme === 'dark' ? 'dark' : null);
+    });
 
     let currentDiv = document.getElementById('currentSessions'),
       sessionsDiv = document.getElementById('recoverySessions'),

@@ -1,4 +1,4 @@
-/*global chrome, localStorage, gsStorage, gsChrome, gsMessages, gsSession, gsTabSuspendManager, gsTabDiscardManager, gsSuspendedTab, gsFavicon, tgs */
+/*global chrome, gsStorage, gsChrome, gsMessages, gsSession, gsTabSuspendManager, gsTabDiscardManager, gsSuspendedTab, gsFavicon, tgs */
 'use strict';
 
 var debugInfo = false;
@@ -198,22 +198,23 @@ var gsUtils = {
   },
 
   isProtectedPinnedTab: function(tab) {
-    var dontSuspendPinned = gsStorage.getOption(gsStorage.IGNORE_PINNED);
-    return dontSuspendPinned && tab.pinned;
+    gsStorage.getOption(gsStorage.IGNORE_PINNED).then((dontSuspendPinned) => {
+      return dontSuspendPinned && tab.pinned;
+    });
   },
 
   isProtectedAudibleTab: function(tab) {
-    var dontSuspendAudible = gsStorage.getOption(gsStorage.IGNORE_AUDIO);
-    return dontSuspendAudible && tab.audible;
+    gsStorage.getOption(gsStorage.IGNORE_AUDIO).then((dontSuspendAudible) => {
+      return dontSuspendAudible && tab.audible;
+    });
   },
 
   isProtectedActiveTab: function(tab) {
-    var dontSuspendActiveTabs = gsStorage.getOption(
-      gsStorage.IGNORE_ACTIVE_TABS,
-    );
-    return (
-      tgs.isCurrentFocusedTab(tab) || (dontSuspendActiveTabs && tab.active)
-    );
+    gsStorage.getOption(gsStorage.IGNORE_ACTIVE_TABS).then((dontSuspendActiveTabs) => {
+      return (
+        tgs.isCurrentFocusedTab(tab) || (dontSuspendActiveTabs && tab.active)
+      );
+    });
   },
 
   // Note: Normal tabs may be in a discarded state
@@ -242,13 +243,11 @@ var gsUtils = {
   },
 
   shouldSuspendDiscardedTabs: function() {
-    var suspendInPlaceOfDiscard = gsStorage.getOption(
-      gsStorage.SUSPEND_IN_PLACE_OF_DISCARD,
-    );
-    var discardInPlaceOfSuspend = gsStorage.getOption(
-      gsStorage.DISCARD_IN_PLACE_OF_SUSPEND,
-    );
-    return suspendInPlaceOfDiscard && !discardInPlaceOfSuspend;
+    gsStorage.getOption(gsStorage.SUSPEND_IN_PLACE_OF_DISCARD).then((suspendInPlaceOfDiscard) => {
+      gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND).then((discardInPlaceOfSuspend) => {
+        return suspendInPlaceOfDiscard && !discardInPlaceOfSuspend;
+      });
+    });
   },
 
   removeTabsByUrlAsPromised: function(url) {
@@ -295,10 +294,9 @@ var gsUtils = {
   },
 
   checkWhiteList: function(url) {
-    return gsUtils.checkSpecificWhiteList(
-      url,
-      gsStorage.getOption(gsStorage.WHITELIST),
-    );
+    gsStorage.getOption(gsStorage.WHITELIST).then((whitelist) => {
+      return gsUtils.checkSpecificWhiteList(url, whitelist);
+    })
   },
 
   checkSpecificWhiteList: function(url, whitelistString) {
@@ -314,24 +312,26 @@ var gsUtils = {
   },
 
   removeFromWhitelist: function(url) {
-    var oldWhitelistString = gsStorage.getOption(gsStorage.WHITELIST) || '',
-      whitelistItems = oldWhitelistString.split(/[\s\n]+/).sort(),
-      i;
+    gsStorage.getOption(gsStorage.WHITELIST).then((oldWhitelistString) => {
+      oldWhitelistString = oldWhitelistString || '';
+      const whitelistItems = oldWhitelistString.split(/[\s\n]+/).sort();
+      let i;
 
-    for (i = whitelistItems.length - 1; i >= 0; i--) {
-      if (gsUtils.testForMatch(whitelistItems[i], url)) {
-        whitelistItems.splice(i, 1);
+      for (i = whitelistItems.length - 1; i >= 0; i--) {
+        if (gsUtils.testForMatch(whitelistItems[i], url)) {
+          whitelistItems.splice(i, 1);
+        }
       }
-    }
-    var whitelistString = whitelistItems.join('\n');
-    gsStorage.setOptionAndSync(gsStorage.WHITELIST, whitelistString);
+      var whitelistString = whitelistItems.join('\n');
+      gsStorage.setOptionAndSync(gsStorage.WHITELIST, whitelistString);
 
-    var key = gsStorage.WHITELIST;
-    gsUtils.performPostSaveUpdates(
-      [key],
-      { [key]: oldWhitelistString },
-      { [key]: whitelistString },
-    );
+      var key = gsStorage.WHITELIST;
+      gsUtils.performPostSaveUpdates(
+        [key],
+        { [key]: oldWhitelistString },
+        { [key]: whitelistString },
+      );
+    })
   },
 
   testForMatch: function(whitelistItem, word) {
@@ -359,17 +359,19 @@ var gsUtils = {
   },
 
   saveToWhitelist: function(newString) {
-    var oldWhitelistString = gsStorage.getOption(gsStorage.WHITELIST) || '';
-    var newWhitelistString = oldWhitelistString + '\n' + newString;
-    newWhitelistString = gsUtils.cleanupWhitelist(newWhitelistString);
-    gsStorage.setOptionAndSync(gsStorage.WHITELIST, newWhitelistString);
+    gsStorage.getOption(gsStorage.WHITELIST).then((oldWhitelistString) => {
+      oldWhitelistString = oldWhitelistString || '';
+      let newWhitelistString = oldWhitelistString + '\n' + newString;
+      newWhitelistString = gsUtils.cleanupWhitelist(newWhitelistString);
+      gsStorage.setOptionAndSync(gsStorage.WHITELIST, newWhitelistString);
 
-    var key = gsStorage.WHITELIST;
-    gsUtils.performPostSaveUpdates(
-      [key],
-      { [key]: oldWhitelistString },
-      { [key]: newWhitelistString },
-    );
+      const key = gsStorage.WHITELIST;
+      gsUtils.performPostSaveUpdates(
+        [key],
+        { [key]: oldWhitelistString },
+        { [key]: newWhitelistString },
+      );
+    });
   },
 
   cleanupWhitelist: function(whitelist) {
@@ -667,43 +669,43 @@ var gsUtils = {
             const suspendedView = tgs.getInternalViewByTabId(tab.id);
             if (suspendedView) {
               if (updateTheme) {
-                const theme = gsStorage.getOption(gsStorage.THEME);
-                gsFavicon.getFaviconMetaData(tab).then(faviconMeta => {
-                  const isLowContrastFavicon = faviconMeta.isDark || false;
-                  gsSuspendedTab.updateTheme(
-                    suspendedView,
-                    tab,
-                    theme,
-                    isLowContrastFavicon,
-                  );
+                gsStorage.getOption(gsStorage.THEME).then((theme) => {
+                  gsFavicon.getFaviconMetaData(tab).then(faviconMeta => {
+                    const isLowContrastFavicon = faviconMeta.isDark || false;
+                    gsSuspendedTab.updateTheme(
+                      suspendedView,
+                      tab,
+                      theme,
+                      isLowContrastFavicon,
+                    );
+                  });
                 });
               }
               if (updatePreviewMode) {
-                const previewMode = gsStorage.getOption(
-                  gsStorage.SCREEN_CAPTURE,
-                );
-                gsSuspendedTab.updatePreviewMode(
-                  suspendedView,
-                  tab,
-                  previewMode,
-                ); // async. unhandled promise.
+                gsStorage.getOption(gsStorage.SCREEN_CAPTURE).then((previewMode) => {
+                  gsSuspendedTab.updatePreviewMode(
+                    suspendedView,
+                    tab,
+                    previewMode,
+                  ); // async. unhandled promise.
+                });
               }
             }
           }
 
           //if discardAfterSuspend has changed then updated discarded tabs
-          const updateDiscardAfterSuspend = changedSettingKeys.includes(
-            gsStorage.DISCARD_AFTER_SUSPEND,
-          );
-          if (
-            updateDiscardAfterSuspend &&
-            gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND) &&
-            gsUtils.isSuspendedTab(tab) &&
-            !gsUtils.isDiscardedTab(tab)
-          ) {
-            gsTabDiscardManager.queueTabForDiscard(tab);
-          }
-          return;
+          const updateDiscardAfterSuspend = changedSettingKeys.includes(gsStorage.DISCARD_AFTER_SUSPEND);
+          gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND).then((discardAfterSuspend) => {
+            if (
+              updateDiscardAfterSuspend &&
+              discardAfterSuspend &&
+              gsUtils.isSuspendedTab(tab) &&
+              !gsUtils.isDiscardedTab(tab)
+            ) {
+              gsTabDiscardManager.queueTabForDiscard(tab);
+            }
+            return;
+          })
         }
 
         if (!gsUtils.isNormalTab(tab, true)) {
@@ -718,35 +720,24 @@ var gsUtils = {
           gsMessages.sendUpdateToContentScriptOfTab(tab); //async. unhandled error
         }
 
-        //update suspend timers
-        const updateSuspendTime =
-          changedSettingKeys.includes(gsStorage.SUSPEND_TIME) ||
-          (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) &&
-            tab.active) ||
-          (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) &&
-            !gsStorage.getOption(gsStorage.IGNORE_PINNED) &&
-            tab.pinned) ||
-          (changedSettingKeys.includes(gsStorage.IGNORE_AUDIO) &&
-            !gsStorage.getOption(gsStorage.IGNORE_AUDIO) &&
-            tab.audible) ||
-          (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_OFFLINE) &&
-            !gsStorage.getOption(gsStorage.IGNORE_WHEN_OFFLINE) &&
-            !navigator.onLine) ||
-          (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_CHARGING) &&
-            !gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING) &&
-            tgs.isCharging()) ||
-          (changedSettingKeys.includes(gsStorage.WHITELIST) &&
-            (gsUtils.checkSpecificWhiteList(
-              tab.url,
-              oldValueBySettingKey[gsStorage.WHITELIST],
-              ) &&
-              !gsUtils.checkSpecificWhiteList(
-                tab.url,
-                newValueBySettingKey[gsStorage.WHITELIST],
-              )));
-        if (updateSuspendTime) {
-          tgs.resetAutoSuspendTimerForTab(tab);
-        }
+        gsStorage.getSettings().then((settings) => {
+          //update suspend timers
+          const updateSuspendTime =
+            changedSettingKeys.includes(gsStorage.SUSPEND_TIME) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && tab.active) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && !settings[gsStorage.IGNORE_PINNED] && tab.pinned) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_AUDIO) && !settings[gsStorage.IGNORE_AUDIO] && tab.audible) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_OFFLINE) && !settings[gsStorage.IGNORE_WHEN_OFFLINE] && !navigator.onLine) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_CHARGING) && !settings[gsStorage.IGNORE_WHEN_CHARGING] && tgs.isCharging()) ||
+            (changedSettingKeys.includes(gsStorage.WHITELIST) &&
+              ( gsUtils.checkSpecificWhiteList(tab.url, oldValueBySettingKey[gsStorage.WHITELIST]) &&
+               !gsUtils.checkSpecificWhiteList(tab.url, newValueBySettingKey[gsStorage.WHITELIST])
+              )
+            );
+          if (updateSuspendTime) {
+            tgs.resetAutoSuspendTimerForTab(tab);
+          }
+        })
 
         //if SuspendInPlaceOfDiscard has changed then updated discarded tabs
         const updateSuspendInPlaceOfDiscard = changedSettingKeys.includes(
@@ -774,8 +765,9 @@ var gsUtils = {
 
     //if context menu has been disabled then remove from chrome
     if (gsUtils.contains(changedSettingKeys, gsStorage.ADD_CONTEXT)) {
-      var addContextMenu = gsStorage.getOption(gsStorage.ADD_CONTEXT);
-      tgs.buildContextMenu(addContextMenu);
+      gsStorage.getOption(gsStorage.ADD_CONTEXT).then((addContextMenu) => {
+        tgs.buildContextMenu(addContextMenu);
+      });
     }
 
     //if screenshot preferences have changed then update the queue parameters

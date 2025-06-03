@@ -11,7 +11,9 @@
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
     //Set theme
-    document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+    gsStorage.getOption(gsStorage.THEME).then((theme) => {
+      document.body.classList.add(theme === 'dark' ? 'dark' : null);
+    })
 
     var shortcutsEl = document.getElementById('keyboardShortcuts');
     var configureShortcutsEl = document.getElementById('configureShortcuts');

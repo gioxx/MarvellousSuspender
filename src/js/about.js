@@ -9,9 +9,11 @@
     return;
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
+  gsUtils.documentReadyAndLocalisedAsPromised(document).then(() => {
     //Set theme
-    document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+    gsStorage.getOption(gsStorage.THEME).then((theme) => {
+      document.body.classList.add(theme === 'dark' ? 'dark' : null);
+    });
 
     var versionEl = document.getElementById('aboutVersion');
     versionEl.innerHTML = 'v' + chrome.runtime.getManifest().version;

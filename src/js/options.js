@@ -43,36 +43,34 @@
 
   //populate settings from synced storage
   function initSettings() {
-    //Set theme
-    document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+    gsStorage.getSettings().then((settings) => {
+      //Set theme
+      document.body.classList.add(settings[gsStorage.THEME] === 'dark' ? 'dark' : null);
 
-    var optionEls = document.getElementsByClassName('option'),
-      pref,
-      element,
-      i;
-    for (i = 0; i < optionEls.length; i++) {
-      element = optionEls[i];
-      pref = elementPrefMap[element.id];
-      populateOption(element, gsStorage.getOption(pref));
-    }
+      var optionEls = document.getElementsByClassName('option'),
+        pref,
+        element,
+        i;
+      for (i = 0; i < optionEls.length; i++) {
+        element = optionEls[i];
+        pref = elementPrefMap[element.id];
+        populateOption(element, settings[pref]);
+      }
 
-    addClickHandlers();
+      addClickHandlers();
 
-    setForceScreenCaptureVisibility(
-      gsStorage.getOption(gsStorage.SCREEN_CAPTURE) !== '0',
-    );
-    setAutoSuspendOptionsVisibility(
-      parseFloat(gsStorage.getOption(gsStorage.SUSPEND_TIME)) > 0,
-    );
-    setSyncNoteVisibility(!gsStorage.getOption(gsStorage.SYNC_SETTINGS));
+      setForceScreenCaptureVisibility(settings[gsStorage.SCREEN_CAPTURE] !== '0');
+      setAutoSuspendOptionsVisibility(parseFloat(settings[gsStorage.SUSPEND_TIME]) > 0);
+      setSyncNoteVisibility(!settings[gsStorage.SYNC_SETTINGS]);
 
-    let searchParams = new URL(location.href).searchParams;
-    if (searchParams.has('firstTime')) {
-      document
-        .querySelector('.welcome-message')
-        .classList.remove('reallyHidden');
-      document.querySelector('#options-heading').classList.add('reallyHidden');
-    }
+      let searchParams = new URL(location.href).searchParams;
+      if (searchParams.has('firstTime')) {
+        document
+          .querySelector('.welcome-message')
+          .classList.remove('reallyHidden');
+        document.querySelector('#options-heading').classList.add('reallyHidden');
+      }
+    });
   }
 
   function addClickHandlers() {
@@ -191,21 +189,22 @@
   }
 
   function saveChange(element) {
-    var pref = elementPrefMap[element.id],
-      oldValue = gsStorage.getOption(pref),
-      newValue = getOptionValue(element);
+    const pref = elementPrefMap[element.id];
+    const newValue = getOptionValue(element);
+    gsStorage.getOption(pref).then((oldValue) => {
 
-    //clean up whitelist before saving
-    if (pref === gsStorage.WHITELIST) {
-      newValue = gsUtils.cleanupWhitelist(newValue);
-    }
+      //clean up whitelist before saving
+      if (pref === gsStorage.WHITELIST) {
+        newValue = gsUtils.cleanupWhitelist(newValue);
+      }
 
-    //save option
-    if (oldValue !== newValue) {
-      gsStorage.setOptionAndSync(elementPrefMap[element.id], newValue);
-    }
+      //save option
+      if (oldValue !== newValue) {
+        gsStorage.setOptionAndSync(elementPrefMap[element.id], newValue);
+      }
 
-    return [oldValue, newValue];
+      return [oldValue, newValue];
+    });
   }
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {

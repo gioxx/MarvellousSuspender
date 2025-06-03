@@ -1,4 +1,4 @@
-/*global chrome, localStorage, tgs, gsUtils, gsChrome, GsTabQueue, gsStorage, gsTabSuspendManager */
+/*global chrome, tgs, gsUtils, gsChrome, GsTabQueue, gsStorage, gsTabSuspendManager */
 // eslint-disable-next-line no-unused-vars
 var gsTabDiscardManager = (function() {
   'use strict';
@@ -75,9 +75,7 @@ var gsTabDiscardManager = (function() {
       return;
     }
     if (tgs.isCurrentActiveTab(tab)) {
-      const discardInPlaceOfSuspend = gsStorage.getOption(
-        gsStorage.DISCARD_IN_PLACE_OF_SUSPEND
-      );
+      const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
       if (!discardInPlaceOfSuspend) {
         gsUtils.log(tab.id, QUEUE_ID, 'Tab is active. Aborting discard.');
         resolve(false);
@@ -119,7 +117,7 @@ var gsTabDiscardManager = (function() {
   async function handleDiscardedUnsuspendedTab(tab) {
     if (
       gsUtils.shouldSuspendDiscardedTabs() &&
-      gsTabSuspendManager.checkTabEligibilityForSuspension(tab, 3)
+      await gsTabSuspendManager.checkTabEligibilityForSuspension(tab, 3)
     ) {
       tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SUSPEND_REASON, 3);
       const suspendedUrl = gsUtils.generateSuspendedUrl(tab.url, tab.title, 0);

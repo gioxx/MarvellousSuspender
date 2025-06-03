@@ -1,4 +1,4 @@
-/*global chrome, localStorage, tgs, gsStorage, gsIndexedDb, gsUtils, gsChrome, gsTabCheckManager, gsTabDiscardManager */
+/*global chrome, tgs, gsStorage, gsIndexedDb, gsUtils, gsChrome, gsTabCheckManager, gsTabDiscardManager */
 // eslint-disable-next-line no-unused-vars
 var gsSession = (function() {
   'use strict';
@@ -157,7 +157,7 @@ var gsSession = (function() {
     const curVersion = chrome.runtime.getManifest().version;
     gsUtils.log('gsSession', 'curVersion:', curVersion);
 
-    startupLastVersion = gsStorage.fetchLastVersion();
+    startupLastVersion = await gsStorage.fetchLastVersion();
     gsUtils.log('gsSession', 'startupLastVersion:', startupLastVersion);
 
     if (chrome.extension.inIncognitoContext) {
@@ -234,7 +234,7 @@ var gsSession = (function() {
   async function handleNormalStartup(currentSessionTabs, curVersion) {
     const shouldRecoverTabs = await checkForCrashRecovery(currentSessionTabs);
     if (shouldRecoverTabs) {
-      const lastExtensionRecoveryTimestamp = gsStorage.fetchLastExtensionRecoveryTimestamp();
+      const lastExtensionRecoveryTimestamp = await gsStorage.fetchLastExtensionRecoveryTimestamp();
       const hasCrashedRecently =
         lastExtensionRecoveryTimestamp &&
         Date.now() - lastExtensionRecoveryTimestamp < 1000 * 60 * 5;

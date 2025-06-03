@@ -1,4 +1,4 @@
-/*global chrome, localStorage, tgs, gsStorage, gsSession, gsMessages, gsUtils, gsTabDiscardManager, gsChrome, GsTabQueue, gsSuspendedTab */
+/*global chrome, tgs, gsStorage, gsSession, gsMessages, gsUtils, gsTabDiscardManager, gsChrome, GsTabQueue, gsSuspendedTab */
 // eslint-disable-next-line no-unused-vars
 var gsTabCheckManager = (function() {
   'use strict';
@@ -289,7 +289,7 @@ var gsTabCheckManager = (function() {
     }
 
     const attemptDiscarding =
-      gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND) &&
+      await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND) &&
       !gsUtils.isDiscardedTab(tab) &&
       !tgs.isCurrentActiveTab(tab);
     const tabSessionOk =

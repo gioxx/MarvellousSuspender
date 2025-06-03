@@ -115,7 +115,7 @@
       };
 
       //show warning if screen capturing turned on
-      if (gsStorage.getOption(gsStorage.SCREEN_CAPTURE) !== '0') {
+      if (await gsStorage.getOption(gsStorage.SCREEN_CAPTURE) !== '0') {
         warningEl.style.display = 'block';
       }
     }

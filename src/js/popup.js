@@ -2,7 +2,7 @@
 (function(global) {
   'use strict';
 
-  chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
+  // chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
 
   var globalActionElListener;
 
@@ -257,10 +257,11 @@
   }
 
   function showPopupContents() {
-    const theme = gsStorage.getOption(gsStorage.THEME);
-    if (theme === 'dark') {
-      document.body.classList.add('dark');
-    }
+    gsStorage.getOption(gsStorage.THEME).then((theme) => {
+      if (theme === 'dark') {
+        document.body.classList.add('dark');
+      }
+    });
   }
 
   function addClickHandlers() {

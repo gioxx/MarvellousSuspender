@@ -12,10 +12,8 @@ var gsTabSuspendManager = (function() {
 
   function initAsPromised() {
     return new Promise(async function(resolve) {
-      const screenCaptureMode = gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
-      const forceScreenCapture = gsStorage.getOption(
-        gsStorage.SCREEN_CAPTURE_FORCE,
-      );
+      const screenCaptureMode   = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
+      const forceScreenCapture  = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_FORCE);
       //TODO: This should probably update when the screencapture mode changes
       const concurrentSuspensions =
         screenCaptureMode === '0' ? 5 : DEFAULT_CONCURRENT_SUSPENSIONS;
@@ -40,10 +38,10 @@ var gsTabSuspendManager = (function() {
     });
   }
 
-  function queueTabForSuspensionAsPromise(tab, forceLevel) {
+  async function queueTabForSuspensionAsPromise(tab, forceLevel) {
     if (typeof tab === 'undefined') return Promise.resolve();
 
-    if (!checkTabEligibilityForSuspension(tab, forceLevel)) {
+    if (!await checkTabEligibilityForSuspension(tab, forceLevel)) {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab not eligible for suspension.');
       return Promise.resolve();
     }
@@ -111,7 +109,7 @@ var gsTabSuspendManager = (function() {
     // Although if the tab is still loading then pause and scroll pos should
     // not be set?
     // Do not bypass loading state if screen capture is required
-    let screenCaptureMode = gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
+    let screenCaptureMode = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
     if (tab.status === 'loading') {
       const savedTabInfo = await gsIndexedDb.fetchTabInfo(tab.url);
       if (screenCaptureMode === '0' && savedTabInfo) {
@@ -133,9 +131,7 @@ var gsTabSuspendManager = (function() {
       return;
     }
 
-    const discardInPlaceOfSuspend = gsStorage.getOption(
-      gsStorage.DISCARD_IN_PLACE_OF_SUSPEND,
-    );
+    const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
     if (discardInPlaceOfSuspend) {
       screenCaptureMode = '0';
     }
@@ -223,7 +219,7 @@ var gsTabSuspendManager = (function() {
     }
 
     const suspensionForceLevel = queuedTabDetails.executionProps.forceLevel;
-    if (!checkTabEligibilityForSuspension(tab, suspensionForceLevel)) {
+    if (!await checkTabEligibilityForSuspension(tab, suspensionForceLevel)) {
       gsUtils.log(
         tab.id,
         QUEUE_ID,
@@ -294,15 +290,13 @@ var gsTabSuspendManager = (function() {
   }
 
   function executeTabSuspension(tab, suspendedUrl) {
-    return new Promise(resolve => {
+    return new Promise(async resolve => {
       // Remove any existing queued tab checks (this can happen if we try to suspend
       // a tab immediately after it gains focus)
       gsTabCheckManager.unqueueTabCheck(tab);
 
       // If we want tabs to be discarded instead of suspending them
-      let discardInPlaceOfSuspend = gsStorage.getOption(
-        gsStorage.DISCARD_IN_PLACE_OF_SUSPEND,
-      );
+      let discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
       if (discardInPlaceOfSuspend) {
         tgs.clearAutoSuspendTimerForTabId(tab.id);
         gsTabDiscardManager.queueTabForDiscard(tab);
@@ -337,7 +331,7 @@ var gsTabSuspendManager = (function() {
   // 1: Suspend if at all possible
   // 2: Respect whitelist, temporary whitelist, form input, pinned tabs, audible preferences, and exclude current active tab
   // 3: Same as above (2), plus also respect internet connectivity, running on battery, and time to suspend=never preferences.
-  function checkTabEligibilityForSuspension(tab, forceLevel) {
+  async function checkTabEligibilityForSuspension(tab, forceLevel) {
     if (forceLevel >= 1) {
       // if (gsUtils.isSuspendedTab(tab, true) || gsUtils.isSpecialTab(tab)) {
       // actually allow suspended tabs to attempt suspension in case they are
@@ -358,19 +352,13 @@ var gsTabSuspendManager = (function() {
       }
     }
     if (forceLevel >= 3) {
-      if (
-        gsStorage.getOption(gsStorage.IGNORE_WHEN_OFFLINE) &&
-        !navigator.onLine
-      ) {
+      if (await gsStorage.getOption(gsStorage.IGNORE_WHEN_OFFLINE) && !navigator.onLine) {
         return false;
       }
-      if (
-        gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING) &&
-        tgs.isCharging()
-      ) {
+      if (await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING) && tgs.isCharging()) {
         return false;
       }
-      if (gsStorage.getOption(gsStorage.SUSPEND_TIME) === '0') {
+      if (await gsStorage.getOption(gsStorage.SUSPEND_TIME) === '0') {
         return false;
       }
     }
@@ -471,11 +459,9 @@ var gsTabSuspendManager = (function() {
     }
   }
 
-  function requestGeneratePreviewImage(tab) {
-    const screenCaptureMode = gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
-    const forceScreenCapture = gsStorage.getOption(
-      gsStorage.SCREEN_CAPTURE_FORCE,
-    );
+  async function requestGeneratePreviewImage(tab) {
+    const screenCaptureMode   = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
+    const forceScreenCapture  = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_FORCE);
     const screenCaptureLib = 'js/html2canvas.min.js';
     gsUtils.log(
       tab.id,
