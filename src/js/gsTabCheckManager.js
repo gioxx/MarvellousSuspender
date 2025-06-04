@@ -1,6 +1,14 @@
-/*global chrome, tgs, gsStorage, gsSession, gsMessages, gsUtils, gsTabDiscardManager, gsChrome, GsTabQueue, gsSuspendedTab */
-// eslint-disable-next-line no-unused-vars
-var gsTabCheckManager = (function() {
+import  { gsChrome }              from './gsChrome.js';
+import  { gsMessages }            from './gsMessages.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsSuspendedTab }        from './gsSuspendedTab.js';
+import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
+import  { gsTabQueue }            from './gsTabQueue.js';
+import  { gsUtils }               from './gsUtils.js';
+// import  { tgs }                   from './tgs.js';
+
+export const gsTabCheckManager = (function() {
   'use strict';
 
   const DEFAULT_CONCURRENT_TAB_CHECKS = 3;
@@ -29,7 +37,7 @@ var gsTabCheckManager = (function() {
         exceptionFn: handleTabCheckException,
       };
       _defaultTabTitle = chrome.i18n.getMessage('html_suspended_title');
-      _tabCheckQueue = GsTabQueue(QUEUE_ID, queueProps);
+      _tabCheckQueue = gsTabQueue.init(QUEUE_ID, queueProps);
       gsUtils.log(QUEUE_ID, 'init successful');
       resolve();
     });

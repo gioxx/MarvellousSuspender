@@ -1,4 +1,3 @@
-/* global gsStorage, gsChrome, gsIndexedDb, gsUtils, gsFavicon, gsSession, gsMessages, gsTabSuspendManager, gsTabDiscardManager, gsTabCheckManager, gsSuspendedTab, chrome, XMLHttpRequest */
 /*
  * The Great Suspender
  * Copyright (C) 2017 Dean Oemcke
@@ -7,24 +6,20 @@
  * ༼ つ ◕_◕ ༽つ
 */
 
-importScripts(
-  "gsUtils.js",
-  "gsChrome.js",
-  "gsStorage.js",
-  "db.js",
-  "gsIndexedDb.js",
-  "gsMessages.js",
-  "gsSession.js",
-  "gsTabQueue.js",
-  "gsTabCheckManager.js",
-  "gsFavicon.js",
-  "gsTabSuspendManager.js",
-  "gsTabDiscardManager.js",
-  "gsSuspendedTab.js",
-);
+import  { gsChrome }              from './gsChrome.js';
+import  { gsFavicon }             from './gsFavicon.js';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsMessages }            from './gsMessages.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsSuspendedTab }        from './gsSuspendedTab.js';
+import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
+import  { gsTabCheckManager }     from './gsTabCheckManager.js';
+import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
+import  { gsUtils }               from './gsUtils.js';
 
-var tgs = (function() {
-  // eslint-disable-line no-unused-vars
+
+const tgs = (function() {
   'use strict';
 
   const ICON_SUSPENSION_ACTIVE = {
@@ -100,7 +95,7 @@ var tgs = (function() {
     retries = retries || 0;
     if (retries > 300) {
       // allow 30 seconds :scream:
-      chrome.tabs.create({ url: chrome.extension.getURL('broken.html') });
+      chrome.tabs.create({ url: chrome.runtime.getURL('broken.html') });
       return Promise.reject('Failed to initialise background scripts');
     }
     return new Promise(function(resolve) {
@@ -810,7 +805,7 @@ var tgs = (function() {
       //assume history entry will be the second to latest one (latest one is the currently visible page)
       //NOTE: this will break if the same url has been visited by another tab more recently than the
       //suspended tab (pre suspension)
-      const latestVisit = visits.pop();
+      // const latestVisit = visits.pop();
       const previousVisit = visits.pop();
       if (previousVisit) {
         chrome.history.deleteRange(
@@ -1144,7 +1139,7 @@ var tgs = (function() {
           gsTabSuspendManager.unqueueTabForSuspension(focusedTab);
         }
       }
-    } else if (focusedTab.url === chrome.extension.getURL('options.html')) {
+    } else if (focusedTab.url === chrome.runtime.getURL('options.html')) {
       const optionsView = getInternalViewByTabId(focusedTab.id);
       if (optionsView && optionsView.exports) {
         optionsView.exports.initSettings();
@@ -1193,7 +1188,7 @@ var tgs = (function() {
   function promptForFilePermissions() {
     getCurrentlyActiveTab(activeTab => {
       chrome.tabs.create({
-        url: chrome.extension.getURL('permissions.html'),
+        url: chrome.runtime.getURL('permissions.html'),
         index: activeTab.index + 1,
       });
     });
@@ -1398,7 +1393,7 @@ var tgs = (function() {
     var icon = ![gsUtils.STATUS_NORMAL, gsUtils.STATUS_ACTIVE].includes(status)
       ? ICON_SUSPENSION_PAUSED
       : ICON_SUSPENSION_ACTIVE;
-    chrome.browserAction.setIcon({ path: icon, tabId: tabId }, function() {
+    chrome.action.setIcon({ path: icon, tabId: tabId }, function() {
       if (chrome.runtime.lastError) {
         gsUtils.warning(
           tabId,
@@ -1762,7 +1757,7 @@ var tgs = (function() {
     function isItOurUrl(url) {
       // return true is suspended.html follows extenstion's id immediately
       // which means that this url is likely belongs to our extenstion (no other extensions handle it now)
-      return url.match('^chrome-extension:\/\/[^\/]*\/suspended\.html');
+      return url.match('^chrome-extension://[^/]*/suspended\\.html');
     }
 
     async function claimTab(tabId) {
@@ -1809,7 +1804,7 @@ var tgs = (function() {
 
       var noticeToDisplay = requestNotice();
       if (noticeToDisplay) {
-        chrome.tabs.create({ url: chrome.extension.getURL('notice.html') });
+        chrome.tabs.create({ url: chrome.runtime.getURL('notice.html') });
       }
     });
     chrome.windows.onRemoved.addListener(function(windowId) {
@@ -1903,7 +1898,9 @@ var tgs = (function() {
     unsuspendAllTabsInAllWindows,
     promptForFilePermissions,
   };
+
 })();
+
 
 Promise.resolve()
   .then(tgs.backgroundScriptsReadyAsPromised) // wait until all gsLibs have loaded

@@ -1,6 +1,16 @@
-/*global html2canvas, domtoimage, tgs, gsFavicon, gsMessages, gsStorage, gsUtils, gsChrome, gsIndexedDb, gsTabDiscardManager, gsTabCheckManager, GsTabQueue */
-// eslint-disable-next-line no-unused-vars
-var gsTabSuspendManager = (function() {
+import    * as html2canvas        from './html2canvas.min.js';
+import  { gsChrome }              from './gsChrome.js';
+import  { gsFavicon }             from './gsFavicon.js';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsMessages }            from './gsMessages.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsTabCheckManager }     from './gsTabCheckManager.js';
+import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
+import  { gsTabQueue }            from './gsTabQueue.js';
+import  { gsUtils }               from './gsUtils.js';
+// import  { tgs }                   from './tgs.js';
+
+export const gsTabSuspendManager = (function() {
   'use strict';
 
   const DEFAULT_CONCURRENT_SUSPENSIONS = 3;
@@ -26,7 +36,7 @@ var gsTabSuspendManager = (function() {
         executorFn: performSuspension,
         exceptionFn: handleSuspensionException,
       };
-      _suspensionQueue = GsTabQueue('suspensionQueue', queueProps);
+      _suspensionQueue = gsTabQueue.init('suspensionQueue', queueProps);
       gsUtils.log(QUEUE_ID, 'init successful');
       resolve();
     });

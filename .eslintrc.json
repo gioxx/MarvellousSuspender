@@ -1,17 +1,19 @@
 {
   "root": true,
   "parserOptions": {
+    "sourceType": "module",
     "ecmaVersion": 2017
   },
   "env": {
     "browser": true,
-    "es6": true,
+    "es2020": true,
     "webextensions": true
   },
   "extends": [
     "eslint:recommended",
     "prettier"
   ],
+	"ignorePatterns": ["node_modules", "**/*.html"],
   "rules": {
     "no-console": 0,
     "no-unused-vars": [
@@ -26,6 +28,8 @@
 //    "semi": ["error", "always"],
     "padded-blocks": ["off", { "blocks": "never" }],
 //    "indent": ["error", 2],
+    "no-async-promise-executor": ["off", "never"],
+    "no-prototype-builtins": ["off", "never"],
     "one-var": ["off", "never"],
     "spaced-comment": ["off", "always"]
 //    "space-before-function-paren": [

@@ -1,10 +1,19 @@
-/*global chrome, gsStorage, gsChrome, gsMessages, gsSession, gsTabSuspendManager, gsTabDiscardManager, gsSuspendedTab, gsFavicon, tgs */
+import  { gsChrome }              from './gsChrome.js';
+import  { gsFavicon }             from './gsFavicon.js';
+import  { gsMessages }            from './gsMessages.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsSuspendedTab }        from './gsSuspendedTab.js';
+import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
+import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
+// import  { tgs }                   from './tgs.js';
+
 'use strict';
 
-var debugInfo = false;
-var debugError = false;
+var debugInfo = true;
+var debugError = true;
 
-var gsUtils = {
+export const gsUtils = {
   STATUS_NORMAL: 'normal',
   STATUS_LOADING: 'loading',
   STATUS_SPECIAL: 'special',
@@ -22,7 +31,6 @@ var gsUtils = {
   STATUS_NOCONNECTIVITY: 'noConnectivity',
   STATUS_UNKNOWN: 'unknown',
 
-  // eslint-disable-line no-unused-vars
   contains: function(array, value) {
     for (var i = 0; i < array.length; i++) {
       if (array[i] === value) return true;
@@ -238,7 +246,7 @@ var gsUtils = {
     } else if (looseMatching) {
       return url.indexOf('suspended.html') > 0;
     } else {
-      return url.indexOf(chrome.extension.getURL('suspended.html')) === 0;
+      return url.indexOf(chrome.runtime.getURL('suspended.html')) === 0;
     }
   },
 
@@ -346,7 +354,7 @@ var gsUtils = {
     ) {
       whitelistItem = whitelistItem.substring(1, whitelistItem.length - 1);
       try {
-        new RegExp(whitelistItem); // eslint-disable-line no-new
+        new RegExp(whitelistItem);
       } catch (e) {
         return false;
       }
@@ -450,7 +458,7 @@ var gsUtils = {
       'uri=' +
       url;
 
-    return chrome.extension.getURL('suspended.html' + args);
+    return chrome.runtime.getURL('suspended.html' + args);
   },
 
   getRootUrl: function(url, includePath, includeScheme) {
@@ -621,10 +629,7 @@ var gsUtils = {
     var expiredTabs = [];
     chrome.tabs.query({}, tabs => {
       for (const tab of tabs) {
-        const timerDetails = tgs.getTabStatePropForTabId(
-          tab.id,
-          tgs.STATE_TIMER_DETAILS,
-        );
+        const timerDetails = tgs.getTabStatePropForTabId(tab.id, tgs.STATE_TIMER_DETAILS);
         if (
           timerDetails &&
           timerDetails.suspendDateTime &&
@@ -784,7 +789,6 @@ var gsUtils = {
     session.windows.some(function(curWindow) {
       //leave this as a loose matching as sometimes it is comparing strings. other times ints
       if (curWindow.id == windowId) {
-        // eslint-disable-line eqeqeq
         window = curWindow;
         return true;
       }
@@ -892,7 +896,7 @@ var gsUtils = {
 
   setTimeout: async function(timeout) {
     return new Promise(resolve => {
-      window.setTimeout(resolve, timeout);
+      setTimeout(resolve, timeout);
     });
   },
 

@@ -1,7 +1,9 @@
-/*global chrome, gsSession, gsUtils */
+import  { gsSession }             from './gsSession.js';
+import  { gsUtils }               from './gsUtils.js';
+
 'use strict';
 
-var gsStorage = {
+export const gsStorage = {
   SCREEN_CAPTURE: 'screenCapture',
   SCREEN_CAPTURE_FORCE: 'screenCaptureForce',
   SUSPEND_IN_PLACE_OF_DISCARD: 'suspendInPlaceOfDiscard',

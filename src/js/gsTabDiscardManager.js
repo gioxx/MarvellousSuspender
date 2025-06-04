@@ -1,6 +1,11 @@
-/*global chrome, tgs, gsUtils, gsChrome, GsTabQueue, gsStorage, gsTabSuspendManager */
-// eslint-disable-next-line no-unused-vars
-var gsTabDiscardManager = (function() {
+import  { gsChrome }              from './gsChrome.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsTabQueue }            from './gsTabQueue.js';
+import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
+import  { gsUtils }               from './gsUtils.js';
+// import  { tgs }                   from './tgs.js';
+
+export const gsTabDiscardManager = (function() {
   'use strict';
 
   const DEFAULT_CONCURRENT_DISCARDS = 5;
@@ -18,7 +23,7 @@ var gsTabDiscardManager = (function() {
         executorFn: performDiscard,
         exceptionFn: handleDiscardException,
       };
-      _discardQueue = GsTabQueue(QUEUE_ID, queueProps);
+      _discardQueue = gsTabQueue.init(QUEUE_ID, queueProps);
       gsUtils.log(QUEUE_ID, 'init successful');
       resolve();
     });

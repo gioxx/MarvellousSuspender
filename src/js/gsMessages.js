@@ -1,6 +1,7 @@
-/*global gsUtils, gsStorage */
-// eslint-disable-next-line no-unused-vars
-var gsMessages = {
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+
+export const gsMessages = {
   INFO: 'info',
   WARNING: 'warning',
   ERROR: 'error',

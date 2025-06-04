@@ -1,6 +1,12 @@
-/*global chrome, tgs, gsStorage, gsIndexedDb, gsUtils, gsChrome, gsTabCheckManager, gsTabDiscardManager */
-// eslint-disable-next-line no-unused-vars
-var gsSession = (function() {
+import  { gsChrome }              from './gsChrome.js';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsTabCheckManager }     from './gsTabCheckManager.js';
+import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
+import  { gsUtils }               from './gsUtils.js';
+// import  { tgs }                   from './tgs.js';
+
+export const gsSession = (function() {
   'use strict';
 
   const tabsToRestorePerSecond = 12;
@@ -21,8 +27,8 @@ var gsSession = (function() {
   let syncedSettingsOnInit;
 
   async function initAsPromised() {
-    updateUrl = chrome.extension.getURL('update.html');
-    updatedUrl = chrome.extension.getURL('updated.html');
+    updateUrl = chrome.runtime.getURL('update.html');
+    updatedUrl = chrome.runtime.getURL('updated.html');
 
     // Set fileUrlsAccessAllowed to determine if extension can work on file:// URLs
     await new Promise(r => {
@@ -117,6 +123,7 @@ var gsSession = (function() {
   }
 
   function isInitialising() {
+    gsUtils.log('isInitialising', initialisationMode);
     return initialisationMode;
   }
 
@@ -191,6 +198,7 @@ var gsSession = (function() {
     gsUtils.log('gsSession', 'updating current session');
     updateCurrentSession(); //async
 
+    gsUtils.log('gsSession', 'initialisationMode = false');
     initialisationMode = false;
   }
 
@@ -245,7 +253,7 @@ var gsSession = (function() {
         await recoverLostTabs();
       } else {
         //otherwise show the recovery page
-        const recoveryUrl = chrome.extension.getURL('recovery.html');
+        const recoveryUrl = chrome.runtime.getURL('recovery.html');
         await gsChrome.tabsCreate(recoveryUrl);
         //hax0r: wait for recovery tab to finish loading before returning
         //this is so we remain in 'recoveryMode' for a bit longer, preventing
@@ -268,7 +276,7 @@ var gsSession = (function() {
       Object.keys(syncedSettingsOnInit).length === 0
     ) {
       //show welcome message
-      const optionsUrl = chrome.extension.getURL('options.html?firstTime');
+      const optionsUrl = chrome.runtime.getURL('options.html?firstTime');
       await gsChrome.tabsCreate(optionsUrl);
     }
   }
@@ -693,7 +701,7 @@ var gsSession = (function() {
       sessionWindow,
     );
 
-    const restoringUrl = chrome.extension.getURL('restoring-window.html');
+    const restoringUrl = chrome.runtime.getURL('restoring-window.html');
     // Create new window. Important: do not pass in all urls to chrome.windows.create
     // If you load too many windows (or tabs?) like this, then it seems to blow
     // out the GPU memory in the chrome task manager

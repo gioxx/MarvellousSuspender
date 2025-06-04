@@ -1,6 +1,12 @@
-/*global tgs, gsFavicon, gsStorage, gsSession, gsUtils, gsIndexedDb, gsChrome, chrome */
-// eslint-disable-next-line no-unused-vars
-var gsSuspendedTab = (function() {
+import  { gsChrome }              from './gsChrome.js';
+import  { gsFavicon }             from './gsFavicon.js';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+// import  { tgs }                   from './tgs.js';
+
+export const gsSuspendedTab = (function() {
   'use strict';
 
   async function initTab(tab, tabView, { quickInit }) {
@@ -156,7 +162,7 @@ var gsSuspendedTab = (function() {
 
   function setGoToUpdateHandler(_document) {
     _document.getElementById('gotoUpdatePage').onclick = async function(e) {
-      await gsChrome.tabsCreate(chrome.extension.getURL('update.html'));
+      await gsChrome.tabsCreate(chrome.runtime.getURL('update.html'));
     };
   }
 
@@ -251,7 +257,7 @@ var gsSuspendedTab = (function() {
 
   function addWatermarkHandler(_document) {
     _document.querySelector('.watermark').onclick = () => {
-      chrome.tabs.create({ url: chrome.extension.getURL('about.html') });
+      chrome.tabs.create({ url: chrome.runtime.getURL('about.html') });
     };
   }
 
@@ -349,7 +355,7 @@ var gsSuspendedTab = (function() {
       _document.getElementById('refreshSpinner').classList.add('spinner');
     } else {
       _document.body.classList.add('waking');
-      _document.getElementById('snoozyImg').src = chrome.extension.getURL(
+      _document.getElementById('snoozyImg').src = chrome.runtime.getURL(
         'img/snoozy_tab_awake.svg',
       );
       _document.getElementById('snoozySpinner').classList.add('spinner');

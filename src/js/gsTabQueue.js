@@ -1,6 +1,8 @@
-/*global gsUtils */
-// eslint-disable-next-line no-unused-vars
-function GsTabQueue(queueId, queueProps) {
+import  { gsUtils }               from './gsUtils.js';
+
+export const gsTabQueue = (function() {
+
+function init(queueId, queueProps) {
   return (function() {
     'use strict';
 
@@ -296,7 +298,7 @@ function GsTabQueue(queueId, queueProps) {
       if (tabDetails.sleepTimer) {
         clearTimeout(tabDetails.sleepTimer);
       }
-      tabDetails.sleepTimer = window.setTimeout(() => {
+      tabDetails.sleepTimer = setTimeout(() => {
         delete tabDetails.sleepTimer;
         tabDetails.status = STATUS_QUEUED;
         requestProcessQueue(0);
@@ -314,3 +316,7 @@ function GsTabQueue(queueId, queueProps) {
     };
   })();
 }
+
+return { init };
+
+})();

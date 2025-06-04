@@ -1,7 +1,13 @@
-/*global chrome, db, tgs, gsUtils, gsChrome, gsSession */
+/* global db */
+import                                 './db.js';
+import  { gsChrome }              from './gsChrome.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsUtils }               from './gsUtils.js';
+// import  { tgs }                   from './tgs.js';
+
 'use strict';
 
-var gsIndexedDb = {
+export const gsIndexedDb = {
   DB_SERVER: 'tgs',
   DB_VERSION: '3',
   DB_PREVIEWS: 'gsPreviews',
@@ -402,7 +408,6 @@ var gsIndexedDb = {
       const matched = curWindow.tabs.some(function(curTab, tabIndex) {
         //leave this as a loose matching as sometimes it is comparing strings. other times ints
         if (curTab.id == tabId || curTab.url == tabId) {
-          // eslint-disable-line eqeqeq
           curWindow.tabs.splice(tabIndex, 1);
           return true;
         }
