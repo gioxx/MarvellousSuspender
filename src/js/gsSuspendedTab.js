@@ -4,7 +4,7 @@ import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
+import  { tgs }                   from './tgs.js';
 
 export const gsSuspendedTab = (function() {
   'use strict';

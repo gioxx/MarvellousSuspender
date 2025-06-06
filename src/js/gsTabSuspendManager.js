@@ -1,4 +1,4 @@
-import    * as html2canvas        from './html2canvas.min.js';
+import  * as html2canvas        from './html2canvas.min.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsFavicon }             from './gsFavicon.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
@@ -8,7 +8,7 @@ import  { gsTabCheckManager }     from './gsTabCheckManager.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
 import  { gsTabQueue }            from './gsTabQueue.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
+import  { tgs }                   from './tgs.js';
 
 export const gsTabSuspendManager = (function() {
   'use strict';

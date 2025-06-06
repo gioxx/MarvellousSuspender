@@ -3,7 +3,7 @@ import  { gsStorage }             from './gsStorage.js';
 import  { gsTabQueue }            from './gsTabQueue.js';
 import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
+import  { tgs }                   from './tgs.js';
 
 export const gsTabDiscardManager = (function() {
   'use strict';

@@ -1,6 +1,5 @@
-/*global chrome, gsUtils */
-'use strict';
-// eslint-disable-next-line no-unused-vars
+import  { gsUtils }               from './gsUtils.js';
+
 export const gsChrome = {
   cookiesGetAll: function() {
     return new Promise(resolve => {

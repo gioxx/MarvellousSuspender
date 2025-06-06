@@ -1,9 +1,9 @@
 /* global db */
-import                                 './db.js';
+import  './db.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
+import  { tgs }                   from './tgs.js';
 
 'use strict';
 
