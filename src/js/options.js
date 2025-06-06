@@ -3,7 +3,7 @@ import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 // import  { tgs }                   from './tgs.js';
 
-(function(global) {
+(() => {
 
   // try {
   //   tgs.setViewGlobals(global);
@@ -161,7 +161,7 @@ import  { gsUtils }               from './gsUtils.js';
   }
 
   function handleChange(element) {
-    return function() {
+    return async() => {
       var pref = elementPrefMap[element.id],
         interval;
 
@@ -177,11 +177,13 @@ import  { gsUtils }               from './gsUtils.js';
           setSyncNoteVisibility(false);
         }
       } else if (pref === gsStorage.THEME) {
-        // when the user changes the theme, it reloads the page to apply instantly the modification
-        window.location.reload();
+        // // when the user changes the theme, it reloads the page to apply instantly the modification
+        // window.location.reload();
+        // Instead of reloading the page, just update the CSS directly
+        getOptionValue(element) === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark');
       }
 
-      var [oldValue, newValue] = saveChange(element);
+      var [oldValue, newValue] = await saveChange(element);
       if (oldValue !== newValue) {
         var prefKey = elementPrefMap[element.id];
         gsUtils.performPostSaveUpdates(
@@ -193,23 +195,22 @@ import  { gsUtils }               from './gsUtils.js';
     };
   }
 
-  function saveChange(element) {
+  async function saveChange(element) {
     const pref = elementPrefMap[element.id];
     let newValue = getOptionValue(element);
-    gsStorage.getOption(pref).then((oldValue) => {
+    const oldValue = await gsStorage.getOption(pref);
 
-      //clean up whitelist before saving
-      if (pref === gsStorage.WHITELIST) {
-        newValue = gsUtils.cleanupWhitelist(newValue);
-      }
+    //clean up whitelist before saving
+    if (pref === gsStorage.WHITELIST) {
+      newValue = gsUtils.cleanupWhitelist(newValue);
+    }
 
-      //save option
-      if (oldValue !== newValue) {
-        gsStorage.setOptionAndSync(elementPrefMap[element.id], newValue);
-      }
+    //save option
+    if (oldValue !== newValue) {
+      await gsStorage.setOptionAndSync(elementPrefMap[element.id], newValue);
+    }
 
-      return [oldValue, newValue];
-    });
+    return [oldValue, newValue];
   }
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
@@ -278,8 +279,8 @@ import  { gsUtils }               from './gsUtils.js';
     }
   });
 
+  // global.exports = {
+  //   initSettings,
+  // };
 
-  global.exports = {
-    initSettings,
-  };
-})(globalThis);
+})();

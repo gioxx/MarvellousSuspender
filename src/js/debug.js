@@ -97,8 +97,8 @@ import  { tgs }                   from './tgs.js';
     );
     addFlagHtml(
       'toggleDiscardInPlaceOfSuspend',
-      async () => await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND),
-      async (newVal) => { gsStorage.setOptionAndSync(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND, newVal); }
+      async ()        =>    await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND),
+      async (newVal)  => {  await gsStorage.setOptionAndSync(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND, newVal); }
     );
     document.getElementById('claimSuspendedTabs').onclick = async function(e) {
       const tabs = await gsChrome.tabsQuery();

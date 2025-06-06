@@ -314,7 +314,7 @@ export const gsUtils = {
   },
 
   removeFromWhitelist: function(url) {
-    gsStorage.getOption(gsStorage.WHITELIST).then((oldWhitelistString) => {
+    gsStorage.getOption(gsStorage.WHITELIST).then(async (oldWhitelistString) => {
       oldWhitelistString = oldWhitelistString || '';
       const whitelistItems = oldWhitelistString.split(/[\s\n]+/).sort();
       let i;
@@ -325,7 +325,7 @@ export const gsUtils = {
         }
       }
       var whitelistString = whitelistItems.join('\n');
-      gsStorage.setOptionAndSync(gsStorage.WHITELIST, whitelistString);
+      await gsStorage.setOptionAndSync(gsStorage.WHITELIST, whitelistString);
 
       var key = gsStorage.WHITELIST;
       gsUtils.performPostSaveUpdates(
@@ -361,11 +361,11 @@ export const gsUtils = {
   },
 
   saveToWhitelist: function(newString) {
-    gsStorage.getOption(gsStorage.WHITELIST).then((oldWhitelistString) => {
+    gsStorage.getOption(gsStorage.WHITELIST).then(async (oldWhitelistString) => {
       oldWhitelistString = oldWhitelistString || '';
       let newWhitelistString = oldWhitelistString + '\n' + newString;
       newWhitelistString = gsUtils.cleanupWhitelist(newWhitelistString);
-      gsStorage.setOptionAndSync(gsStorage.WHITELIST, newWhitelistString);
+      await gsStorage.setOptionAndSync(gsStorage.WHITELIST, newWhitelistString);
 
       const key = gsStorage.WHITELIST;
       gsUtils.performPostSaveUpdates(
@@ -636,11 +636,8 @@ export const gsUtils = {
     });
   },
 
-  performPostSaveUpdates: function(
-    changedSettingKeys,
-    oldValueBySettingKey,
-    newValueBySettingKey,
-  ) {
+  performPostSaveUpdates: function(changedSettingKeys, oldValueBySettingKey, newValueBySettingKey) {
+    // gsUtils.log('performPostSaveUpdates');
     chrome.tabs.query({}, function(tabs) {
       tabs.forEach(function(tab) {
         if (gsUtils.isSpecialTab(tab)) {

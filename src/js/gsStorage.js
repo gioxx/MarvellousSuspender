@@ -74,7 +74,7 @@ export const gsStorage = {
         gsUtils.log('gsStorage', 'syncedSettings on init: ', syncedSettings);
         gsSession.setSynchedSettingsOnInit(syncedSettings);
 
-        chrome.storage.local.get(['gsSettings'], (result) => {
+        chrome.storage.local.get(['gsSettings'], async (result) => {
 
           var rawLocalSettings;
           try {
@@ -143,7 +143,7 @@ export const gsStorage = {
               mergedSettings[key] = defaultSettings[key];
             }
           }
-          gsStorage.saveSettings(mergedSettings);
+          await gsStorage.saveSettings(mergedSettings);
           gsUtils.log('gsStorage', 'mergedSettings: ', mergedSettings);
 
           // if any of the new settings are different to those in sync, then trigger a resync
@@ -157,7 +157,7 @@ export const gsStorage = {
             }
           }
           if (triggerResync) {
-            gsStorage.syncSettings();
+            await gsStorage.syncSettings();
           }
           gsStorage.addSettingsSyncListener();
           gsUtils.log('gsStorage', 'init successful');
@@ -171,85 +171,79 @@ export const gsStorage = {
 
   // Listen for changes to synced settings
   addSettingsSyncListener: function() {
-    chrome.storage.onChanged.addListener(function(remoteSettings, namespace) {
+    chrome.storage.onChanged.addListener(async (remoteSettings, namespace) => {
       if (namespace !== 'sync' || !remoteSettings) {
         return;
       }
-      gsStorage.getOption(gsStorage.SYNC_SETTINGS).then((shouldSync) => {
-        if (shouldSync) {
-          gsStorage.getSettings().then((localSettings) => {
-            var changedSettingKeys = [];
-            var oldValueBySettingKey = {};
-            var newValueBySettingKey = {};
-            Object.keys(remoteSettings).forEach(function(key) {
-              var remoteSetting = remoteSettings[key];
+      const shouldSync = await gsStorage.getOption(gsStorage.SYNC_SETTINGS)
+      if (shouldSync) {
+        const localSettings = await gsStorage.getSettings()
+        var changedSettingKeys = [];
+        var oldValueBySettingKey = {};
+        var newValueBySettingKey = {};
+        Object.keys(remoteSettings).forEach(function(key) {
+          var remoteSetting = remoteSettings[key];
 
-              // If nags are disabled locally, then ensure we disable them on synced profile
-              if (key === gsStorage.NO_NAG) {
-                if (remoteSetting.newValue === false) {
-                  return false; // don't process this key
-                }
-              }
-
-              if (localSettings[key] !== remoteSetting.newValue) {
-                gsUtils.log(
-                  'gsStorage',
-                  'Changed value from sync',
-                  key,
-                  remoteSetting.newValue,
-                );
-                changedSettingKeys.push(key);
-                oldValueBySettingKey[key] = localSettings[key];
-                newValueBySettingKey[key] = remoteSetting.newValue;
-                localSettings[key] = remoteSetting.newValue;
-              }
-            });
-
-            if (changedSettingKeys.length > 0) {
-              gsStorage.saveSettings(localSettings);
-              gsUtils.performPostSaveUpdates(
-                changedSettingKeys,
-                oldValueBySettingKey,
-                newValueBySettingKey,
-              );
+          // If nags are disabled locally, then ensure we disable them on synced profile
+          if (key === gsStorage.NO_NAG) {
+            if (remoteSetting.newValue === false) {
+              return false; // don't process this key
             }
-          });
+          }
+
+          if (localSettings[key] !== remoteSetting.newValue) {
+            gsUtils.log(
+              'gsStorage',
+              'Changed value from sync',
+              key,
+              remoteSetting.newValue,
+            );
+            changedSettingKeys.push(key);
+            oldValueBySettingKey[key] = localSettings[key];
+            newValueBySettingKey[key] = remoteSetting.newValue;
+            localSettings[key] = remoteSetting.newValue;
+          }
+        });
+
+        if (changedSettingKeys.length > 0) {
+          await gsStorage.saveSettings(localSettings);
+          gsUtils.performPostSaveUpdates(
+            changedSettingKeys,
+            oldValueBySettingKey,
+            newValueBySettingKey,
+          );
         }
-      });
+      }
     });
   },
 
   //due to migration issues and new settings being added, i have built in some redundancy
   //here so that getOption will always return a valid value.
-  getOption: function(prop) {
-    return new Promise((resolve) => {
-      gsStorage.getSettings().then((settings) => {
-        if (typeof settings[prop] === 'undefined' || settings[prop] === null) {
-          settings[prop] = gsStorage.getSettingsDefaults()[prop];
-          gsStorage.saveSettings(settings);
-        }
-        resolve(settings[prop]);
-      });
-    });
+  getOption: async (prop) => {
+    const settings = await gsStorage.getSettings()
+    if (typeof settings[prop] === 'undefined' || settings[prop] === null) {
+      settings[prop] = gsStorage.getSettingsDefaults()[prop];
+      await gsStorage.saveSettings(settings);
+    }
+    return settings[prop];
   },
 
-  setOption: function(prop, value) {
-    gsStorage.getSettings().then((settings) => {
-      settings[prop] = value;
-      gsStorage.saveSettings(settings);
-    });
+  setOption: async (prop, value) => {
+    const settings = await gsStorage.getSettings()
+    settings[prop] = value;
+    await gsStorage.saveSettings(settings);
   },
 
   // Calling syncSettings has the unfortunate side-effect of triggering the chrome.storage.onChanged
   // listener which the re-saves the setting to localStorage a second time.
-  setOptionAndSync: function(prop, value) {
-    gsStorage.setOption(prop, value);
-    gsStorage.syncSettings();
+  setOptionAndSync: async (prop, value) => {
+    await gsStorage.setOption(prop, value);
+    await gsStorage.syncSettings();
   },
 
   getSettings: function() {
     return new Promise((resolve) => {
-      chrome.storage.local.get(['gsSettings'], (result) => {
+      chrome.storage.local.get(['gsSettings'], async (result) => {
         var settings;
         try {
           settings = JSON.parse(result.gsSettings);
@@ -262,7 +256,7 @@ export const gsStorage = {
         }
         if (!settings) {
           settings = gsStorage.getSettingsDefaults();
-          gsStorage.saveSettings(settings);
+          await gsStorage.saveSettings(settings);
         }
         resolve(settings);
       });
@@ -271,41 +265,34 @@ export const gsStorage = {
 
   saveSettings: function(settings) {
     console.log('saveSettings');
-    chrome.storage.local.set({ gsSettings: JSON.stringify(settings) }, () => {
-      if (chrome.runtime.lastError) {
-        gsUtils.error(
-          'gsStorage',
-          'failed to save gsSettings to local storage',
-          chrome.runtime.lastError
-        );
-      }
+    return new Promise((resolve) => {
+      chrome.storage.local.set({ gsSettings: JSON.stringify(settings) }, () => {
+        if (chrome.runtime.lastError) {
+          gsUtils.error(
+            'gsStorage',
+            'failed to save gsSettings to local storage',
+            chrome.runtime.lastError
+          );
+        }
+        resolve();
+      });
     });
   },
 
   // Push settings to sync
-  syncSettings: function() {
+  syncSettings: async () => {
     console.log('syncSettings');
-    gsStorage.getSettings().then((settings) => {
-      if (settings[gsStorage.SYNC_SETTINGS]) {
-        // Since sync is a local setting, delete it to simplify things.
-        delete settings[gsStorage.SYNC_SETTINGS];
-        gsUtils.log(
-          'gsStorage',
-          'gsStorage',
-          'Pushing local settings to sync',
-          settings,
-        );
-        chrome.storage.sync.set(settings, () => {
-          if (chrome.runtime.lastError) {
-            gsUtils.error(
-              'gsStorage',
-              'failed to save to chrome.storage.sync: ',
-              chrome.runtime.lastError,
-            );
-          }
-        });
-      }
-    });
+    const settings = await gsStorage.getSettings();
+    if (settings[gsStorage.SYNC_SETTINGS]) {
+      // Since sync is a local setting, delete it to simplify things.
+      delete settings[gsStorage.SYNC_SETTINGS];
+      gsUtils.log('gsStorage', 'gsStorage', 'Pushing local settings to sync', settings);
+      chrome.storage.sync.set(settings, () => {
+        if (chrome.runtime.lastError) {
+          gsUtils.error('gsStorage', 'failed to save to chrome.storage.sync: ', chrome.runtime.lastError);
+        }
+      });
+    }
   },
 
   fetchLastVersion: function() {

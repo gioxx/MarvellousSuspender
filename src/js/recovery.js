@@ -116,8 +116,8 @@ import  { historyItems }          from './historyItems.js';
     };
 
     if (previewsEl) {
-      previewsEl.onclick = function(e) {
-        gsStorage.setOptionAndSync(gsStorage.SCREEN_CAPTURE, '0');
+      previewsEl.onclick = async (e) => {
+        await gsStorage.setOptionAndSync(gsStorage.SCREEN_CAPTURE, '0');
         window.location.reload();
       };
 
