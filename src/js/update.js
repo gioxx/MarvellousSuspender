@@ -1,13 +1,18 @@
-/*global chrome, historyUtils, gsSession, gsIndexedDb, gsUtils */
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { historyUtils }          from './historyUtils.js';
+// import  { tgs }                   from './tgs.js';
+
 (function(global) {
   'use strict';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+  // try {
+  //   tgs.setViewGlobals(global);
+  // } catch (e) {
+  //   setTimeout(() => window.location.reload(), 1000);
+  //   return;
+  // }
 
   function setRestartExtensionClickHandler(warnFirst) {
     document.getElementById('restartExtensionBtn').onclick = async function(e) {
@@ -54,7 +59,7 @@
   function setSessionManagerClickHandler() {
     document.getElementById('sessionManagerLink').onclick = function(e) {
       e.preventDefault();
-      chrome.tabs.create({ url: chrome.extension.getURL('history.html') });
+      chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
       setRestartExtensionClickHandler(false);
     };
   }

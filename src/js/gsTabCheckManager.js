@@ -6,7 +6,7 @@ import  { gsSuspendedTab }        from './gsSuspendedTab.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
 import  { gsTabQueue }            from './gsTabQueue.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
+import  { tgs }                   from './tgs.js';
 
 export const gsTabCheckManager = (function() {
   'use strict';
@@ -465,7 +465,7 @@ export const gsTabCheckManager = (function() {
   }
 
   // Careful with this function. It seems that these unresponsive tabs can sometimes
-  // not return any result after chrome.tabs.executeScript
+  // not return any result after chrome.scripting.executeScript
   // Try to mitigate this by wrapping in a setTimeout
   // TODO: Report chrome bug
   // Unrelated, but reinjecting content scripts has some issues:
@@ -475,28 +475,15 @@ export const gsTabCheckManager = (function() {
   // if using: window.addEventListener('keydown', formInputListener);
   function reinjectContentScriptOnTab(tab) {
     return new Promise(resolve => {
-      gsUtils.log(
-        tab.id,
-        QUEUE_ID,
-        'Reinjecting contentscript into unresponsive unsuspended tab.',
-        tab
-      );
+      gsUtils.log(tab.id, QUEUE_ID, 'Reinjecting contentscript into unresponsive unsuspended tab.', tab);
       const executeScriptTimeout = setTimeout(() => {
-        gsUtils.log(
-          QUEUE_ID,
-          tab.id,
-          'chrome.tabs.executeScript failed to trigger callback'
-        );
+        gsUtils.log(QUEUE_ID, tab.id, 'chrome.scripting.executeScript failed to trigger callback');
         resolve(null);
       }, 10000);
       gsMessages.executeScriptOnTab(tab.id, 'js/contentscript.js', error => {
         clearTimeout(executeScriptTimeout);
         if (error) {
-          gsUtils.log(
-            tab.id,
-            'Failed to execute js/contentscript.js on tab',
-            error
-          );
+          gsUtils.log(tab.id, 'Failed to execute js/contentscript.js on tab', error);
           resolve(null);
           return;
         }

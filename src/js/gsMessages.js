@@ -127,28 +127,34 @@ export const gsMessages = {
   },
 
   executeScriptOnTab: function(tabId, scriptPath, callback) {
+    // gsUtils.log(tabId, 'executeScriptOnTab scriptPath', scriptPath);
     if (!tabId) {
       if (callback) callback('tabId not specified');
       return;
     }
-    chrome.tabs.executeScript(tabId, { file: scriptPath }, function(response) {
+    chrome.scripting.executeScript({ target : {tabId}, files: [scriptPath] }, (response) => {
+      // gsUtils.log(tabId, 'executeScript response from script', response);
       if (chrome.runtime.lastError) {
         if (callback) callback(chrome.runtime.lastError);
-      } else {
+      }
+      else {
         if (callback) callback(null, response);
       }
     });
   },
 
   executeCodeOnTab: function(tabId, codeString, callback) {
+    // gsUtils.log(tabId, 'executeCodeOnTab codeString', codeString);
     if (!tabId) {
       if (callback) callback('tabId not specified');
       return;
     }
-    chrome.tabs.executeScript(tabId, { code: codeString }, function(response) {
+    chrome.scripting.executeScript({ target : {tabId}, code: codeString }, (response) => {
+      // gsUtils.log(tabId, 'executeScript response from code', response);
       if (chrome.runtime.lastError) {
         if (callback) callback(chrome.runtime.lastError);
-      } else {
+      }
+      else {
         if (callback) callback(null, response);
       }
     });

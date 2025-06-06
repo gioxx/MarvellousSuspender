@@ -1,8 +1,12 @@
-/*global chrome, tgs, gsStorage, gsSession, gsUtils */
-(function(global) {
+import  { gsSession }             from './gsSession.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { tgs }                   from './tgs.js';
+
+(function() {
   'use strict';
 
-  // chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
+  // tgs.setViewGlobals(global);
 
   var globalActionElListener;
 
@@ -319,9 +323,9 @@
       .getElementById('settingsLink')
       .addEventListener('click', function(e) {
         chrome.tabs.create({
-          url: chrome.extension.getURL('options.html'),
+          url: chrome.runtime.getURL('options.html'),
         });
         window.close();
       });
   }
-})(this);
+})();

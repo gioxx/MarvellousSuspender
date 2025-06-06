@@ -1,11 +1,16 @@
-/*global chrome, gsStorage, gsChrome, gsUtils */
+import  { gsChrome }              from './gsChrome.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+// import  { tgs }                   from './tgs.js';
+
 (function(global) {
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+
+  // try {
+  //   tgs.setViewGlobals(global);
+  // } catch (e) {
+  //   setTimeout(() => window.location.reload(), 1000);
+  //   return;
+  // }
 
   var elementPrefMap = {
     preview: gsStorage.SCREEN_CAPTURE,
@@ -190,7 +195,7 @@
 
   function saveChange(element) {
     const pref = elementPrefMap[element.id];
-    const newValue = getOptionValue(element);
+    let newValue = getOptionValue(element);
     gsStorage.getOption(pref).then((oldValue) => {
 
       //clean up whitelist before saving
@@ -277,4 +282,4 @@
   global.exports = {
     initSettings,
   };
-})(this);
+})(globalThis);

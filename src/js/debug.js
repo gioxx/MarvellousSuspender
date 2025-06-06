@@ -1,13 +1,18 @@
-/*global chrome, tgs, gsUtils, gsFavicon, gsStorage, gsChrome */
+import  { gsChrome }              from './gsChrome.js';
+import  { gsFavicon }             from './gsFavicon.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { tgs }                   from './tgs.js';
+
 (function(global) {
   'use strict';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+  // try {
+  //   tgs.setViewGlobals(global);
+  // } catch (e) {
+  //   setTimeout(() => window.location.reload(), 1000);
+  //   return;
+  // }
 
   var currentTabs = {};
 

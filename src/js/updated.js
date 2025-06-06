@@ -1,13 +1,16 @@
-/*global chrome, gsSession, gsUtils */
+import  { gsSession }             from './gsSession.js';
+import  { gsUtils }               from './gsUtils.js';
+// import  { tgs }                   from './tgs.js';
+
 (function(global) {
   'use strict';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+  // try {
+  //   tgs.setViewGlobals(global);
+  // } catch (e) {
+  //   setTimeout(() => window.location.reload(), 1000);
+  //   return;
+  // }
 
   function toggleUpdated() {
     document.getElementById('updating').style.display = 'none';
@@ -20,7 +23,7 @@
 
     document.getElementById('sessionManagerLink').onclick = function(e) {
       e.preventDefault();
-      chrome.tabs.create({ url: chrome.extension.getURL('history.html') });
+      chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
     };
 
     var updateType = gsSession.getUpdateType();

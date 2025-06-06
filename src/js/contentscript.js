@@ -1,4 +1,3 @@
-/*global chrome */
 /*
  * The Great Suspender
  * Copyright (C) 2017 Dean Oemcke
@@ -90,7 +89,7 @@
         return Promise.reject('Failed waiting for chrome.runtime');
       }
       retries += 1;
-      return new Promise(r => window.setTimeout(r, 500)).then(() =>
+      return new Promise(r => setTimeout(r, 500)).then(() =>
         waitForRuntimeReady(retries)
       );
     });

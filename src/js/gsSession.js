@@ -4,7 +4,7 @@ import  { gsStorage }             from './gsStorage.js';
 import  { gsTabCheckManager }     from './gsTabCheckManager.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
+import  { tgs }                   from './tgs.js';
 
 export const gsSession = (function() {
   'use strict';

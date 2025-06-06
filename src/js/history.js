@@ -1,13 +1,20 @@
-/*global chrome, historyItems, historyUtils, gsSession, gsIndexedDb, gsUtils, gsStorage */
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { historyItems }          from './historyItems.js';
+import  { historyUtils }          from './historyUtils.js';
+// import  { tgs }                   from './tgs.js';
+
 (function(global) {
   'use strict';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+  // try {
+  //   tgs.setViewGlobals(global);
+  // } catch (e) {
+  //   setTimeout(() => window.location.reload(), 1000);
+  //   return;
+  // }
 
   async function reloadTabs(sessionId, windowId, openTabsAsSuspended) {
     const session = await gsIndexedDb.fetchSessionBySessionId(sessionId);
@@ -283,4 +290,4 @@
     render();
   });
 
-})(this);
+})(globalThis);

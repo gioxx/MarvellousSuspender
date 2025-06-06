@@ -1,13 +1,21 @@
-/*global chrome, historyItems, gsMessages, gsSession, gsStorage, gsIndexedDb, gsChrome, gsUtils */
+import  { gsChrome }              from './gsChrome.js';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsMessages }            from './gsMessages.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { historyItems }          from './historyItems.js';
+// import  { tgs }                   from './tgs.js';
+
 (function(global) {
   'use strict';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+  // try {
+  //   tgs.setViewGlobals(global);
+  // } catch (e) {
+  //   setTimeout(() => window.location.reload(), 1000);
+  //   return;
+  // }
 
   var restoreAttempted = false;
   var tabsToRecover = [];
@@ -50,7 +58,6 @@
         element.getAttribute('data-url') === originalUrl ||
         element.getAttribute('data-tabId') == tabToRemove.id
       ) {
-        // eslint-disable-line eqeqeq
         recoveryTabsEl.removeChild(element);
       }
     }
@@ -105,7 +112,7 @@
 
     manageEl.onclick = function(e) {
       e.preventDefault();
-      chrome.tabs.create({ url: chrome.extension.getURL('history.html') });
+      chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
     };
 
     if (previewsEl) {

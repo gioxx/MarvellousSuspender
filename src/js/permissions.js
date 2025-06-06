@@ -1,13 +1,18 @@
-/*global chrome, historyUtils, gsSession, gsChrome, gsUtils */
+import  { gsChrome }              from './gsChrome.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { historyUtils }          from './historyUtils.js';
+// import  { tgs }                   from './tgs.js';
+
 (function(global) {
   'use strict';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+  // try {
+  //   tgs.setViewGlobals(global);
+  // } catch (e) {
+  //   setTimeout(() => window.location.reload(), 1000);
+  //   return;
+  // }
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
     document.getElementById('exportBackupBtn').onclick = async function(e) {

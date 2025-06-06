@@ -1,15 +1,11 @@
-/* global chrome, gsIndexedDb, gsUtils */
-// eslint-disable-next-line no-unused-vars
-var historyUtils = (function(global) {
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsUtils }               from './gsUtils.js';
+// import  { tgs }                   from './tgs.js';
+
+export const historyUtils = (function(global) {
   'use strict';
 
-  if (
-    !chrome.extension.getBackgroundPage() ||
-    !chrome.extension.getBackgroundPage().tgs
-  ) {
-    return;
-  }
-  chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
+  // tgs.setViewGlobals(global);
 
   var noop = function() {
   };

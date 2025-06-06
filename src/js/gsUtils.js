@@ -6,7 +6,7 @@ import  { gsStorage }             from './gsStorage.js';
 import  { gsSuspendedTab }        from './gsSuspendedTab.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
 import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
-// import  { tgs }                   from './tgs.js';
+import  { tgs }                   from './tgs.js';
 
 'use strict';
 
@@ -59,13 +59,7 @@ export const gsUtils = {
         .filter(o => !ignores.find(p => o.indexOf(p) >= 0))
         .join('\n');
       args.push(`\n${errorLine}`);
-      console.log(
-        'WARNING:',
-        id,
-        (new Date() + '').split(' ')[4],
-        text,
-        ...args,
-      );
+      console.warn('WARNING:', id, (new Date() + '').split(' ')[4], text, ...args,);
     }
   },
   errorIfInitialised: function(id, errorObj, ...args) {

@@ -1,13 +1,15 @@
-/* global chrome, gsUtils */
+import  { gsUtils }               from './gsUtils.js';
+// import  { tgs }                   from './tgs.js';
+
 (function(global) {
   'use strict';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+  // try {
+  //   tgs.setViewGlobals(global);
+  // } catch (e) {
+  //   setTimeout(() => window.location.reload(), 1000);
+  //   return;
+  // }
 
   function init() {
     document
@@ -18,7 +20,7 @@
     document
       .getElementById('sessionManagementLink')
       .addEventListener('click', function() {
-        chrome.tabs.create({ url: chrome.extension.getURL('history.html') });
+        chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
       });
   }
   if (document.readyState !== 'loading') {

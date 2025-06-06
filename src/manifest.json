@@ -8,7 +8,12 @@
     "storage",
     "history",
     "contextMenus",
-    "cookies"
+    "cookies",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
   ],
   "background": {
     "service_worker": "js/background.js",
@@ -32,7 +37,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["suspended.html"],
+      "resources": ["suspended.html", "_favicon/*"],
       "matches": ["<all_urls>"]
     }
   ],
