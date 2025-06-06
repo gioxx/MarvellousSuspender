@@ -78,7 +78,7 @@ export const gsStorage = {
 
           var rawLocalSettings;
           try {
-            rawLocalSettings = JSON.parse(result.gsSettings);
+            rawLocalSettings = JSON.parse(result.gsSettings || null);
           } catch (e) {
             gsUtils.error(
               'gsStorage',
@@ -246,7 +246,7 @@ export const gsStorage = {
       chrome.storage.local.get(['gsSettings'], async (result) => {
         var settings;
         try {
-          settings = JSON.parse(result.gsSettings);
+          settings = JSON.parse(result.gsSettings || null);
         } catch (e) {
           gsUtils.error(
             'gsStorage',
@@ -300,7 +300,7 @@ export const gsStorage = {
       chrome.storage.local.get([gsStorage.APP_VERSION], (result) => {
         var version;
         try {
-          version = JSON.parse(result[gsStorage.APP_VERSION]);
+          version = JSON.parse(result[gsStorage.APP_VERSION] || null);
         } catch (e) {
           gsUtils.error(
             'gsStorage',
@@ -343,7 +343,7 @@ export const gsStorage = {
       chrome.storage.local.get([gsStorage.LAST_EXTENSION_RECOVERY], (result) => {
         var lastExtensionRecoveryTimestamp;
         try {
-          lastExtensionRecoveryTimestamp = JSON.parse(result[gsStorage.LAST_EXTENSION_RECOVERY]);
+          lastExtensionRecoveryTimestamp = JSON.parse(result[gsStorage.LAST_EXTENSION_RECOVERY] || null);
         } catch (e) {
           gsUtils.error(
             'gsStorage',
