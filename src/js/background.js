@@ -47,45 +47,78 @@ const background = (() => {
 
 
   function messageRequestListener(request, sender, sendResponse) {
-    gsUtils.log(
-      sender.tab.id,
-      'background messageRequestListener',
-      request.action,
-    );
+    gsUtils.log(0, 'messageRequestListener', request.action);
 
-    if (request.action === 'reportTabState') {
-      var contentScriptStatus =
-        request && request.status ? request.status : null;
-      if (
-        contentScriptStatus === 'formInput' ||
-        contentScriptStatus === 'tempWhitelist'
-      ) {
-        chrome.tabs.update(sender.tab.id, { autoDiscardable: false });
-      } else if (!sender.tab.autoDiscardable) {
-        chrome.tabs.update(sender.tab.id, { autoDiscardable: true });
+    switch (request.action) {
+      case 'reportTabState' : {
+        var contentScriptStatus = request && request.status ? request.status : null;
+        if (
+          contentScriptStatus === 'formInput' ||
+          contentScriptStatus === 'tempWhitelist'
+        ) {
+          chrome.tabs.update(sender.tab.id, { autoDiscardable: false });
+        }
+        else if (!sender.tab.autoDiscardable) {
+          chrome.tabs.update(sender.tab.id, { autoDiscardable: true });
+        }
+        // If tab is currently visible then update popup icon
+        if (sender.tab && tgs.isCurrentFocusedTab(sender.tab)) {
+          tgs.calculateTabStatus(sender.tab, contentScriptStatus, function(status) {
+            tgs.setIconStatus(status, sender.tab.id);
+          });
+        }
+        sendResponse();
+        break;
       }
-      // If tab is currently visible then update popup icon
-      if (sender.tab && tgs.isCurrentFocusedTab(sender.tab)) {
-        tgs.calculateTabStatus(sender.tab, contentScriptStatus, function(status) {
-          tgs.setIconStatus(status, sender.tab.id);
+      case 'savePreviewData' : {
+        gsTabSuspendManager.handlePreviewImageResponse(sender.tab, request.previewUrl, request.errorMsg); // async. unhandled promise
+        sendResponse();
+        break;
+      }
+
+      case 'suspendOne' : {
+        tgs.suspendHighlightedTab();
+        break;
+      }
+      case 'unsuspendOne' : {
+        tgs.unsuspendHighlightedTab();
+        break;
+      }
+      case 'suspendAll' : {
+        tgs.suspendAllTabs(false);
+        break;
+      }
+      case 'unsuspendAll' : {
+        tgs.unsuspendAllTabs();
+        break;
+      }
+      case 'suspendSelected' : {
+        tgs.suspendSelectedTabs();
+        break;
+      }
+      case 'unsuspendSelected' : {
+        tgs.unsuspendSelectedTabs();
+        break;
+      }
+      case 'whitelistDomain' : {
+        tgs.whitelistHighlightedTab(false);
+        break;
+      }
+      case 'whitelistPage' : {
+        tgs.whitelistHighlightedTab(true);
+        break;
+      }
+      case 'settingsLink' : {
+        chrome.tabs.create({
+          url: chrome.runtime.getURL('options.html'),
         });
+        break;
       }
-      sendResponse();
-      return false;
+      default: {
+        gsUtils.warning(0, 'messageRequestListener', `Unknown message action: ${request.action}`);
+        break;
+      }
     }
-
-    if (request.action === 'savePreviewData') {
-      gsTabSuspendManager.handlePreviewImageResponse(
-        sender.tab,
-        request.previewUrl,
-        request.errorMsg,
-      ); // async. unhandled promise
-      sendResponse();
-      return false;
-    }
-
-    // Fallback to empty response to ensure callback is made
-    sendResponse();
     return false;
   }
 

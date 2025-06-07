@@ -1,3 +1,5 @@
+// @TODO: tgs must be totally removed eventually, and maybe the others as well.
+// This is needed to maintain state with the service worker.
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
@@ -55,26 +57,6 @@ import  { tgs }                   from './tgs.js';
       );
     });
   }
-
-  Promise.all([
-    gsUtils.documentReadyAndLocalisedAsPromised(document),
-    getTabStatusAsPromise(0, true),
-    getSelectedTabsAsPromise(),
-  ]).then(function([domLoadedEvent, initialTabStatus, selectedTabs]) {
-    setSuspendSelectedVisibility(selectedTabs);
-    setStatus(initialTabStatus);
-    showPopupContents();
-    addClickHandlers();
-
-    if (
-      initialTabStatus === gsUtils.STATUS_UNKNOWN ||
-      initialTabStatus === gsUtils.STATUS_LOADING
-    ) {
-      getTabStatusAsPromise(50, false).then(function(finalTabStatus) {
-        setStatus(finalTabStatus);
-      });
-    }
-  });
 
   function setSuspendCurrentVisibility(tabStatus) {
     var suspendOneVisible = ![
@@ -268,64 +250,50 @@ import  { tgs }                   from './tgs.js';
     });
   }
 
-  function addClickHandlers() {
-    document
-      .getElementById('unsuspendOne')
-      .addEventListener('click', function(e) {
-        tgs.unsuspendHighlightedTab();
-        window.close();
-      });
-    document
-      .getElementById('suspendOne')
-      .addEventListener('click', function(e) {
-        tgs.suspendHighlightedTab();
-        window.close();
-      });
-    document
-      .getElementById('suspendAll')
-      .addEventListener('click', function(e) {
-        tgs.suspendAllTabs(false);
-        window.close();
-      });
-    document
-      .getElementById('unsuspendAll')
-      .addEventListener('click', function(e) {
-        tgs.unsuspendAllTabs();
-        window.close();
-      });
-    document
-      .getElementById('suspendSelected')
-      .addEventListener('click', function(e) {
-        tgs.suspendSelectedTabs();
-        window.close();
-      });
-    document
-      .getElementById('unsuspendSelected')
-      .addEventListener('click', function(e) {
-        tgs.unsuspendSelectedTabs();
-        window.close();
-      });
-    document
-      .getElementById('whitelistDomain')
-      .addEventListener('click', function(e) {
-        tgs.whitelistHighlightedTab(false);
-        setStatus(gsUtils.STATUS_WHITELISTED);
+  function addClickListener(message) {
+    const elem = document.getElementById(message);
+    if (elem) {
+      elem.addEventListener('click', async (event) => {
+        console.log(`click ${message}`);
+        await chrome.runtime.sendMessage({ action: message });
+        if (message.match(/^whitelist/i)) {
+          setStatus(gsUtils.STATUS_WHITELISTED);
+        }
         // window.close();
       });
-    document
-      .getElementById('whitelistPage')
-      .addEventListener('click', function(e) {
-        tgs.whitelistHighlightedTab(true);
-        setStatus(gsUtils.STATUS_WHITELISTED);
-        // window.close();
-      });
-    document
-      .getElementById('settingsLink')
-      .addEventListener('click', function(e) {
-        chrome.tabs.create({
-          url: chrome.runtime.getURL('options.html'),
-        });
-        window.close();
-      });
+    }
   }
+
+  function addClickHandlers() {
+    addClickListener('suspendOne');
+    addClickListener('unsuspendOne');
+    addClickListener('suspendAll');
+    addClickListener('unsuspendAll');
+    addClickListener('suspendSelected');
+    addClickListener('unsuspendSelected');
+    addClickListener('whitelistDomain');
+    addClickListener('whitelistPage');
+    addClickListener('settingsLink');
+  }
+
+  Promise.all([
+    gsUtils.documentReadyAndLocalisedAsPromised(document),
+    getTabStatusAsPromise(0, true),
+    getSelectedTabsAsPromise(),
+  ]).then(([domLoadedEvent, initialTabStatus, selectedTabs]) => {
+    setSuspendSelectedVisibility(selectedTabs);
+    setStatus(initialTabStatus);
+    showPopupContents();
+    addClickHandlers();
+
+    if (
+      initialTabStatus === gsUtils.STATUS_UNKNOWN ||
+      initialTabStatus === gsUtils.STATUS_LOADING
+    ) {
+      getTabStatusAsPromise(50, false).then((finalTabStatus) => {
+        setStatus(finalTabStatus);
+      });
+    }
+  });
+
 })();

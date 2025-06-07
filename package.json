@@ -27,6 +27,7 @@
     "url": "https://github.com/gioxx/MarvellousSuspender/issues"
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.326",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^10.2.1",
