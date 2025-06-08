@@ -5,6 +5,7 @@
   "main": "",
   "scripts": {
     "build": "grunt",
+    "lint": "eslint .",
     "generate-key": "openssl genrsa -out key.pem",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"

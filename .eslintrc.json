@@ -13,32 +13,29 @@
     "eslint:recommended",
     "prettier"
   ],
-	"ignorePatterns": ["node_modules", "**/*.html"],
+	"ignorePatterns": ["node_modules", "**/*.html", "src/js/db.js", "src/js/html2canvas.min.js"],
   "rules": {
     "no-console": 0,
-    "no-unused-vars": [
-          "error",
-      { "vars": "all", "args": "none", "ignoreRestSiblings": false }
-    ],
+    "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }],
     "no-undef": ["error"],
     "no-proto": ["error"],
-    //        "prefer-arrow-callback": ["warn"],  TODO: refactor to use arrow functions
-    //        "no-var": ["error"],  TODO: refactor to use let and const
+    // "prefer-arrow-callback": ["warn"],
+    // "no-var": ["error"],
     "prefer-spread": ["warn"],
-//    "semi": ["error", "always"],
+    "semi": ["error"],
     "padded-blocks": ["off", { "blocks": "never" }],
-//    "indent": ["error", 2],
+    // "indent": ["error", 2],
     "no-async-promise-executor": ["off", "never"],
     "no-prototype-builtins": ["off", "never"],
     "one-var": ["off", "never"],
     "spaced-comment": ["off", "always"]
-//    "space-before-function-paren": [
-//      "error",
-//      {
-//        "anonymous": "always",
-//        "named": "never",
-//        "asyncArrow": "always"
-//      }
-//    ]
+  //   "space-before-function-paren": [
+  //    "error",
+  //    {
+  //      "anonymous": "always",
+  //      "named": "never",
+  //      "asyncArrow": "always"
+  //    }
+  //  ]
   }
 }

@@ -259,7 +259,7 @@ import  { tgs }                   from './tgs.js';
         if (message.match(/^whitelist/i)) {
           setStatus(gsUtils.STATUS_WHITELISTED);
         }
-        // window.close();
+        window.close();
       });
     }
   }

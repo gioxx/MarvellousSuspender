@@ -175,9 +175,9 @@ export const gsStorage = {
       if (namespace !== 'sync' || !remoteSettings) {
         return;
       }
-      const shouldSync = await gsStorage.getOption(gsStorage.SYNC_SETTINGS)
+      const shouldSync = await gsStorage.getOption(gsStorage.SYNC_SETTINGS);
       if (shouldSync) {
-        const localSettings = await gsStorage.getSettings()
+        const localSettings = await gsStorage.getSettings();
         var changedSettingKeys = [];
         var oldValueBySettingKey = {};
         var newValueBySettingKey = {};
@@ -220,7 +220,7 @@ export const gsStorage = {
   //due to migration issues and new settings being added, i have built in some redundancy
   //here so that getOption will always return a valid value.
   getOption: async (prop) => {
-    const settings = await gsStorage.getSettings()
+    const settings = await gsStorage.getSettings();
     if (typeof settings[prop] === 'undefined' || settings[prop] === null) {
       settings[prop] = gsStorage.getSettingsDefaults()[prop];
       await gsStorage.saveSettings(settings);
@@ -229,7 +229,7 @@ export const gsStorage = {
   },
 
   setOption: async (prop, value) => {
-    const settings = await gsStorage.getSettings()
+    const settings = await gsStorage.getSettings();
     settings[prop] = value;
     await gsStorage.saveSettings(settings);
   },
@@ -352,7 +352,7 @@ export const gsStorage = {
           );
         }
         resolve(lastExtensionRecoveryTimestamp);
-      })
+      });
     });
   },
 
