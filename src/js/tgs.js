@@ -1,10 +1,10 @@
 import  { gsChrome }              from './gsChrome.js';
-import  { gsFavicon }             from './gsFavicon.js';
+// import  { gsFavicon }             from './gsFavicon.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
-import  { gsSuspendedTab }        from './gsSuspendedTab.js';
+// import  { gsSuspendedTab }        from './gsSuspendedTab.js';
 import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
 import  { gsTabCheckManager }     from './gsTabCheckManager.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
@@ -61,11 +61,11 @@ export const tgs = (function() {
       gsIndexedDb,
       gsMessages,
       gsSession,
-      gsFavicon,
+      // gsFavicon,
       gsTabCheckManager,
       gsTabSuspendManager,
       gsTabDiscardManager,
-      gsSuspendedTab,
+      // gsSuspendedTab,
     };
     for (const lib of Object.values(globals)) {
       if (!lib) {
@@ -84,20 +84,16 @@ export const tgs = (function() {
   }
 
 
-
-  function getInternalViewByTabId(tabId) {
-    const internalViews = chrome.extension.getViews({ tabId: tabId });
-    if (internalViews.length === 1) {
-      return internalViews[0];
-    }
-    return null;
+  async function getInternalContextByTabId(tabId) {
+    const contexts = await chrome.runtime.getContexts({ tabIds: [tabId] });
+    return contexts.length === 1 ? contexts[0] : null;
   }
 
-  function getInternalViewsByViewName(viewName) {
-    return chrome.extension
-      .getViews()
-      .filter(o => o.location.pathname.indexOf(viewName) >= 0);
+  async function getInternalContextsByViewName(viewName, callback) {
+    const contexts = await chrome.runtime.getContexts({});
+    return contexts.filter((o) => o.documentUrl.includes(viewName));
   }
+
 
   function getCurrentlyActiveTab(callback) {
     // wrap this in an anonymous async function so we can use await
@@ -670,7 +666,7 @@ export const tgs = (function() {
           resetAutoSuspendTimerForTab(tab);
         }
         hasTabStatusChanged = true;
-      })
+      });
     }
     if (changeInfo.hasOwnProperty('pinned')) {
       gsStorage.getOption(gsStorage.IGNORE_PINNED).then((ignorePinned) => {
@@ -679,7 +675,7 @@ export const tgs = (function() {
           resetAutoSuspendTimerForTab(tab);
         }
         hasTabStatusChanged = true;
-      })
+      });
     }
 
     if (changeInfo.hasOwnProperty('status')) {
@@ -830,18 +826,18 @@ export const tgs = (function() {
       return;
     }
 
-    const tabView = tgs.getInternalViewByTabId(tab.id);
+    // const tabView = getInternalViewByTabId(tab.id);
     gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND).then((discardAfterSuspend) => {
       const quickInit = discardAfterSuspend && !tab.active;
-      gsSuspendedTab
-        .initTab(tab, tabView, { quickInit })
+      // gsSuspendedTab.initTab(tab, tabView, { quickInit })
+      chrome.tabs.sendMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: gsSession.getSessionId() })
         .catch(error => {
           gsUtils.warning(tab.id, error);
         })
         .then(() => {
           gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 3000);
         });
-    })
+    });
   }
 
   function updateTabIdReferences(newTabId, oldTabId) {
@@ -949,10 +945,14 @@ export const tgs = (function() {
       const oldHotkey = _suspensionToggleHotkey;
       _suspensionToggleHotkey = await buildSuspensionToggleHotkey();
       if (oldHotkey !== _suspensionToggleHotkey) {
-        const suspendedViews = getInternalViewsByViewName('suspended');
-        for (const suspendedView of suspendedViews) {
-          gsSuspendedTab.updateCommand(suspendedView, _suspensionToggleHotkey);
+        const contexts = await getInternalContextsByViewName('suspended');
+        for (const context of contexts) {
+          chrome.tabs.sendMessage(context.tabId, { action: 'updateCommand', tabId: context.tabId });
         }
+        // const suspendedViews = getInternalViewsByViewName('suspended');
+        // for (const suspendedView of suspendedViews) {
+        //   gsSuspendedTab.updateCommand(suspendedView, _suspensionToggleHotkey);
+        // }
       }
       _triggerHotkeyUpdate = false;
     }
@@ -1045,19 +1045,14 @@ export const tgs = (function() {
     }, focusDelay);
   }
 
-  function handleNewStationaryTabFocus(
-    focusedTabId,
-    previousStationaryTabId,
-    focusedTab,
-  ) {
+  function handleNewStationaryTabFocus( focusedTabId, previousStationaryTabId, focusedTab, ) {
     gsUtils.log(focusedTabId, 'new stationary tab focus handled');
 
     if (gsUtils.isSuspendedTab(focusedTab)) {
       handleSuspendedTabFocusGained(focusedTab); //async. unhandled promise.
-    } else if (gsUtils.isNormalTab(focusedTab)) {
-      const queuedTabDetails = gsTabSuspendManager.getQueuedTabDetails(
-        focusedTab,
-      );
+    }
+    else if (gsUtils.isNormalTab(focusedTab)) {
+      const queuedTabDetails = gsTabSuspendManager.getQueuedTabDetails( focusedTab, );
       //if focusedTab is already in the queue for suspension then remove it.
       if (queuedTabDetails) {
         //although sometimes it seems that this is a 'fake' tab focus resulting
@@ -1073,11 +1068,16 @@ export const tgs = (function() {
           gsTabSuspendManager.unqueueTabForSuspension(focusedTab);
         }
       }
-    } else if (focusedTab.url === chrome.runtime.getURL('options.html')) {
-      const optionsView = getInternalViewByTabId(focusedTab.id);
-      if (optionsView && optionsView.exports) {
-        optionsView.exports.initSettings();
-      }
+    }
+    else if (focusedTab.url === chrome.runtime.getURL('options.html')) {
+      getInternalContextByTabId(focusedTab.id, (context) => {
+        chrome.tabs.sendMessage(context.tabId, { action: 'initSettings', tab: focusedTab });
+      });
+      // @TODO: This must be a listener in the options page
+      // const optionsView = getInternalViewByTabId(focusedTab.id);
+      // if (optionsView && optionsView.exports) {
+      //   optionsView.exports.initSettings();
+      // }
     }
 
     //Reset timer on tab that lost focus.
@@ -1110,11 +1110,15 @@ export const tgs = (function() {
     if (autoUnsuspend) {
       if (navigator.onLine) {
         unsuspendTab(focusedTab);
-      } else {
-        const suspendedView = getInternalViewByTabId(focusedTab.id);
-        if (suspendedView) {
-          gsSuspendedTab.showNoConnectivityMessage(suspendedView);
-        }
+      }
+      else {
+        getInternalContextByTabId(focusedTab.id, (context) => {
+          chrome.tabs.sendMessage(context.tabId, { action: 'showNoConnectivityMessage', tab: focusedTab });
+        });
+        // const suspendedView = getInternalViewByTabId(focusedTab.id);
+        // if (suspendedView) {
+        //   gsSuspendedTab.showNoConnectivityMessage(suspendedView);
+        // }
       }
     }
   }
@@ -1499,8 +1503,8 @@ export const tgs = (function() {
 
     initialiseTabContentScript,
     setViewGlobals,
-    getInternalViewByTabId,
-    getInternalViewsByViewName,
+    getInternalContextByTabId,
+    getInternalContextsByViewName,
     requestNotice,
     clearNotice,
     buildContextMenu,

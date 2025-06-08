@@ -3,7 +3,7 @@ import  { gsFavicon }             from './gsFavicon.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
-import  { gsSuspendedTab }        from './gsSuspendedTab.js';
+// import  { gsSuspendedTab }        from './gsSuspendedTab.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
 import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
 import  { tgs }                   from './tgs.js';
@@ -298,7 +298,7 @@ export const gsUtils = {
   checkWhiteList: function(url) {
     gsStorage.getOption(gsStorage.WHITELIST).then((whitelist) => {
       return gsUtils.checkSpecificWhiteList(url, whitelist);
-    })
+    });
   },
 
   checkSpecificWhiteList: function(url, whitelistString) {
@@ -333,7 +333,7 @@ export const gsUtils = {
         { [key]: oldWhitelistString },
         { [key]: whitelistString },
       );
-    })
+    });
   },
 
   testForMatch: function(whitelistItem, word) {
@@ -638,8 +638,8 @@ export const gsUtils = {
 
   performPostSaveUpdates: function(changedSettingKeys, oldValueBySettingKey, newValueBySettingKey) {
     // gsUtils.log('performPostSaveUpdates');
-    chrome.tabs.query({}, function(tabs) {
-      tabs.forEach(function(tab) {
+    chrome.tabs.query({}, async (tabs) => {
+      for (const tab of tabs) {
         if (gsUtils.isSpecialTab(tab)) {
           return;
         }
@@ -662,28 +662,23 @@ export const gsUtils = {
             gsStorage.SCREEN_CAPTURE,
           );
           if (updateTheme || updatePreviewMode) {
-            const suspendedView = tgs.getInternalViewByTabId(tab.id);
-            if (suspendedView) {
+            // const suspendedView = tgs.getInternalViewByTabId(tab.id);
+            const context = await tgs.getInternalContextByTabId(tab.id);
+            if (context) {
               if (updateTheme) {
                 gsStorage.getOption(gsStorage.THEME).then((theme) => {
+                  // @TODO favicon will probably fail here if it can't create a DOM Image
                   gsFavicon.getFaviconMetaData(tab).then(faviconMeta => {
                     const isLowContrastFavicon = faviconMeta.isDark || false;
-                    gsSuspendedTab.updateTheme(
-                      suspendedView,
-                      tab,
-                      theme,
-                      isLowContrastFavicon,
-                    );
+                    chrome.tabs.sendMessage(tab.id, { action: 'updateTheme', tab, theme, isLowContrastFavicon });
+                    // gsSuspendedTab.updateTheme( , tab, , );
                   });
                 });
               }
               if (updatePreviewMode) {
                 gsStorage.getOption(gsStorage.SCREEN_CAPTURE).then((previewMode) => {
-                  gsSuspendedTab.updatePreviewMode(
-                    suspendedView,
-                    tab,
-                    previewMode,
-                  ); // async. unhandled promise.
+                  chrome.tabs.sendMessage(tab.id, { action: 'updatePreviewMode', tab, previewMode });
+                  // gsSuspendedTab.updatePreviewMode( , tab, previewMode, ); // async. unhandled promise.
                 });
               }
             }
@@ -701,7 +696,7 @@ export const gsUtils = {
               gsTabDiscardManager.queueTabForDiscard(tab);
             }
             return;
-          })
+          });
         }
 
         if (!gsUtils.isNormalTab(tab, true)) {
@@ -733,7 +728,7 @@ export const gsUtils = {
           if (updateSuspendTime) {
             tgs.resetAutoSuspendTimerForTab(tab);
           }
-        })
+        });
 
         //if SuspendInPlaceOfDiscard has changed then updated discarded tabs
         const updateSuspendInPlaceOfDiscard = changedSettingKeys.includes(
@@ -756,7 +751,7 @@ export const gsUtils = {
         //         });
         //     });
         // }
-      });
+      };
     });
 
     //if context menu has been disabled then remove from chrome
