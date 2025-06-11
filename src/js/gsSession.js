@@ -769,8 +769,8 @@ export const gsSession = (function() {
     if (suspendedActiveTabs.length === 0) {
       return;
     }
-    for (let suspendedActiveTab of suspendedActiveTabs) {
-      tgs.unsuspendTab(suspendedActiveTab);
+    for (const suspendedActiveTab of suspendedActiveTabs) {
+      await tgs.unsuspendTab(suspendedActiveTab);
     }
     await gsUtils.setTimeout(1000);
     await unsuspendActiveTabInEachWindow();

@@ -241,42 +241,74 @@ export const gsStorage = {
     await gsStorage.syncSettings();
   },
 
-  getSettings: function() {
-    return new Promise((resolve) => {
-      chrome.storage.local.get(['gsSettings'], async (result) => {
-        var settings;
-        try {
-          settings = JSON.parse(result.gsSettings || null);
-        } catch (e) {
-          gsUtils.error(
-            'gsStorage',
-            'Failed to parse gsSettings: ',
-            result,
-          );
-        }
-        if (!settings) {
-          settings = gsStorage.getSettingsDefaults();
-          await gsStorage.saveSettings(settings);
-        }
-        resolve(settings);
-      });
-    });
+  /**
+   * @param {'session'|'local'} store
+   * @param {string}            name
+   */
+  getStorageJSON: async (store, name) => {
+    const result = await chrome.storage[store].get([name]);
+    let value;
+    try {
+      value = JSON.parse(result[name] || null);
+    } catch (e) {
+      gsUtils.error( 'gsStorage', 'Failed to parse gsSettings: ', result );
+    }
+    return value;
   },
 
-  saveSettings: function(settings) {
-    console.log('saveSettings');
-    return new Promise((resolve) => {
-      chrome.storage.local.set({ gsSettings: JSON.stringify(settings) }, () => {
-        if (chrome.runtime.lastError) {
-          gsUtils.error(
-            'gsStorage',
-            'failed to save gsSettings to local storage',
-            chrome.runtime.lastError
-          );
-        }
-        resolve();
-      });
-    });
+  /**
+   * @param {'session'|'local'} store
+   * @param {string}            name
+   * @param {any}               value
+   */
+  saveStorage: async (store, name, value) => {
+    await chrome.storage[store].set({ [name]: JSON.stringify(value) });
+    if (chrome.runtime.lastError) {
+      gsUtils.error( 'gsStorage', 'failed to save to local storage', chrome.runtime.lastError );
+    }
+  },
+
+  /**
+   * @param {'session'|'local'} store
+   * @param {string}            name
+   */
+  deleteStorage: async (store, name) => {
+    await chrome.storage[store].remove([name]);
+    if (chrome.runtime.lastError) {
+      gsUtils.error( 'gsStorage', 'failed to remove from local storage', chrome.runtime.lastError );
+    }
+  },
+
+  getSettings: async () => {
+    const settings = await gsStorage.getStorageJSON('local', 'gsSettings');
+    if (!settings) {
+      await gsStorage.saveSettings(gsStorage.getSettingsDefaults());
+    }
+    return settings;
+  },
+
+  saveSettings: async (settings) => {
+    // gsUtils.log(0, 'saveSettings');
+    return gsStorage.saveStorage('local', 'gsSettings', settings);
+  },
+
+  getTabState: async (tabId) => {
+    return gsStorage.getStorageJSON('session', `gsTab${tabId}`);
+  },
+
+  saveTabState: async (tabId, state) => {
+    if (!tabId) {
+      gsUtils.error('saveTabState', 'Missing tabId');
+      return;
+    }
+    return chrome.storage.session.set({ [`gsTab${tabId}`]: JSON.stringify(state) });
+  },
+
+  deleteTabState: async (tabId) => {
+    await chrome.storage.session.remove([`gsTab${tabId}`]);
+    if (chrome.runtime.lastError) {
+      gsUtils.error( 'gsStorage', 'failed delete from local storage', chrome.runtime.lastError );
+    }
   },
 
   // Push settings to sync

@@ -212,10 +212,8 @@ export const gsUtils = {
   },
 
   isProtectedActiveTab: function(tab) {
-    gsStorage.getOption(gsStorage.IGNORE_ACTIVE_TABS).then((dontSuspendActiveTabs) => {
-      return (
-        tgs.isCurrentFocusedTab(tab) || (dontSuspendActiveTabs && tab.active)
-      );
+    gsStorage.getOption(gsStorage.IGNORE_ACTIVE_TABS).then(async (dontSuspendActiveTabs) => {
+      return ( await tgs.isCurrentFocusedTab(tab) || (dontSuspendActiveTabs && tab.active) );
     });
   },
 
@@ -621,9 +619,9 @@ export const gsUtils = {
 
   getAllExpiredTabs: function(callback) {
     var expiredTabs = [];
-    chrome.tabs.query({}, tabs => {
+    chrome.tabs.query({}, async (tabs) => {
       for (const tab of tabs) {
-        const timerDetails = tgs.getTabStatePropForTabId(tab.id, tgs.STATE_TIMER_DETAILS);
+        const timerDetails = await tgs.getTabStatePropForTabId(tab.id, tgs.STATE_TIMER_DETAILS);
         if (
           timerDetails &&
           timerDetails.suspendDateTime &&
@@ -652,7 +650,7 @@ export const gsUtils = {
             (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) &&
               gsUtils.isProtectedActiveTab(tab))
           ) {
-            tgs.unsuspendTab(tab);
+            await tgs.unsuspendTab(tab);
             return;
           }
 
@@ -711,7 +709,7 @@ export const gsUtils = {
           gsMessages.sendUpdateToContentScriptOfTab(tab); //async. unhandled error
         }
 
-        gsStorage.getSettings().then((settings) => {
+        gsStorage.getSettings().then(async (settings) => {
           //update suspend timers
           const updateSuspendTime =
             changedSettingKeys.includes(gsStorage.SUSPEND_TIME) ||
@@ -719,14 +717,14 @@ export const gsUtils = {
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && !settings[gsStorage.IGNORE_PINNED] && tab.pinned) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_AUDIO) && !settings[gsStorage.IGNORE_AUDIO] && tab.audible) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_OFFLINE) && !settings[gsStorage.IGNORE_WHEN_OFFLINE] && !navigator.onLine) ||
-            (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_CHARGING) && !settings[gsStorage.IGNORE_WHEN_CHARGING] && tgs.isCharging()) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_CHARGING) && !settings[gsStorage.IGNORE_WHEN_CHARGING] && await tgs.isCharging()) ||
             (changedSettingKeys.includes(gsStorage.WHITELIST) &&
               ( gsUtils.checkSpecificWhiteList(tab.url, oldValueBySettingKey[gsStorage.WHITELIST]) &&
                !gsUtils.checkSpecificWhiteList(tab.url, newValueBySettingKey[gsStorage.WHITELIST])
               )
             );
           if (updateSuspendTime) {
-            tgs.resetAutoSuspendTimerForTab(tab);
+            await tgs.resetAutoSuspendTimerForTab(tab);
           }
         });
 

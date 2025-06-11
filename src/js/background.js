@@ -46,8 +46,8 @@ const background = (() => {
   }
 
 
-  function messageRequestListener(request, sender, sendResponse) {
-    gsUtils.log(0, 'messageRequestListener', request.action);
+  async function messageRequestListener(request, sender, sendResponse) {
+    gsUtils.log(0, 'background', 'messageRequestListener', request.action);
 
     switch (request.action) {
       case 'reportTabState' : {
@@ -62,17 +62,15 @@ const background = (() => {
           chrome.tabs.update(sender.tab.id, { autoDiscardable: true });
         }
         // If tab is currently visible then update popup icon
-        if (sender.tab && tgs.isCurrentFocusedTab(sender.tab)) {
+        if (sender.tab && await tgs.isCurrentFocusedTab(sender.tab)) {
           tgs.calculateTabStatus(sender.tab, contentScriptStatus, function(status) {
             tgs.setIconStatus(status, sender.tab.id);
           });
         }
-        sendResponse();
         break;
       }
       case 'savePreviewData' : {
         gsTabSuspendManager.handlePreviewImageResponse(sender.tab, request.previewUrl, request.errorMsg); // async. unhandled promise
-        sendResponse();
         break;
       }
 
@@ -119,6 +117,7 @@ const background = (() => {
         break;
       }
     }
+    sendResponse();
     return false;
   }
 
@@ -170,7 +169,7 @@ const background = (() => {
           return;
         }
 
-        tgs.unsuspendTab(tab);
+        await tgs.unsuspendTab(tab);
         sendResponse();
         return;
       }
@@ -270,21 +269,19 @@ const background = (() => {
     chrome.runtime.onMessage.addListener(messageRequestListener);
     //attach listener to runtime for external messages, to allow
     //interoperability with other extensions in the manner of an API
-    chrome.runtime.onMessageExternal.addListener(
-      externalMessageRequestListener,
-    );
+    chrome.runtime.onMessageExternal.addListener(externalMessageRequestListener);
   }
 
   // Listeners must part of the top-level evaluation of the service worker
   function addChromeListeners() {
-    chrome.windows.onFocusChanged.addListener(function(windowId) {
-      tgs.handleWindowFocusChanged(windowId);
+    chrome.windows.onFocusChanged.addListener(async (windowId) => {
+      await tgs.handleWindowFocusChanged(windowId);
     });
-    chrome.tabs.onActivated.addListener(function(activeInfo) {
-      tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
+    chrome.tabs.onActivated.addListener(async (activeInfo) => {
+      await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
     });
-    chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId) {
-      tgs.updateTabIdReferences(addedTabId, removedTabId);
+    chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
+      await tgs.updateTabIdReferences(addedTabId, removedTabId);
     });
     chrome.tabs.onCreated.addListener(async function(tab) {
       gsUtils.log(tab.id, 'tab created. tabUrl: ' + tab.url);
@@ -298,10 +295,10 @@ const background = (() => {
         gsTabCheckManager.queueTabCheck(tab, {}, 5000);
       }
     });
-    chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
+    chrome.tabs.onRemoved.addListener(async (tabId, removeInfo) => {
       gsUtils.log(tabId, 'tab removed.');
       tgs.queueSessionTimer();
-      tgs.removeTabIdReferences(tabId);
+      await tgs.removeTabIdReferences(tabId);
     });
 
     function isItOurUrl(url) {
@@ -343,16 +340,16 @@ const background = (() => {
       }
 
       if (gsUtils.isSuspendedTab(tab)) {
-        tgs.handleSuspendedTabStateChanged(tab, changeInfo);
+        await tgs.handleSuspendedTabStateChanged(tab, changeInfo);
       } else if (gsUtils.isNormalTab(tab)) {
-        tgs.handleUnsuspendedTabStateChanged(tab, changeInfo);
+        await tgs.handleUnsuspendedTabStateChanged(tab, changeInfo);
       }
     });
-    chrome.windows.onCreated.addListener(function(window) {
+    chrome.windows.onCreated.addListener(async (window) => {
       gsUtils.log(window.id, 'window created.');
       tgs.queueSessionTimer();
 
-      var noticeToDisplay = tgs.requestNotice();
+      var noticeToDisplay = await tgs.requestNotice();
       if (noticeToDisplay) {
         chrome.tabs.create({ url: chrome.runtime.getURL('notice.html') });
       }
@@ -367,18 +364,18 @@ const background = (() => {
   function addMiscListeners() {
     //add listener for battery state changes
     if (navigator.getBattery) {
-      navigator.getBattery().then(function(battery) {
-        tgs.setCharging(battery.charging);
+      navigator.getBattery().then(async (battery) => {
+        await tgs.setCharging(battery.charging);
 
         battery.onchargingchange = async () => {
-          tgs.setCharging(battery.charging);
-          gsUtils.log('background', `isCharging: ${tgs.isCharging()}`);
+          await tgs.setCharging(battery.charging);
+          gsUtils.log('background', `isCharging: ${await tgs.isCharging()}`);
           tgs.setIconStatusForActiveTab();
           //restart timer on all normal tabs
           //NOTE: some tabs may have been prevented from suspending when computer was charging
           if (
-            !tgs.isCharging() &&
-            await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING)
+            !(await tgs.isCharging()) &&
+              await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING)
           ) {
             tgs.resetAutoSuspendTimerForAllTabs();
           }
@@ -391,6 +388,7 @@ const background = (() => {
   function initAsPromised() {
     return new Promise(async (resolve) => {
       gsUtils.log('background', 'PERFORMING BACKGROUND INIT...');
+
       addContextListeners();
       addCommandListeners();
       addMessageListeners();
@@ -412,11 +410,11 @@ const background = (() => {
       const activeTabs = await gsChrome.tabsQuery({ active: true });
       const currentWindow = await gsChrome.windowsGetLastFocused();
       for (let activeTab of activeTabs) {
-        tgs.getCurrentStationaryTabIdByWindowId()[activeTab.windowId] = activeTab.id;
-        tgs.getCurrentFocusedTabIdByWindowId()[activeTab.windowId] = activeTab.id;
+        (await tgs.getCurrentStationaryTabIdByWindowId())[activeTab.windowId] = activeTab.id;
+        (await tgs.getCurrentFocusedTabIdByWindowId())[activeTab.windowId] = activeTab.id;
         if (currentWindow && currentWindow.id === activeTab.windowId) {
-          tgs.setCurrentStationaryWindowId(activeTab.windowId);
-          tgs.setCurrentFocusedWindowId(activeTab.windowId);
+          await tgs.setCurrentStationaryWindowId(activeTab.windowId);
+          await tgs.setCurrentFocusedWindowId(activeTab.windowId);
         }
       }
       gsUtils.log('background', 'init successful');
@@ -455,6 +453,7 @@ Promise.resolve()
   .then(() => {
     // initialise other gsLibs
     return Promise.all([
+      // @TODO is this favicon reference safe?
       gsFavicon.initAsPromised(),
       gsTabSuspendManager.initAsPromised(),
       gsTabCheckManager.initAsPromised(),

@@ -62,7 +62,7 @@ import  { tgs }                   from './tgs.js';
   }
 
   function setGoToUpdateHandler() {
-    document.getElementById('gotoUpdatePage').onclick = async function(e) {
+    document.getElementById('gotoUpdatePage').onclick = async (e) => {
       await gsChrome.tabsCreate(chrome.runtime.getURL('update.html'));
     };
   }
@@ -132,18 +132,19 @@ import  { tgs }                   from './tgs.js';
     });
   }
 
-  function setUnloadTabHandler(tab) {
+  async function setUnloadTabHandler(tab) {
     // beforeunload event will get fired if: the tab is refreshed, the url is changed,
     // the tab is closed, or the tab is frozen by chrome ??
     // when this happens the STATE_UNLOADED_URL gets set with the suspended tab url
     // if the tab is refreshed, then on reload the url will match and the tab will unsuspend
     // if the url is changed then on reload the url will not match
     // if the tab is closed, the reload will never occur
-    addEventListener('beforeunload', function(e) {
+    addEventListener('beforeunload', async (event) => {
       gsUtils.log(tab.id, 'BeforeUnload triggered: ' + tab.url);
-      if (tgs.isCurrentFocusedTab(tab)) {
-        tgs.setTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL, tab.url);
-      } else {
+      if (await tgs.isCurrentFocusedTab(tab)) {
+        await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL, tab.url);
+      }
+      else {
         gsUtils.log( tab.id, 'Ignoring beforeUnload as tab is not currently focused.', );
       }
     });
@@ -179,20 +180,21 @@ import  { tgs }                   from './tgs.js';
   }
 
   function buildUnsuspendTabHandler(tab) {
-    return function(e) {
+    return async (e) => {
       e.preventDefault();
       e.stopPropagation();
       if (e.target.id === 'setKeyboardShortcut') {
         chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
-      } else if (e.which === 1) {
+      }
+      else if (e.which === 1) {
         showUnsuspendAnimation();
-        tgs.unsuspendTab(tab);
+        await tgs.unsuspendTab(tab);
       }
     };
   }
 
-  function setUnsuspendTabHandlers(tab) {
-    const unsuspendTabHandler = buildUnsuspendTabHandler(tab);
+  async function setUnsuspendTabHandlers(tab) {
+    const unsuspendTabHandler = await buildUnsuspendTabHandler(tab);
     document.getElementById('gsTopBarUrl').onclick = unsuspendTabHandler;
     document.getElementById('gsTopBar').onmousedown = unsuspendTabHandler;
     document.getElementById('suspendedMsg').onclick = unsuspendTabHandler;
@@ -210,7 +212,7 @@ import  { tgs }                   from './tgs.js';
   }
 
   function buildImagePreview(tab, previewUri) {
-    return new Promise(resolve => {
+    return new Promise(async (resolve) => {
       const previewEl = document.createElement('div');
       const bodyEl = document.getElementsByTagName('body')[0];
       previewEl.setAttribute('id', 'gsPreviewContainer');
@@ -218,7 +220,7 @@ import  { tgs }                   from './tgs.js';
       previewEl.innerHTML = document.getElementById(
         'previewTemplate',
       ).innerHTML;
-      const unsuspendTabHandler = buildUnsuspendTabHandler(document, tab);
+      const unsuspendTabHandler = await buildUnsuspendTabHandler(document, tab);
       previewEl.onclick = unsuspendTabHandler;
       gsUtils.localiseHtml(previewEl);
       bodyEl.appendChild(previewEl);
@@ -309,8 +311,8 @@ import  { tgs }                   from './tgs.js';
     const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
 
     // Add event listeners
-    setUnloadTabHandler(tab);
-    setUnsuspendTabHandlers(tab);
+    await setUnloadTabHandler(tab);
+    await setUnsuspendTabHandlers(tab);
 
     // Set imagePreview
     const previewMode = options[gsStorage.SCREEN_CAPTURE];
@@ -329,10 +331,7 @@ import  { tgs }                   from './tgs.js';
     setUrl(originalUrl);
 
     // Set reason
-    const suspendReasonInt = tgs.getTabStatePropForTabId(
-      tab.id,
-      tgs.STATE_SUSPEND_REASON,
-    );
+    const suspendReasonInt = await tgs.getTabStatePropForTabId( tab.id, tgs.STATE_SUSPEND_REASON );
     let suspendReason = null;
     if (suspendReasonInt === 3) {
       suspendReason = chrome.i18n.getMessage('js_suspended_low_memory');
@@ -345,7 +344,7 @@ import  { tgs }                   from './tgs.js';
     // Set scrollPosition (must come after showing page contents)
     const scrollPosition = gsUtils.getSuspendedScrollPosition(suspendedUrl);
     setScrollPosition(scrollPosition, previewMode);
-    tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SCROLL_POS, scrollPosition);
+    await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SCROLL_POS, scrollPosition);
     // const whitelisted = gsUtils.checkWhiteList(originalUrl);
   }
 
@@ -357,7 +356,8 @@ import  { tgs }                   from './tgs.js';
 
       case 'initTab' : {
         // { action: 'initTab', tab, quickInit, sessionId: gsSession.getSessionId() }
-        initTab(request.tab, request.sessionId, request.quickInit);
+        await initTab(request.tab, request.sessionId, request.quickInit);
+        sendResponse();
         break;
       }
       case 'getSuspendInfo' : {
@@ -373,32 +373,36 @@ import  { tgs }                   from './tgs.js';
       case 'updateCommand' : {
         // { action: 'updateCommand', tabId: context.tabId }
         setCommand(await tgs.getSuspensionToggleHotkey());
+        sendResponse();
         break;
       }
       case 'updateTheme' : {
         // { action: 'updateTheme', tab, theme, isLowContrastFavicon }
         setTheme(request.theme, request.isLowContrastFavicon);
+        sendResponse();
         break;
       }
       case 'updatePreviewMode' : {
         // { action: 'updatePreviewMode', tab, previewMode }
         // @TODO preview mode might not work with the JSOB tab here
-        updatePreviewMode(request.tab, request.previewMode);
+        await updatePreviewMode(request.tab, request.previewMode);
+        sendResponse();
         break;
       }
       case 'showNoConnectivityMessage' : {
         // { action: 'showNoConnectivityMessage', tab: focusedTab }
         showNoConnectivityMessage();
+        sendResponse();
         break;
       }
 
       default: {
         gsUtils.warning(0, 'messageRequestListener', `Unknown message action: ${request.action}`);
+        sendResponse();
         break;
       }
     }
-    sendResponse();
-    return false;
+    return true;
   }
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {

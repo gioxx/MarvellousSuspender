@@ -37,19 +37,10 @@ export const tgs = (function() {
 
   const focusDelay = 500;
 
-  const _tabStateByTabId = {};
-  const _currentFocusedTabIdByWindowId = {};
-  const _currentStationaryTabIdByWindowId = {};
 
-  let _currentFocusedWindowId;
-  let _currentStationaryWindowId;
   let _sessionSaveTimer;
   let _newTabFocusTimer;
   let _newWindowFocusTimer;
-  let _noticeToDisplay;
-  let _isCharging = false;
-  let _triggerHotkeyUpdate = false;
-  let _suspensionToggleHotkey;
 
 
   function getExtensionGlobals() {
@@ -98,10 +89,7 @@ export const tgs = (function() {
   function getCurrentlyActiveTab(callback) {
     // wrap this in an anonymous async function so we can use await
     (async function() {
-      const currentWindowActiveTabs = await gsChrome.tabsQuery({
-        active: true,
-        currentWindow: true,
-      });
+      const currentWindowActiveTabs = await gsChrome.tabsQuery({ active: true, currentWindow: true });
       if (currentWindowActiveTabs.length > 0) {
         callback(currentWindowActiveTabs[0]);
         return;
@@ -110,34 +98,26 @@ export const tgs = (function() {
       // Fallback on chrome.windows.getLastFocused
       const lastFocusedWindow = await gsChrome.windowsGetLastFocused();
       if (lastFocusedWindow) {
-        const lastFocusedWindowActiveTabs = await gsChrome.tabsQuery({
-          active: true,
-          windowId: lastFocusedWindow.id,
-        });
+        const lastFocusedWindowActiveTabs = await gsChrome.tabsQuery({ active: true, windowId: lastFocusedWindow.id });
         if (lastFocusedWindowActiveTabs.length > 0) {
           callback(lastFocusedWindowActiveTabs[0]);
           return;
         }
       }
 
-      // Fallback on _currentStationaryWindowId
-      if (_currentStationaryWindowId) {
-        const currentStationaryWindowActiveTabs = await gsChrome.tabsQuery({
-          active: true,
-          windowId: _currentStationaryWindowId,
-        });
+      // Fallback on gsCurrentStationaryWindowId
+      const gsCurrentStationaryWindowId = await gsStorage.getStorageJSON('session', 'gsCurrentStationaryWindowId');
+      if (gsCurrentStationaryWindowId) {
+        const currentStationaryWindowActiveTabs = await gsChrome.tabsQuery({ active: true, windowId: gsCurrentStationaryWindowId });
         if (currentStationaryWindowActiveTabs.length > 0) {
           callback(currentStationaryWindowActiveTabs[0]);
           return;
         }
 
         // Fallback on currentStationaryTabId
-        const currentStationaryTabId =
-          _currentStationaryTabIdByWindowId[_currentStationaryWindowId];
+        const currentStationaryTabId = (await getCurrentStationaryTabIdByWindowId())[gsCurrentStationaryWindowId];
         if (currentStationaryTabId) {
-          const currentStationaryTab = await gsChrome.tabsGet(
-            currentStationaryTabId,
-          );
+          const currentStationaryTab = await gsChrome.tabsGet( currentStationaryTabId );
           if (currentStationaryTab !== null) {
             callback(currentStationaryTab);
             return;
@@ -150,12 +130,11 @@ export const tgs = (function() {
 
   // NOTE: Stationary here means has had focus for more than focusDelay ms
   // So it may not necessarily have the tab.active flag set to true
-  function isCurrentStationaryTab(tab) {
-    if (tab.windowId !== _currentStationaryWindowId) {
+  async function isCurrentStationaryTab(tab) {
+    if (tab.windowId !== await gsStorage.getStorageJSON('session', 'gsCurrentStationaryWindowId')) {
       return false;
     }
-    var lastStationaryTabIdForWindow =
-      _currentStationaryTabIdByWindowId[tab.windowId];
+    var lastStationaryTabIdForWindow = (await getCurrentStationaryTabIdByWindowId())[tab.windowId];
     if (lastStationaryTabIdForWindow) {
       return tab.id === lastStationaryTabIdForWindow;
     } else {
@@ -164,12 +143,11 @@ export const tgs = (function() {
     }
   }
 
-  function isCurrentFocusedTab(tab) {
-    if (tab.windowId !== _currentFocusedWindowId) {
+  async function isCurrentFocusedTab(tab) {
+    if (tab.windowId !== await gsStorage.getStorageJSON('session', 'gsCurrentFocusedWindowId')) {
       return false;
     }
-    var currentFocusedTabIdForWindow =
-      _currentFocusedTabIdByWindowId[tab.windowId];
+    var currentFocusedTabIdForWindow = (await getCurrentFocusedTabIdByWindowId())[tab.windowId];
     if (currentFocusedTabIdForWindow) {
       return tab.id === currentFocusedTabIdForWindow;
     } else {
@@ -178,8 +156,8 @@ export const tgs = (function() {
     }
   }
 
-  function isCurrentActiveTab(tab) {
-    const activeTabIdForWindow = _currentFocusedTabIdByWindowId[tab.windowId];
+  async function isCurrentActiveTab(tab) {
+    const activeTabIdForWindow = (await getCurrentFocusedTabIdByWindowId())[tab.windowId];
     if (activeTabIdForWindow) {
       return tab.id === activeTabIdForWindow;
     } else {
@@ -190,7 +168,7 @@ export const tgs = (function() {
 
   function whitelistHighlightedTab(includePath) {
     includePath = includePath || false;
-    getCurrentlyActiveTab(function(activeTab) {
+    getCurrentlyActiveTab(async (activeTab) => {
       if (activeTab) {
         if (gsUtils.isSuspendedTab(activeTab)) {
           let url = gsUtils.getRootUrl(
@@ -199,7 +177,7 @@ export const tgs = (function() {
             false,
           );
           gsUtils.saveToWhitelist(url);
-          unsuspendTab(activeTab);
+          await unsuspendTab(activeTab);
         } else if (gsUtils.isNormalTab(activeTab)) {
           let url = gsUtils.getRootUrl(activeTab.url, includePath, false);
           gsUtils.saveToWhitelist(url);
@@ -226,13 +204,13 @@ export const tgs = (function() {
   }
 
   function requestToggleTempWhitelistStateOfHighlightedTab(callback) {
-    getCurrentlyActiveTab(function(activeTab) {
+    getCurrentlyActiveTab(async (activeTab) => {
       if (!activeTab) {
         if (callback) callback(status);
         return;
       }
       if (gsUtils.isSuspendedTab(activeTab)) {
-        unsuspendTab(activeTab);
+        await unsuspendTab(activeTab);
         if (callback) callback(gsUtils.STATUS_UNKNOWN);
         return;
       }
@@ -336,10 +314,10 @@ export const tgs = (function() {
   }
 
   function toggleSuspendedStateOfHighlightedTab() {
-    getCurrentlyActiveTab(activeTab => {
+    getCurrentlyActiveTab(async (activeTab) => {
       if (activeTab) {
         if (gsUtils.isSuspendedTab(activeTab)) {
-          unsuspendTab(activeTab);
+          await unsuspendTab(activeTab);
         } else {
           gsTabSuspendManager.queueTabForSuspension(activeTab, 1);
         }
@@ -356,9 +334,9 @@ export const tgs = (function() {
   }
 
   function unsuspendHighlightedTab() {
-    getCurrentlyActiveTab(activeTab => {
+    getCurrentlyActiveTab(async (activeTab) => {
       if (activeTab && gsUtils.isSuspendedTab(activeTab)) {
-        unsuspendTab(activeTab);
+        await unsuspendTab(activeTab);
       }
     });
   }
@@ -401,13 +379,13 @@ export const tgs = (function() {
         );
         return;
       }
-      chrome.windows.get(activeTab.windowId, { populate: true }, curWindow => {
+      chrome.windows.get(activeTab.windowId, { populate: true }, async (curWindow) => {
         for (const tab of curWindow.tabs) {
           gsTabSuspendManager.unqueueTabForSuspension(tab);
           if (gsUtils.isSuspendedTab(tab)) {
-            unsuspendTab(tab);
+            await unsuspendTab(tab);
           } else if (gsUtils.isNormalTab(tab) && !tab.active) {
-            resetAutoSuspendTimerForTab(tab);
+            await resetAutoSuspendTimerForTab(tab);
           }
         }
       });
@@ -416,7 +394,7 @@ export const tgs = (function() {
 
   function unsuspendAllTabsInAllWindows() {
     chrome.windows.getLastFocused({}, currentWindow => {
-      chrome.tabs.query({}, tabs => {
+      chrome.tabs.query({}, async (tabs) => {
         // Because of the way that unsuspending steals window focus, we defer the suspending of tabs in the
         // current window until last
         var deferredTabs = [];
@@ -425,15 +403,17 @@ export const tgs = (function() {
           if (gsUtils.isSuspendedTab(tab)) {
             if (tab.windowId === currentWindow.id) {
               deferredTabs.push(tab);
-            } else {
-              unsuspendTab(tab);
             }
-          } else if (gsUtils.isNormalTab(tab)) {
-            resetAutoSuspendTimerForTab(tab);
+            else {
+              await unsuspendTab(tab);
+            }
+          }
+          else if (gsUtils.isNormalTab(tab)) {
+            await resetAutoSuspendTimerForTab(tab);
           }
         }
         for (const tab of deferredTabs) {
-          unsuspendTab(tab);
+          await unsuspendTab(tab);
         }
       });
     });
@@ -451,13 +431,11 @@ export const tgs = (function() {
   }
 
   function unsuspendSelectedTabs() {
-    chrome.tabs.query(
-      { highlighted: true, lastFocusedWindow: true },
-      selectedTabs => {
+    chrome.tabs.query({ highlighted: true, lastFocusedWindow: true }, async (selectedTabs) => {
         for (const tab of selectedTabs) {
           gsTabSuspendManager.unqueueTabForSuspension(tab);
           if (gsUtils.isSuspendedTab(tab)) {
-            unsuspendTab(tab);
+            await unsuspendTab(tab);
           }
         }
       },
@@ -472,93 +450,105 @@ export const tgs = (function() {
     }, 1000);
   }
 
-  function resetAutoSuspendTimerForTab(tab) {
-    clearAutoSuspendTimerForTabId(tab.id);
+  async function resetAutoSuspendTimerForTab(tab) {
+    await clearAutoSuspendTimerForTabId(tab.id);
 
-    gsStorage.getOption(gsStorage.SUSPEND_TIME).then((suspendTime) => {
-      const timeToSuspend = suspendTime * (1000 * 60);
-      if (
-        gsUtils.isProtectedActiveTab(tab) ||
-        isNaN(suspendTime) ||
-        suspendTime <= 0
-      ) {
+    const suspendTime = await gsStorage.getOption(gsStorage.SUSPEND_TIME);
+    const timeToSuspend = suspendTime * (1000 * 60);
+    if (
+      gsUtils.isProtectedActiveTab(tab) ||
+      isNaN(suspendTime) ||
+      suspendTime <= 0
+    ) {
+      return;
+    }
+
+    const timerDetails = {};
+    timerDetails.tabId = tab.id;
+    timerDetails.suspendDateTime = new Date(
+      new Date().getTime() + timeToSuspend,
+    );
+
+    timerDetails.timer = setTimeout(async () => {
+      const updatedTabId = timerDetails.tabId; // This may get updated via updateTabIdReferences
+      const updatedTab = await gsChrome.tabsGet(updatedTabId);
+      if (!updatedTab) {
+        gsUtils.warning(updatedTabId, 'Couldnt find tab. Aborting suspension');
         return;
       }
+      gsTabSuspendManager.queueTabForSuspension(updatedTab, 3);
+    }, timeToSuspend);
+    gsUtils.log( tab.id, 'Adding tab timer for: ' + timerDetails.suspendDateTime );
 
-      const timerDetails = {};
-      timerDetails.tabId = tab.id;
-      timerDetails.suspendDateTime = new Date(
-        new Date().getTime() + timeToSuspend,
-      );
-
-      timerDetails.timer = setTimeout(async () => {
-        const updatedTabId = timerDetails.tabId; // This may get updated via updateTabIdReferences
-        const updatedTab = await gsChrome.tabsGet(updatedTabId);
-        if (!updatedTab) {
-          gsUtils.warning(updatedTabId, 'Couldnt find tab. Aborting suspension');
-          return;
-        }
-        gsTabSuspendManager.queueTabForSuspension(updatedTab, 3);
-      }, timeToSuspend);
-      gsUtils.log(
-        tab.id,
-        'Adding tab timer for: ' + timerDetails.suspendDateTime,
-      );
-
-      setTabStatePropForTabId(tab.id, STATE_TIMER_DETAILS, timerDetails);
-    });
+    await setTabStatePropForTabId(tab.id, STATE_TIMER_DETAILS, timerDetails);
   }
 
   function resetAutoSuspendTimerForAllTabs() {
-    chrome.tabs.query({}, tabs => {
+    chrome.tabs.query({}, async (tabs) => {
       for (const tab of tabs) {
         if (gsUtils.isNormalTab(tab)) {
-          resetAutoSuspendTimerForTab(tab);
+          await resetAutoSuspendTimerForTab(tab);
         }
       }
     });
   }
 
-  function clearAutoSuspendTimerForTabId(tabId) {
-    const timerDetails = getTabStatePropForTabId(tabId, STATE_TIMER_DETAILS);
+  async function clearAutoSuspendTimerForTabId(tabId) {
+    const timerDetails = await getTabStatePropForTabId(tabId, STATE_TIMER_DETAILS);
     if (!timerDetails) {
       return;
     }
     gsUtils.log(tabId, 'Removing tab timer.');
     clearTimeout(timerDetails.timer);
-    setTabStatePropForTabId(tabId, STATE_TIMER_DETAILS, null);
+    await setTabStatePropForTabId(tabId, STATE_TIMER_DETAILS, null);
   }
 
-  function getTabStatePropForTabId(tabId, prop) {
-    return _tabStateByTabId[tabId] ? _tabStateByTabId[tabId][prop] : undefined;
+  async function getTabStatePropForTabId(tabId, prop) {
+    gsUtils.log(tabId, 'getTabStatePropForTabId');
+    const state = await getTabStateForTabId(tabId);
+    const ret = state ? state[prop] : undefined;
+    gsUtils.log(tabId, 'getTabStatePropForTabId', ret);
+    return ret;
   }
 
-  function setTabStatePropForTabId(tabId, prop, value) {
-    // gsUtils.log(tabId, `Setting tab state prop: ${prop}:`, value);
-    const tabState = _tabStateByTabId[tabId] || {};
-    tabState[prop] = value;
-    _tabStateByTabId[tabId] = tabState;
+  async function setTabStatePropForTabId(tabId, prop, value) {
+    gsUtils.log(tabId, 'setTabStatePropForTabId', prop, value);
+    const state = (await getTabStateForTabId(tabId)) || {};
+    state[prop] = value;
+    return gsStorage.saveTabState(tabId, state);
   }
 
-  function clearTabStateForTabId(tabId) {
-    gsUtils.log(tabId, 'Clearing tab state props:', _tabStateByTabId[tabId]);
-    clearAutoSuspendTimerForTabId(tabId);
-    delete _tabStateByTabId[tabId];
+  async function getTabStateForTabId(tabId) {
+    gsUtils.log(tabId, 'getTabStateForTabId');
+    const ret = await gsStorage.getTabState(tabId);
+    gsUtils.log(tabId, 'getTabStateForTabId', ret);
+    return ret;
   }
 
-  function unsuspendTab(tab) {
+  // async function saveTabStateForTabId(tabId, state) {
+  //   gsUtils.log(tabId, 'saveTabStateForTabId');
+  //   return gsStorage.saveTabState(tabId, state);
+  // }
+
+  async function deleteTabStateForTabId(tabId) {
+    gsUtils.log(tabId, 'deleteTabStateForTabId');
+    await clearAutoSuspendTimerForTabId(tabId);
+    return gsStorage.deleteTabState(tabId);
+  }
+
+  async function unsuspendTab(tab) {
     if (!gsUtils.isSuspendedTab(tab)) return;
 
     const scrollPosition = gsUtils.getSuspendedScrollPosition(tab.url);
-    tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SCROLL_POS, scrollPosition);
+    await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SCROLL_POS, scrollPosition);
 
     let originalUrl = gsUtils.getOriginalUrl(tab.url);
     if (originalUrl) {
       // Reloading chrome.tabs.update causes a history item for the suspended tab
       // to be made in the tab history. We clean this up on tab updated hook
-      setTabStatePropForTabId(tab.id, tgs.STATE_HISTORY_URL_TO_REMOVE, tab.url);
+      await setTabStatePropForTabId(tab.id, tgs.STATE_HISTORY_URL_TO_REMOVE, tab.url);
       if (tab.autoDiscardable) {
-        setTabStatePropForTabId(tab.id, tgs.STATE_SET_AUTODISCARDABLE, tab.url);
+        await setTabStatePropForTabId(tab.id, tgs.STATE_SET_AUTODISCARDABLE, tab.url);
       }
       // NOTE: Temporarily disable autoDiscardable, as there seems to be a bug
       // where discarded (and frozen?) suspended tabs will not unsuspend with
@@ -590,11 +580,11 @@ export const tgs = (function() {
   function checkForTriggerUrls(tab, url) {
     // test for a save of keyboard shortcuts (chrome://extensions/shortcuts)
     if (url === 'chrome://extensions/shortcuts') {
-      _triggerHotkeyUpdate = true;
+      gsStorage.saveStorage('session', 'gsTriggerHotkeyUpdate', true);
     }
   }
 
-  function handleUnsuspendedTabStateChanged(tab, changeInfo) {
+  async function handleUnsuspendedTabStateChanged(tab, changeInfo) {
     if (
       !changeInfo.hasOwnProperty('status') &&
       !changeInfo.hasOwnProperty('audible') &&
@@ -616,15 +606,12 @@ export const tgs = (function() {
       changeInfo.hasOwnProperty('status') &&
       changeInfo.status === 'loading'
     ) {
-      setTabStatePropForTabId(tab.id, STATE_UNLOADED_URL, null);
+      await setTabStatePropForTabId(tab.id, STATE_UNLOADED_URL, null);
     }
 
     // Check if tab has just been discarded
     if (changeInfo.hasOwnProperty('discarded') && changeInfo.discarded) {
-      const existingSuspendReason = getTabStatePropForTabId(
-        tab.id,
-        STATE_SUSPEND_REASON,
-      );
+      const existingSuspendReason = await getTabStatePropForTabId( tab.id, STATE_SUSPEND_REASON );
       if (existingSuspendReason && existingSuspendReason === 3) {
         // For some reason the discarded changeInfo gets called twice (chrome bug?)
         // As a workaround we use the suspend reason to determine if we've already
@@ -660,41 +647,29 @@ export const tgs = (function() {
 
     // Check for change in tabs audible status
     if (changeInfo.hasOwnProperty('audible')) {
-      gsStorage.getOption(gsStorage.IGNORE_AUDIO).then((ignoreAudio) => {
-        //reset tab timer if tab has just finished playing audio
-        if (!changeInfo.audible && ignoreAudio) {
-          resetAutoSuspendTimerForTab(tab);
-        }
-        hasTabStatusChanged = true;
-      });
+      const ignoreAudio = await gsStorage.getOption(gsStorage.IGNORE_AUDIO);
+      //reset tab timer if tab has just finished playing audio
+      if (!changeInfo.audible && ignoreAudio) {
+        await resetAutoSuspendTimerForTab(tab);
+      }
+      hasTabStatusChanged = true;
     }
     if (changeInfo.hasOwnProperty('pinned')) {
-      gsStorage.getOption(gsStorage.IGNORE_PINNED).then((ignorePinned) => {
-        //reset tab timer if tab has become unpinned
-        if (!changeInfo.pinned && ignorePinned) {
-          resetAutoSuspendTimerForTab(tab);
-        }
-        hasTabStatusChanged = true;
-      });
+      const ignorePinned = await gsStorage.getOption(gsStorage.IGNORE_PINNED);
+      //reset tab timer if tab has become unpinned
+      if (!changeInfo.pinned && ignorePinned) {
+        await resetAutoSuspendTimerForTab(tab);
+      }
+      hasTabStatusChanged = true;
     }
 
     if (changeInfo.hasOwnProperty('status')) {
       if (changeInfo.status === 'complete') {
-        const tempWhitelistOnReload = getTabStatePropForTabId(
-          tab.id,
-          STATE_TEMP_WHITELIST_ON_RELOAD,
-        );
-        const scrollPos =
-          getTabStatePropForTabId(tab.id, STATE_SCROLL_POS) || null;
-        const historyUrlToRemove = getTabStatePropForTabId(
-          tab.id,
-          STATE_HISTORY_URL_TO_REMOVE,
-        );
-        const setAutodiscardable = getTabStatePropForTabId(
-          tab.id,
-          STATE_SET_AUTODISCARDABLE,
-        );
-        clearTabStateForTabId(tab.id);
+        const tempWhitelistOnReload = await getTabStatePropForTabId( tab.id, STATE_TEMP_WHITELIST_ON_RELOAD );
+        const scrollPos             = await getTabStatePropForTabId( tab.id, STATE_SCROLL_POS) || null;
+        const historyUrlToRemove    = await getTabStatePropForTabId( tab.id, STATE_HISTORY_URL_TO_REMOVE );
+        const setAutodiscardable    = await getTabStatePropForTabId( tab.id, STATE_SET_AUTODISCARDABLE );
+        await deleteTabStateForTabId(tab.id);
 
         if (historyUrlToRemove) {
           removeTabHistoryForUnuspendedTab(historyUrlToRemove);
@@ -704,24 +679,21 @@ export const tgs = (function() {
         }
 
         //init loaded tab
-        resetAutoSuspendTimerForTab(tab);
+        await resetAutoSuspendTimerForTab(tab);
         initialiseTabContentScript(tab, tempWhitelistOnReload, scrollPos)
           .catch(error => {
-            gsUtils.warning(
-              tab.id,
-              'Failed to send init to content script. Tab may not behave as expected.',
-            );
-          })
-          .then(() => {
-            // could use returned tab status here below
+            gsUtils.warning( tab.id, 'Failed to send init to content script. Tab may not behave as expected.' );
           });
+          // .then(() => {
+          //   // could use returned tab status here below
+          // });
       }
 
       hasTabStatusChanged = true;
     }
 
     //if tab is currently visible then update popup icon
-    if (hasTabStatusChanged && isCurrentFocusedTab(tab)) {
+    if (hasTabStatusChanged && await isCurrentFocusedTab(tab)) {
       calculateTabStatus(tab, null, function(status) {
         setIconStatus(status, tab.id);
       });
@@ -743,8 +715,7 @@ export const tgs = (function() {
             startTime: previousVisit.visitTime - 0.1,
             endTime: previousVisit.visitTime + 0.1,
           },
-          () => {
-          },
+          () => {},
         );
       }
     });
@@ -753,23 +724,18 @@ export const tgs = (function() {
   function initialiseTabContentScript(tab, isTempWhitelist, scrollPos) {
     return new Promise(async (resolve, reject) => {
       const ignoreForms = await gsStorage.getOption(gsStorage.IGNORE_FORMS);
-      gsMessages.sendInitTabToContentScript(
-        tab.id,
-        ignoreForms,
-        isTempWhitelist,
-        scrollPos,
-        (error, response) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(response);
-          }
-        },
-      );
+      gsMessages.sendInitTabToContentScript(tab.id, ignoreForms, isTempWhitelist, scrollPos, (error, response) => {
+        if (error) {
+          reject(error);
+        }
+        else {
+          resolve(response);
+        }
+      });
     });
   }
 
-  function handleSuspendedTabStateChanged(tab, changeInfo) {
+  async function handleSuspendedTabStateChanged(tab, changeInfo) {
     if (
       !changeInfo.hasOwnProperty('status') &&
       !changeInfo.hasOwnProperty('discarded')
@@ -777,18 +743,10 @@ export const tgs = (function() {
       return;
     }
 
-    gsUtils.log(
-      tab.id,
-      'suspended tab status changed. changeInfo: ',
-      changeInfo,
-    );
+    gsUtils.log( tab.id, 'suspended tab status changed. changeInfo: ', changeInfo );
 
     if (changeInfo.status && changeInfo.status === 'loading') {
-      tgs.setTabStatePropForTabId(
-        tab.id,
-        tgs.STATE_INITIALISE_SUSPENDED_TAB,
-        true,
-      );
+      await tgs.setTabStatePropForTabId( tab.id, tgs.STATE_INITIALISE_SUSPENDED_TAB, true );
       return;
     }
 
@@ -797,32 +755,26 @@ export const tgs = (function() {
       changeInfo.discarded
     ) {
       gsTabSuspendManager.unqueueTabForSuspension(tab); //safety precaution
-      const shouldInitTab = getTabStatePropForTabId(
-        tab.id,
-        STATE_INITIALISE_SUSPENDED_TAB,
-      );
+      const shouldInitTab = await getTabStatePropForTabId( tab.id, STATE_INITIALISE_SUSPENDED_TAB );
       if (shouldInitTab) {
-        initialiseSuspendedTab(tab);
+        await initialiseSuspendedTab(tab);
       }
     }
   }
 
-  function initialiseSuspendedTab(tab) {
-    const unloadedUrl = getTabStatePropForTabId(tab.id, STATE_UNLOADED_URL);
-    const disableUnsuspendOnReload = getTabStatePropForTabId(
-      tab.id,
-      STATE_DISABLE_UNSUSPEND_ON_RELOAD,
-    );
-    clearTabStateForTabId(tab.id);
+  async function initialiseSuspendedTab(tab) {
+    const unloadedUrl = await getTabStatePropForTabId(tab.id, STATE_UNLOADED_URL);
+    const disableUnsuspendOnReload = await getTabStatePropForTabId( tab.id, STATE_DISABLE_UNSUSPEND_ON_RELOAD );
+    await deleteTabStateForTabId(tab.id);
 
-    if (isCurrentFocusedTab(tab)) {
+    if (await isCurrentFocusedTab(tab)) {
       setIconStatus(gsUtils.STATUS_SUSPENDED, tab.id);
     }
 
     //if a suspended tab is marked for unsuspendOnReload then unsuspend tab and return early
     const suspendedTabRefreshed = unloadedUrl === tab.url;
     if (suspendedTabRefreshed && !disableUnsuspendOnReload) {
-      unsuspendTab(tab);
+      await unsuspendTab(tab);
       return;
     }
 
@@ -840,56 +792,73 @@ export const tgs = (function() {
     });
   }
 
-  function updateTabIdReferences(newTabId, oldTabId) {
+  async function updateTabIdReferences(newTabId, oldTabId) {
     gsUtils.log(oldTabId, 'update tabId references to ' + newTabId);
-    for (const windowId of Object.keys(_currentFocusedTabIdByWindowId)) {
-      if (_currentFocusedTabIdByWindowId[windowId] === oldTabId) {
-        _currentFocusedTabIdByWindowId[windowId] = newTabId;
+
+    const focusedTabByWindow = await getCurrentFocusedTabIdByWindowId();
+    for (const windowId of Object.keys(focusedTabByWindow)) {
+      if (focusedTabByWindow[windowId] === oldTabId) {
+        focusedTabByWindow[windowId] = newTabId;
       }
     }
-    for (const windowId of Object.keys(_currentStationaryTabIdByWindowId)) {
-      if (_currentStationaryTabIdByWindowId[windowId] === oldTabId) {
-        _currentStationaryTabIdByWindowId[windowId] = newTabId;
+    await gsStorage.saveStorage('session', 'gsCurrentFocusedTabIdByWindowId', focusedTabByWindow);
+
+    const statTabByWindow = await getCurrentStationaryTabIdByWindowId();
+    for (const windowId of Object.keys(statTabByWindow)) {
+      if (statTabByWindow[windowId] === oldTabId) {
+        statTabByWindow[windowId] = newTabId;
       }
     }
-    if (_tabStateByTabId[oldTabId]) {
-      _tabStateByTabId[newTabId] = _tabStateByTabId[oldTabId];
-      delete _tabStateByTabId[oldTabId];
+    await gsStorage.saveStorage('session', 'gsCurrentStationaryTabIdByWindowId', statTabByWindow);
+
+    const oldTabState = await gsStorage.getTabState(oldTabId);
+    if (oldTabState) {
+      await gsStorage.saveTabState(newTabId, oldTabState);
+      await gsStorage.deleteTabState(oldTabId);
     }
-    const timerDetails = getTabStatePropForTabId(newTabId, STATE_TIMER_DETAILS);
+    const timerDetails = await getTabStatePropForTabId(newTabId, STATE_TIMER_DETAILS);
     if (timerDetails) {
       timerDetails.tabId = newTabId;
     }
   }
 
-  function removeTabIdReferences(tabId) {
+  async function removeTabIdReferences(tabId) {
     gsUtils.log(tabId, 'removing tabId references to ' + tabId);
-    for (const windowId of Object.keys(_currentFocusedTabIdByWindowId)) {
-      if (_currentFocusedTabIdByWindowId[windowId] === tabId) {
-        _currentFocusedTabIdByWindowId[windowId] = null;
+
+    const focusedTabByWindow = await getCurrentFocusedTabIdByWindowId();
+    for (const windowId of Object.keys(focusedTabByWindow)) {
+      if (focusedTabByWindow[windowId] === tabId) {
+        focusedTabByWindow[windowId] = null;
       }
     }
-    for (const windowId of Object.keys(_currentStationaryTabIdByWindowId)) {
-      if (_currentStationaryTabIdByWindowId[windowId] === tabId) {
-        _currentStationaryTabIdByWindowId[windowId] = null;
+    await gsStorage.saveStorage('session', 'gsCurrentFocusedTabIdByWindowId', focusedTabByWindow);
+
+    const statTabByWindow = await getCurrentStationaryTabIdByWindowId();
+    for (const windowId of Object.keys(statTabByWindow)) {
+      if (statTabByWindow[windowId] === tabId) {
+        statTabByWindow[windowId] = null;
       }
     }
-    clearTabStateForTabId(tabId);
+    await gsStorage.saveStorage('session', 'gsCurrentStationaryTabIdByWindowId', statTabByWindow);
+
+    deleteTabStateForTabId(tabId);
   }
 
   async function getSuspensionToggleHotkey() {
-    if (_suspensionToggleHotkey === undefined) {
-      _suspensionToggleHotkey = await buildSuspensionToggleHotkey();
+    let toggle = await gsStorage.getStorageJSON('session', 'gsSuspensionToggleHotkey');
+    if (toggle === null) {
+      toggle = await buildSuspensionToggleHotkey();
+      await gsStorage.saveStorage('session', 'gsSuspensionToggleHotkey', toggle);
     }
-    return _suspensionToggleHotkey;
+    return toggle;
   }
 
-  function handleWindowFocusChanged(windowId) {
+  async function handleWindowFocusChanged(windowId) {
     gsUtils.log(windowId, 'window gained focus');
-    if (windowId < 0 || windowId === _currentFocusedWindowId) {
+    if (windowId < 0 || windowId === await gsStorage.getStorageJSON('session', 'gsCurrentFocusedWindowId')) {
       return;
     }
-    _currentFocusedWindowId = windowId;
+    await setCurrentFocusedWindowId(windowId);
 
     // Get the active tab in the newly focused window
     chrome.tabs.query({ active: true }, function(tabs) {
@@ -937,24 +906,23 @@ export const tgs = (function() {
       return;
     }
 
-    const previouslyFocusedTabId = _currentFocusedTabIdByWindowId[windowId];
-    _currentFocusedTabIdByWindowId[windowId] = tabId;
+    const tabByWindow = await getCurrentFocusedTabIdByWindowId();
+    const previouslyFocusedTabId = tabByWindow[windowId];
+    tabByWindow[windowId] = tabId;
+    await gsStorage.saveStorage('session', 'gsCurrentFocusedTabIdByWindowId', tabByWindow);
 
     // If the tab focused before this was the keyboard shortcuts page, then update hotkeys on suspended pages
-    if (_triggerHotkeyUpdate) {
-      const oldHotkey = _suspensionToggleHotkey;
-      _suspensionToggleHotkey = await buildSuspensionToggleHotkey();
-      if (oldHotkey !== _suspensionToggleHotkey) {
+    if (await gsStorage.getStorageJSON('session', 'gsTriggerHotkeyUpdate')) {
+      const oldHotkey = await gsStorage.getStorageJSON('session', 'gsSuspensionToggleHotkey');
+      const newHotkey = await buildSuspensionToggleHotkey();
+      if (oldHotkey !== newHotkey) {
+        await gsStorage.saveStorage('session', 'gsSuspensionToggleHotkey', newHotkey);
         const contexts = await getInternalContextsByViewName('suspended');
         for (const context of contexts) {
           chrome.tabs.sendMessage(context.tabId, { action: 'updateCommand', tabId: context.tabId });
         }
-        // const suspendedViews = getInternalViewsByViewName('suspended');
-        // for (const suspendedView of suspendedViews) {
-        //   gsSuspendedTab.updateCommand(suspendedView, _suspensionToggleHotkey);
-        // }
       }
-      _triggerHotkeyUpdate = false;
+      await gsStorage.saveStorage('session', 'gsTriggerHotkeyUpdate', false);
     }
 
     gsTabDiscardManager.unqueueTabForDiscard(focusedTab);
@@ -983,7 +951,7 @@ export const tgs = (function() {
     gsUtils.log(focusedTab.id, 'Focused tab status: ' + status);
 
     //if this tab still has focus then update icon
-    if (_currentFocusedTabIdByWindowId[windowId] === focusedTab.id) {
+    if ((await getCurrentFocusedTabIdByWindowId())[windowId] === focusedTab.id) {
       setIconStatus(status, focusedTab.id);
     }
 
@@ -993,7 +961,7 @@ export const tgs = (function() {
 
     //test for a save of keyboard shortcuts (chrome://extensions/shortcuts)
     if (focusedTab.url === 'chrome://extensions/shortcuts') {
-      _triggerHotkeyUpdate = true;
+      await gsStorage.saveStorage('session', 'gsTriggerHotkeyUpdate', true);
     }
 
     let discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
@@ -1027,20 +995,21 @@ export const tgs = (function() {
 
   function queueNewWindowFocusTimer(tabId, windowId, focusedTab) {
     clearTimeout(_newWindowFocusTimer);
-    _newWindowFocusTimer = setTimeout(function() {
-      var previousStationaryWindowId = _currentStationaryWindowId;
-      _currentStationaryWindowId = windowId;
-      var previousStationaryTabId =
-        _currentStationaryTabIdByWindowId[previousStationaryWindowId];
+    _newWindowFocusTimer = setTimeout(async () => {
+      const previousStationaryWindowId = await gsStorage.getStorageJSON('session', 'gsCurrentStationaryWindowId');
+      await setCurrentStationaryWindowId(windowId);
+      var previousStationaryTabId = (await getCurrentStationaryTabIdByWindowId())[previousStationaryWindowId];
       handleNewStationaryTabFocus(tabId, previousStationaryTabId, focusedTab);
     }, focusDelay);
   }
 
   function queueNewTabFocusTimer(tabId, windowId, focusedTab) {
     clearTimeout(_newTabFocusTimer);
-    _newTabFocusTimer = setTimeout(function() {
-      var previousStationaryTabId = _currentStationaryTabIdByWindowId[windowId];
-      _currentStationaryTabIdByWindowId[windowId] = focusedTab.id;
+    _newTabFocusTimer = setTimeout(async () => {
+      const statTabByWindow = await getCurrentStationaryTabIdByWindowId();
+      const previousStationaryTabId = statTabByWindow[windowId];
+      statTabByWindow[windowId] = focusedTab.id;
+      await gsStorage.saveStorage('session', 'gsCurrentStationaryTabIdByWindowId', statTabByWindow);
       handleNewStationaryTabFocus(tabId, previousStationaryTabId, focusedTab);
     }, focusDelay);
   }
@@ -1083,7 +1052,7 @@ export const tgs = (function() {
     //Reset timer on tab that lost focus.
     //NOTE: This may be due to a change in window focus in which case the tab may still have .active = true
     if (previousStationaryTabId && previousStationaryTabId !== focusedTabId) {
-      chrome.tabs.get(previousStationaryTabId, function(previousStationaryTab) {
+      chrome.tabs.get(previousStationaryTabId, async (previousStationaryTab) => {
         if (chrome.runtime.lastError) {
           //Tab has probably been removed
           return;
@@ -1093,7 +1062,7 @@ export const tgs = (function() {
           gsUtils.isNormalTab(previousStationaryTab) &&
           !gsUtils.isProtectedActiveTab(previousStationaryTab)
         ) {
-          resetAutoSuspendTimerForTab(previousStationaryTab);
+          await resetAutoSuspendTimerForTab(previousStationaryTab);
         }
       });
     }
@@ -1109,7 +1078,7 @@ export const tgs = (function() {
     var autoUnsuspend = await gsStorage.getOption(gsStorage.UNSUSPEND_ON_FOCUS);
     if (autoUnsuspend) {
       if (navigator.onLine) {
-        unsuspendTab(focusedTab);
+        await unsuspendTab(focusedTab);
       }
       else {
         getInternalContextByTabId(focusedTab.id, (context) => {
@@ -1132,40 +1101,40 @@ export const tgs = (function() {
     });
   }
 
-  function requestNotice() {
-    return _noticeToDisplay;
+  async function requestNotice() {
+    return gsStorage.getStorageJSON('session', 'gsNoticeToDisplay');
   }
 
-  function clearNotice() {
-    _noticeToDisplay = undefined;
+  async function clearNotice() {
+    return gsStorage.deleteStorage('session', 'gsNoticeToDisplay');
   }
 
-  function getCurrentStationaryTabIdByWindowId() {
-    return _currentStationaryTabIdByWindowId;
+  async function getCurrentStationaryTabIdByWindowId() {
+    return (await gsStorage.getStorageJSON('session', 'gsCurrentStationaryTabIdByWindowId')) || {};
   }
 
-  function getCurrentFocusedTabIdByWindowId() {
-    return _currentFocusedTabIdByWindowId;
+  async function getCurrentFocusedTabIdByWindowId() {
+    return (await gsStorage.getStorageJSON('session', 'gsCurrentFocusedTabIdByWindowId')) || {};
   }
 
-  function setCurrentStationaryWindowId(value) {
-    _currentStationaryWindowId = value;
+  async function setCurrentStationaryWindowId(value) {
+    return gsStorage.saveStorage('session', 'gsCurrentStationaryWindowId', value);
   }
 
-  function setCurrentFocusedWindowId(value) {
-    _currentFocusedWindowId = value;
+  async function setCurrentFocusedWindowId(value) {
+    return gsStorage.saveStorage('session', 'gsCurrentFocusedWindowId', value);
   }
 
-  function isCharging() {
-    return _isCharging;
+  async function isCharging() {
+    return gsStorage.getStorageJSON('session', 'gsIsCharging');
   }
 
-  function setCharging(value) {
-    _isCharging = value;
+  async function setCharging(value) {
+    return gsStorage.saveStorage('session', 'gsIsCharging', value);
   }
 
-  function getDebugInfo(tabId, callback) {
-    const timerDetails = getTabStatePropForTabId(tabId, STATE_TIMER_DETAILS);
+  async function getDebugInfo(tabId, callback) {
+    const timerDetails = await getTabStatePropForTabId(tabId, STATE_TIMER_DETAILS);
     const info = {
       windowId: '',
       tabId: '',
@@ -1284,26 +1253,17 @@ export const tgs = (function() {
     }
     getContentScriptStatus(tab.id, knownContentScriptStatus).then(
       async (contentScriptStatus) => {
-        if (
-          contentScriptStatus &&
-          contentScriptStatus !== gsUtils.STATUS_NORMAL
-        ) {
+        if ( contentScriptStatus && contentScriptStatus !== gsUtils.STATUS_NORMAL ) {
           callback(contentScriptStatus);
           return;
         }
         //check running on battery
-        if (
-          await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING) &&
-          _isCharging
-        ) {
+        if ( await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING) && await isCharging() ) {
           callback(gsUtils.STATUS_CHARGING);
           return;
         }
         //check internet connectivity
-        if (
-          await gsStorage.getOption(gsStorage.IGNORE_WHEN_OFFLINE) &&
-          !navigator.onLine
-        ) {
+        if ( await gsStorage.getOption(gsStorage.IGNORE_WHEN_OFFLINE) && !navigator.onLine ) {
           callback(gsUtils.STATUS_NOCONNECTIVITY);
           return;
         }
