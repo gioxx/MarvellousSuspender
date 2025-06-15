@@ -37,9 +37,7 @@ function init(queueId, queueProps) {
         _queueProperties[propName] = queueProps[propName];
       }
       if (!isValidInteger(_queueProperties.concurrentExecutors, 1)) {
-        throw new Error(
-          'concurrentExecutors must be an integer greater than 0'
-        );
+        throw new Error('concurrentExecutors must be an integer greater than 0');
       }
       if (!isValidInteger(_queueProperties.jobTimeout, 1)) {
         throw new Error('jobTimeout must be an integer greater than 0');
@@ -208,12 +206,7 @@ function init(queueId, queueProps) {
 
     function processTab(tabDetails) {
       tabDetails.status = STATUS_IN_PROGRESS;
-      gsUtils.log(
-        tabDetails.tab.id,
-        _queueId,
-        'Executing executorFn for tab.'
-        // tabDetails
-      );
+      gsUtils.log( tabDetails.tab.id, _queueId, 'Executing executorFn for tab.' );
 
       const _resolveTabPromise = r => resolveTabPromise(tabDetails, r);
       const _rejectTabPromise = e => rejectTabPromise(tabDetails, e);
@@ -249,12 +242,7 @@ function init(queueId, queueProps) {
       if (!_tabDetailsByTabId[tabDetails.tab.id]) {
         return;
       }
-      gsUtils.log(
-        tabDetails.tab.id,
-        _queueId,
-        'Queued tab resolved. Result: ',
-        result
-      );
+      gsUtils.log( tabDetails.tab.id, _queueId, 'Queued tab resolved. Result: ', result );
       clearTimeout(tabDetails.timeoutTimer);
       removeTabFromQueue(tabDetails);
       tabDetails.deferredPromise.resolve(result);
@@ -265,12 +253,7 @@ function init(queueId, queueProps) {
       if (!_tabDetailsByTabId[tabDetails.tab.id]) {
         return;
       }
-      gsUtils.log(
-        tabDetails.tab.id,
-        _queueId,
-        'Queued tab rejected. Error: ',
-        error
-      );
+      gsUtils.log( tabDetails.tab.id, _queueId, 'Queued tab rejected. Error: ', error );
       clearTimeout(tabDetails.timeoutTimer);
       removeTabFromQueue(tabDetails);
       tabDetails.deferredPromise.reject(error);
@@ -283,11 +266,7 @@ function init(queueId, queueProps) {
         applyExecutionProps(tabDetails, executionProps);
       }
       tabDetails.requeues += 1;
-      gsUtils.log(
-        tabDetails.tab.id,
-        _queueId,
-        `Requeueing tab. Requeues: ${tabDetails.requeues}`
-      );
+      gsUtils.log( tabDetails.tab.id, _queueId, `Requeueing tab. Requeues: ${tabDetails.requeues}` );
       // moveTabToEndOfQueue(tabDetails);
       sleepTab(tabDetails, requeueDelay);
       requestProcessQueue(_queueProperties.processingDelay);

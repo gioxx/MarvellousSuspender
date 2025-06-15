@@ -69,10 +69,7 @@ export const gsChrome = {
   tabsUpdate: function(tabId, updateProperties) {
     return new Promise(resolve => {
       if (!tabId || !updateProperties) {
-        gsUtils.warning(
-          'chromeTabs',
-          'tabId or updateProperties not specified'
-        );
+        gsUtils.warning( 'chromeTabs', 'tabId or updateProperties not specified' );
         resolve(null);
         return;
       }

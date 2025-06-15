@@ -80,11 +80,7 @@ export const gsStorage = {
           try {
             rawLocalSettings = JSON.parse(result.gsSettings || null);
           } catch (e) {
-            gsUtils.error(
-              'gsStorage',
-              'Failed to parse gsSettings: ',
-              result,
-            );
+            gsUtils.error( 'gsStorage', 'Failed to parse gsSettings: ', result, );
           }
           if (!rawLocalSettings) {
             rawLocalSettings = {};
@@ -192,12 +188,7 @@ export const gsStorage = {
           }
 
           if (localSettings[key] !== remoteSetting.newValue) {
-            gsUtils.log(
-              'gsStorage',
-              'Changed value from sync',
-              key,
-              remoteSetting.newValue,
-            );
+            gsUtils.log( 'gsStorage', 'Changed value from sync', key, remoteSetting.newValue );
             changedSettingKeys.push(key);
             oldValueBySettingKey[key] = localSettings[key];
             newValueBySettingKey[key] = remoteSetting.newValue;

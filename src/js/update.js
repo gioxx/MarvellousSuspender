@@ -74,10 +74,7 @@ import  { historyUtils }          from './historyUtils.js';
       .fetchSessionRestorePoint(currentVersion)
       .then(function(sessionRestorePoint) {
         if (!sessionRestorePoint) {
-          gsUtils.warning(
-            'update',
-            'Couldnt find session restore point. Something has gone horribly wrong!!'
-          );
+          gsUtils.warning( 'update', 'Couldnt find session restore point. Something has gone horribly wrong!!' );
           document.getElementById('noBackupInfo').style.display = 'block';
           document.getElementById('backupInfo').style.display = 'none';
           document.getElementById('exportBackupBtn').style.display = 'none';

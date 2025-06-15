@@ -108,15 +108,8 @@ export const gsTabCheckManager = (function() {
   }
 
   function updateQueueProps(jobTimeout, processingDelay, concurrentExecutors) {
-    gsUtils.log(
-      QUEUE_ID,
-      `Setting _tabCheckQueue props. jobTimeout: ${jobTimeout}. processingDelay: ${processingDelay}. concurrentExecutors: ${concurrentExecutors}`
-    );
-    _tabCheckQueue.setQueueProperties({
-      jobTimeout,
-      processingDelay,
-      concurrentExecutors,
-    });
+    gsUtils.log( QUEUE_ID, `Setting _tabCheckQueue props. jobTimeout: ${jobTimeout}. processingDelay: ${processingDelay}. concurrentExecutors: ${concurrentExecutors}` );
+    _tabCheckQueue.setQueueProperties({ jobTimeout, processingDelay, concurrentExecutors, });
   }
 
   function queueTabCheck(tab, executionProps, processingDelay) {
@@ -128,11 +121,7 @@ export const gsTabCheckManager = (function() {
   function queueTabCheckAsPromise(tab, executionProps, processingDelay) {
     gsUtils.log(tab.id, QUEUE_ID, `Queueing tab for responsiveness check.`);
     executionProps = executionProps || {};
-    return _tabCheckQueue.queueTabAsPromise(
-      tab,
-      executionProps,
-      processingDelay
-    );
+    return _tabCheckQueue.queueTabAsPromise( tab, executionProps, processingDelay );
   }
 
   function unqueueTabCheck(tab) {
@@ -146,26 +135,17 @@ export const gsTabCheckManager = (function() {
     return _tabCheckQueue.getQueuedTabDetails(tab);
   }
 
-  async function handleTabCheckException(
-    tab,
-    executionProps,
-    exceptionType,
-    resolve,
-    reject,
-    requeue
-  ) {
-    gsUtils.warning(
-      tab.id,
-      QUEUE_ID,
-      `Failed to initialise tab: ${exceptionType}`
-    );
+  async function handleTabCheckException( tab, executionProps, exceptionType, resolve, reject, requeue ) {
+    gsUtils.warning( tab.id, QUEUE_ID, 'Failed to initialise tab', tab.url, exceptionType );
     resolve(false);
   }
 
   async function handleTabCheck(tab, executionProps, resolve, reject, requeue) {
+    gsUtils.log(tab.id, QUEUE_ID, 'handleTabCheck', tab.url);
     if (gsUtils.isSuspendedTab(tab)) {
       checkSuspendedTab(tab, executionProps, resolve, reject, requeue);
-    } else if (gsUtils.isNormalTab(tab)) {
+    }
+    else if (gsUtils.isNormalTab(tab)) {
       checkNormalTab(tab, executionProps, resolve, reject, requeue);
     }
   }
@@ -173,11 +153,7 @@ export const gsTabCheckManager = (function() {
   async function getUpdatedTab(tab) {
     let _tab = await gsChrome.tabsGet(tab.id);
     if (!_tab) {
-      gsUtils.warning(
-        tab.id,
-        QUEUE_ID,
-        `Failed to initialize tab. Tab may have been discarded or removed.`
-      );
+      gsUtils.warning( tab.id, QUEUE_ID, `Failed to initialize tab. Tab may have been discarded or removed.` );
       // If we are still initialising, then check for potential discarded tab matches
       if (gsSession.isInitialising()) {
         await queueTabCheckForPotentiallyDiscardedTabs(tab);
@@ -194,12 +170,7 @@ export const gsTabCheckManager = (function() {
       windowId: tab.windowId,
     });
     tabs = tabs.filter(o => o.url === tab.url);
-    gsUtils.log(
-      tab.id,
-      QUEUE_ID,
-      'Searching for discarded tab matching tab: ',
-      tab
-    );
+    gsUtils.log( tab.id, QUEUE_ID, 'Searching for discarded tab matching tab: ', tab );
     const matchingTab = tabs.find(o => o.index === tab.index);
     if (matchingTab) {
       tabs = [matchingTab];
@@ -357,11 +328,7 @@ export const gsTabCheckManager = (function() {
 
   async function checkNormalTab(tab, executionProps, resolve, reject, requeue) {
     if (executionProps.refetchTab) {
-      gsUtils.log(
-        tab.id,
-        QUEUE_ID,
-        'Tab refetch requested. Getting updated tab..'
-      );
+      gsUtils.log( tab.id, QUEUE_ID, 'Tab refetch requested. Getting updated tab..' );
       tab = await getUpdatedTab(tab);
       if (!tab) {
         resolve(gsUtils.STATUS_UNKNOWN);
@@ -386,11 +353,7 @@ export const gsTabCheckManager = (function() {
 
     if (gsUtils.isDiscardedTab(tab)) {
       if (tab.active) {
-        gsUtils.log(
-          tab.id,
-          QUEUE_ID,
-          'Tab is discarded but active. Will wait for auto reload.'
-        );
+        gsUtils.log( tab.id, QUEUE_ID, 'Tab is discarded but active. Will wait for auto reload.' );
         requeue(500, { refetchTab: true });
       } else {
         gsUtils.log(tab.id, QUEUE_ID, 'Tab is discarded. Will reload.');
@@ -419,11 +382,7 @@ export const gsTabCheckManager = (function() {
     }
 
     if (tab.active && queuedTabDetails.requeues === 0) {
-      gsUtils.log(
-        tab.id,
-        QUEUE_ID,
-        'Tab is not responding but active. Will wait for potential auto reload.'
-      );
+      gsUtils.log( tab.id, QUEUE_ID, 'Tab is not responding but active. Will wait for potential auto reload.' );
       requeue(500, { refetchTab: false });
       return;
     }

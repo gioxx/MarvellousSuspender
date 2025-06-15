@@ -228,18 +228,12 @@ export const gsIndexedDb = {
         session.sessionId
       );
       if (matchingSession) {
-        gsUtils.log(
-          'gsIndexedDb',
-          'Updating existing session: ' + session.sessionId
-        );
+        gsUtils.log( 'gsIndexedDb', 'Updating existing session: ' + session.sessionId );
         session.id = matchingSession.id; //copy across id from matching session
         session.date = new Date().toISOString();
         await gsDb.update(tableName, session); //then update based on that id
       } else {
-        gsUtils.log(
-          'gsIndexedDb',
-          'Creating new session: ' + session.sessionId
-        );
+        gsUtils.log( 'gsIndexedDb', 'Creating new session: ' + session.sessionId );
         await gsDb.add(tableName, session);
       }
     } catch (e) {
@@ -280,12 +274,7 @@ export const gsIndexedDb = {
         .execute();
 
       if (results.length > 1) {
-        gsUtils.warning(
-          'gsIndexedDb',
-          'Duplicate sessions found for sessionId: ' +
-            sessionId +
-            '! Removing older ones..'
-        );
+        gsUtils.warning( 'gsIndexedDb', 'Duplicate sessions found for sessionId: ' + sessionId + '! Removing older ones..' );
         for (let session of results.slice(1)) {
           await gsDb.remove(tableName, session.id);
         }
@@ -316,11 +305,7 @@ export const gsIndexedDb = {
     const newSessionRestorePoint = await gsIndexedDb.fetchSessionRestorePoint(
       version
     );
-    gsUtils.log(
-      'gsIndexedDb',
-      'New session restore point:',
-      newSessionRestorePoint
-    );
+    gsUtils.log( 'gsIndexedDb', 'New session restore point:', newSessionRestorePoint );
     return newSessionRestorePoint || null;
   },
 

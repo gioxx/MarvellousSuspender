@@ -40,11 +40,7 @@ export const gsTabDiscardManager = (function() {
   function queueTabForDiscardAsPromise(tab, executionProps, processingDelay) {
     gsUtils.log(tab.id, QUEUE_ID, `Queueing tab for discarding.`);
     executionProps = executionProps || {};
-    return _discardQueue.queueTabAsPromise(
-      tab,
-      executionProps,
-      processingDelay
-    );
+    return _discardQueue.queueTabAsPromise( tab, executionProps, processingDelay );
   }
 
   function unqueueTabForDiscard(tab) {
@@ -64,11 +60,7 @@ export const gsTabDiscardManager = (function() {
       // assume tab has been discarded
     }
     if (!_tab) {
-      gsUtils.warning(
-        tab.id,
-        QUEUE_ID,
-        `Failed to discard tab. Tab may have already been discarded or removed.`
-      );
+      gsUtils.warning( tab.id, QUEUE_ID, `Failed to discard tab. Tab may have already been discarded or removed.` );
       resolve(false);
       return;
     }
@@ -103,19 +95,8 @@ export const gsTabDiscardManager = (function() {
     });
   }
 
-  function handleDiscardException(
-    tab,
-    executionProps,
-    exceptionType,
-    resolve,
-    reject,
-    requeue
-  ) {
-    gsUtils.warning(
-      tab.id,
-      QUEUE_ID,
-      `Failed to discard tab: ${exceptionType}`
-    );
+  function handleDiscardException( tab, executionProps, exceptionType, resolve, reject, requeue ) {
+    gsUtils.warning( tab.id, QUEUE_ID, `Failed to discard tab: ${exceptionType}` );
     resolve(false);
   }
 

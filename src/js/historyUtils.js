@@ -172,12 +172,7 @@ export const historyUtils = (function(global) {
     // document.getElementById('debugWindowId').innerText = document.getElementById('debugWindowId').innerText + ' - Window ID retrieved: ' + windowId;
     gsIndexedDb.fetchSessionBySessionId(sessionId).then(function(session) {
       if (!session) {
-        gsUtils.warning(
-          'historyUtils',
-          'Could not find session with sessionId: ' +
-          sessionId +
-          '. Save aborted',
-        );
+        gsUtils.warning( 'historyUtils', 'Could not find session with sessionId: ' + sessionId + '. Save aborted' );
         return;
       }
       var sessionName = window.prompt(

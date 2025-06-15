@@ -243,11 +243,7 @@ export const tgs = (function() {
       response,
     ) {
       if (error) {
-        gsUtils.warning(
-          tab.id,
-          'Failed to sendTemporaryWhitelistToContentScript',
-          error,
-        );
+        gsUtils.warning( tab.id, 'Failed to sendTemporaryWhitelistToContentScript', error );
       }
       var contentScriptStatus =
         response && response.status ? response.status : null;
@@ -270,11 +266,7 @@ export const tgs = (function() {
       response,
     ) {
       if (error) {
-        gsUtils.warning(
-          tab.id,
-          'Failed to sendUndoTemporaryWhitelistToContentScript',
-          error,
-        );
+        gsUtils.warning( tab.id, 'Failed to sendUndoTemporaryWhitelistToContentScript', error );
       }
       var contentScriptStatus =
         response && response.status ? response.status : null;
@@ -345,10 +337,7 @@ export const tgs = (function() {
     const forceLevel = force ? 1 : 2;
     getCurrentlyActiveTab(activeTab => {
       if (!activeTab) {
-        gsUtils.warning(
-          'background',
-          'Could not determine currently active window.',
-        );
+        gsUtils.warning( 'background', 'Could not determine currently active window.' );
         return;
       }
       chrome.windows.get(activeTab.windowId, { populate: true }, curWindow => {
@@ -373,10 +362,7 @@ export const tgs = (function() {
   function unsuspendAllTabs() {
     getCurrentlyActiveTab(function(activeTab) {
       if (!activeTab) {
-        gsUtils.warning(
-          'background',
-          'Could not determine currently active window.',
-        );
+        gsUtils.warning( 'background', 'Could not determine currently active window.' );
         return;
       }
       chrome.windows.get(activeTab.windowId, { populate: true }, async (curWindow) => {
@@ -593,11 +579,7 @@ export const tgs = (function() {
     ) {
       return;
     }
-    gsUtils.log(
-      tab.id,
-      'unsuspended tab state changed. changeInfo: ',
-      changeInfo,
-    );
+    gsUtils.log( tab.id, 'unsuspended tab state changed. changeInfo: ', changeInfo );
 
     // Ensure we clear the STATE_UNLOADED_URL flag during load in case the
     // tab is suspended again before loading can finish (in which case on
@@ -619,10 +601,7 @@ export const tgs = (function() {
         //TODO: Report chrome bug
         return;
       }
-      gsUtils.log(
-        tab.id,
-        'Unsuspended tab has been discarded. Url: ' + tab.url,
-      );
+      gsUtils.log( tab.id, 'Unsuspended tab has been discarded. Url: ' + tab.url );
       gsTabDiscardManager.handleDiscardedUnsuspendedTab(tab); //async. unhandled promise.
 
       // When a tab is discarded the tab id changes. We need up-to-date UNSUSPENDED
@@ -636,10 +615,7 @@ export const tgs = (function() {
     if (queuedTabDetails) {
       // Requeue tab to wake it from possible sleep
       delete queuedTabDetails.executionProps.refetchTab;
-      gsTabSuspendManager.queueTabForSuspension(
-        tab,
-        queuedTabDetails.executionProps.forceLevel,
-      );
+      gsTabSuspendManager.queueTabForSuspension( tab, queuedTabDetails.executionProps.forceLevel );
       return;
     }
 
@@ -682,7 +658,7 @@ export const tgs = (function() {
         await resetAutoSuspendTimerForTab(tab);
         initialiseTabContentScript(tab, tempWhitelistOnReload, scrollPos)
           .catch(error => {
-            gsUtils.warning( tab.id, 'Failed to send init to content script. Tab may not behave as expected.' );
+            gsUtils.warning( tab.id, 'Failed to send init to content script. Tab may not behave as expected.', error );
           });
           // .then(() => {
           //   // could use returned tab status here below
@@ -872,10 +848,7 @@ export const tgs = (function() {
         }
       }
       if (!focusedTab) {
-        gsUtils.warning(
-          'background',
-          `Couldnt find active tab with windowId: ${windowId}. Window may have been closed.`,
-        );
+        gsUtils.warning( 'background', `Couldnt find active tab with windowId: ${windowId}. Window may have been closed.` );
         return;
       }
 
@@ -899,10 +872,7 @@ export const tgs = (function() {
       // time the chrome.tabs.onActivated event was activated and now.
       // If so, then a subsequeunt chrome.tabs.onActivated event will be called
       // with the new discarded id
-      gsUtils.log(
-        tabId,
-        'Could not find newly focused tab. Assuming it has been discarded',
-      );
+      gsUtils.log( tabId, 'Could not find newly focused tab. Assuming it has been discarded' );
       return;
     }
 
@@ -932,16 +902,9 @@ export const tgs = (function() {
     if (gsUtils.isNormalTab(focusedTab, true)) {
       contentScriptStatus = await getContentScriptStatus(focusedTab.id);
       if (!contentScriptStatus) {
-        contentScriptStatus = await gsTabCheckManager.queueTabCheckAsPromise(
-          focusedTab,
-          {},
-          0,
-        );
+        contentScriptStatus = await gsTabCheckManager.queueTabCheckAsPromise( focusedTab, {}, 0 );
       }
-      gsUtils.log(
-        focusedTab.id,
-        'Content script status: ' + contentScriptStatus,
-      );
+      gsUtils.log( focusedTab.id, 'Content script status: ' + contentScriptStatus );
     }
 
     //update icon
@@ -974,10 +937,7 @@ export const tgs = (function() {
       ? await gsChrome.tabsGet(previouslyFocusedTabId)
       : null;
     if (!previouslyFocusedTab) {
-      gsUtils.log(
-        previouslyFocusedTabId,
-        'Could not find tab. Has probably already been discarded',
-      );
+      gsUtils.log( previouslyFocusedTabId, 'Could not find tab. Has probably already been discarded' );
       return;
     }
     if (!gsUtils.isSuspendedTab(previouslyFocusedTab)) {
@@ -986,10 +946,7 @@ export const tgs = (function() {
 
     //queue tabCheck for previouslyFocusedTab. that will force a discard afterwards
     //but also avoids conflicts if this tab is already scheduled for checking
-    gsUtils.log(
-      previouslyFocusedTabId,
-      'Queueing previously focused tab for discard via tabCheckManager',
-    );
+    gsUtils.log( previouslyFocusedTabId, 'Queueing previously focused tab for discard via tabCheckManager' );
     gsTabCheckManager.queueTabCheck(previouslyFocusedTab, {}, 1000);
   }
 
@@ -1152,10 +1109,7 @@ export const tgs = (function() {
       info.windowId = tab.windowId;
       info.tabId = tab.id;
       if (gsUtils.isNormalTab(tab, true)) {
-        gsMessages.sendRequestInfoToContentScript(tab.id, function(
-          error,
-          tabInfo,
-        ) {
+        gsMessages.sendRequestInfoToContentScript(tab.id, function( error, tabInfo ) {
           if (error) {
             gsUtils.warning(tab.id, 'Failed to getDebugInfo', error);
           }
@@ -1164,7 +1118,8 @@ export const tgs = (function() {
               info.status = status;
               callback(info);
             });
-          } else {
+          }
+          else {
             callback(info);
           }
         });

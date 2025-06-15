@@ -42,26 +42,14 @@ export const gsFavicon = (function() {
   //       new Promise(async resolve => {
   //         const faviconMeta = await addDefaultFaviconMeta(iconUrl);
   //         if (faviconMeta) {
-  //           gsUtils.log(
-  //             'gsFavicon',
-  //             `Successfully built default faviconMeta for url: ${iconUrl}`,
-  //             faviconMeta
-  //           );
+  //           gsUtils.log( 'gsFavicon', `Successfully built default faviconMeta for url: ${iconUrl}`, faviconMeta );
   //         } else {
-  //           gsUtils.warning(
-  //             'gsFavicon',
-  //             `Failed to build faviconMeta for url: ${iconUrl}`
-  //           );
+  //           gsUtils.warning( 'gsFavicon', `Failed to build faviconMeta for url: ${iconUrl}` );
   //         }
   //         // Set the first url as the default favicon
   //         if (i === 0) {
-  //           _defaultChromeFaviconMeta =
-  //             faviconMeta || FALLBACK_CHROME_FAVICON_META;
-  //           gsUtils.log(
-  //             'gsFavicon',
-  //             'Set _defaultChromeFaviconMeta',
-  //             _defaultChromeFaviconMeta
-  //           );
+  //           _defaultChromeFaviconMeta = faviconMeta || FALLBACK_CHROME_FAVICON_META;
+  //           gsUtils.log( 'gsFavicon', 'Set _defaultChromeFaviconMeta', _defaultChromeFaviconMeta );
   //         }
   //         resolve();
   //       })
@@ -73,12 +61,7 @@ export const gsFavicon = (function() {
   // async function addDefaultFaviconMeta(url) {
   //   let faviconMeta;
   //   try {
-  //     faviconMeta = await gsUtils.executeWithRetries(
-  //       buildFaviconMetaData,
-  //       [url],
-  //       4,
-  //       0
-  //     );
+  //     faviconMeta = await gsUtils.executeWithRetries( buildFaviconMetaData, [url], 4, 0 );
   //   } catch (e) {
   //     gsUtils.warning('gsFavicon', e);
   //   }
@@ -118,11 +101,7 @@ export const gsFavicon = (function() {
     }
     let faviconMeta = await getCachedFaviconMetaData(originalUrl);
     if (faviconMeta) {
-      // gsUtils.log(
-      //   tab.id,
-      //   'Found favicon cache hit for url: ' + originalUrl,
-      //   faviconMeta
-      // );
+      // gsUtils.log( tab.id, 'Found favicon cache hit for url: ' + originalUrl, faviconMeta );
       return faviconMeta;
     }
 
@@ -136,21 +115,14 @@ export const gsFavicon = (function() {
     }
 
     // Else try to build from tab.favIconUrl
-    gsUtils.log(
-      tab.id,
-      'No entry in chrome favicon cache for url: ' + originalUrl
-    );
+    gsUtils.log( tab.id, 'No entry in chrome favicon cache for url: ' + originalUrl );
     if (
       tab.favIconUrl &&
       tab.favIconUrl !== chrome.runtime.getURL('img/ic_suspendy_16x16.png')
     ) {
       faviconMeta = await buildFaviconMetaFromTabFavIconUrl(tab.favIconUrl);
       if (faviconMeta) {
-        gsUtils.log(
-          tab.id,
-          'Built faviconMeta from tab.favIconUrl',
-          faviconMeta
-        );
+        gsUtils.log( tab.id, 'Built faviconMeta from tab.favIconUrl', faviconMeta );
         return faviconMeta;
       }
     }
@@ -179,10 +151,7 @@ export const gsFavicon = (function() {
 
   async function buildFaviconMetaFromChromeFaviconCache(url) {
     const chromeFavIconUrl = generateChromeFavIconUrlFromUrl(url);
-    gsUtils.log(
-      'gsFavicon',
-      `Building faviconMeta from url: ${chromeFavIconUrl}`
-    );
+    gsUtils.log( 'gsFavicon', `Building faviconMeta from url: ${chromeFavIconUrl}` );
     try {
       const faviconMeta = await buildFaviconMetaData(chromeFavIconUrl);
       const faviconMetaValid = await isFaviconMetaValid(faviconMeta);
@@ -221,11 +190,7 @@ export const gsFavicon = (function() {
   async function saveFaviconMetaDataToCache(url, faviconMeta) {
     const fullUrl = gsUtils.getRootUrl(url, true, false);
     const rootUrl = gsUtils.getRootUrl(url, false, false);
-    gsUtils.log(
-      'gsFavicon',
-      'Saving favicon cache entry for: ' + fullUrl,
-      faviconMeta
-    );
+    gsUtils.log( 'gsFavicon', 'Saving favicon cache entry for: ' + fullUrl, faviconMeta );
     await gsIndexedDb.addFaviconMeta(fullUrl, Object.assign({}, faviconMeta));
     await gsIndexedDb.addFaviconMeta(rootUrl, Object.assign({}, faviconMeta));
   }
@@ -282,12 +247,7 @@ export const gsFavicon = (function() {
         normalisedFingerprint === defaultFaviconFingerprint ||
         transparentFingerprint === defaultFaviconFingerprint
       ) {
-        gsUtils.log(
-          'gsFavicon',
-          'FaviconMeta not valid as it matches fingerprint of default favicon: ' +
-            id,
-          faviconMeta
-        );
+        gsUtils.log( 'gsFavicon', 'FaviconMeta not valid as it matches fingerprint of default favicon: ' + id, faviconMeta );
         return false;
       }
     }
