@@ -5,8 +5,6 @@ import  { gsUtils }               from './gsUtils.js';
 export const historyUtils = (function(global) {
   'use strict';
 
-  // tgs.setViewGlobals(global);
-
   var noop = function() {
   };
 

@@ -5,13 +5,6 @@ import  { gsUtils }               from './gsUtils.js';
 
 (() => {
 
-  // try {
-  //   tgs.setViewGlobals(global);
-  // } catch (e) {
-  //   setTimeout(() => window.location.reload(), 1000);
-  //   return;
-  // }
-
   var elementPrefMap = {
     preview: gsStorage.SCREEN_CAPTURE,
     forceScreenCapture: gsStorage.SCREEN_CAPTURE_FORCE,

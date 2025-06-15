@@ -66,14 +66,6 @@ export const tgs = (function() {
   //   return globals;
   // }
 
-  // function setViewGlobals(_window) {
-  //   const globals = getExtensionGlobals();
-  //   if (!globals) {
-  //     throw new Error('Lib not ready');
-  //   }
-  //   Object.assign(_window, globals);
-  // }
-
 
   async function getInternalContextByTabId(tabId) {
     const contexts = await chrome.runtime.getContexts({ tabIds: [tabId] });
@@ -1420,7 +1412,6 @@ export const tgs = (function() {
     setTabStatePropForTabId,
 
     initialiseTabContentScript,
-    // setViewGlobals,
     getInternalContextByTabId,
     getInternalContextsByViewName,
     requestNotice,

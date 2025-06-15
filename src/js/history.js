@@ -9,13 +9,6 @@ import  { historyUtils }          from './historyUtils.js';
 (function(global) {
   'use strict';
 
-  // try {
-  //   tgs.setViewGlobals(global);
-  // } catch (e) {
-  //   setTimeout(() => window.location.reload(), 1000);
-  //   return;
-  // }
-
   async function reloadTabs(sessionId, windowId, openTabsAsSuspended) {
     const session = await gsIndexedDb.fetchSessionBySessionId(sessionId);
     if (!session || !session.windows) {

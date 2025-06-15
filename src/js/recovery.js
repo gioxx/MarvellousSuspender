@@ -10,13 +10,6 @@ import  { historyItems }          from './historyItems.js';
 (function(global) {
   'use strict';
 
-  // try {
-  //   tgs.setViewGlobals(global);
-  // } catch (e) {
-  //   setTimeout(() => window.location.reload(), 1000);
-  //   return;
-  // }
-
   var restoreAttempted = false;
   var tabsToRecover = [];
 

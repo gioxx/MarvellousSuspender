@@ -59,18 +59,6 @@ import  { tgs }                   from './tgs.js';
       tgs.buildContextMenu(contextMenus);
     }
 
-    // if (DEBUG) {
-    //   setTimeout(() => {
-    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+1&uri=https://www.google.com` });
-    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+2&uri=https://www.google.com` });
-    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+3&uri=https://www.google.com` });
-    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+1&uri=https://www.github.com` });
-    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+2&uri=https://www.github.com` });
-    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+3&uri=https://www.github.com` });
-    //     createTab('profiler');
-    //   }, 200);
-    // }
-
   });
 
   if (self instanceof ServiceWorkerGlobalScope) {
@@ -84,19 +72,6 @@ import  { tgs }                   from './tgs.js';
     gsUtils.log('4 runtime.onStartup');
     // Fired when a profile that has this extension installed first starts up.
     // This event is not fired when an incognito profile is started, even if this extension is operating in 'split' incognito mode.
-
-    // chrome.runtime.onStartup wasn't firing on browser start when cache was cleared, so this makes sure we run once
-
-    // chrome.alarms.clearAll(function () {
-    //   asyncSessionSet({ [TEMPORARY_WHITELIST]: {} });
-    //   tabStates.clearTabStates(function () {
-    //     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-    //       if (tabs.length > 0) {
-    //         asyncSessionSet({ [CURRENT_TAB_ID]: tabs[0].id })
-    //       }
-    //     });
-    //   });
-    // });
 
     startupOnce();
 

@@ -7,13 +7,6 @@ import  { historyUtils }          from './historyUtils.js';
 (function(global) {
   'use strict';
 
-  // try {
-  //   tgs.setViewGlobals(global);
-  // } catch (e) {
-  //   setTimeout(() => window.location.reload(), 1000);
-  //   return;
-  // }
-
   function setRestartExtensionClickHandler(warnFirst) {
     document.getElementById('restartExtensionBtn').onclick = async function(e) {
       // var result = true;

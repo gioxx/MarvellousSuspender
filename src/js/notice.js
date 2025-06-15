@@ -5,15 +5,8 @@ import  { gsUtils }               from './gsUtils.js';
 (function(global) {
   'use strict';
 
-  // try {
-  //   tgs.setViewGlobals(global);
-  // } catch (e) {
-  //   setTimeout(() => window.location.reload(), 1000);
-  //   return;
-  // }
-
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
-    // var notice = tgs.requestNotice();
+    // var notice = await tgs.requestNotice();
     // if (
     //   notice &&
     //   notice.hasOwnProperty('text') &&
@@ -26,6 +19,6 @@ import  { gsUtils }               from './gsUtils.js';
     // }
 
     // //clear notice (to prevent it showing again)
-    // tgs.clearNotice();
+    // await tgs.clearNotice();
   });
 })(this);

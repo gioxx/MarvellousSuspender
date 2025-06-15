@@ -7,13 +7,6 @@ import  { historyUtils }          from './historyUtils.js';
 (function(global) {
   'use strict';
 
-  // try {
-  //   tgs.setViewGlobals(global);
-  // } catch (e) {
-  //   setTimeout(() => window.location.reload(), 1000);
-  //   return;
-  // }
-
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
     document.getElementById('exportBackupBtn').onclick = async function(e) {
       const currentSession = await gsSession.buildCurrentSession();

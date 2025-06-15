@@ -8,8 +8,6 @@ import  { tgs }                   from './tgs.js';
 (function() {
   'use strict';
 
-  // tgs.setViewGlobals(global);
-
   var globalActionElListener;
 
   var getTabStatus = function(retriesRemaining, callback) {

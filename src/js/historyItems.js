@@ -6,8 +6,6 @@ import  { gsUtils }               from './gsUtils.js';
 export const historyItems = (function(global) {
   'use strict';
 
-  // tgs.setViewGlobals(global);
-
   function createSessionHtml(session, showLinks) {
     session.windows = session.windows || [];
 
