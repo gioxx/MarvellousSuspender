@@ -194,7 +194,7 @@ import  { tgs }                   from './tgs.js';
   }
 
   async function setUnsuspendTabHandlers(tab) {
-    const unsuspendTabHandler = await buildUnsuspendTabHandler(tab);
+    const unsuspendTabHandler = buildUnsuspendTabHandler(tab);
     document.getElementById('gsTopBarUrl').onclick = unsuspendTabHandler;
     document.getElementById('gsTopBar').onmousedown = unsuspendTabHandler;
     document.getElementById('suspendedMsg').onclick = unsuspendTabHandler;

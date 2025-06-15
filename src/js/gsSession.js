@@ -11,8 +11,8 @@ export const gsSession = (function() {
 
   const tabsToRestorePerSecond = 12;
 
-  let updateUrl;
-  let updatedUrl;
+  const updateUrl   = chrome.runtime.getURL('update.html');
+  const updatedUrl  = chrome.runtime.getURL('updated.html');
 
   let initialisationMode = true;
   let sessionId;
@@ -27,9 +27,6 @@ export const gsSession = (function() {
   let syncedSettingsOnInit;
 
   async function initAsPromised() {
-    updateUrl = chrome.runtime.getURL('update.html');
-    updatedUrl = chrome.runtime.getURL('updated.html');
-
     // Set fileUrlsAccessAllowed to determine if extension can work on file:// URLs
     await new Promise(r => {
       chrome.extension.isAllowedFileSchemeAccess(isAllowedAccess => {
@@ -696,9 +693,13 @@ export const gsSession = (function() {
     const newTab = await gsChrome.tabsCreate({ windowId: windowId, url: url, index: index, pinned: sessionTab.pinned, active: false });
 
     // Update recovery view (if it exists)
-    for (const view of tgs.getInternalViewsByViewName('recovery')) {
-      view.exports.removeTabFromList(newTab);
-    }
+    gsUtils.log( 'gsUtils', 'createNewTabFromSessionTab', newTab );
+    // const contexts = await tgs.getInternalContextsByViewName('recovery');
+    // for (const context of contexts) {
+    //   // chrome.tabs.sendMessage(context.tabId, { action: 'updateCommand', tabId: context.tabId });
+    //   // @TODO update recovery page to receive a message instead of this direct call
+    //   // view.exports.removeTabFromList(newTab);
+    // }
   }
 
   async function unsuspendActiveTabInEachWindow() {

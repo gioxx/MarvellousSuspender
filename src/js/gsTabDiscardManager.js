@@ -71,7 +71,7 @@ export const gsTabDiscardManager = (function() {
       requeue();
       return;
     }
-    if (tgs.isCurrentActiveTab(tab)) {
+    if (await tgs.isCurrentActiveTab(tab)) {
       const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
       if (!discardInPlaceOfSuspend) {
         gsUtils.log(tab.id, QUEUE_ID, 'Tab is active. Aborting discard.');
@@ -105,7 +105,7 @@ export const gsTabDiscardManager = (function() {
       gsUtils.shouldSuspendDiscardedTabs() &&
       await gsTabSuspendManager.checkTabEligibilityForSuspension(tab, 3)
     ) {
-      tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SUSPEND_REASON, 3);
+      await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SUSPEND_REASON, 3);
       const suspendedUrl = gsUtils.generateSuspendedUrl(tab.url, tab.title, 0);
       gsUtils.log(tab.id, QUEUE_ID, 'Suspending discarded unsuspended tab');
 

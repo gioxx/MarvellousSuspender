@@ -16,7 +16,7 @@ export const gsTabSuspendManager = (function() {
   const DEFAULT_CONCURRENT_SUSPENSIONS = 3;
   const DEFAULT_SUSPENSION_TIMEOUT = 60 * 1000;
 
-  const QUEUE_ID = 'suspendQueue';
+  const QUEUE_ID = 'suspensionQueue';
 
   let _suspensionQueue;
 
@@ -36,7 +36,7 @@ export const gsTabSuspendManager = (function() {
         executorFn: performSuspension,
         exceptionFn: handleSuspensionException,
       };
-      _suspensionQueue = gsTabQueue.init('suspensionQueue', queueProps);
+      _suspensionQueue = gsTabQueue.init(QUEUE_ID, queueProps);
       gsUtils.log(QUEUE_ID, 'init successful');
       resolve();
     });
@@ -228,7 +228,7 @@ export const gsTabSuspendManager = (function() {
       // If we want tabs to be discarded instead of suspending them
       let discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
       if (discardInPlaceOfSuspend) {
-        tgs.clearAutoSuspendTimerForTabId(tab.id);
+        await tgs.clearAutoSuspendTimerForTabId(tab.id);
         gsTabDiscardManager.queueTabForDiscard(tab);
         resolve(true);
         return;
@@ -281,7 +281,7 @@ export const gsTabSuspendManager = (function() {
       if (await gsStorage.getOption(gsStorage.IGNORE_WHEN_OFFLINE) && !navigator.onLine) {
         return false;
       }
-      if (await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING) && tgs.isCharging()) {
+      if (await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING) && await tgs.isCharging()) {
         return false;
       }
       if (await gsStorage.getOption(gsStorage.SUSPEND_TIME) === '0') {

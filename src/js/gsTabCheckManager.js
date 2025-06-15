@@ -17,8 +17,8 @@ export const gsTabCheckManager = (function() {
   const DEFAULT_TAB_CHECK_REQUEUE_DELAY = 3 * 1000;
 
   const QUEUE_ID = 'checkQueue';
+  const _defaultTabTitle = chrome.i18n.getMessage('html_suspended_title');
 
-  let _defaultTabTitle;
   let _tabCheckQueue;
 
   // NOTE: This mainly checks suspended tabs
@@ -36,7 +36,6 @@ export const gsTabCheckManager = (function() {
         executorFn: handleTabCheck,
         exceptionFn: handleTabCheckException,
       };
-      _defaultTabTitle = chrome.i18n.getMessage('html_suspended_title');
       _tabCheckQueue = gsTabQueue.init(QUEUE_ID, queueProps);
       gsUtils.log(QUEUE_ID, 'init successful');
       resolve();
@@ -148,6 +147,9 @@ export const gsTabCheckManager = (function() {
     else if (gsUtils.isNormalTab(tab)) {
       checkNormalTab(tab, executionProps, resolve, reject, requeue);
     }
+    else {
+      resolve(gsUtils.STATUS_UNKNOWN);
+    }
   }
 
   async function getUpdatedTab(tab) {
@@ -182,6 +184,7 @@ export const gsTabCheckManager = (function() {
   }
 
   async function checkSuspendedTab( tab, executionProps, resolve, reject, requeue ) {
+    gsUtils.log( tab.id, QUEUE_ID, 'checkSuspendedTab', tab.url );
     if (executionProps.resuspend && !executionProps.resuspended) {
       await resuspendSuspendedTab(tab);
       requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, {
@@ -249,7 +252,7 @@ export const gsTabCheckManager = (function() {
     const attemptDiscarding =
       await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND) &&
       !gsUtils.isDiscardedTab(tab) &&
-      !tgs.isCurrentActiveTab(tab);
+      !(await tgs.isCurrentActiveTab(tab));
     const suspendInfo = await chrome.tabs.sendMessage(tab.id, { action: 'getSuspendInfo', tab });
     const tabSessionOk = suspendInfo.sessionId === gsSession.getSessionId();
     const tabBasicsOk = ensureSuspendedTabTitleAndFaviconSet(tab);
@@ -294,10 +297,9 @@ export const gsTabCheckManager = (function() {
 
   async function resuspendSuspendedTab(tab) {
     gsUtils.log(tab.id, QUEUE_ID, 'Resuspending unresponsive suspended tab.');
-    // const suspendedView = tgs.getInternalViewByTabId(tab.id);
     const context = await tgs.getInternalContextByTabId(tab.id);
     if (context) {
-      tgs.setTabStatePropForTabId( tab.id, tgs.STATE_DISABLE_UNSUSPEND_ON_RELOAD, true );
+      await tgs.setTabStatePropForTabId( tab.id, tgs.STATE_DISABLE_UNSUSPEND_ON_RELOAD, true );
     }
     const reloadOk = await gsChrome.tabsReload(tab.id);
     return reloadOk;
@@ -327,6 +329,7 @@ export const gsTabCheckManager = (function() {
   }
 
   async function checkNormalTab(tab, executionProps, resolve, reject, requeue) {
+    gsUtils.log( tab.id, QUEUE_ID, 'checkNormalTab', tab.url );
     if (executionProps.refetchTab) {
       gsUtils.log( tab.id, QUEUE_ID, 'Tab refetch requested. Getting updated tab..' );
       tab = await getUpdatedTab(tab);
@@ -363,9 +366,9 @@ export const gsTabCheckManager = (function() {
       return;
     }
 
-    let tabInfo = await new Promise(r => {
+    let tabInfo = await new Promise(resolve => {
       gsMessages.sendRequestInfoToContentScript(tab.id, (error, tabInfo) =>
-        r(tabInfo)
+        resolve(tabInfo)
       );
     });
 
@@ -405,6 +408,7 @@ export const gsTabCheckManager = (function() {
   // Notably (for me), the key listener of the old content script remains active
   // if using: window.addEventListener('keydown', formInputListener);
   function reinjectContentScriptOnTab(tab) {
+    gsUtils.log( tab.id, 'reinjectContentScriptOnTab');
     return new Promise(resolve => {
       gsUtils.log(tab.id, QUEUE_ID, 'Reinjecting contentscript into unresponsive unsuspended tab.', tab);
       const executeScriptTimeout = setTimeout(() => {
@@ -418,8 +422,7 @@ export const gsTabCheckManager = (function() {
           resolve(null);
           return;
         }
-        tgs
-          .initialiseTabContentScript(tab)
+        tgs.initialiseTabContentScript(tab)
           .then(tabInfo => {
             resolve(tabInfo);
           })

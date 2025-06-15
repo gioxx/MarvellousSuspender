@@ -7,7 +7,7 @@
 */
 
 import  { gsChrome }              from './gsChrome.js';
-import  { gsFavicon }             from './gsFavicon.js';
+// import  { gsFavicon }             from './gsFavicon.js';
 // import  { gsIndexedDb }           from './gsIndexedDb.js';
 // import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
@@ -18,36 +18,124 @@ import  { gsTabCheckManager }     from './gsTabCheckManager.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
+/// <reference lib="webworker" />
 
 
-const background = (() => {
+(() => {
 
-  function backgroundScriptsReadyAsPromised(retries) {
-    retries = retries || 0;
-    if (retries > 300) {
-      // allow 30 seconds :scream:
-      chrome.tabs.create({ url: chrome.runtime.getURL('broken.html') });
-      return Promise.reject('Failed to initialise background scripts');
-    }
-    return new Promise(function(resolve) {
-      const isReady = tgs.getExtensionGlobals() !== null;
-      resolve(isReady);
-    }).then(function(isReady) {
-      if (isReady) {
-        return Promise.resolve();
-      }
-      return new Promise(function(resolve) {
-        setTimeout(resolve, 100);
-      }).then(function() {
-        retries += 1;
-        return backgroundScriptsReadyAsPromised(retries);
+  let startupDone = false;  // This global is safe because we only use it at startup.  It does not need to survive service worker suspend.
+
+  function startupOnce() {
+    gsUtils.log('startupOnce');
+    if (startupDone) return;
+    startupDone = true;
+
+    tgs.resetAutoSuspendTimerForAllTabs();
+
+    Promise.resolve()
+      .then(gsStorage.initSettingsAsPromised)   // ensure settings have been loaded and synced
+      .then(gsSession.runStartupChecks)         // performs crash check (and maybe recovery) and tab responsiveness checks
+      .catch(error => {
+        gsUtils.error('background startup checks error: ', error);
       });
+
+  }
+
+  if (self instanceof ServiceWorkerGlobalScope) {
+    self.addEventListener("install", (event) => {
+      gsUtils.log('1 service worker install', event);
     });
   }
 
+  chrome.runtime.onInstalled.addListener(async () => {
+    gsUtils.log('2 runtime.onInstalled');
+    // Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version.
+    // Fired when an unpacked extension is reloaded
+
+    //add context menu items
+    if (!chrome.extension.inIncognitoContext) {
+      tgs.buildContextMenu(false);
+      var contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
+      tgs.buildContextMenu(contextMenus);
+    }
+
+    // if (DEBUG) {
+    //   setTimeout(() => {
+    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+1&uri=https://www.google.com` });
+    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+2&uri=https://www.google.com` });
+    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+3&uri=https://www.google.com` });
+    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+1&uri=https://www.github.com` });
+    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+2&uri=https://www.github.com` });
+    //     chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+3&uri=https://www.github.com` });
+    //     createTab('profiler');
+    //   }, 200);
+    // }
+
+  });
+
+  if (self instanceof ServiceWorkerGlobalScope) {
+    self.addEventListener("activate", (event) => {
+      gsUtils.log('3 service worker activate', event);
+      startupOnce();
+    });
+  }
+
+  chrome.runtime.onStartup.addListener(function () {
+    gsUtils.log('4 runtime.onStartup');
+    // Fired when a profile that has this extension installed first starts up.
+    // This event is not fired when an incognito profile is started, even if this extension is operating in 'split' incognito mode.
+
+    // chrome.runtime.onStartup wasn't firing on browser start when cache was cleared, so this makes sure we run once
+
+    // chrome.alarms.clearAll(function () {
+    //   asyncSessionSet({ [TEMPORARY_WHITELIST]: {} });
+    //   tabStates.clearTabStates(function () {
+    //     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+    //       if (tabs.length > 0) {
+    //         asyncSessionSet({ [CURRENT_TAB_ID]: tabs[0].id })
+    //       }
+    //     });
+    //   });
+    // });
+
+    startupOnce();
+
+  });
+
+  chrome.runtime.onSuspend.addListener(function () {
+    gsUtils.log('5 runtime.onSuspend');
+  });
+  chrome.runtime.onSuspendCanceled.addListener(function () {
+    gsUtils.log('6 runtime.onSuspendCanceled');
+  });
+
+
+  // function backgroundScriptsReadyAsPromised(retries) {
+  //   retries = retries || 0;
+  //   if (retries > 300) {
+  //     // allow 30 seconds :scream:
+  //     chrome.tabs.create({ url: chrome.runtime.getURL('broken.html') });
+  //     return Promise.reject('Failed to initialise background scripts');
+  //   }
+  //   return new Promise(function(resolve) {
+  //     const isReady = tgs.getExtensionGlobals() !== null;
+  //     resolve(isReady);
+  //   }).then(function(isReady) {
+  //     if (isReady) {
+  //       return Promise.resolve();
+  //     }
+  //     return new Promise(function(resolve) {
+  //       setTimeout(resolve, 100);
+  //     }).then(function() {
+  //       retries += 1;
+  //       return backgroundScriptsReadyAsPromised(retries);
+  //     });
+  //   });
+  // }
+
 
   async function messageRequestListener(request, sender, sendResponse) {
-    gsUtils.log(0, 'background', 'messageRequestListener', request.action);
+    gsUtils.log('background', 'messageRequestListener', request.action);
 
     switch (request.action) {
       case 'reportTabState' : {
@@ -113,7 +201,7 @@ const background = (() => {
         break;
       }
       default: {
-        gsUtils.warning(0, 'messageRequestListener', `Unknown message action: ${request.action}`);
+        gsUtils.warning('background', 'messageRequestListener', `Unknown message action: ${request.action}`);
         break;
       }
     }
@@ -122,7 +210,7 @@ const background = (() => {
   }
 
   function externalMessageRequestListener(request, sender, sendResponse) {
-    gsUtils.log('background', 'external message request: ', request, sender);
+    gsUtils.log('background', 'externalMessageRequestListener', request, sender);
 
     if (!request.action || !['suspend', 'unsuspend'].includes(request.action)) {
       sendResponse('Error: unknown request.action: ' + request.action);
@@ -179,97 +267,86 @@ const background = (() => {
 
 
   // Listeners must part of the top-level evaluation of the service worker
-  function addContextListeners() {
-    chrome.contextMenus.onClicked.addListener((info, tab) => {
-      switch (info.menuItemId) {
-        case 'open_link_in_suspended_tab':
-          tgs.openLinkInSuspendedTab(tab, info.linkUrl);
-          break;
-        case 'toggle_suspend_state':
-          tgs.toggleSuspendedStateOfHighlightedTab();
-          break;
-        case 'toggle_pause_suspension':
-          tgs.requestToggleTempWhitelistStateOfHighlightedTab();
-          break;
-        case 'never_suspend_page':
-          tgs.whitelistHighlightedTab(true);
-          break;
-        case 'never_suspend_domain':
-          tgs.whitelistHighlightedTab(false);
-          break;
-        case 'suspend_selected_tabs':
-          tgs.suspendSelectedTabs();
-          break;
-        case 'unsuspend_selected_tabs':
-          tgs.unsuspendSelectedTabs();
-          break;
-        case 'soft_suspend_other_tabs_in_window':
-          tgs.suspendAllTabs(false);
-          break;
-        case 'force_suspend_other_tabs_in_window':
-          tgs.suspendAllTabs(true);
-          break;
-        case 'unsuspend_all_tabs_in_window':
-          tgs.unsuspendAllTabs();
-          break;
-        case 'soft_suspend_all_tabs':
-          tgs.suspendAllTabsInAllWindows(false);
-          break;
-        case 'force_suspend_all_tabs':
-          tgs.suspendAllTabsInAllWindows(true);
-          break;
-        case 'unsuspend_all_tabs':
-          tgs.unsuspendAllTabsInAllWindows();
-          break;
-        default:
-          break;
-      }
-    });
+  function contextMenuListener(info, tab) {
+    switch (info.menuItemId) {
+      case 'open_link_in_suspended_tab':
+        tgs.openLinkInSuspendedTab(tab, info.linkUrl);
+        break;
+      case 'toggle_suspend_state':
+        tgs.toggleSuspendedStateOfHighlightedTab();
+        break;
+      case 'toggle_pause_suspension':
+        tgs.requestToggleTempWhitelistStateOfHighlightedTab();
+        break;
+      case 'never_suspend_page':
+        tgs.whitelistHighlightedTab(true);
+        break;
+      case 'never_suspend_domain':
+        tgs.whitelistHighlightedTab(false);
+        break;
+      case 'suspend_selected_tabs':
+        tgs.suspendSelectedTabs();
+        break;
+      case 'unsuspend_selected_tabs':
+        tgs.unsuspendSelectedTabs();
+        break;
+      case 'soft_suspend_other_tabs_in_window':
+        tgs.suspendAllTabs(false);
+        break;
+      case 'force_suspend_other_tabs_in_window':
+        tgs.suspendAllTabs(true);
+        break;
+      case 'unsuspend_all_tabs_in_window':
+        tgs.unsuspendAllTabs();
+        break;
+      case 'soft_suspend_all_tabs':
+        tgs.suspendAllTabsInAllWindows(false);
+        break;
+      case 'force_suspend_all_tabs':
+        tgs.suspendAllTabsInAllWindows(true);
+        break;
+      case 'unsuspend_all_tabs':
+        tgs.unsuspendAllTabsInAllWindows();
+        break;
+      default:
+        break;
+    }
   }
 
   // Listeners must part of the top-level evaluation of the service worker
-  function addCommandListeners() {
-    chrome.commands.onCommand.addListener(function(command) {
-      switch (command) {
-        case '1-suspend-tab':
-          tgs.toggleSuspendedStateOfHighlightedTab();
-          break;
-        case '2-toggle-temp-whitelist-tab':
-          tgs.requestToggleTempWhitelistStateOfHighlightedTab();
-          break;
-        case '2a-suspend-selected-tabs':
-          tgs.suspendSelectedTabs();
-          break;
-        case '2b-unsuspend-selected-tabs':
-          tgs.unsuspendSelectedTabs();
-          break;
-        case '3-suspend-active-window':
-          tgs.suspendAllTabs(false);
-          break;
-        case '3b-force-suspend-active-window':
-          tgs.suspendAllTabs(true);
-          break;
-        case '4-unsuspend-active-window':
-          tgs.unsuspendAllTabs();
-          break;
-        case '4b-soft-suspend-all-windows':
-          tgs.suspendAllTabsInAllWindows(false);
-          break;
-        case '5-suspend-all-windows':
-          tgs.suspendAllTabsInAllWindows(true);
-          break;
-        case '6-unsuspend-all-windows':
-          tgs.unsuspendAllTabsInAllWindows();
-          break;
-      }
-    });
-  }
-
-  function addMessageListeners() {
-    chrome.runtime.onMessage.addListener(messageRequestListener);
-    //attach listener to runtime for external messages, to allow
-    //interoperability with other extensions in the manner of an API
-    chrome.runtime.onMessageExternal.addListener(externalMessageRequestListener);
+  function commandListener(command) {
+    switch (command) {
+      case '1-suspend-tab':
+        tgs.toggleSuspendedStateOfHighlightedTab();
+        break;
+      case '2-toggle-temp-whitelist-tab':
+        tgs.requestToggleTempWhitelistStateOfHighlightedTab();
+        break;
+      case '2a-suspend-selected-tabs':
+        tgs.suspendSelectedTabs();
+        break;
+      case '2b-unsuspend-selected-tabs':
+        tgs.unsuspendSelectedTabs();
+        break;
+      case '3-suspend-active-window':
+        tgs.suspendAllTabs(false);
+        break;
+      case '3b-force-suspend-active-window':
+        tgs.suspendAllTabs(true);
+        break;
+      case '4-unsuspend-active-window':
+        tgs.unsuspendAllTabs();
+        break;
+      case '4b-soft-suspend-all-windows':
+        tgs.suspendAllTabsInAllWindows(false);
+        break;
+      case '5-suspend-all-windows':
+        tgs.suspendAllTabsInAllWindows(true);
+        break;
+      case '6-unsuspend-all-windows':
+        tgs.unsuspendAllTabsInAllWindows();
+        break;
+    }
   }
 
   // Listeners must part of the top-level evaluation of the service worker
@@ -383,28 +460,26 @@ const background = (() => {
       });
     }
 
+    // These listeners must be in the main execution path for service workers
+    addEventListener('online', async () => {
+      gsUtils.log('background', 'Internet is online.');
+      //restart timer on all normal tabs
+      //NOTE: some tabs may have been prevented from suspending when internet was offline
+      if (await gsStorage.getOption(gsStorage.IGNORE_WHEN_OFFLINE)) {
+        tgs.resetAutoSuspendTimerForAllTabs();
+      }
+      tgs.setIconStatusForActiveTab();
+    });
+    addEventListener('offline', function() {
+      gsUtils.log('background', 'Internet is offline.');
+      tgs.setIconStatusForActiveTab();
+    });
+
   }
 
   function initAsPromised() {
     return new Promise(async (resolve) => {
       gsUtils.log('background', 'PERFORMING BACKGROUND INIT...');
-
-      addContextListeners();
-      addCommandListeners();
-      addMessageListeners();
-      addChromeListeners();
-      addMiscListeners();
-
-      //initialise unsuspended tab props
-      tgs.resetAutoSuspendTimerForAllTabs();
-
-      //add context menu items
-      //TODO: Report chrome bug where adding context menu in incognito removes it from main windows
-      if (!chrome.extension.inIncognitoContext) {
-        tgs.buildContextMenu(false);
-        var contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
-        tgs.buildContextMenu(contextMenus);
-      }
 
       //initialise currentStationary and currentFocused vars
       const activeTabs = await gsChrome.tabsQuery({ active: true });
@@ -423,52 +498,33 @@ const background = (() => {
   }
 
 
-  // These listeners must be in the main execution path for service workers
-  addEventListener('online', async () => {
-    gsUtils.log('background', 'Internet is online.');
-    //restart timer on all normal tabs
-    //NOTE: some tabs may have been prevented from suspending when internet was offline
-    if (await gsStorage.getOption(gsStorage.IGNORE_WHEN_OFFLINE)) {
-      tgs.resetAutoSuspendTimerForAllTabs();
-    }
-    tgs.setIconStatusForActiveTab();
-  });
-  addEventListener('offline', function() {
-    gsUtils.log('background', 'Internet is offline.');
-    tgs.setIconStatusForActiveTab();
-  });
+  // Listeners get added every time the service worker restarts
+  chrome.runtime.onMessage.addListener(messageRequestListener);
+  chrome.runtime.onMessageExternal.addListener(externalMessageRequestListener);
+  chrome.commands.onCommand.addListener(commandListener);
+  chrome.contextMenus.onClicked.addListener(contextMenuListener);
+  addChromeListeners();
+  addMiscListeners();
 
+  Promise.resolve()
+    // .then(backgroundScriptsReadyAsPromised) // wait until all gsLibs have loaded
+    .then(() => {
+      // initialise other gsLibs
+      return Promise.all([
+        // gsFavicon.initAsPromised(),
+        gsTabSuspendManager.initAsPromised(),
+        gsTabCheckManager.initAsPromised(),
+        gsTabDiscardManager.initAsPromised(),
+        gsSession.initAsPromised(),
+      ]);
+    })
+    .catch(error => {
+      gsUtils.error('background init error: ', error);
+    })
+    .then(initAsPromised)
+    .catch(error => {
+      gsUtils.error('background init error: ', error);
+    });
 
-  return {
-    backgroundScriptsReadyAsPromised,
-    initAsPromised,
-  };
 
 })();
-
-
-Promise.resolve()
-  .then(background.backgroundScriptsReadyAsPromised) // wait until all gsLibs have loaded
-  .then(gsStorage.initSettingsAsPromised) // ensure settings have been loaded and synced
-  .then(() => {
-    // initialise other gsLibs
-    return Promise.all([
-      // @TODO is this favicon reference safe?
-      gsFavicon.initAsPromised(),
-      gsTabSuspendManager.initAsPromised(),
-      gsTabCheckManager.initAsPromised(),
-      gsTabDiscardManager.initAsPromised(),
-      gsSession.initAsPromised(),
-    ]);
-  })
-  .catch(error => {
-    gsUtils.error('background init error: ', error);
-  })
-  .then(gsSession.runStartupChecks) // performs crash check (and maybe recovery) and tab responsiveness checks
-  .catch(error => {
-    gsUtils.error('background startup checks error: ', error);
-  })
-  .then(background.initAsPromised) // adds handle(Un)SuspendedTabChanged listeners!
-  .catch(error => {
-    gsUtils.error('background init error: ', error);
-  });

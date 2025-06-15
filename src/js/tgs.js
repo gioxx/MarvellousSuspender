@@ -1,6 +1,6 @@
 import  { gsChrome }              from './gsChrome.js';
 // import  { gsFavicon }             from './gsFavicon.js';
-import  { gsIndexedDb }           from './gsIndexedDb.js';
+// import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
@@ -43,36 +43,36 @@ export const tgs = (function() {
   let _newWindowFocusTimer;
 
 
-  function getExtensionGlobals() {
-    const globals = {
-      tgs,
-      gsUtils,
-      gsChrome,
-      gsStorage,
-      gsIndexedDb,
-      gsMessages,
-      gsSession,
-      // gsFavicon,
-      gsTabCheckManager,
-      gsTabSuspendManager,
-      gsTabDiscardManager,
-      // gsSuspendedTab,
-    };
-    for (const lib of Object.values(globals)) {
-      if (!lib) {
-        return null;
-      }
-    }
-    return globals;
-  }
+  // function getExtensionGlobals() {
+  //   const globals = {
+  //     tgs,
+  //     gsUtils,
+  //     gsChrome,
+  //     gsStorage,
+  //     // gsIndexedDb,
+  //     gsMessages,
+  //     gsSession,
+  //     // gsFavicon,
+  //     gsTabCheckManager,
+  //     gsTabSuspendManager,
+  //     gsTabDiscardManager,
+  //     // gsSuspendedTab,
+  //   };
+  //   for (const lib of Object.values(globals)) {
+  //     if (!lib) {
+  //       return null;
+  //     }
+  //   }
+  //   return globals;
+  // }
 
-  function setViewGlobals(_window) {
-    const globals = getExtensionGlobals();
-    if (!globals) {
-      throw new Error('Lib not ready');
-    }
-    Object.assign(_window, globals);
-  }
+  // function setViewGlobals(_window) {
+  //   const globals = getExtensionGlobals();
+  //   if (!globals) {
+  //     throw new Error('Lib not ready');
+  //   }
+  //   Object.assign(_window, globals);
+  // }
 
 
   async function getInternalContextByTabId(tabId) {
@@ -490,24 +490,19 @@ export const tgs = (function() {
   }
 
   async function getTabStatePropForTabId(tabId, prop) {
-    gsUtils.log(tabId, 'getTabStatePropForTabId');
     const state = await getTabStateForTabId(tabId);
     const ret = state ? state[prop] : undefined;
-    gsUtils.log(tabId, 'getTabStatePropForTabId', ret);
     return ret;
   }
 
   async function setTabStatePropForTabId(tabId, prop, value) {
-    gsUtils.log(tabId, 'setTabStatePropForTabId', prop, value);
     const state = (await getTabStateForTabId(tabId)) || {};
     state[prop] = value;
     return gsStorage.saveTabState(tabId, state);
   }
 
   async function getTabStateForTabId(tabId) {
-    gsUtils.log(tabId, 'getTabStateForTabId');
     const ret = await gsStorage.getTabState(tabId);
-    gsUtils.log(tabId, 'getTabStateForTabId', ret);
     return ret;
   }
 
@@ -517,12 +512,13 @@ export const tgs = (function() {
   // }
 
   async function deleteTabStateForTabId(tabId) {
-    gsUtils.log(tabId, 'deleteTabStateForTabId');
+    // gsUtils.log(tabId, 'deleteTabStateForTabId');
     await clearAutoSuspendTimerForTabId(tabId);
     return gsStorage.deleteTabState(tabId);
   }
 
   async function unsuspendTab(tab) {
+    gsUtils.log(tab.id, 'unsuspendTab', tab.url);
     if (!gsUtils.isSuspendedTab(tab)) return;
 
     const scrollPosition = gsUtils.getSuspendedScrollPosition(tab.url);
@@ -656,6 +652,13 @@ export const tgs = (function() {
 
         //init loaded tab
         await resetAutoSuspendTimerForTab(tab);
+        if (gsUtils.isNormalTab(tab, true)) {
+          let contentScriptStatus = await getContentScriptStatus(tab.id);
+          if (!contentScriptStatus) {
+            contentScriptStatus = await gsTabCheckManager.queueTabCheckAsPromise( tab, {}, 0 );
+          }
+          gsUtils.log( tab.id, 'Content script status: ' + contentScriptStatus );
+        }
         initialiseTabContentScript(tab, tempWhitelistOnReload, scrollPos)
           .catch(error => {
             gsUtils.warning( tab.id, 'Failed to send init to content script. Tab may not behave as expected.', error );
@@ -908,8 +911,8 @@ export const tgs = (function() {
     }
 
     //update icon
-    const status = await new Promise(r => {
-      calculateTabStatus(focusedTab, contentScriptStatus, r);
+    const status = await new Promise(resolve => {
+      calculateTabStatus(focusedTab, contentScriptStatus, resolve);
     });
     gsUtils.log(focusedTab.id, 'Focused tab status: ' + status);
 
@@ -1417,7 +1420,7 @@ export const tgs = (function() {
     setTabStatePropForTabId,
 
     initialiseTabContentScript,
-    setViewGlobals,
+    // setViewGlobals,
     getInternalContextByTabId,
     getInternalContextsByViewName,
     requestNotice,
@@ -1427,7 +1430,7 @@ export const tgs = (function() {
     getDebugInfo,
     calculateTabStatus,
 
-    getExtensionGlobals,
+    // getExtensionGlobals,
     setIconStatus,
     getCurrentlyActiveTab,
     openLinkInSuspendedTab,
