@@ -25,11 +25,8 @@ export const gsTabSuspendManager = (function() {
       const screenCaptureMode   = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
       const forceScreenCapture  = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_FORCE);
       //TODO: This should probably update when the screencapture mode changes
-      const concurrentSuspensions =
-        screenCaptureMode === '0' ? 5 : DEFAULT_CONCURRENT_SUSPENSIONS;
-      const suspensionTimeout = forceScreenCapture
-        ? 5 * 60 * 1000
-        : DEFAULT_SUSPENSION_TIMEOUT;
+      const concurrentSuspensions = screenCaptureMode === '0' ? 5 : DEFAULT_CONCURRENT_SUSPENSIONS;
+      const suspensionTimeout = forceScreenCapture ? 5 * 60 * 1000 : DEFAULT_SUSPENSION_TIMEOUT;
       const queueProps = {
         concurrentExecutors: concurrentSuspensions,
         jobTimeout: suspensionTimeout,
@@ -56,7 +53,7 @@ export const gsTabSuspendManager = (function() {
       return Promise.resolve();
     }
 
-    gsUtils.log(tab.id, QUEUE_ID, 'Queueing tab for suspension.');
+    gsUtils.log(tab.id, QUEUE_ID, 'queueTabForSuspensionAsPromise');
     return _suspensionQueue.queueTabAsPromise(tab, { forceLevel });
   }
 
@@ -220,7 +217,7 @@ export const gsTabSuspendManager = (function() {
   }
 
   function executeTabSuspension(tab, suspendedUrl) {
-    return new Promise(async resolve => {
+    return new Promise(async (resolve) => {
       // Remove any existing queued tab checks (this can happen if we try to suspend
       // a tab immediately after it gains focus)
       gsTabCheckManager.unqueueTabCheck(tab);

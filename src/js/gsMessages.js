@@ -73,14 +73,15 @@ export const gsMessages = {
     try {
       gsUtils.log(tabId, 'send message to tab', message);
       chrome.tabs.sendMessage(tabId, message, { frameId: 0 }, responseHandler);
-    } catch (e) {
-      // gsUtils.error(tabId, e);
+    }
+    catch (e) {
+      gsUtils.warning(tabId, e);
       chrome.tabs.sendMessage(tabId, message, responseHandler);
     }
   },
 
   executeScriptOnTab: function(tabId, scriptPath, callback) {
-    // gsUtils.log(tabId, 'executeScriptOnTab scriptPath', scriptPath);
+    gsUtils.log(tabId, 'gsMessages', 'executeScriptOnTab', scriptPath);
     if (!tabId) {
       if (callback) callback('tabId not specified');
       return;
@@ -97,7 +98,7 @@ export const gsMessages = {
   },
 
   executeCodeOnTab: function(tabId, codeString, callback) {
-    // gsUtils.log(tabId, 'executeCodeOnTab codeString', codeString);
+    gsUtils.log(tabId, 'gsMessages', 'executeCodeOnTab', codeString);
     if (!tabId) {
       if (callback) callback('tabId not specified');
       return;

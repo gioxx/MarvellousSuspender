@@ -62,14 +62,6 @@ export const gsUtils = {
       console.warn('WARNING:', id, (new Date() + '').split(' ')[4], text, ...args,);
     }
   },
-  errorIfInitialised: function(id, errorObj, ...args) {
-    args = args || [];
-    if (gsSession.isInitialising()) {
-      gsUtils.warning(id, errorObj, args);
-    } else {
-      gsUtils.error(id, errorObj, args);
-    }
-  },
   error: function(id, errorObj, ...args) {
     if (errorObj === undefined) {
       errorObj = id;

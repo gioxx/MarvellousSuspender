@@ -711,17 +711,16 @@ export const tgs = (function() {
     }
 
     // const tabView = getInternalViewByTabId(tab.id);
-    gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND).then((discardAfterSuspend) => {
-      const quickInit = discardAfterSuspend && !tab.active;
-      // gsSuspendedTab.initTab(tab, tabView, { quickInit })
-      chrome.tabs.sendMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: gsSession.getSessionId() })
-        .catch(error => {
-          gsUtils.warning(tab.id, error);
-        })
-        .then(() => {
-          gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 3000);
-        });
-    });
+    const discardAfterSuspend = gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
+    const quickInit = discardAfterSuspend && !tab.active;
+    // gsSuspendedTab.initTab(tab, tabView, { quickInit })
+    chrome.tabs.sendMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() })
+      .catch(error => {
+        gsUtils.warning(tab.id, error);
+      })
+      .then(() => {
+        gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 3000);
+      });
   }
 
   async function removeTabIdReferences(tabId) {

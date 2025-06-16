@@ -14,24 +14,14 @@ export const gsSession = (function() {
   const updateUrl   = chrome.runtime.getURL('update.html');
   const updatedUrl  = chrome.runtime.getURL('updated.html');
 
-  let initialisationMode = true;
-  let sessionId;
-  let updateType = null;
-  let updated = false;
   let fileUrlsAccessAllowed = false;
-
-  let startupTabCheckTimeTakenInSeconds;
-  let startupRecoveryTimeTakenInSeconds;
-  let startupType;
-  let startupLastVersion;
-  let syncedSettingsOnInit;
 
   async function initAsPromised() {
     // Set fileUrlsAccessAllowed to determine if extension can work on file:// URLs
-    await new Promise(r => {
-      chrome.extension.isAllowedFileSchemeAccess(isAllowedAccess => {
+    await new Promise((resolve) => {
+      chrome.extension.isAllowedFileSchemeAccess((isAllowedAccess) => {
         fileUrlsAccessAllowed = isAllowedAccess;
-        r();
+        resolve();
       });
     });
 
@@ -77,13 +67,14 @@ export const gsSession = (function() {
     }
   }
 
-  function getSessionId() {
-    if (!sessionId) {
-      //turn this into a string to make comparisons easier further down the track
-      sessionId = Date.now() + '';
-      gsUtils.log('gsSession', 'sessionId: ', sessionId);
+  async function getSessionId() {
+    let gsSessionId = await gsStorage.getStorageJSON('session', 'gsSessionId');
+    if (!gsSessionId) {
+      gsSessionId = Date.now() + '';
+      await gsStorage.saveStorage('session', 'gsSessionId', gsSessionId);
+      gsUtils.log('gsSession', 'gsSessionId', gsSessionId);
     }
-    return sessionId;
+    return gsSessionId;
   }
 
   async function buildCurrentSession() {
@@ -96,7 +87,7 @@ export const gsSession = (function() {
       return null;
     }
     return {
-      sessionId: getSessionId(),
+      sessionId: await getSessionId(),
       windows: currentWindows,
       date: new Date().toISOString(),
     };
@@ -109,45 +100,30 @@ export const gsSession = (function() {
     }
   }
 
-  function isUpdated() {
-    return updated;
+  async function isUpdated() {
+    return gsStorage.getStorageJSON('session', 'gsUpdated');
   }
 
-  function isInitialising() {
-    gsUtils.log('isInitialising', initialisationMode);
-    return initialisationMode;
+  async function isInitialising() {
+    const gsInitialisationMode = await gsStorage.getStorageJSON('session', 'gsInitialisationMode');
+    gsUtils.log('isInitialising', gsInitialisationMode);
+    return gsInitialisationMode;
   }
 
   function isFileUrlsAccessAllowed() {
     return fileUrlsAccessAllowed;
   }
 
-  function getTabCheckTimeTakenInSeconds() {
-    return startupTabCheckTimeTakenInSeconds;
+  async function getUpdateType() {
+    return gsStorage.getStorageJSON('session', 'gsUpdateType');
   }
 
-  function getRecoveryTimeTakenInSeconds() {
-    return startupRecoveryTimeTakenInSeconds;
-  }
-
-  function getStartupType() {
-    return startupType;
-  }
-
-  function getStartupLastVersion() {
-    return startupLastVersion;
-  }
-
-  function getUpdateType() {
-    return updateType;
-  }
-
-  function setSynchedSettingsOnInit(syncedSettings) {
-    syncedSettingsOnInit = syncedSettings;
+  async function setSynchedSettingsOnInit(gsSyncedSettingsOnInit) {
+    gsStorage.saveStorage('session', 'gsSyncedSettingsOnInit', gsSyncedSettingsOnInit);
   }
 
   async function runStartupChecks() {
-    initialisationMode = true;
+    await gsStorage.saveStorage('session', 'gsInitialisationMode', true);
 
     const currentSessionTabs = await gsChrome.tabsQuery();
     gsUtils.log('gsSession', 'preRecovery open tabs:', currentSessionTabs);
@@ -155,24 +131,24 @@ export const gsSession = (function() {
     const curVersion = chrome.runtime.getManifest().version;
     gsUtils.log('gsSession', 'curVersion:', curVersion);
 
-    startupLastVersion = await gsStorage.fetchLastVersion();
-    gsUtils.log('gsSession', 'startupLastVersion:', startupLastVersion);
+    const gsStartupLastVersion = await gsStorage.fetchLastVersion();
+    gsUtils.log('gsSession', 'gsStartupLastVersion:', gsStartupLastVersion);
 
     if (chrome.extension.inIncognitoContext) {
       // do nothing if in incognito context
-      startupType = 'Incognito';
-    } else if (startupLastVersion === curVersion) {
+      // startupType = 'Incognito';
+    } else if (gsStartupLastVersion === curVersion) {
       gsUtils.log('gsSession', 'HANDLING NORMAL STARTUP');
-      startupType = 'Restart';
+      // startupType = 'Restart';
       await handleNormalStartup(currentSessionTabs, curVersion);
-    } else if (!startupLastVersion || startupLastVersion === '0.0.0') {
+    } else if (!gsStartupLastVersion || gsStartupLastVersion === '0.0.0') {
       gsUtils.log('gsSession', 'HANDLING NEW INSTALL');
-      startupType = 'Install';
+      // startupType = 'Install';
       await handleNewInstall(curVersion);
     } else {
       gsUtils.log('gsSession', 'HANDLING UPDATE');
-      startupType = 'Update';
-      await handleUpdate(currentSessionTabs, curVersion, startupLastVersion);
+      // startupType = 'Update';
+      await handleUpdate(currentSessionTabs, curVersion, gsStartupLastVersion);
     }
 
     await performTabChecks();
@@ -187,7 +163,7 @@ export const gsSession = (function() {
     updateCurrentSession(); //async
 
     gsUtils.log('gsSession', 'initialisationMode = false');
-    initialisationMode = false;
+    await gsStorage.saveStorage('session', 'gsInitialisationMode', false);
   }
 
   //make sure the contentscript / suspended script of each tab is responsive
@@ -209,9 +185,7 @@ export const gsSession = (function() {
       o => o === gsUtils.STATUS_SUSPENDED || o === gsUtils.STATUS_DISCARDED,
     ).length;
 
-    startupTabCheckTimeTakenInSeconds = parseInt(
-      (Date.now() - initStartTime) / 1000,
-    );
+    const startupTabCheckTimeTakenInSeconds = parseInt( (Date.now() - initStartTime) / 1000 );
     gsUtils.log(
       'gsSession',
       '\n\n------------------------------------------------\n' +
@@ -253,9 +227,10 @@ export const gsSession = (function() {
     // Try to determine if this is a new install for the computer or for the whole profile
     // If settings sync contains non-default options, then we can assume it's only
     // a new install for this computer
+    const gsSyncedSettingsOnInit = await gsStorage.getStorageJSON('session', 'gsSyncedSettingsOnInit');
     if (
-      !syncedSettingsOnInit ||
-      Object.keys(syncedSettingsOnInit).length === 0
+      !gsSyncedSettingsOnInit ||
+      Object.keys(gsSyncedSettingsOnInit).length === 0
     ) {
       //show welcome message
       const optionsUrl = chrome.runtime.getURL('options.html?firstTime');
@@ -267,14 +242,20 @@ export const gsSession = (function() {
     gsStorage.setLastVersion(curVersion);
     const lastVersionParts = lastVersion.split('.');
     const curVersionParts = curVersion.split('.');
+    let gsUpdateType = null;
     if (lastVersionParts.length >= 2 && curVersionParts.length >= 2) {
       if (parseInt(curVersionParts[0]) > parseInt(lastVersionParts[0])) {
-        updateType = 'major';
-      } else if (parseInt(curVersionParts[1]) > parseInt(lastVersionParts[1])) {
-        updateType = 'minor';
-      } else {
-        updateType = 'patch';
+        gsUpdateType = 'major';
       }
+      else if (parseInt(curVersionParts[1]) > parseInt(lastVersionParts[1])) {
+        gsUpdateType = 'minor';
+      }
+      else {
+        gsUpdateType = 'patch';
+      }
+    }
+    if (gsUpdateType) {
+      await gsStorage.saveStorage('session', 'gsUpdateType', gsUpdateType);
     }
 
     const sessionRestorePoint = await gsIndexedDb.fetchSessionRestorePoint(
@@ -301,11 +282,12 @@ export const gsSession = (function() {
     await gsIndexedDb.performMigration(lastVersion);
     gsStorage.setNoticeVersion('0');
     const shouldRecoverTabs = await checkForCrashRecovery(currentSessionTabs);
+    let gsUpdated = false;
     if (shouldRecoverTabs) {
       await gsUtils.createTabAndWaitForFinishLoading(updatedUrl, 10000);
 
       await recoverLostTabs();
-      updated = true;
+      gsUpdated = true;
 
       //update updated views
       const updatedViews = tgs.getInternalViewsByViewName('updated');
@@ -313,13 +295,18 @@ export const gsSession = (function() {
         for (const view of updatedViews) {
           view.exports.toggleUpdated();
         }
-      } else {
+      }
+      else {
         await gsUtils.removeTabsByUrlAsPromised(updatedUrl);
         await gsChrome.tabsCreate({ url: updatedUrl });
       }
-    } else {
-      updated = true;
+    }
+    else {
+      gsUpdated = true;
       await gsChrome.tabsCreate({ url: updatedUrl });
+    }
+    if (gsUpdated) {
+      await gsStorage.saveStorage('session', 'gsUpdated', gsUpdated);
     }
   }
 
@@ -447,9 +434,7 @@ export const gsSession = (function() {
       await gsChrome.windowsUpdate(lastFocusedWindowId, { focused: true });
     }
 
-    startupRecoveryTimeTakenInSeconds = parseInt(
-      (Date.now() - recoveryStartTime) / 1000,
-    );
+    const startupRecoveryTimeTakenInSeconds = parseInt( (Date.now() - recoveryStartTime) / 1000 );
     gsUtils.log(
       'gsSession',
       '\n\n------------------------------------------------\n' +
@@ -636,12 +621,7 @@ export const gsSession = (function() {
             new Promise(async resolve => {
               await gsUtils.setTimeout(i * 20);
               // dont await createNewTab as we want them to happen concurrently (but staggered)
-              createNewTabFromSessionTab(
-                sessionTab,
-                existingWindow.id,
-                sessionTab.index,
-                suspendMode,
-              );
+              createNewTabFromSessionTab( sessionTab, existingWindow.id, sessionTab.index, suspendMode );
               resolve();
             }),
           );
@@ -726,11 +706,7 @@ export const gsSession = (function() {
     isInitialising,
     isUpdated,
     isFileUrlsAccessAllowed,
-    getTabCheckTimeTakenInSeconds,
-    getRecoveryTimeTakenInSeconds,
-    getStartupType,
     setSynchedSettingsOnInit,
-    getStartupLastVersion,
     recoverLostTabs,
     triggerDiscardOfAllTabs,
     restoreSessionWindow,

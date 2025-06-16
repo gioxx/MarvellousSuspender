@@ -350,7 +350,7 @@ import  { tgs }                   from './tgs.js';
 
 
   async function messageRequestListener(request, sender, sendResponse) {
-    gsUtils.log(0, 'suspended', 'messageRequestListener', request.action, request);
+    gsUtils.log('suspended', 'messageRequestListener', request.action, request);
 
     switch (request.action) {
 
@@ -397,7 +397,7 @@ import  { tgs }                   from './tgs.js';
       }
 
       default: {
-        gsUtils.warning(0, 'messageRequestListener', `Unknown message action: ${request.action}`);
+        gsUtils.warning('suspended', 'messageRequestListener', `Unknown message action: ${request.action}`);
         sendResponse();
         break;
       }
@@ -406,7 +406,7 @@ import  { tgs }                   from './tgs.js';
   }
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
-    gsUtils.log(0, 'suspended', 'documentReadyAndLocalisedAsPromised');
+    gsUtils.log('suspended', 'documentReadyAndLocalisedAsPromised');
     chrome.runtime.onMessage.addListener(messageRequestListener);
     // initSettings();
   });

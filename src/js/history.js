@@ -48,12 +48,12 @@ import  { historyUtils }          from './historyUtils.js';
 
     gsIndexedDb
       .removeTabFromSessionHistory(sessionId, windowId, tabId)
-      .then(function(session) {
+      .then(async (session) => {
         gsUtils.removeInternalUrlsFromSession(session);
         //if we have a valid session returned
         if (session) {
           sessionEl = element.parentElement.parentElement;
-          newSessionEl = createSessionElement(session);
+          newSessionEl = await createSessionElement(session);
           sessionEl.parentElement.replaceChild(newSessionEl, sessionEl);
           toggleSession(newSessionEl, session.sessionId); //async. unhandled promise
 
@@ -94,7 +94,7 @@ import  { historyUtils }          from './historyUtils.js';
         for (const [i, curWindow] of curSession.windows.entries()) {
           curWindow.sessionId = curSession.sessionId;
           sessionContentsEl.appendChild(
-            createWindowElement(curSession, curWindow, i),
+            await createWindowElement(curSession, curWindow, i),
           );
 
           const tabPromises = [];
@@ -121,8 +121,8 @@ import  { historyUtils }          from './historyUtils.js';
     }
   }
 
-  function createSessionElement(session) {
-    var sessionEl = historyItems.createSessionHtml(session, true);
+  async function createSessionElement(session) {
+    var sessionEl = await historyItems.createSessionHtml(session, true);
 
     addClickListenerToElement(
       sessionEl.getElementsByClassName('sessionIcon')[0],
@@ -169,8 +169,8 @@ import  { historyUtils }          from './historyUtils.js';
     return sessionEl;
   }
 
-  function createWindowElement(session, window, index) {
-    var allowReload = session.sessionId !== gsSession.getSessionId();
+  async function createWindowElement(session, window, index) {
+    var allowReload = session.sessionId !== (await gsSession.getSessionId());
     var windowEl = historyItems.createWindowHtml(window, index, allowReload);
 
     addClickListenerToElement(
@@ -203,7 +203,7 @@ import  { historyUtils }          from './historyUtils.js';
   }
 
   async function createTabElement(session, window, tab) {
-    var allowDelete = session.sessionId !== gsSession.getSessionId();
+    var allowDelete = session.sessionId !== (await gsSession.getSessionId());
     var tabEl = await historyItems.createTabHtml(tab, allowDelete);
 
     addClickListenerToElement(
@@ -215,7 +215,7 @@ import  { historyUtils }          from './historyUtils.js';
     return tabEl;
   }
 
-  function render() {
+  async function render() {
     //Set theme
     gsStorage.getOption(gsStorage.THEME).then((theme) => {
       document.body.classList.add(theme === 'dark' ? 'dark' : null);
@@ -232,32 +232,26 @@ import  { historyUtils }          from './historyUtils.js';
     sessionsDiv.innerHTML = '';
     historyDiv.innerHTML = '';
 
-    gsIndexedDb.fetchCurrentSessions().then(function(currentSessions) {
-      currentSessions.forEach(function(session, index) {
-        gsUtils.removeInternalUrlsFromSession(session);
-        var sessionEl = createSessionElement(session);
-        if (firstSession) {
-          currentDiv.appendChild(sessionEl);
-          firstSession = false;
-        } else {
-          sessionsDiv.appendChild(sessionEl);
-        }
-      });
-    });
+    const currentSessions = await gsIndexedDb.fetchCurrentSessions();
+    for (const session of currentSessions) {
+      gsUtils.removeInternalUrlsFromSession(session);
+      const sessionEl = await createSessionElement(session);
+      if (firstSession) {
+        currentDiv.appendChild(sessionEl);
+        firstSession = false;
+      } else {
+        sessionsDiv.appendChild(sessionEl);
+      }
+    };
 
-    gsIndexedDb.fetchSavedSessions().then(function(savedSessions) {
-      savedSessions.forEach(function(session, index) {
-        gsUtils.removeInternalUrlsFromSession(session);
-        var sessionEl = createSessionElement(session);
-        historyDiv.appendChild(sessionEl);
-      });
-    });
+    const savedSessions = await gsIndexedDb.fetchSavedSessions();
+    for (const session of savedSessions) {
+      gsUtils.removeInternalUrlsFromSession(session);
+      const sessionEl = await createSessionElement(session);
+      historyDiv.appendChild(sessionEl);
+    };
 
-    importSessionActionEl.addEventListener(
-      'change',
-      historyUtils.importSession,
-      false,
-    );
+    importSessionActionEl.addEventListener( 'change', historyUtils.importSession, false );
     importSessionEl.onclick = function() {
       importSessionActionEl.click();
     };
@@ -279,8 +273,6 @@ import  { historyUtils }          from './historyUtils.js';
     }
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
-    render();
-  });
+  gsUtils.documentReadyAndLocalisedAsPromised(document).then(render);
 
 })(globalThis);

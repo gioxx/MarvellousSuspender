@@ -6,11 +6,11 @@ import  { gsUtils }               from './gsUtils.js';
 export const historyItems = (function(global) {
   'use strict';
 
-  function createSessionHtml(session, showLinks) {
+  async function createSessionHtml(session, showLinks) {
     session.windows = session.windows || [];
 
     let sessionType =
-        session.sessionId === gsSession.getSessionId()
+        session.sessionId === (await gsSession.getSessionId())
           ? 'current'
           : session.name
           ? 'saved'
@@ -259,8 +259,8 @@ export const historyItems = (function(global) {
   }
 
   return {
-    createSessionHtml: createSessionHtml,
-    createWindowHtml: createWindowHtml,
-    createTabHtml: createTabHtml,
+    createSessionHtml,
+    createWindowHtml,
+    createTabHtml,
   };
 })(this);

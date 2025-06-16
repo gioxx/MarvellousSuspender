@@ -10,18 +10,20 @@ import  { tgs }                   from './tgs.js';
 
   var globalActionElListener;
 
-  var getTabStatus = function(retriesRemaining, callback) {
-    tgs.getActiveTabStatus(function(status) {
+  var getTabStatus = (retriesRemaining, callback) => {
+    tgs.getActiveTabStatus(async (status) => {
       if (
         status !== gsUtils.STATUS_UNKNOWN &&
         status !== gsUtils.STATUS_LOADING
       ) {
         callback(status);
-      } else if (retriesRemaining === 0) {
+      }
+      else if (retriesRemaining === 0) {
         callback(status);
-      } else {
+      }
+      else {
         var timeout = 1000;
-        if (!gsSession.isInitialising()) {
+        if (!(await gsSession.isInitialising())) {
           retriesRemaining--;
           timeout = 200;
         }
@@ -31,6 +33,7 @@ import  { tgs }                   from './tgs.js';
       }
     });
   };
+
   function getTabStatusAsPromise(retries, allowTransientStates) {
     return new Promise(function(resolve) {
       getTabStatus(retries, function(status) {
@@ -45,6 +48,7 @@ import  { tgs }                   from './tgs.js';
       });
     });
   }
+
   function getSelectedTabsAsPromise() {
     return new Promise(function(resolve) {
       chrome.tabs.query(
@@ -106,7 +110,7 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  function setStatus(status) {
+  async function setStatus(status) {
     setSuspendCurrentVisibility(status);
 
     var statusDetail = '';
@@ -177,7 +181,7 @@ import  { tgs }                   from './tgs.js';
       status === gsUtils.STATUS_LOADING ||
       status === gsUtils.STATUS_UNKNOWN
     ) {
-      if (gsSession.isInitialising()) {
+      if (await gsSession.isInitialising()) {
         statusDetail = chrome.i18n.getMessage('js_popup_initialising');
       } else {
         statusDetail = chrome.i18n.getMessage('js_popup_unknown');
@@ -206,32 +210,32 @@ import  { tgs }                   from './tgs.js';
     // Update action handler
     var actionEl = document.getElementsByTagName('a')[0];
     if (actionEl) {
-      var tgsHanderFunc;
+      var tgsHandlerFunc;
       if (
         status === gsUtils.STATUS_NORMAL ||
         status === gsUtils.STATUS_ACTIVE
       ) {
-        tgsHanderFunc = tgs.requestToggleTempWhitelistStateOfHighlightedTab;
+        tgsHandlerFunc = tgs.requestToggleTempWhitelistStateOfHighlightedTab;
       } else if (status === gsUtils.STATUS_SUSPENDED) {
-        tgsHanderFunc = tgs.requestToggleTempWhitelistStateOfHighlightedTab;
+        tgsHandlerFunc = tgs.requestToggleTempWhitelistStateOfHighlightedTab;
       } else if (status === gsUtils.STATUS_WHITELISTED) {
-        tgsHanderFunc = tgs.unwhitelistHighlightedTab;
+        tgsHandlerFunc = tgs.unwhitelistHighlightedTab;
       } else if (
         status === gsUtils.STATUS_FORMINPUT ||
         status === gsUtils.STATUS_TEMPWHITELIST
       ) {
-        tgsHanderFunc = tgs.requestToggleTempWhitelistStateOfHighlightedTab;
+        tgsHandlerFunc = tgs.requestToggleTempWhitelistStateOfHighlightedTab;
       } else if (status === gsUtils.STATUS_BLOCKED_FILE) {
-        tgsHanderFunc = tgs.promptForFilePermissions;
+        tgsHandlerFunc = tgs.promptForFilePermissions;
       }
 
       if (globalActionElListener) {
         actionEl.removeEventListener('click', globalActionElListener);
       }
-      if (tgsHanderFunc) {
-        globalActionElListener = function(e) {
-          tgsHanderFunc(function(newTabStatus) {
-            setStatus(newTabStatus);
+      if (tgsHandlerFunc) {
+        globalActionElListener = (event) => {
+          tgsHandlerFunc(async (newTabStatus) => {
+            await setStatus(newTabStatus);
           });
           // window.close();
         };
@@ -252,10 +256,9 @@ import  { tgs }                   from './tgs.js';
     const elem = document.getElementById(message);
     if (elem) {
       elem.addEventListener('click', async (event) => {
-        console.log(`click ${message}`);
         await chrome.runtime.sendMessage({ action: message });
         if (message.match(/^whitelist/i)) {
-          setStatus(gsUtils.STATUS_WHITELISTED);
+          await setStatus(gsUtils.STATUS_WHITELISTED);
         }
         window.close();
       });
@@ -278,9 +281,9 @@ import  { tgs }                   from './tgs.js';
     gsUtils.documentReadyAndLocalisedAsPromised(document),
     getTabStatusAsPromise(0, true),
     getSelectedTabsAsPromise(),
-  ]).then(([domLoadedEvent, initialTabStatus, selectedTabs]) => {
+  ]).then(async ([domLoadedEvent, initialTabStatus, selectedTabs]) => {
     setSuspendSelectedVisibility(selectedTabs);
-    setStatus(initialTabStatus);
+    await setStatus(initialTabStatus);
     showPopupContents();
     addClickHandlers();
 
@@ -288,8 +291,8 @@ import  { tgs }                   from './tgs.js';
       initialTabStatus === gsUtils.STATUS_UNKNOWN ||
       initialTabStatus === gsUtils.STATUS_LOADING
     ) {
-      getTabStatusAsPromise(50, false).then((finalTabStatus) => {
-        setStatus(finalTabStatus);
+      getTabStatusAsPromise(50, false).then(async (finalTabStatus) => {
+        await setStatus(finalTabStatus);
       });
     }
   });

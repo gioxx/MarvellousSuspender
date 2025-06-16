@@ -34,6 +34,7 @@ import  { tgs }                   from './tgs.js';
 
     Promise.resolve()
       .then(gsStorage.initSettingsAsPromised)   // ensure settings have been loaded and synced
+      .then(gsStorage.saveStorage('session', 'gsInitialisationMode', true))
       .then(gsSession.runStartupChecks)         // performs crash check (and maybe recovery) and tab responsiveness checks
       .catch(error => {
         gsUtils.error('background startup checks error: ', error);

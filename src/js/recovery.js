@@ -125,7 +125,7 @@ import  { historyItems }          from './historyItems.js';
       restoreEl.className += ' btnDisabled';
       restoreEl.removeEventListener('click', performRestore);
       showTabSpinners();
-      while (gsSession.isInitialising()) {
+      while (await gsSession.isInitialising()) {
         await gsUtils.setTimeout(200);
       }
       await gsSession.recoverLostTabs();

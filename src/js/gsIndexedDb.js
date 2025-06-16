@@ -329,7 +329,7 @@ export const gsIndexedDb = {
   },
 
   // Returns most recent session in DB_CURRENT_SESSIONS EXCLUDING the current session
-  fetchLastSession: async function() {
+  fetchLastSession: async () => {
     let results;
     try {
       const gsDb = await gsIndexedDb.getDb();
@@ -343,8 +343,8 @@ export const gsIndexedDb = {
     }
     if (results && results.length > 0) {
       //don't want to match on current session
-      const currentSessionId = gsSession.getSessionId();
-      const lastSession = results.find(o => o.sessionId !== currentSessionId);
+      const currentSessionId = await gsSession.getSessionId();
+      const lastSession = results.find((o) => o.sessionId !== currentSessionId);
       return lastSession;
     }
     return null;

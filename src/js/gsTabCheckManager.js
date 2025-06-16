@@ -157,7 +157,7 @@ export const gsTabCheckManager = (function() {
     if (!_tab) {
       gsUtils.warning( tab.id, QUEUE_ID, `Failed to initialize tab. Tab may have been discarded or removed.` );
       // If we are still initialising, then check for potential discarded tab matches
-      if (gsSession.isInitialising()) {
+      if (await gsSession.isInitialising()) {
         await queueTabCheckForPotentiallyDiscardedTabs(tab);
       }
     }
@@ -254,7 +254,7 @@ export const gsTabCheckManager = (function() {
       !gsUtils.isDiscardedTab(tab) &&
       !(await tgs.isCurrentActiveTab(tab));
     const suspendInfo = await chrome.tabs.sendMessage(tab.id, { action: 'getSuspendInfo', tab });
-    const tabSessionOk = suspendInfo.sessionId === gsSession.getSessionId();
+    const tabSessionOk = suspendInfo.sessionId === (await gsSession.getSessionId());
     const tabBasicsOk = ensureSuspendedTabTitleAndFaviconSet(tab);
     const tabVisibleOk = attemptDiscarding || suspendInfo.isVisible;
     const tabChecksOk = tabSessionOk && tabBasicsOk && tabVisibleOk;
@@ -270,7 +270,7 @@ export const gsTabCheckManager = (function() {
         gsUtils.log(tab.id, QUEUE_ID, 'Reinitialising suspendedTab: ', tab);
         // If we know that we will discard tab, then just perform a quick init
         const quickInit = attemptDiscarding && !tab.active;
-        chrome.tabs.sendMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: gsSession.getSessionId() });
+        chrome.tabs.sendMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() });
         // await gsSuspendedTab.initTab(tab, suspendedView, { quickInit });
         reinitialised = true;
       }

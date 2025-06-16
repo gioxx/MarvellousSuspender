@@ -65,14 +65,16 @@ export const gsStorage = {
    * LOCAL STORAGE FUNCTIONS
    */
 
-  //populate localstorage settings with sync settings where undefined
+  // @TODO: try to remove JSON calls since the storage does it natively -- but what about existing saved options?
+
+  //populate local storage settings with sync settings where undefined
   initSettingsAsPromised: function() {
     return new Promise(function(resolve) {
       var defaultSettings = gsStorage.getSettingsDefaults();
       var defaultKeys = Object.keys(defaultSettings);
-      chrome.storage.sync.get(defaultKeys, function(syncedSettings) {
+      chrome.storage.sync.get(defaultKeys, async (syncedSettings) => {
         gsUtils.log('gsStorage', 'syncedSettings on init: ', syncedSettings);
-        gsSession.setSynchedSettingsOnInit(syncedSettings);
+        await gsSession.setSynchedSettingsOnInit(syncedSettings);
 
         chrome.storage.local.get(['gsSettings'], async (result) => {
 
@@ -132,10 +134,7 @@ export const gsStorage = {
               typeof mergedSettings[key] === 'undefined' ||
               mergedSettings[key] === null
             ) {
-              gsUtils.errorIfInitialised(
-                'gsStorage',
-                'Missing key: ' + key + '! Will init with default.',
-              );
+              gsUtils.warning( 'gsStorage', 'Missing key: ' + key + '! Will init with default.' );
               mergedSettings[key] = defaultSettings[key];
             }
           }
@@ -226,7 +225,7 @@ export const gsStorage = {
   },
 
   // Calling syncSettings has the unfortunate side-effect of triggering the chrome.storage.onChanged
-  // listener which the re-saves the setting to localStorage a second time.
+  // listener which the re-saves the setting to local storage a second time.
   setOptionAndSync: async (prop, value) => {
     await gsStorage.setOption(prop, value);
     await gsStorage.syncSettings();
