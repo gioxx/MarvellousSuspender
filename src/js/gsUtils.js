@@ -10,9 +10,6 @@ import  { tgs }                   from './tgs.js';
 
 'use strict';
 
-var debugInfo = true;
-var debugError = true;
-
 export const gsUtils = {
   STATUS_NORMAL: 'normal',
   STATUS_LOADING: 'loading',
@@ -31,6 +28,9 @@ export const gsUtils = {
   STATUS_NOCONNECTIVITY: 'noConnectivity',
   STATUS_UNKNOWN: 'unknown',
 
+  debugInfo: true,
+  debugError: true,
+
   contains: function(array, value) {
     for (var i = 0; i < array.length; i++) {
       if (array[i] === value) return true;
@@ -39,18 +39,18 @@ export const gsUtils = {
   },
 
   dir: function(object) {
-    if (debugInfo) {
+    if (gsUtils.debugInfo) {
       console.dir(object);
     }
   },
   log: function(id, text, ...args) {
-    if (debugInfo) {
+    if (gsUtils.debugInfo) {
       args = args || [];
       console.log(id, (new Date() + '').split(' ')[4], text, ...args);
     }
   },
   warning: function(id, text, ...args) {
-    if (debugError) {
+    if (gsUtils.debugError) {
       args = args || [];
       const ignores = ['Error', 'gsUtils', 'gsMessages'];
       const errorLine = gsUtils
@@ -76,7 +76,7 @@ export const gsUtils = {
       id = '?';
     }
     //NOTE: errorObj may be just a string :/
-    if (debugError) {
+    if (gsUtils.debugError) {
       const stackTrace = errorObj.hasOwnProperty('stack')
         ? errorObj.stack
         : gsUtils.getStackTrace();
@@ -111,19 +111,19 @@ export const gsUtils = {
   },
 
   isDebugInfo: function() {
-    return debugInfo;
+    return gsUtils.debugInfo;
   },
 
   isDebugError: function() {
-    return debugError;
+    return gsUtils.debugError;
   },
 
   setDebugInfo: function(value) {
-    debugInfo = value;
+    gsUtils.debugInfo = value;
   },
 
   setDebugError: function(value) {
-    debugError = value;
+    gsUtils.debugError = value;
   },
 
   isDiscardedTab: function(tab) {
@@ -615,23 +615,6 @@ export const gsUtils = {
       hash |= 0; // Convert to 32bit integer
     }
     return Math.abs(hash);
-  },
-
-  getAllExpiredTabs: function(callback) {
-    var expiredTabs = [];
-    chrome.tabs.query({}, async (tabs) => {
-      for (const tab of tabs) {
-        const timerDetails = await tgs.getTabStatePropForTabId(tab.id, tgs.STATE_TIMER_DETAILS);
-        if (
-          timerDetails &&
-          timerDetails.suspendDateTime &&
-          new Date(timerDetails.suspendDateTime) < new Date()
-        ) {
-          expiredTabs.push(tab);
-        }
-      }
-      callback(expiredTabs);
-    });
   },
 
   performPostSaveUpdates: function(changedSettingKeys, oldValueBySettingKey, newValueBySettingKey) {

@@ -4,13 +4,14 @@
   "version": "8.0.0.0",
   "default_locale": "en",
   "permissions": [
-    "tabs",
-    "storage",
-    "history",
+    "alarms",
     "contextMenus",
     "cookies",
     "favicon",
-    "scripting"
+    "history",
+    "scripting",
+    "storage",
+    "tabs"
   ],
   "host_permissions": [
     "https://*/*",

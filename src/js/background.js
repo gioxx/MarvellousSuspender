@@ -59,6 +59,18 @@ import  { tgs }                   from './tgs.js';
       tgs.buildContextMenu(contextMenus);
     }
 
+    if (gsUtils.debugInfo) {
+      setTimeout(() => {
+        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+1&uri=https://www.google.com` });
+        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+2&uri=https://www.google.com` });
+        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+3&uri=https://www.google.com` });
+        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+1&uri=https://www.github.com` });
+        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+2&uri=https://www.github.com` });
+        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+3&uri=https://www.github.com` });
+        chrome.tabs.create({ url: chrome.runtime.getURL('debug.html') });
+      }, 200);
+    }
+
   });
 
   if (self instanceof ServiceWorkerGlobalScope) {
@@ -170,9 +182,7 @@ import  { tgs }                   from './tgs.js';
         break;
       }
       case 'settingsLink' : {
-        chrome.tabs.create({
-          url: chrome.runtime.getURL('options.html'),
-        });
+        chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
         break;
       }
       default: {
@@ -324,7 +334,20 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  // Listeners must part of the top-level evaluation of the service worker
+  /** @param { chrome.alarms.Alarm } alarm */
+  async function alarmListener(alarm) {
+    gsUtils.log('background', 'alarmListener', alarm);
+    const tabId = parseInt(alarm.name);
+    const tab = await gsChrome.tabsGet(tabId);
+    if (!tab) {
+      gsUtils.warning(tabId, 'Tab not found. Aborting suspension.');
+      return;
+    }
+    gsUtils.log( tabId, 'TIMER queueTabForSuspension' );
+    gsTabSuspendManager.queueTabForSuspension(tab, 3);
+  }
+
+  // Listeners must be part of the top-level evaluation of the service worker
   function addChromeListeners() {
     chrome.windows.onFocusChanged.addListener(async (windowId) => {
       await tgs.handleWindowFocusChanged(windowId);
@@ -333,9 +356,12 @@ import  { tgs }                   from './tgs.js';
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
     });
     chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
-      await tgs.updateTabIdReferences(addedTabId, removedTabId);
+      // await tgs.updateTabIdReferences(addedTabId, removedTabId);
+      tgs.queueSessionTimer();
+      await tgs.removeTabIdReferences(removedTabId);
+      // @TODO: Do we need to do anything here?  Seems like onCreated doesn't
     });
-    chrome.tabs.onCreated.addListener(async function(tab) {
+    chrome.tabs.onCreated.addListener(async (tab) => {
       gsUtils.log(tab.id, 'tab created. tabUrl: ' + tab.url);
       tgs.queueSessionTimer();
 
@@ -478,6 +504,7 @@ import  { tgs }                   from './tgs.js';
   chrome.runtime.onMessageExternal.addListener(externalMessageRequestListener);
   chrome.commands.onCommand.addListener(commandListener);
   chrome.contextMenus.onClicked.addListener(contextMenuListener);
+  chrome.alarms.onAlarm.addListener(alarmListener);
   addChromeListeners();
   addMiscListeners();
 
