@@ -2,7 +2,6 @@ import  { gsChrome }              from './gsChrome.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
-// import  { gsSuspendedTab }        from './gsSuspendedTab.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
 import  { gsTabQueue }            from './gsTabQueue.js';
 import  { gsUtils }               from './gsUtils.js';
@@ -271,7 +270,6 @@ export const gsTabCheckManager = (function() {
         // If we know that we will discard tab, then just perform a quick init
         const quickInit = attemptDiscarding && !tab.active;
         chrome.tabs.sendMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() });
-        // await gsSuspendedTab.initTab(tab, suspendedView, { quickInit });
         reinitialised = true;
       }
       catch (error) {

@@ -12,7 +12,6 @@ import  { gsChrome }              from './gsChrome.js';
 // import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
-// import  { gsSuspendedTab }        from './gsSuspendedTab.js';
 import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
 import  { gsTabCheckManager }     from './gsTabCheckManager.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';

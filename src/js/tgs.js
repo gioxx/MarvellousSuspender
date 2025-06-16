@@ -4,7 +4,6 @@ import  { gsChrome }              from './gsChrome.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
-// import  { gsSuspendedTab }        from './gsSuspendedTab.js';
 import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
 import  { gsTabCheckManager }     from './gsTabCheckManager.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
@@ -713,7 +712,6 @@ export const tgs = (function() {
     // const tabView = getInternalViewByTabId(tab.id);
     const discardAfterSuspend = gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
     const quickInit = discardAfterSuspend && !tab.active;
-    // gsSuspendedTab.initTab(tab, tabView, { quickInit })
     chrome.tabs.sendMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() })
       .catch(error => {
         gsUtils.warning(tab.id, error);
@@ -966,10 +964,6 @@ export const tgs = (function() {
         getInternalContextByTabId(focusedTab.id, (context) => {
           chrome.tabs.sendMessage(context.tabId, { action: 'showNoConnectivityMessage', tab: focusedTab });
         });
-        // const suspendedView = getInternalViewByTabId(focusedTab.id);
-        // if (suspendedView) {
-        //   gsSuspendedTab.showNoConnectivityMessage(suspendedView);
-        // }
       }
     }
   }

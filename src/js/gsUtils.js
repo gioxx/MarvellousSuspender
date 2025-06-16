@@ -3,7 +3,6 @@ import  { gsFavicon }             from './gsFavicon.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
-// import  { gsSuspendedTab }        from './gsSuspendedTab.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
 import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
 import  { tgs }                   from './tgs.js';
@@ -644,14 +643,12 @@ export const gsUtils = {
                   gsFavicon.getFaviconMetaData(tab).then(faviconMeta => {
                     const isLowContrastFavicon = faviconMeta.isDark || false;
                     chrome.tabs.sendMessage(tab.id, { action: 'updateTheme', tab, theme, isLowContrastFavicon });
-                    // gsSuspendedTab.updateTheme( , tab, , );
                   });
                 });
               }
               if (updatePreviewMode) {
                 gsStorage.getOption(gsStorage.SCREEN_CAPTURE).then((previewMode) => {
                   chrome.tabs.sendMessage(tab.id, { action: 'updatePreviewMode', tab, previewMode });
-                  // gsSuspendedTab.updatePreviewMode( , tab, previewMode, ); // async. unhandled promise.
                 });
               }
             }
