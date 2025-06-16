@@ -13,7 +13,8 @@ import  { tgs }                   from './tgs.js';
     // console.log(info.tabId, info);
     var timerStr =
       info && info.timerUp && info && info.timerUp !== '-'
-        ? new Date(info.timerUp).toLocaleString()
+        // ? new Date(info.timerUp).toLocaleString()
+        ? Math.round((new Date(info.timerUp).valueOf() - new Date().valueOf()) / 1000)
         : '-';
     var html = '',
       windowId = info && info.windowId ? info.windowId : '?',
@@ -48,10 +49,10 @@ import  { tgs }                   from './tgs.js';
     for (const [i, curTab] of tabs.entries()) {
       currentTabs[tabs[i].id] = tabs[i];
       debugInfoPromises.push(
-        new Promise(r =>
-          tgs.getDebugInfo(curTab.id, o => {
-            o.tab = curTab;
-            r(o);
+        new Promise((resolve) =>
+          tgs.getDebugInfo(curTab.id, (info) => {
+            info.tab = curTab;
+            resolve(info);
           })
         )
       );
@@ -100,33 +101,18 @@ import  { tgs }                   from './tgs.js';
           gsUtils.isSuspendedTab(tab, true) &&
           tab.url.indexOf(chrome.runtime.id) < 0
         ) {
-          const newUrl = tab.url.replace(
-            gsUtils.getRootUrl(tab.url),
-            chrome.runtime.id
-          );
+          const newUrl = tab.url.replace( gsUtils.getRootUrl(tab.url), chrome.runtime.id );
           await gsChrome.tabsUpdate(tab.id, { url: newUrl });
         }
       }
     };
 
     var extensionsUrl = `chrome://extensions/?id=${chrome.runtime.id}`;
-    document
-      .getElementById('backgroundPage')
-      .setAttribute('href', extensionsUrl);
+    document.getElementById('backgroundPage').setAttribute('href', extensionsUrl);
     document.getElementById('backgroundPage').onclick = function() {
       chrome.tabs.create({ url: extensionsUrl });
     };
 
-    /*
-        chrome.processes.onUpdatedWithMemory.addListener(function (processes) {
-            chrome.tabs.query({}, function (tabs) {
-                var html = '';
-                html += generateMemStats(processes);
-                html += '<br />';
-                html += generateTabStats(tabs);
-                document.getElementById('gsProfiler').innerHTML = html;
-            });
-        });
-        */
   });
+
 })(this);

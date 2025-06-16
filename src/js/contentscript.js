@@ -13,7 +13,7 @@
   let isIgnoreForms = false;
   let tempWhitelist = false;
 
-  function formInputListener(e) {
+  function formInputListener(event) {
     if (!isReceivingFormInput && !tempWhitelist) {
       if (event.keyCode >= 48 && event.keyCode <= 90 && event.target.tagName) {
         if (
@@ -42,12 +42,11 @@
   }
 
   function init() {
+    console.log('init');
     //listen for background events
-    chrome.runtime.onMessage.addListener(function(
-      request,
-      sender,
-      sendResponse
-    ) {
+
+    chrome.runtime.onMessage.addListener(( request, sender, sendResponse ) => {
+      console.log('onMessage', request);
       if (request.hasOwnProperty('action')) {
         if (request.action === 'requestInfo') {
           sendResponse(buildReportTabStatePayload());
@@ -61,6 +60,7 @@
           document.documentElement.scrollTop = request.scrollPos;
         }
       }
+
       if (request.hasOwnProperty('ignoreForms')) {
         isIgnoreForms = request.ignoreForms;
         if (isIgnoreForms) {
@@ -68,28 +68,34 @@
         }
         isReceivingFormInput = isReceivingFormInput && isIgnoreForms;
       }
+
       if (request.hasOwnProperty('tempWhitelist')) {
         if (isReceivingFormInput && !request.tempWhitelist) {
           isReceivingFormInput = false;
         }
         tempWhitelist = request.tempWhitelist;
       }
+
       sendResponse(buildReportTabStatePayload());
       return false;
     });
   }
 
   function waitForRuntimeReady(retries) {
+    console.log('waitForRuntimeReady');
     retries = retries || 0;
-    return new Promise(r => r(chrome.runtime)).then(chromeRuntime => {
+    return new Promise((resolve) => resolve(chrome.runtime)).then((chromeRuntime) => {
       if (chromeRuntime) {
+        console.log('waitForRuntimeReady ready');
         return Promise.resolve();
       }
       if (retries > 3) {
+        console.log('waitForRuntimeReady reject');
         return Promise.reject('Failed waiting for chrome.runtime');
       }
       retries += 1;
-      return new Promise(r => setTimeout(r, 500)).then(() =>
+      console.log('waitForRuntimeReady retries', retries);
+      return new Promise(resolve => setTimeout(resolve, 500)).then(() =>
         waitForRuntimeReady(retries)
       );
     });
