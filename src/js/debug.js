@@ -4,19 +4,19 @@ import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
 
-(function(global) {
+(() => {
   'use strict';
 
-  var currentTabs = {};
+  const currentTabs = {};
 
   function generateTabInfo(info) {
     // console.log(info.tabId, info);
-    var timerStr =
+    let timerStr =
       info && info.timerUp && info && info.timerUp !== '-'
         // ? new Date(info.timerUp).toLocaleString()
         ? Math.round((new Date(info.timerUp).valueOf() - new Date().valueOf()) / 1000)
         : '-';
-    var html = '',
+    let html = '',
       windowId = info && info.windowId ? info.windowId : '?',
       tabId = info && info.tabId ? info.tabId : '?',
       tabIndex = info && info.tab ? info.tab.index : '?',
@@ -31,13 +31,13 @@ import  { tgs }                   from './tgs.js';
         : gsFavicon.generateChromeFavIconUrlFromUrl(info.tab.url);
 
     html += '<tr>';
-    html += '<td>' + windowId + '</td>';
-    html += '<td>' + tabId + '</td>';
-    html += '<td>' + tabIndex + '</td>';
-    html += '<td><img src=' + favicon + '></td>';
-    html += '<td>' + tabTitle + '</td>';
-    html += '<td>' + tabTimer + '</td>';
-    html += '<td>' + tabStatus + '</td>';
+    html += `<td>${windowId}</td>`;
+    html += `<td>${tabId}</td>`;
+    html += `<td>${tabIndex}</td>`;
+    html += `<td><img src="${favicon}"></td>`;
+    html += `<td>${tabTitle}</td>`;
+    html += `<td>${tabTimer}</td>`;
+    html += `<td>${tabStatus}</td>`;
     html += '</tr>';
 
     return html;
@@ -115,4 +115,4 @@ import  { tgs }                   from './tgs.js';
 
   });
 
-})(this);
+})();
