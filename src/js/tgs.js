@@ -1,6 +1,4 @@
 import  { gsChrome }              from './gsChrome.js';
-// import  { gsFavicon }             from './gsFavicon.js';
-// import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';

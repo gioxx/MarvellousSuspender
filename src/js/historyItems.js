@@ -1,9 +1,8 @@
 import  { gsFavicon }             from './gsFavicon.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
 
-export const historyItems = (function(global) {
+export const historyItems = (() => {
   'use strict';
 
   async function createSessionHtml(session, showLinks) {
@@ -263,4 +262,4 @@ export const historyItems = (function(global) {
     createWindowHtml,
     createTabHtml,
   };
-})(this);
+})();

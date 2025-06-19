@@ -1,6 +1,5 @@
 import  { gsSession }             from './gsSession.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
 
 (function(global) {
   'use strict';

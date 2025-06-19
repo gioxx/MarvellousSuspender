@@ -4,9 +4,8 @@ import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { historyItems }          from './historyItems.js';
 import  { historyUtils }          from './historyUtils.js';
-// import  { tgs }                   from './tgs.js';
 
-(function(global) {
+(() => {
   'use strict';
 
   async function reloadTabs(sessionId, windowId, openTabsAsSuspended) {
@@ -275,4 +274,4 @@ import  { historyUtils }          from './historyUtils.js';
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(render);
 
-})(globalThis);
+})();

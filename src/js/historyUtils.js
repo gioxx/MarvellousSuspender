@@ -1,8 +1,7 @@
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
 
-export const historyUtils = (function(global) {
+export const historyUtils = (() => {
   'use strict';
 
   var noop = function() {
@@ -223,4 +222,4 @@ export const historyUtils = (function(global) {
     saveSession,
     migrateTabs,
   };
-})(this);
+})();

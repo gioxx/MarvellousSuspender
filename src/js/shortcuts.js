@@ -1,15 +1,14 @@
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
 
-(function(global) {
+(() => {
   'use strict';
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
     //Set theme
     gsStorage.getOption(gsStorage.THEME).then((theme) => {
       document.body.classList.add(theme === 'dark' ? 'dark' : null);
-    })
+    });
 
     var shortcutsEl = document.getElementById('keyboardShortcuts');
     var configureShortcutsEl = document.getElementById('configureShortcuts');
@@ -46,4 +45,4 @@ import  { gsUtils }               from './gsUtils.js';
     };
   });
 
-})(this);
+})();

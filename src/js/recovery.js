@@ -5,7 +5,6 @@ import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { historyItems }          from './historyItems.js';
-// import  { tgs }                   from './tgs.js';
 
 (function(global) {
   'use strict';

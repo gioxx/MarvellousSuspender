@@ -2,9 +2,8 @@ import  { gsChrome }              from './gsChrome.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { historyUtils }          from './historyUtils.js';
-// import  { tgs }                   from './tgs.js';
 
-(function(global) {
+(() => {
   'use strict';
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
@@ -22,4 +21,4 @@ import  { historyUtils }          from './historyUtils.js';
       });
     };
   });
-})(this);
+})();

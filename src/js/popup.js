@@ -1,5 +1,3 @@
-// @TODO: tgs must be totally removed eventually, and maybe the others as well.
-// This is needed to maintain state with the service worker.
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';

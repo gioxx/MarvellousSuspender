@@ -4,7 +4,6 @@ import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
-// @TODO this reference to tgs probably needs to be replaced by messages
 
 (() => {
 

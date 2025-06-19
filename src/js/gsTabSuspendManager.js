@@ -1,6 +1,5 @@
 import  * as html2canvas        from './html2canvas.min.js';
 import  { gsChrome }              from './gsChrome.js';
-import  { gsFavicon }             from './gsFavicon.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsStorage }             from './gsStorage.js';
@@ -362,11 +361,11 @@ export const gsTabSuspendManager = (function() {
     };
     await gsIndexedDb.addSuspendedTabInfo(tabProperties);
 
-    // @TODO gsFavicon
-    const faviconMeta = await gsFavicon.buildFaviconMetaFromChromeFaviconCache( tab.url );
-    if (faviconMeta) {
-      await gsFavicon.saveFaviconMetaDataToCache(tab.url, faviconMeta);
-    }
+    // gsFavicon can't be loaded here since there's no DOM access yet
+    // const faviconMeta = await gsFavicon.buildFaviconMetaFromChromeFaviconCache( tab.url );
+    // if (faviconMeta) {
+    //   await gsFavicon.saveFaviconMetaDataToCache(tab.url, faviconMeta);
+    // }
   }
 
   async function requestGeneratePreviewImage(tab) {

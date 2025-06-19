@@ -1,7 +1,6 @@
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
 
-(function(global) {
+(() => {
   'use strict';
 
   function init() {
@@ -26,4 +25,4 @@ import  { gsUtils }               from './gsUtils.js';
 
   gsUtils.documentReadyAndLocalisedAsPromised(document);
 
-})(this);
+})();

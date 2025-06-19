@@ -1,7 +1,6 @@
 import  { gsChrome }              from './gsChrome.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
 
 (() => {
 
@@ -271,9 +270,5 @@ import  { gsUtils }               from './gsUtils.js';
       window.alert(chrome.i18n.getMessage('js_options_incognito_warning'));
     }
   });
-
-  // global.exports = {
-  //   initSettings,
-  // };
 
 })();
