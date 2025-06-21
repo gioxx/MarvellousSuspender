@@ -409,7 +409,7 @@ import  { tgs }                   from './tgs.js';
 
       // if url has changed
       if (changeInfo.url) {
-        gsUtils.log(tabId, 'tab url changed. changeInfo: ', changeInfo);
+        gsUtils.log(tabId, 'background', 'tab url changed', changeInfo);
         tgs.checkForTriggerUrls(tab, changeInfo.url);
         tgs.queueSessionTimer();
       }
@@ -421,7 +421,7 @@ import  { tgs }                   from './tgs.js';
       }
     });
     chrome.windows.onCreated.addListener(async (window) => {
-      gsUtils.log(window.id, 'window created.');
+      gsUtils.log(window.id, 'background', 'window created.');
       tgs.queueSessionTimer();
 
       var noticeToDisplay = await tgs.requestNotice();
@@ -430,7 +430,7 @@ import  { tgs }                   from './tgs.js';
       }
     });
     chrome.windows.onRemoved.addListener(function(windowId) {
-      gsUtils.log(windowId, 'window removed.');
+      gsUtils.log(windowId, 'background', 'window removed.');
       tgs.queueSessionTimer();
     });
   }

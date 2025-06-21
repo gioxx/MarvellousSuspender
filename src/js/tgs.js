@@ -421,7 +421,7 @@ export const tgs = (function() {
         gsUtils.warning(tab.id, 'chrome alarm create failed', error);
       });
 
-    gsUtils.log( tab.id, 'Adding tab timer', timeToSuspend, new Date(when) );
+    gsUtils.log( tab.id, 'tgs', 'resetAutoSuspendTimerForTab', timeToSuspend, new Date(when) );
   }
 
   function resetAutoSuspendTimerForAllTabs() {
@@ -755,7 +755,7 @@ export const tgs = (function() {
   }
 
   async function handleWindowFocusChanged(windowId) {
-    gsUtils.log(windowId, 'window gained focus');
+    gsUtils.log(windowId, 'tgs', 'handleWindowFocusChanged');
     if (windowId < 0 || windowId === await gsStorage.getStorageJSON('session', 'gsCurrentFocusedWindowId')) {
       return;
     }
@@ -789,7 +789,7 @@ export const tgs = (function() {
   }
 
   async function handleTabFocusChanged(tabId, windowId) {
-    gsUtils.log(tabId, 'tab gained focus');
+    gsUtils.log(tabId, 'tgs', 'handleTabFocusChanged');
 
     const focusedTab = await gsChrome.tabsGet(tabId);
     if (!focusedTab) {
@@ -797,7 +797,7 @@ export const tgs = (function() {
       // time the chrome.tabs.onActivated event was activated and now.
       // If so, then a subsequeunt chrome.tabs.onActivated event will be called
       // with the new discarded id
-      gsUtils.log( tabId, 'Could not find newly focused tab. Assuming it has been discarded' );
+      gsUtils.log( tabId, 'tgs', 'Could not find newly focused tab. Assuming it has been discarded' );
       return;
     }
 
@@ -829,14 +829,14 @@ export const tgs = (function() {
       if (!contentScriptStatus) {
         contentScriptStatus = await gsTabCheckManager.queueTabCheckAsPromise( focusedTab, {}, 0 );
       }
-      gsUtils.log( focusedTab.id, 'Content script status: ' + contentScriptStatus );
+      gsUtils.log( focusedTab.id, 'tgs', 'getContentScriptStatus' + contentScriptStatus );
     }
 
     //update icon
     const status = await new Promise(resolve => {
       calculateTabStatus(focusedTab, contentScriptStatus, resolve);
     });
-    gsUtils.log(focusedTab.id, 'Focused tab status: ' + status);
+    gsUtils.log(focusedTab.id, 'tgs', 'calculateTabStatus' + status);
 
     //if this tab still has focus then update icon
     if ((await getCurrentFocusedTabIdByWindowId())[windowId] === focusedTab.id) {
@@ -862,7 +862,7 @@ export const tgs = (function() {
       ? await gsChrome.tabsGet(previouslyFocusedTabId)
       : null;
     if (!previouslyFocusedTab) {
-      gsUtils.log( previouslyFocusedTabId, 'Could not find tab. Has probably already been discarded' );
+      gsUtils.log( previouslyFocusedTabId, 'tgs', 'Could not find tab. Has probably already been discarded' );
       return;
     }
     if (!gsUtils.isSuspendedTab(previouslyFocusedTab)) {
@@ -871,7 +871,7 @@ export const tgs = (function() {
 
     //queue tabCheck for previouslyFocusedTab. that will force a discard afterwards
     //but also avoids conflicts if this tab is already scheduled for checking
-    gsUtils.log( previouslyFocusedTabId, 'Queueing previously focused tab for discard via tabCheckManager' );
+    gsUtils.log( previouslyFocusedTabId, 'tgs', 'Queueing previously focused tab for discard via tabCheckManager' );
     gsTabCheckManager.queueTabCheck(previouslyFocusedTab, {}, 1000);
   }
 
@@ -897,7 +897,7 @@ export const tgs = (function() {
   }
 
   function handleNewStationaryTabFocus( focusedTabId, previousStationaryTabId, focusedTab, ) {
-    gsUtils.log(focusedTabId, 'new stationary tab focus handled');
+    gsUtils.log(focusedTabId, 'tgs', 'handleNewStationaryTabFocus');
 
     if (gsUtils.isSuspendedTab(focusedTab)) {
       handleSuspendedTabFocusGained(focusedTab); //async. unhandled promise.

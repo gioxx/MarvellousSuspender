@@ -233,7 +233,7 @@ export const gsUtils = {
   shouldSuspendDiscardedTabs: async () => {
     const suspendInPlaceOfDiscard = await gsStorage.getOption(gsStorage.SUSPEND_IN_PLACE_OF_DISCARD);
     const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
-        return suspendInPlaceOfDiscard && !discardInPlaceOfSuspend;
+    return suspendInPlaceOfDiscard && !discardInPlaceOfSuspend;
   },
 
   removeTabsByUrlAsPromised: function(url) {
@@ -281,7 +281,7 @@ export const gsUtils = {
 
   checkWhiteList: async (url) => {
     const whitelist = await gsStorage.getOption(gsStorage.WHITELIST);
-      return gsUtils.checkSpecificWhiteList(url, whitelist);
+    return gsUtils.checkSpecificWhiteList(url, whitelist);
   },
 
   checkSpecificWhiteList: function(url, whitelistString) {
@@ -294,23 +294,23 @@ export const gsUtils = {
 
   removeFromWhitelist: async (url) => {
     const oldWhitelistString = (await gsStorage.getOption(gsStorage.WHITELIST)) || '';
-      const whitelistItems = oldWhitelistString.split(/[\s\n]+/).sort();
-      let i;
+    const whitelistItems = oldWhitelistString.split(/[\s\n]+/).sort();
+    let i;
 
-      for (i = whitelistItems.length - 1; i >= 0; i--) {
-        if (gsUtils.testForMatch(whitelistItems[i], url)) {
-          whitelistItems.splice(i, 1);
-        }
+    for (i = whitelistItems.length - 1; i >= 0; i--) {
+      if (gsUtils.testForMatch(whitelistItems[i], url)) {
+        whitelistItems.splice(i, 1);
       }
-      var whitelistString = whitelistItems.join('\n');
-      await gsStorage.setOptionAndSync(gsStorage.WHITELIST, whitelistString);
+    }
+    var whitelistString = whitelistItems.join('\n');
+    await gsStorage.setOptionAndSync(gsStorage.WHITELIST, whitelistString);
 
-      var key = gsStorage.WHITELIST;
-      gsUtils.performPostSaveUpdates(
-        [key],
-        { [key]: oldWhitelistString },
-        { [key]: whitelistString },
-      );
+    var key = gsStorage.WHITELIST;
+    gsUtils.performPostSaveUpdates(
+      [key],
+      { [key]: oldWhitelistString },
+      { [key]: whitelistString },
+    );
   },
 
   testForMatch: function(whitelistItem, word) {
@@ -339,16 +339,16 @@ export const gsUtils = {
 
   saveToWhitelist: async (newString) => {
     const oldWhitelistString = (await gsStorage.getOption(gsStorage.WHITELIST)) || '';
-      let newWhitelistString = oldWhitelistString + '\n' + newString;
-      newWhitelistString = gsUtils.cleanupWhitelist(newWhitelistString);
-      await gsStorage.setOptionAndSync(gsStorage.WHITELIST, newWhitelistString);
+    let newWhitelistString = oldWhitelistString + '\n' + newString;
+    newWhitelistString = gsUtils.cleanupWhitelist(newWhitelistString);
+    await gsStorage.setOptionAndSync(gsStorage.WHITELIST, newWhitelistString);
 
-      const key = gsStorage.WHITELIST;
-      gsUtils.performPostSaveUpdates(
-        [key],
-        { [key]: oldWhitelistString },
-        { [key]: newWhitelistString },
-      );
+    const key = gsStorage.WHITELIST;
+    gsUtils.performPostSaveUpdates(
+      [key],
+      { [key]: oldWhitelistString },
+      { [key]: newWhitelistString },
+    );
   },
 
   cleanupWhitelist: function(whitelist) {
@@ -414,19 +414,9 @@ export const gsUtils = {
     }
   },
 
-  generateSuspendedUrl: function(url, title, scrollPos) {
+  generateSuspendedUrl: (url, title, scrollPos) => {
     let encodedTitle = gsUtils.encodeString(title);
-    var args =
-      '#' +
-      'ttl=' +
-      encodedTitle +
-      '&' +
-      'pos=' +
-      (scrollPos || '0') +
-      '&' +
-      'uri=' +
-      url;
-
+    var args = `#ttl=${encodedTitle}&pos=${scrollPos || '0'}&uri=${url}`;
     return chrome.runtime.getURL('suspended.html' + args);
   },
 
@@ -737,9 +727,7 @@ export const gsUtils = {
   },
 
   removeInternalUrlsFromSession: function(session) {
-    if (!session || !session.windows) {
-      return;
-    }
+    if (!session || !session.windows) { return; }
     for (var i = session.windows.length - 1; i >= 0; i--) {
       var curWindow = session.windows[i];
       for (var j = curWindow.tabs.length - 1; j >= 0; j--) {
@@ -770,20 +758,7 @@ export const gsUtils = {
   },
 
   getHumanDate: function(date) {
-    var monthNames = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ],
+    var monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
       d = new Date(date),
       currentDate = d.getDate(),
       currentMonth = d.getMonth(),
@@ -791,33 +766,11 @@ export const gsUtils = {
       currentHours = d.getHours(),
       currentMinutes = d.getMinutes();
 
-    // var suffix;
-    // if (currentDate === 1 || currentDate === 21 || currentDate === 31) {
-    //     suffix = 'st';
-    // } else if (currentDate === 2 || currentDate === 22) {
-    //     suffix = 'nd';
-    // } else if (currentDate === 3 || currentDate === 23) {
-    //     suffix = 'rd';
-    // } else {
-    //     suffix = 'th';
-    // }
-
-    var ampm = currentHours >= 12 ? 'pm' : 'am';
+    var AMPM = currentHours >= 12 ? 'pm' : 'am';
     var hoursString = currentHours % 12 || 12;
     var minutesString = ('0' + currentMinutes).slice(-2);
 
-    return (
-      currentDate +
-      ' ' +
-      monthNames[currentMonth] +
-      ' ' +
-      currentYear +
-      ' ' +
-      hoursString +
-      ':' +
-      minutesString +
-      ampm
-    );
+    return ( `${currentDate} ${monthNames[currentMonth]} ${currentYear} ${hoursString}:${minutesString}${AMPM}`);
   },
 
   debounce: function(func, wait) {
@@ -840,12 +793,7 @@ export const gsUtils = {
     });
   },
 
-  executeWithRetries: async function(
-    promiseFn,
-    fnArgsArray,
-    maxRetries,
-    retryWaitTime,
-  ) {
+  executeWithRetries: async ( promiseFn, fnArgsArray, maxRetries, retryWaitTime ) => {
     const retryFn = async retries => {
       try {
         return await promiseFn(...fnArgsArray);
