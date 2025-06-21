@@ -119,7 +119,7 @@ import  { tgs }                   from './tgs.js';
 
 
   async function messageRequestListener(request, sender, sendResponse) {
-    gsUtils.log('background', 'messageRequestListener', request.action);
+    gsUtils.log('background', 'messageRequestListener', request.action, request, sender);
 
     switch (request.action) {
       case 'reportTabState' : {

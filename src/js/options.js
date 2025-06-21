@@ -231,15 +231,17 @@ import  { gsUtils }               from './gsUtils.js';
       const tabs = await gsChrome.tabsQuery();
       const tabUrls = tabs
         .map(
-          tab =>
+          (tab) =>
             gsUtils.isSuspendedTab(tab)
               ? gsUtils.getOriginalUrl(tab.url)
               : tab.url,
         )
         .filter(
-          url => !gsUtils.isSuspendedUrl(url) && gsUtils.checkWhiteList(url),
+          async (url) => !gsUtils.isSuspendedUrl(url) && (await gsUtils.checkWhiteList(url))
         )
-        .map(url => (url.length > 55 ? url.substr(0, 52) + '...' : url));
+        .map(
+          (url) => (url.length > 55 ? url.substr(0, 52) + '...' : url)
+        );
       if (tabUrls.length === 0) {
         alert(chrome.i18n.getMessage('js_options_whitelist_no_matches'));
         return;

@@ -66,10 +66,11 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  function addFlagHtml(elementId, getterFn, setterFn) {
-    document.getElementById(elementId).innerHTML = getterFn();
-    document.getElementById(elementId).onclick = function(e) {
-      const newVal = !getterFn();
+  async function addFlagHtml(elementId, getterFn, setterFn) {
+    const val = await getterFn();
+    document.getElementById(elementId).innerHTML = val;
+    document.getElementById(elementId).onclick = (event) => {
+      const newVal = !val;
       setterFn(newVal);
       document.getElementById(elementId).innerHTML = newVal;
     };

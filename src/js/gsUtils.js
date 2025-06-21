@@ -190,22 +190,19 @@ export const gsUtils = {
     return isLocalExtensionPage && !gsUtils.isSuspendedTab(tab);
   },
 
-  isProtectedPinnedTab: function(tab) {
-    gsStorage.getOption(gsStorage.IGNORE_PINNED).then((dontSuspendPinned) => {
-      return dontSuspendPinned && tab.pinned;
-    });
+  isProtectedPinnedTab: async (tab) => {
+    const ignorePinned = await gsStorage.getOption(gsStorage.IGNORE_PINNED);
+    return ignorePinned && tab.pinned;
   },
 
-  isProtectedAudibleTab: function(tab) {
-    gsStorage.getOption(gsStorage.IGNORE_AUDIO).then((dontSuspendAudible) => {
-      return dontSuspendAudible && tab.audible;
-    });
+  isProtectedAudibleTab: async (tab) => {
+    const ignoreAudible = await gsStorage.getOption(gsStorage.IGNORE_AUDIO);
+    return ignoreAudible && tab.audible;
   },
 
-  isProtectedActiveTab: function(tab) {
-    gsStorage.getOption(gsStorage.IGNORE_ACTIVE_TABS).then(async (dontSuspendActiveTabs) => {
-      return ( await tgs.isCurrentFocusedTab(tab) || (dontSuspendActiveTabs && tab.active) );
-    });
+  isProtectedActiveTab: async (tab) => {
+    const ignoreActiveTabs = await gsStorage.getOption(gsStorage.IGNORE_ACTIVE_TABS);
+    return ( await tgs.isCurrentFocusedTab(tab) || (ignoreActiveTabs && tab.active) );
   },
 
   // Note: Normal tabs may be in a discarded state
@@ -233,12 +230,10 @@ export const gsUtils = {
     }
   },
 
-  shouldSuspendDiscardedTabs: function() {
-    gsStorage.getOption(gsStorage.SUSPEND_IN_PLACE_OF_DISCARD).then((suspendInPlaceOfDiscard) => {
-      gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND).then((discardInPlaceOfSuspend) => {
+  shouldSuspendDiscardedTabs: async () => {
+    const suspendInPlaceOfDiscard = await gsStorage.getOption(gsStorage.SUSPEND_IN_PLACE_OF_DISCARD);
+    const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
         return suspendInPlaceOfDiscard && !discardInPlaceOfSuspend;
-      });
-    });
   },
 
   removeTabsByUrlAsPromised: function(url) {
@@ -284,27 +279,21 @@ export const gsUtils = {
     });
   },
 
-  checkWhiteList: function(url) {
-    gsStorage.getOption(gsStorage.WHITELIST).then((whitelist) => {
+  checkWhiteList: async (url) => {
+    const whitelist = await gsStorage.getOption(gsStorage.WHITELIST);
       return gsUtils.checkSpecificWhiteList(url, whitelist);
-    });
   },
 
   checkSpecificWhiteList: function(url, whitelistString) {
-    var whitelistItems = whitelistString
-      ? whitelistString.split(/[\s\n]+/)
-      : [],
-      whitelisted;
-
-    whitelisted = whitelistItems.some(function(item) {
+    const whitelistItems = whitelistString ? whitelistString.split(/[\s\n]+/) : [];
+    const whitelisted = whitelistItems.some(function(item) {
       return gsUtils.testForMatch(item, url);
     }, this);
     return whitelisted;
   },
 
-  removeFromWhitelist: function(url) {
-    gsStorage.getOption(gsStorage.WHITELIST).then(async (oldWhitelistString) => {
-      oldWhitelistString = oldWhitelistString || '';
+  removeFromWhitelist: async (url) => {
+    const oldWhitelistString = (await gsStorage.getOption(gsStorage.WHITELIST)) || '';
       const whitelistItems = oldWhitelistString.split(/[\s\n]+/).sort();
       let i;
 
@@ -322,7 +311,6 @@ export const gsUtils = {
         { [key]: oldWhitelistString },
         { [key]: whitelistString },
       );
-    });
   },
 
   testForMatch: function(whitelistItem, word) {
@@ -349,9 +337,8 @@ export const gsUtils = {
     }
   },
 
-  saveToWhitelist: function(newString) {
-    gsStorage.getOption(gsStorage.WHITELIST).then(async (oldWhitelistString) => {
-      oldWhitelistString = oldWhitelistString || '';
+  saveToWhitelist: async (newString) => {
+    const oldWhitelistString = (await gsStorage.getOption(gsStorage.WHITELIST)) || '';
       let newWhitelistString = oldWhitelistString + '\n' + newString;
       newWhitelistString = gsUtils.cleanupWhitelist(newWhitelistString);
       await gsStorage.setOptionAndSync(gsStorage.WHITELIST, newWhitelistString);
@@ -362,7 +349,6 @@ export const gsUtils = {
         { [key]: oldWhitelistString },
         { [key]: newWhitelistString },
       );
-    });
   },
 
   cleanupWhitelist: function(whitelist) {
@@ -619,10 +605,8 @@ export const gsUtils = {
         if (gsUtils.isSuspendedTab(tab)) {
           //If toggling IGNORE_PINNED or IGNORE_ACTIVE_TABS to TRUE, then unsuspend any suspended pinned/active tabs
           if (
-            (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) &&
-              gsUtils.isProtectedPinnedTab(tab)) ||
-            (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) &&
-              gsUtils.isProtectedActiveTab(tab))
+            (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && (await gsUtils.isProtectedPinnedTab(tab))) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab)))
           ) {
             await tgs.unsuspendTab(tab);
             return;

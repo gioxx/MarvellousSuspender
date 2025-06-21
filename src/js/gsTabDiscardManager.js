@@ -102,7 +102,7 @@ export const gsTabDiscardManager = (function() {
 
   async function handleDiscardedUnsuspendedTab(tab) {
     if (
-      gsUtils.shouldSuspendDiscardedTabs() &&
+      await gsUtils.shouldSuspendDiscardedTabs() &&
       await gsTabSuspendManager.checkTabEligibilityForSuspension(tab, 3)
     ) {
       await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SUSPEND_REASON, 3);

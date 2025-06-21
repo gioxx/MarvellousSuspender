@@ -349,7 +349,7 @@ import  { tgs }                   from './tgs.js';
 
 
   async function messageRequestListener(request, sender, sendResponse) {
-    gsUtils.log('suspended', 'messageRequestListener', request.action, request);
+    gsUtils.log('suspended', 'messageRequestListener', request.action, request, sender);
 
     switch (request.action) {
 
@@ -396,8 +396,9 @@ import  { tgs }                   from './tgs.js';
       }
 
       default: {
-        gsUtils.warning('suspended', 'messageRequestListener', `Unknown message action: ${request.action}`);
-        sendResponse();
+        // NOTE: All messages sent to chrome.runtime will be delivered here too
+        gsUtils.log('suspended', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
+        // sendResponse();
         break;
       }
     }

@@ -46,7 +46,7 @@
     //listen for background events
 
     chrome.runtime.onMessage.addListener(( request, sender, sendResponse ) => {
-      console.log('onMessage', request);
+      console.log('contentscript', 'onMessage', request.action, request, sender);
       if (request.hasOwnProperty('action')) {
         if (request.action === 'requestInfo') {
           sendResponse(buildReportTabStatePayload());

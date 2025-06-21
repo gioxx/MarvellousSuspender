@@ -138,11 +138,12 @@ export const tgs = (function() {
             includePath,
             false,
           );
-          gsUtils.saveToWhitelist(url);
+          await gsUtils.saveToWhitelist(url);
           await unsuspendTab(activeTab);
-        } else if (gsUtils.isNormalTab(activeTab)) {
+        }
+        else if (gsUtils.isNormalTab(activeTab)) {
           let url = gsUtils.getRootUrl(activeTab.url, includePath, false);
-          gsUtils.saveToWhitelist(url);
+          await gsUtils.saveToWhitelist(url);
           calculateTabStatus(activeTab, null, function(status) {
             setIconStatus(status, activeTab.id);
           });
@@ -154,12 +155,14 @@ export const tgs = (function() {
   function unwhitelistHighlightedTab(callback) {
     getCurrentlyActiveTab(function(activeTab) {
       if (activeTab) {
-        gsUtils.removeFromWhitelist(activeTab.url);
-        calculateTabStatus(activeTab, null, function(status) {
-          setIconStatus(status, activeTab.id);
-          if (callback) callback(status);
+        gsUtils.removeFromWhitelist(activeTab.url).then(() => {
+          calculateTabStatus(activeTab, null, (status) => {
+            setIconStatus(status, activeTab.id);
+            if (callback) callback(status);
+          });
         });
-      } else {
+      }
+      else {
         if (callback) callback(gsUtils.STATUS_UNKNOWN);
       }
     });
@@ -403,7 +406,7 @@ export const tgs = (function() {
 
     const suspendTime = await gsStorage.getOption(gsStorage.SUSPEND_TIME);
     if (
-      gsUtils.isProtectedActiveTab(tab) ||
+      (await gsUtils.isProtectedActiveTab(tab)) ||
       isNaN(suspendTime) ||
       suspendTime <= 0
     ) {
@@ -422,6 +425,7 @@ export const tgs = (function() {
   }
 
   function resetAutoSuspendTimerForAllTabs() {
+    gsUtils.log(0, 'tgs', 'resetAutoSuspendTimerForAllTabs');
     chrome.alarms.clearAll(() => {});
     chrome.tabs.query({}, async (tabs) => {
       for (const tab of tabs) {
@@ -433,7 +437,7 @@ export const tgs = (function() {
   }
 
   async function clearAutoSuspendTimerForTabId(tabId) {
-    gsUtils.log(tabId, 'Removing tab timer');
+    gsUtils.log(tabId, 'tgs', 'clearAutoSuspendTimerForTabId');
     return chrome.alarms.clear(String(tabId))
       .catch((error) => {});
 
@@ -938,7 +942,7 @@ export const tgs = (function() {
         if (
           previousStationaryTab &&
           gsUtils.isNormalTab(previousStationaryTab) &&
-          !gsUtils.isProtectedActiveTab(previousStationaryTab)
+          !(await gsUtils.isProtectedActiveTab(previousStationaryTab))
         ) {
           await resetAutoSuspendTimerForTab(previousStationaryTab);
         }
@@ -1115,7 +1119,7 @@ export const tgs = (function() {
       return;
     }
     //check whitelist
-    if (gsUtils.checkWhiteList(tab.url)) {
+    if (await gsUtils.checkWhiteList(tab.url)) {
       callback(gsUtils.STATUS_WHITELISTED);
       return;
     }
@@ -1142,17 +1146,17 @@ export const tgs = (function() {
           return;
         }
         //check pinned tab
-        if (gsUtils.isProtectedPinnedTab(tab)) {
+        if (await gsUtils.isProtectedPinnedTab(tab)) {
           callback(gsUtils.STATUS_PINNED);
           return;
         }
         //check audible tab
-        if (gsUtils.isProtectedAudibleTab(tab)) {
+        if (await gsUtils.isProtectedAudibleTab(tab)) {
           callback(gsUtils.STATUS_AUDIBLE);
           return;
         }
         //check active
-        if (gsUtils.isProtectedActiveTab(tab)) {
+        if (await gsUtils.isProtectedActiveTab(tab)) {
           callback(gsUtils.STATUS_ACTIVE);
           return;
         }
