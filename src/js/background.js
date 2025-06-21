@@ -56,17 +56,17 @@ import  { tgs }                   from './tgs.js';
       tgs.buildContextMenu(contextMenus);
     }
 
-    if (gsUtils.debugInfo) {
-      setTimeout(() => {
-        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+1&uri=https://www.google.com` });
-        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+2&uri=https://www.google.com` });
-        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+3&uri=https://www.google.com` });
-        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+1&uri=https://www.github.com` });
-        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+2&uri=https://www.github.com` });
-        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+3&uri=https://www.github.com` });
-        chrome.tabs.create({ url: chrome.runtime.getURL('debug.html') });
-      }, 200);
-    }
+    // if (gsUtils.debugInfo) {
+    //   setTimeout(() => {
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+1&uri=https://www.google.com` });
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+2&uri=https://www.google.com` });
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+3&uri=https://www.google.com` });
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+1&uri=https://www.github.com` });
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+2&uri=https://www.github.com` });
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+3&uri=https://www.github.com` });
+    //     chrome.tabs.create({ url: chrome.runtime.getURL('debug.html') });
+    //   }, 200);
+    // }
 
   });
 
