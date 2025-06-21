@@ -124,7 +124,7 @@
             ? 'tempWhitelist'
             : 'normal',
       scrollPos:
-        (document.body || document.documentElement || {}).scrollTop || 0,
+        (document.documentElement || document.body || {}).scrollTop || 0,
     };
   }
 
