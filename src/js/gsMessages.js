@@ -97,19 +97,19 @@ export const gsMessages = {
     });
   },
 
-  executeCodeOnTab: function(tabId, codeString, callback) {
-    gsUtils.log(tabId, 'gsMessages', 'executeCodeOnTab', codeString);
+  executeCodeOnTab: function(tabId, args, func, callback) {
+    gsUtils.log(tabId, 'gsMessages', 'executeCodeOnTab', func);
     if (!tabId) {
       if (callback) callback('tabId not specified');
       return;
     }
-    chrome.scripting.executeScript({ target : {tabId}, code: codeString }, (response) => {
+    chrome.scripting.executeScript({ target : {tabId}, func, args }, (result) => {
       // gsUtils.log(tabId, 'executeScript response from code', response);
       if (chrome.runtime.lastError) {
         if (callback) callback(chrome.runtime.lastError);
       }
       else {
-        if (callback) callback(null, response);
+        if (callback) callback(null, result[0].result);
       }
     });
   },

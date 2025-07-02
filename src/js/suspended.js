@@ -219,7 +219,7 @@ import  { tgs }                   from './tgs.js';
       previewEl.innerHTML = document.getElementById(
         'previewTemplate',
       ).innerHTML;
-      const unsuspendTabHandler = await buildUnsuspendTabHandler(document, tab);
+      const unsuspendTabHandler = buildUnsuspendTabHandler(tab);
       previewEl.onclick = unsuspendTabHandler;
       gsUtils.localiseHtml(previewEl);
       bodyEl.appendChild(previewEl);

@@ -322,8 +322,13 @@ export const gsTabSuspendManager = (function() {
 
       gsMessages.executeCodeOnTab(
         tab.id,
-        `(${fetchYouTubeTimestampContentScript})();`,
-        (error, response) => {
+        [], // args for injection
+        () => { // code to execute
+          const videoEl = document.querySelector( 'video.video-stream.html5-main-video' );
+          const timestamp = videoEl ? videoEl.currentTime >> 0 : 0;
+          return timestamp;
+        },
+        (error, response) => {  // callback
           if (error) {
             gsUtils.warning( tab.id, QUEUE_ID, 'Failed to fetch YouTube timestamp', error, );
           }
@@ -339,12 +344,6 @@ export const gsTabSuspendManager = (function() {
         },
       );
     });
-  }
-
-  function fetchYouTubeTimestampContentScript() {
-    const videoEl = document.querySelector( 'video.video-stream.html5-main-video' );
-    const timestamp = videoEl ? videoEl.currentTime >> 0 : 0;
-    return timestamp;
   }
 
   async function saveSuspendData(tab) {
@@ -378,10 +377,104 @@ export const gsTabSuspendManager = (function() {
       }
       gsMessages.executeCodeOnTab(
         tab.id,
-        `(${generatePreviewImageCanvasViaContentScript})("${screenCaptureMode}", ${forceScreenCapture});`,
-        error => {
+        [screenCaptureMode, forceScreenCapture],  // args for injection
+        async (mode, force) => { // code to inject
+
+
+          // NOTE: This function below is run within the content script scope
+          // Therefore it must be self contained and not refer to any external functions
+          // such as references to gsUtils etc.
+          // @TODO: Can we move this function into the main content script?
+
+          const MAX_CANVAS_HEIGHT = force ? 10000 : 5000;
+          const IMAGE_TYPE = 'image/webp';
+          const IMAGE_QUALITY = force ? 0.92 : 0.5;
+
+          let height = 0;
+          let width = 0;
+
+          //check where we need to capture the whole screen
+          if (mode === '2') {
+            height = Math.max(
+              window.innerHeight,
+              document.body.scrollHeight,
+              document.body.offsetHeight,
+              document.documentElement.clientHeight,
+              document.documentElement.scrollHeight,
+              document.documentElement.offsetHeight,
+            );
+            // cap the max height otherwise it fails to convert to a data url
+            height = Math.min(height, MAX_CANVAS_HEIGHT);
+          } else {
+            height = window.innerHeight;
+          }
+          width = document.body.clientWidth;
+
+          let generateCanvas;
+
+          // console.log('Generating via html2canvas..');
+          generateCanvas = () => {
+            return html2canvas(document.body, {
+              height: height,
+              width: width,
+              logging: false,
+              imageTimeout: 10000,
+              removeContainer: false,
+              async: true,
+            });
+          };
+
+
+          const isCanvasVisible = canvas => {
+            let ctx = canvas.getContext('2d');
+            let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < imageData.data.length; i += 4) {
+              const isTransparent = imageData.data[i + 3] === 0;
+              const isWhite =
+                imageData.data[i] === 255 &&
+                imageData.data[i + 1] === 255 &&
+                imageData.data[i + 2] === 255;
+              if (!isTransparent && !isWhite) {
+                return true;
+              }
+            }
+            return false;
+          };
+
+          const generateDataUrl = canvas => {
+            let dataUrl = canvas.toDataURL(IMAGE_TYPE, IMAGE_QUALITY);
+            if (!dataUrl || dataUrl === 'data:,') {
+              dataUrl = canvas.toDataURL();
+            }
+            if (dataUrl === 'data:,') {
+              dataUrl = null;
+            }
+            return dataUrl;
+          };
+
+          let dataUrl;
+          let errorMsg;
+          try {
+            const canvas = await generateCanvas();
+            if (!isCanvasVisible(canvas)) {
+              errorMsg = 'Canvas contains no visible pixels';
+            } else {
+              dataUrl = generateDataUrl(canvas);
+            }
+          } catch (err) {
+            errorMsg = err.message;
+          }
+          if (!dataUrl && !errorMsg) {
+            errorMsg = 'Failed to generate dataUrl';
+          }
+          // console.log('saving previewData..');
+          chrome.runtime.sendMessage({ action: 'savePreviewData', previewUrl: dataUrl, errorMsg: errorMsg, });
+
+
+        },  // end code to inject
+        (error) => {  // callback
           if (error) {
-            handlePreviewImageResponse( tab, null, 'Failed to executeCodeOnTab: generatePreviewImgContentScript', ); //async. unhandled promise.
+            handlePreviewImageResponse( tab, null, 'Failed to executeCodeOnTab: generatePreviewImgContentScript' ); //async. unhandled promise.
             return;
           }
         },
@@ -389,98 +482,6 @@ export const gsTabSuspendManager = (function() {
     });
   }
 
-  // NOTE: This function below is run within the content script scope
-  // Therefore it must be self contained and not refer to any external functions
-  // such as references to gsUtils etc.
-  // eslint-disable-next-line no-unused-vars
-  async function generatePreviewImageCanvasViaContentScript(
-    screenCaptureMode,
-    forceScreenCapture,
-  ) {
-    const MAX_CANVAS_HEIGHT = forceScreenCapture ? 10000 : 5000;
-    const IMAGE_TYPE = 'image/webp';
-    const IMAGE_QUALITY = forceScreenCapture ? 0.92 : 0.5;
-
-    let height = 0;
-    let width = 0;
-
-    //check where we need to capture the whole screen
-    if (screenCaptureMode === '2') {
-      height = Math.max(
-        window.innerHeight,
-        document.body.scrollHeight,
-        document.body.offsetHeight,
-        document.documentElement.clientHeight,
-        document.documentElement.scrollHeight,
-        document.documentElement.offsetHeight,
-      );
-      // cap the max height otherwise it fails to convert to a data url
-      height = Math.min(height, MAX_CANVAS_HEIGHT);
-    } else {
-      height = window.innerHeight;
-    }
-    width = document.body.clientWidth;
-
-    let generateCanvas;
-
-    // console.log('Generating via html2canvas..');
-    generateCanvas = () => {
-      return html2canvas(document.body, {
-        height: height,
-        width: width,
-        logging: false,
-        imageTimeout: 10000,
-        removeContainer: false,
-        async: true,
-      });
-    };
-
-
-    const isCanvasVisible = canvas => {
-      let ctx = canvas.getContext('2d');
-      let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < imageData.data.length; i += 4) {
-        const isTransparent = imageData.data[i + 3] === 0;
-        const isWhite =
-          imageData.data[i] === 255 &&
-          imageData.data[i + 1] === 255 &&
-          imageData.data[i + 2] === 255;
-        if (!isTransparent && !isWhite) {
-          return true;
-        }
-      }
-      return false;
-    };
-
-    const generateDataUrl = canvas => {
-      let dataUrl = canvas.toDataURL(IMAGE_TYPE, IMAGE_QUALITY);
-      if (!dataUrl || dataUrl === 'data:,') {
-        dataUrl = canvas.toDataURL();
-      }
-      if (dataUrl === 'data:,') {
-        dataUrl = null;
-      }
-      return dataUrl;
-    };
-
-    let dataUrl;
-    let errorMsg;
-    try {
-      const canvas = await generateCanvas();
-      if (!isCanvasVisible(canvas)) {
-        errorMsg = 'Canvas contains no visible pixels';
-      } else {
-        dataUrl = generateDataUrl(canvas);
-      }
-    } catch (err) {
-      errorMsg = err.message;
-    }
-    if (!dataUrl && !errorMsg) {
-      errorMsg = 'Failed to generate dataUrl';
-    }
-    // console.log('saving previewData..');
-    chrome.runtime.sendMessage({ action: 'savePreviewData', previewUrl: dataUrl, errorMsg: errorMsg, });
-  }
 
   return {
     initAsPromised,
