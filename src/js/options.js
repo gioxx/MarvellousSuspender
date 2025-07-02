@@ -77,9 +77,12 @@ import  { gsUtils }               from './gsUtils.js';
           origins: [
             'http://*/*',
             'https://*/*',
-            'file://*/*',
+            // 'file://*/*',
           ],
         }, function(granted) {
+          if (chrome.runtime.lastError) {
+            gsUtils.warning('addClickHandlers', chrome.runtime.lastError);
+          }
           if (!granted) {
             let select = document.getElementById('preview');
             select.value = '0';
@@ -123,11 +126,9 @@ import  { gsUtils }               from './gsUtils.js';
 
   function setForceScreenCaptureVisibility(visible) {
     if (visible) {
-      document.getElementById('forceScreenCaptureContainer').style.display =
-        'block';
+      document.getElementById('forceScreenCaptureContainer').style.display = 'block';
     } else {
-      document.getElementById('forceScreenCaptureContainer').style.display =
-        'none';
+      document.getElementById('forceScreenCaptureContainer').style.display = 'none';
     }
   }
 
@@ -154,14 +155,13 @@ import  { gsUtils }               from './gsUtils.js';
 
   function handleChange(element) {
     return async() => {
-      var pref = elementPrefMap[element.id],
-        interval;
+      const pref = elementPrefMap[element.id];
 
       //add specific screen element listeners
       if (pref === gsStorage.SCREEN_CAPTURE) {
         setForceScreenCaptureVisibility(getOptionValue(element) !== '0');
       } else if (pref === gsStorage.SUSPEND_TIME) {
-        interval = getOptionValue(element);
+        const interval = getOptionValue(element);
         setAutoSuspendOptionsVisibility(interval > 0);
       } else if (pref === gsStorage.SYNC_SETTINGS) {
         // we only really want to show this on load. not on toggle
@@ -169,7 +169,6 @@ import  { gsUtils }               from './gsUtils.js';
           setSyncNoteVisibility(false);
         }
       } else if (pref === gsStorage.THEME) {
-        // // when the user changes the theme, it reloads the page to apply instantly the modification
         // window.location.reload();
         // Instead of reloading the page, just update the CSS directly
         getOptionValue(element) === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark');
