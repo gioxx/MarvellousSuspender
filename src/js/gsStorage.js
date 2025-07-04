@@ -270,9 +270,10 @@ export const gsStorage = {
   },
 
   getSettings: async () => {
-    const settings = await gsStorage.getStorageJSON('local', 'gsSettings');
+    let settings = await gsStorage.getStorageJSON('local', 'gsSettings');
     if (!settings) {
-      await gsStorage.saveSettings(gsStorage.getSettingsDefaults());
+      settings = gsStorage.getSettingsDefaults();
+      await gsStorage.saveSettings(settings);
     }
     return settings;
   },
@@ -291,7 +292,7 @@ export const gsStorage = {
       gsUtils.error('saveTabState', 'Missing tabId');
       return;
     }
-    return chrome.storage.session.set({ [`gsTab${tabId}`]: JSON.stringify(state) });
+    gsStorage.saveStorage('session', `gsTab${tabId}`, state);
   },
 
   deleteTabState: async (tabId) => {
