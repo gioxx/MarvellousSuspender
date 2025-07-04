@@ -446,17 +446,20 @@ export const tgs = (function() {
   async function getTabStatePropForTabId(tabId, prop) {
     const state = await getTabStateForTabId(tabId);
     const ret = state ? state[prop] : undefined;
+    // gsUtils.log(tabId, 'tgs', 'getTabStatePropForTabId', prop, ret);
     return ret;
   }
 
   async function setTabStatePropForTabId(tabId, prop, value) {
     const state = (await getTabStateForTabId(tabId)) || {};
     state[prop] = value;
+    // gsUtils.log(tabId, 'tgs', 'setTabStatePropForTabId', state);
     return gsStorage.saveTabState(tabId, state);
   }
 
   async function getTabStateForTabId(tabId) {
     const ret = await gsStorage.getTabState(tabId);
+    // gsUtils.log(tabId, 'tgs', 'getTabStateForTabId', ret);
     return ret;
   }
 
@@ -676,26 +679,37 @@ export const tgs = (function() {
       return;
     }
 
-    gsUtils.log( tab.id, 'suspended tab status changed. changeInfo: ', changeInfo );
+    gsUtils.log( tab.id, 'tgs', 'handleSuspendedTabStateChanged', changeInfo );
 
+    // Manifest V3:  This function runs async, and the blank suspended pages load fast enough
+    // where the state transitions from 'loading' to 'complete' before we have a chance to
+    // write the tab state to session storage.  Instead of delaying or queuing the 'complete'
+    // processing, it seems there's no reason to first detect 'loading' before initializing
+    // the suspended tab upon 'complete'.  If tab state changes and changeInfo shows 'complete'
+    // it seems we will ALWAYS want to initialize the suspended tab
+
+    // For now, we'll keep the tab state save to session storage
     if (changeInfo.status && changeInfo.status === 'loading') {
-      await tgs.setTabStatePropForTabId( tab.id, tgs.STATE_INITIALISE_SUSPENDED_TAB, true );
+      // gsUtils.log( tab.id, 'tgs', 'handleSuspendedTabStateChanged loading' );
+      await setTabStatePropForTabId( tab.id, tgs.STATE_INITIALISE_SUSPENDED_TAB, true );
       return;
     }
 
-    if (
-      (changeInfo.status && changeInfo.status === 'complete') ||
-      changeInfo.discarded
-    ) {
+    // NOTE: It's unclear why changeInfo.discarded is needed here.
+    // If the tab has transitioned to discarded, we don't want to initialize it?
+    if ( (changeInfo.status && changeInfo.status === 'complete') /* || changeInfo.discarded */ ) {
+      // gsUtils.log( tab.id, 'tgs', 'handleSuspendedTabStateChanged complete or discarded' );
       gsTabSuspendManager.unqueueTabForSuspension(tab); //safety precaution
-      const shouldInitTab = await getTabStatePropForTabId( tab.id, STATE_INITIALISE_SUSPENDED_TAB );
-      if (shouldInitTab) {
+      // NOTE: See above as to why this is commented out
+      // const shouldInitTab = await getTabStatePropForTabId( tab.id, STATE_INITIALISE_SUSPENDED_TAB );
+      // if (shouldInitTab) {
         await initialiseSuspendedTab(tab);
-      }
+      // }
     }
   }
 
   async function initialiseSuspendedTab(tab) {
+    gsUtils.log( tab.id, 'tgs', 'initialiseSuspendedTab' );
     const unloadedUrl = await getTabStatePropForTabId(tab.id, STATE_UNLOADED_URL);
     const disableUnsuspendOnReload = await getTabStatePropForTabId( tab.id, STATE_DISABLE_UNSUSPEND_ON_RELOAD );
     await deleteTabStateForTabId(tab.id);
@@ -795,7 +809,7 @@ export const tgs = (function() {
     if (!focusedTab) {
       // If focusedTab is null then assume tab has been discarded between the
       // time the chrome.tabs.onActivated event was activated and now.
-      // If so, then a subsequeunt chrome.tabs.onActivated event will be called
+      // If so, then a subsequent chrome.tabs.onActivated event will be called
       // with the new discarded id
       gsUtils.log( tabId, 'tgs', 'Could not find newly focused tab. Assuming it has been discarded' );
       return;
