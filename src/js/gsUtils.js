@@ -1,10 +1,15 @@
-/*global chrome, localStorage, gsStorage, gsChrome, gsMessages, gsSession, gsTabSuspendManager, gsTabDiscardManager, gsSuspendedTab, gsFavicon, tgs */
+import  { gsChrome }              from './gsChrome.js';
+import  { gsFavicon }             from './gsFavicon.js';
+import  { gsMessages }            from './gsMessages.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
+import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
+import  { tgs }                   from './tgs.js';
+
 'use strict';
 
-var debugInfo = false;
-var debugError = false;
-
-var gsUtils = {
+export const gsUtils = {
   STATUS_NORMAL: 'normal',
   STATUS_LOADING: 'loading',
   STATUS_SPECIAL: 'special',
@@ -22,7 +27,9 @@ var gsUtils = {
   STATUS_NOCONNECTIVITY: 'noConnectivity',
   STATUS_UNKNOWN: 'unknown',
 
-  // eslint-disable-line no-unused-vars
+  debugInfo: true,
+  debugError: true,
+
   contains: function(array, value) {
     for (var i = 0; i < array.length; i++) {
       if (array[i] === value) return true;
@@ -31,18 +38,18 @@ var gsUtils = {
   },
 
   dir: function(object) {
-    if (debugInfo) {
+    if (gsUtils.debugInfo) {
       console.dir(object);
     }
   },
   log: function(id, text, ...args) {
-    if (debugInfo) {
+    if (gsUtils.debugInfo) {
       args = args || [];
       console.log(id, (new Date() + '').split(' ')[4], text, ...args);
     }
   },
   warning: function(id, text, ...args) {
-    if (debugError) {
+    if (gsUtils.debugError) {
       args = args || [];
       const ignores = ['Error', 'gsUtils', 'gsMessages'];
       const errorLine = gsUtils
@@ -51,21 +58,7 @@ var gsUtils = {
         .filter(o => !ignores.find(p => o.indexOf(p) >= 0))
         .join('\n');
       args.push(`\n${errorLine}`);
-      console.log(
-        'WARNING:',
-        id,
-        (new Date() + '').split(' ')[4],
-        text,
-        ...args,
-      );
-    }
-  },
-  errorIfInitialised: function(id, errorObj, ...args) {
-    args = args || [];
-    if (gsSession.isInitialising()) {
-      gsUtils.warning(id, errorObj, args);
-    } else {
-      gsUtils.error(id, errorObj, args);
+      console.warn('WARNING:', id, (new Date() + '').split(' ')[4], text, ...args,);
     }
   },
   error: function(id, errorObj, ...args) {
@@ -74,7 +67,7 @@ var gsUtils = {
       id = '?';
     }
     //NOTE: errorObj may be just a string :/
-    if (debugError) {
+    if (gsUtils.debugError) {
       const stackTrace = errorObj.hasOwnProperty('stack')
         ? errorObj.stack
         : gsUtils.getStackTrace();
@@ -109,19 +102,19 @@ var gsUtils = {
   },
 
   isDebugInfo: function() {
-    return debugInfo;
+    return gsUtils.debugInfo;
   },
 
   isDebugError: function() {
-    return debugError;
+    return gsUtils.debugError;
   },
 
   setDebugInfo: function(value) {
-    debugInfo = value;
+    gsUtils.debugInfo = value;
   },
 
   setDebugError: function(value) {
-    debugError = value;
+    gsUtils.debugError = value;
   },
 
   isDiscardedTab: function(tab) {
@@ -197,23 +190,19 @@ var gsUtils = {
     return isLocalExtensionPage && !gsUtils.isSuspendedTab(tab);
   },
 
-  isProtectedPinnedTab: function(tab) {
-    var dontSuspendPinned = gsStorage.getOption(gsStorage.IGNORE_PINNED);
-    return dontSuspendPinned && tab.pinned;
+  isProtectedPinnedTab: async (tab) => {
+    const ignorePinned = await gsStorage.getOption(gsStorage.IGNORE_PINNED);
+    return ignorePinned && tab.pinned;
   },
 
-  isProtectedAudibleTab: function(tab) {
-    var dontSuspendAudible = gsStorage.getOption(gsStorage.IGNORE_AUDIO);
-    return dontSuspendAudible && tab.audible;
+  isProtectedAudibleTab: async (tab) => {
+    const ignoreAudible = await gsStorage.getOption(gsStorage.IGNORE_AUDIO);
+    return ignoreAudible && tab.audible;
   },
 
-  isProtectedActiveTab: function(tab) {
-    var dontSuspendActiveTabs = gsStorage.getOption(
-      gsStorage.IGNORE_ACTIVE_TABS,
-    );
-    return (
-      tgs.isCurrentFocusedTab(tab) || (dontSuspendActiveTabs && tab.active)
-    );
+  isProtectedActiveTab: async (tab) => {
+    const ignoreActiveTabs = await gsStorage.getOption(gsStorage.IGNORE_ACTIVE_TABS);
+    return ( await tgs.isCurrentFocusedTab(tab) || (ignoreActiveTabs && tab.active) );
   },
 
   // Note: Normal tabs may be in a discarded state
@@ -237,17 +226,13 @@ var gsUtils = {
     } else if (looseMatching) {
       return url.indexOf('suspended.html') > 0;
     } else {
-      return url.indexOf(chrome.extension.getURL('suspended.html')) === 0;
+      return url.indexOf(chrome.runtime.getURL('suspended.html')) === 0;
     }
   },
 
-  shouldSuspendDiscardedTabs: function() {
-    var suspendInPlaceOfDiscard = gsStorage.getOption(
-      gsStorage.SUSPEND_IN_PLACE_OF_DISCARD,
-    );
-    var discardInPlaceOfSuspend = gsStorage.getOption(
-      gsStorage.DISCARD_IN_PLACE_OF_SUSPEND,
-    );
+  shouldSuspendDiscardedTabs: async () => {
+    const suspendInPlaceOfDiscard = await gsStorage.getOption(gsStorage.SUSPEND_IN_PLACE_OF_DISCARD);
+    const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
     return suspendInPlaceOfDiscard && !discardInPlaceOfSuspend;
   },
 
@@ -294,29 +279,23 @@ var gsUtils = {
     });
   },
 
-  checkWhiteList: function(url) {
-    return gsUtils.checkSpecificWhiteList(
-      url,
-      gsStorage.getOption(gsStorage.WHITELIST),
-    );
+  checkWhiteList: async (url) => {
+    const whitelist = await gsStorage.getOption(gsStorage.WHITELIST);
+    return gsUtils.checkSpecificWhiteList(url, whitelist);
   },
 
   checkSpecificWhiteList: function(url, whitelistString) {
-    var whitelistItems = whitelistString
-      ? whitelistString.split(/[\s\n]+/)
-      : [],
-      whitelisted;
-
-    whitelisted = whitelistItems.some(function(item) {
+    const whitelistItems = whitelistString ? whitelistString.split(/[\s\n]+/) : [];
+    const whitelisted = whitelistItems.some(function(item) {
       return gsUtils.testForMatch(item, url);
     }, this);
     return whitelisted;
   },
 
-  removeFromWhitelist: function(url) {
-    var oldWhitelistString = gsStorage.getOption(gsStorage.WHITELIST) || '',
-      whitelistItems = oldWhitelistString.split(/[\s\n]+/).sort(),
-      i;
+  removeFromWhitelist: async (url) => {
+    const oldWhitelistString = (await gsStorage.getOption(gsStorage.WHITELIST)) || '';
+    const whitelistItems = oldWhitelistString.split(/[\s\n]+/).sort();
+    let i;
 
     for (i = whitelistItems.length - 1; i >= 0; i--) {
       if (gsUtils.testForMatch(whitelistItems[i], url)) {
@@ -324,7 +303,7 @@ var gsUtils = {
       }
     }
     var whitelistString = whitelistItems.join('\n');
-    gsStorage.setOptionAndSync(gsStorage.WHITELIST, whitelistString);
+    await gsStorage.setOptionAndSync(gsStorage.WHITELIST, whitelistString);
 
     var key = gsStorage.WHITELIST;
     gsUtils.performPostSaveUpdates(
@@ -346,7 +325,7 @@ var gsUtils = {
     ) {
       whitelistItem = whitelistItem.substring(1, whitelistItem.length - 1);
       try {
-        new RegExp(whitelistItem); // eslint-disable-line no-new
+        new RegExp(whitelistItem);
       } catch (e) {
         return false;
       }
@@ -358,13 +337,13 @@ var gsUtils = {
     }
   },
 
-  saveToWhitelist: function(newString) {
-    var oldWhitelistString = gsStorage.getOption(gsStorage.WHITELIST) || '';
-    var newWhitelistString = oldWhitelistString + '\n' + newString;
+  saveToWhitelist: async (newString) => {
+    const oldWhitelistString = (await gsStorage.getOption(gsStorage.WHITELIST)) || '';
+    let newWhitelistString = oldWhitelistString + '\n' + newString;
     newWhitelistString = gsUtils.cleanupWhitelist(newWhitelistString);
-    gsStorage.setOptionAndSync(gsStorage.WHITELIST, newWhitelistString);
+    await gsStorage.setOptionAndSync(gsStorage.WHITELIST, newWhitelistString);
 
-    var key = gsStorage.WHITELIST;
+    const key = gsStorage.WHITELIST;
     gsUtils.performPostSaveUpdates(
       [key],
       { [key]: oldWhitelistString },
@@ -435,20 +414,10 @@ var gsUtils = {
     }
   },
 
-  generateSuspendedUrl: function(url, title, scrollPos) {
+  generateSuspendedUrl: (url, title, scrollPos) => {
     let encodedTitle = gsUtils.encodeString(title);
-    var args =
-      '#' +
-      'ttl=' +
-      encodedTitle +
-      '&' +
-      'pos=' +
-      (scrollPos || '0') +
-      '&' +
-      'uri=' +
-      url;
-
-    return chrome.extension.getURL('suspended.html' + args);
+    var args = `#ttl=${encodedTitle}&pos=${scrollPos || '0'}&uri=${url}`;
+    return chrome.runtime.getURL('suspended.html' + args);
   },
 
   getRootUrl: function(url, includePath, includeScheme) {
@@ -615,33 +584,10 @@ var gsUtils = {
     return Math.abs(hash);
   },
 
-  getAllExpiredTabs: function(callback) {
-    var expiredTabs = [];
-    chrome.tabs.query({}, tabs => {
+  performPostSaveUpdates: function(changedSettingKeys, oldValueBySettingKey, newValueBySettingKey) {
+    // gsUtils.log('performPostSaveUpdates');
+    chrome.tabs.query({}, async (tabs) => {
       for (const tab of tabs) {
-        const timerDetails = tgs.getTabStatePropForTabId(
-          tab.id,
-          tgs.STATE_TIMER_DETAILS,
-        );
-        if (
-          timerDetails &&
-          timerDetails.suspendDateTime &&
-          new Date(timerDetails.suspendDateTime) < new Date()
-        ) {
-          expiredTabs.push(tab);
-        }
-      }
-      callback(expiredTabs);
-    });
-  },
-
-  performPostSaveUpdates: function(
-    changedSettingKeys,
-    oldValueBySettingKey,
-    newValueBySettingKey,
-  ) {
-    chrome.tabs.query({}, function(tabs) {
-      tabs.forEach(function(tab) {
         if (gsUtils.isSpecialTab(tab)) {
           return;
         }
@@ -649,12 +595,10 @@ var gsUtils = {
         if (gsUtils.isSuspendedTab(tab)) {
           //If toggling IGNORE_PINNED or IGNORE_ACTIVE_TABS to TRUE, then unsuspend any suspended pinned/active tabs
           if (
-            (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) &&
-              gsUtils.isProtectedPinnedTab(tab)) ||
-            (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) &&
-              gsUtils.isProtectedActiveTab(tab))
+            (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && (await gsUtils.isProtectedPinnedTab(tab))) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab)))
           ) {
-            tgs.unsuspendTab(tab);
+            await tgs.unsuspendTab(tab);
             return;
           }
 
@@ -664,46 +608,39 @@ var gsUtils = {
             gsStorage.SCREEN_CAPTURE,
           );
           if (updateTheme || updatePreviewMode) {
-            const suspendedView = tgs.getInternalViewByTabId(tab.id);
-            if (suspendedView) {
+            // const suspendedView = tgs.getInternalViewByTabId(tab.id);
+            const context = await tgs.getInternalContextByTabId(tab.id);
+            if (context) {
               if (updateTheme) {
-                const theme = gsStorage.getOption(gsStorage.THEME);
-                gsFavicon.getFaviconMetaData(tab).then(faviconMeta => {
-                  const isLowContrastFavicon = faviconMeta.isDark || false;
-                  gsSuspendedTab.updateTheme(
-                    suspendedView,
-                    tab,
-                    theme,
-                    isLowContrastFavicon,
-                  );
+                gsStorage.getOption(gsStorage.THEME).then((theme) => {
+                  // @TODO favicon will probably fail here if it can't create a DOM Image
+                  gsFavicon.getFaviconMetaData(tab).then(faviconMeta => {
+                    const isLowContrastFavicon = faviconMeta.isDark || false;
+                    chrome.tabs.sendMessage(tab.id, { action: 'updateTheme', tab, theme, isLowContrastFavicon });
+                  });
                 });
               }
               if (updatePreviewMode) {
-                const previewMode = gsStorage.getOption(
-                  gsStorage.SCREEN_CAPTURE,
-                );
-                gsSuspendedTab.updatePreviewMode(
-                  suspendedView,
-                  tab,
-                  previewMode,
-                ); // async. unhandled promise.
+                gsStorage.getOption(gsStorage.SCREEN_CAPTURE).then((previewMode) => {
+                  chrome.tabs.sendMessage(tab.id, { action: 'updatePreviewMode', tab, previewMode });
+                });
               }
             }
           }
 
           //if discardAfterSuspend has changed then updated discarded tabs
-          const updateDiscardAfterSuspend = changedSettingKeys.includes(
-            gsStorage.DISCARD_AFTER_SUSPEND,
-          );
-          if (
-            updateDiscardAfterSuspend &&
-            gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND) &&
-            gsUtils.isSuspendedTab(tab) &&
-            !gsUtils.isDiscardedTab(tab)
-          ) {
-            gsTabDiscardManager.queueTabForDiscard(tab);
-          }
-          return;
+          const updateDiscardAfterSuspend = changedSettingKeys.includes(gsStorage.DISCARD_AFTER_SUSPEND);
+          gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND).then((discardAfterSuspend) => {
+            if (
+              updateDiscardAfterSuspend &&
+              discardAfterSuspend &&
+              gsUtils.isSuspendedTab(tab) &&
+              !gsUtils.isDiscardedTab(tab)
+            ) {
+              gsTabDiscardManager.queueTabForDiscard(tab);
+            }
+            return;
+          });
         }
 
         if (!gsUtils.isNormalTab(tab, true)) {
@@ -718,35 +655,24 @@ var gsUtils = {
           gsMessages.sendUpdateToContentScriptOfTab(tab); //async. unhandled error
         }
 
-        //update suspend timers
-        const updateSuspendTime =
-          changedSettingKeys.includes(gsStorage.SUSPEND_TIME) ||
-          (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) &&
-            tab.active) ||
-          (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) &&
-            !gsStorage.getOption(gsStorage.IGNORE_PINNED) &&
-            tab.pinned) ||
-          (changedSettingKeys.includes(gsStorage.IGNORE_AUDIO) &&
-            !gsStorage.getOption(gsStorage.IGNORE_AUDIO) &&
-            tab.audible) ||
-          (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_OFFLINE) &&
-            !gsStorage.getOption(gsStorage.IGNORE_WHEN_OFFLINE) &&
-            !navigator.onLine) ||
-          (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_CHARGING) &&
-            !gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING) &&
-            tgs.isCharging()) ||
-          (changedSettingKeys.includes(gsStorage.WHITELIST) &&
-            (gsUtils.checkSpecificWhiteList(
-              tab.url,
-              oldValueBySettingKey[gsStorage.WHITELIST],
-              ) &&
-              !gsUtils.checkSpecificWhiteList(
-                tab.url,
-                newValueBySettingKey[gsStorage.WHITELIST],
-              )));
-        if (updateSuspendTime) {
-          tgs.resetAutoSuspendTimerForTab(tab);
-        }
+        gsStorage.getSettings().then(async (settings) => {
+          //update suspend timers
+          const updateSuspendTime =
+            changedSettingKeys.includes(gsStorage.SUSPEND_TIME) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && tab.active) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && !settings[gsStorage.IGNORE_PINNED] && tab.pinned) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_AUDIO) && !settings[gsStorage.IGNORE_AUDIO] && tab.audible) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_OFFLINE) && !settings[gsStorage.IGNORE_WHEN_OFFLINE] && !navigator.onLine) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_CHARGING) && !settings[gsStorage.IGNORE_WHEN_CHARGING] && await tgs.isCharging()) ||
+            (changedSettingKeys.includes(gsStorage.WHITELIST) &&
+              ( gsUtils.checkSpecificWhiteList(tab.url, oldValueBySettingKey[gsStorage.WHITELIST]) &&
+               !gsUtils.checkSpecificWhiteList(tab.url, newValueBySettingKey[gsStorage.WHITELIST])
+              )
+            );
+          if (updateSuspendTime) {
+            await tgs.resetAutoSuspendTimerForTab(tab);
+          }
+        });
 
         //if SuspendInPlaceOfDiscard has changed then updated discarded tabs
         const updateSuspendInPlaceOfDiscard = changedSettingKeys.includes(
@@ -769,13 +695,14 @@ var gsUtils = {
         //         });
         //     });
         // }
-      });
+      };
     });
 
     //if context menu has been disabled then remove from chrome
     if (gsUtils.contains(changedSettingKeys, gsStorage.ADD_CONTEXT)) {
-      var addContextMenu = gsStorage.getOption(gsStorage.ADD_CONTEXT);
-      tgs.buildContextMenu(addContextMenu);
+      gsStorage.getOption(gsStorage.ADD_CONTEXT).then((addContextMenu) => {
+        tgs.buildContextMenu(addContextMenu);
+      });
     }
 
     //if screenshot preferences have changed then update the queue parameters
@@ -792,7 +719,6 @@ var gsUtils = {
     session.windows.some(function(curWindow) {
       //leave this as a loose matching as sometimes it is comparing strings. other times ints
       if (curWindow.id == windowId) {
-        // eslint-disable-line eqeqeq
         window = curWindow;
         return true;
       }
@@ -801,9 +727,7 @@ var gsUtils = {
   },
 
   removeInternalUrlsFromSession: function(session) {
-    if (!session || !session.windows) {
-      return;
-    }
+    if (!session || !session.windows) { return; }
     for (var i = session.windows.length - 1; i >= 0; i--) {
       var curWindow = session.windows[i];
       for (var j = curWindow.tabs.length - 1; j >= 0; j--) {
@@ -834,20 +758,7 @@ var gsUtils = {
   },
 
   getHumanDate: function(date) {
-    var monthNames = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ],
+    var monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
       d = new Date(date),
       currentDate = d.getDate(),
       currentMonth = d.getMonth(),
@@ -855,33 +766,11 @@ var gsUtils = {
       currentHours = d.getHours(),
       currentMinutes = d.getMinutes();
 
-    // var suffix;
-    // if (currentDate === 1 || currentDate === 21 || currentDate === 31) {
-    //     suffix = 'st';
-    // } else if (currentDate === 2 || currentDate === 22) {
-    //     suffix = 'nd';
-    // } else if (currentDate === 3 || currentDate === 23) {
-    //     suffix = 'rd';
-    // } else {
-    //     suffix = 'th';
-    // }
-
-    var ampm = currentHours >= 12 ? 'pm' : 'am';
+    var AMPM = currentHours >= 12 ? 'pm' : 'am';
     var hoursString = currentHours % 12 || 12;
     var minutesString = ('0' + currentMinutes).slice(-2);
 
-    return (
-      currentDate +
-      ' ' +
-      monthNames[currentMonth] +
-      ' ' +
-      currentYear +
-      ' ' +
-      hoursString +
-      ':' +
-      minutesString +
-      ampm
-    );
+    return ( `${currentDate} ${monthNames[currentMonth]} ${currentYear} ${hoursString}:${minutesString}${AMPM}`);
   },
 
   debounce: function(func, wait) {
@@ -900,16 +789,11 @@ var gsUtils = {
 
   setTimeout: async function(timeout) {
     return new Promise(resolve => {
-      window.setTimeout(resolve, timeout);
+      setTimeout(resolve, timeout);
     });
   },
 
-  executeWithRetries: async function(
-    promiseFn,
-    fnArgsArray,
-    maxRetries,
-    retryWaitTime,
-  ) {
+  executeWithRetries: async ( promiseFn, fnArgsArray, maxRetries, retryWaitTime ) => {
     const retryFn = async retries => {
       try {
         return await promiseFn(...fnArgsArray);

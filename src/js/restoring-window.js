@@ -1,15 +1,9 @@
-/*global chrome, gsUtils */
-(function(global) {
-  'use strict';
+import  { gsUtils }               from './gsUtils.js';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+(() => {
+  'use strict';
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
     //do nothing
   });
-})(this);
+})();

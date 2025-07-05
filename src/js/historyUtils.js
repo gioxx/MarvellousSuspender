@@ -1,15 +1,8 @@
-/* global chrome, gsIndexedDb, gsUtils */
-// eslint-disable-next-line no-unused-vars
-var historyUtils = (function(global) {
-  'use strict';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsUtils }               from './gsUtils.js';
 
-  if (
-    !chrome.extension.getBackgroundPage() ||
-    !chrome.extension.getBackgroundPage().tgs
-  ) {
-    return;
-  }
-  chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
+export const historyUtils = (() => {
+  'use strict';
 
   var noop = function() {
   };
@@ -176,12 +169,7 @@ var historyUtils = (function(global) {
     // document.getElementById('debugWindowId').innerText = document.getElementById('debugWindowId').innerText + ' - Window ID retrieved: ' + windowId;
     gsIndexedDb.fetchSessionBySessionId(sessionId).then(function(session) {
       if (!session) {
-        gsUtils.warning(
-          'historyUtils',
-          'Could not find session with sessionId: ' +
-          sessionId +
-          '. Save aborted',
-        );
+        gsUtils.warning( 'historyUtils', 'Could not find session with sessionId: ' + sessionId + '. Save aborted' );
         return;
       }
       var sessionName = window.prompt(
@@ -234,4 +222,4 @@ var historyUtils = (function(global) {
     saveSession,
     migrateTabs,
   };
-})(this);
+})();

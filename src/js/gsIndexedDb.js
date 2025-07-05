@@ -1,7 +1,13 @@
-/*global chrome, db, tgs, gsUtils, gsChrome, gsSession */
+/* global db */
+import  './db.js';
+import  { gsChrome }              from './gsChrome.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { tgs }                   from './tgs.js';
+
 'use strict';
 
-var gsIndexedDb = {
+export const gsIndexedDb = {
   DB_SERVER: 'tgs',
   DB_VERSION: '3',
   DB_PREVIEWS: 'gsPreviews',
@@ -222,18 +228,12 @@ var gsIndexedDb = {
         session.sessionId
       );
       if (matchingSession) {
-        gsUtils.log(
-          'gsIndexedDb',
-          'Updating existing session: ' + session.sessionId
-        );
+        gsUtils.log( 'gsIndexedDb', 'Updating existing session: ' + session.sessionId );
         session.id = matchingSession.id; //copy across id from matching session
         session.date = new Date().toISOString();
         await gsDb.update(tableName, session); //then update based on that id
       } else {
-        gsUtils.log(
-          'gsIndexedDb',
-          'Creating new session: ' + session.sessionId
-        );
+        gsUtils.log( 'gsIndexedDb', 'Creating new session: ' + session.sessionId );
         await gsDb.add(tableName, session);
       }
     } catch (e) {
@@ -274,12 +274,7 @@ var gsIndexedDb = {
         .execute();
 
       if (results.length > 1) {
-        gsUtils.warning(
-          'gsIndexedDb',
-          'Duplicate sessions found for sessionId: ' +
-            sessionId +
-            '! Removing older ones..'
-        );
+        gsUtils.warning( 'gsIndexedDb', 'Duplicate sessions found for sessionId: ' + sessionId + '! Removing older ones..' );
         for (let session of results.slice(1)) {
           await gsDb.remove(tableName, session.id);
         }
@@ -310,11 +305,7 @@ var gsIndexedDb = {
     const newSessionRestorePoint = await gsIndexedDb.fetchSessionRestorePoint(
       version
     );
-    gsUtils.log(
-      'gsIndexedDb',
-      'New session restore point:',
-      newSessionRestorePoint
-    );
+    gsUtils.log( 'gsIndexedDb', 'New session restore point:', newSessionRestorePoint );
     return newSessionRestorePoint || null;
   },
 
@@ -338,7 +329,7 @@ var gsIndexedDb = {
   },
 
   // Returns most recent session in DB_CURRENT_SESSIONS EXCLUDING the current session
-  fetchLastSession: async function() {
+  fetchLastSession: async () => {
     let results;
     try {
       const gsDb = await gsIndexedDb.getDb();
@@ -352,8 +343,8 @@ var gsIndexedDb = {
     }
     if (results && results.length > 0) {
       //don't want to match on current session
-      const currentSessionId = gsSession.getSessionId();
-      const lastSession = results.find(o => o.sessionId !== currentSessionId);
+      const currentSessionId = await gsSession.getSessionId();
+      const lastSession = results.find((o) => o.sessionId !== currentSessionId);
       return lastSession;
     }
     return null;
@@ -402,7 +393,6 @@ var gsIndexedDb = {
       const matched = curWindow.tabs.some(function(curTab, tabIndex) {
         //leave this as a loose matching as sometimes it is comparing strings. other times ints
         if (curTab.id == tabId || curTab.url == tabId) {
-          // eslint-disable-line eqeqeq
           curWindow.tabs.splice(tabIndex, 1);
           return true;
         }

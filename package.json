@@ -5,6 +5,7 @@
   "main": "",
   "scripts": {
     "build": "grunt",
+    "lint": "eslint .",
     "generate-key": "openssl genrsa -out key.pem",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
@@ -27,7 +28,8 @@
     "url": "https://github.com/gioxx/MarvellousSuspender/issues"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
+    "@types/chrome": "^0.0.326",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.22.1",
@@ -44,6 +46,7 @@
     "time-grunt": "~1.2.1"
   },
   "dependencies": {
-    "db.js": "^0.15.0"
+    "db.js": "^0.15.0",
+    "globals": "^16.2.0"
   }
 }

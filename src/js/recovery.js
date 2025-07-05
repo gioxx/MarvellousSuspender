@@ -1,13 +1,13 @@
-/*global chrome, historyItems, gsMessages, gsSession, gsStorage, gsIndexedDb, gsChrome, gsUtils */
+import  { gsChrome }              from './gsChrome.js';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsMessages }            from './gsMessages.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { historyItems }          from './historyItems.js';
+
 (function(global) {
   'use strict';
-
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
 
   var restoreAttempted = false;
   var tabsToRecover = [];
@@ -50,7 +50,6 @@
         element.getAttribute('data-url') === originalUrl ||
         element.getAttribute('data-tabId') == tabToRemove.id
       ) {
-        // eslint-disable-line eqeqeq
         recoveryTabsEl.removeChild(element);
       }
     }
@@ -105,17 +104,17 @@
 
     manageEl.onclick = function(e) {
       e.preventDefault();
-      chrome.tabs.create({ url: chrome.extension.getURL('history.html') });
+      chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
     };
 
     if (previewsEl) {
-      previewsEl.onclick = function(e) {
-        gsStorage.setOptionAndSync(gsStorage.SCREEN_CAPTURE, '0');
+      previewsEl.onclick = async (e) => {
+        await gsStorage.setOptionAndSync(gsStorage.SCREEN_CAPTURE, '0');
         window.location.reload();
       };
 
       //show warning if screen capturing turned on
-      if (gsStorage.getOption(gsStorage.SCREEN_CAPTURE) !== '0') {
+      if (await gsStorage.getOption(gsStorage.SCREEN_CAPTURE) !== '0') {
         warningEl.style.display = 'block';
       }
     }
@@ -125,7 +124,7 @@
       restoreEl.className += ' btnDisabled';
       restoreEl.removeEventListener('click', performRestore);
       showTabSpinners();
-      while (gsSession.isInitialising()) {
+      while (await gsSession.isInitialising()) {
         await gsUtils.setTimeout(200);
       }
       await gsSession.recoverLostTabs();

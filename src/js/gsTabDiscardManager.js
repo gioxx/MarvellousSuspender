@@ -1,6 +1,11 @@
-/*global chrome, localStorage, tgs, gsUtils, gsChrome, GsTabQueue, gsStorage, gsTabSuspendManager */
-// eslint-disable-next-line no-unused-vars
-var gsTabDiscardManager = (function() {
+import  { gsChrome }              from './gsChrome.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsTabQueue }            from './gsTabQueue.js';
+import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { tgs }                   from './tgs.js';
+
+export const gsTabDiscardManager = (function() {
   'use strict';
 
   const DEFAULT_CONCURRENT_DISCARDS = 5;
@@ -18,7 +23,7 @@ var gsTabDiscardManager = (function() {
         executorFn: performDiscard,
         exceptionFn: handleDiscardException,
       };
-      _discardQueue = GsTabQueue(QUEUE_ID, queueProps);
+      _discardQueue = gsTabQueue.init(QUEUE_ID, queueProps);
       gsUtils.log(QUEUE_ID, 'init successful');
       resolve();
     });
@@ -35,11 +40,7 @@ var gsTabDiscardManager = (function() {
   function queueTabForDiscardAsPromise(tab, executionProps, processingDelay) {
     gsUtils.log(tab.id, QUEUE_ID, `Queueing tab for discarding.`);
     executionProps = executionProps || {};
-    return _discardQueue.queueTabAsPromise(
-      tab,
-      executionProps,
-      processingDelay
-    );
+    return _discardQueue.queueTabAsPromise( tab, executionProps, processingDelay );
   }
 
   function unqueueTabForDiscard(tab) {
@@ -59,11 +60,7 @@ var gsTabDiscardManager = (function() {
       // assume tab has been discarded
     }
     if (!_tab) {
-      gsUtils.warning(
-        tab.id,
-        QUEUE_ID,
-        `Failed to discard tab. Tab may have already been discarded or removed.`
-      );
+      gsUtils.warning( tab.id, QUEUE_ID, `Failed to discard tab. Tab may have already been discarded or removed.` );
       resolve(false);
       return;
     }
@@ -74,10 +71,8 @@ var gsTabDiscardManager = (function() {
       requeue();
       return;
     }
-    if (tgs.isCurrentActiveTab(tab)) {
-      const discardInPlaceOfSuspend = gsStorage.getOption(
-        gsStorage.DISCARD_IN_PLACE_OF_SUSPEND
-      );
+    if (await tgs.isCurrentActiveTab(tab)) {
+      const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
       if (!discardInPlaceOfSuspend) {
         gsUtils.log(tab.id, QUEUE_ID, 'Tab is active. Aborting discard.');
         resolve(false);
@@ -100,28 +95,17 @@ var gsTabDiscardManager = (function() {
     });
   }
 
-  function handleDiscardException(
-    tab,
-    executionProps,
-    exceptionType,
-    resolve,
-    reject,
-    requeue
-  ) {
-    gsUtils.warning(
-      tab.id,
-      QUEUE_ID,
-      `Failed to discard tab: ${exceptionType}`
-    );
+  function handleDiscardException( tab, executionProps, exceptionType, resolve, reject, requeue ) {
+    gsUtils.warning( tab.id, QUEUE_ID, `Failed to discard tab: ${exceptionType}` );
     resolve(false);
   }
 
   async function handleDiscardedUnsuspendedTab(tab) {
     if (
-      gsUtils.shouldSuspendDiscardedTabs() &&
-      gsTabSuspendManager.checkTabEligibilityForSuspension(tab, 3)
+      await gsUtils.shouldSuspendDiscardedTabs() &&
+      await gsTabSuspendManager.checkTabEligibilityForSuspension(tab, 3)
     ) {
-      tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SUSPEND_REASON, 3);
+      await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SUSPEND_REASON, 3);
       const suspendedUrl = gsUtils.generateSuspendedUrl(tab.url, tab.title, 0);
       gsUtils.log(tab.id, QUEUE_ID, 'Suspending discarded unsuspended tab');
 

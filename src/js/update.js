@@ -1,13 +1,10 @@
-/*global chrome, historyUtils, gsSession, gsIndexedDb, gsUtils */
-(function(global) {
-  'use strict';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { historyUtils }          from './historyUtils.js';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+(() => {
+  'use strict';
 
   function setRestartExtensionClickHandler(warnFirst) {
     document.getElementById('restartExtensionBtn').onclick = async function(e) {
@@ -54,7 +51,7 @@
   function setSessionManagerClickHandler() {
     document.getElementById('sessionManagerLink').onclick = function(e) {
       e.preventDefault();
-      chrome.tabs.create({ url: chrome.extension.getURL('history.html') });
+      chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
       setRestartExtensionClickHandler(false);
     };
   }
@@ -69,14 +66,11 @@
       .fetchSessionRestorePoint(currentVersion)
       .then(function(sessionRestorePoint) {
         if (!sessionRestorePoint) {
-          gsUtils.warning(
-            'update',
-            'Couldnt find session restore point. Something has gone horribly wrong!!'
-          );
+          gsUtils.warning( 'update', 'Couldnt find session restore point. Something has gone horribly wrong!!' );
           document.getElementById('noBackupInfo').style.display = 'block';
           document.getElementById('backupInfo').style.display = 'none';
           document.getElementById('exportBackupBtn').style.display = 'none';
         }
       });
   });
-})(this);
+})();

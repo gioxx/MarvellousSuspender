@@ -1,7 +1,6 @@
-/*global chrome, gsUtils */
-'use strict';
-// eslint-disable-next-line no-unused-vars
-var gsChrome = {
+import  { gsUtils }               from './gsUtils.js';
+
+export const gsChrome = {
   cookiesGetAll: function() {
     return new Promise(resolve => {
       chrome.cookies.getAll({}, cookies => {
@@ -70,10 +69,7 @@ var gsChrome = {
   tabsUpdate: function(tabId, updateProperties) {
     return new Promise(resolve => {
       if (!tabId || !updateProperties) {
-        gsUtils.warning(
-          'chromeTabs',
-          'tabId or updateProperties not specified'
-        );
+        gsUtils.warning( 'chromeTabs', 'tabId or updateProperties not specified' );
         resolve(null);
         return;
       }

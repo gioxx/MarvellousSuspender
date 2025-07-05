@@ -1,23 +1,22 @@
-/*global chrome, tgs, gsUtils, gsFavicon, gsStorage, gsChrome */
-(function(global) {
+import  { gsChrome }              from './gsChrome.js';
+import  { gsFavicon }             from './gsFavicon.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { tgs }                   from './tgs.js';
+
+(() => {
   'use strict';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
-
-  var currentTabs = {};
+  const currentTabs = {};
 
   function generateTabInfo(info) {
     // console.log(info.tabId, info);
-    var timerStr =
+    let timerStr =
       info && info.timerUp && info && info.timerUp !== '-'
-        ? new Date(info.timerUp).toLocaleString()
+        // ? new Date(info.timerUp).toLocaleString()
+        ? Math.round((new Date(info.timerUp).valueOf() - new Date().valueOf()) / 1000)
         : '-';
-    var html = '',
+    let html = '',
       windowId = info && info.windowId ? info.windowId : '?',
       tabId = info && info.tabId ? info.tabId : '?',
       tabIndex = info && info.tab ? info.tab.index : '?',
@@ -32,13 +31,13 @@
         : gsFavicon.generateChromeFavIconUrlFromUrl(info.tab.url);
 
     html += '<tr>';
-    html += '<td>' + windowId + '</td>';
-    html += '<td>' + tabId + '</td>';
-    html += '<td>' + tabIndex + '</td>';
-    html += '<td><img src=' + favicon + '></td>';
-    html += '<td>' + tabTitle + '</td>';
-    html += '<td>' + tabTimer + '</td>';
-    html += '<td>' + tabStatus + '</td>';
+    html += `<td>${windowId}</td>`;
+    html += `<td>${tabId}</td>`;
+    html += `<td>${tabIndex}</td>`;
+    html += `<td><img src="${favicon}"></td>`;
+    html += `<td>${tabTitle}</td>`;
+    html += `<td>${tabTimer}</td>`;
+    html += `<td>${tabStatus}</td>`;
     html += '</tr>';
 
     return html;
@@ -50,10 +49,10 @@
     for (const [i, curTab] of tabs.entries()) {
       currentTabs[tabs[i].id] = tabs[i];
       debugInfoPromises.push(
-        new Promise(r =>
-          tgs.getDebugInfo(curTab.id, o => {
-            o.tab = curTab;
-            r(o);
+        new Promise((resolve) =>
+          tgs.getDebugInfo(curTab.id, (info) => {
+            info.tab = curTab;
+            resolve(info);
           })
         )
       );
@@ -67,10 +66,11 @@
     }
   }
 
-  function addFlagHtml(elementId, getterFn, setterFn) {
-    document.getElementById(elementId).innerHTML = getterFn();
-    document.getElementById(elementId).onclick = function(e) {
-      const newVal = !getterFn();
+  async function addFlagHtml(elementId, getterFn, setterFn) {
+    const val = await getterFn();
+    document.getElementById(elementId).innerHTML = val;
+    document.getElementById(elementId).onclick = (event) => {
+      const newVal = !val;
       setterFn(newVal);
       document.getElementById(elementId).innerHTML = newVal;
     };
@@ -78,7 +78,7 @@
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(async function() {
     //Set theme
-    document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+    document.body.classList.add(await gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
     await fetchInfo();
     addFlagHtml(
       'toggleDebugInfo',
@@ -92,13 +92,8 @@
     );
     addFlagHtml(
       'toggleDiscardInPlaceOfSuspend',
-      () => gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND),
-      newVal => {
-        gsStorage.setOptionAndSync(
-          gsStorage.DISCARD_IN_PLACE_OF_SUSPEND,
-          newVal
-        );
-      }
+      async ()        =>    await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND),
+      async (newVal)  => {  await gsStorage.setOptionAndSync(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND, newVal); }
     );
     document.getElementById('claimSuspendedTabs').onclick = async function(e) {
       const tabs = await gsChrome.tabsQuery();
@@ -107,33 +102,18 @@
           gsUtils.isSuspendedTab(tab, true) &&
           tab.url.indexOf(chrome.runtime.id) < 0
         ) {
-          const newUrl = tab.url.replace(
-            gsUtils.getRootUrl(tab.url),
-            chrome.runtime.id
-          );
+          const newUrl = tab.url.replace( gsUtils.getRootUrl(tab.url), chrome.runtime.id );
           await gsChrome.tabsUpdate(tab.id, { url: newUrl });
         }
       }
     };
 
     var extensionsUrl = `chrome://extensions/?id=${chrome.runtime.id}`;
-    document
-      .getElementById('backgroundPage')
-      .setAttribute('href', extensionsUrl);
+    document.getElementById('backgroundPage').setAttribute('href', extensionsUrl);
     document.getElementById('backgroundPage').onclick = function() {
       chrome.tabs.create({ url: extensionsUrl });
     };
 
-    /*
-        chrome.processes.onUpdatedWithMemory.addListener(function (processes) {
-            chrome.tabs.query({}, function (tabs) {
-                var html = '';
-                html += generateMemStats(processes);
-                html += '<br />';
-                html += generateTabStats(tabs);
-                document.getElementById('gsProfiler').innerHTML = html;
-            });
-        });
-        */
   });
-})(this);
+
+})();
