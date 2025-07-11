@@ -46,6 +46,9 @@ Done, without errors.
 
 The extension in crx format will be inside the build/crx/ directory. You can drag it into [extensions] (chrome://extensions) to install locally.
 
+#### Note: If after importing the crx file you encounter the error: "This extension is not listed in the Chrome Web Store and may have been added without your knowledge" and Chrome prevents you from enabling the extension:
+Extract the .zip file located in the build/zip/ directory, navigate to "chrome://extensions" in your browser, Click on the <kbd>Load unpacked extension...</kbd> button, browse to the extracted folder and confirm.
+
 ## Contributing to this extension
 
 Contributions are very welcome. Feel free to submit pull requests for new features and bug fixes. For new features, ideally you would raise an issue for the proposed change first so that we can discuss ideas. This will go a long way to ensuring your pull request is accepted.
