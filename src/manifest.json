@@ -11,7 +11,8 @@
     "history",
     "scripting",
     "storage",
-    "tabs"
+    "tabs",
+    "tabGroups"
   ],
   "host_permissions": [
     "https://*/*",
