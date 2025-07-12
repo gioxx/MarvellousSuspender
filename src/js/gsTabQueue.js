@@ -122,15 +122,13 @@ function init(queueId, queueProps) {
 
     function addTabToQueue(tabDetails) {
       const tab = tabDetails.tab;
-      gsUtils.log(tab.id, _queueId, 'addTabToQueue queue', _queuedTabIds.length, tab.url);
       _tabDetailsByTabId[tab.id] = tabDetails;
       _queuedTabIds.push(tab.id);
-      gsUtils.log(tab.id, _queueId, 'addTabToQueue queue', _queuedTabIds.length, tab.url);
+      gsUtils.log(tab.id, _queueId, 'addTabToQueue queue', _queuedTabIds.length);
     }
 
     function removeTabFromQueue(tabDetails) {
       const tab = tabDetails.tab;
-      gsUtils.log(tab.id, _queueId, 'removeTabFromQueue queue', _queuedTabIds.length, tab.url);
       delete _tabDetailsByTabId[tab.id];
       for (const [i, tabId] of _queuedTabIds.entries()) {
         if (tabId === tab.id) {
@@ -138,7 +136,7 @@ function init(queueId, queueProps) {
           break;
         }
       }
-      gsUtils.log(tab.id, _queueId, 'removeTabFromQueue queue', _queuedTabIds.length, tab.url);
+      gsUtils.log(tab.id, _queueId, 'removeTabFromQueue queue', _queuedTabIds.length);
     }
 
     // eslint-disable-next-line no-unused-vars

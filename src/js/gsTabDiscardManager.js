@@ -100,6 +100,8 @@ export const gsTabDiscardManager = (function() {
     resolve(false);
   }
 
+  // @TODO: This feature apparently causes tabs to suspend before their normal waiting period
+  //        https://github.com/gioxx/MarvellousSuspender/discussions/254#discussioncomment-13668805
   async function handleDiscardedUnsuspendedTab(tab) {
     if (
       await gsUtils.shouldSuspendDiscardedTabs() &&

@@ -217,7 +217,6 @@ export const gsTabCheckManager = (function() {
     }
 
     // Make sure tab is registered as a 'view' of the extension
-    // const suspendedView = tgs.getInternalViewByTabId(tab.id);
     const context = await tgs.getInternalContextByTabId(tab.id);
     if (!context) {
       gsUtils.log( tab.id, QUEUE_ID, 'Could not find an internal view for suspended tab.', tab );

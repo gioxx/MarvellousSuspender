@@ -57,13 +57,13 @@ import  { tgs }                   from './tgs.js';
         )
       );
     }
+    const rows = [];
     const debugInfos = await Promise.all(debugInfoPromises);
     for (const debugInfo of debugInfos) {
-      var html,
-        tableEl = document.getElementById('gsProfilerBody');
-      html = generateTabInfo(debugInfo);
-      tableEl.innerHTML = tableEl.innerHTML + html;
+      rows.push(generateTabInfo(debugInfo));
     }
+    const tableEl = document.getElementById('gsProfilerBody');
+    tableEl.innerHTML = rows.join('\n');
   }
 
   async function addFlagHtml(elementId, getterFn, setterFn) {
@@ -80,6 +80,11 @@ import  { tgs }                   from './tgs.js';
     //Set theme
     document.body.classList.add(await gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
     await fetchInfo();
+
+    window.onfocus = () => {
+      fetchInfo();
+    };
+
     addFlagHtml(
       'toggleDebugInfo',
       () => gsUtils.isDebugInfo(),
@@ -95,6 +100,7 @@ import  { tgs }                   from './tgs.js';
       async ()        =>    await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND),
       async (newVal)  => {  await gsStorage.setOptionAndSync(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND, newVal); }
     );
+
     document.getElementById('claimSuspendedTabs').onclick = async function(e) {
       const tabs = await gsChrome.tabsQuery();
       for (const tab of tabs) {
