@@ -4,18 +4,20 @@
   "version": "8.0.0.0",
   "default_locale": "en",
   "permissions": [
-    "alarms",
+    "tabs",
+    "storage",
+    "history",
+    "unlimitedStorage",
     "contextMenus",
     "cookies",
+    "alarms",
     "favicon",
-    "history",
     "scripting",
-    "storage",
-    "tabs"
+    "tabGroups"
   ],
   "host_permissions": [
-    "https://*/*",
-    "http://*/*"
+    "http://*/*",
+    "https://*/*"
   ],
   "background": {
     "service_worker": "js/background.js",

@@ -10,25 +10,25 @@ import  { tgs }                   from './tgs.js';
 'use strict';
 
 export const gsUtils = {
-  STATUS_NORMAL: 'normal',
-  STATUS_LOADING: 'loading',
-  STATUS_SPECIAL: 'special',
-  STATUS_BLOCKED_FILE: 'blockedFile',
-  STATUS_SUSPENDED: 'suspended',
-  STATUS_DISCARDED: 'discarded',
-  STATUS_NEVER: 'never',
-  STATUS_FORMINPUT: 'formInput',
-  STATUS_AUDIBLE: 'audible',
-  STATUS_ACTIVE: 'active',
-  STATUS_TEMPWHITELIST: 'tempWhitelist',
-  STATUS_PINNED: 'pinned',
-  STATUS_WHITELISTED: 'whitelisted',
-  STATUS_CHARGING: 'charging',
-  STATUS_NOCONNECTIVITY: 'noConnectivity',
-  STATUS_UNKNOWN: 'unknown',
+  STATUS_NORMAL         : 'normal',
+  STATUS_LOADING        : 'loading',
+  STATUS_SPECIAL        : 'special',
+  STATUS_BLOCKED_FILE   : 'blockedFile',
+  STATUS_SUSPENDED      : 'suspended',
+  STATUS_DISCARDED      : 'discarded',
+  STATUS_NEVER          : 'never',
+  STATUS_FORMINPUT      : 'formInput',
+  STATUS_AUDIBLE        : 'audible',
+  STATUS_ACTIVE         : 'active',
+  STATUS_TEMPWHITELIST  : 'tempWhitelist',
+  STATUS_PINNED         : 'pinned',
+  STATUS_WHITELISTED    : 'whitelisted',
+  STATUS_CHARGING       : 'charging',
+  STATUS_NOCONNECTIVITY : 'noConnectivity',
+  STATUS_UNKNOWN        : 'unknown',
 
-  debugInfo: true,
-  debugError: true,
+  debugInfo: false,
+  debugError: false,
 
   contains: function(array, value) {
     for (var i = 0; i < array.length; i++) {
@@ -608,7 +608,6 @@ export const gsUtils = {
             gsStorage.SCREEN_CAPTURE,
           );
           if (updateTheme || updatePreviewMode) {
-            // const suspendedView = tgs.getInternalViewByTabId(tab.id);
             const context = await tgs.getInternalContextByTabId(tab.id);
             if (context) {
               if (updateTheme) {
@@ -675,9 +674,7 @@ export const gsUtils = {
         });
 
         //if SuspendInPlaceOfDiscard has changed then updated discarded tabs
-        const updateSuspendInPlaceOfDiscard = changedSettingKeys.includes(
-          gsStorage.SUSPEND_IN_PLACE_OF_DISCARD,
-        );
+        const updateSuspendInPlaceOfDiscard = changedSettingKeys.includes( gsStorage.SUSPEND_IN_PLACE_OF_DISCARD );
         if (updateSuspendInPlaceOfDiscard && gsUtils.isDiscardedTab(tab)) {
           gsTabDiscardManager.handleDiscardedUnsuspendedTab(tab); //async. unhandled promise.
           //note: this may cause the tab to suspend

@@ -155,12 +155,23 @@ export const gsChrome = {
   },
   windowsGetAll: function() {
     return new Promise(resolve => {
-      chrome.windows.getAll({ populate: true }, windows => {
+      chrome.windows.getAll({ populate: true }, (windows) => {
         if (chrome.runtime.lastError) {
-          gsUtils.warning('chromeWindows', chrome.runtime.lastError);
+          gsUtils.warning('windowsGetAll', chrome.runtime.lastError);
           windows = [];
         }
         resolve(windows);
+      });
+    });
+  },
+  tabGroupsGetAll: function() {
+    return new Promise(resolve => {
+      chrome.tabGroups.query({}, (groups) => {
+        if (chrome.runtime.lastError) {
+          gsUtils.warning('tabGroupsGetAll', chrome.runtime.lastError);
+          groups = [];
+        }
+        resolve(groups);
       });
     });
   },

@@ -532,7 +532,7 @@ export const tgs = (function() {
     ) {
       return;
     }
-    gsUtils.log( tab.id, 'unsuspended tab state changed. changeInfo: ', changeInfo );
+    gsUtils.log( tab.id, 'unsuspended tab state changed, changeInfo', changeInfo );
 
     // Ensure we clear the STATE_UNLOADED_URL flag during load in case the
     // tab is suspended again before loading can finish (in which case on
@@ -554,7 +554,7 @@ export const tgs = (function() {
         //TODO: Report chrome bug
         return;
       }
-      gsUtils.log( tab.id, 'Unsuspended tab has been discarded. Url: ' + tab.url );
+      gsUtils.log( tab.id, 'Unsuspended tab has been discarded, Url', tab.url );
       gsTabDiscardManager.handleDiscardedUnsuspendedTab(tab); //async. unhandled promise.
 
       // When a tab is discarded the tab id changes. We need up-to-date UNSUSPENDED
@@ -614,7 +614,7 @@ export const tgs = (function() {
           if (!contentScriptStatus) {
             contentScriptStatus = await gsTabCheckManager.queueTabCheckAsPromise( tab, {}, 0 );
           }
-          gsUtils.log( tab.id, 'Content script status: ' + contentScriptStatus );
+          gsUtils.log( tab.id, 'Content script status', contentScriptStatus );
         }
         initialiseTabContentScript(tab, tempWhitelistOnReload, scrollPos)
           .catch(error => {
@@ -738,7 +738,7 @@ export const tgs = (function() {
   }
 
   async function removeTabIdReferences(tabId) {
-    gsUtils.log(tabId, 'removing tabId references to ' + tabId);
+    gsUtils.log(tabId, 'removing tabId references to', tabId);
 
     const focusedTabByWindow = await getCurrentFocusedTabIdByWindowId();
     for (const windowId of Object.keys(focusedTabByWindow)) {
@@ -843,14 +843,14 @@ export const tgs = (function() {
       if (!contentScriptStatus) {
         contentScriptStatus = await gsTabCheckManager.queueTabCheckAsPromise( focusedTab, {}, 0 );
       }
-      gsUtils.log( focusedTab.id, 'tgs', 'getContentScriptStatus' + contentScriptStatus );
+      gsUtils.log( focusedTab.id, 'tgs', 'getContentScriptStatus', contentScriptStatus );
     }
 
     //update icon
     const status = await new Promise(resolve => {
       calculateTabStatus(focusedTab, contentScriptStatus, resolve);
     });
-    gsUtils.log(focusedTab.id, 'tgs', 'calculateTabStatus' + status);
+    // gsUtils.log(focusedTab.id, 'tgs', 'calculateTabStatus', status);
 
     //if this tab still has focus then update icon
     if ((await getCurrentFocusedTabIdByWindowId())[windowId] === focusedTab.id) {
@@ -1197,11 +1197,11 @@ export const tgs = (function() {
 
   //change the icon to either active or inactive
   function setIconStatus(status, tabId) {
-    // gsUtils.log(tabId, 'Setting icon status: ', status);
+    // gsUtils.log(tabId, 'Setting icon status', status);
     var path = ![gsUtils.STATUS_NORMAL, gsUtils.STATUS_ACTIVE].includes(status)
       ? ICON_SUSPENSION_PAUSED
       : ICON_SUSPENSION_ACTIVE;
-    // gsUtils.log(tabId, 'Setting icon status: ', path);
+    // gsUtils.log(tabId, 'Setting icon status', path);
     chrome.action.setIcon({ path, tabId }, () => {
       if (chrome.runtime.lastError) {
         gsUtils.warning(tabId, chrome.runtime.lastError);

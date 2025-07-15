@@ -77,8 +77,10 @@ export const gsSession = (function() {
     return gsSessionId;
   }
 
+  // @BUG: Tab Groups
   async function buildCurrentSession() {
-    const currentWindows = await gsChrome.windowsGetAll();
+    const currentWindows    = await gsChrome.windowsGetAll();
+    const currentTabGroups  = await gsChrome.tabGroupsGetAll();
     const tabsExist = currentWindows.some(
       window => window.tabs && window.tabs.length,
     );
@@ -89,6 +91,7 @@ export const gsSession = (function() {
     return {
       sessionId: await getSessionId(),
       windows: currentWindows,
+      tabGroups: currentTabGroups,
       date: new Date().toISOString(),
     };
   }
@@ -400,6 +403,7 @@ export const gsSession = (function() {
     return true;
   }
 
+  // @BUG: Tab Groups
   async function recoverLostTabs() {
     const lastSession = await gsIndexedDb.fetchLastSession();
     if (!lastSession) {
@@ -673,6 +677,7 @@ export const gsSession = (function() {
     const newTab = await gsChrome.tabsCreate({ windowId: windowId, url: url, index: index, pinned: sessionTab.pinned, active: false });
 
     // Update recovery view (if it exists)
+    gsUtils.log( 'gsUtils', 'createNewTabFromSessionTab', sessionTab );
     gsUtils.log( 'gsUtils', 'createNewTabFromSessionTab', newTab );
     // const contexts = await tgs.getInternalContextsByViewName('recovery');
     // for (const context of contexts) {

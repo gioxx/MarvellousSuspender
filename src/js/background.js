@@ -57,6 +57,7 @@ import  { tgs }                   from './tgs.js';
     }
 
     // if (gsUtils.debugInfo) {
+    //   chrome.storage.local.remove([gsStorage.LAST_EXTENSION_RECOVERY]);
     //   setTimeout(() => {
     //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+1&uri=https://www.google.com` });
     //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+2&uri=https://www.google.com` });
@@ -65,6 +66,7 @@ import  { tgs }                   from './tgs.js';
     //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+2&uri=https://www.github.com` });
     //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+3&uri=https://www.github.com` });
     //     chrome.tabs.create({ url: chrome.runtime.getURL('debug.html') });
+    //     chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
     //   }, 200);
     // }
 
