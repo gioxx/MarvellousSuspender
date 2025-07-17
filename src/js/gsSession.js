@@ -47,10 +47,7 @@ export const gsSession = (function() {
     let sessionRestorePoint;
     const currentSession = await buildCurrentSession();
     if (currentSession) {
-      sessionRestorePoint = await gsIndexedDb.createOrUpdateSessionRestorePoint(
-        currentSession,
-        currentVersion,
-      );
+      sessionRestorePoint = await gsIndexedDb.createOrUpdateSessionRestorePoint( currentSession, currentVersion );
     }
 
     const suspendedTabCount = await gsUtils.getSuspendedTabCount();
@@ -61,7 +58,8 @@ export const gsSession = (function() {
 
       //ensure we don't leave any windows with no unsuspended tabs
       await unsuspendActiveTabInEachWindow();
-    } else {
+    }
+    else {
       // if there are no suspended tabs then simply install the update immediately
       chrome.runtime.reload();
     }
@@ -81,9 +79,7 @@ export const gsSession = (function() {
   async function buildCurrentSession() {
     const currentWindows    = await gsChrome.windowsGetAll();
     const currentTabGroups  = await gsChrome.tabGroupsGetAll();
-    const tabsExist = currentWindows.some(
-      window => window.tabs && window.tabs.length,
-    );
+    const tabsExist         = currentWindows.some( window => window.tabs && window.tabs.length );
     if (!tabsExist) {
       gsUtils.warning( 'gsSession', 'Failed to build current session. Could not find any tabs.' );
       return null;
@@ -421,17 +417,13 @@ export const gsSession = (function() {
     gsUtils.removeInternalUrlsFromSession(lastSession);
 
     const currentWindows = await gsChrome.windowsGetAll();
-    const matchedCurrentWindowBySessionWindowId = matchCurrentWindowsWithLastSessionWindows(
-      lastSession.windows,
-      currentWindows,
-    );
+    const matchedCurrentWindowBySessionWindowId = matchCurrentWindowsWithLastSessionWindows( lastSession.windows, currentWindows );
 
     //attempt to automatically restore any lost tabs/windows in their proper positions
     const lastFocusedWindow = await gsChrome.windowsGetLastFocused();
     const lastFocusedWindowId = lastFocusedWindow ? lastFocusedWindow.id : null;
     for (let sessionWindow of lastSession.windows) {
-      const matchedCurrentWindow =
-        matchedCurrentWindowBySessionWindowId[sessionWindow.id];
+      const matchedCurrentWindow = matchedCurrentWindowBySessionWindowId[sessionWindow.id];
       await restoreSessionWindow(sessionWindow, matchedCurrentWindow, 0);
     }
     if (lastFocusedWindowId) {
@@ -452,55 +444,35 @@ export const gsSession = (function() {
   }
 
   //try to match session windows with currently open windows
-  function matchCurrentWindowsWithLastSessionWindows(
-    unmatchedSessionWindows,
-    unmatchedCurrentWindows,
-  ) {
+  function matchCurrentWindowsWithLastSessionWindows( unmatchedSessionWindows, unmatchedCurrentWindows ) {
     const matchedCurrentWindowBySessionWindowId = {};
 
     //if there is a current window open that matches the id of the session window id then match it
     unmatchedSessionWindows.slice().forEach(function(sessionWindow) {
-      const matchingCurrentWindow = unmatchedCurrentWindows.find(function(
-        window,
-      ) {
+      const matchingCurrentWindow = unmatchedCurrentWindows.find(function( window ) {
         return window.id === sessionWindow.id;
       });
       if (matchingCurrentWindow) {
-        matchedCurrentWindowBySessionWindowId[
-          sessionWindow.id
-          ] = matchingCurrentWindow;
+        matchedCurrentWindowBySessionWindowId[ sessionWindow.id ] = matchingCurrentWindow;
         //remove from unmatchedSessionWindows and unmatchedCurrentWindows
-        unmatchedSessionWindows = unmatchedSessionWindows.filter(function(
-          window,
-        ) {
+        unmatchedSessionWindows = unmatchedSessionWindows.filter(function( window ) {
           return window.id !== sessionWindow.id;
         });
-        unmatchedCurrentWindows = unmatchedCurrentWindows.filter(function(
-          window,
-        ) {
+        unmatchedCurrentWindows = unmatchedCurrentWindows.filter(function( window ) {
           return window.id !== matchingCurrentWindow.id;
         });
       }
     });
 
-    if (
-      unmatchedSessionWindows.length === 0 ||
-      unmatchedCurrentWindows.length === 0
-    ) {
+    if ( unmatchedSessionWindows.length === 0 || unmatchedCurrentWindows.length === 0 ) {
       return matchedCurrentWindowBySessionWindowId;
     }
 
     //if we still have session windows that haven't been matched to a current window then attempt matching based on tab urls
-    let tabMatchingObjects = generateTabMatchingObjects(
-      unmatchedSessionWindows,
-      unmatchedCurrentWindows,
-    );
+    let tabMatchingObjects = generateTabMatchingObjects( unmatchedSessionWindows, unmatchedCurrentWindows );
 
     //find the tab matching objects with the highest tabMatchCounts
-    while (
-      unmatchedSessionWindows.length > 0 &&
-      unmatchedCurrentWindows.length > 0
-      ) {
+    while ( unmatchedSessionWindows.length > 0 && unmatchedCurrentWindows.length > 0 ) {
       const maxTabMatchCount = Math.max(
         ...tabMatchingObjects.map(function(o) {
           return o.tabMatchCount;
@@ -510,22 +482,14 @@ export const gsSession = (function() {
         return o.tabMatchCount === maxTabMatchCount;
       });
 
-      matchedCurrentWindowBySessionWindowId[
-        bestTabMatchingObject.sessionWindow.id
-        ] =
-        bestTabMatchingObject.currentWindow;
+      matchedCurrentWindowBySessionWindowId[ bestTabMatchingObject.sessionWindow.id ] = bestTabMatchingObject.currentWindow;
 
       //remove from unmatchedSessionWindows and unmatchedCurrentWindows
-      const unmatchedSessionWindowsLengthBefore =
-        unmatchedSessionWindows.length;
-      unmatchedSessionWindows = unmatchedSessionWindows.filter(function(
-        window,
-      ) {
+      const unmatchedSessionWindowsLengthBefore = unmatchedSessionWindows.length;
+      unmatchedSessionWindows = unmatchedSessionWindows.filter(function( window ) {
         return window.id !== bestTabMatchingObject.sessionWindow.id;
       });
-      unmatchedCurrentWindows = unmatchedCurrentWindows.filter(function(
-        window,
-      ) {
+      unmatchedCurrentWindows = unmatchedCurrentWindows.filter(function( window ) {
         return window.id !== bestTabMatchingObject.currentWindow.id;
       });
       gsUtils.log( 'gsUtils', 'Matched with tab count of ' + maxTabMatchCount, bestTabMatchingObject.sessionWindow, bestTabMatchingObject.currentWindow );
@@ -539,9 +503,7 @@ export const gsSession = (function() {
       });
 
       //safety check to make sure we dont get stuck in infinite loop. should never happen though.
-      if (
-        unmatchedSessionWindows.length >= unmatchedSessionWindowsLengthBefore
-      ) {
+      if ( unmatchedSessionWindows.length >= unmatchedSessionWindowsLengthBefore ) {
         break;
       }
     }
