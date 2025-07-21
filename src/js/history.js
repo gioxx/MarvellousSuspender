@@ -1,3 +1,4 @@
+import  { gsChrome }              from './gsChrome.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
@@ -90,18 +91,23 @@ import  { historyUtils }          from './historyUtils.js';
         }
         gsUtils.removeInternalUrlsFromSession(curSession);
 
+        const tabGroupsMap = await gsChrome.tabGroupsMap(curSession.tabGroups);
+
         for (const [i, curWindow] of curSession.windows.entries()) {
           curWindow.sessionId = curSession.sessionId;
           sessionContentsEl.appendChild(
             await createWindowElement(curSession, curWindow, i),
           );
 
-          const tabPromises = [];
+          const tabPromises     = [];
           for (const curTab of curWindow.tabs) {
-            curTab.windowId = curWindow.id;
-            curTab.sessionId = curSession.sessionId;
-            curTab.title = gsUtils.getCleanTabTitle(curTab);
-            if (gsUtils.isSuspendedTab(curTab)) {
+            curTab.windowId     = curWindow.id;
+            curTab.sessionId    = curSession.sessionId;
+            curTab.title        = gsUtils.getCleanTabTitle(curTab);
+            curTab.group        = tabGroupsMap[curTab.groupId] || {};
+            curTab.isSuspended  = gsUtils.isSuspendedTab(curTab);
+
+            if (curTab.isSuspended) {
               curTab.url = gsUtils.getOriginalUrl(curTab.url);
             }
             tabPromises.push(createTabElement(curSession, curWindow, curTab));
@@ -170,7 +176,7 @@ import  { historyUtils }          from './historyUtils.js';
 
   async function createWindowElement(session, window, index) {
     var allowReload = session.sessionId !== (await gsSession.getSessionId());
-    var windowEl = historyItems.createWindowHtml(window, index, allowReload);
+    var windowEl = historyItems.createWindowHtml(index, allowReload);
 
     addClickListenerToElement(
       windowEl.getElementsByClassName('resuspendLink')[0],
@@ -215,10 +221,8 @@ import  { historyUtils }          from './historyUtils.js';
   }
 
   async function render() {
-    //Set theme
-    gsStorage.getOption(gsStorage.THEME).then((theme) => {
-      document.body.classList.add(theme === 'dark' ? 'dark' : null);
-    });
+
+    await gsSession.updateCurrentSession();
 
     let currentDiv = document.getElementById('currentSessions'),
       sessionsDiv = document.getElementById('recoverySessions'),
@@ -272,6 +276,18 @@ import  { historyUtils }          from './historyUtils.js';
     }
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(render);
+  // gsUtils.documentReadyAndLocalisedAsPromised(document).then(render);
+  gsUtils.documentReadyAndLocalisedAsPromised(document).then(async () => {
+
+    //Set theme
+    document.body.classList.add(await gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+
+    window.onfocus = () => {
+      render();
+    };
+
+    render();
+
+  });
 
 })();

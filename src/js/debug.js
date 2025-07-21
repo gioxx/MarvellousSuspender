@@ -7,34 +7,38 @@ import  { tgs }                   from './tgs.js';
 (() => {
   'use strict';
 
-  const currentTabs = {};
+  const currentTabs   = {};
+  const browser       = navigator.userAgent.match(/Chrome\/.*Edg\//i) ? 'edge' : 'chrome';
 
   function generateTabInfo(info) {
     // console.log(info.tabId, info);
-    let timerStr =
+    const timerStr =
       info && info.timerUp && info && info.timerUp !== '-'
         // ? new Date(info.timerUp).toLocaleString()
         ? Math.round((new Date(info.timerUp).valueOf() - new Date().valueOf()) / 1000)
         : '-';
-    let html = '',
-      windowId = info && info.windowId ? info.windowId : '?',
-      tabId = info && info.tabId ? info.tabId : '?',
-      tabIndex = info && info.tab ? info.tab.index : '?',
-      favicon = info && info.tab ? info.tab.favIconUrl : '',
-      tabTitle = info && info.tab ? gsUtils.htmlEncode(info.tab.title) : '?',
-      tabTimer = timerStr,
-      tabStatus = info ? info.status : '?';
+    let   html        = '';
+    const windowId    = info && info.windowId ? info.windowId : '?';
+    const tabId       = info && info.tabId ? info.tabId : '?';
+    const tabIndex    = info && info.tab ? info.tab.index : '?';
+    const tabTitle    = info && info.tab ? gsUtils.htmlEncode(info.tab.title) : '?';
+    const tabTimer    = timerStr;
+    const tabStatus   = info ? info.status : '?';
+    const groupName   = info && info.group ? info.group.title : '';
 
-    favicon =
-      favicon && favicon.indexOf('data') === 0
-        ? favicon
-        : gsFavicon.generateChromeFavIconUrlFromUrl(info.tab.url);
+    // const groupId     = info && info.groupId ? info.groupId : '?';
+    const groupColor  = info && info.group ? info.group.color : '';
+    const groupSpan   = groupName ? `<span class="group ${browser} ${groupColor}">${groupName}</span>` : '';
+
+    let   favicon   = info && info.tab ? info.tab.favIconUrl : '';
+    favicon   = favicon && favicon.indexOf('data') === 0 ? favicon : gsFavicon.generateChromeFavIconUrlFromUrl(info.tab.url);
 
     html += '<tr>';
     html += `<td>${windowId}</td>`;
     html += `<td>${tabId}</td>`;
     html += `<td>${tabIndex}</td>`;
     html += `<td><img src="${favicon}"></td>`;
+    html += `<td class="center">${groupSpan}</td>`;
     html += `<td>${tabTitle}</td>`;
     html += `<td>${tabTimer}</td>`;
     html += `<td>${tabStatus}</td>`;
@@ -57,9 +61,13 @@ import  { tgs }                   from './tgs.js';
         )
       );
     }
+
+    const tabGroupsMap = await gsChrome.tabGroupsMap();
+
     const rows = [];
     const debugInfos = await Promise.all(debugInfoPromises);
     for (const debugInfo of debugInfos) {
+      debugInfo.group = tabGroupsMap[debugInfo.groupId];
       rows.push(generateTabInfo(debugInfo));
     }
     const tableEl = document.getElementById('gsProfilerBody');
@@ -79,11 +87,6 @@ import  { tgs }                   from './tgs.js';
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(async function() {
     //Set theme
     document.body.classList.add(await gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
-    await fetchInfo();
-
-    window.onfocus = () => {
-      fetchInfo();
-    };
 
     addFlagHtml(
       'toggleDebugInfo',
@@ -119,6 +122,12 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('backgroundPage').onclick = function() {
       chrome.tabs.create({ url: extensionsUrl });
     };
+
+    window.onfocus = () => {
+      fetchInfo();
+    };
+
+    fetchInfo();
 
   });
 

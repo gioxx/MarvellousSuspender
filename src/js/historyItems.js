@@ -57,7 +57,7 @@ export const historyItems = (() => {
     return sessionDIV;
   }
 
-  function createWindowHtml(window, index, showLinks) {
+  function createWindowHtml(index, showLinks) {
     let groupHeading, windowContainer, groupUnsuspendCurrent, groupUnsuspendNew;
 
     groupHeading = createEl('div', { class: 'windowContainer', id: 'main-div-' + index });
@@ -99,9 +99,21 @@ export const historyItems = (() => {
     if (showLinks) {
       linksSpan.appendChild(listHover);
     }
+
+    if (tab.group.title) {
+      const group     = createEl('span',  { class: `group chrome ${tab.group.color}` }, tab.group.title);
+      linksSpan.appendChild(group);
+    }
+
     linksSpan.appendChild(listImg);
+
+    if (tab.isSuspended) {
+      const suspended = createEl('span', {  });
+      suspended.innerHTML = '&nbsp;&#x1F4A4;&#XFE0E;';
+      linksSpan.appendChild(suspended);
+    }
+
     linksSpan.appendChild(listLink);
-    linksSpan.appendChild(createEl('br'));
 
     return linksSpan;
   }
