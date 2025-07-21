@@ -147,13 +147,13 @@
         "message": "."
     },
     "html_broken_title": {
-        "message": "is broken"
+        "message": "bozuk"
     },
     "html_broken_ruh_roh": {
         "message": "Ruh Roh!"
     },
     "html_broken_line1": {
-        "message": "failed to start. Perhaps you are using an incompatible version of Chrome?"
+        "message": "başlatılamadı. Belki de Chrome'un uyumsuz bir sürümünü kullanıyorsunuzdur?"
     },
     "html_broken_line2": {
         "message": "Try to restart the extension. If the problem persists, ask for help on the"
@@ -708,7 +708,7 @@
         "message": "Pencere"
     },
     "js_history_windows": {
-        "message": "Pencere"
+        "message": "Pencereler"
     },
     "js_history_tab": {
         "message": "Sekme"
