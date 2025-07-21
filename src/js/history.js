@@ -28,7 +28,7 @@ import  { historyUtils }          from './historyUtils.js';
 
     for (let sessionWindow of sessionWindows) {
       const suspendMode = openTabsAsSuspended ? 1 : 2;
-      await gsSession.restoreSessionWindow(sessionWindow, null, suspendMode);
+      await gsSession.restoreSessionWindow(sessionWindow, null, session.tabGroups, suspendMode);
     }
   }
 
