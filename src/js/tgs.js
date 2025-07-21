@@ -396,7 +396,6 @@ export const tgs = (function() {
   function queueSessionTimer() {
     clearTimeout(_sessionSaveTimer);
     _sessionSaveTimer = setTimeout(function() {
-      gsUtils.log('background', 'updating current session');
       gsSession.updateCurrentSession(); //async
     }, 1000);
   }
@@ -1030,9 +1029,10 @@ export const tgs = (function() {
     const alarm = await chrome.alarms.get(String(tabId));
     const tab   = await chrome.tabs.get(tabId);
 
-    const info = {
-      windowId  : '',
-      tabId     : '',
+    const info  = {
+      windowId  : tab.windowId,
+      tabId     : tab.id,
+      groupId   : tab.groupId,
       status    : gsUtils.STATUS_UNKNOWN,
       timerUp   : alarm ? alarm.scheduledTime : '-',
     };
@@ -1043,8 +1043,6 @@ export const tgs = (function() {
       return;
     }
 
-    info.windowId = tab.windowId;
-    info.tabId = tab.id;
     if (gsUtils.isNormalTab(tab, true)) {
       gsMessages.sendRequestInfoToContentScript(tab.id, ( error, tabInfo ) => {
         // if (error) {
