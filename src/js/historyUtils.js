@@ -13,7 +13,7 @@ export const historyUtils = (() => {
       var r = new FileReader();
       r.onload = function(e) {
         var contents = e.target.result;
-        if (f.type !== 'text/plain') {
+        if (f.type !== 'text/plain' && f.type !== 'application/json') {
           alert(chrome.i18n.getMessage('js_history_import_fail'));
         } else {
           handleImport(f.name, contents).then(function() {
@@ -27,14 +27,106 @@ export const historyUtils = (() => {
     }
   }
 
+  /**
+   * @param { string }    textContents
+   * @param { number }    sessionId
+   */
+  async function importPlainText(textContents, sessionId) {
+
+    var windows = [];
+    var createNextWindow = function() {
+      return {
+        id: sessionId + '_' + windows.length,
+        tabs: [],
+      };
+    };
+    var curWindow = createNextWindow();
+
+    for (const line of textContents.split('\n')) {
+      if (typeof line !== 'string') {
+        continue;
+      }
+      if (line === '') {
+        if (curWindow.tabs.length > 0) {
+          windows.push(curWindow);
+          curWindow = createNextWindow();
+        }
+        continue;
+      }
+      if (line.indexOf('://') < 0) {
+        continue;
+      }
+      const tabInfo = {
+        windowId: curWindow.id,
+        sessionId: sessionId,
+        id: curWindow.id + '_' + curWindow.tabs.length,
+        url: line,
+        title: line,
+        index: curWindow.tabs.length,
+        pinned: false,
+      };
+      const savedTabInfo = await gsIndexedDb.fetchTabInfo(line);
+      if (savedTabInfo) {
+        tabInfo.title = savedTabInfo.title;
+        tabInfo.favIconUrl = savedTabInfo.favIconUrl;
+      }
+      curWindow.tabs.push(tabInfo);
+    }
+    if (curWindow.tabs.length > 0) {
+      windows.push(curWindow);
+    }
+
+    gsUtils.log('historyUtils', 'importPlainText return', windows);
+    return windows;
+  }
+
+  /**
+   * @param { object }  importObj
+   * @param { number }  sessionId
+   */
+  async function importObject(importObj, sessionId) {
+    gsUtils.log('historyUtils', 'importObject', importObj);
+
+    const windows = [];
+
+    for (const window of importObj.windows) {
+      const curWindow = {
+        id: sessionId + '_' + windows.length,
+        tabs: [],
+      };
+      for (const tab of window.tabs) {
+        const tabInfo = {
+          windowId    : curWindow.id,
+          sessionId   : sessionId,
+          id          : curWindow.id + '_' + curWindow.tabs.length,
+          url         : tab.url,
+          title       : tab.url,
+          index       : curWindow.tabs.length,
+          pinned      : false,
+          groupId     : tab.groupId
+        };
+        const savedTabInfo    = await gsIndexedDb.fetchTabInfo(tab.url);
+        if (savedTabInfo) {
+          tabInfo.title       = savedTabInfo.title;
+          tabInfo.favIconUrl  = savedTabInfo.favIconUrl;
+        }
+        curWindow.tabs.push(tabInfo);
+      }
+      windows.push(curWindow);
+    }
+
+    gsUtils.log('historyUtils', 'importObject return', windows);
+    return windows;
+  }
+
   async function handleImport(sessionName, textContents) {
     sessionName = window.prompt(
       chrome.i18n.getMessage('js_history_enter_name_for_session'),
       sessionName,
     );
     if (sessionName) {
-      const shouldSave = await new Promise(resolve => {
-        validateNewSessionName(sessionName, function(result) {
+      const shouldSave = await new Promise((resolve) => {
+        validateNewSessionName(sessionName, (result) => {
           resolve(result);
         });
       });
@@ -42,57 +134,33 @@ export const historyUtils = (() => {
         return;
       }
 
-      var sessionId = '_' + gsUtils.generateHashCode(sessionName);
-      var windows = [];
+      const sessionId = '_' + gsUtils.generateHashCode(sessionName);
 
-      var createNextWindow = function() {
-        return {
-          id: sessionId + '_' + windows.length,
-          tabs: [],
-        };
-      };
-      var curWindow = createNextWindow();
-
-      for (const line of textContents.split('\n')) {
-        if (typeof line !== 'string') {
-          continue;
-        }
-        if (line === '') {
-          if (curWindow.tabs.length > 0) {
-            windows.push(curWindow);
-            curWindow = createNextWindow();
-          }
-          continue;
-        }
-        if (line.indexOf('://') < 0) {
-          continue;
-        }
-        const tabInfo = {
-          windowId: curWindow.id,
-          sessionId: sessionId,
-          id: curWindow.id + '_' + curWindow.tabs.length,
-          url: line,
-          title: line,
-          index: curWindow.tabs.length,
-          pinned: false,
-        };
-        const savedTabInfo = await gsIndexedDb.fetchTabInfo(line);
-        if (savedTabInfo) {
-          tabInfo.title = savedTabInfo.title;
-          tabInfo.favIconUrl = savedTabInfo.favIconUrl;
-        }
-        curWindow.tabs.push(tabInfo);
+      let importObj = {};
+      try {
+        importObj = JSON.parse(textContents);
+      } catch (error) {
+        gsUtils.log( 'historyUtils', 'handleImport', 'JSON parse failed, so fallback to old file format' );
       }
-      if (curWindow.tabs.length > 0) {
-        windows.push(curWindow);
+
+      let windows   = [];
+      let tabGroups = [];
+      if (importObj.windows && importObj.windows.length) {
+        windows     = await importObject(importObj, sessionId);
+        tabGroups   = importObj.tabGroups;
+      }
+      else {
+        windows     = await importPlainText(textContents, sessionId);
       }
 
       var session = {
         name: sessionName,
-        sessionId: sessionId,
-        windows: windows,
+        sessionId,
+        windows,
+        tabGroups,
         date: new Date().toISOString(),
       };
+      gsUtils.log('historyUtils', 'handleImport session', session);
       await gsIndexedDb.updateSession(session);
     }
   }
@@ -111,37 +179,43 @@ export const historyUtils = (() => {
   }
 
   function exportSession(session, callback, windowId) {
-    function _exInternalExport(curWindow) {
 
-      curWindow.tabs.forEach(function(curTab, tabIndex) {
-        if (gsUtils.isSuspendedTab(curTab)) {
-          sessionString += gsUtils.getOriginalUrl(curTab.url) + '\n';
-        } else {
-          sessionString += curTab.url + '\n';
-        }
-      });
-      //add an extra newline to separate windows
-      sessionString += '\n';
+    const windows = [];
+
+    function _exInternalExport(curWindow) {
+      const window = {
+        windowId  : curWindow.id,
+        tabs      : [],
+      };
+      for (const curTab of curWindow.tabs) {
+        const url = gsUtils.isSuspendedTab(curTab) ? gsUtils.getOriginalUrl(curTab.url) : curTab.url;
+        window.tabs.push({ url, groupId: curTab.groupId });
+      };
+      windows.push(window);
     }
 
-    let sessionString = '';
-
-    session.windows.forEach(function(curWindow, index) {
-      if (windowId != null) {
+    for (const curWindow of session.windows) {
+      if (windowId) {
         if (curWindow.id == windowId) {
           _exInternalExport(curWindow);
         }
-      } else {
+      }
+      else {
         _exInternalExport(curWindow);
       }
+    };
 
-    });
+    const exportObj = {
+      windows,
+      tabGroups: session.tabGroups,
+    };
 
+    const sessionString = JSON.stringify(exportObj, null, 2);
     const blob = new Blob([sessionString], { type: 'text/plain' });
     const blobUrl = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', blobUrl);
-    link.setAttribute('download', 'session.txt');
+    link.setAttribute('download', 'session.json');
     link.click();
 
     callback();
