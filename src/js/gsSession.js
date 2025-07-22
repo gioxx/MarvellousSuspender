@@ -556,16 +556,18 @@ export const gsSession = (function() {
   // 1: Open all unsuspended tabs as suspended
   // 2: Open all suspended tabs as unsuspended
   async function restoreSessionWindow( sessionWindow, existingWindow, sessionTabGroups, suspendMode ) {
+
     if (sessionWindow.tabs.length === 0) {
       gsUtils.log('gsUtils', 'SessionWindow contains no tabs to restore');
     }
 
     const delay       = 1000 / tabsToRestorePerSecond;
     const tabPromises = [];
+    let   placeholderTab;
 
     if (existingWindow) {
       // if we have been provided with a current window to recover into
-      gsUtils.log( 'gsUtils', 'Matched sessionWindow with existingWindow: ', sessionWindow, existingWindow );
+      gsUtils.highlight( 'gsUtils', 'Restoring into existingWindow: ', sessionWindow, existingWindow );
 
       const currentTabIds   = [];
       const currentTabUrls  = [];
@@ -585,7 +587,7 @@ export const gsSession = (function() {
     }
     else {
       // else restore entire window
-      gsUtils.log( 'gsUtils', 'Could not find match for sessionWindow: ', sessionWindow, );
+      gsUtils.highlight( 'gsUtils', 'Restoring into new sessionWindow: ', sessionWindow, );
 
       // Create new window. Important: do not pass in all urls to chrome.windows.create
       // If you load too many windows (or tabs?) like this, then it seems to blow
@@ -593,7 +595,7 @@ export const gsSession = (function() {
       // TODO: Report chrome bug
       const restoringUrl    = chrome.runtime.getURL('restoring-window.html');
       const newWindow       = await gsUtils.createWindowAndWaitForFinishLoading( { url: restoringUrl, focused: false }, 500 );
-      const placeholderTab  = newWindow.tabs[0];
+      placeholderTab        = newWindow.tabs[0];
       await gsChrome.tabsUpdate(placeholderTab.id, { pinned: true });
 
       for (const [i, sessionTab] of sessionWindow.tabs.entries()) {
@@ -601,14 +603,15 @@ export const gsSession = (function() {
           createNewTabAsPromised({ delay: i * delay, windowId: newWindow.id, index: i + 1, sessionTab, suspendMode })
         );
       }
-      if (placeholderTab) {
-        await gsChrome.tabsRemove(placeholderTab.id);
-      }
     }
 
     // gsUtils.log('gsSession', 'restoreSessionWindow before Promise.all', tabPromises.length);
     const allNewTabs = await Promise.all(tabPromises);
     // gsUtils.log('gsSession', 'restoreSessionWindow after  Promise.all', allNewTabs);
+
+    if (placeholderTab) {
+      await gsChrome.tabsRemove(placeholderTab.id);
+    }
 
     // After all tabs have been created, we can assign them to groups
     // We can't create groups on the fly because the new tabs are asynchronous and they'll all create unique groups
