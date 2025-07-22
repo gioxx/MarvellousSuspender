@@ -204,17 +204,24 @@ export const gsChrome = {
     return chrome.tabGroups.update(groupId, updateProperties);
   },
   /**
-   * @param   { number[] }  tabIds
-   * @param   { number }    groupId
+   * @param   { number[] }            tabIds
+   * @param   { number }              windowId
+   * @param   { number | undefined }  groupId
    * @returns { Promise<number> }
    */
-  tabsGroup: (tabIds, groupId) => {
+  tabsGroup: (tabIds, windowId, groupId) => {
     return new Promise(async (resolve) => {
       if (groupId === -1) {
         gsUtils.warning('tabsGroup', `Skipping groupId ${groupId}`);
         resolve(groupId);
       }
-      resolve(await chrome.tabs.group({ tabIds, groupId }));
+      gsUtils.highlight('tabsGroup', tabIds, windowId, groupId);
+      if (groupId) {
+        resolve(chrome.tabs.group({ tabIds, groupId }));
+      }
+      else {
+        resolve(chrome.tabs.group({ tabIds, createProperties: { windowId } }));
+      }
     });
   },
 

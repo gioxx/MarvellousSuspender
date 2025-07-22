@@ -563,6 +563,8 @@ export const gsSession = (function() {
 
     const delay       = 1000 / tabsToRestorePerSecond;
     const tabPromises = [];
+
+    let   targetWindowId;
     let   placeholderTab;
 
     if (existingWindow) {
@@ -584,6 +586,7 @@ export const gsSession = (function() {
           );
         }
       }
+      targetWindowId = existingWindow.id;
     }
     else {
       // else restore entire window
@@ -603,6 +606,7 @@ export const gsSession = (function() {
           createNewTabAsPromised({ delay: i * delay, windowId: newWindow.id, index: i + 1, sessionTab, suspendMode })
         );
       }
+      targetWindowId = newWindow.id;
     }
 
     // gsUtils.log('gsSession', 'restoreSessionWindow before Promise.all', tabPromises.length);
@@ -621,7 +625,7 @@ export const gsSession = (function() {
     const groupDelay          = 1000 / tabsToGroupPerSecond;
     for (const pair of allNewTabs) {
       await gsUtils.setTimeout(groupDelay);
-      await assignTabGroupFromSession(pair.newTab.id, pair.sessionTab.groupId, currentTabGroupsMap, sessionTabGroupsMap);
+      await assignTabGroupFromSession(targetWindowId, pair.newTab.id, pair.sessionTab.groupId, currentTabGroupsMap, sessionTabGroupsMap);
     }
 
   }
@@ -646,12 +650,13 @@ export const gsSession = (function() {
   }
 
   /**
+   * @param { number } windowId
    * @param { number } newTabId
    * @param { number } sessionTabGroupId
    * @param { Record<number, chrome.tabGroups.TabGroup> } currentTabGroupsMap
    * @param { Record<number, chrome.tabGroups.TabGroup> } sessionTabGroupsMap
    */
-  async function assignTabGroupFromSession(newTabId, sessionTabGroupId, currentTabGroupsMap, sessionTabGroupsMap) {
+  async function assignTabGroupFromSession(windowId, newTabId, sessionTabGroupId, currentTabGroupsMap, sessionTabGroupsMap) {
     // gsUtils.log('gsUtils', 'assignTabGroupFromSession', newTabId, sessionTabGroupId, currentTabGroupsMap, sessionTabGroupsMap );
     if (sessionTabGroupId > 0) {
 
@@ -660,12 +665,12 @@ export const gsSession = (function() {
       if (sessionTabGroupFromCurrentMap) {
         // The session tab group id exists in the current set, so use it!
         // gsUtils.log('gsUtils', 'assignTabGroupFromSession add to existing group', sessionTabGroupFromCurrentMap.title );
-        await gsChrome.tabsGroup([newTabId], sessionTabGroupFromCurrentMap.id);
+        await gsChrome.tabsGroup([newTabId], windowId, sessionTabGroupFromCurrentMap.id);
       }
       else {
         // The session tab group id does not exist
         // So, assign the tab to a new group
-        const newGroupId = await gsChrome.tabsGroup([newTabId]);
+        const newGroupId = await gsChrome.tabsGroup([newTabId], windowId);
         // gsUtils.log('gsUtils', 'assignTabGroupFromSession newGroupId', newGroupId );
         // Then, style the group
         /** @type chrome.tabGroups.TabGroup */
