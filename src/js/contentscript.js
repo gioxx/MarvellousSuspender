@@ -42,11 +42,11 @@
   }
 
   function init() {
-    console.log('init');
+    // console.log('init');
     //listen for background events
 
     chrome.runtime.onMessage.addListener(( request, sender, sendResponse ) => {
-      console.log('contentscript', 'onMessage', request.action, request, sender);
+      // console.log('contentscript', 'onMessage', request.action, request, sender);
       if (request.hasOwnProperty('action')) {
         if (request.action === 'requestInfo') {
           sendResponse(buildReportTabStatePayload());
