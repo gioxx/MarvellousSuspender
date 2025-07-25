@@ -1,10 +1,4 @@
-/*
- * The Great Suspender
- * Copyright (C) 2017 Dean Oemcke
- * Available under GNU GENERAL PUBLIC LICENSE v2
- * http://github.com/greatsuspender/thegreatsuspender
- * ლ(ಠ益ಠლ)
-*/
+
 (function() {
   'use strict';
 
@@ -21,7 +15,7 @@
           event.target.tagName.toUpperCase() === 'TEXTAREA' ||
           event.target.tagName.toUpperCase() === 'FORM' ||
           event.target.isContentEditable === true ||
-          event.target.type === "application/pdf"
+          event.target.type === 'application/pdf'
         ) {
           isReceivingFormInput = true;
           if (!isBackgroundConnectable()) {
@@ -42,11 +36,9 @@
   }
 
   function init() {
-    console.log('init');
     //listen for background events
 
     chrome.runtime.onMessage.addListener(( request, sender, sendResponse ) => {
-      console.log('contentscript', 'onMessage', request.action, request, sender);
       if (request.hasOwnProperty('action')) {
         if (request.action === 'requestInfo') {
           sendResponse(buildReportTabStatePayload());
@@ -82,19 +74,15 @@
   }
 
   function waitForRuntimeReady(retries) {
-    console.log('waitForRuntimeReady');
     retries = retries || 0;
     return new Promise((resolve) => resolve(chrome.runtime)).then((chromeRuntime) => {
       if (chromeRuntime) {
-        console.log('waitForRuntimeReady ready');
         return Promise.resolve();
       }
       if (retries > 3) {
-        console.log('waitForRuntimeReady reject');
         return Promise.reject('Failed waiting for chrome.runtime');
       }
       retries += 1;
-      console.log('waitForRuntimeReady retries', retries);
       return new Promise(resolve => setTimeout(resolve, 500)).then(() =>
         waitForRuntimeReady(retries)
       );
@@ -131,6 +119,7 @@
   waitForRuntimeReady()
     .then(init)
     .catch(e => {
+      // eslint-disable-next-line no-console
       console.error(e);
       setTimeout(() => {
         init();
