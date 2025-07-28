@@ -29,6 +29,10 @@ export const gsChrome = {
     });
   },
 
+  /**
+   * @param   { string | chrome.tabs.CreateProperties } details
+   * @returns { Promise<chrome.tabs.Tab | null> }
+   */
   tabsCreate: function(details) {
     return new Promise(resolve => {
       if (
@@ -125,7 +129,6 @@ export const gsChrome = {
       });
     });
   },
-
   windowsGetLastFocused: function() {
     return new Promise(resolve => {
       chrome.windows.getLastFocused({}, window => {
@@ -164,6 +167,10 @@ export const gsChrome = {
       });
     });
   },
+
+  /**
+   * @returns { Promise<chrome.tabGroups.TabGroup[]> }
+   */
   tabGroupsGetAll: function() {
     return new Promise(resolve => {
       chrome.tabGroups.query({}, (groups) => {
@@ -175,6 +182,49 @@ export const gsChrome = {
       });
     });
   },
+  /**
+   * @param   { chrome.tabGroups.TabGroup[] } groups
+   * @returns { Promise<Record<number, chrome.tabGroups.TabGroup>> }
+   */
+  tabGroupsMap: async (groups = []) => {
+    if (!groups.length) {
+      groups        = await gsChrome.tabGroupsGetAll();
+    }
+    const groupMap  = {};
+    for (const group of groups) {
+      groupMap[group.id] = group;
+    }
+    return groupMap;
+  },
+  /**
+   * @param   { number }                              groupId
+   * @param   { chrome.tabGroups.UpdateProperties }   updateProperties
+   */
+  tabGroupsUpdate: (groupId, updateProperties) => {
+    return chrome.tabGroups.update(groupId, updateProperties);
+  },
+  /**
+   * @param   { number[] }            tabIds
+   * @param   { number }              windowId
+   * @param   { number | undefined }  groupId
+   * @returns { Promise<number> }
+   */
+  tabsGroup: (tabIds, windowId, groupId) => {
+    return new Promise(async (resolve) => {
+      if (groupId === -1) {
+        gsUtils.warning('tabsGroup', `Skipping groupId ${groupId}`);
+        resolve(groupId);
+      }
+      gsUtils.highlight('tabsGroup', tabIds, windowId, groupId);
+      if (groupId) {
+        resolve(chrome.tabs.group({ tabIds, groupId }));
+      }
+      else {
+        resolve(chrome.tabs.group({ tabIds, createProperties: { windowId } }));
+      }
+    });
+  },
+
   windowsCreate: function(createData) {
     createData = createData || {};
     return new Promise(resolve => {

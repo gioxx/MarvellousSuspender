@@ -48,6 +48,9 @@ export const gsUtils = {
       console.log(id, (new Date() + '').split(' ')[4], text, ...args);
     }
   },
+  highlight: function(text, ...args) {
+    gsUtils.log('%s %c%s', 'color:red', text, ...args);
+  },
   warning: function(id, text, ...args) {
     if (gsUtils.debugError) {
       args = args || [];

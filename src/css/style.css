@@ -239,13 +239,18 @@ ul.unorderedList li {
     color: #999;
 }
 
-/* oh dear. well, too late now... */
+
 .hidden {
     visibility: hidden;
 }
-
 .reallyHidden {
     display: none;
+}
+.center {
+    text-align: center;
+}
+.italic {
+    font-style: italic;
 }
 
 .mainContent {
@@ -413,8 +418,10 @@ a.historyLink:hover {
 }
 
 .tabContainer .removeLink {
-    margin-left: -20px;
+    margin-left: -24px;
+    padding-right: 4px;
     color: #888;
+    font-size: 14px;
 }
 
 #screenCaptureNotice {
@@ -603,8 +610,8 @@ input[type='checkbox']:checked + label:before {
 
 /* dark theme */
 .dark, .dark .option, .dark .historyLink {
-    background: #353535;
-    color: #b8b8b8;
+    background: #222;
+    color: #ccc;
 }
 
 .dark .tooltipIcon {
@@ -615,3 +622,135 @@ input[type='checkbox']:checked + label:before {
     background: #3477db;
 }
 
+
+/* tab groups light  */
+span.group {
+  color: #fff;
+  border-radius: 6px;
+  font-size: 0.8em;
+  padding: 0 5px;
+}
+div.sessionContainer span.group {
+  margin: 0 8px 0 0;
+}
+
+span.group.chrome.grey {
+  background: #5f6368
+}
+span.group.chrome.blue {
+  background: #1a73e8;
+}
+span.group.chrome.red {
+  background: #d93025;
+}
+span.group.chrome.yellow {
+  background: #f9ab00;
+}
+span.group.chrome.green {
+  background: #188038;
+}
+span.group.chrome.pink {
+  background: #d01884;
+}
+span.group.chrome.purple {
+  background: #a142f4;
+}
+span.group.chrome.cyan {
+  background: #007b83;
+}
+span.group.chrome.orange {
+  background: #fa903e;
+}
+
+span.group.edge.grey {
+  background: #706d6b
+}
+span.group.edge.blue {
+  background: #1a73e8;
+}
+span.group.edge.red {
+  background: #c239b3;
+}
+span.group.edge.yellow {
+  background: #986f0b;
+}
+span.group.edge.green {
+  background: #004e8c;
+}
+span.group.edge.pink {
+  background: #d01884;
+}
+span.group.edge.purple {
+  background: #8230ff;
+}
+span.group.edge.cyan {
+  background: #038387;
+}
+span.group.edge.orange {
+  background: #ca5010;
+}
+
+
+/* tab groups dark */
+
+body.dark {
+span.group {
+  color: #000;
+}
+
+span.group.chrome.grey {
+  background: #dadce0;
+}
+span.group.chrome.blue {
+  background: #8ab4f8;
+}
+span.group.chrome.red {
+  background: #f28b82;
+}
+span.group.chrome.yellow {
+  background: #fdd663;
+}
+span.group.chrome.green {
+  background: #81c995;
+}
+span.group.chrome.pink {
+  background: #ff8bcb;
+}
+span.group.chrome.purple {
+  background: #c58af9;
+}
+span.group.chrome.cyan {
+  background: #78d9ec;
+}
+span.group.chrome.orange {
+  background: #fcad70;
+}
+
+span.group.edge.grey {
+  background: #84817e;
+}
+span.group.edge.blue {
+  background: #69a1fa;
+}
+span.group.edge.red {
+  background: #cf87da;
+}
+span.group.edge.yellow {
+  background: #c1a256;
+}
+span.group.edge.green {
+  background: #4a89ba;
+}
+span.group.edge.pink {
+  background: #ee5fb7;
+}
+span.group.edge.purple {
+  background: #b696ff;
+}
+span.group.edge.cyan {
+  background: #4cb4b7;
+}
+span.group.edge.orange {
+  background: #df8e64;
+}
+}
