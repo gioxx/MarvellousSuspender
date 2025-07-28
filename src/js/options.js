@@ -1,11 +1,8 @@
-/*global chrome, gsStorage, gsChrome, gsUtils */
-(function(global) {
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+import  { gsChrome }              from './gsChrome.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+
+(() => {
 
   var elementPrefMap = {
     preview: gsStorage.SCREEN_CAPTURE,
@@ -43,36 +40,34 @@
 
   //populate settings from synced storage
   function initSettings() {
-    //Set theme
-    document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+    gsStorage.getSettings().then((settings) => {
+      //Set theme
+      document.body.classList.add(settings[gsStorage.THEME] === 'dark' ? 'dark' : null);
 
-    var optionEls = document.getElementsByClassName('option'),
-      pref,
-      element,
-      i;
-    for (i = 0; i < optionEls.length; i++) {
-      element = optionEls[i];
-      pref = elementPrefMap[element.id];
-      populateOption(element, gsStorage.getOption(pref));
-    }
+      var optionEls = document.getElementsByClassName('option'),
+        pref,
+        element,
+        i;
+      for (i = 0; i < optionEls.length; i++) {
+        element = optionEls[i];
+        pref = elementPrefMap[element.id];
+        populateOption(element, settings[pref]);
+      }
 
-    addClickHandlers();
+      addClickHandlers();
 
-    setForceScreenCaptureVisibility(
-      gsStorage.getOption(gsStorage.SCREEN_CAPTURE) !== '0',
-    );
-    setAutoSuspendOptionsVisibility(
-      parseFloat(gsStorage.getOption(gsStorage.SUSPEND_TIME)) > 0,
-    );
-    setSyncNoteVisibility(!gsStorage.getOption(gsStorage.SYNC_SETTINGS));
+      setForceScreenCaptureVisibility(settings[gsStorage.SCREEN_CAPTURE] !== '0');
+      setAutoSuspendOptionsVisibility(parseFloat(settings[gsStorage.SUSPEND_TIME]) > 0);
+      setSyncNoteVisibility(!settings[gsStorage.SYNC_SETTINGS]);
 
-    let searchParams = new URL(location.href).searchParams;
-    if (searchParams.has('firstTime')) {
-      document
-        .querySelector('.welcome-message')
-        .classList.remove('reallyHidden');
-      document.querySelector('#options-heading').classList.add('reallyHidden');
-    }
+      let searchParams = new URL(location.href).searchParams;
+      if (searchParams.has('firstTime')) {
+        document
+          .querySelector('.welcome-message')
+          .classList.remove('reallyHidden');
+        document.querySelector('#options-heading').classList.add('reallyHidden');
+      }
+    });
   }
 
   function addClickHandlers() {
@@ -82,9 +77,12 @@
           origins: [
             'http://*/*',
             'https://*/*',
-            'file://*/*',
+            // 'file://*/*',
           ],
         }, function(granted) {
+          if (chrome.runtime.lastError) {
+            gsUtils.warning('addClickHandlers', chrome.runtime.lastError);
+          }
           if (!granted) {
             let select = document.getElementById('preview');
             select.value = '0';
@@ -128,11 +126,9 @@
 
   function setForceScreenCaptureVisibility(visible) {
     if (visible) {
-      document.getElementById('forceScreenCaptureContainer').style.display =
-        'block';
+      document.getElementById('forceScreenCaptureContainer').style.display = 'block';
     } else {
-      document.getElementById('forceScreenCaptureContainer').style.display =
-        'none';
+      document.getElementById('forceScreenCaptureContainer').style.display = 'none';
     }
   }
 
@@ -158,15 +154,14 @@
   }
 
   function handleChange(element) {
-    return function() {
-      var pref = elementPrefMap[element.id],
-        interval;
+    return async() => {
+      const pref = elementPrefMap[element.id];
 
       //add specific screen element listeners
       if (pref === gsStorage.SCREEN_CAPTURE) {
         setForceScreenCaptureVisibility(getOptionValue(element) !== '0');
       } else if (pref === gsStorage.SUSPEND_TIME) {
-        interval = getOptionValue(element);
+        const interval = getOptionValue(element);
         setAutoSuspendOptionsVisibility(interval > 0);
       } else if (pref === gsStorage.SYNC_SETTINGS) {
         // we only really want to show this on load. not on toggle
@@ -174,11 +169,12 @@
           setSyncNoteVisibility(false);
         }
       } else if (pref === gsStorage.THEME) {
-        // when the user changes the theme, it reloads the page to apply instantly the modification
-        window.location.reload();
+        // window.location.reload();
+        // Instead of reloading the page, just update the CSS directly
+        getOptionValue(element) === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark');
       }
 
-      var [oldValue, newValue] = saveChange(element);
+      var [oldValue, newValue] = await saveChange(element);
       if (oldValue !== newValue) {
         var prefKey = elementPrefMap[element.id];
         gsUtils.performPostSaveUpdates(
@@ -190,10 +186,10 @@
     };
   }
 
-  function saveChange(element) {
-    var pref = elementPrefMap[element.id],
-      oldValue = gsStorage.getOption(pref),
-      newValue = getOptionValue(element);
+  async function saveChange(element) {
+    const pref = elementPrefMap[element.id];
+    let newValue = getOptionValue(element);
+    const oldValue = await gsStorage.getOption(pref);
 
     //clean up whitelist before saving
     if (pref === gsStorage.WHITELIST) {
@@ -202,7 +198,7 @@
 
     //save option
     if (oldValue !== newValue) {
-      gsStorage.setOptionAndSync(elementPrefMap[element.id], newValue);
+      await gsStorage.setOptionAndSync(elementPrefMap[element.id], newValue);
     }
 
     return [oldValue, newValue];
@@ -234,15 +230,17 @@
       const tabs = await gsChrome.tabsQuery();
       const tabUrls = tabs
         .map(
-          tab =>
+          (tab) =>
             gsUtils.isSuspendedTab(tab)
               ? gsUtils.getOriginalUrl(tab.url)
               : tab.url,
         )
         .filter(
-          url => !gsUtils.isSuspendedUrl(url) && gsUtils.checkWhiteList(url),
+          async (url) => !gsUtils.isSuspendedUrl(url) && (await gsUtils.checkWhiteList(url))
         )
-        .map(url => (url.length > 55 ? url.substr(0, 52) + '...' : url));
+        .map(
+          (url) => (url.length > 55 ? url.substr(0, 52) + '...' : url)
+        );
       if (tabUrls.length === 0) {
         alert(chrome.i18n.getMessage('js_options_whitelist_no_matches'));
         return;
@@ -274,8 +272,4 @@
     }
   });
 
-
-  global.exports = {
-    initSettings,
-  };
-})(this);
+})();

@@ -1,15 +1,13 @@
-/*global chrome, gsUtils */
-(function(global) {
+import  { gsUtils }               from './gsUtils.js';
+import  { gsStorage }             from './gsStorage.js';
+
+(() => {
   'use strict';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+  gsUtils.documentReadyAndLocalisedAsPromised(document).then(async () => {
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
-    //do nothing
+    //Set theme
+    document.body.classList.add(await gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+
   });
-})(this);
+})();

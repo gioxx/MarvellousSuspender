@@ -1,13 +1,13 @@
-/*global chrome, historyItems, historyUtils, gsSession, gsIndexedDb, gsUtils, gsStorage */
-(function(global) {
-  'use strict';
+import  { gsChrome }              from './gsChrome.js';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsSession }             from './gsSession.js';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+import  { historyItems }          from './historyItems.js';
+import  { historyUtils }          from './historyUtils.js';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+(() => {
+  'use strict';
 
   async function reloadTabs(sessionId, windowId, openTabsAsSuspended) {
     const session = await gsIndexedDb.fetchSessionBySessionId(sessionId);
@@ -28,7 +28,7 @@
 
     for (let sessionWindow of sessionWindows) {
       const suspendMode = openTabsAsSuspended ? 1 : 2;
-      await gsSession.restoreSessionWindow(sessionWindow, null, suspendMode);
+      await gsSession.restoreSessionWindow(sessionWindow, null, session.tabGroups, suspendMode);
     }
   }
 
@@ -48,12 +48,12 @@
 
     gsIndexedDb
       .removeTabFromSessionHistory(sessionId, windowId, tabId)
-      .then(function(session) {
+      .then(async (session) => {
         gsUtils.removeInternalUrlsFromSession(session);
         //if we have a valid session returned
         if (session) {
           sessionEl = element.parentElement.parentElement;
-          newSessionEl = createSessionElement(session);
+          newSessionEl = await createSessionElement(session);
           sessionEl.parentElement.replaceChild(newSessionEl, sessionEl);
           toggleSession(newSessionEl, session.sessionId); //async. unhandled promise
 
@@ -91,18 +91,23 @@
         }
         gsUtils.removeInternalUrlsFromSession(curSession);
 
+        const tabGroupsMap = await gsChrome.tabGroupsMap(curSession.tabGroups);
+
         for (const [i, curWindow] of curSession.windows.entries()) {
           curWindow.sessionId = curSession.sessionId;
           sessionContentsEl.appendChild(
-            createWindowElement(curSession, curWindow, i),
+            await createWindowElement(curSession, curWindow, i),
           );
 
-          const tabPromises = [];
+          const tabPromises     = [];
           for (const curTab of curWindow.tabs) {
-            curTab.windowId = curWindow.id;
-            curTab.sessionId = curSession.sessionId;
-            curTab.title = gsUtils.getCleanTabTitle(curTab);
-            if (gsUtils.isSuspendedTab(curTab)) {
+            curTab.windowId     = curWindow.id;
+            curTab.sessionId    = curSession.sessionId;
+            curTab.title        = gsUtils.getCleanTabTitle(curTab);
+            curTab.group        = tabGroupsMap[curTab.groupId] || {};
+            curTab.isSuspended  = gsUtils.isSuspendedTab(curTab);
+
+            if (curTab.isSuspended) {
               curTab.url = gsUtils.getOriginalUrl(curTab.url);
             }
             tabPromises.push(createTabElement(curSession, curWindow, curTab));
@@ -121,8 +126,8 @@
     }
   }
 
-  function createSessionElement(session) {
-    var sessionEl = historyItems.createSessionHtml(session, true);
+  async function createSessionElement(session) {
+    var sessionEl = await historyItems.createSessionHtml(session, true);
 
     addClickListenerToElement(
       sessionEl.getElementsByClassName('sessionIcon')[0],
@@ -169,9 +174,9 @@
     return sessionEl;
   }
 
-  function createWindowElement(session, window, index) {
-    var allowReload = session.sessionId !== gsSession.getSessionId();
-    var windowEl = historyItems.createWindowHtml(window, index, allowReload);
+  async function createWindowElement(session, window, index) {
+    var allowReload = session.sessionId !== (await gsSession.getSessionId());
+    var windowEl = historyItems.createWindowHtml(index, allowReload);
 
     addClickListenerToElement(
       windowEl.getElementsByClassName('resuspendLink')[0],
@@ -203,7 +208,7 @@
   }
 
   async function createTabElement(session, window, tab) {
-    var allowDelete = session.sessionId !== gsSession.getSessionId();
+    var allowDelete = session.sessionId !== (await gsSession.getSessionId());
     var tabEl = await historyItems.createTabHtml(tab, allowDelete);
 
     addClickListenerToElement(
@@ -215,9 +220,9 @@
     return tabEl;
   }
 
-  function render() {
-    //Set theme
-    document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+  async function render() {
+
+    await gsSession.updateCurrentSession();
 
     let currentDiv = document.getElementById('currentSessions'),
       sessionsDiv = document.getElementById('recoverySessions'),
@@ -230,32 +235,26 @@
     sessionsDiv.innerHTML = '';
     historyDiv.innerHTML = '';
 
-    gsIndexedDb.fetchCurrentSessions().then(function(currentSessions) {
-      currentSessions.forEach(function(session, index) {
-        gsUtils.removeInternalUrlsFromSession(session);
-        var sessionEl = createSessionElement(session);
-        if (firstSession) {
-          currentDiv.appendChild(sessionEl);
-          firstSession = false;
-        } else {
-          sessionsDiv.appendChild(sessionEl);
-        }
-      });
-    });
+    const currentSessions = await gsIndexedDb.fetchCurrentSessions();
+    for (const session of currentSessions) {
+      gsUtils.removeInternalUrlsFromSession(session);
+      const sessionEl = await createSessionElement(session);
+      if (firstSession) {
+        currentDiv.appendChild(sessionEl);
+        firstSession = false;
+      } else {
+        sessionsDiv.appendChild(sessionEl);
+      }
+    };
 
-    gsIndexedDb.fetchSavedSessions().then(function(savedSessions) {
-      savedSessions.forEach(function(session, index) {
-        gsUtils.removeInternalUrlsFromSession(session);
-        var sessionEl = createSessionElement(session);
-        historyDiv.appendChild(sessionEl);
-      });
-    });
+    const savedSessions = await gsIndexedDb.fetchSavedSessions();
+    for (const session of savedSessions) {
+      gsUtils.removeInternalUrlsFromSession(session);
+      const sessionEl = await createSessionElement(session);
+      historyDiv.appendChild(sessionEl);
+    };
 
-    importSessionActionEl.addEventListener(
-      'change',
-      historyUtils.importSession,
-      false,
-    );
+    importSessionActionEl.addEventListener( 'change', historyUtils.importSession, false );
     importSessionEl.onclick = function() {
       importSessionActionEl.click();
     };
@@ -277,8 +276,18 @@
     }
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
+  // gsUtils.documentReadyAndLocalisedAsPromised(document).then(render);
+  gsUtils.documentReadyAndLocalisedAsPromised(document).then(async () => {
+
+    //Set theme
+    document.body.classList.add(await gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+
+    window.onfocus = () => {
+      render();
+    };
+
     render();
+
   });
 
-})(this);
+})();

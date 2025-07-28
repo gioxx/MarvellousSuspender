@@ -1,11 +1,4 @@
-/*global chrome */
-/*
- * The Great Suspender
- * Copyright (C) 2017 Dean Oemcke
- * Available under GNU GENERAL PUBLIC LICENSE v2
- * http://github.com/greatsuspender/thegreatsuspender
- * ლ(ಠ益ಠლ)
-*/
+
 (function() {
   'use strict';
 
@@ -14,7 +7,7 @@
   let isIgnoreForms = false;
   let tempWhitelist = false;
 
-  function formInputListener(e) {
+  function formInputListener(event) {
     if (!isReceivingFormInput && !tempWhitelist) {
       if (event.keyCode >= 48 && event.keyCode <= 90 && event.target.tagName) {
         if (
@@ -22,7 +15,7 @@
           event.target.tagName.toUpperCase() === 'TEXTAREA' ||
           event.target.tagName.toUpperCase() === 'FORM' ||
           event.target.isContentEditable === true ||
-          event.target.type === "application/pdf"
+          event.target.type === 'application/pdf'
         ) {
           isReceivingFormInput = true;
           if (!isBackgroundConnectable()) {
@@ -44,11 +37,8 @@
 
   function init() {
     //listen for background events
-    chrome.runtime.onMessage.addListener(function(
-      request,
-      sender,
-      sendResponse
-    ) {
+
+    chrome.runtime.onMessage.addListener(( request, sender, sendResponse ) => {
       if (request.hasOwnProperty('action')) {
         if (request.action === 'requestInfo') {
           sendResponse(buildReportTabStatePayload());
@@ -62,6 +52,7 @@
           document.documentElement.scrollTop = request.scrollPos;
         }
       }
+
       if (request.hasOwnProperty('ignoreForms')) {
         isIgnoreForms = request.ignoreForms;
         if (isIgnoreForms) {
@@ -69,12 +60,14 @@
         }
         isReceivingFormInput = isReceivingFormInput && isIgnoreForms;
       }
+
       if (request.hasOwnProperty('tempWhitelist')) {
         if (isReceivingFormInput && !request.tempWhitelist) {
           isReceivingFormInput = false;
         }
         tempWhitelist = request.tempWhitelist;
       }
+
       sendResponse(buildReportTabStatePayload());
       return false;
     });
@@ -82,7 +75,7 @@
 
   function waitForRuntimeReady(retries) {
     retries = retries || 0;
-    return new Promise(r => r(chrome.runtime)).then(chromeRuntime => {
+    return new Promise((resolve) => resolve(chrome.runtime)).then((chromeRuntime) => {
       if (chromeRuntime) {
         return Promise.resolve();
       }
@@ -90,7 +83,7 @@
         return Promise.reject('Failed waiting for chrome.runtime');
       }
       retries += 1;
-      return new Promise(r => window.setTimeout(r, 500)).then(() =>
+      return new Promise(resolve => setTimeout(resolve, 500)).then(() =>
         waitForRuntimeReady(retries)
       );
     });
@@ -119,13 +112,14 @@
             ? 'tempWhitelist'
             : 'normal',
       scrollPos:
-        (document.body || document.documentElement || {}).scrollTop || 0,
+        (document.documentElement || document.body || {}).scrollTop || 0,
     };
   }
 
   waitForRuntimeReady()
     .then(init)
     .catch(e => {
+      // eslint-disable-next-line no-console
       console.error(e);
       setTimeout(() => {
         init();

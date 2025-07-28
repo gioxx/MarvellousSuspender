@@ -1,7 +1,6 @@
-/*global chrome, gsUtils */
-'use strict';
-// eslint-disable-next-line no-unused-vars
-var gsChrome = {
+import  { gsUtils }               from './gsUtils.js';
+
+export const gsChrome = {
   cookiesGetAll: function() {
     return new Promise(resolve => {
       chrome.cookies.getAll({}, cookies => {
@@ -30,6 +29,10 @@ var gsChrome = {
     });
   },
 
+  /**
+   * @param   { string | chrome.tabs.CreateProperties } details
+   * @returns { Promise<chrome.tabs.Tab | null> }
+   */
   tabsCreate: function(details) {
     return new Promise(resolve => {
       if (
@@ -70,10 +73,7 @@ var gsChrome = {
   tabsUpdate: function(tabId, updateProperties) {
     return new Promise(resolve => {
       if (!tabId || !updateProperties) {
-        gsUtils.warning(
-          'chromeTabs',
-          'tabId or updateProperties not specified'
-        );
+        gsUtils.warning( 'chromeTabs', 'tabId or updateProperties not specified' );
         resolve(null);
         return;
       }
@@ -129,7 +129,6 @@ var gsChrome = {
       });
     });
   },
-
   windowsGetLastFocused: function() {
     return new Promise(resolve => {
       chrome.windows.getLastFocused({}, window => {
@@ -159,15 +158,73 @@ var gsChrome = {
   },
   windowsGetAll: function() {
     return new Promise(resolve => {
-      chrome.windows.getAll({ populate: true }, windows => {
+      chrome.windows.getAll({ populate: true }, (windows) => {
         if (chrome.runtime.lastError) {
-          gsUtils.warning('chromeWindows', chrome.runtime.lastError);
+          gsUtils.warning('windowsGetAll', chrome.runtime.lastError);
           windows = [];
         }
         resolve(windows);
       });
     });
   },
+
+  /**
+   * @returns { Promise<chrome.tabGroups.TabGroup[]> }
+   */
+  tabGroupsGetAll: function() {
+    return new Promise(resolve => {
+      chrome.tabGroups.query({}, (groups) => {
+        if (chrome.runtime.lastError) {
+          gsUtils.warning('tabGroupsGetAll', chrome.runtime.lastError);
+          groups = [];
+        }
+        resolve(groups);
+      });
+    });
+  },
+  /**
+   * @param   { chrome.tabGroups.TabGroup[] } groups
+   * @returns { Promise<Record<number, chrome.tabGroups.TabGroup>> }
+   */
+  tabGroupsMap: async (groups = []) => {
+    if (!groups.length) {
+      groups        = await gsChrome.tabGroupsGetAll();
+    }
+    const groupMap  = {};
+    for (const group of groups) {
+      groupMap[group.id] = group;
+    }
+    return groupMap;
+  },
+  /**
+   * @param   { number }                              groupId
+   * @param   { chrome.tabGroups.UpdateProperties }   updateProperties
+   */
+  tabGroupsUpdate: (groupId, updateProperties) => {
+    return chrome.tabGroups.update(groupId, updateProperties);
+  },
+  /**
+   * @param   { number[] }            tabIds
+   * @param   { number }              windowId
+   * @param   { number | undefined }  groupId
+   * @returns { Promise<number> }
+   */
+  tabsGroup: (tabIds, windowId, groupId) => {
+    return new Promise(async (resolve) => {
+      if (groupId === -1) {
+        gsUtils.warning('tabsGroup', `Skipping groupId ${groupId}`);
+        resolve(groupId);
+      }
+      gsUtils.highlight('tabsGroup', tabIds, windowId, groupId);
+      if (groupId) {
+        resolve(chrome.tabs.group({ tabIds, groupId }));
+      }
+      else {
+        resolve(chrome.tabs.group({ tabIds, createProperties: { windowId } }));
+      }
+    });
+  },
+
   windowsCreate: function(createData) {
     createData = createData || {};
     return new Promise(resolve => {

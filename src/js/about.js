@@ -1,17 +1,14 @@
-/* global chrome, XMLHttpRequest, gsUtils, gsStorage */
-(function(global) {
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
+
+(() => {
   'use strict';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
-
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
+  gsUtils.documentReadyAndLocalisedAsPromised(document).then(() => {
     //Set theme
-    document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+    gsStorage.getOption(gsStorage.THEME).then((theme) => {
+      document.body.classList.add(theme === 'dark' ? 'dark' : null);
+    });
 
     var versionEl = document.getElementById('aboutVersion');
     versionEl.innerHTML = 'v' + chrome.runtime.getManifest().version;
@@ -27,4 +24,4 @@
     }
   });
 
-})(this);
+})();

@@ -1,8 +1,7 @@
-Thumbs.db
-.DS_Store
-*.zip
 .dccache
-.vscode*
-node_modules
+.DS_Store
 *.pem
+*.zip
 build
+node_modules
+Thumbs.db

@@ -1,17 +1,14 @@
-/*global chrome, gsUtils, gsStorage */
-(function(global) {
-  'use strict';
+import  { gsStorage }             from './gsStorage.js';
+import  { gsUtils }               from './gsUtils.js';
 
-  try {
-    chrome.extension.getBackgroundPage().tgs.setViewGlobals(global);
-  } catch (e) {
-    window.setTimeout(() => window.location.reload(), 1000);
-    return;
-  }
+(() => {
+  'use strict';
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
     //Set theme
-    document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+    gsStorage.getOption(gsStorage.THEME).then((theme) => {
+      document.body.classList.add(theme === 'dark' ? 'dark' : null);
+    });
 
     var shortcutsEl = document.getElementById('keyboardShortcuts');
     var configureShortcutsEl = document.getElementById('configureShortcuts');
@@ -48,4 +45,4 @@
     };
   });
 
-})(this);
+})();
