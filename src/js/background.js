@@ -180,6 +180,10 @@ import  { tgs }                   from './tgs.js';
         tgs.whitelistHighlightedTab(true);
         break;
       }
+      case 'sessionManagerLink': {
+        chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
+        break;
+      }
       case 'settingsLink' : {
         chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
         break;
@@ -292,6 +296,9 @@ import  { tgs }                   from './tgs.js';
       case 'unsuspend_all_tabs':
         tgs.unsuspendAllTabsInAllWindows();
         break;
+      case 'open_session_history':
+        chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
+        break;
       default:
         break;
     }
@@ -329,6 +336,9 @@ import  { tgs }                   from './tgs.js';
         break;
       case '6-unsuspend-all-windows':
         tgs.unsuspendAllTabsInAllWindows();
+        break;
+      case '7-open_session_history':
+        chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
         break;
     }
   }

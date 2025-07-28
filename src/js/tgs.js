@@ -1322,6 +1322,17 @@ export const tgs = (function() {
         contexts: allContexts,
         // onclick: () => unsuspendAllTabsInAllWindows(),
       });
+
+      chrome.contextMenus.create({
+        id: 'separator4',
+        type: 'separator',
+        contexts: allContexts,
+      });
+      chrome.contextMenus.create({
+        id: 'open_session_history',
+        title: chrome.i18n.getMessage('html_recovery_go_to_session_manager'),
+        contexts: allContexts,
+      });
     }
   }
 

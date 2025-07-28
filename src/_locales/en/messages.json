@@ -26,7 +26,7 @@
     "js_context_force_suspend_all_tabs": { "message": "Force suspend all tabs in all windows" },
     "js_context_unsuspend_all_tabs": { "message": "Unsuspend all tabs in all windows" },
     "html_about_title": { "message": "About" },
-	"html_about_fork_beginning": { "message": "Based on the original" },
+	  "html_about_fork_beginning": { "message": "Based on the original" },
     "html_about_fork_mid": { "message": "available on GitHub, without ADS tracking" },
     "html_about_fork_end": { "message": ", more information available on" },
     "html_about_github_title": { "message": "GitHub" },

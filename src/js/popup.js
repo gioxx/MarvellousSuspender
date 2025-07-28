@@ -272,6 +272,7 @@ import  { tgs }                   from './tgs.js';
     addClickListener('unsuspendSelected');
     addClickListener('whitelistDomain');
     addClickListener('whitelistPage');
+    addClickListener('sessionManagerLink');
     addClickListener('settingsLink');
   }
 
