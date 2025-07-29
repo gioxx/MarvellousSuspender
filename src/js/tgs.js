@@ -44,7 +44,7 @@ export const tgs = (function() {
 
   async function getInternalContextsByViewName(viewName, callback) {
     const contexts = await chrome.runtime.getContexts({});
-    return contexts.filter((o) => o.documentUrl.includes(viewName));
+    return contexts.filter((context) => context.documentUrl?.includes(viewName));
   }
 
 
