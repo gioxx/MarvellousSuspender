@@ -44,7 +44,7 @@ export const tgs = (function() {
 
   async function getInternalContextsByViewName(viewName, callback) {
     const contexts = await chrome.runtime.getContexts({});
-    return contexts.filter((o) => o.documentUrl.includes(viewName));
+    return contexts.filter((context) => context.documentUrl?.includes(viewName));
   }
 
 
@@ -1321,6 +1321,17 @@ export const tgs = (function() {
         title: chrome.i18n.getMessage('js_context_unsuspend_all_tabs'),
         contexts: allContexts,
         // onclick: () => unsuspendAllTabsInAllWindows(),
+      });
+
+      chrome.contextMenus.create({
+        id: 'separator4',
+        type: 'separator',
+        contexts: allContexts,
+      });
+      chrome.contextMenus.create({
+        id: 'open_session_history',
+        title: chrome.i18n.getMessage('html_recovery_go_to_session_manager'),
+        contexts: allContexts,
       });
     }
   }

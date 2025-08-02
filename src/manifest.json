@@ -85,6 +85,9 @@
     },
     "6-unsuspend-all-windows": {
       "description": "__MSG_ext_cmd_unsuspend_all_windows_description__"
+    },
+    "7-open_session_history": {
+      "description": "__MSG_html_recovery_go_to_session_manager__"
     }
   }
 }

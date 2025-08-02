@@ -18,6 +18,7 @@ import  { gsUtils }               from './gsUtils.js';
       '2-toggle-temp-whitelist-tab',
       '2b-unsuspend-selected-tabs',
       '4-unsuspend-active-window',
+      '6-unsuspend-all-windows'
     ];
 
     //populate keyboard shortcuts
