@@ -423,6 +423,12 @@ export const gsUtils = {
     return chrome.runtime.getURL('suspended.html' + args);
   },
 
+  // @TODO: Make some unit tests to verify getRootUrl vs getRootUrlNew
+  getRootUrlNew: function(url) {
+    const fullURL = new URL(url);
+    return new URL(`//${fullURL.host}`, fullURL).toString();
+  },
+
   getRootUrl: function(url, includePath, includeScheme) {
     let rootUrlStr = url;
     let scheme;
@@ -616,7 +622,7 @@ export const gsUtils = {
               if (updateTheme) {
                 gsStorage.getOption(gsStorage.THEME).then((theme) => {
                   // @TODO favicon will probably fail here if it can't create a DOM Image
-                  gsFavicon.getFaviconMetaData(tab).then(faviconMeta => {
+                  gsFavicon.getFaviconMeta(tab).then(faviconMeta => {
                     const isLowContrastFavicon = faviconMeta.isDark || false;
                     chrome.tabs.sendMessage(tab.id, { action: 'updateTheme', tab, theme, isLowContrastFavicon });
                   });

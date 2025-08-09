@@ -296,7 +296,7 @@ import  { tgs }                   from './tgs.js';
     setTitle(title);
 
     // Set faviconMeta
-    const faviconMeta = await gsFavicon.getFaviconMetaData(tab);
+    const faviconMeta = await gsFavicon.getFaviconMeta(tab);
     setFaviconMeta(faviconMeta);
 
     if (quickInit) {
