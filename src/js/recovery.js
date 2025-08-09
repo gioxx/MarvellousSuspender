@@ -6,8 +6,7 @@ import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { historyItems }          from './historyItems.js';
 
-(function(global) {
-  'use strict';
+(() => {
 
   var restoreAttempted = false;
   var tabsToRecover = [];
@@ -67,7 +66,8 @@ import  { historyItems }          from './historyItems.js';
           'inline-block';
 
         //otherwise we have no tabs to recover so just hide references to recovery
-      } else {
+      }
+      else {
         hideRecoverySection();
       }
     }
@@ -160,14 +160,12 @@ import  { historyItems }          from './historyItems.js';
       gsMessages.sendPingToTab(suspendedTab.id, function(error) {
         if (error) {
           gsUtils.warning(suspendedTab.id, 'Failed to sendPingToTab', error);
-        } else {
+        }
+        else {
           removeTabFromList(suspendedTab);
         }
       });
     }
   });
 
-  global.exports = {
-    removeTabFromList,
-  };
-})(this);
+})();
