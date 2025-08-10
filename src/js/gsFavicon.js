@@ -284,11 +284,8 @@ export const gsFavicon = (() => {
     const normalisedFingerprint   = await createImageFingerprint(faviconMeta.normalisedDataUrl);
     const transparentFingerprint  = await createImageFingerprint(faviconMeta.transparentDataUrl);
 
-    gsUtils.log('gsFavicon', 'isFaviconMetaValid BEFORE', _defaultFaviconFingerprintById);
     if (!Object.keys(_defaultFaviconFingerprintById).length) {
       await getFaviconDefaults();
-      // @NEXT: Cache this in session storage
-      gsUtils.log('gsFavicon', 'isFaviconMetaValid AFTER ', _defaultFaviconFingerprintById);
     }
 
     for (const id of Object.keys(_defaultFaviconFingerprintById)) {

@@ -569,7 +569,7 @@ export const gsSession = (function() {
 
     if (existingWindow) {
       // if we have been provided with a current window to recover into
-      gsUtils.highlight( 'gsUtils', 'Restoring into existingWindow: ', sessionWindow, existingWindow );
+      gsUtils.log( 'gsUtils', 'Restoring into existingWindow: ', sessionWindow, existingWindow );
 
       const currentTabIds   = [];
       const currentTabUrls  = [];
@@ -590,7 +590,7 @@ export const gsSession = (function() {
     }
     else {
       // else restore entire window
-      gsUtils.highlight( 'gsUtils', 'Restoring into new sessionWindow: ', sessionWindow, );
+      gsUtils.log( 'gsUtils', 'Restoring into new sessionWindow: ', sessionWindow, );
 
       // Create new window. Important: do not pass in all urls to chrome.windows.create
       // If you load too many windows (or tabs?) like this, then it seems to blow
