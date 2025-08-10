@@ -1,5 +1,6 @@
 // @ts-check
 import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 
 export const gsFavicon = (() => {
@@ -24,8 +25,8 @@ export const gsFavicon = (() => {
 
 
   /** @type { Record<string, string> } */
-  const _defaultFaviconFingerprintById = {};
-  let   _defaultChromeFaviconMeta = FALLBACK_CHROME_FAVICON_META;
+  let _defaultFaviconFingerprintById  = {};
+  let _defaultChromeFaviconMeta       = FALLBACK_CHROME_FAVICON_META;
 
 
   // gsFavicon cannot be initialized in the background because it requires a DOM.  So, we'll init JIT.
@@ -34,9 +35,13 @@ export const gsFavicon = (() => {
   //   gsUtils.log('gsFavicon', 'init successful');
   // }
 
-  async function addFaviconDefaults() {
-    // Generate a list of potential 'default' favicons so we can avoid caching
-    // anything that matches these defaults
+  async function getFaviconDefaults() {
+    // Generate a list of potential 'default' favicons so we can avoid caching anything that matches these defaults
+
+    _defaultFaviconFingerprintById    = (await gsStorage.getStorageJSON('session', gsStorage.DEFAULT_FAVICON_FINGERPRINTS)) ?? {};
+    gsUtils.log( 'gsFavicon', 'Loaded session storage defaults', _defaultFaviconFingerprintById );
+    if (Object.keys(_defaultFaviconFingerprintById).length) return;
+
     const defaultIconUrls = [
       getChromeFavIconUrl('http://chromeDefaultFavicon'),
       getChromeFavIconUrl('chromeDefaultFavicon'),
@@ -69,6 +74,7 @@ export const gsFavicon = (() => {
       );
     }
     await Promise.all(faviconPromises);
+    await gsStorage.saveStorage('session', gsStorage.DEFAULT_FAVICON_FINGERPRINTS, _defaultFaviconFingerprintById);
   }
 
   /**
@@ -280,7 +286,7 @@ export const gsFavicon = (() => {
 
     gsUtils.log('gsFavicon', 'isFaviconMetaValid BEFORE', _defaultFaviconFingerprintById);
     if (!Object.keys(_defaultFaviconFingerprintById).length) {
-      await addFaviconDefaults();
+      await getFaviconDefaults();
       // @NEXT: Cache this in session storage
       gsUtils.log('gsFavicon', 'isFaviconMetaValid AFTER ', _defaultFaviconFingerprintById);
     }
