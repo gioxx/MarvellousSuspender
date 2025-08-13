@@ -4,33 +4,34 @@ import  { gsUtils }               from './gsUtils.js';
 'use strict';
 
 export const gsStorage = {
-  SCREEN_CAPTURE: 'screenCapture',
-  SCREEN_CAPTURE_FORCE: 'screenCaptureForce',
-  SUSPEND_IN_PLACE_OF_DISCARD: 'suspendInPlaceOfDiscard',
-  UNSUSPEND_ON_FOCUS: 'gsUnsuspendOnFocus',
-  SUSPEND_TIME: 'gsTimeToSuspend',
-  IGNORE_WHEN_OFFLINE: 'onlineCheck',
-  IGNORE_WHEN_CHARGING: 'batteryCheck',
-  CLAIM_BY_DEFAULT: 'claimByDefault',
-  IGNORE_PINNED: 'gsDontSuspendPinned',
-  IGNORE_FORMS: 'gsDontSuspendForms',
-  IGNORE_AUDIO: 'gsDontSuspendAudio',
-  IGNORE_ACTIVE_TABS: 'gsDontSuspendActiveTabs',
-  IGNORE_CACHE: 'gsIgnoreCache',
-  ADD_CONTEXT: 'gsAddContextMenu',
-  SYNC_SETTINGS: 'gsSyncSettings',
-  NO_NAG: 'gsNoNag',
-  THEME: 'gsTheme',
-  WHITELIST: 'gsWhitelist',
+  SCREEN_CAPTURE                : 'screenCapture',
+  SCREEN_CAPTURE_FORCE          : 'screenCaptureForce',
+  SUSPEND_IN_PLACE_OF_DISCARD   : 'suspendInPlaceOfDiscard',
+  UNSUSPEND_ON_FOCUS            : 'gsUnsuspendOnFocus',
+  SUSPEND_TIME                  : 'gsTimeToSuspend',
+  IGNORE_WHEN_OFFLINE           : 'onlineCheck',
+  IGNORE_WHEN_CHARGING          : 'batteryCheck',
+  CLAIM_BY_DEFAULT              : 'claimByDefault',
+  IGNORE_PINNED                 : 'gsDontSuspendPinned',
+  IGNORE_FORMS                  : 'gsDontSuspendForms',
+  IGNORE_AUDIO                  : 'gsDontSuspendAudio',
+  IGNORE_ACTIVE_TABS            : 'gsDontSuspendActiveTabs',
+  IGNORE_CACHE                  : 'gsIgnoreCache',
+  ADD_CONTEXT                   : 'gsAddContextMenu',
+  SYNC_SETTINGS                 : 'gsSyncSettings',
+  NO_NAG                        : 'gsNoNag',
+  THEME                         : 'gsTheme',
+  WHITELIST                     : 'gsWhitelist',
 
-  DISCARD_AFTER_SUSPEND: 'discardAfterSuspend',
-  DISCARD_IN_PLACE_OF_SUSPEND: 'discardInPlaceOfSuspend',
+  DISCARD_AFTER_SUSPEND         : 'discardAfterSuspend',
+  DISCARD_IN_PLACE_OF_SUSPEND   : 'discardInPlaceOfSuspend',
 
-  APP_VERSION: 'gsVersion',
-  LAST_NOTICE: 'gsNotice',
-  LAST_EXTENSION_RECOVERY: 'gsExtensionRecovery',
+  APP_VERSION                   : 'gsVersion',
+  LAST_NOTICE                   : 'gsNotice',
+  LAST_EXTENSION_RECOVERY       : 'gsExtensionRecovery',
+  UPDATE_AVAILABLE              : 'gsUpdateAvailable',
 
-  UPDATE_AVAILABLE: 'gsUpdateAvailable',
+  DEFAULT_FAVICON_FINGERPRINTS  : 'gsDefaultFaviconFingerprints',
 
   noop: function() {},
 
@@ -304,7 +305,7 @@ export const gsStorage = {
 
   // Push settings to sync
   syncSettings: async () => {
-    console.log('syncSettings');
+    // gsUtils.log('syncSettings');
     const settings = await gsStorage.getSettings();
     if (settings[gsStorage.SYNC_SETTINGS]) {
       // Since sync is a local setting, delete it to simplify things.

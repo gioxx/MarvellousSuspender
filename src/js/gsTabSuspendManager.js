@@ -359,9 +359,9 @@ export const gsTabSuspendManager = (function() {
     await gsIndexedDb.addSuspendedTabInfo(tabProperties);
 
     // gsFavicon can't be loaded here since there's no DOM access yet
-    // const faviconMeta = await gsFavicon.buildFaviconMetaFromChromeFaviconCache( tab.url );
+    // const faviconMeta = await gsFavicon.buildFaviconMetaFromChrome( tab.url );
     // if (faviconMeta) {
-    //   await gsFavicon.saveFaviconMetaDataToCache(tab.url, faviconMeta);
+    //   await gsFavicon.saveFaviconMetaToCache(tab.url, faviconMeta);
     // }
   }
 

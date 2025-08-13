@@ -91,7 +91,7 @@ export const historyItems = (() => {
 
     const listHover = createEl( 'span', { class: 'itemHover removeLink' }, '\u274C\uFE0E');
 
-    const faviconMeta = await gsFavicon.getFaviconMetaData(tab);
+    const faviconMeta = await gsFavicon.getFaviconMeta(tab);
     const favIconUrl = faviconMeta.normalisedDataUrl;
     const listImg = createEl('img', { src: favIconUrl, height: '16px', width: '16px' });
     const listLink = createEl('a', { class: 'historyLink', href: tab.url, target: '_blank' }, tab.title && tab.title.length > 1 ? tab.title : tab.url);
@@ -100,7 +100,7 @@ export const historyItems = (() => {
       linksSpan.appendChild(listHover);
     }
 
-    if (tab.group.title) {
+    if (tab.group?.title) {
       const group     = createEl('span',  { class: `group chrome ${tab.group.color}` }, tab.group.title);
       linksSpan.appendChild(group);
     }

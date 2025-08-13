@@ -31,7 +31,7 @@ import  { tgs }                   from './tgs.js';
     const groupSpan   = groupName ? `<span class="group ${browser} ${groupColor}">${groupName}</span>` : '';
 
     let   favicon   = info && info.tab ? info.tab.favIconUrl : '';
-    favicon   = favicon && favicon.indexOf('data') === 0 ? favicon : gsFavicon.generateChromeFavIconUrlFromUrl(info.tab.url);
+    favicon   = favicon && favicon.indexOf('data') === 0 ? favicon : gsFavicon.getChromeFavIconUrl(info.tab.url);
 
     html += '<tr>';
     html += `<td>${windowId}</td>`;

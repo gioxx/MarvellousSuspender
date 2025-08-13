@@ -522,7 +522,7 @@ import  { tgs }                   from './tgs.js';
     .then(() => {
       // initialise other gsLibs
       return Promise.all([
-        // gsFavicon.initAsPromised(),
+        // gsFavicon.initAsPromised(),          // gsFavicon cannot be initialized in the background because it requires a DOM.  So, we'll init JIT.
         gsTabSuspendManager.initAsPromised(),
         gsTabCheckManager.initAsPromised(),
         gsTabDiscardManager.initAsPromised(),

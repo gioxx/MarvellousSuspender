@@ -215,7 +215,7 @@ export const gsChrome = {
         gsUtils.warning('tabsGroup', `Skipping groupId ${groupId}`);
         resolve(groupId);
       }
-      gsUtils.highlight('tabsGroup', tabIds, windowId, groupId);
+      gsUtils.log('tabsGroup', tabIds, windowId, groupId);
       if (groupId) {
         resolve(chrome.tabs.group({ tabIds, groupId }));
       }

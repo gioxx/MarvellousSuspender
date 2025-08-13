@@ -41,7 +41,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["suspended.html", "_favicon/*"],
+      "resources": ["suspended.html", "_favicon/*", "img/*"],
       "matches": ["<all_urls>"]
     }
   ],
