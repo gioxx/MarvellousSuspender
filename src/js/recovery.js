@@ -94,7 +94,7 @@ import  { historyItems }          from './historyItems.js';
     document.getElementById('restoreSession').style.display = 'none';
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(async function() {
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(async function() {
     var restoreEl = document.getElementById('restoreSession'),
       manageEl = document.getElementById('manageManuallyLink'),
       previewsEl = document.getElementById('previewsOffBtn'),

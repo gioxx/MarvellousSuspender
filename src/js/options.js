@@ -41,8 +41,6 @@ import  { gsUtils }               from './gsUtils.js';
   //populate settings from synced storage
   function initSettings() {
     gsStorage.getSettings().then((settings) => {
-      //Set theme
-      document.body.classList.add(settings[gsStorage.THEME] === 'dark' ? 'dark' : null);
 
       var optionEls = document.getElementsByClassName('option'),
         pref,
@@ -171,7 +169,7 @@ import  { gsUtils }               from './gsUtils.js';
       } else if (pref === gsStorage.THEME) {
         // window.location.reload();
         // Instead of reloading the page, just update the CSS directly
-        getOptionValue(element) === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark');
+        gsUtils.setPageTheme(window, getOptionValue(element));
       }
 
       var [oldValue, newValue] = await saveChange(element);
@@ -204,7 +202,7 @@ import  { gsUtils }               from './gsUtils.js';
     return [oldValue, newValue];
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(function() {
     initSettings();
 
     var optionEls = document.getElementsByClassName('option'),

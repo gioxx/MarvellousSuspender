@@ -23,6 +23,6 @@ import  { gsUtils }               from './gsUtils.js';
     });
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document);
+  gsUtils.documentReadyAndLocalisedAsPromised(window);
 
 })();

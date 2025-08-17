@@ -409,11 +409,26 @@ export const gsUtils = {
     }
   },
 
-  documentReadyAndLocalisedAsPromised: async function(doc) {
-    await gsUtils.documentReadyAsPromised(doc);
-    gsUtils.localiseHtml(doc);
-    if (doc.body && doc.body.hidden) {
-      doc.body.hidden = false;
+  setPageTheme: function(win, theme) {
+    if (win.document?.body) {
+      // Set theme
+      if (theme === 'system') {
+        const isDark = win.matchMedia('(prefers-color-scheme: dark)').matches;
+        theme = isDark ? 'dark' : 'light';
+      }
+      win.document.body.classList.value = theme;
+    }
+  },
+
+  documentReadyAndLocalisedAsPromised: async function(win) {
+    await gsUtils.documentReadyAsPromised(win.document);
+    gsUtils.localiseHtml(win.document);
+
+    if (win.document?.body) {
+      let theme = await gsStorage.getOption(gsStorage.THEME);
+      this.setPageTheme(win, theme);
+      // Unhide the body
+      setTimeout(() => { win.document.body.style.visibility = 'visible'; }, 50);
     }
   },
 

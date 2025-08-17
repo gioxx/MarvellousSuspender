@@ -99,6 +99,7 @@
     "html_options_suspend_theme": { "message": "Theme" },
     "html_options_suspend_theme_light": { "message": "Light" },
     "html_options_suspend_theme_dark": { "message": "Dark" },
+    "html_options_suspend_theme_system": { "message": "Automatic" },
     "html_options_suspend_screen_capturing": { "message": "Screen capturing" },
     "html_options_suspend_screen_capturing_disabled": { "message": "Disabled" },
     "html_options_suspend_screen_capturing_screen_only": { "message": "Capture top of screen only" },

@@ -84,9 +84,7 @@ import  { tgs }                   from './tgs.js';
     };
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(async function() {
-    //Set theme
-    document.body.classList.add(await gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(async function() {
 
     addFlagHtml(
       'toggleDebugInfo',

@@ -1,13 +1,3 @@
-/*
-
-                - - /|_/|      .-------------------.
-  - _______________| @.@|     /      Styles by      )
--- (______         >\_C/< ---/    Liam Johnston    /
-  -  -   / ______  _/____)  (   @liamjohnstonnz   /
- -  -   / /\ \   \ \         `-------------------'
-   - (_/  \_) - \_)
-
-*/
 html,
 body {
   margin: 0;
@@ -22,9 +12,7 @@ html {
   box-sizing: inherit;
 }
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
+  font-family: system-ui, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   color: #444;
   padding: 0;
   margin: 0;
@@ -75,11 +63,28 @@ a {
 .menuOption:hover .optionText {
   text-decoration: underline;
 }
-/* dark theme for night lurkers */
-.dark {
-  background: #353535;
-  color: #b8b8b8;
+
+
+/* dark theme */
+/* Automatically set dark background based on OS settings */
+/* This prevents flickering on initial page load */
+@media (prefers-color-scheme: dark) {
+
+body, .option, .historyLink {
+    background: #222;
+    color: #ccc;
 }
-.dark .group {
-  border-color: #555;
+
+}
+
+/* when the OS is set to dar, but the user selects light mode, override the media query */
+.light, .light .option, .light .historyLink {
+    background: #fafafa;
+    color: #444;
+}
+
+/* set all explicit dark styles */
+.dark, .dark .option, .dark .historyLink {
+    background: #222;
+    color: #ccc;
 }

@@ -6,7 +6,7 @@ import  { historyUtils }          from './historyUtils.js';
 (() => {
   'use strict';
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(function() {
     document.getElementById('exportBackupBtn').onclick = async function(e) {
       const currentSession = await gsSession.buildCurrentSession();
       historyUtils.exportSession(currentSession, function() {

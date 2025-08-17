@@ -277,7 +277,7 @@ import  { tgs }                   from './tgs.js';
   }
 
   Promise.all([
-    gsUtils.documentReadyAndLocalisedAsPromised(document),
+    gsUtils.documentReadyAndLocalisedAsPromised(window),
     getTabStatusAsPromise(0, true),
     getSelectedTabsAsPromise(),
   ]).then(async ([domLoadedEvent, initialTabStatus, selectedTabs]) => {

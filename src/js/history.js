@@ -1,7 +1,6 @@
 import  { gsChrome }              from './gsChrome.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsSession }             from './gsSession.js';
-import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { historyItems }          from './historyItems.js';
 import  { historyUtils }          from './historyUtils.js';
@@ -276,11 +275,7 @@ import  { historyUtils }          from './historyUtils.js';
     }
   }
 
-  // gsUtils.documentReadyAndLocalisedAsPromised(document).then(render);
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(async () => {
-
-    //Set theme
-    document.body.classList.add(await gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(async () => {
 
     window.onfocus = () => {
       render();
