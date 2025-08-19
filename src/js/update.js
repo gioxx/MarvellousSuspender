@@ -56,7 +56,7 @@ import  { historyUtils }          from './historyUtils.js';
     };
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(function() {
     setSessionManagerClickHandler();
     setRestartExtensionClickHandler(true);
     setExportBackupClickHandler();

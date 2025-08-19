@@ -207,7 +207,7 @@ import  { tgs }                   from './tgs.js';
   }
 
   function showContents() {
-    document.querySelector('body').classList.remove('hide-initially');
+    document.querySelector('body').style.visibility = 'visible';
   }
 
   function buildImagePreview(tab, previewUri) {
@@ -303,9 +303,6 @@ import  { tgs }                   from './tgs.js';
       return;
     }
 
-    // @TODO this should have been done by documentReadyAndLocalisedAsPromised
-    // gsUtils.localiseHtml(document);
-
     const options = await gsStorage.getSettings();
     const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
 
@@ -364,7 +361,7 @@ import  { tgs }                   from './tgs.js';
         let isVisible = false;
         const bodyEl = document.getElementsByTagName('body')[0];
         if (bodyEl) {
-          isVisible = !bodyEl.classList.contains('hide-initially');
+          isVisible = bodyEl.style.contains('visible');
         }
         sendResponse({ sessionId: document.sessionId, isVisible });
         break;
@@ -405,7 +402,7 @@ import  { tgs }                   from './tgs.js';
     return true;
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(function() {
     gsUtils.log('suspended', 'documentReadyAndLocalisedAsPromised');
     chrome.runtime.onMessage.addListener(messageRequestListener);
     // initSettings();

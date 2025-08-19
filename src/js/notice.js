@@ -1,11 +1,9 @@
-// import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
-// import  { tgs }                   from './tgs.js';
 
 (() => {
   'use strict';
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(function() {
     // var notice = await tgs.requestNotice();
     // if (
     //   notice &&

@@ -99,6 +99,7 @@
     "html_options_suspend_theme": { "message": "Theme" },
     "html_options_suspend_theme_light": { "message": "Light" },
     "html_options_suspend_theme_dark": { "message": "Dark" },
+    "html_options_suspend_theme_system": { "message": "Automatic" },
     "html_options_suspend_screen_capturing": { "message": "Screen capturing" },
     "html_options_suspend_screen_capturing_disabled": { "message": "Disabled" },
     "html_options_suspend_screen_capturing_screen_only": { "message": "Capture top of screen only" },
@@ -264,6 +265,7 @@
     "js_update_confirm": { "message": "You have not saved a backup yet. Update the extension anyway?" },
     "js_update_button_export": { "message": "Save backup" },
     "js_update_button_reload": { "message": "Update extension now" },
+    "js_shortcuts_default_command": { "message": "Activate the extension ( show popup )" },
     "js_shortcuts_not_set": { "message": "not set" },
     "js_session_save_point": { "message": "Automatic save point for v" }
 }

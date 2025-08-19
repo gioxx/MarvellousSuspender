@@ -9,7 +9,7 @@ import  { gsUtils }               from './gsUtils.js';
     document.getElementById('updated').style.display = 'block';
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(async () => {
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(async () => {
     // var versionEl = document.getElementById('updatedVersion');
     // versionEl.innerHTML = 'v' + chrome.runtime.getManifest().version;
 

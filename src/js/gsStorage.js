@@ -56,7 +56,7 @@ export const gsStorage = {
     defaults[gsStorage.SUSPEND_TIME] = '60';
     defaults[gsStorage.NO_NAG] = false;
     defaults[gsStorage.WHITELIST] = '';
-    defaults[gsStorage.THEME] = 'light';
+    defaults[gsStorage.THEME] = 'system';
     defaults[gsStorage.UPDATE_AVAILABLE] = false; //Set to true for debug
 
     return defaults;

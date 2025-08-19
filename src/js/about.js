@@ -1,14 +1,9 @@
-import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 
 (() => {
   'use strict';
 
-  gsUtils.documentReadyAndLocalisedAsPromised(document).then(() => {
-    //Set theme
-    gsStorage.getOption(gsStorage.THEME).then((theme) => {
-      document.body.classList.add(theme === 'dark' ? 'dark' : null);
-    });
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(() => {
 
     var versionEl = document.getElementById('aboutVersion');
     versionEl.innerHTML = 'v' + chrome.runtime.getManifest().version;
