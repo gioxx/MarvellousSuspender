@@ -299,6 +299,9 @@
     "html_options_suspend_theme_dark": {
         "message": "深色"
     },
+    "html_options_suspend_theme_system": {
+        "message": "Automatic"
+    },
     "html_options_suspend_screen_capturing": {
         "message": "螢幕擷取"
     },
@@ -777,6 +780,9 @@
     },
     "js_update_button_reload": {
         "message": "現在更新擴充功能"
+    },
+    "js_shortcuts_default_command": {
+        "message": "Activate the extension ( show popup )"
     },
     "js_shortcuts_not_set": {
         "message": "沒有設定"
