@@ -1,33 +1,6 @@
 import  { gsUtils }               from './gsUtils.js';
 
 export const gsChrome = {
-  cookiesGetAll: function() {
-    return new Promise(resolve => {
-      chrome.cookies.getAll({}, cookies => {
-        if (chrome.runtime.lastError) {
-          gsUtils.warning('chromeCookies', chrome.runtime.lastError);
-          cookies = [];
-        }
-        resolve(cookies);
-      });
-    });
-  },
-  cookiesRemove: function(url, name) {
-    return new Promise(resolve => {
-      if (!url || !name) {
-        gsUtils.warning('chromeCookies', 'url or name not specified');
-        resolve(null);
-        return;
-      }
-      chrome.cookies.remove({ url, name }, details => {
-        if (chrome.runtime.lastError) {
-          gsUtils.warning('chromeCookies', chrome.runtime.lastError);
-          details = null;
-        }
-        resolve(details);
-      });
-    });
-  },
 
   /**
    * @param   { string | chrome.tabs.CreateProperties } details
