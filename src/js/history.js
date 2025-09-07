@@ -8,6 +8,13 @@ import  { historyUtils }          from './historyUtils.js';
 (() => {
   'use strict';
 
+  const knownExtensions = {
+    'klbibkeccnjlkjkiokjodocebajanakg'  : 'The Great Suspender',
+    'ahkbmjhfoplmfkpncgoedjgkajkehcgo'  : 'The Great Suspender (notrack)',
+    'plpkmjcnhhnpkblimgenmdhghfgghdpp'  : 'The Great-<span class="italic">er</span> Tab Discarder',
+  };
+  knownExtensions[chrome.runtime.id]    = 'The Marvellous Suspender ( this extension! )';
+
   async function reloadTabs(sessionId, windowId, openTabsAsSuspended) {
     const session = await gsIndexedDb.fetchSessionBySessionId(sessionId);
     if (!session || !session.windows) {
@@ -273,6 +280,36 @@ import  { historyUtils }          from './historyUtils.js';
         },
       );
     }
+
+    const tabs = await chrome.tabs.query({});
+    const foundExts = {};
+    for (const tab of tabs) {
+      // console.log('tabs query', tab.url);
+      const url = new URL(tab.url || '');
+      if (url.protocol.match(/extension:$/i)
+        && url.pathname.match(/\/(suspend(ed)?|park).html$/i)
+        && url.host.toLowerCase() !== chrome.runtime.id
+        ) {
+        foundExts[url.host] ??= { name: knownExtensions[url.host] ?? url.host, count: 0 };
+        foundExts[url.host].count += 1;
+        // generateTabInfo(tab, url);
+      }
+    }
+    const foundSorted       = Object.entries(foundExts).sort(([key1, val1], [key2, val2]) => val2 - val1);
+    if (foundSorted.length) {
+      const [key, val]      = foundSorted[0];
+      const migrateIdEl     = document.getElementById('migrateFromId');
+      const migrateNameEl   = document.getElementById('migrateFromName');
+      const messageEl       = document.getElementById('migrateMessage');
+      if (migrateIdEl && migrateNameEl && messageEl) {
+        messageEl.innerHTML = '';
+        if (key && val) {
+          migrateIdEl.value   = key;
+          migrateNameEl.innerHTML = `${val.name}: ${val.count} tabs`;
+        }
+      }
+    }
+
   }
 
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(async () => {

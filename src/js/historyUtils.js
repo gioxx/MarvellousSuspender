@@ -268,23 +268,32 @@ export const historyUtils = (() => {
   }
 
   function migrateTabs(from_id) {
+    const messageEl       = document.getElementById('migrateMessage');
+    if (messageEl) {
+      messageEl.innerHTML = '';
+    }
     if (from_id.length == 32) {
       chrome.tabs.query({}, function(tabs) {
-        var count = 0;
-        var prefix_before = 'chrome-extension://' + from_id;
-        var prefix_after = 'chrome-extension://' + chrome.i18n.getMessage('@@extension_id');
-        for (var tab of tabs) {
-          if (!tab.url.startsWith(prefix_before)) {
-            continue;
+        let count = 0;
+        const to_id = chrome.runtime.id;
+        for (const tab of tabs) {
+          const url       = new URL(tab.url);
+          if (url.host === from_id && url.pathname.match(/\/(suspend(ed)?|park).html$/i)) {
+            count += 1;
+            url.host      = to_id;
+            url.pathname  = 'suspended.html';
+            chrome.tabs.update(tab.id, { url: url.href });
           }
-          count += 1;
-          var migrated_url = prefix_after + tab.url.substr(prefix_before.length);
-          chrome.tabs.update(tab.id, { url: migrated_url });
         }
-        alert(chrome.i18n.getMessage('js_history_migrate_success', '' + count));
+        if (messageEl && count) {
+          messageEl.innerHTML = chrome.i18n.getMessage('js_history_migrate_success', '' + count);
+        }
       });
-    } else {
-      alert(chrome.i18n.getMessage('js_history_migrate_fail'));
+    }
+    else {
+      if (messageEl) {
+        messageEl.innerHTML = chrome.i18n.getMessage('js_history_migrate_fail');
+      }
     }
   }
 
