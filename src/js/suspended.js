@@ -361,7 +361,7 @@ import  { tgs }                   from './tgs.js';
         let isVisible = false;
         const bodyEl = document.getElementsByTagName('body')[0];
         if (bodyEl) {
-          isVisible = bodyEl.style.contains('visible');
+          isVisible = bodyEl.style.visibility === 'visible';
         }
         sendResponse({ sessionId: document.sessionId, isVisible });
         break;

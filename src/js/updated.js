@@ -1,7 +1,7 @@
 import  { gsSession }             from './gsSession.js';
 import  { gsUtils }               from './gsUtils.js';
 
-(function(global) {
+(function() {
   'use strict';
 
   function toggleUpdated() {
@@ -36,7 +36,31 @@ import  { gsUtils }               from './gsUtils.js';
     }
   });
 
-  global.exports = {
-    toggleUpdated,
-  };
-})(this);
+  async function messageRequestListener(request, sender, sendResponse) {
+    gsUtils.log('updated', 'messageRequestListener', request.action, request, sender);
+
+    switch (request.action) {
+
+      case 'toggleUpdated' : {
+        // { action: 'toggleUpdated', tabId: context.tabId }
+        toggleUpdated();
+        sendResponse();
+        break;
+      }
+
+      default: {
+        // NOTE: All messages sent to chrome.runtime will be delivered here too
+        gsUtils.log('updated', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
+        // sendResponse();
+        break;
+      }
+    }
+    return true;
+  }
+
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(function() {
+    gsUtils.log('updated', 'documentReadyAndLocalisedAsPromised');
+    chrome.runtime.onMessage.addListener(messageRequestListener);
+  });
+
+})();
