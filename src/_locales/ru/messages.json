@@ -189,7 +189,7 @@
         "message": "Перенести вкладки"
     },
     "html_history_migrate_old_id": {
-        "message": "Старый идентификатор расширения TGS"
+        "message": "Extension ID"
     },
     "html_notice_title": {
         "message": "Уведомление"
@@ -735,7 +735,7 @@
         "message": "Для миграции требуется 32-символьный идентификатор расширения"
     },
     "js_history_migrate_success": {
-        "message": "Успешно перенесено $TABCOUNT$ вкладок",
+        "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
         "placeholders": {
             "tabcount": {
                 "content": "$1"
