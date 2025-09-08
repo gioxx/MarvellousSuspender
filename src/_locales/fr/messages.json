@@ -189,7 +189,7 @@
         "message": "Migration d'onglets"
     },
     "html_history_migrate_old_id": {
-        "message": "Ancien ID d'extension TGS"
+        "message": "Extension ID"
     },
     "html_notice_title": {
         "message": "Annonce"
@@ -735,7 +735,7 @@
         "message": "Nécessite un id d'extension de 32 caractères pour migrer depuis"
     },
     "js_history_migrate_success": {
-        "message": "$TABCOUNT$ onglets migrés avec succès",
+        "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
         "placeholders": {
             "tabcount": {
                 "content": "$1"

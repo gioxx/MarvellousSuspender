@@ -189,7 +189,7 @@
         "message": "Presun tabov"
     },
     "html_history_migrate_old_id": {
-        "message": "Staré id TGS rozšírenia"
+        "message": "Extension ID"
     },
     "html_notice_title": {
         "message": "Poznámka"
@@ -735,7 +735,7 @@
         "message": "Need 32-character extension id to migrate from"
     },
     "js_history_migrate_success": {
-        "message": "Successfully migrated $TABCOUNT$ tabs",
+        "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
         "placeholders": {
             "tabcount": {
                 "content": "$1"

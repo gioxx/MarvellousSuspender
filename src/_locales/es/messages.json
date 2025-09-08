@@ -189,7 +189,7 @@
         "message": "Migrar pestañas"
     },
     "html_history_migrate_old_id": {
-        "message": "Anterior id de extensión TGS"
+        "message": "Extension ID"
     },
     "html_notice_title": {
         "message": "Aviso"
@@ -735,7 +735,7 @@
         "message": "Necesita un id de extensión de 32 caracteres para migrar desde"
     },
     "js_history_migrate_success": {
-        "message": "$TABCOUNT$ pestañas migradas con éxito",
+        "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
         "placeholders": {
             "tabcount": {
                 "content": "$1"

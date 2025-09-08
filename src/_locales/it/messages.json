@@ -189,7 +189,7 @@
         "message": "Migra le schede"
     },
     "html_history_migrate_old_id": {
-        "message": "Vecchio ID estensione TGS"
+        "message": "Extension ID"
     },
     "html_notice_title": {
         "message": "Avviso"
@@ -735,7 +735,7 @@
         "message": "Devi inserire i 32 caratteri dell'id dell'estensione da cui migrare"
     },
     "js_history_migrate_success": {
-        "message": "Ho migrato con successo $TABCOUNT$ schede",
+        "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
         "placeholders": {
             "tabcount": {
                 "content": "$1"

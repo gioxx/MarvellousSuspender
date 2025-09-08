@@ -189,7 +189,7 @@
         "message": "පටිති සංක්‍රමණය"
     },
     "html_history_migrate_old_id": {
-        "message": "පරණ TGS දිගුවේ හැඬු."
+        "message": "Extension ID"
     },
     "html_notice_title": {
         "message": "දැන්වීම"
@@ -735,7 +735,7 @@
         "message": "සංක්‍රමණය වීමට අනුලකුණු-32 දිගු id අවශ්‍යයි"
     },
     "js_history_migrate_success": {
-        "message": "ටැබ් $TABCOUNT$ ක් සාර්ථකව සංක්‍රමණය විය",
+        "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
         "placeholders": {
             "tabcount": {
                 "content": "$1"
