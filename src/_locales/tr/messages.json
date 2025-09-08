@@ -189,7 +189,7 @@
         "message": "Sekmeleri taşı"
     },
     "html_history_migrate_old_id": {
-        "message": "Eski TGS Uzantı kimliği"
+        "message": "Extension ID"
     },
     "html_notice_title": {
         "message": "Not"
@@ -735,7 +735,7 @@
         "message": "Şuradan taşımak için 32 karakterlik uzantı kimliği gerekli"
     },
     "js_history_migrate_success": {
-        "message": "$TABCOUNT$ sekme başarıyla taşındı",
+        "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
         "placeholders": {
             "tabcount": {
                 "content": "$1"
