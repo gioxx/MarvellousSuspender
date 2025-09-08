@@ -189,7 +189,7 @@
         "message": "移轉分頁"
     },
     "html_history_migrate_old_id": {
-        "message": "舊的 TGS 擴充功能 ID"
+        "message": "Extension ID"
     },
     "html_notice_title": {
         "message": "通知"
@@ -735,7 +735,7 @@
         "message": "需要長度 32 個字的擴充元件 ID 以供移轉"
     },
     "js_history_migrate_success": {
-        "message": "成功移轉了 $TABCOUNT$ 個分頁",
+        "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
         "placeholders": {
             "tabcount": {
                 "content": "$1"
