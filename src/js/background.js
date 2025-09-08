@@ -1,3 +1,11 @@
+/*
+ * The Great Suspender
+ * Copyright (C) 2017 Dean Oemcke
+ * Available under GNU GENERAL PUBLIC LICENSE v2
+ * http://github.com/greatsuspender/thegreatsuspender
+ * ༼ つ ◕_◕ ༽つ
+*/
+
 import  { gsChrome }              from './gsChrome.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
@@ -48,18 +56,19 @@ import  { tgs }                   from './tgs.js';
       tgs.buildContextMenu(contextMenus);
     }
 
-    gsUtils.debugInfo   = true;
-    gsUtils.debugError  = true;
-    if (gsUtils.debugInfo) {
-      // chrome.storage.local.set({'gsVersion': '"8.0.0"'});
-      chrome.storage.local.remove([gsStorage.LAST_EXTENSION_RECOVERY]);
-      setTimeout(() => {
-        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+1&uri=https://www.google.com` });
-        // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+3&uri=https://www.github.com` });
-        // chrome.tabs.create({ url: chrome.runtime.getURL('debug.html') });
-        // chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
-      }, 200);
-    }
+    // if (gsUtils.debugInfo) {
+    //   chrome.storage.local.remove([gsStorage.LAST_EXTENSION_RECOVERY]);
+    //   setTimeout(() => {
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+1&uri=https://www.google.com` });
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+2&uri=https://www.google.com` });
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+3&uri=https://www.google.com` });
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+1&uri=https://www.github.com` });
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+2&uri=https://www.github.com` });
+    //     // chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+3&uri=https://www.github.com` });
+    //     chrome.tabs.create({ url: chrome.runtime.getURL('debug.html') });
+    //     chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
+    //   }, 200);
+    // }
 
   });
 
