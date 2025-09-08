@@ -189,7 +189,7 @@
         "message": "Migrasikan tab"
     },
     "html_history_migrate_old_id": {
-        "message": "ID Ekstensi TGS Lama"
+        "message": "Extension ID"
     },
     "html_notice_title": {
         "message": "Pemberitahuan"
@@ -735,7 +735,7 @@
         "message": "Perlu ID ekstensi 32-karakter untuk migrasi dari"
     },
     "js_history_migrate_success": {
-        "message": "Tab $TABCOUNT$ berhasil dimigrasikan",
+        "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
         "placeholders": {
             "tabcount": {
                 "content": "$1"
