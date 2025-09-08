@@ -27,8 +27,8 @@ export const gsUtils = {
   STATUS_NOCONNECTIVITY : 'noConnectivity',
   STATUS_UNKNOWN        : 'unknown',
 
-  debugInfo: false,
-  debugError: false,
+  debugInfo   : false,
+  debugError  : false,
 
   contains: function(array, value) {
     for (var i = 0; i < array.length; i++) {
@@ -49,7 +49,7 @@ export const gsUtils = {
     }
   },
   highlight: function(text, ...args) {
-    gsUtils.log('%s %c%s', 'color:red', text, ...args);
+    gsUtils.log('highlight: %s %c%s', 'color:red', text, ...args);
   },
   warning: function(id, text, ...args) {
     if (gsUtils.debugError) {
@@ -416,7 +416,8 @@ export const gsUtils = {
         const isDark = win.matchMedia('(prefers-color-scheme: dark)').matches;
         theme = isDark ? 'dark' : 'light';
       }
-      win.document.body.classList.value = theme;
+      win.document.body.classList.remove('dark', 'light');
+      win.document.body.classList.add(theme);
     }
   },
 
@@ -428,7 +429,9 @@ export const gsUtils = {
       let theme = await gsStorage.getOption(gsStorage.THEME);
       this.setPageTheme(win, theme);
       // Unhide the body
-      setTimeout(() => { win.document.body.style.visibility = 'visible'; }, 50);
+      setTimeout(() => {
+        win.document.body.classList.add('visible');
+      }, 100);
     }
   },
 

@@ -97,11 +97,7 @@ import  { tgs }                   from './tgs.js';
   }
 
   function setTheme(theme, isLowContrastFavicon) {
-    if (theme === 'dark') {
-      document.querySelector('body').classList.add('dark');
-    } else {
-      document.querySelector('body').classList.remove('dark');
-    }
+    gsUtils.setPageTheme(window, theme);
     if (theme === 'dark' && isLowContrastFavicon) {
       document.getElementById('faviconWrap').classList.add('faviconWrapLowContrast');
     } else {
@@ -207,7 +203,7 @@ import  { tgs }                   from './tgs.js';
   }
 
   function showContents() {
-    document.querySelector('body').style.visibility = 'visible';
+    document.body.classList.add('visible');
   }
 
   function buildImagePreview(tab, previewUri) {
@@ -361,7 +357,7 @@ import  { tgs }                   from './tgs.js';
         let isVisible = false;
         const bodyEl = document.getElementsByTagName('body')[0];
         if (bodyEl) {
-          isVisible = bodyEl.style.contains('visible');
+          isVisible = bodyEl.classList.contains('visible');
         }
         sendResponse({ sessionId: document.sessionId, isVisible });
         break;

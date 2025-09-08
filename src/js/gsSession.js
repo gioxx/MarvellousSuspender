@@ -241,6 +241,7 @@ export const gsSession = (function() {
   }
 
   async function handleUpdate(currentSessionTabs, curVersion, lastVersion) {
+    gsUtils.log('gsSession', 'handleUpdate');
     gsStorage.setLastVersion(curVersion);
     const lastVersionParts = lastVersion.split('.');
     const curVersionParts = curVersion.split('.');
@@ -292,10 +293,10 @@ export const gsSession = (function() {
       gsUpdated = true;
 
       //update updated views
-      const updatedViews = tgs.getInternalViewsByViewName('updated');
-      if (updatedViews.length > 0) {
-        for (const view of updatedViews) {
-          view.exports.toggleUpdated();
+      const contexts = await tgs.getInternalContextsByViewName('updated');
+      if (contexts.length > 0) {
+        for (const context of contexts) {
+          chrome.tabs.sendMessage(context.tabId, { action: 'toggleUpdated', tabId: context.tabId });
         }
       }
       else {

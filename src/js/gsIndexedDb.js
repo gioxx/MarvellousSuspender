@@ -525,60 +525,18 @@ export const gsIndexedDb = {
       const testMode = extensionName.includes('Test');
       // patch = parseInt(oldVersion.split('.')[2] || 0);
 
-      //perform migrated history fixup
-      if (major < 6 || (major === 6 && minor < 13)) {
-        // if (oldVersion < 6.13)
-
-        //fix up migrated saved session and newly saved session sessionIds
-        const savedSessions = await gsDb
-          .query(gsIndexedDb.DB_SAVED_SESSIONS)
-          .all()
-          .execute();
-        for (const session of savedSessions) {
-          if (session.id === 7777) {
-            session.sessionId = '_7777';
-            session.name = 'Recovered tabs';
-            session.date = new Date(session.date).toISOString();
-          } else {
-            session.sessionId = '_' + gsUtils.generateHashCode(session.name);
-          }
-          await gsDb.update(gsIndexedDb.DB_SAVED_SESSIONS, session);
-        }
-      }
-      if (major < 6 || (major === 6 && minor < 30)) {
-        // if (oldVersion < 6.30)
-
-        if (gsIndexedDb.getOption('preview')) {
-          if (gsIndexedDb.getOption('previewQuality') === '0.1') {
-            gsIndexedDb.setOption(gsIndexedDb.SCREEN_CAPTURE, '1');
-          } else {
-            gsIndexedDb.setOption(gsIndexedDb.SCREEN_CAPTURE, '2');
-          }
-        } else {
-          gsIndexedDb.setOption(gsIndexedDb.SCREEN_CAPTURE, '0');
-        }
-      }
-      if (major < 6 || (major === 6 && minor < 31) || testMode) {
-        // if (oldVersion < 6.31)
-        const cookies = await gsChrome.cookiesGetAll();
-        const scrollPosByTabId = {};
-        for (const cookie of cookies) {
-          if (cookie.name.indexOf('gsScrollPos') === 0) {
-            if (cookie.value && cookie.value !== '0') {
-              const tabId = cookie.name.substr(12);
-              scrollPosByTabId[tabId] = cookie.value;
-            }
-            let prefix = cookie.secure ? 'https://' : 'http://';
-            if (cookie.domain.charAt(0) === '.') {
-              prefix += 'www';
-            }
-            const url = prefix + cookie.domain + cookie.path;
-            await gsChrome.cookiesRemove(url, cookie.name);
-          }
-        }
-        tgs.scrollPosByTabId = scrollPosByTabId;
-      }
-    } catch (e) {
+      // 2025: v8.1.0: Migration if-blocks have been removed, but preserved here as examples if needed in the future
+      // if (major < 6 || (major === 6 && minor < 13)) {
+      //   // if (oldVersion < 6.13)
+      // }
+      // if (major < 6 || (major === 6 && minor < 30)) {
+      //   // if (oldVersion < 6.30)
+      // }
+      // if (major < 6 || (major === 6 && minor < 31) || testMode) {
+      //   // if (oldVersion < 6.31) convert scroll position cookie to native format
+      // }
+    }
+    catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
   },

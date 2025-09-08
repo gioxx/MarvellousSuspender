@@ -62,7 +62,7 @@
     "html_history_saved_sessions": { "message": "Saved sessions" },
     "html_history_import_session": { "message": "Import session" },
     "html_history_migrate_tabs": { "message": "Migrate tabs" },
-    "html_history_migrate_old_id": { "message": "Old TGS Extension id" },
+    "html_history_migrate_old_id": { "message": "Extension ID" },
     "html_notice_title": { "message": "Notice" },
     "html_notice_important_notice": { "message": "Important notice from The Marvellous Suspender" },
     "html_options_title": { "message": "Settings" },
@@ -245,7 +245,7 @@
     "js_history_import_fail": { "message": "Failed to load file. Ensure file is plain text and contains a single url per line." },
     "js_history_migrate_fail": { "message": "Need 32-character extension id to migrate from" },
     "js_history_migrate_success": {
-      "message": "Successfully migrated $TABCOUNT$ tabs",
+      "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
       "placeholders": {
         "tabcount": {
           "content": "$1"

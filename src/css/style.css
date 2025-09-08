@@ -232,6 +232,9 @@ ul.unorderedList li {
 .hidden {
     visibility: hidden;
 }
+.visible {
+    visibility: visible !important;
+}
 .reallyHidden {
     display: none;
 }
@@ -469,6 +472,12 @@ input[type='checkbox'] + label:before {
 input[type='checkbox']:checked + label:before {
     content: '\f14a';
     color: #3477db;
+}
+
+input[type='text'] {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 4px;
 }
 
 /* custom radio btns */
