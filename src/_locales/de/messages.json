@@ -189,7 +189,7 @@
         "message": "Tabs migrieren"
     },
     "html_history_migrate_old_id": {
-        "message": "Alte TGS-Erweiterungs-ID"
+        "message": "Extension ID"
     },
     "html_notice_title": {
         "message": "Mitteilung"
@@ -735,7 +735,7 @@
         "message": "Benötigt 32 Zeichen Erweiterung Id zum migrieren"
     },
     "js_history_migrate_success": {
-        "message": "Erfolgreich migriert $TABCOUNT$ Tabs",
+        "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
         "placeholders": {
             "tabcount": {
                 "content": "$1"
