@@ -232,6 +232,9 @@ ul.unorderedList li {
 .hidden {
     visibility: hidden;
 }
+.visible {
+    visibility: visible !important;
+}
 .reallyHidden {
     display: none;
 }
