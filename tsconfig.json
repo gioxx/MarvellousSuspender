@@ -1,0 +1,21 @@
+{
+  // "include": ["src/**/*"],
+  // "exclude": ["src/CartShopify.ts"],
+  "compilerOptions": {
+    "tsBuildInfoFile": "build/.tsbuildinfo",            /* Specify the path to .tsbuildinfo incremental compilation file. */
+    "target": "ES2020",
+    "module": "CommonJS",                               /* Specify what module code is generated. */
+    "rootDir": ".",                                     /* Specify the root folder within your source files. */
+    "moduleResolution": "Node",                         /* Specify how TypeScript looks up a file from a given module specifier. */
+    "outDir": "build",                                  /* Specify an output folder for all emitted files. */
+    "esModuleInterop": true,                            /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+    "forceConsistentCasingInFileNames": true,           /* Ensure that casing is correct in imports. */
+    "strict": true,                                     /* Enable all strict type-checking options. */
+    "noImplicitAny": true,  /* @TODO temporary */                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
+    "strictFunctionTypes": true,                        /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
+    "strictBindCallApply": true,                        /* Check that the arguments for 'bind', 'call', and 'apply' methods match the original function. */
+    "strictNullChecks": true,                           /* When type checking, take into account 'null' and 'undefined'. */
+    "allowJs": true,                                    /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */
+    "checkJs": false,       /* use @ts-check */         /* Enable error reporting in type-checked JavaScript files. */
+  },
+}

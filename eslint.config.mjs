@@ -16,7 +16,7 @@ export default [
   {
     name: '--- languageOptions',
     languageOptions: {
-      ecmaVersion: 2020,   // 2015=ES6, 2017 for async, 2020 for optional chain and nullish and global spread below
+      ecmaVersion: 2022,   // 2015=ES6, 2017 for async, 2020 for optional chain and nullish and global spread below
       globals: {
         ...globals.browser,
         ...globals.webextensions,
