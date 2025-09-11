@@ -1,0 +1,16 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+# end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# end_of_line = crlf
+# To use native line endings between different operating systems it is better not to set this option and leave that task to the VCS!
+# In the future we might add a value like native for this scenario
+
+[*.md]
+trim_trailing_whitespace = false
