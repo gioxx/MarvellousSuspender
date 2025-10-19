@@ -781,6 +781,9 @@
     "js_update_button_reload": {
         "message": "Erweiterung jetzt aktualisieren"
     },
+    "js_suspend_button_backup": {
+        "message": "Save a backup before updating"
+    },
     "js_shortcuts_default_command": {
         "message": "Activate the extension ( show popup )"
     },
