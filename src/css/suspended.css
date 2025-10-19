@@ -20,6 +20,10 @@ body.suspended-page:not(.img-preview-mode) {
     color: #b6b6b6;
     cursor: pointer;
 }
+.suspended-page:not(.img-preview-mode) #tmsUpdateAvailable {
+    margin-top: 200px;
+    width: 90%;
+}
 .suspended-page:not(.img-preview-mode) .watermark {
     display: block;
 }
@@ -28,7 +32,7 @@ body.suspended-page:not(.img-preview-mode) {
     background: inherit;
     top: 0;
     left: 0;
-    padding: 30px 40px 20px;
+    padding: 30px 40px 0;
     width: 100%;
     text-align: center;
     z-index: 101;

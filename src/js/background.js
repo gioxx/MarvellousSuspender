@@ -37,7 +37,7 @@ import  { tgs }                   from './tgs.js';
   }
 
   chrome.runtime.onInstalled.addListener(async (details) => {
-    gsUtils.log('2 runtime.onInstalled');
+    gsUtils.log('2 runtime.onInstalled', details);
     // Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version.
     // Fired when an unpacked extension is reloaded
 
@@ -56,6 +56,7 @@ import  { tgs }                   from './tgs.js';
     // gsUtils.debugInfo   = true;
     // gsUtils.debugError  = true;
     // if (gsUtils.debugInfo) {
+    //   // await gsStorage.setOptionAndSync(gsStorage.UPDATE_AVAILABLE, true);
     //   // chrome.storage.local.set({'gsVersion': '"8.0.0"'});
     //   chrome.storage.local.remove([gsStorage.LAST_EXTENSION_RECOVERY]);
     //   setTimeout(() => {
@@ -64,6 +65,9 @@ import  { tgs }                   from './tgs.js';
     //     // chrome.tabs.create({ url: chrome.runtime.getURL('debug.html') });
     //     // chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
     //   }, 200);
+    //   // setTimeout(() => {
+    //   //   gsSession.prepareForUpdate({ version: 'new version'});
+    //   // }, 5000);
     // }
 
   });
