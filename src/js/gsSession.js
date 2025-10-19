@@ -198,6 +198,10 @@ export const gsSession = (function() {
   }
 
   async function handleNormalStartup(currentSessionTabs, curVersion) {
+    // "Normal" startup means the manifest version matches our last stored version
+    // So, clear the UPDATE_AVAILABLE flag
+    await gsStorage.setOptionAndSync(gsStorage.UPDATE_AVAILABLE, false);
+
     const shouldRecoverTabs = await checkForCrashRecovery(currentSessionTabs);
     if (shouldRecoverTabs) {
       const lastExtensionRecoveryTimestamp = await gsStorage.fetchLastExtensionRecoveryTimestamp();
