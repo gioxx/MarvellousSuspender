@@ -115,7 +115,6 @@ import  { tgs }                   from './tgs.js';
     let el = document.getElementById('tmsUpdateAvailable');
     gsStorage.getOption(gsStorage.UPDATE_AVAILABLE).then((update) => {
       el.style.display = update ? 'block' : 'none';
-      el.style.paddingTop = '80px';
       // Prevent unsuspend by parent container
       // Using mousedown event otherwise click can still be triggered if
       // mouse is released outside of this element
