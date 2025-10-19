@@ -612,11 +612,11 @@ export const gsUtils = {
   },
 
   performPostSaveUpdates: function(changedSettingKeys, oldValueBySettingKey, newValueBySettingKey) {
-    // gsUtils.log('performPostSaveUpdates');
+    // gsUtils.log('gsUtils', 'performPostSaveUpdates');
     chrome.tabs.query({}, async (tabs) => {
       for (const tab of tabs) {
         if (gsUtils.isSpecialTab(tab)) {
-          return;
+          continue;
         }
 
         if (gsUtils.isSuspendedTab(tab)) {
@@ -626,14 +626,12 @@ export const gsUtils = {
             (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab)))
           ) {
             await tgs.unsuspendTab(tab);
-            return;
+            continue;
           }
 
           //if theme or screenshot preferences have changed then refresh suspended tabs
           const updateTheme = changedSettingKeys.includes(gsStorage.THEME);
-          const updatePreviewMode = changedSettingKeys.includes(
-            gsStorage.SCREEN_CAPTURE,
-          );
+          const updatePreviewMode = changedSettingKeys.includes(gsStorage.SCREEN_CAPTURE);
           if (updateTheme || updatePreviewMode) {
             const context = await tgs.getInternalContextByTabId(tab.id);
             if (context) {
@@ -670,7 +668,7 @@ export const gsUtils = {
         }
 
         if (!gsUtils.isNormalTab(tab, true)) {
-          return;
+          continue;
         }
 
         //update content scripts of normal tabs

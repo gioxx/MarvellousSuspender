@@ -171,7 +171,7 @@ export const tgs = (function() {
   function requestToggleTempWhitelistStateOfHighlightedTab(callback) {
     getCurrentlyActiveTab(async (activeTab) => {
       if (!activeTab) {
-        if (callback) callback(status);
+        if (callback) callback(gsUtils.STATUS_UNKNOWN);
         return;
       }
       if (gsUtils.isSuspendedTab(activeTab)) {
