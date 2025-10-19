@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import  { gsChrome }              from './gsChrome.js';
 import  { gsFavicon }             from './gsFavicon.js';
 import  { gsMessages }            from './gsMessages.js';

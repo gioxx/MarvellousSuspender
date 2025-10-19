@@ -7,11 +7,9 @@ module.exports = function(grunt) {
     manifest: grunt.file.readJSON('src/manifest.json'),
     config: {
       tempDir:
-        grunt.cli.tasks[0] === 'tgut' ? 'build/tgut-temp/' : 'build/tgs-temp/',
+        grunt.cli.tasks[0] === 'tgut' ? 'build/tgut-temp/' : 'build/tms-temp/',
       buildName:
-        grunt.cli.tasks[0] === 'tgut'
-          ? 'tgut-<%= manifest.version %>'
-          : 'tgs-<%= manifest.version %>',
+        grunt.cli.tasks[0] === 'tgut' ? 'tgut-<%= manifest.version %>' : 'tms-<%= manifest.version %>',
     },
     copy: {
       main: {
@@ -65,8 +63,8 @@ module.exports = function(grunt) {
         options: {
           replacements: [
             {
-              pattern: /The Great Suspender/gi,
-              replacement: 'The Great Tester',
+              pattern: /The Marvellous Suspender/gi,
+              replacement: 'The Marvellous Tester',
             },
           ],
         },
