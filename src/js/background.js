@@ -36,7 +36,7 @@ import  { tgs }                   from './tgs.js';
     });
   }
 
-  chrome.runtime.onInstalled.addListener(async () => {
+  chrome.runtime.onInstalled.addListener(async (details) => {
     gsUtils.log('2 runtime.onInstalled');
     // Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version.
     // Fired when an unpacked extension is reloaded
@@ -46,6 +46,11 @@ import  { tgs }                   from './tgs.js';
       tgs.buildContextMenu(false);
       var contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
       tgs.buildContextMenu(contextMenus);
+    }
+
+    // remove update message after extension has been updated
+    if (details.reason == "update") {
+      await gsStorage.setOptionAndSync(gsStorage.UPDATE_AVAILABLE, false);
     }
 
     // gsUtils.debugInfo   = true;
