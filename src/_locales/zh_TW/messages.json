@@ -781,6 +781,9 @@
     "js_update_button_reload": {
         "message": "現在更新擴充功能"
     },
+    "js_suspend_button_backup": {
+        "message": "Save a backup before updating"
+    },
     "js_shortcuts_default_command": {
         "message": "Activate the extension ( show popup )"
     },
