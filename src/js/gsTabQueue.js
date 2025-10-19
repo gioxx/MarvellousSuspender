@@ -139,7 +139,6 @@ function init(queueId, queueProps) {
       gsUtils.log(tab.id, _queueId, 'removeTabFromQueue queue', _queuedTabIds.length);
     }
 
-    // eslint-disable-next-line no-unused-vars
     function moveTabToEndOfQueue(tabDetails) {
       const tab = tabDetails.tab;
       for (const [i, tabId] of _queuedTabIds.entries()) {
