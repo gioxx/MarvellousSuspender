@@ -189,7 +189,7 @@
         "message": "Migrar abas"
     },
     "html_history_migrate_old_id": {
-        "message": "Extension ID"
+        "message": "ID da extensão"
     },
     "html_notice_title": {
         "message": "Aviso"
@@ -255,7 +255,7 @@
         "message": "Nunca suspender as guias quando estiver off-line"
     },
     "html_options_suspend_claim_by_default": {
-        "message": "Claim by default (seamless migration; tab considered suspended if 'suspended.html' is in url)"
+        "message": "Trazer por padrão (migração perfeita; aba considerada suspensa se 'suspended.html' estiver na url)"
     },
     "html_options_suspend_only_on_battery": {
         "message": "Nunca suspender as guias quando estiver conectado à fonte de energia"
@@ -564,7 +564,7 @@
         "message": "Atualização"
     },
     "html_update_heading2": {
-        "message": "is about to get marvellous-er"
+        "message": "está prestes a ficar \"maravilindo\""
     },
     "html_update_info": {
         "message": "Uma nova versão do The Marvellous Suspender está pronta para ser instalada.\nObservação: durante a atualização, suas guias suspensas desaparecerão brevemente."
@@ -735,7 +735,7 @@
         "message": "É necessário o is de 32 caracteres para migrar"
     },
     "js_history_migrate_success": {
-        "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
+        "message": "$tabcount$ abas migradas com sucesso. Reinicie o navegador se as abas migradas não forem recarregadas automaticamente.",
         "placeholders": {
             "tabcount": {
                 "content": "$1"
@@ -782,10 +782,10 @@
         "message": "Atualizar a extensão agora"
     },
     "js_suspend_button_backup": {
-        "message": "Save a backup before updating"
+        "message": "Salve uma cópia de segurança antes de atualizar"
     },
     "js_shortcuts_default_command": {
-        "message": "Activate the extension ( show popup )"
+        "message": "Ativar extensão (exibir janela)"
     },
     "js_shortcuts_not_set": {
         "message": "não definido"
