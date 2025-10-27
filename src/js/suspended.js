@@ -151,7 +151,7 @@ import  { tgs }                   from './tgs.js';
       previewImgEl.addEventListener('error', onLoadedHandler);
     });
   }
-  async function toggleImagePreviewVisibility( tab, previewMode, previewUri, ) {
+  async function toggleImagePreviewVisibility(tab, previewMode, previewUri) {
     const builtImagePreview =
       document.getElementById('gsPreviewContainer') !== null;
     if (
@@ -231,7 +231,7 @@ import  { tgs }                   from './tgs.js';
     };
   }
   async function setUpdateBanner() {
-    //Check if there are updates
+    // Check if there are updates
     let el = document.getElementById('tmsUpdateAvailable');
     const update = await gsStorage.getOption(gsStorage.UPDATE_AVAILABLE)
     if (update) el.style.display = 'block';
