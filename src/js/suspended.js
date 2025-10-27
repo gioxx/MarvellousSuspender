@@ -110,20 +110,21 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('gsTitle').innerHTML = title;
     const gsTopBarTitle = document.getElementById('gsTopBarTitle');
     gsTopBarTitle.innerHTML = title;
+  }
 
+  async function setUpdateBanner() {
     //Check if there are updates
     let el = document.getElementById('tmsUpdateAvailable');
-    gsStorage.getOption(gsStorage.UPDATE_AVAILABLE).then((update) => {
-      el.style.display = update ? 'block' : 'none';
-      // Prevent unsuspend by parent container
-      // Using mousedown event otherwise click can still be triggered if
-      // mouse is released outside of this element
-      gsTopBarTitle.onmousedown = function(e) {
-        e.stopPropagation();
-      };
+    const update = await gsStorage.getOption(gsStorage.UPDATE_AVAILABLE)
+    if (update) el.style.display = 'block';
+    // Prevent unsuspend by parent container
+    // Using mousedown event otherwise click can still be triggered if
+    // mouse is released outside of this element
+    gsTopBarTitle.onmousedown = function(e) {
+      e.stopPropagation();
+    };
 
-      setGoToUpdateHandler();
-    });
+    setGoToUpdateHandler();
   }
 
   async function setUnloadTabHandler(tab) {
@@ -293,6 +294,9 @@ import  { tgs }                   from './tgs.js';
     // Set faviconMeta
     const faviconMeta = await gsFavicon.getFaviconMeta(tab);
     setFaviconMeta(faviconMeta);
+
+    // Set update banner
+    await setUpdateBanner();
 
     if (quickInit) {
       return;
