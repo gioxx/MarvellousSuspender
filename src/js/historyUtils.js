@@ -215,7 +215,7 @@ export const historyUtils = (() => {
     const blobUrl = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', blobUrl);
-    link.setAttribute('download', 'session.json');
+    link.setAttribute('download', `tms-session-${(new Date()).toISOString().substring(0,10)}.json`);
     link.click();
 
     callback();

@@ -128,7 +128,10 @@ import  { historyUtils }          from './historyUtils.js';
 
   function addClickListenerToElement(element, func) {
     if (element) {
-      element.onclick = func;
+      element.onclick = () => {
+        func();
+        return false;
+      };
     }
   }
 
@@ -199,14 +202,12 @@ import  { historyUtils }          from './historyUtils.js';
     addClickListenerToElement(
       windowEl.getElementsByClassName('exportLink' + index)[0],
       function() {
-        // document.getElementById('debugWindowId').innerText = 'Window ID sent: ' + window.id;
         historyUtils.exportSessionWithId(window.id, session.sessionId);
       },
     );
     addClickListenerToElement(
       windowEl.getElementsByClassName('saveLink' + index)[0],
       function() {
-        // document.getElementById('debugWindowId').innerText = 'Window ID sent: ' + window.id;
         historyUtils.saveSession(session.sessionId, window.id);
       },
     );
