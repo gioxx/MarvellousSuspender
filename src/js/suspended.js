@@ -238,6 +238,13 @@ import  { tgs }                   from './tgs.js';
     });
   }
 
+  function setWatermark() {
+    const div = document.getElementById('watermark');
+    if (div) {
+      div.innerHTML = `${chrome.runtime.getManifest().name} v${chrome.runtime.getManifest().version}`;
+    }
+  }
+
   async function setUnsuspendTabHandlers(tab) {
     const unsuspendTabHandler = buildUnsuspendTabHandler(tab);
     document.getElementById('gsTopBarUrl').onclick = unsuspendTabHandler;
@@ -246,9 +253,6 @@ import  { tgs }                   from './tgs.js';
   }
 
   async function initTab(tab, sessionId, quickInit) {
-    // if (!tabView) {
-    //   gsUtils.warning( tab.id, 'Could not get internalTabView for suspended tab', );
-    // }
 
     const suspendedUrl = tab.url;
 
@@ -262,13 +266,12 @@ import  { tgs }                   from './tgs.js';
       title = gsUtils.htmlEncode(title);
     }
     setTitle(title);
+    await setUpdateBanner();
+    setWatermark();
 
     // Set faviconMeta
     const faviconMeta = await gsFavicon.getFaviconMeta(tab);
     setFaviconMeta(faviconMeta);
-
-    // Set update banner
-    await setUpdateBanner();
 
     if (quickInit) {
       return;
