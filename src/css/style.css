@@ -157,6 +157,9 @@ ul.unorderedList li {
     list-style: disc;
 }
 
+#tmsUpdateAvailable {
+  display: none;
+}
 #tmsUpdateAvailable .splash {
     margin: 0 auto;
     cursor: default;
