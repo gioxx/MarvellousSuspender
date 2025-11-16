@@ -7,74 +7,10 @@ import  { tgs }                   from './tgs.js';
 
 (() => {
 
-  function loadToastTemplate() {
-    const toastEl = document.createElement('div');
-    toastEl.setAttribute('id', 'disconnectedNotice');
-    toastEl.classList.add('toast-wrapper');
-    toastEl.innerHTML = document.getElementById('toastTemplate').innerHTML;
-    gsUtils.localiseHtml(toastEl);
-    document.getElementsByTagName('body')[0].appendChild(toastEl);
-  }
-  function showNoConnectivityMessage() {
-    if (!document.getElementById('disconnectedNotice')) {
-      loadToastTemplate();
-    }
-    document.getElementById('disconnectedNotice').style.display = 'none';
-    setTimeout(function() {
-      document.getElementById('disconnectedNotice').style.display = 'block';
-    }, 50);
-  }
-
-  function showUnsuspendAnimation() {
-    if (document.body.classList.contains('img-preview-mode')) {
-      document.getElementById('refreshSpinner').classList.add('spinner');
-    } else {
-      document.body.classList.add('waking');
-      document.getElementById('snoozyImg').src = chrome.runtime.getURL( 'img/snoozy_tab_awake.svg', );
-      document.getElementById('snoozySpinner').classList.add('spinner');
-    }
-  }
-  function buildUnsuspendTabHandler(tab) {
-    return async (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (e.target.id === 'setKeyboardShortcut') {
-        chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
-      }
-      else if (e.which === 1) {
-        showUnsuspendAnimation();
-        await tgs.unsuspendTab(tab);
-      }
+  function addWatermarkHandler() {
+    document.querySelector('.watermark').onclick = () => {
+      chrome.tabs.create({ url: chrome.runtime.getURL('about.html') });
     };
-  }
-
-  function setScrollPosition(scrollPosition, previewMode) {
-    const scrollPosAsInt = (scrollPosition && parseInt(scrollPosition)) || 0;
-    const scrollImagePreview = previewMode === '2';
-    if (scrollImagePreview && scrollPosAsInt > 15) {
-      const offsetScrollPosition = scrollPosAsInt + 151;
-      document.body.scrollTop = offsetScrollPosition;
-      document.documentElement.scrollTop = offsetScrollPosition;
-    } else {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
-  }
-
-  function showContents() {
-    document.body.classList.add('visible');
-  }
-
-  function setReason(reason) {
-    let reasonMsgEl = document.getElementById('reasonMsg');
-    if (!reasonMsgEl) {
-      reasonMsgEl = document.createElement('div');
-      reasonMsgEl.setAttribute('id', 'reasonMsg');
-      reasonMsgEl.classList.add('reasonMsg');
-      const containerEl = document.getElementById('suspendedMsg-instr');
-      containerEl.insertBefore(reasonMsgEl, containerEl.firstChild);
-    }
-    reasonMsgEl.innerHTML = reason;
   }
 
   function cleanUrl(urlStr) {
@@ -94,11 +30,21 @@ import  { tgs }                   from './tgs.js';
     }
     return urlStr;
   }
-  function setUrl(url) {
-    const gsTopBarUrl = document.getElementById('gsTopBarUrl');
-    gsTopBarUrl.innerHTML = cleanUrl(url);
-    gsTopBarUrl.setAttribute('href', url);
-    gsTopBarUrl.onmousedown = function(event) { event.stopPropagation(); };
+
+  async function getPreviewUri(suspendedUrl) {
+    const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
+    const preview = await gsIndexedDb.fetchPreviewImage(originalUrl);
+    let previewUri = null;
+    if (
+      preview &&
+      preview.img &&
+      preview.img !== null &&
+      preview.img !== 'data:,' &&
+      preview.img.length > 10000
+    ) {
+      previewUri = preview.img;
+    }
+    return previewUri;
   }
 
   function setCommand(command) {
@@ -112,6 +58,42 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
+  function setGoToUpdateHandler() {
+    document.getElementById('gotoUpdatePage').onclick = async (e) => {
+      await gsChrome.tabsCreate(chrome.runtime.getURL('update.html'));
+    };
+  }
+
+  function setFaviconMeta(faviconMeta) {
+    document.getElementById('gsTopBarImg').setAttribute('src', faviconMeta.normalisedDataUrl);
+    document.getElementById('gsFavicon').setAttribute('href', faviconMeta.transparentDataUrl);
+  }
+
+  function setReason(reason) {
+    let reasonMsgEl = document.getElementById('reasonMsg');
+    if (!reasonMsgEl) {
+      reasonMsgEl = document.createElement('div');
+      reasonMsgEl.setAttribute('id', 'reasonMsg');
+      reasonMsgEl.classList.add('reasonMsg');
+      const containerEl = document.getElementById('suspendedMsg-instr');
+      containerEl.insertBefore(reasonMsgEl, containerEl.firstChild);
+    }
+    reasonMsgEl.innerHTML = reason;
+  }
+
+  function setScrollPosition(scrollPosition, previewMode) {
+    const scrollPosAsInt = (scrollPosition && parseInt(scrollPosition)) || 0;
+    const scrollImagePreview = previewMode === '2';
+    if (scrollImagePreview && scrollPosAsInt > 15) {
+      const offsetScrollPosition = scrollPosAsInt + 151;
+      document.body.scrollTop = offsetScrollPosition;
+      document.documentElement.scrollTop = offsetScrollPosition;
+    } else {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  }
+
   function setTheme(theme, isLowContrastFavicon) {
     gsUtils.setPageTheme(window, theme);
     if (theme === 'dark' && isLowContrastFavicon) {
@@ -121,11 +103,107 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  function addWatermarkHandler() {
-    document.querySelector('.watermark').onclick = () => {
-      chrome.tabs.create({ url: chrome.runtime.getURL('about.html') });
+  function setTitle(title) {
+    document.title = title;
+    document.getElementById('gsTitle').innerHTML = title;
+    const gsTopBarTitle = document.getElementById('gsTopBarTitle');
+    gsTopBarTitle.innerHTML = title;
+  }
+
+  async function setUpdateBanner() {
+    // Check if there are updates
+    let el = document.getElementById('tmsUpdateAvailable');
+    const update = await gsStorage.getOption(gsStorage.UPDATE_AVAILABLE)
+    if (update) el.style.display = 'block';
+    // Prevent unsuspend by parent container
+    // Using mousedown event otherwise click can still be triggered if
+    // mouse is released outside of this element
+    gsTopBarTitle.onmousedown = function(e) {
+      e.stopPropagation();
+    };
+
+    setGoToUpdateHandler();
+  }
+
+  async function setUnloadTabHandler(tab) {
+    // beforeunload event will get fired if: the tab is refreshed, the url is changed,
+    // the tab is closed, or the tab is frozen by chrome ??
+    // when this happens the STATE_UNLOADED_URL gets set with the suspended tab url
+    // if the tab is refreshed, then on reload the url will match and the tab will unsuspend
+    // if the url is changed then on reload the url will not match
+    // if the tab is closed, the reload will never occur
+    addEventListener('beforeunload', async (event) => {
+      gsUtils.log(tab.id, 'BeforeUnload triggered: ' + tab.url);
+      if (await tgs.isCurrentFocusedTab(tab)) {
+        await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL, tab.url);
+      }
+      else {
+        gsUtils.log( tab.id, 'Ignoring beforeUnload as tab is not currently focused.', );
+      }
+    });
+  }
+
+  function loadToastTemplate() {
+    const toastEl = document.createElement('div');
+    toastEl.setAttribute('id', 'disconnectedNotice');
+    toastEl.classList.add('toast-wrapper');
+    toastEl.innerHTML = document.getElementById('toastTemplate').innerHTML;
+    gsUtils.localiseHtml(toastEl);
+    document.getElementsByTagName('body')[0].appendChild(toastEl);
+  }
+
+  function showNoConnectivityMessage() {
+    if (!document.getElementById('disconnectedNotice')) {
+      loadToastTemplate();
+    }
+    document.getElementById('disconnectedNotice').style.display = 'none';
+    setTimeout(function() {
+      document.getElementById('disconnectedNotice').style.display = 'block';
+    }, 50);
+  }
+
+  function showUnsuspendAnimation() {
+    if (document.body.classList.contains('img-preview-mode')) {
+      document.getElementById('refreshSpinner').classList.add('spinner');
+    } else {
+      document.body.classList.add('waking');
+      document.getElementById('snoozyImg').src = chrome.runtime.getURL( 'img/snoozy_tab_awake.svg', );
+      document.getElementById('snoozySpinner').classList.add('spinner');
+    }
+  }
+
+  function buildUnsuspendTabHandler(tab) {
+    return async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.target.id === 'setKeyboardShortcut') {
+        chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
+      }
+      else if (e.which === 1) {
+        showUnsuspendAnimation();
+        await tgs.unsuspendTab(tab);
+      }
     };
   }
+
+  async function setUnsuspendTabHandlers(tab) {
+    const unsuspendTabHandler = buildUnsuspendTabHandler(tab);
+    document.getElementById('gsTopBarUrl').onclick = unsuspendTabHandler;
+    document.getElementById('gsTopBar').onmousedown = unsuspendTabHandler;
+    document.getElementById('suspendedMsg').onclick = unsuspendTabHandler;
+  }
+
+  function setUrl(url) {
+    const gsTopBarUrl = document.getElementById('gsTopBarUrl');
+    gsTopBarUrl.innerHTML = cleanUrl(url);
+    gsTopBarUrl.setAttribute('href', url);
+    gsTopBarUrl.onmousedown = function(event) { event.stopPropagation(); };
+  }
+
+  function showContents() {
+    document.body.classList.add('visible');
+  }
+
   function buildImagePreview(tab, previewUri) {
     return new Promise(async (resolve) => {
       const previewEl = document.createElement('div');
@@ -151,6 +229,7 @@ import  { tgs }                   from './tgs.js';
       previewImgEl.addEventListener('error', onLoadedHandler);
     });
   }
+
   async function toggleImagePreviewVisibility(tab, previewMode, previewUri) {
     const builtImagePreview =
       document.getElementById('gsPreviewContainer') !== null;
@@ -183,80 +262,6 @@ import  { tgs }                   from './tgs.js';
       document.body.classList.add('img-preview-mode');
     }
   }
-
-  async function getPreviewUri(suspendedUrl) {
-    const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
-    const preview = await gsIndexedDb.fetchPreviewImage(originalUrl);
-    let previewUri = null;
-    if (
-      preview &&
-      preview.img &&
-      preview.img !== null &&
-      preview.img !== 'data:,' &&
-      preview.img.length > 10000
-    ) {
-      previewUri = preview.img;
-    }
-    return previewUri;
-  }
-
-  async function setUnsuspendTabHandlers(tab) {
-    const unsuspendTabHandler = buildUnsuspendTabHandler(tab);
-    document.getElementById('gsTopBarUrl').onclick = unsuspendTabHandler;
-    document.getElementById('gsTopBar').onmousedown = unsuspendTabHandler;
-    document.getElementById('suspendedMsg').onclick = unsuspendTabHandler;
-  }
-
-  async function setUnloadTabHandler(tab) {
-    // beforeunload event will get fired if: the tab is refreshed, the url is changed,
-    // the tab is closed, or the tab is frozen by chrome ??
-    // when this happens the STATE_UNLOADED_URL gets set with the suspended tab url
-    // if the tab is refreshed, then on reload the url will match and the tab will unsuspend
-    // if the url is changed then on reload the url will not match
-    // if the tab is closed, the reload will never occur
-    addEventListener('beforeunload', async (event) => {
-      gsUtils.log(tab.id, 'BeforeUnload triggered: ' + tab.url);
-      if (await tgs.isCurrentFocusedTab(tab)) {
-        await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL, tab.url);
-      }
-      else {
-        gsUtils.log( tab.id, 'Ignoring beforeUnload as tab is not currently focused.', );
-      }
-    });
-  }
-
-  function setGoToUpdateHandler() {
-    document.getElementById('gotoUpdatePage').onclick = async (e) => {
-      await gsChrome.tabsCreate(chrome.runtime.getURL('update.html'));
-    };
-  }
-  async function setUpdateBanner() {
-    // Check if there are updates
-    let el = document.getElementById('tmsUpdateAvailable');
-    const update = await gsStorage.getOption(gsStorage.UPDATE_AVAILABLE)
-    if (update) el.style.display = 'block';
-    // Prevent unsuspend by parent container
-    // Using mousedown event otherwise click can still be triggered if
-    // mouse is released outside of this element
-    gsTopBarTitle.onmousedown = function(e) {
-      e.stopPropagation();
-    };
-
-    setGoToUpdateHandler();
-  }
-
-  function setFaviconMeta(faviconMeta) {
-    document.getElementById('gsTopBarImg').setAttribute('src', faviconMeta.normalisedDataUrl);
-    document.getElementById('gsFavicon').setAttribute('href', faviconMeta.transparentDataUrl);
-  }
-
-  function setTitle(title) {
-    document.title = title;
-    document.getElementById('gsTitle').innerHTML = title;
-    const gsTopBarTitle = document.getElementById('gsTopBarTitle');
-    gsTopBarTitle.innerHTML = title;
-  }
-
 
   async function updatePreviewMode(tab, previewMode) {
     const previewUri = await getPreviewUri(tab.url);
