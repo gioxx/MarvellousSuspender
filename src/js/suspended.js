@@ -108,20 +108,21 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('gsTitle').innerHTML = title;
     const gsTopBarTitle = document.getElementById('gsTopBarTitle');
     gsTopBarTitle.innerHTML = title;
-  }
-
-  async function setUpdateBanner() {
-    // Check if there are updates
-    let el = document.getElementById('tmsUpdateAvailable');
-    const update = await gsStorage.getOption(gsStorage.UPDATE_AVAILABLE)
-    if (update) el.style.display = 'block';
     // Prevent unsuspend by parent container
     // Using mousedown event otherwise click can still be triggered if
     // mouse is released outside of this element
     gsTopBarTitle.onmousedown = function(e) {
       e.stopPropagation();
     };
+  }
 
+  async function setUpdateBanner() {
+    // Check if there are updates
+    const update = await gsStorage.getOption(gsStorage.UPDATE_AVAILABLE);
+    if (update) {
+      let el = document.getElementById('tmsUpdateAvailable');
+      el.style.display = 'block';
+    }
     setGoToUpdateHandler();
   }
 
