@@ -13,6 +13,30 @@ import  { tgs }                   from './tgs.js';
     };
   }
 
+  function showUnsuspendAnimation() {
+    if (document.body.classList.contains('img-preview-mode')) {
+      document.getElementById('refreshSpinner').classList.add('spinner');
+    } else {
+      document.body.classList.add('waking');
+      document.getElementById('snoozyImg').src = chrome.runtime.getURL( 'img/snoozy_tab_awake.svg', );
+      document.getElementById('snoozySpinner').classList.add('spinner');
+    }
+  }
+
+  function buildUnsuspendTabHandler(tab) {
+    return async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.target.id === 'setKeyboardShortcut') {
+        chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
+      }
+      else if (e.which === 1) {
+        showUnsuspendAnimation();
+        await tgs.unsuspendTab(tab);
+      }
+    };
+  }
+
   function cleanUrl(urlStr) {
     // remove scheme
     if (urlStr.indexOf('//') > 0) {
@@ -31,7 +55,6 @@ import  { tgs }                   from './tgs.js';
     return urlStr;
   }
 
-
   async function getPreviewUri(suspendedUrl) {
     const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
     const preview = await gsIndexedDb.fetchPreviewImage(originalUrl);
@@ -48,6 +71,75 @@ import  { tgs }                   from './tgs.js';
     return previewUri;
   }
 
+  function setUrl(url) {
+    const gsTopBarUrl = document.getElementById('gsTopBarUrl');
+    gsTopBarUrl.innerHTML = cleanUrl(url);
+    gsTopBarUrl.setAttribute('href', url);
+    gsTopBarUrl.onmousedown = function(event) { event.stopPropagation(); };
+  }
+
+  function showContents() {
+    document.body.classList.add('visible');
+  }
+
+  function buildImagePreview(tab, previewUri) {
+    return new Promise(async (resolve) => {
+      const previewEl = document.createElement('div');
+      const bodyEl = document.getElementsByTagName('body')[0];
+      previewEl.setAttribute('id', 'gsPreviewContainer');
+      previewEl.classList.add('gsPreviewContainer');
+      previewEl.innerHTML = document.getElementById(
+        'previewTemplate',
+      ).innerHTML;
+      const unsuspendTabHandler = buildUnsuspendTabHandler(tab);
+      previewEl.onclick = unsuspendTabHandler;
+      gsUtils.localiseHtml(previewEl);
+      bodyEl.appendChild(previewEl);
+
+      const previewImgEl = document.getElementById('gsPreviewImg');
+      const onLoadedHandler = function() {
+        previewImgEl.removeEventListener('load', onLoadedHandler);
+        previewImgEl.removeEventListener('error', onLoadedHandler);
+        resolve();
+      };
+      previewImgEl.setAttribute('src', previewUri);
+      previewImgEl.addEventListener('load', onLoadedHandler);
+      previewImgEl.addEventListener('error', onLoadedHandler);
+    });
+  }
+
+  async function toggleImagePreviewVisibility(tab, previewMode, previewUri) {
+    const builtImagePreview =
+      document.getElementById('gsPreviewContainer') !== null;
+    if (
+      !builtImagePreview &&
+      previewUri &&
+      previewMode &&
+      previewMode !== '0'
+    ) {
+      await buildImagePreview(tab, previewUri);
+    }
+    else {
+      addWatermarkHandler();
+    }
+
+    if (!document.getElementById('gsPreviewContainer')) {
+      return;
+    }
+    const overflow = previewMode === '2' ? 'auto' : 'hidden';
+    document.body.style['overflow'] = overflow;
+
+    if (previewMode === '0' || !previewUri) {
+      document.getElementById('gsPreviewContainer').style.display = 'none';
+      document.getElementById('suspendedMsg').style.display = 'flex';
+      document.body.classList.remove('img-preview-mode');
+    }
+    else {
+      document.getElementById('gsPreviewContainer').style.display = 'block';
+      document.getElementById('suspendedMsg').style.display = 'none';
+      document.body.classList.add('img-preview-mode');
+    }
+  }
 
   function setCommand(command) {
     const hotkeyEl = document.getElementById('hotkeyWrapper');
@@ -110,20 +202,22 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('gsTitle').innerHTML = title;
     const gsTopBarTitle = document.getElementById('gsTopBarTitle');
     gsTopBarTitle.innerHTML = title;
+    // Prevent unsuspend by parent container
+    // Using mousedown event otherwise click can still be triggered if
+    // mouse is released outside of this element
+    gsTopBarTitle.onmousedown = function(e) {
+      e.stopPropagation();
+    };
+  }
 
-    //Check if there are updates
-    let el = document.getElementById('tmsUpdateAvailable');
-    gsStorage.getOption(gsStorage.UPDATE_AVAILABLE).then((update) => {
-      el.style.display = update ? 'block' : 'none';
-      // Prevent unsuspend by parent container
-      // Using mousedown event otherwise click can still be triggered if
-      // mouse is released outside of this element
-      gsTopBarTitle.onmousedown = function(e) {
-        e.stopPropagation();
-      };
-
-      setGoToUpdateHandler();
-    });
+  async function setUpdateBanner() {
+    // Check if there are updates
+    const update = await gsStorage.getOption(gsStorage.UPDATE_AVAILABLE);
+    if (update) {
+      let el = document.getElementById('tmsUpdateAvailable');
+      el.style.display = 'block';
+    }
+    setGoToUpdateHandler();
   }
 
   async function setUnloadTabHandler(tab) {
@@ -144,47 +238,11 @@ import  { tgs }                   from './tgs.js';
     });
   }
 
-  function loadToastTemplate() {
-    const toastEl = document.createElement('div');
-    toastEl.setAttribute('id', 'disconnectedNotice');
-    toastEl.classList.add('toast-wrapper');
-    toastEl.innerHTML = document.getElementById('toastTemplate').innerHTML;
-    gsUtils.localiseHtml(toastEl);
-    document.getElementsByTagName('body')[0].appendChild(toastEl);
-  }
-
-  function showNoConnectivityMessage() {
-    if (!document.getElementById('disconnectedNotice')) {
-      loadToastTemplate();
+  function setWatermark() {
+    const div = document.getElementById('watermark');
+    if (div) {
+      div.innerHTML = `${chrome.runtime.getManifest().name} v${chrome.runtime.getManifest().version}`;
     }
-    document.getElementById('disconnectedNotice').style.display = 'none';
-    setTimeout(function() {
-      document.getElementById('disconnectedNotice').style.display = 'block';
-    }, 50);
-  }
-
-  function showUnsuspendAnimation() {
-    if (document.body.classList.contains('img-preview-mode')) {
-      document.getElementById('refreshSpinner').classList.add('spinner');
-    } else {
-      document.body.classList.add('waking');
-      document.getElementById('snoozyImg').src = chrome.runtime.getURL( 'img/snoozy_tab_awake.svg', );
-      document.getElementById('snoozySpinner').classList.add('spinner');
-    }
-  }
-
-  function buildUnsuspendTabHandler(tab) {
-    return async (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (e.target.id === 'setKeyboardShortcut') {
-        chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
-      }
-      else if (e.which === 1) {
-        showUnsuspendAnimation();
-        await tgs.unsuspendTab(tab);
-      }
-    };
   }
 
   async function setUnsuspendTabHandlers(tab) {
@@ -194,88 +252,7 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('suspendedMsg').onclick = unsuspendTabHandler;
   }
 
-  function setUrl(url) {
-    const gsTopBarUrl = document.getElementById('gsTopBarUrl');
-    gsTopBarUrl.innerHTML = cleanUrl(url);
-    gsTopBarUrl.setAttribute('href', url);
-    gsTopBarUrl.onmousedown = function(event) { event.stopPropagation(); };
-  }
-
-  function showContents() {
-    document.body.classList.add('visible');
-  }
-
-  function buildImagePreview(tab, previewUri) {
-    return new Promise(async (resolve) => {
-      const previewEl = document.createElement('div');
-      const bodyEl = document.getElementsByTagName('body')[0];
-      previewEl.setAttribute('id', 'gsPreviewContainer');
-      previewEl.classList.add('gsPreviewContainer');
-      previewEl.innerHTML = document.getElementById(
-        'previewTemplate',
-      ).innerHTML;
-      const unsuspendTabHandler = buildUnsuspendTabHandler(tab);
-      previewEl.onclick = unsuspendTabHandler;
-      gsUtils.localiseHtml(previewEl);
-      bodyEl.appendChild(previewEl);
-
-      const previewImgEl = document.getElementById('gsPreviewImg');
-      const onLoadedHandler = function() {
-        previewImgEl.removeEventListener('load', onLoadedHandler);
-        previewImgEl.removeEventListener('error', onLoadedHandler);
-        resolve();
-      };
-      previewImgEl.setAttribute('src', previewUri);
-      previewImgEl.addEventListener('load', onLoadedHandler);
-      previewImgEl.addEventListener('error', onLoadedHandler);
-    });
-  }
-
-  async function toggleImagePreviewVisibility( tab, previewMode, previewUri, ) {
-    const builtImagePreview =
-      document.getElementById('gsPreviewContainer') !== null;
-    if (
-      !builtImagePreview &&
-      previewUri &&
-      previewMode &&
-      previewMode !== '0'
-    ) {
-      await buildImagePreview(tab, previewUri);
-    }
-    else {
-      addWatermarkHandler();
-    }
-
-    if (!document.getElementById('gsPreviewContainer')) {
-      return;
-    }
-    const overflow = previewMode === '2' ? 'auto' : 'hidden';
-    document.body.style['overflow'] = overflow;
-
-    if (previewMode === '0' || !previewUri) {
-      document.getElementById('gsPreviewContainer').style.display = 'none';
-      document.getElementById('suspendedMsg').style.display = 'flex';
-      document.body.classList.remove('img-preview-mode');
-    }
-    else {
-      document.getElementById('gsPreviewContainer').style.display = 'block';
-      document.getElementById('suspendedMsg').style.display = 'none';
-      document.body.classList.add('img-preview-mode');
-    }
-  }
-
-  async function updatePreviewMode(tab, previewMode) {
-    const previewUri = await getPreviewUri(tab.url);
-    await toggleImagePreviewVisibility( tab, previewMode, previewUri, );
-    const scrollPosition = gsUtils.getSuspendedScrollPosition(tab.url);
-    setScrollPosition(scrollPosition, previewMode);
-  }
-
-
   async function initTab(tab, sessionId, quickInit) {
-    // if (!tabView) {
-    //   gsUtils.warning( tab.id, 'Could not get internalTabView for suspended tab', );
-    // }
 
     const suspendedUrl = tab.url;
 
@@ -289,6 +266,8 @@ import  { tgs }                   from './tgs.js';
       title = gsUtils.htmlEncode(title);
     }
     setTitle(title);
+    await setUpdateBanner();
+    setWatermark();
 
     // Set faviconMeta
     const faviconMeta = await gsFavicon.getFaviconMeta(tab);
@@ -339,6 +318,32 @@ import  { tgs }                   from './tgs.js';
     // const whitelisted = gsUtils.checkWhiteList(originalUrl);
   }
 
+
+  function loadToastTemplate() {
+    const toastEl = document.createElement('div');
+    toastEl.setAttribute('id', 'disconnectedNotice');
+    toastEl.classList.add('toast-wrapper');
+    toastEl.innerHTML = document.getElementById('toastTemplate').innerHTML;
+    gsUtils.localiseHtml(toastEl);
+    document.getElementsByTagName('body')[0].appendChild(toastEl);
+  }
+
+  function showNoConnectivityMessage() {
+    if (!document.getElementById('disconnectedNotice')) {
+      loadToastTemplate();
+    }
+    document.getElementById('disconnectedNotice').style.display = 'none';
+    setTimeout(function() {
+      document.getElementById('disconnectedNotice').style.display = 'block';
+    }, 50);
+  }
+
+  async function updatePreviewMode(tab, previewMode) {
+    const previewUri = await getPreviewUri(tab.url);
+    await toggleImagePreviewVisibility( tab, previewMode, previewUri, );
+    const scrollPosition = gsUtils.getSuspendedScrollPosition(tab.url);
+    setScrollPosition(scrollPosition, previewMode);
+  }
 
   async function messageRequestListener(request, sender, sendResponse) {
     gsUtils.log('suspended', 'messageRequestListener', request.action, request, sender);

@@ -223,26 +223,23 @@ import  { gsUtils }               from './gsUtils.js';
       }
     }
 
-    document.getElementById('testWhitelistBtn').onclick = async e => {
-      e.preventDefault();
-      const tabs = await gsChrome.tabsQuery();
-      const tabUrls = tabs
-        .map(
-          (tab) =>
-            gsUtils.isSuspendedTab(tab)
-              ? gsUtils.getOriginalUrl(tab.url)
-              : tab.url,
-        )
-        .filter(
-          async (url) => !gsUtils.isSuspendedUrl(url) && (await gsUtils.checkWhiteList(url))
-        )
-        .map(
-          (url) => (url.length > 55 ? url.substr(0, 52) + '...' : url)
-        );
+    document.getElementById('testWhitelistBtn').onclick = async (event) => {
+      event.preventDefault();
+      const tabs      = await gsChrome.tabsQuery();
+      const tabUrls   = [];
+      for (const tab of tabs) {
+        const url     = gsUtils.isSuspendedTab(tab) ? gsUtils.getOriginalUrl(tab.url) : tab.url;
+        if (!(gsUtils.isSpecialTab(tab)) && (await gsUtils.checkWhiteList(url))) {
+          const str   = url.length > 55 ? url.substr(0, 52) + '...' : url;
+          tabUrls.push(str);
+        }
+      }
+
       if (tabUrls.length === 0) {
         alert(chrome.i18n.getMessage('js_options_whitelist_no_matches'));
         return;
       }
+
       const firstUrls = tabUrls.splice(0, 22);
       let alertString = `${chrome.i18n.getMessage(
         'js_options_whitelist_matches_heading',
@@ -256,6 +253,7 @@ import  { gsUtils }               from './gsUtils.js';
         )}`;
       }
       alert(alertString);
+      // gsUtils.log('options', 'testWhitelistBtn', '\n', alertString);
     };
 
     //hide incompatible sidebar items if in incognito mode
