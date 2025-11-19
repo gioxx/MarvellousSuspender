@@ -154,6 +154,7 @@ import  { tgs }                   from './tgs.js';
 
   function setGoToUpdateHandler() {
     document.getElementById('gotoUpdatePage').onclick = async (e) => {
+      e.stopPropagation();
       await gsChrome.tabsCreate(chrome.runtime.getURL('update.html'));
     };
   }
@@ -250,6 +251,7 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('gsTopBarUrl').onclick = unsuspendTabHandler;
     document.getElementById('gsTopBar').onmousedown = unsuspendTabHandler;
     document.getElementById('suspendedMsg').onclick = unsuspendTabHandler;
+    document.getElementById('tmsUpdateAvailable').onclick = unsuspendTabHandler;
   }
 
   async function initTab(tab, sessionId, quickInit) {
