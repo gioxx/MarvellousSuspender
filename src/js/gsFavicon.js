@@ -169,6 +169,17 @@ export const gsFavicon = (() => {
 
     let faviconMeta = await getFaviconMetaFromCache(url);
     if (faviconMeta) {
+      // If the tab is now reporting a different favicon URL than what we cached,
+      // try to rebuild from the tab URL and overwrite the cache. This helps when
+      // the favicon wasn't ready at first (race/timing) and we cached a generic icon.
+      if (tabFavIconUrl && tabFavIconUrl !== faviconMeta.favIconUrl) {
+        const refreshedMeta = await buildFaviconMetaFromTab(tabFavIconUrl);
+        if (refreshedMeta) {
+          gsUtils.log('gsFavicon', 'Refreshing cached favicon using tabFavIconUrl', url, tabFavIconUrl);
+          await saveFaviconMetaToCache(url, refreshedMeta);
+          return refreshedMeta;
+        }
+      }
       gsUtils.log('gsFavicon', 'Found cached favicon', url, faviconMeta);
       return faviconMeta;
     }
