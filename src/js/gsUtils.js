@@ -448,8 +448,17 @@ export const gsUtils = {
 
   // @TODO: Make some unit tests to verify getRootUrl vs getRootUrlNew
   getRootUrlNew: function(url) {
-    const fullURL = new URL(url);
-    return new URL(`//${fullURL.host}`, fullURL).toString();
+    // Data URIs don't have a host, so return null
+    if (url && url.startsWith('data:')) {
+      return null;
+    }
+    try {
+      const fullURL = new URL(url);
+      return new URL(`//${fullURL.host}`, fullURL).toString();
+    } catch (e) {
+      // Invalid URL (malformed or unsupported scheme)
+      return null;
+    }
   },
 
   getRootUrl: function(url, includePath, includeScheme) {
