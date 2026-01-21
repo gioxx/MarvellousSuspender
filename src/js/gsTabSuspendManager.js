@@ -47,6 +47,11 @@ export const gsTabSuspendManager = (function() {
   async function queueTabForSuspensionAsPromise(tab, forceLevel) {
     if (typeof tab === 'undefined') return Promise.resolve();
 
+    if (!_suspensionQueue) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Suspension queue not initialized yet. Ignoring queue request.');
+      return Promise.resolve();
+    }
+
     if (!await checkTabEligibilityForSuspension(tab, forceLevel)) {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab not eligible for suspension.');
       return Promise.resolve();
@@ -57,6 +62,10 @@ export const gsTabSuspendManager = (function() {
   }
 
   function unqueueTabForSuspension(tab) {
+    if (!_suspensionQueue) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Suspension queue not initialized yet. Ignoring unqueue request.');
+      return;
+    }
     const removed = _suspensionQueue.unqueueTab(tab);
     if (removed) {
       gsUtils.log(tab.id, QUEUE_ID, 'Removed tab from suspension queue.');
@@ -201,10 +210,19 @@ export const gsTabSuspendManager = (function() {
   }
 
   function getQueuedTabDetails(tab) {
+    if (!_suspensionQueue) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Suspension queue not initialized yet.');
+      return null;
+    }
     return _suspensionQueue.getQueuedTabDetails(tab);
   }
 
   async function handleSuspensionException( tab, executionProps, exceptionType, resolve, reject, requeue ) {
+    if (!_suspensionQueue) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Suspension queue not initialized. Resolving exception as failure.');
+      resolve(false);
+      return;
+    }
     if (exceptionType === _suspensionQueue.EXCEPTION_TIMEOUT) {
       gsUtils.log( tab.id, QUEUE_ID, `Tab took more than ${ _suspensionQueue.getQueueProperties().jobTimeout }ms to suspend. Will force suspension.` );
       const success = await executeTabSuspension( tab, executionProps.suspendedUrl, );
