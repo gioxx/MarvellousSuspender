@@ -29,6 +29,56 @@ export const gsFavicon = (() => {
   let _defaultChromeFaviconMeta       = FALLBACK_CHROME_FAVICON_META;
 
 
+  /**
+   * Extract the canonical URL used as the favicon cache key.
+   *
+   * Rules:
+   * - Always ignore fragments.
+   * - Special-case notion.so -> ignore query params
+   *     https://www.notion.so/<pageId>#d?v=...  =>  https://www.notion.so/<pageId>
+   * - Special-case docs.google.com -> extract the app
+   *     https://www.docs.google.com/<app>/...  =>  https://www.docs.google.com/<app>
+   *
+   * @param {string} url
+   * @returns {string}
+   */
+  function getFaviconCacheUrl(url) {
+    try {
+      const u = new URL(url);
+      u.hash = '';
+
+      const host = (u.hostname || '').toLowerCase();
+
+      // Extract https://docs.google.com/<type>/ as cache key
+      if (host === 'docs.google.com') {
+        const match = u.href.match(/^https?:\/\/docs\.google\.com\/([^/?#]+)(?:\/|$)/i);
+        const type = (match?.[1] || '').toLowerCase();
+        if (type) {
+          return `https://docs.google.com/${type}`;
+        }
+        return 'https://docs.google.com';
+      }
+
+      if (host === 'www.notion.so' || host.endsWith('.notion.so')) {
+        // Notion favicons are determined by the base page URL stripped of query params and fragments
+        u.search = '';
+        // Normalize trailing slash away
+        if (u.pathname.length > 1 && u.pathname.endsWith('/')) {
+          u.pathname = u.pathname.slice(0, -1);
+        }
+        return `${u.origin}${u.pathname}`;
+      }
+
+      // Default: keep query params (some apps legitimately vary favicon by query), ignore fragment.
+      return u.toString();
+    }
+    catch {
+      // Best-effort fallback for non-standard URLs.
+      return url;
+    }
+  }
+
+
   // gsFavicon cannot be initialized in the background because it requires a DOM.  So, we'll init JIT.
   // async function initAsPromised() {
   //   await addFaviconDefaults();
@@ -119,10 +169,31 @@ export const gsFavicon = (() => {
 
     let faviconMeta = await getFaviconMetaFromCache(url);
     if (faviconMeta) {
+      // If the tab is now reporting a different favicon URL than what we cached,
+      // try to rebuild from the tab URL and overwrite the cache. This helps when
+      // the favicon wasn't ready at first (race/timing) and we cached a generic icon.
+      if (tabFavIconUrl && tabFavIconUrl !== faviconMeta.favIconUrl) {
+        const refreshedMeta = await buildFaviconMetaFromTab(tabFavIconUrl);
+        if (refreshedMeta) {
+          gsUtils.log('gsFavicon', 'Refreshing cached favicon using tabFavIconUrl', url, tabFavIconUrl);
+          await saveFaviconMetaToCache(url, refreshedMeta);
+          return refreshedMeta;
+        }
+      }
       gsUtils.log('gsFavicon', 'Found cached favicon', url, faviconMeta);
       return faviconMeta;
     }
     gsUtils.log('gsFavicon', 'No cached favicon', url);
+
+    // Prefer the tab's reported favicon URL (more specific than Chrome's favicon service
+    // for apps that vary favicon by path/document like Notion / Google Docs/Sheets).
+    faviconMeta = await buildFaviconMetaFromTab(tabFavIconUrl);
+    if (faviconMeta) {
+      gsUtils.log('gsFavicon', 'Built faviconMeta from tabFavIconUrl', faviconMeta);
+      await saveFaviconMetaToCache(url, faviconMeta);
+      return faviconMeta;
+    }
+    gsUtils.log('gsFavicon', 'No usable tabFavIconUrl', tabFavIconUrl, url);
 
     // Else try to build from chrome's favicon cache
     faviconMeta = await buildFaviconMetaFromChrome(url);
@@ -131,14 +202,6 @@ export const gsFavicon = (() => {
       return faviconMeta;
     }
     gsUtils.log('gsFavicon', 'No entry in chrome favicon cache', url);
-
-    // Else try to build from tabFavIconUrl
-    faviconMeta = await buildFaviconMetaFromTab(tabFavIconUrl);
-    if (faviconMeta) {
-      gsUtils.log('gsFavicon', 'Built faviconMeta from tabFavIconUrl', faviconMeta);
-      return faviconMeta;
-    }
-    gsUtils.log('gsFavicon', 'No tabFavIconUrl', tabFavIconUrl, url);
 
     // Else try to fetch from google -- this approach is no longer valid
     // if (fallbackToGoogle) {
@@ -179,7 +242,7 @@ export const gsFavicon = (() => {
   async function getFaviconMeta(tab) {
     gsUtils.log('gsFavicon', 'getFaviconMeta', tab.url);
     let   originalUrl   = tab.url ?? '';
-    const tabFavIconUrl = tab.favIconUrl ?? '';
+    let   tabFavIconUrl = tab.favIconUrl ?? '';
 
     if (gsUtils.isFileTab(tab)) {
       return _defaultChromeFaviconMeta;
@@ -188,6 +251,19 @@ export const gsFavicon = (() => {
     // First try to fetch from cache
     if (gsUtils.isSuspendedTab(tab)) {
       originalUrl = gsUtils.getOriginalUrl(tab.url);
+
+      // When viewing suspended.html, the tab's favIconUrl is typically the extension's own icon,
+      // not the original page icon. Recover the original favIconUrl captured at suspend-time.
+      try {
+        const tabInfo = await gsIndexedDb.fetchTabInfo(originalUrl);
+        if (tabInfo?.favIconUrl) {
+          tabFavIconUrl = tabInfo.favIconUrl;
+        }
+      }
+      catch (error) {
+        // Non-fatal; we'll fall back to Chrome's favicon cache/default.
+        gsUtils.warning('gsFavicon', error);
+      }
     }
 
     const faviconMeta = await getFaviconMetaForUrl(originalUrl, tabFavIconUrl);
@@ -244,12 +320,14 @@ export const gsFavicon = (() => {
    * @returns { Promise< FavIconMeta | undefined > }
    */
   async function getFaviconMetaFromCache(url) {
+    const cacheUrl  = getFaviconCacheUrl(url);
     const fullUrl   = gsUtils.getRootUrl(url, true, false);
-    let faviconMeta = await gsIndexedDb.fetchFaviconMeta(fullUrl);
-    if (!faviconMeta) {
-      const rootUrl = gsUtils.getRootUrl(url, false, false);
-      faviconMeta   = await gsIndexedDb.fetchFaviconMeta(rootUrl);
-    }
+    const rootUrl   = gsUtils.getRootUrl(url, false, false);
+
+    // Prefer canonical cache key, then legacy fullUrl/rootUrl for backward compatibility.
+    let faviconMeta = await gsIndexedDb.fetchFaviconMeta(cacheUrl);
+    if (!faviconMeta) faviconMeta = await gsIndexedDb.fetchFaviconMeta(fullUrl);
+    if (!faviconMeta) faviconMeta = await gsIndexedDb.fetchFaviconMeta(rootUrl);
     const isValid   = await isFaviconMetaValid(faviconMeta);
     if (isValid) {
       return faviconMeta;
@@ -261,8 +339,11 @@ export const gsFavicon = (() => {
    * @param { object }  faviconMeta
    */
   async function saveFaviconMetaToCache(url, faviconMeta) {
+    const cacheUrl = getFaviconCacheUrl(url);
     const fullUrl = gsUtils.getRootUrl(url, true, false);
     const rootUrl = gsUtils.getRootUrl(url, false, false);
+    gsUtils.log('gsFavicon', `Saving favicon cache entry for ${cacheUrl}`, faviconMeta);
+    await gsIndexedDb.addFaviconMeta(cacheUrl, Object.assign({}, faviconMeta));
     gsUtils.log('gsFavicon', `Saving favicon cache entry for ${fullUrl}`, faviconMeta);
     await gsIndexedDb.addFaviconMeta(fullUrl, Object.assign({}, faviconMeta));
     gsUtils.log('gsFavicon', `Saving favicon cache entry for ${rootUrl}`, faviconMeta);
