@@ -373,14 +373,13 @@ export const tgs = (function() {
 
   function unsuspendSelectedTabs() {
     chrome.tabs.query({ highlighted: true, lastFocusedWindow: true }, async (selectedTabs) => {
-        for (const tab of selectedTabs) {
-          gsTabSuspendManager.unqueueTabForSuspension(tab);
-          if (gsUtils.isSuspendedTab(tab)) {
-            await unsuspendTab(tab);
-          }
+      for (const tab of selectedTabs) {
+        gsTabSuspendManager.unqueueTabForSuspension(tab);
+        if (gsUtils.isSuspendedTab(tab)) {
+          await unsuspendTab(tab);
         }
-      },
-    );
+      }
+    });
   }
 
   function queueSessionTimer() {
@@ -692,7 +691,7 @@ export const tgs = (function() {
       // NOTE: See above as to why this is commented out
       // const shouldInitTab = await getTabStatePropForTabId( tab.id, STATE_INITIALISE_SUSPENDED_TAB );
       // if (shouldInitTab) {
-        await initialiseSuspendedTab(tab);
+      await initialiseSuspendedTab(tab);
       // }
     }
   }
@@ -926,14 +925,8 @@ export const tgs = (function() {
     }
     else if (focusedTab.url === chrome.runtime.getURL('options.html')) {
       if (await gsChrome.contextGetByTabId(focusedTab.id)) {
-        // @WARN: this sendMessage is triggering a comms error
         await chrome.tabs.sendMessage(focusedTab.id, { action: 'initSettings', tab: focusedTab });
       }
-      // @TODO: This must be a listener in the options page
-      // const optionsView = getInternalViewByTabId(focusedTab.id);
-      // if (optionsView && optionsView.exports) {
-      //   optionsView.exports.initSettings();
-      // }
     }
 
     //Reset timer on tab that lost focus.

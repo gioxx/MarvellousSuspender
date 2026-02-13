@@ -202,7 +202,32 @@ import  { gsUtils }               from './gsUtils.js';
     return [oldValue, newValue];
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(window).then(function() {
+
+  async function messageRequestListener(request, sender, sendResponse) {
+    gsUtils.log('options', 'messageRequestListener', request.action, request, sender);
+
+    switch (request.action) {
+
+      // { action: 'initSettings', tab: focusedTab }
+      case 'initSettings': {
+        initSettings();
+        break;
+      }
+
+      default: {
+        // NOTE: All messages sent to chrome.runtime will be delivered here too
+        gsUtils.log('options', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
+        // sendResponse();
+        break;
+      }
+
+    }
+    return true;
+  }
+
+
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(() => {
+    chrome.runtime.onMessage.addListener(messageRequestListener);
     initSettings();
 
     var optionEls = document.getElementsByClassName('option'),
