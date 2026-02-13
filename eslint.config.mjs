@@ -48,21 +48,19 @@ export default defineConfig(
       'no-trailing-spaces'              : ['error'],
 
       // @TODO: phase 1 - style changes
-      // 'brace-style'                     : ['error', 'stroustrup', { 'allowSingleLine': true }],
-      // 'indent'                          : ['error', 2],
-      // 'quotes'                          : ['error', 'single', { 'avoidEscape': true }],
-      // 'space-before-function-paren'     : ['error', { 'anonymous': 'never', 'named': 'never', 'asyncArrow': 'always' }],
-      // 'space-in-parens'                 : ['error', 'never'],
-      // 'spaced-comment'                  : ['error', 'always'],
+      'brace-style'                     : ['warn', 'stroustrup', { 'allowSingleLine': true }],
+      'quotes'                          : ['warn', 'single', { 'avoidEscape': true }],
+      'space-before-function-paren'     : ['warn', { 'anonymous': 'never', 'named': 'never', 'asyncArrow': 'always' }],
+      'space-in-parens'                 : ['warn', 'never'],
+      'spaced-comment'                  : ['warn', 'always'],
 
       // @TODO: phase 2 - these are safe, but apply 1-by-1
-      // 'no-var'                          : ['error'],
-      // 'object-shorthand'                : ['error', 'always', { 'ignoreConstructors': false, 'avoidQuotes': true } ],
-      // 'prefer-arrow-callback'           : ['error'],
-      // 'prefer-const'                    : ['error'],
-      // 'prefer-spread'                   : ['error'],
-      // 'prefer-template'                 : ['error'],
-      // 'strict'                          : ['error'],
+      'no-var'                          : ['warn'],
+      'object-shorthand'                : ['warn', 'always', { 'ignoreConstructors': false, 'avoidQuotes': true } ],
+      'prefer-arrow-callback'           : ['warn'],
+      'prefer-const'                    : ['warn'],
+      'prefer-template'                 : ['warn'],
+      'strict'                          : ['warn'],
 
       // @TODO: phase 3 remove these overrides
       'no-async-promise-executor'                                 : ['off'],
@@ -85,9 +83,9 @@ export default defineConfig(
       '@typescript-eslint/no-unused-expressions'                  : ['off'],
       '@typescript-eslint/no-unused-vars'                         : ['off'],  // revert to override below
       '@typescript-eslint/prefer-for-of'                          : ['off'],
-      '@typescript-eslint/prefer-includes'                        : ['off'],
-      '@typescript-eslint/prefer-nullish-coalescing'              : ['off'],
-      '@typescript-eslint/prefer-optional-chain'                  : ['off'],
+      '@typescript-eslint/prefer-includes'                        : ['warn'],
+      '@typescript-eslint/prefer-nullish-coalescing'              : ['warn'],
+      '@typescript-eslint/prefer-optional-chain'                  : ['warn'],
       '@typescript-eslint/prefer-promise-reject-errors'           : ['off'],
       '@typescript-eslint/require-await'                          : ['off'],
       '@typescript-eslint/restrict-plus-operands'                 : ['off'],
@@ -111,6 +109,21 @@ export default defineConfig(
       // }],
 
       '@typescript-eslint/prefer-regexp-exec'             : ['off'],
+
+      'indent': ['error', 2, {
+        'SwitchCase': 1,
+        'VariableDeclarator': 1,
+        'outerIIFEBody': 1,
+        'FunctionDeclaration': { 'parameters': 1, 'body': 1 },
+        'FunctionExpression': { 'parameters': 1, 'body': 1 },
+        'CallExpression': { 'arguments': 1 },
+        'ArrayExpression': 1,
+        'ObjectExpression': 1,
+        'ImportDeclaration': 1,
+        'flatTernaryExpressions': false,
+        'ignoreComments': true,             // updated
+        'offsetTernaryExpressions': false,
+      }],
 
       // original rules, but slightly more strict
       'no-console'                    : ['error'],
