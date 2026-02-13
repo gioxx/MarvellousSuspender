@@ -446,19 +446,28 @@ export const gsUtils = {
     return chrome.runtime.getURL('suspended.html' + args);
   },
 
-  // @TODO: Make some unit tests to verify getRootUrl vs getRootUrlNew
-  getRootUrlNew: function(url) {
-    // Data URIs don't have a host, so return null
-    if (url && url.startsWith('data:')) {
-      return null;
-    }
+  /**
+   * @param {string | URL} url
+   * @param {string | URL | undefined} [base]
+   * @returns {URL | undefined}
+   */
+  getNewURL: function(url, base) {
     try {
-      const fullURL = new URL(url);
-      return new URL(`//${fullURL.host}`, fullURL).toString();
-    } catch (e) {
-      // Invalid URL (malformed or unsupported scheme)
-      return null;
+      return new URL(url, base);
     }
+    catch (error) { /* do nothing */ }
+  },
+
+  /**
+   * @param {string | undefined} url
+   * @returns string | undefined
+   */
+  getRootUrlNew: function(url) {
+    // @TODO: Make some unit tests to verify getRootUrl vs getRootUrlNew
+    if (!url || url.match('^(data|file):')) return;
+    const fullURL = this.getNewURL(url);
+    const newURL  = this.getNewURL(`//${fullURL?.host}`, fullURL);
+    return newURL?.toString();
   },
 
   getRootUrl: function(url, includePath, includeScheme) {
