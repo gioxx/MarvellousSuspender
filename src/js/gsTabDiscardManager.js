@@ -38,12 +38,19 @@ export const gsTabDiscardManager = (function() {
   }
 
   function queueTabForDiscardAsPromise(tab, executionProps, processingDelay) {
+    if (!_discardQueue) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Discard queue not initialized yet. Ignoring queue request.');
+      return Promise.resolve(false);
+    }
     gsUtils.log(tab.id, QUEUE_ID, `Queueing tab for discarding.`);
     executionProps = executionProps || {};
     return _discardQueue.queueTabAsPromise( tab, executionProps, processingDelay );
   }
 
   function unqueueTabForDiscard(tab) {
+    if (!_discardQueue) {
+      return;
+    }
     const removed = _discardQueue.unqueueTab(tab);
     if (removed) {
       gsUtils.log(tab.id, QUEUE_ID, 'Removed tab from discard queue');
