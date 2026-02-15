@@ -6,16 +6,17 @@ import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
 
 export const gsTabDiscardManager = (function() {
-  'use strict';
 
   const DEFAULT_CONCURRENT_DISCARDS = 5;
   const DEFAULT_DISCARD_TIMEOUT = 5 * 1000;
 
   const QUEUE_ID = '_discardQueue';
 
-  let _discardQueue;
+  let   _discardQueue;
+  const INIT_RESOLVERS = [];
 
   function initAsPromised() {
+    gsUtils.log('gsTabDiscardManager initAsPromised', _discardQueue);
     return new Promise(resolve => {
       const queueProps = {
         concurrentExecutors: DEFAULT_CONCURRENT_DISCARDS,
@@ -25,7 +26,21 @@ export const gsTabDiscardManager = (function() {
       };
       _discardQueue = gsTabQueue.init(QUEUE_ID, queueProps);
       gsUtils.log(QUEUE_ID, 'init successful');
+
+      let resolveFn;
+      while ((resolveFn = INIT_RESOLVERS.pop())) {
+        resolveFn();
+      }
+
       resolve();
+    });
+  }
+
+  /** @returns { Promise<void> } */
+  async function queueInitialized() {
+    return new Promise((resolve) => {
+      if (_discardQueue) resolve();     // resolve immediately if the queue exists
+      INIT_RESOLVERS.push(resolve);     // otherwise, push our resolve function into a queue that will be processed after initialization
     });
   }
 
@@ -37,9 +52,10 @@ export const gsTabDiscardManager = (function() {
     );
   }
 
-  function queueTabForDiscardAsPromise(tab, executionProps, processingDelay) {
+  async function queueTabForDiscardAsPromise(tab, executionProps, processingDelay) {
+    await queueInitialized();
     if (!_discardQueue) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Discard queue not initialized yet. Ignoring queue request.');
+      gsUtils.warning(tab.id, QUEUE_ID, 'queueTabForDiscardAsPromise', 'Queue not initialized.  This should never fire.');
       return Promise.resolve(false);
     }
     gsUtils.log(tab.id, QUEUE_ID, `Queueing tab for discarding.`);
@@ -49,6 +65,7 @@ export const gsTabDiscardManager = (function() {
 
   function unqueueTabForDiscard(tab) {
     if (!_discardQueue) {
+      gsUtils.warning(tab.id, QUEUE_ID, 'queueTabForDiscardAsPromise', 'Queue not initialized.  This should never fire.');
       return;
     }
     const removed = _discardQueue.unqueueTab(tab);

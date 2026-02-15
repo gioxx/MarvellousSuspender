@@ -19,15 +19,17 @@ export const gsTabCheckManager = (function() {
   const QUEUE_ID = 'checkQueue';
   const _defaultTabTitle = chrome.i18n.getMessage('html_suspended_title');
 
-  let _tabCheckQueue;
+  let   _tabCheckQueue;
+  const INIT_RESOLVERS = [];
 
   // NOTE: This mainly checks suspended tabs
   // For unsuspended tabs, there is no guarantee that the content script will
   // be responsive, but seeing as the timer is kept by the background script, it
   // doesn't really matter.
   // However, when a tab gains focus, there is a check to make sure the content
-  // script is responsive, as we then need to rely on the form input and scroll behaviour.
+  // script is responsive, as we then need to rely on the form input and scroll behavior.
   function initAsPromised() {
+    gsUtils.log('gsTabCheckManager initAsPromised', _tabCheckQueue);
     return new Promise(resolve => {
       const queueProps = {
         concurrentExecutors: DEFAULT_CONCURRENT_TAB_CHECKS,
@@ -38,7 +40,21 @@ export const gsTabCheckManager = (function() {
       };
       _tabCheckQueue = gsTabQueue.init(QUEUE_ID, queueProps);
       gsUtils.log(QUEUE_ID, 'init successful');
+
+      let resolveFn;
+      while ((resolveFn = INIT_RESOLVERS.pop())) {
+        resolveFn();
+      }
+
       resolve(null);
+    });
+  }
+
+  /** @returns { Promise<void> } */
+  async function queueInitialized() {
+    return new Promise((resolve) => {
+      if (_tabCheckQueue) resolve();    // resolve immediately if the queue exists
+      INIT_RESOLVERS.push(resolve);     // otherwise, push our resolve function into a queue that will be processed after initialization
     });
   }
 
@@ -96,7 +112,7 @@ export const gsTabCheckManager = (function() {
         return;
       }
       gsUtils.log(_tab.id, 'suspended tab loaded. status === complete');
-      const tabQueueDetails = getQueuedTabCheckDetails(_tab);
+      const tabQueueDetails = getQueuedTabDetails(_tab);
       if (tabQueueDetails) {
         // If tab is in check queue, then force it to continue processing immediately
         // This allows us to prevent a timeout -> fetch tab cycle
@@ -108,7 +124,7 @@ export const gsTabCheckManager = (function() {
 
   function updateQueueProps(jobTimeout, processingDelay, concurrentExecutors) {
     if (!_tabCheckQueue) {
-      gsUtils.log(QUEUE_ID, 'Tab check queue not initialized yet.');
+      gsUtils.warning(QUEUE_ID, 'updateQueueProps', 'Queue not initialized.  This should never fire.');
       return;
     }
     gsUtils.log( QUEUE_ID, `Setting _tabCheckQueue props. jobTimeout: ${jobTimeout}. processingDelay: ${processingDelay}. concurrentExecutors: ${concurrentExecutors}` );
@@ -121,9 +137,10 @@ export const gsTabCheckManager = (function() {
     });
   }
 
-  function queueTabCheckAsPromise(tab, executionProps, processingDelay) {
+  async function queueTabCheckAsPromise(tab, executionProps, processingDelay) {
+    await queueInitialized();
     if (!_tabCheckQueue) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Tab check queue not initialized yet. Ignoring queue request.');
+      gsUtils.warning(tab.id, QUEUE_ID, 'queueTabCheckAsPromise', 'Queue not initialized.  This should never fire.');
       return Promise.resolve(gsUtils.STATUS_UNKNOWN);
     }
     gsUtils.log(tab.id, QUEUE_ID, `Queueing tab for responsiveness check.`);
@@ -133,6 +150,7 @@ export const gsTabCheckManager = (function() {
 
   function unqueueTabCheck(tab) {
     if (!_tabCheckQueue) {
+      gsUtils.warning(tab.id, QUEUE_ID, 'unqueueTabCheck', 'Queue not initialized.  This should never fire.');
       return;
     }
     const removed = _tabCheckQueue.unqueueTab(tab);
@@ -141,9 +159,10 @@ export const gsTabCheckManager = (function() {
     }
   }
 
-  function getQueuedTabCheckDetails(tab) {
+  function getQueuedTabDetails(tab) {
     if (!_tabCheckQueue) {
-      return null;
+      gsUtils.warning(tab.id, QUEUE_ID, 'getQueuedTabDetails', 'Queue not initialized.  This should never fire.');
+      return;
     }
     return _tabCheckQueue.getQueuedTabDetails(tab);
   }
@@ -273,7 +292,7 @@ export const gsTabCheckManager = (function() {
 
     let reinitialised = false;
     if (!tabChecksOk) {
-      const tabQueueDetails = getQueuedTabCheckDetails(tab);
+      const tabQueueDetails = getQueuedTabDetails(tab);
       if (!tabQueueDetails) {
         resolve(gsUtils.STATUS_UNKNOWN);
         return;
@@ -387,7 +406,7 @@ export const gsTabCheckManager = (function() {
       return;
     }
 
-    const queuedTabDetails = getQueuedTabCheckDetails(tab);
+    const queuedTabDetails = getQueuedTabDetails(tab);
     if (!queuedTabDetails) {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab missing from suspensionQueue?');
       resolve(gsUtils.STATUS_UNKNOWN);
@@ -449,7 +468,7 @@ export const gsTabCheckManager = (function() {
     queueTabCheck,
     queueTabCheckAsPromise,
     unqueueTabCheck,
-    getQueuedTabCheckDetails,
+    getQueuedTabDetails,
     // ensureSuspendedTabVisible,
   };
 })();
