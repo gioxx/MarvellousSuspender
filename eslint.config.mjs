@@ -5,6 +5,9 @@ import    tseslint            from 'typescript-eslint';
 import    pluginPromise       from 'eslint-plugin-promise';
 
 
+// eslint --print-config eslint.config.mjs
+
+
 export default defineConfig(
 
   {
@@ -48,15 +51,32 @@ export default defineConfig(
       'no-trailing-spaces'              : ['error'],
 
       // @TODO: phase 1 - style changes
+      'array-bracket-spacing'           : ['warn', 'never'],
+      'arrow-parens'                    : ['warn', 'always'],
+      // 'arrow-spacing'                   : ['warn', { 'before': true, 'after': true }],
+      // 'block-spacing'                   : ['warn', 'always'],
       'brace-style'                     : ['warn', 'stroustrup', { 'allowSingleLine': true }],
+      // 'comma-spacing'                   : ['warn', { 'before': false, 'after': true }],
+      'comma-style'                     : ['warn', 'last'],
+      'func-call-spacing'               : ['warn', 'never'],
+      'no-mixed-spaces-and-tabs'        : ['warn'],
+      'no-spaced-func'                  : ['warn'],
+      'no-tabs'                         : ['warn'],
+      // 'no-whitespace-before-property'   : ['warn'],
+      // 'object-curly-spacing'            : ['warn', 'always'],
       'quotes'                          : ['warn', 'single', { 'avoidEscape': true }],
-      'space-before-function-paren'     : ['warn', { 'anonymous': 'never', 'named': 'never', 'asyncArrow': 'always' }],
-      'space-in-parens'                 : ['warn', 'never'],
-      'spaced-comment'                  : ['warn', 'always'],
+      // 'semi-spacing'                    : ['warn', { 'before': false, 'after': true }],
+      // 'space-before-blocks'             : ['warn'],
+      // 'space-before-function-paren'     : ['warn', { 'anonymous': 'always', 'named': 'never', 'asyncArrow': 'always' }],
+      // 'space-in-parens'                 : ['warn', 'never'],
+      // 'spaced-comment'                  : ['warn', 'always'],
+      // 'switch-colon-spacing'            : ['warn', { 'after': true, 'before': false }],
+      // 'template-curly-spacing'          : ['warn'],
+      // 'template-tag-spacing'            : ['warn', 'never'],
 
       // @TODO: phase 2 - these are safe, but apply 1-by-1
       'no-var'                          : ['warn'],
-      'object-shorthand'                : ['warn', 'always', { 'ignoreConstructors': false, 'avoidQuotes': true } ],
+      'object-shorthand'                : ['warn', 'always', { 'ignoreConstructors': false, 'avoidQuotes': true }],
       'prefer-arrow-callback'           : ['warn'],
       'prefer-const'                    : ['warn'],
       'prefer-template'                 : ['warn'],
@@ -82,11 +102,12 @@ export default defineConfig(
       '@typescript-eslint/no-unsafe-return'                       : ['off'],
       '@typescript-eslint/no-unused-expressions'                  : ['off'],
       '@typescript-eslint/no-unused-vars'                         : ['off'],  // revert to override below
-      '@typescript-eslint/prefer-for-of'                          : ['off'],
+      '@typescript-eslint/prefer-for-of'                          : ['warn'],
       '@typescript-eslint/prefer-includes'                        : ['warn'],
       '@typescript-eslint/prefer-nullish-coalescing'              : ['warn'],
       '@typescript-eslint/prefer-optional-chain'                  : ['warn'],
-      '@typescript-eslint/prefer-promise-reject-errors'           : ['off'],
+      '@typescript-eslint/prefer-promise-reject-errors'           : ['warn'],
+      '@typescript-eslint/prefer-string-starts-ends-with'         : ['warn'],
       '@typescript-eslint/require-await'                          : ['off'],
       '@typescript-eslint/restrict-plus-operands'                 : ['off'],
       '@typescript-eslint/restrict-template-expressions'          : ['off'],
