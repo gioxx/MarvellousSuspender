@@ -85,6 +85,8 @@ export const gsChrome = {
       });
     });
   },
+
+  /** @returns { Promise<chrome.tabs.Tab[]> } */
   tabsQuery: function(queryInfo) {
     queryInfo = queryInfo || {};
     return new Promise(resolve => {
@@ -97,6 +99,7 @@ export const gsChrome = {
       });
     });
   },
+
   tabsRemove: function(tabId) {
     return new Promise(resolve => {
       if (!tabId) {

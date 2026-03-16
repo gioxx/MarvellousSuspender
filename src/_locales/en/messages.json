@@ -25,10 +25,28 @@
     "js_context_soft_suspend_all_tabs": { "message": "Suspend all tabs in all windows" },
     "js_context_force_suspend_all_tabs": { "message": "Force suspend all tabs in all windows" },
     "js_context_unsuspend_all_tabs": { "message": "Unsuspend all tabs in all windows" },
+    "html_health_title": { "message": "Tab Health" },
+    "html_health_scan_button": { "message": "Scan Tabs" },
+    "html_health_copy_button": { "message": "Copy Results" },
+    "html_health_scan_label": { "message": "Scanning tabs..." },
+    "html_health_reload_button": {
+      "message": "Next: Reload $count$ Tabs",
+      "placeholders": { "count": { "content": "$1" } }
+     },
+    "html_health_restore_button": {
+      "message": "Next: Restore $count$ tabs to cache favicons",
+      "placeholders": { "count": { "content": "$1" } }
+     },
+    "html_health_action_label": { "message": "Restoring favicons..." },
+    "html_health_after_reload": { "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things." },
+    "html_health_after_restore": { "message": "You can click \"Scan Tabs\" again to see if we've improved things." },
+    "html_health_need_help1": { "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new" },
+    "html_health_need_help2": { "message": "Issue on GitHub." },
     "html_about_title": { "message": "About" },
 	  "html_about_fork_beginning": { "message": "Based on the original" },
     "html_about_fork_mid": { "message": "available on GitHub, without ADS tracking" },
     "html_about_fork_end": { "message": ", more information available on" },
+    "html_about_contributors": { "message": "Brought to you by" },
     "html_about_github_title": { "message": "GitHub" },
     "html_about_blog_title": { "message": "Blog" },
     "html_about_twitter_title": { "message": "Twitter" },
@@ -166,7 +184,8 @@
     "html_shortcuts_context_menu_note": { "message": "Note: These actions are also available via the right-click context menu." },
     "html_shortcuts_remap_keys": { "message": "Change shortcuts" },
     "html_sidebar_general_settings": { "message": "Settings" },
-    "html_sidebar_session_management": { "message": "Session management" },
+    "html_sidebar_session_management": { "message": "Sessions" },
+    "html_sidebar_tab_health": { "message": "Tab Health" },
     "html_sidebar_shortcuts": { "message": "Keyboard shortcuts" },
     "html_sidebar_support": { "message": "About" },
     "html_success_great_success": { "message": "Marvellous success!" },
@@ -246,11 +265,7 @@
     "js_history_migrate_fail": { "message": "Need 32-character extension id to migrate from" },
     "js_history_migrate_success": {
       "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
-      "placeholders": {
-        "tabcount": {
-          "content": "$1"
-        }
-      }
+      "placeholders": { "tabcount": { "content": "$1" } }
     },
     "js_suspended_remove_from_whitelist": { "message": "Remove site from whitelist" },
     "js_suspended_hotkey_to_reload": { "message": "Set keyboard shortcuts" },
