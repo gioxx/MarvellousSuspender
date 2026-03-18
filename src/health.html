@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+<head>
+  <link type="text/css" href="css/style.css" rel="stylesheet">
+  <script type="module" src="js/health.js"></script>
+  <title data-i18n="__MSG_ext_extension_name__ - __MSG_html_about_title__"></title>
+</head>
+
+
+<body>
+
+  <div class="mainContent">
+
+    <div class="pageHeader">
+      <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+    </div>
+
+    <div class="contentNav">
+      <ul>
+        <li>
+          <a href='options.html' data-i18n="__MSG_html_sidebar_general_settings__"></a>
+        </li>
+        <li class="noIncognito">
+          <a href="history.html" data-i18n="__MSG_html_sidebar_session_management__"></a>
+        </li>
+        <li>
+          <a class="active" href='health.html' data-i18n='__MSG_html_sidebar_tab_health__'></a>
+        </li>
+        <li class="noIncognito">
+          <a href='shortcuts.html' data-i18n="__MSG_html_sidebar_shortcuts__"></a>
+        </li>
+        <li>
+          <a href="about.html" data-i18n="__MSG_html_sidebar_support__"></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="content">
+
+			<h2 data-i18n="__MSG_html_health_title__"></h2>
+      <div data-i18n="__MSG_html_health_title_intro__"></div>
+      <div class="sub-section" id="version"></div>
+
+      <div class="sub-section">
+        <a href="#" id="scanButton" class="btn" data-i18n="__MSG_html_health_scan_button__"></a>
+      </div>
+      <div id="scanSection" class="sub-section reallyHidden">
+        <label id='scanLbl' class='topLabel' for='scanProgress' data-i18n='__MSG_html_health_scan_label__'></label>
+        <div id="scanProgress" class="sub-section option progress"><div class="inner"></div></div>
+        <div id="scanResults" class="log"></div>
+      </div>
+
+      <div id="actionSection" class="sub-section reallyHidden">
+        <div id="actionIntro" class="sub-section"></div>
+        <a href="#" id="actionButton" class="btn"></a>
+      </div>
+      <div id="actionProgress" class="reallyHidden">
+        <label id="actionLbl" class="topLabel" data-i18n="__MSG_html_health_action_label__"></label>
+      </div>
+      <div id="actionResults" class="log"></div>
+
+      <div class="sub-section"><hr/></div>
+      <div class="sub-section reallyHidden" id="copySection">
+        <div>
+          <span data-i18n="__MSG_html_health_need_help1__"></span>
+          <a href="https://github.com/gioxx/MarvellousSuspender/issues\" target="_blank" data-i18n="__MSG_html_health_need_help2__"></a>
+        </div>
+        <br/>
+        <a href="#" id="copyButton" class="btn" data-i18n="__MSG_html_health_copy_button__"></a>
+      </div>
+      <div class="sub-section log" id="log"></div>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
