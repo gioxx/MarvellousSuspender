@@ -155,6 +155,7 @@ import  { gsSession }             from './gsSession.js';
 
     await performAction('restore3', tabsSuspended, async (tab) => {
       await gsUtils.resuspendSuspendedTab(tab);
+      await new Promise((resolve) => setTimeout(resolve, 10));  // Give the browser some time to process the tabs
     });
 
     log('actionResults', '', chrome.i18n.getMessage('html_health_after_restore'));
@@ -302,7 +303,7 @@ import  { gsSession }             from './gsSession.js';
         return false;
       };
     }
-    else if (tabTypes.favDefault.length) {
+    else if (tabTypes.favHosts.length) {
       quickElemById('actionSection').style.display = 'block';
       quickElemById('actionIntro').innerHTML = chrome.i18n.getMessage('html_health_restore_intro');
       const button  = quickElemById('actionButton');

@@ -27,7 +27,7 @@
     "js_context_unsuspend_all_tabs": { "message": "Unsuspend all tabs in all windows" },
     "html_health_title": { "message": "Tab Health (Beta)" },
     "html_health_title_intro": { "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them." },
-    "html_health_all_good": { "message": "We didn't find any issues with your suspended tabs.  If you're having issues with your suspended tabs, let us know below and we'll try to expand this health check." },
+    "html_health_all_good": { "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check." },
     "html_health_reload_intro": { "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up." },
     "html_health_restore_intro": { "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons." },
     "html_health_scan_button": { "message": "Scan Tabs" },
