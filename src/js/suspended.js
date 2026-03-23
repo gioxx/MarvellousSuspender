@@ -211,6 +211,7 @@ import  { tgs }                   from './tgs.js';
     };
   }
 
+  // This function has been disabled below, and replaced by showing 1 new tab when an update is available
   async function setUpdateBanner() {
     // Check if there are updates
     const update = await gsStorage.getOption(gsStorage.UPDATE_AVAILABLE);
@@ -268,7 +269,7 @@ import  { tgs }                   from './tgs.js';
       title = gsUtils.htmlEncode(title);
     }
     setTitle(title);
-    await setUpdateBanner();
+    // await setUpdateBanner();
     setWatermark();
 
     // Set faviconMeta
