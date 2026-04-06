@@ -564,13 +564,13 @@
         "message": "යාවත්කාල කරන්න "
     },
     "html_update_heading2": {
-        "message": "විශ්මයජනක වීමට ආසන්නයි"
+        "message": "is ready to get marvellous-<i>er</i>"
     },
     "html_update_info": {
-        "message": "The Marvelous Suspender හි නව අනුවාදයක් ස්ථාපනය කිරීමට සූදානම්ය.\nකරුණාකර සටහන් කරන්න: යාවත්කාලීන කිරීමේදී ඔබගේ අත්හිටුවන ලද ටැබ් කෙටියෙන් අතුරුදහන් වනු ඇත."
+        "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
     },
     "html_update_info_withbackup": {
-        "message": "යම් අවස්ථාවක දී, ඔබගේ වත්මන් ටැබ් සැසියේ උපස්ථයක් සුරැකීමට දැන් හොඳ කාලයක් විය හැකිය."
+        "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
     },
     "html_update_info_nobackup_prefix": {
         "message": "ඔබගේ වත්මන් සැසියේ පිටපතක් අපනයනය කිරීම තරයේ නිර්දේශ කෙරේ "
