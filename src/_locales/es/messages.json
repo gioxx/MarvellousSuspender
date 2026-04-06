@@ -564,13 +564,13 @@
         "message": "Actualizar"
     },
     "html_update_heading2": {
-        "message": "está por volverse más maravilloso"
+        "message": "is ready to get marvellous-<i>er</i>"
     },
     "html_update_info": {
-        "message": "Una nueva versión de The Marvelous Suspender está lista para ser instalada.\nTenga en cuenta: durante la actualización, las pestañas suspendidas desaparecerán brevemente."
+        "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
     },
     "html_update_info_withbackup": {
-        "message": "Por si acaso, ahora podría ser un buen momento para guardar una copia de seguridad de su sesión de pestañas actual."
+        "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
     },
     "html_update_info_nobackup_prefix": {
         "message": "Se recomienda encarecidamente que exporte una copia de su sesión actual desde "
