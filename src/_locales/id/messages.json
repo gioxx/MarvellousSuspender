@@ -564,13 +564,13 @@
         "message": "Perbarui"
     },
     "html_update_heading2": {
-        "message": "is about to get marvellous-er"
+        "message": "is ready to get marvellous-<i>er</i>"
     },
     "html_update_info": {
-        "message": "Sebuah bersi baru dari The Marvellous Suspender siap dipasang.\nHarap diperhatikan: Selama pembaruan, tab yang ditangguhkan Anda akan menghilang sekilas."
+        "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
     },
     "html_update_info_withbackup": {
-        "message": "Jika, sekarang mungkin adalah waktu yang tepat untuk menyimpan cadangan sesi tab Anda saat ini."
+        "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
     },
     "html_update_info_nobackup_prefix": {
         "message": "Sangat disarankan agar Anda mengekspor sebuah salinan sesi Anda saat ini dari"
