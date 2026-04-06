@@ -564,13 +564,13 @@
         "message": "Mis à jour"
     },
     "html_update_heading2": {
-        "message": "est sur le point de devenir marvellous-er"
+        "message": "is ready to get marvellous-<i>er</i>"
     },
     "html_update_info": {
-        "message": "Une nouvelle version de The Marvellous Suspender est prête à être installée.\nVeuillez noter : pendant la mise à jour, vos onglets suspendus disparaîtront brièvement."
+        "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
     },
     "html_update_info_withbackup": {
-        "message": "Au cas où, le moment est peut-être bien choisi pour enregistrer une sauvegarde de votre session d'onglets en cours."
+        "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
     },
     "html_update_info_nobackup_prefix": {
         "message": "Il est fortement recommandé d'exporter une copie de votre session actuelle à partir de "
