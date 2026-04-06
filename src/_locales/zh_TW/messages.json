@@ -564,13 +564,13 @@
         "message": "更新"
     },
     "html_update_heading2": {
-        "message": "is about to get marvellous-er"
+        "message": "is ready to get marvellous-<i>er</i>"
     },
     "html_update_info": {
-        "message": "一個新版本的 The Marvellous Suspender 已準備好安裝。\n請注意：凍結分頁將在更新過程中暫時消失。"
+        "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
     },
     "html_update_info_withbackup": {
-        "message": "請在繼續之前儲存目前瀏覽階段的備份。"
+        "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
     },
     "html_update_info_nobackup_prefix": {
         "message": "強烈建議您在繼續之前從"
