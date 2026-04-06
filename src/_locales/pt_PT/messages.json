@@ -564,13 +564,13 @@
         "message": "Atualização"
     },
     "html_update_heading2": {
-        "message": "is about to get marvellous-er"
+        "message": "is ready to get marvellous-<i>er</i>"
     },
     "html_update_info": {
-        "message": "Uma nova versão do The Marvellous Suspender está pronta para ser instalada.\nObservação: durante a atualização, suas guias suspensas desaparecerão brevemente."
+        "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
     },
     "html_update_info_withbackup": {
-        "message": "este caso, agora pode ser um bom momento para fazer um backup da sua sessão de guias atuais."
+        "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
     },
     "html_update_info_nobackup_prefix": {
         "message": "É altamente recomendável que você exporte uma cópia de sua sessão atual de "
