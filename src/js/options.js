@@ -4,7 +4,7 @@ import  { gsUtils }               from './gsUtils.js';
 
 (() => {
 
-  var elementPrefMap = {
+  const elementPrefMap = {
     preview: gsStorage.SCREEN_CAPTURE,
     forceScreenCapture: gsStorage.SCREEN_CAPTURE_FORCE,
     suspendInPlaceOfDiscard: gsStorage.SUSPEND_IN_PLACE_OF_DISCARD,
@@ -27,10 +27,8 @@ import  { gsUtils }               from './gsUtils.js';
 
 
   function selectComboBox(element, key) {
-    var i, child;
-
-    for (i = 0; i < element.children.length; i += 1) {
-      child = element.children[i];
+    for (let i = 0; i < element.children.length; i += 1) {
+      const child = element.children[i];
       if (child.value === key) {
         child.selected = 'true';
         break;
@@ -38,17 +36,14 @@ import  { gsUtils }               from './gsUtils.js';
     }
   }
 
-  //populate settings from synced storage
+  // populate settings from synced storage
   function initSettings() {
     gsStorage.getSettings().then((settings) => {
 
-      var optionEls = document.getElementsByClassName('option'),
-        pref,
-        element,
-        i;
-      for (i = 0; i < optionEls.length; i++) {
-        element = optionEls[i];
-        pref = elementPrefMap[element.id];
+      const optionEls = document.getElementsByClassName('option');
+      for (let i = 0; i < optionEls.length; i++) {
+        const element = optionEls[i];
+        const pref = elementPrefMap[element.id];
         populateOption(element, settings[pref]);
       }
 
@@ -58,7 +53,7 @@ import  { gsUtils }               from './gsUtils.js';
       setAutoSuspendOptionsVisibility(parseFloat(settings[gsStorage.SUSPEND_TIME]) > 0);
       setSyncNoteVisibility(!settings[gsStorage.SYNC_SETTINGS]);
 
-      let searchParams = new URL(location.href).searchParams;
+      const searchParams = new URL(location.href).searchParams;
       if (searchParams.has('firstTime')) {
         document
           .querySelector('.welcome-message')
@@ -77,12 +72,12 @@ import  { gsUtils }               from './gsUtils.js';
             'https://*/*',
             // 'file://*/*',
           ],
-        }, function(granted) {
+        }, (granted) => {
           if (chrome.runtime.lastError) {
             gsUtils.warning('addClickHandlers', chrome.runtime.lastError);
           }
           if (!granted) {
-            let select = document.getElementById('preview');
+            const select = document.getElementById('preview');
             select.value = '0';
             select.dispatchEvent(new Event('change'));
           }
@@ -99,9 +94,11 @@ import  { gsUtils }               from './gsUtils.js';
       element.getAttribute('type') === 'checkbox'
     ) {
       element.checked = value;
-    } else if (element.tagName === 'SELECT') {
+    }
+    else if (element.tagName === 'SELECT') {
       selectComboBox(element, value);
-    } else if (element.tagName === 'TEXTAREA') {
+    }
+    else if (element.tagName === 'TEXTAREA') {
       element.value = value;
     }
   }
@@ -125,7 +122,8 @@ import  { gsUtils }               from './gsUtils.js';
   function setForceScreenCaptureVisibility(visible) {
     if (visible) {
       document.getElementById('forceScreenCaptureContainer').style.display = 'block';
-    } else {
+    }
+    else {
       document.getElementById('forceScreenCaptureContainer').style.display = 'none';
     }
   }
@@ -133,7 +131,8 @@ import  { gsUtils }               from './gsUtils.js';
   function setSyncNoteVisibility(visible) {
     if (visible) {
       document.getElementById('syncNote').style.display = 'block';
-    } else {
+    }
+    else {
       document.getElementById('syncNote').style.display = 'none';
     }
   }
@@ -141,10 +140,11 @@ import  { gsUtils }               from './gsUtils.js';
   function setAutoSuspendOptionsVisibility(visible) {
     Array.prototype.forEach.call(
       document.getElementsByClassName('autoSuspendOption'),
-      function(el) {
+      (el) => {
         if (visible) {
           el.style.display = 'block';
-        } else {
+        }
+        else {
           el.style.display = 'none';
         }
       },
@@ -152,29 +152,32 @@ import  { gsUtils }               from './gsUtils.js';
   }
 
   function handleChange(element) {
-    return async() => {
+    return async () => {
       const pref = elementPrefMap[element.id];
 
-      //add specific screen element listeners
+      // add specific screen element listeners
       if (pref === gsStorage.SCREEN_CAPTURE) {
         setForceScreenCaptureVisibility(getOptionValue(element) !== '0');
-      } else if (pref === gsStorage.SUSPEND_TIME) {
+      }
+      else if (pref === gsStorage.SUSPEND_TIME) {
         const interval = getOptionValue(element);
         setAutoSuspendOptionsVisibility(interval > 0);
-      } else if (pref === gsStorage.SYNC_SETTINGS) {
+      }
+      else if (pref === gsStorage.SYNC_SETTINGS) {
         // we only really want to show this on load. not on toggle
         if (getOptionValue(element)) {
           setSyncNoteVisibility(false);
         }
-      } else if (pref === gsStorage.THEME) {
+      }
+      else if (pref === gsStorage.THEME) {
         // window.location.reload();
         // Instead of reloading the page, just update the CSS directly
         gsUtils.setPageTheme(window, getOptionValue(element));
       }
 
-      var [oldValue, newValue] = await saveChange(element);
+      const [oldValue, newValue] = await saveChange(element);
       if (oldValue !== newValue) {
-        var prefKey = elementPrefMap[element.id];
+        const prefKey = elementPrefMap[element.id];
         gsUtils.performPostSaveUpdates(
           [prefKey],
           { [prefKey]: oldValue },
@@ -189,12 +192,12 @@ import  { gsUtils }               from './gsUtils.js';
     let newValue = getOptionValue(element);
     const oldValue = await gsStorage.getOption(pref);
 
-    //clean up whitelist before saving
+    // clean up whitelist before saving
     if (pref === gsStorage.WHITELIST) {
       newValue = gsUtils.cleanupWhitelist(newValue);
     }
 
-    //save option
+    // save option
     if (oldValue !== newValue) {
       await gsStorage.setOptionAndSync(elementPrefMap[element.id], newValue);
     }
@@ -202,23 +205,47 @@ import  { gsUtils }               from './gsUtils.js';
     return [oldValue, newValue];
   }
 
-  gsUtils.documentReadyAndLocalisedAsPromised(window).then(function() {
+
+  async function messageRequestListener(request, sender, sendResponse) {
+    gsUtils.log('options', 'messageRequestListener', request.action, request, sender);
+
+    switch (request.action) {
+
+      // { action: 'initSettings', tab: focusedTab }
+      case 'initSettings': {
+        initSettings();
+        break;
+      }
+
+      default: {
+        // NOTE: All messages sent to chrome.runtime will be delivered here too
+        gsUtils.log('options', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
+        // sendResponse();
+        break;
+      }
+
+    }
+    return true;
+  }
+
+
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(() => {
+    chrome.runtime.onMessage.addListener(messageRequestListener);
     initSettings();
 
-    var optionEls = document.getElementsByClassName('option'),
-      element,
-      i;
+    const optionEls = document.getElementsByClassName('option');
 
-    //add change listeners for all 'option' elements
-    for (i = 0; i < optionEls.length; i++) {
-      element = optionEls[i];
+    // add change listeners for all 'option' elements
+    for (let i = 0; i < optionEls.length; i++) {
+      const element = optionEls[i];
       if (element.tagName === 'TEXTAREA') {
         element.addEventListener(
           'input',
           gsUtils.debounce(handleChange(element), 200),
           false,
         );
-      } else {
+      }
+      else {
         element.onchange = handleChange(element);
       }
     }
@@ -230,7 +257,7 @@ import  { gsUtils }               from './gsUtils.js';
       for (const tab of tabs) {
         const url     = gsUtils.isSuspendedTab(tab) ? gsUtils.getOriginalUrl(tab.url) : tab.url;
         if (!(gsUtils.isSpecialTab(tab)) && (await gsUtils.checkWhiteList(url))) {
-          const str   = url.length > 55 ? url.substr(0, 52) + '...' : url;
+          const str   = url.length > 55 ? `${url.substr(0, 52)}...` : url;
           tabUrls.push(str);
         }
       }
@@ -256,11 +283,11 @@ import  { gsUtils }               from './gsUtils.js';
       // gsUtils.log('options', 'testWhitelistBtn', '\n', alertString);
     };
 
-    //hide incompatible sidebar items if in incognito mode
+    // hide incompatible sidebar items if in incognito mode
     if (chrome.extension.inIncognitoContext) {
       Array.prototype.forEach.call(
         document.getElementsByClassName('noIncognito'),
-        function(el) {
+        (el) => {
           el.style.display = 'none';
         },
       );

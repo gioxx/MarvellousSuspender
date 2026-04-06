@@ -158,11 +158,13 @@ export const gsFavicon = (() => {
     // }
 
     // Else try one more time with the root hostname -- this is needed for YouTube, for example
-    const fullUrl = new URL(url).toString();
-    const hostUrl = gsUtils.getRootUrlNew(fullUrl);
-    if (!fRecursion && fullUrl != hostUrl) {
-      gsUtils.log('gsFavicon', 'Trying root hostname', fullUrl, hostUrl);
-      faviconMeta = await getFaviconMetaForUrl(hostUrl, tabFavIconUrl, true);
+
+    const fullUrl = gsUtils.getNewURL(url)?.toString();
+    const rootUrl = gsUtils.getRootUrlNew(fullUrl);       // data URI and invalid URLs will return undefined here
+
+    if (!fRecursion && fullUrl && rootUrl && fullUrl != rootUrl) {
+      gsUtils.log('gsFavicon', 'Trying root hostname', fullUrl, rootUrl);
+      faviconMeta = await getFaviconMetaForUrl(rootUrl, tabFavIconUrl, true);
       if (faviconMeta) {
         gsUtils.log('gsFavicon', 'Built faviconMeta from root hostname', faviconMeta);
         await saveFaviconMetaToCache(url, faviconMeta);

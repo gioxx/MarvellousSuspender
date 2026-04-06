@@ -6,16 +6,17 @@ import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
 
 export const gsTabDiscardManager = (function() {
-  'use strict';
 
   const DEFAULT_CONCURRENT_DISCARDS = 5;
   const DEFAULT_DISCARD_TIMEOUT = 5 * 1000;
 
   const QUEUE_ID = '_discardQueue';
 
-  let _discardQueue;
+  let   _discardQueue;
+  const INIT_RESOLVERS = [];
 
   function initAsPromised() {
+    gsUtils.log('gsTabDiscardManager initAsPromised', _discardQueue);
     return new Promise(resolve => {
       const queueProps = {
         concurrentExecutors: DEFAULT_CONCURRENT_DISCARDS,
@@ -25,7 +26,21 @@ export const gsTabDiscardManager = (function() {
       };
       _discardQueue = gsTabQueue.init(QUEUE_ID, queueProps);
       gsUtils.log(QUEUE_ID, 'init successful');
+
+      let resolveFn;
+      while ((resolveFn = INIT_RESOLVERS.pop())) {
+        resolveFn();
+      }
+
       resolve();
+    });
+  }
+
+  /** @returns { Promise<void> } */
+  async function queueInitialized() {
+    return new Promise((resolve) => {
+      if (_discardQueue) resolve();     // resolve immediately if the queue exists
+      INIT_RESOLVERS.push(resolve);     // otherwise, push our resolve function into a queue that will be processed after initialization
     });
   }
 
@@ -37,13 +52,22 @@ export const gsTabDiscardManager = (function() {
     );
   }
 
-  function queueTabForDiscardAsPromise(tab, executionProps, processingDelay) {
-    gsUtils.log(tab.id, QUEUE_ID, `Queueing tab for discarding.`);
+  async function queueTabForDiscardAsPromise(tab, executionProps, processingDelay) {
+    await queueInitialized();
+    if (!_discardQueue) {
+      gsUtils.warning(tab.id, QUEUE_ID, 'queueTabForDiscardAsPromise', 'Queue not initialized.  This should never fire.');
+      return Promise.resolve(false);
+    }
+    gsUtils.log(tab.id, QUEUE_ID, 'Queueing tab for discarding.');
     executionProps = executionProps || {};
-    return _discardQueue.queueTabAsPromise( tab, executionProps, processingDelay );
+    return _discardQueue.queueTabAsPromise(tab, executionProps, processingDelay);
   }
 
   function unqueueTabForDiscard(tab) {
+    if (!_discardQueue) {
+      gsUtils.warning(tab.id, QUEUE_ID, 'queueTabForDiscardAsPromise', 'Queue not initialized.  This should never fire.');
+      return;
+    }
     const removed = _discardQueue.unqueueTab(tab);
     if (removed) {
       gsUtils.log(tab.id, QUEUE_ID, 'Removed tab from discard queue');
@@ -56,11 +80,12 @@ export const gsTabDiscardManager = (function() {
     let _tab = null;
     try {
       _tab = await gsChrome.tabsGet(tab.id);
-    } catch (error) {
+    }
+    catch (error) {
       // assume tab has been discarded
     }
     if (!_tab) {
-      gsUtils.warning( tab.id, QUEUE_ID, `Failed to discard tab. Tab may have already been discarded or removed.` );
+      gsUtils.warning(tab.id, QUEUE_ID, 'Failed to discard tab. Tab may have already been discarded or removed.');
       resolve(false);
       return;
     }
@@ -89,14 +114,15 @@ export const gsTabDiscardManager = (function() {
       if (chrome.runtime.lastError) {
         gsUtils.warning(tab.id, QUEUE_ID, chrome.runtime.lastError);
         resolve(false);
-      } else {
+      }
+      else {
         resolve(true);
       }
     });
   }
 
-  function handleDiscardException( tab, executionProps, exceptionType, resolve, reject, requeue ) {
-    gsUtils.warning( tab.id, QUEUE_ID, `Failed to discard tab: ${exceptionType}` );
+  function handleDiscardException(tab, executionProps, exceptionType, resolve, reject, requeue) {
+    gsUtils.warning(tab.id, QUEUE_ID, `Failed to discard tab: ${exceptionType}`);
     resolve(false);
   }
 

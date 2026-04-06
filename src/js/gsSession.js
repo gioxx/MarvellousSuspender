@@ -54,9 +54,13 @@ export const gsSession = (function() {
 
     const suspendedTabCount = await gsUtils.getSuspendedTabCount();
     if (!sessionRestorePoint || suspendedTabCount > 0) {
-      //show update message in suspended.html page
-      await gsStorage.setOptionAndSync(gsStorage.UPDATE_AVAILABLE, true);
-      // await gsChrome.tabsCreate(updateUrl);
+
+      // show update message in suspended.html page
+      // await gsStorage.setOptionAndSync(gsStorage.UPDATE_AVAILABLE, true);
+
+      if (!sessionRestorePoint) {
+        await gsChrome.tabsCreate(updateUrl);
+      }
 
       //ensure we don't leave any windows with no unsuspended tabs
       await unsuspendActiveTabInEachWindow();
