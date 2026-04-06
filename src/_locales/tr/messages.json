@@ -564,13 +564,13 @@
         "message": "Güncelle"
     },
     "html_update_heading2": {
-        "message": "is about to get marvellous-er"
+        "message": "is ready to get marvellous-<i>er</i>"
     },
     "html_update_info": {
-        "message": "The Marvellous Suspender yeni bir sürümü kurulmaya hazır.\nLütfen dikkat: Güncelleme sırasında askıya alınmış sekmeleriniz kısa bir süre kaybolacaktır."
+        "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
     },
     "html_update_info_withbackup": {
-        "message": "Şu anki sekmenin oturum yedeğini almak için uygun zaman olabilir."
+        "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
     },
     "html_update_info_nobackup_prefix": {
         "message": "Şu anki oturumunuzun buradan kopyasını dışarı aktarma yapmanızı öneririz "
