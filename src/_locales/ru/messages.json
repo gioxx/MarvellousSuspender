@@ -564,13 +564,13 @@
         "message": "Обновление"
     },
     "html_update_heading2": {
-        "message": "is about to get marvellous-er"
+        "message": "is ready to get marvellous-<i>er</i>"
     },
     "html_update_info": {
-        "message": "Новая версия The Marvellous Suspender готова к установке.\nПримечание: в процессе обновления приостановленные вкладки могут временно пропасть."
+        "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
     },
     "html_update_info_withbackup": {
-        "message": "На всякий случай рекомендуется сделать резервную копию вкладок текущей сессии."
+        "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
     },
     "html_update_info_nobackup_prefix": {
         "message": "Рекомендуется сделать экспорт текущей сессии"
