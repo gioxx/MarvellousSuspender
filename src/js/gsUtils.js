@@ -31,44 +31,44 @@ export const gsUtils = {
   debugInfo   : false,
   debugError  : false,
 
-  contains: function(array, value) {
+  contains(array, value) {
     for (var i = 0; i < array.length; i++) {
       if (array[i] === value) return true;
     }
     return false;
   },
 
-  dir: function(object) {
+  dir(object) {
     if (gsUtils.debugInfo) {
       // eslint-disable-next-line no-console
       console.dir(object);
     }
   },
-  log: function(id, text, ...args) {
+  log(id, text, ...args) {
     if (gsUtils.debugInfo) {
       args = args || [];
       // eslint-disable-next-line no-console
       console.log(id, (new Date() + '').split(' ')[4], text, ...args);
     }
   },
-  highlight: function(text, ...args) {
+  highlight(text, ...args) {
     gsUtils.log('highlight: %s %c%s', 'color:red', text, ...args);
   },
-  warning: function(id, text, ...args) {
+  warning(id, text, ...args) {
     if (gsUtils.debugError) {
       args = args || [];
       const ignores = ['Error', 'gsUtils', 'gsMessages'];
       const errorLine = gsUtils
         .getStackTrace()
         .split('\n')
-        .filter(o => !ignores.find(p => o.indexOf(p) >= 0))
+        .filter((o) => !ignores.find((p) => o.indexOf(p) >= 0))
         .join('\n');
       args.push(`\n${errorLine}`);
       // eslint-disable-next-line no-console
       console.warn('WARNING:', id, (new Date() + '').split(' ')[4], text, ...args,);
     }
   },
-  error: function(id, errorObj, ...args) {
+  error(id, errorObj, ...args) {
     if (errorObj === undefined) {
       errorObj = id;
       id = '?';
@@ -90,21 +90,21 @@ export const gsUtils = {
       console.error(
         gsUtils.getPrintableError(errorMessage, stackTrace, ...args),
       );
-    } else {
+    }
+    else {
       // const logString = errorObj.hasOwnProperty('stack')
       //   ? errorObj.stack
       //   : `${JSON.stringify(errorObj)}\n${gsUtils.getStackTrace()}`;
     }
   },
-  // Puts all the error args into a single printable string so that all the info
-  // is displayed in chrome://extensions error console
+  // Puts all the error args into a single printable string so that all the info is displayed in the error console
   getPrintableError(errorMessage, stackTrace, ...args) {
     let errorString = errorMessage;
-    errorString += `\n${args.map(o => JSON.stringify(o, null, 2)).join('\n')}`;
+    errorString += `\n${args.map((o) => JSON.stringify(o, null, 2)).join('\n')}`;
     errorString += `\n${stackTrace}`;
     return errorString;
   },
-  getStackTrace: function() {
+  getStackTrace() {
     var obj = {};
     if ('captureStackTrace' in Error && typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(obj, gsUtils.getStackTrace);
@@ -112,48 +112,68 @@ export const gsUtils = {
     }
   },
 
-  isDebugInfo: function() {
+  isDebugInfo() {
     return gsUtils.debugInfo;
   },
 
-  isDebugError: function() {
+  isDebugError() {
     return gsUtils.debugError;
   },
 
-  setDebugInfo: function(value) {
+  setDebugInfo(value) {
     gsUtils.debugInfo = value;
   },
 
-  setDebugError: function(value) {
+  setDebugError(value) {
     gsUtils.debugError = value;
   },
 
-  isDiscardedTab: function(tab) {
+  isDiscardedTab(tab) {
     return tab.discarded;
   },
 
   /**
-   * @param   {chrome.tabs.Tab} tab
-   * @returns {string}
+   *
+   * @param {chrome.tabs.Tab} tab
+   * @returns {string | undefined}
    */
-  getTabUrl(tab) {
-    return tab.url ?? tab.pendingUrl ?? '';
+  getTabUrl (tab) {
+    return tab.url || tab.pendingUrl;
   },
 
-  isValidTabWithUrl: function(tab) {
-    if (!tab || typeof tab == "undefined") {
+  isValidTabWithUrl(tab) {
+    if (!tab || typeof tab == 'undefined') {
       return false;
     }
     const url = gsUtils.getTabUrl(tab);
-    if (url && typeof url == "string" && url.length > 0) {
+    if (url && typeof url == 'string' && url.length > 0) {
       return true;
     }
     return false;
   },
 
 
-  //tests for non-standard web pages. does not check for suspended pages!
-  isSpecialTab: function(tab) {
+  /**
+   * Detect the top Chromium browsers internal URL protocols.
+   * If afterScheme is provided, it should typically start with "://"
+   * @param {string} [url]
+   * @param {string} [afterScheme]
+   * @returns {boolean}
+   */
+  isBrowserInternalURL(url, afterScheme) {
+    const after = afterScheme ?? ':';
+    const ret   = Boolean((url ?? '').match(new RegExp(`^(about|chrome|edge|opera|brave|vivaldi|browser|arc)${after}`, 'i')));
+    // gsUtils.log('gsUtils', 'isBrowserSpecialURL', url, afterScheme, ret);
+    return ret;
+  },
+
+  /**
+   * tests for non-standard web pages
+   * suspended tabs are not considered "Special"
+   * @param {chrome.tabs.Tab} tab
+   * @returns {boolean}
+   */
+  isSpecialTab(tab) {
     if (!gsUtils.isValidTabWithUrl(tab)) {
       return false;
     }
@@ -161,18 +181,11 @@ export const gsUtils = {
       return false;
     }
     const url = gsUtils.getTabUrl(tab);
-    // Careful, suspended urls start with "chrome-extension://"
-    if (
-      url.startsWith('about') ||
-      url.startsWith('chrome') ||
-      gsUtils.isBlockedFileTab(tab)
-    ) {
-      return true;
-    }
-    return false;
+    // NOTE: suspended urls start with "chrome" (chrome-extension://), so we first check isSuspendedTab above
+    return ( this.isBrowserInternalURL(url) || gsUtils.isBlockedFileTab(tab) );
   },
 
-  isFileTab: function(tab) {
+  isFileTab(tab) {
     if (!gsUtils.isValidTabWithUrl(tab)) {
       return false;
     }
@@ -185,7 +198,7 @@ export const gsUtils = {
 
   //tests if the page is a file:// page AND the user has not enabled access to
   //file URLs in extension settings
-  isBlockedFileTab: function(tab) {
+  isBlockedFileTab(tab) {
     if (gsUtils.isFileTab(tab) && !gsSession.isFileUrlsAccessAllowed()) {
       return true;
     }
@@ -193,12 +206,12 @@ export const gsUtils = {
   },
 
   //does not include suspended pages!
-  isInternalTab: function(tab) {
+  isInternalTab(tab) {
     if (!gsUtils.isValidTabWithUrl(tab)) {
       return false;
     }
     const url = gsUtils.getTabUrl(tab);
-    const isLocalExtensionPage = url.startsWith(`chrome-extension://${chrome.runtime.id}`);
+    const isLocalExtensionPage = url?.startsWith(chrome.runtime.getURL(''));
     return isLocalExtensionPage && !gsUtils.isSuspendedTab(tab);
   },
 
@@ -218,7 +231,7 @@ export const gsUtils = {
   },
 
   // Note: Normal tabs may be in a discarded state
-  isNormalTab: function(tab, excludeDiscarded) {
+  isNormalTab(tab, excludeDiscarded) {
     excludeDiscarded = excludeDiscarded || false;
     return (
       !gsUtils.isSpecialTab(tab) &&
@@ -227,17 +240,19 @@ export const gsUtils = {
     );
   },
 
-  isSuspendedTab: function(tab, looseMatching) {
+  isSuspendedTab(tab, looseMatching) {
     const url = tab.url || tab.pendingUrl;
     return gsUtils.isSuspendedUrl(url, looseMatching);
   },
 
-  isSuspendedUrl: function(url, looseMatching) {
+  isSuspendedUrl(url, looseMatching) {
     if (!url) {
       return false;
-    } else if (looseMatching) {
+    }
+    else if (looseMatching) {
       return url.indexOf('suspended.html') > 0;
-    } else {
+    }
+    else {
       return url.indexOf(chrome.runtime.getURL('suspended.html')) === 0;
     }
   },
@@ -248,8 +263,8 @@ export const gsUtils = {
     return suspendInPlaceOfDiscard && !discardInPlaceOfSuspend;
   },
 
-  removeTabsByUrlAsPromised: function(url) {
-    return new Promise(async resolve => {
+  removeTabsByUrlAsPromised(url) {
+    return new Promise(async (resolve) => {
       const tabs = await gsChrome.tabsQuery({ url });
       const tabIds = tabs.map((tab) => tab.id).filter(item => item !== undefined);
       chrome.tabs.remove(tabIds, () => {
@@ -258,8 +273,8 @@ export const gsUtils = {
     });
   },
 
-  createTabAndWaitForFinishLoading: function(url, maxWaitTimeInMs) {
-    return new Promise(async resolve => {
+  createTabAndWaitForFinishLoading(url, maxWaitTimeInMs) {
+    return new Promise(async (resolve) => {
       let tab = await gsChrome.tabsCreate(url);
       const retryUntil = Date.now() + (maxWaitTimeInMs || 1000);
       let loaded = false;
@@ -274,8 +289,8 @@ export const gsUtils = {
     });
   },
 
-  createWindowAndWaitForFinishLoading: function(createData, maxWaitTimeInMs) {
-    return new Promise(async resolve => {
+  createWindowAndWaitForFinishLoading(createData, maxWaitTimeInMs) {
+    return new Promise(async (resolve) => {
       let window = await gsChrome.windowsCreate(createData);
       maxWaitTimeInMs = maxWaitTimeInMs || 1000;
       const retryUntil = Date.now() + maxWaitTimeInMs;
@@ -296,9 +311,9 @@ export const gsUtils = {
     return gsUtils.checkSpecificWhiteList(url, whitelist);
   },
 
-  checkSpecificWhiteList: function(url, whitelistString) {
+  checkSpecificWhiteList(url, whitelistString) {
     const whitelistItems = whitelistString ? whitelistString.split(/[\s\n]+/) : [];
-    const whitelisted = whitelistItems.some(function(item) {
+    const whitelisted = whitelistItems.some((item) => {
       return gsUtils.testForMatch(item, url);
     }, this);
     return whitelisted;
@@ -325,12 +340,13 @@ export const gsUtils = {
     );
   },
 
-  testForMatch: function(whitelistItem, word) {
+  testForMatch(whitelistItem, word) {
     if (whitelistItem.length < 1) {
       return false;
 
       //test for regex ( must be of the form /foobar/ )
-    } else if (
+    }
+    else if (
       whitelistItem.length > 2 &&
       whitelistItem.indexOf('/') === 0 &&
       whitelistItem.indexOf('/', whitelistItem.length - 1) !== -1
@@ -338,13 +354,15 @@ export const gsUtils = {
       whitelistItem = whitelistItem.substring(1, whitelistItem.length - 1);
       try {
         new RegExp(whitelistItem);
-      } catch (e) {
+      }
+      catch (e) {
         return false;
       }
       return new RegExp(whitelistItem).test(word);
 
       // test as substring
-    } else {
+    }
+    else {
       return word.indexOf(whitelistItem) >= 0;
     }
   },
@@ -363,7 +381,7 @@ export const gsUtils = {
     );
   },
 
-  cleanupWhitelist: function(whitelist) {
+  cleanupWhitelist(whitelist) {
     var whitelistItems = whitelist ? whitelist.split(/[\s\n]+/).sort() : '',
       i,
       j;
@@ -379,28 +397,30 @@ export const gsUtils = {
     }
     if (whitelistItems.length) {
       return whitelistItems.join('\n');
-    } else {
+    }
+    else {
       return whitelistItems;
     }
   },
 
-  documentReadyAsPromised: function(doc) {
-    return new Promise(function(resolve) {
+  documentReadyAsPromised(doc) {
+    return new Promise((resolve) => {
       if (doc.readyState !== 'loading') {
         resolve(null);
-      } else {
-        doc.addEventListener('DOMContentLoaded', function() {
+      }
+      else {
+        doc.addEventListener('DOMContentLoaded', () => {
           resolve(null);
         });
       }
     });
   },
 
-  localiseHtml: function(parentEl) {
-    let replaceTagFunc = function(match, p1) {
+  localiseHtml(parentEl) {
+    const replaceTagFunc = function(match, p1) {
       return p1 ? chrome.i18n.getMessage(p1) : '';
     };
-    for (let el of parentEl.getElementsByTagName('*')) {
+    for (const el of parentEl.getElementsByTagName('*')) {
       if (el.hasAttribute('data-i18n')) {
         el.innerHTML = el
           .getAttribute('data-i18n')
@@ -418,7 +438,7 @@ export const gsUtils = {
     }
   },
 
-  setPageTheme: function(win, theme) {
+  setPageTheme(win, theme) {
     if (win.document?.body) {
       // Set theme
       if (theme === 'system') {
@@ -430,12 +450,12 @@ export const gsUtils = {
     }
   },
 
-  documentReadyAndLocalisedAsPromised: async function(win) {
+  async documentReadyAndLocalisedAsPromised(win) {
     await gsUtils.documentReadyAsPromised(win.document);
     gsUtils.localiseHtml(win.document);
 
     if (win.document?.body) {
-      let theme = await gsStorage.getOption(gsStorage.THEME);
+      const theme = await gsStorage.getOption(gsStorage.THEME);
       this.setPageTheme(win, theme);
       // Unhide the body
       setTimeout(() => {
@@ -445,7 +465,7 @@ export const gsUtils = {
   },
 
   generateSuspendedUrl: (url, title, scrollPos) => {
-    let encodedTitle = gsUtils.encodeString(title);
+    const encodedTitle = gsUtils.encodeString(title);
     var args = `#ttl=${encodedTitle}&pos=${scrollPos || '0'}&uri=${url}`;
     return chrome.runtime.getURL('suspended.html' + args);
   },
@@ -455,7 +475,7 @@ export const gsUtils = {
    * @param {string | URL | undefined} [base]
    * @returns {URL | undefined}
    */
-  getNewURL: function(url, base) {
+  getNewURL(url, base) {
     try {
       return new URL(url, base);
     }
@@ -466,7 +486,7 @@ export const gsUtils = {
    * @param {string | undefined} url
    * @returns string | undefined
    */
-  getRootUrlNew: function(url) {
+  getRootUrlNew(url) {
     // @TODO: Make some unit tests to verify getRootUrl vs getRootUrlNew
     if (!url || url.match('^(data|file):')) return;
     const fullURL = this.getNewURL(url);
@@ -474,7 +494,7 @@ export const gsUtils = {
     return newURL?.toString();
   },
 
-  getRootUrl: function(url, includePath, includeScheme) {
+  getRootUrl(url, includePath, includeScheme) {
     let rootUrlStr = url;
     let scheme;
 
@@ -488,14 +508,16 @@ export const gsUtils = {
     if (!includePath) {
       if (scheme === 'file://') {
         rootUrlStr = rootUrlStr.replace(new RegExp('/[^/]*$', 'g'), '');
-      } else {
+      }
+      else {
         const pathStartIndex =
           rootUrlStr.indexOf('/') > 0
             ? rootUrlStr.indexOf('/')
             : rootUrlStr.length;
         rootUrlStr = rootUrlStr.substring(0, pathStartIndex);
       }
-    } else {
+    }
+    else {
       // remove query string
       var match = rootUrlStr.match(/\/?[?#]+/);
       if (match) {
@@ -515,7 +537,7 @@ export const gsUtils = {
     return rootUrlStr;
   },
 
-  getHashVariable: function(key, urlStr) {
+  getHashVariable(key, urlStr) {
     var valuesByKey = {},
       keyPairRegEx = /^(.+)=(.+)/,
       hashStr;
@@ -532,13 +554,13 @@ export const gsUtils = {
     }
 
     //handle possible unencoded final var called 'uri'
-    let uriIndex = hashStr.indexOf('uri=');
+    const uriIndex = hashStr.indexOf('uri=');
     if (uriIndex >= 0) {
       valuesByKey.uri = hashStr.substr(uriIndex + 4);
       hashStr = hashStr.substr(0, uriIndex);
     }
 
-    hashStr.split('&').forEach(function(keyPair) {
+    hashStr.split('&').forEach((keyPair) => {
       if (keyPair && keyPair.match(keyPairRegEx)) {
         valuesByKey[keyPair.replace(keyPairRegEx, '$1')] = keyPair.replace(
           keyPairRegEx,
@@ -548,10 +570,10 @@ export const gsUtils = {
     });
     return valuesByKey[key] || false;
   },
-  getSuspendedTitle: function(urlStr) {
+  getSuspendedTitle(urlStr) {
     return gsUtils.decodeString(gsUtils.getHashVariable('ttl', urlStr) || '');
   },
-  getSuspendedScrollPosition: function(urlStr) {
+  getSuspendedScrollPosition(urlStr) {
     return gsUtils.decodeString(gsUtils.getHashVariable('pos', urlStr) || '');
   },
 
@@ -590,28 +612,31 @@ export const gsUtils = {
       if (gsUtils.isSuspendedTab(tab)) {
         cleanedTitle =
           gsUtils.getSuspendedTitle(tab.url) || gsUtils.getOriginalUrl(tab.url);
-      } else {
+      }
+      else {
         cleanedTitle = tab.url;
       }
     }
     return cleanedTitle;
   },
-  decodeString: function(string) {
+  decodeString(string) {
     try {
       return decodeURIComponent(string);
-    } catch (e) {
+    }
+    catch (e) {
       return string;
     }
   },
-  encodeString: function(string) {
+  encodeString(string) {
     try {
       return encodeURIComponent(string);
-    } catch (e) {
+    }
+    catch (e) {
       return string;
     }
   },
 
-  formatHotkeyString: function(hotkeyString) {
+  formatHotkeyString(hotkeyString) {
     return hotkeyString
       .replace(/Command/, '⌘')
       .replace(/[⌘\u2318]/, ' ⌘ ')
@@ -624,25 +649,25 @@ export const gsUtils = {
       .replace(/[ ]/g, ' \u00B7 ');
   },
 
-  getSuspendedTabCount: async function() {
+  async getSuspendedTabCount() {
     const currentTabs = await gsChrome.tabsQuery();
-    const currentSuspendedTabs = currentTabs.filter(tab =>
+    const currentSuspendedTabs = currentTabs.filter((tab) =>
       gsUtils.isSuspendedTab(tab),
     );
     return currentSuspendedTabs.length;
   },
 
-  htmlEncode: function(text) {
+  htmlEncode(text) {
     const pre = document.createElement('pre').appendChild(document.createTextNode(text));
     return pre.parentElement?.innerHTML;
   },
 
-  getChromeVersion: function() {
+  getChromeVersion() {
     var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
     return raw ? parseInt(raw[2], 10) : false;
   },
 
-  generateHashCode: function(text) {
+  generateHashCode(text) {
     var hash = 0,
       i,
       chr,
@@ -656,7 +681,7 @@ export const gsUtils = {
     return Math.abs(hash);
   },
 
-  performPostSaveUpdates: function(changedSettingKeys, oldValueBySettingKey, newValueBySettingKey) {
+  performPostSaveUpdates(changedSettingKeys, oldValueBySettingKey, newValueBySettingKey) {
     // gsUtils.log('gsUtils', 'performPostSaveUpdates');
     chrome.tabs.query({}, async (tabs) => {
       for (const tab of tabs) {
@@ -682,7 +707,7 @@ export const gsUtils = {
               if (updateTheme) {
                 gsStorage.getOption(gsStorage.THEME).then((theme) => {
                   // @TODO favicon will probably fail here if it can't create a DOM Image
-                  gsFavicon.getFaviconMeta(tab).then(faviconMeta => {
+                  gsFavicon.getFaviconMeta(tab).then((faviconMeta) => {
                     const isLowContrastFavicon = faviconMeta.isDark || false;
                     if (tab.id) {
                       chrome.tabs.sendMessage(tab.id, { action: 'updateTheme', tab, theme, isLowContrastFavicon });
@@ -784,9 +809,9 @@ export const gsUtils = {
     }
   },
 
-  getWindowFromSession: function(windowId, session) {
+  getWindowFromSession(windowId, session) {
     var window = false;
-    session.windows.some(function(curWindow) {
+    session.windows.some((curWindow) => {
       //leave this as a loose matching as sometimes it is comparing strings. other times ints
       if (curWindow.id == windowId) {
         window = curWindow;
@@ -796,7 +821,7 @@ export const gsUtils = {
     return window;
   },
 
-  removeInternalUrlsFromSession: function(session) {
+  removeInternalUrlsFromSession(session) {
     if (!session || !session.windows) { return; }
     for (var i = session.windows.length - 1; i >= 0; i--) {
       var curWindow = session.windows[i];
@@ -812,7 +837,7 @@ export const gsUtils = {
     }
   },
 
-  getSimpleDate: function(date) {
+  getSimpleDate(date) {
     var d = new Date(date);
     return (
       ('0' + d.getDate()).slice(-2) +
@@ -827,8 +852,8 @@ export const gsUtils = {
     );
   },
 
-  getHumanDate: function(date) {
-    var monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
+  getHumanDate(date) {
+    var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       d = new Date(date),
       currentDate = d.getDate(),
       currentMonth = d.getMonth(),
@@ -843,7 +868,7 @@ export const gsUtils = {
     return ( `${currentDate} ${monthNames[currentMonth]} ${currentYear} ${hoursString}:${minutesString}${AMPM}`);
   },
 
-  debounce: function(func, wait) {
+  debounce(func, wait) {
     var timeout;
     return () => {
       var context = this,
@@ -857,17 +882,18 @@ export const gsUtils = {
     };
   },
 
-  setTimeout: async function(timeout) {
-    return new Promise(resolve => {
+  async setTimeout(timeout) {
+    return new Promise((resolve) => {
       setTimeout(resolve, timeout);
     });
   },
 
   executeWithRetries: async ( promiseFn, fnArgsArray, maxRetries, retryWaitTime ) => {
-    const retryFn = async retries => {
+    const retryFn = async (retries) => {
       try {
         return await promiseFn(...fnArgsArray);
-      } catch (e) {
+      }
+      catch (e) {
         if (retries >= maxRetries) {
           gsUtils.warning('gsUtils', 'Max retries exceeded');
           return Promise.reject(e);
