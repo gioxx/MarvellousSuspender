@@ -138,7 +138,7 @@
         "message": "ඔබටත් ස්තුතියි"
     },
     "html_about_browserstack_suffix": {
-        "message": "නොමිලේ chrome පරීක්ෂණ මෙවලම් සැපයීම සඳහා."
+        "message": "for providing free browser testing tools."
     },
     "html_about_tgs_prefix": {
         "message": "මෙම දිගුව නොමැතිව කිසිදා පැවතිය නොහැක"
@@ -153,7 +153,7 @@
         "message": "රුහ් රොහ්!"
     },
     "html_broken_line1": {
-        "message": "ආරම්භ කිරීමට අසමත් විය. සමහර විට ඔබ Chrome හි නොගැලපෙන අනුවාදයක් භාවිතා කරනවාද?"
+        "message": "failed to start. Perhaps you are using an incompatible browser?"
     },
     "html_broken_line2": {
         "message": "දිගුව නැවත ආරම්භ කිරීමට උත්සාහ කරන්න. ගැටලුව දිගටම පවතින්නේ නම්, උදව් සඳහා විමසන්න"
@@ -267,13 +267,13 @@
         "message": "ටැබ් එක බලන විට ස්වයංක්‍රීයව අත්හිටුවීම ඉවත් කරන්න"
     },
     "html_options_suspend_discard_after_suspend": {
-        "message": "අත්හිටුවන විට Chrome හි බිල්ට් මතකය ඉතිරි කිරීම යොදන්න"
+        "message": "Apply your browser's built-in memory-saving when suspending"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1a": {
         "message": "භාවිතය මගින් අත්හිටුවන ලද ටැබ් එකක මතක භාවිතය තවත් අඩු කරයි"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-        "message": "Chrome හි ඇති 'ටැබ් ඉවතලන' ක්‍රියාකාරීත්වය. මෙය ඉහළ යාමට හේතු විය හැක"
+        "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1c": {
         "message": "ටැබ් විශාල සංඛ්‍යාවක් සමඟ වැඩ කරන විට 500% මතක ඉතිරියක් දක්වා."
@@ -285,7 +285,7 @@
         "message": "අත්හිටුවන ලද ටැබ් එකක්."
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-        "message": "Chrome ඉවතලීම පිළිබඳ වැඩි විස්තර සඳහා බලන්න:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3b": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -327,7 +327,7 @@
         "message": "මෙන්ම මතක භාවිතය තරමක් වැඩි විය."
     },
     "html_options_suspend_screen_capturing_tooltip_line3a": {
-        "message": "ටැබ් අත්හිටුවීමට දිගු කාලයක් ගත වීම හෝ ක්‍රෝම් වැනි අමුතු හැසිරීම් ඔබ දුටුවහොත්"
+        "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
     },
     "html_options_suspend_screen_capturing_tooltip_line3b": {
         "message": "අනපේක්ෂිත ලෙස බිඳ වැටීම, මෙම විශේෂාංගය අක්‍රිය කිරීමට උත්සාහ කරන්න."
@@ -381,31 +381,31 @@
         "message": "දිගුවේ වෙනත් තැනක."
     },
     "html_options_other_enable_sync": {
-        "message": "ඔබගේ Chrome පැතිකඩ සමඟ සැකසීම් සමමුහුර්ත කරන්න"
+        "message": "Sync settings with your browser profile"
     },
     "html_options_other_enable_sync_tooltip_line1a": {
-        "message": "සියලුම ක්‍රෝම් බ්‍රව්සර් හරහා දිගු සැකසීම් සමමුහුර්ත කෙරේ"
+        "message": "Extension settings will be synchronized across all browsers which are"
     },
     "html_options_other_enable_sync_tooltip_line1b": {
         "message": "එකම පැතිකඩකින් ලොග් වී ඇත."
     },
     "html_options_other_enable_sync_tooltip_line2": {
-        "message": "මෙය අප්‍රකට මාදිලියේ සිටුවම් ද සමමුහුර්ත කරයි."
+        "message": "This will also synchronize settings in incognito mode."
     },
     "html_options_other_enable_sync_warning": {
-        "message": "මෙය ක්‍රියාත්මක කිරීමෙන් එකම ක්‍රෝම් පැතිකඩට ලොග් වී ඇති අනෙකුත් සියලුම බ්‍රවුසරවල සිටුවම් උඩින් ලියවේ"
+        "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
     },
     "html_options_suspend_on_low_memory": {
         "message": "පද්ධති මතකය ඉතා අඩු වූ විට ක්ෂණිකව අත්හිටුවන්න"
     },
     "html_options_suspend_on_low_memory_tooltip_line1": {
-        "message": "මෙම විකල්පය Chrome හි ස්වයංක්‍රීය ටැබ් ඉවතලන ක්‍රියාකාරීත්වය අභිබවා යයි."
+        "message": "This option will override automatic tab discarding functionality."
     },
     "html_options_suspend_on_low_memory_tooltip_line2": {
-        "message": "සබල කර ඇත්නම්, එය Chrome විසින් ඉවත දමනු වෙනුවට ටැබයක් අත්හිටුවීමට බල කරයි."
+        "message": "If enabled, it will force a tab to suspend instead of being discarded."
     },
     "html_options_suspend_on_low_memory_tooltip_line3": {
-        "message": "සාමාන්‍යයෙන්, පද්ධති මතකය ඉතා අඩු වූ පසු Chrome විසින් ටැබ් ඉවතලනු ඇත."
+        "message": "Typically, your browser will only discard tabs once system memory gets very low."
     },
     "html_options_suspend_on_low_memory_tooltip_line4": {
         "message": "කරුණාකර සටහන් කරන්න: මෙය ඔබට ඇති කාලයට වඩා කලින් ටැබ් අත්හිටුවීමට හේතු විය හැක"
@@ -414,7 +414,7 @@
         "message": "ස්වයංක්‍රීය ටැබ් අත්හිටුවීමේ විකල්පවල දක්වා ඇත."
     },
     "html_options_suspend_on_low_memory_tooltip_line6": {
-        "message": "Chrome ඉවතලීම පිළිබඳ වැඩි විස්තර සඳහා බලන්න:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_on_low_memory_tooltip_discarding_link": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
