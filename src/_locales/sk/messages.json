@@ -77,6 +77,82 @@
     "js_context_unsuspend_all_tabs": {
         "message": "Obnov všetky taby vo všetkých oknách"
     },
+    "html_health_title": {
+        "message": "Tab Health (Beta)"
+    },
+    "html_health_title_intro": {
+        "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    },
+    "html_health_all_good": {
+        "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    },
+    "html_health_reload_intro": {
+        "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    },
+    "html_health_restore_intro": {
+        "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    },
+    "html_health_scan_button": {
+        "message": "Scan Tabs"
+    },
+    "html_health_copy_button": {
+        "message": "Copy Results"
+    },
+    "html_health_scan_label": {
+        "message": "Scanning tabs..."
+    },
+    "html_health_num_tms_tabs": {
+        "message": "TMS Suspended tabs"
+    },
+    "html_health_num_tms_cache": {
+        "message": "favicons in the TMS Cache"
+    },
+    "html_health_num_tabs_empty": {
+        "message": "tabs haven't loaded"
+    },
+    "html_health_num_tabs_extension": {
+        "message": "tabs have the TMS favicon"
+    },
+    "html_health_num_tabs_default": {
+        "message": "tabs have a default favicon"
+    },
+    "html_health_num_hostnames": {
+        "message": "unique tab hostnames"
+    },
+    "html_health_small_cache": {
+        "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    },
+    "html_health_reload_button": {
+        "message": "Next: Reload $count$ Tabs",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "html_health_restore_button": {
+        "message": "Next: Restore $count$ tabs to cache favicons",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "html_health_action_label": {
+        "message": "Restoring favicons..."
+    },
+    "html_health_after_reload": {
+        "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    },
+    "html_health_after_restore": {
+        "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    },
+    "html_health_need_help1": {
+        "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    },
+    "html_health_need_help2": {
+        "message": "Issue on GitHub."
+    },
     "html_about_title": {
         "message": "O aplikácií"
     },
@@ -88,6 +164,9 @@
     },
     "html_about_fork_end": {
         "message": ", viac informácií na"
+    },
+    "html_about_contributors": {
+        "message": "Brought to you by"
     },
     "html_about_github_title": {
         "message": "GitHub"
@@ -501,7 +580,10 @@
         "message": "Settings"
     },
     "html_sidebar_session_management": {
-        "message": "Session management"
+        "message": "Sessions"
+    },
+    "html_sidebar_tab_health": {
+        "message": "Tab Health"
     },
     "html_sidebar_shortcuts": {
         "message": "Keyboard shortcuts"
