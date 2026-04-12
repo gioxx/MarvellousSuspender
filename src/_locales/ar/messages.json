@@ -138,7 +138,7 @@
         "message": "شكراً لك أيضاً"
     },
     "html_about_browserstack_suffix": {
-        "message": "لتوفير أدوات اختبار متصفح الكروم مجانية."
+        "message": "for providing free browser testing tools."
     },
     "html_about_tgs_prefix": {
         "message": "هذا التمديد لم يكن ليتحقق بدون"
@@ -153,7 +153,7 @@
         "message": "روه روه!"
     },
     "html_broken_line1": {
-        "message": "فشل في البدء. ربما أنت تستخدم نسخة غير متوافقة من متصفح الكروم ؟"
+        "message": "failed to start. Perhaps you are using an incompatible browser?"
     },
     "html_broken_line2": {
         "message": "حاول إعادة تشغيل الإضافة. إذا استمرت المشكلة، اطلب المساعدة على"
@@ -267,13 +267,13 @@
         "message": "إلغاء تعليق علامة التبويب تلقائياً عند عرضها"
     },
     "html_options_suspend_discard_after_suspend": {
-        "message": "تطبيق تطبيق كروم المدمج لحفظ الذاكرة عند التعليق"
+        "message": "Apply your browser's built-in memory-saving when suspending"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1a": {
         "message": "يقلل من استخدام ذاكرة التبويب المعلق أكثر، من خلال استخدام"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-        "message": "وظيفة كروم المدمجة في 'تجاهل التبويب'. يمكن أن يؤدي هذا إلى أعلى"
+        "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1c": {
         "message": "إلى 500٪ مدخرات الذاكرة عند العمل مع عدد كبير من علامات التبويب."
@@ -285,7 +285,7 @@
         "message": "علامة التبويب المعلقة."
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-        "message": "وللحصول على مزيد من المعلومات، يرجى الرجوع إلى المرجع التالي:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3b": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -327,7 +327,7 @@
         "message": "بالإضافة إلى زيادة طفيفة في استخدام الذاكرة."
     },
     "html_options_suspend_screen_capturing_tooltip_line3a": {
-        "message": "إذا لاحظت سلوك غريب، مثل علامات التبويب التي تستغرق وقتاً طويلاً لتعليقها، أو كرم"
+        "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
     },
     "html_options_suspend_screen_capturing_tooltip_line3b": {
         "message": "تعطل بشكل غير متوقع، حاول إيقاف تشغيل هذه الميزة."
@@ -381,31 +381,31 @@
         "message": "في مكان آخر من التمديد."
     },
     "html_options_other_enable_sync": {
-        "message": "مزامنة الإعدادات مع ملف تعريف كروم"
+        "message": "Sync settings with your browser profile"
     },
     "html_options_other_enable_sync_tooltip_line1a": {
-        "message": "سيتم مزامنة إعدادات الملحق عبر جميع متصفحات الكروم"
+        "message": "Extension settings will be synchronized across all browsers which are"
     },
     "html_options_other_enable_sync_tooltip_line1b": {
         "message": "تم تسجيل الدخول بنفس الملف الشخصي."
     },
     "html_options_other_enable_sync_tooltip_line2": {
-        "message": "سيؤدي هذا أيضا إلى مزامنة الإعدادات في الوضع المخفي."
+        "message": "This will also synchronize settings in incognito mode."
     },
     "html_options_other_enable_sync_warning": {
-        "message": "تشغيل هذا سوف يستبدل الإعدادات في جميع المتصفحات الأخرى التي تم تسجيلها في نفس ملف كروم"
+        "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
     },
     "html_options_suspend_on_low_memory": {
         "message": "التعليق فوراً عندما تصبح ذاكرة النظام منخفضة جداً"
     },
     "html_options_suspend_on_low_memory_tooltip_line1": {
-        "message": "هذا الخيار سيتجاوز خاصية التبويب التلقائي لـ Chrome."
+        "message": "This option will override automatic tab discarding functionality."
     },
     "html_options_suspend_on_low_memory_tooltip_line2": {
-        "message": "إذا تم تفعيله، فإنه سيجبر علامة التبويب على التعليق بدلاً من أن يتم تجاهلها من قبل كروم."
+        "message": "If enabled, it will force a tab to suspend instead of being discarded."
     },
     "html_options_suspend_on_low_memory_tooltip_line3": {
-        "message": "عادة ، لن يتم تجاهل علامات التبويب إلا بمجرد أن تصبح ذاكرة النظام منخفضة جداً."
+        "message": "Typically, your browser will only discard tabs once system memory gets very low."
     },
     "html_options_suspend_on_low_memory_tooltip_line4": {
         "message": "يرجى ملاحظة: قد يتسبب هذا في تعليق علامات التبويب قبل الوقت الذي لديك فيه"
@@ -414,7 +414,7 @@
         "message": "محدد في خيارات التعليق التلقائي للتبويب."
     },
     "html_options_suspend_on_low_memory_tooltip_line6": {
-        "message": "وللحصول على مزيد من المعلومات عن رفض كروم يرجى الرجوع إلى ما يلي:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_on_low_memory_tooltip_discarding_link": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
