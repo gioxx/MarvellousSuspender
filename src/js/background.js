@@ -25,14 +25,14 @@ import  { tgs }                   from './tgs.js';
       .then(gsStorage.initSettingsAsPromised)   // ensure settings have been loaded and synced
       .then(async () => { await gsStorage.saveStorage('session', 'gsInitialisationMode', true); })
       .then(gsSession.runStartupChecks)         // performs crash check (and maybe recovery) and tab responsiveness checks
-      .catch(error => {
+      .catch((error) => {
         gsUtils.error('background startup checks error: ', error);
       });
 
   }
 
   if (self instanceof ServiceWorkerGlobalScope) {
-    self.addEventListener("install", (event) => {
+    self.addEventListener('install', (event) => {
       gsUtils.log('1 service worker install', event);
     });
   }
@@ -45,12 +45,12 @@ import  { tgs }                   from './tgs.js';
     //add context menu items
     if (!chrome.extension.inIncognitoContext) {
       tgs.buildContextMenu(false);
-      var contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
+      const contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
       tgs.buildContextMenu(contextMenus);
     }
 
     // remove update message after extension has been updated
-    if (details.reason == "update") {
+    if (details.reason == 'update') {
       await gsStorage.setOptionAndSync(gsStorage.UPDATE_AVAILABLE, false);
     }
 
@@ -63,8 +63,9 @@ import  { tgs }                   from './tgs.js';
     //   setTimeout(async () => {
     //     // await chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+1&uri=https://www.google.com` });
     //     // await chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+3&uri=https://www.github.com` });
-    //     // await chrome.tabs.create({ url: chrome.runtime.getURL('debug.html') });
+    //     await chrome.tabs.create({ url: chrome.runtime.getURL('debug.html') });
     //     await chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
+    //     // await chrome.tabs.create({ url: chrome.runtime.getURL('health.html') });
     //   }, 200);
     //   // setTimeout(() => {
     //   //   gsSession.prepareForUpdate({ version: 'new version'});
@@ -74,13 +75,13 @@ import  { tgs }                   from './tgs.js';
   });
 
   if (self instanceof ServiceWorkerGlobalScope) {
-    self.addEventListener("activate", (event) => {
+    self.addEventListener('activate', (event) => {
       gsUtils.log('3 service worker activate', event);
       startupOnce();
     });
   }
 
-  chrome.runtime.onStartup.addListener(function () {
+  chrome.runtime.onStartup.addListener(() => {
     gsUtils.log('4 runtime.onStartup');
     // Fired when a profile that has this extension installed first starts up.
     // This event is not fired when an incognito profile is started, even if this extension is operating in 'split' incognito mode.
@@ -89,10 +90,10 @@ import  { tgs }                   from './tgs.js';
 
   });
 
-  chrome.runtime.onSuspend.addListener(function () {
+  chrome.runtime.onSuspend.addListener(() => {
     gsUtils.log('5 runtime.onSuspend');
   });
-  chrome.runtime.onSuspendCanceled.addListener(function () {
+  chrome.runtime.onSuspendCanceled.addListener(() => {
     gsUtils.log('6 runtime.onSuspendCanceled');
   });
 
@@ -126,7 +127,7 @@ import  { tgs }                   from './tgs.js';
 
     switch (request.action) {
       case 'reportTabState' : {
-        var contentScriptStatus = request && request.status ? request.status : null;
+        const contentScriptStatus = request?.status ?? null;
         if (
           contentScriptStatus === 'formInput' ||
           contentScriptStatus === 'tempWhitelist'
@@ -138,7 +139,7 @@ import  { tgs }                   from './tgs.js';
         }
         // If tab is currently visible then update popup icon
         if (sender.tab && await tgs.isCurrentFocusedTab(sender.tab)) {
-          await tgs.calculateTabStatus(sender.tab, contentScriptStatus, function(status) {
+          await tgs.calculateTabStatus(sender.tab, contentScriptStatus, (status) => {
             tgs.setIconStatus(status, sender.tab.id);
           });
         }
@@ -202,7 +203,7 @@ import  { tgs }                   from './tgs.js';
     gsUtils.log('background', 'externalMessageRequestListener', request, sender);
 
     if (!request.action || !['suspend', 'unsuspend'].includes(request.action)) {
-      sendResponse('Error: unknown request.action: ' + request.action);
+      sendResponse('Error: unknown request.action:', request.action);
       return;
     }
 
@@ -214,12 +215,12 @@ import  { tgs }                   from './tgs.js';
       }
       tab = await gsChrome.tabsGet(request.tabId);
       if (!tab) {
-        sendResponse('Error: no tab found with id: ' + request.tabId);
+        sendResponse('Error: no tab found with id:', request.tabId);
         return;
       }
     }
     else {
-      tab = await new Promise(r => {
+      tab = await new Promise((r) => {
         tgs.getCurrentlyActiveTab(r);
       });
     }
@@ -373,7 +374,7 @@ import  { tgs }                   from './tgs.js';
       // @TODO: Do we need to do anything here?  Seems like onCreated doesn't
     });
     chrome.tabs.onCreated.addListener(async (tab) => {
-      gsUtils.log(tab.id, 'tab created. tabUrl: ' + tab.url);
+      gsUtils.log(tab.id, 'tab created. tabUrl: ', tab.url);
       tgs.queueSessionTimer();
 
       // It's unusual for a suspended tab to be created. Usually they are updated
@@ -409,7 +410,7 @@ import  { tgs }                   from './tgs.js';
       }
     };
 
-    chrome.tabs.onUpdated.addListener(async function(tabId, changeInfo, tab) {
+    chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       if (!changeInfo) return;
 
       if (await gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT) && changeInfo.status === 'complete') {
@@ -425,7 +426,8 @@ import  { tgs }                   from './tgs.js';
 
       if (gsUtils.isSuspendedTab(tab)) {
         await tgs.handleSuspendedTabStateChanged(tab, changeInfo);
-      } else if (gsUtils.isNormalTab(tab)) {
+      }
+      else if (gsUtils.isNormalTab(tab)) {
         await tgs.handleUnsuspendedTabStateChanged(tab, changeInfo);
       }
     });
@@ -433,12 +435,12 @@ import  { tgs }                   from './tgs.js';
       gsUtils.log(window.id, 'background', 'window created.');
       tgs.queueSessionTimer();
 
-      var noticeToDisplay = await tgs.requestNotice();
+      const noticeToDisplay = await tgs.requestNotice();
       if (noticeToDisplay) {
         await chrome.tabs.create({ url: chrome.runtime.getURL('notice.html') });
       }
     });
-    chrome.windows.onRemoved.addListener(function(windowId) {
+    chrome.windows.onRemoved.addListener((windowId) => {
       gsUtils.log(windowId, 'background', 'window removed.');
       tgs.queueSessionTimer();
     });
@@ -479,7 +481,7 @@ import  { tgs }                   from './tgs.js';
       }
       tgs.setIconStatusForActiveTab();
     });
-    addEventListener('offline', function() {
+    addEventListener('offline', () => {
       gsUtils.log('background', 'Internet is offline.');
       tgs.setIconStatusForActiveTab();
     });
@@ -494,7 +496,7 @@ import  { tgs }                   from './tgs.js';
       //initialise currentStationary and currentFocused vars
       const activeTabs = await gsChrome.tabsQuery({ active: true });
       const currentWindow = await gsChrome.windowsGetLastFocused();
-      for (let activeTab of activeTabs) {
+      for (const activeTab of activeTabs) {
         (await tgs.getCurrentStationaryTabIdByWindowId())[activeTab.windowId] = activeTab.id;
         (await tgs.getCurrentFocusedTabIdByWindowId())[activeTab.windowId] = activeTab.id;
         if (currentWindow && currentWindow.id === activeTab.windowId) {
@@ -529,11 +531,11 @@ import  { tgs }                   from './tgs.js';
         gsSession.initAsPromised(),
       ]);
     })
-    .catch(error => {
+    .catch((error) => {
       gsUtils.error('background init error: ', error);
     })
     .then(initAsPromised)
-    .catch(error => {
+    .catch((error) => {
       gsUtils.error('background init error: ', error);
     });
 

@@ -12,8 +12,8 @@ export const gsChrome = {
    * @param   { string | chrome.tabs.CreateProperties } details
    * @returns { Promise<chrome.tabs.Tab | null> }
    */
-  tabsCreate: function(details) {
-    return new Promise(resolve => {
+  tabsCreate(details) {
+    return new Promise((resolve) => {
       if (
         !details ||
         (typeof details !== 'string' && typeof details.url !== 'string')
@@ -23,7 +23,7 @@ export const gsChrome = {
         return;
       }
       details = typeof details === 'string' ? { url: details } : details;
-      chrome.tabs.create(details, tab => {
+      chrome.tabs.create(details, (tab) => {
         if (chrome.runtime.lastError) {
           gsUtils.warning('chromeTabs', chrome.runtime.lastError);
           resolve(null);
@@ -32,8 +32,8 @@ export const gsChrome = {
       });
     });
   },
-  tabsReload: function(tabId) {
-    return new Promise(resolve => {
+  tabsReload(tabId) {
+    return new Promise((resolve) => {
       if (!tabId) {
         gsUtils.warning('chromeTabs', 'tabId not specified');
         resolve(false);
@@ -49,14 +49,14 @@ export const gsChrome = {
       });
     });
   },
-  tabsUpdate: function(tabId, updateProperties) {
-    return new Promise(resolve => {
+  tabsUpdate(tabId, updateProperties) {
+    return new Promise((resolve) => {
       if (!tabId || !updateProperties) {
         gsUtils.warning( 'chromeTabs', 'tabId or updateProperties not specified' );
         resolve(null);
         return;
       }
-      chrome.tabs.update(tabId, updateProperties, tab => {
+      chrome.tabs.update(tabId, updateProperties, (tab) => {
         if (chrome.runtime.lastError) {
           gsUtils.warning('chromeTabs', chrome.runtime.lastError);
           resolve(null);
@@ -70,14 +70,14 @@ export const gsChrome = {
    * @param   { number | undefined }  tabId
    * @returns { Promise<chrome.tabs.Tab | null> }
    */
-  tabsGet: function(tabId) {
-    return new Promise(resolve => {
+  tabsGet(tabId) {
+    return new Promise((resolve) => {
       if (!tabId) {
         gsUtils.warning('chromeTabs', 'tabId not specified');
         resolve(null);
         return;
       }
-      chrome.tabs.get(tabId, tab => {
+      chrome.tabs.get(tabId, (tab) => {
         if (chrome.runtime.lastError) {
           gsUtils.warning('chromeTabs', chrome.runtime.lastError);
           resolve(null);
@@ -102,8 +102,8 @@ export const gsChrome = {
       });
     });
   },
-  tabsRemove: function(tabId) {
-    return new Promise(resolve => {
+  tabsRemove(tabId) {
+    return new Promise((resolve) => {
       if (!tabId) {
         gsUtils.warning('chromeTabs', 'tabId not specified');
         resolve(null);
@@ -117,9 +117,9 @@ export const gsChrome = {
       });
     });
   },
-  windowsGetLastFocused: function() {
-    return new Promise(resolve => {
-      chrome.windows.getLastFocused({}, window => {
+  windowsGetLastFocused() {
+    return new Promise((resolve) => {
+      chrome.windows.getLastFocused({}, (window) => {
         if (chrome.runtime.lastError) {
           gsUtils.warning('chromeWindows', chrome.runtime.lastError);
           resolve(null);
@@ -128,14 +128,14 @@ export const gsChrome = {
       });
     });
   },
-  windowsGet: function(windowId) {
-    return new Promise(resolve => {
+  windowsGet(windowId) {
+    return new Promise((resolve) => {
       if (!windowId) {
         gsUtils.warning('chromeWindows', 'windowId not specified');
         resolve(null);
         return;
       }
-      chrome.windows.get(windowId, { populate: true }, window => {
+      chrome.windows.get(windowId, { populate: true }, (window) => {
         if (chrome.runtime.lastError) {
           gsUtils.warning('chromeWindows', chrome.runtime.lastError);
           resolve(null);
@@ -144,8 +144,8 @@ export const gsChrome = {
       });
     });
   },
-  windowsGetAll: function() {
-    return new Promise(resolve => {
+  windowsGetAll() {
+    return new Promise((resolve) => {
       chrome.windows.getAll({ populate: true }, (windows) => {
         if (chrome.runtime.lastError) {
           gsUtils.warning('windowsGetAll', chrome.runtime.lastError);
@@ -159,8 +159,8 @@ export const gsChrome = {
   /**
    * @returns { Promise<chrome.tabGroups.TabGroup[]> }
    */
-  tabGroupsGetAll: function() {
-    return new Promise(resolve => {
+  tabGroupsGetAll() {
+    return new Promise((resolve) => {
       chrome.tabGroups.query({}, (groups) => {
         if (chrome.runtime.lastError) {
           gsUtils.warning('tabGroupsGetAll', chrome.runtime.lastError);
@@ -217,10 +217,10 @@ export const gsChrome = {
     });
   },
 
-  windowsCreate: function(createData) {
+  windowsCreate(createData) {
     createData = createData || {};
-    return new Promise(resolve => {
-      chrome.windows.create(createData, window => {
+    return new Promise((resolve) => {
+      chrome.windows.create(createData, (window) => {
         if (chrome.runtime.lastError) {
           gsUtils.warning('chromeWindows', chrome.runtime.lastError);
           resolve(null);
@@ -229,14 +229,14 @@ export const gsChrome = {
       });
     });
   },
-  windowsUpdate: function(windowId, updateInfo) {
-    return new Promise(resolve => {
+  windowsUpdate(windowId, updateInfo) {
+    return new Promise((resolve) => {
       if (!windowId || !updateInfo) {
         gsUtils.warning('chromeTabs', 'windowId or updateInfo not specified');
         resolve(null);
         return;
       }
-      chrome.windows.update(windowId, updateInfo, window => {
+      chrome.windows.update(windowId, updateInfo, (window) => {
         if (chrome.runtime.lastError) {
           gsUtils.warning('chromeWindows', chrome.runtime.lastError);
           resolve(null);
