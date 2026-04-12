@@ -138,7 +138,7 @@
         "message": "Terima kasih juga kepada"
     },
     "html_about_browserstack_suffix": {
-        "message": "untuk menyediakan alat pengujian chrome gratis."
+        "message": "for providing free browser testing tools."
     },
     "html_about_tgs_prefix": {
         "message": "Ekstensi ini tidak akan pernah ada tanpa"
@@ -153,7 +153,7 @@
         "message": "Ya Pakde!"
     },
     "html_broken_line1": {
-        "message": "gagal untuk memulai. Mungkin Anda menggunakan versi Chrome yang tidak kompatibel?"
+        "message": "failed to start. Perhaps you are using an incompatible browser?"
     },
     "html_broken_line2": {
         "message": "Cobalah untuk memulai kembali ekstensi. Jika masalah tersebut berlanjut, silahkan minta bantuan di"
@@ -267,13 +267,13 @@
         "message": "Secara otomatis batal tangguhkan tab saat dilihat"
     },
     "html_options_suspend_discard_after_suspend": {
-        "message": "Terapkan penghematan memori bawaan Chrome saat menangguhkan"
+        "message": "Apply your browser's built-in memory-saving when suspending"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1a": {
         "message": "Mengurangi sebuah penggunaan memori tab yang ditangguhkan lebih lagi, dengan memanfaatkan"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-        "message": "fungsionalitas 'pengabaian tab' bawaan Chrome. Ini dapat berdampak sampai"
+        "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1c": {
         "message": "penghematan memori 500% saat bekerja dengan jumlah tab yang banyak."
@@ -285,7 +285,7 @@
         "message": "sebuah tab yang ditangguhkan."
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-        "message": "Untuk informasi lebih lanjut tentang fitur pengabaian Chrome, lihat:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3b": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -327,7 +327,7 @@
         "message": "penggunaan memori sedikit meningkat."
     },
     "html_options_suspend_screen_capturing_tooltip_line3a": {
-        "message": "Jika Anda merasakan dan melihat perilaku aneh seperti tab membutuhkan waktu lama untuk menangguhkan, atau Chrome"
+        "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
     },
     "html_options_suspend_screen_capturing_tooltip_line3b": {
         "message": "crash secara tidak terduga, cobalah mematikan fitur ini."
@@ -381,31 +381,31 @@
         "message": "ditempat lain dalam ekstensi."
     },
     "html_options_other_enable_sync": {
-        "message": "Pengaturan sinkronisasi dengan profil Chrome Anda"
+        "message": "Sync settings with your browser profile"
     },
     "html_options_other_enable_sync_tooltip_line1a": {
-        "message": "Pengaturan ekstensi akan disinkronkan di semua browser Chrome yang"
+        "message": "Extension settings will be synchronized across all browsers which are"
     },
     "html_options_other_enable_sync_tooltip_line1b": {
         "message": "masuk dengan profil yang sama."
     },
     "html_options_other_enable_sync_tooltip_line2": {
-        "message": "Ini juga akan menyinkronkan pengaturan dalam mode penyamaran."
+        "message": "This will also synchronize settings in incognito mode."
     },
     "html_options_other_enable_sync_warning": {
-        "message": "Menghidupkan ini akan menimpa pengaturan pada semua browser lain yang masuk ke profil Chrome yang sama"
+        "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
     },
     "html_options_suspend_on_low_memory": {
         "message": "Secara instan menangguhkan ketika memori sistem menjadi sangat rendah"
     },
     "html_options_suspend_on_low_memory_tooltip_line1": {
-        "message": "Opsi ini akan menimpa fungsionalitas pembuangan tab Chrome secara otomatis."
+        "message": "This option will override automatic tab discarding functionality."
     },
     "html_options_suspend_on_low_memory_tooltip_line2": {
-        "message": "Jika diaktifkan, itu akan memaksa tab untuk ditangguhkan dibandingkan dibuang oleh Chrome."
+        "message": "If enabled, it will force a tab to suspend instead of being discarded."
     },
     "html_options_suspend_on_low_memory_tooltip_line3": {
-        "message": "Biasanya, Chrome hanya akan membuang tab begitu memori sistem menjadi sangat rendah."
+        "message": "Typically, your browser will only discard tabs once system memory gets very low."
     },
     "html_options_suspend_on_low_memory_tooltip_line4": {
         "message": "Harap diperhatikan: Ini dapat menyebabkan tab untuk ditangguhkan lebih awal dari waktu yang Anda telah"
@@ -414,7 +414,7 @@
         "message": "tentukan dalam opsi penagguhan tab secara otomatis."
     },
     "html_options_suspend_on_low_memory_tooltip_line6": {
-        "message": "Untuk informasi lebih lanjut tentang pengabaian tab oleh Chrome, lihat:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_on_low_memory_tooltip_discarding_link": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
