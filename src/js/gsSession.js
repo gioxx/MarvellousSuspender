@@ -388,10 +388,15 @@ export const gsSession = (function() {
     // Match against all tabIds from last session here, not just non-extension tabs
     // as there is a chance during tabInitialisation of a suspended tab getting reloaded
     // directly and hence keeping its tabId (ie: file:// tabs)
+    // We can't match directly for chrome://newtab any more, since we have lots of chromium browsers using alternate internal protocol strings
+    /**
+     * @param {chrome.tabs.Tab} tab
+     * @returns {boolean}
+     */
     function matchingTabExists(tab) {
-      if (tab.url.indexOf('chrome://newtab') === 0 && tab.index === 0)
-        return false;
-      return lastSessionTabs.some(o => o.id === tab.id && o.url === tab.url);
+      const url = String(tab.url);
+      if (tab.index === 0 && !(url.match(/^(file|http|https):\/\//i)) && url.match(/:\/\/newtab/i)) return false;
+      return lastSessionTabs.some((o) => o.id === tab.id && o.url === tab.url);
     }
 
     const matchingTabIdsCount = currentSessionNonExtensionTabs.reduce(

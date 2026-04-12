@@ -390,22 +390,17 @@ import  { tgs }                   from './tgs.js';
       await tgs.removeTabIdReferences(tabId);
     });
 
-    function isItOurUrl(url) {
-      // return true is suspended.html follows extenstion's id immediately
-      // which means that this url is likely belongs to our extenstion (no other extensions handle it now)
-      return url.match('^chrome-extension://[^/]*/suspended\\.html');
-    }
-
     async function claimTab(tabId) {
-      const tabs = await gsChrome.tabsQuery();
+      const tabs  = await gsChrome.tabsQuery();
       for (const tab of tabs) {
+        const url = tab.url ?? '';
         if (
           tab.id == tabId &&
-          isItOurUrl(tab.url) &&
+          url.match('^chrome-extension://[^/]*/suspended\\.html') &&    // Match any extension with suspended.html at the end
           gsUtils.isSuspendedTab(tab, true) &&
-          tab.url.indexOf(chrome.runtime.id) < 0
+          !url.includes(chrome.runtime.id)                              // But exclude our own extension ID
         ) {
-          const newUrl = tab.url.replace(
+          const newUrl = url.replace(
             gsUtils.getRootUrl(tab.url),
             chrome.runtime.id,
           );

@@ -504,9 +504,12 @@ export const tgs = (function() {
     });
   }
 
+  /**
+   * @param {chrome.tabs.Tab} tab
+   * @param {string} url
+   */
   function checkForTriggerUrls(tab, url) {
-    // test for a save of keyboard shortcuts (chrome://extensions/shortcuts)
-    if (url === 'chrome://extensions/shortcuts') {
+    if (gsUtils.isBrowserInternalURL(url, '://extensions/shortcuts')) {
       gsStorage.saveStorage('session', 'gsTriggerHotkeyUpdate', true);
     }
   }
@@ -850,8 +853,7 @@ export const tgs = (function() {
     //will key through intermediate tabs to get to the one they want.
     queueNewTabFocusTimer(tabId, windowId, focusedTab);
 
-    //test for a save of keyboard shortcuts (chrome://extensions/shortcuts)
-    if (focusedTab.url === 'chrome://extensions/shortcuts') {
+    if (gsUtils.isBrowserInternalURL(focusedTab.url, '://extensions/shortcuts')) {
       await gsStorage.saveStorage('session', 'gsTriggerHotkeyUpdate', true);
     }
 

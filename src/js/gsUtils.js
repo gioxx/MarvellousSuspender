@@ -90,17 +90,17 @@ export const gsUtils = {
       console.error(
         gsUtils.getPrintableError(errorMessage, stackTrace, ...args),
       );
-    } else {
+    }
+    else {
       // const logString = errorObj.hasOwnProperty('stack')
       //   ? errorObj.stack
       //   : `${JSON.stringify(errorObj)}\n${gsUtils.getStackTrace()}`;
     }
   },
-  // Puts all the error args into a single printable string so that all the info
-  // is displayed in chrome://extensions error console
+  // Puts all the error args into a single printable string so that all the info is displayed in the error console
   getPrintableError(errorMessage, stackTrace, ...args) {
     let errorString = errorMessage;
-    errorString += `\n${args.map(o => JSON.stringify(o, null, 2)).join('\n')}`;
+    errorString += `\n${args.map((o) => JSON.stringify(o, null, 2)).join('\n')}`;
     errorString += `\n${stackTrace}`;
     return errorString;
   },
@@ -132,6 +132,11 @@ export const gsUtils = {
     return tab.discarded;
   },
 
+  /**
+   *
+   * @param {chrome.tabs.Tab} tab
+   * @returns {string | undefined}
+   */
   getTabUrl: function (tab) {
     return tab.url || tab.pendingUrl;
   },
@@ -148,8 +153,27 @@ export const gsUtils = {
   },
 
 
-  //tests for non-standard web pages. does not check for suspended pages!
-  isSpecialTab: function(tab) {
+  /**
+   * Detect the top Chromium browsers internal URL protocols.
+   * If afterScheme is provided, it should typically start with "://"
+   * @param {string} [url]
+   * @param {string} [afterScheme]
+   * @returns {boolean}
+   */
+  isBrowserInternalURL(url, afterScheme) {
+    const after = afterScheme ?? ':';
+    const ret   = Boolean((url ?? '').match(new RegExp(`^(about|chrome|edge|opera|brave|vivaldi|browser|arc)${after}`, 'i')));
+    // gsUtils.log('gsUtils', 'isBrowserSpecialURL', url, afterScheme, ret);
+    return ret;
+  },
+
+  /**
+   * tests for non-standard web pages
+   * suspended tabs are not considered "Special"
+   * @param {chrome.tabs.Tab} tab
+   * @returns {boolean}
+   */
+  isSpecialTab(tab) {
     if (!gsUtils.isValidTabWithUrl(tab)) {
       return false;
     }
@@ -157,15 +181,8 @@ export const gsUtils = {
       return false;
     }
     const url = gsUtils.getTabUrl(tab);
-    // Careful, suspended urls start with "chrome-extension://"
-    if (
-      url.indexOf('about') === 0 ||
-      url.indexOf('chrome') === 0 ||
-      gsUtils.isBlockedFileTab(tab)
-    ) {
-      return true;
-    }
-    return false;
+    // NOTE: suspended urls start with "chrome" (chrome-extension://), so we first check isSuspendedTab above
+    return ( this.isBrowserInternalURL(url) || gsUtils.isBlockedFileTab(tab) );
   },
 
   isFileTab: function(tab) {
@@ -194,8 +211,7 @@ export const gsUtils = {
       return false;
     }
     const url = gsUtils.getTabUrl(tab);
-    var isLocalExtensionPage =
-      url.indexOf('chrome-extension://' + chrome.runtime.id) === 0;
+    const isLocalExtensionPage = url?.startsWith(chrome.runtime.getURL(''));
     return isLocalExtensionPage && !gsUtils.isSuspendedTab(tab);
   },
 

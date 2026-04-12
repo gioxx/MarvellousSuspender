@@ -2,6 +2,7 @@
 import  { gsUtils }               from './gsUtils.js';
 
 
+// URL verified 2026-04: Chrome, Edge, Brave, Vivaldi, Opera
 const EXTENSION_URL_MATCH = `^(chrome-)?extension://${chrome.runtime.id}/`;
 
 
@@ -85,10 +86,14 @@ export const gsChrome = {
       });
     });
   },
-  tabsQuery: function(queryInfo) {
+  /**
+   * @param {chrome.tabs.QueryInfo} [queryInfo]
+   * @returns {Promise<chrome.tabs.Tab[]>}
+   */
+  tabsQuery: async (queryInfo) => {
     queryInfo = queryInfo || {};
-    return new Promise(resolve => {
-      chrome.tabs.query(queryInfo, tabs => {
+    return new Promise((resolve) => {
+      chrome.tabs.query(queryInfo, (tabs) => {
         if (chrome.runtime.lastError) {
           gsUtils.warning('chromeTabs', chrome.runtime.lastError);
           tabs = [];
