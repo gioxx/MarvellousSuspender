@@ -138,7 +138,7 @@
         "message": "Ein weiterer Dank an"
     },
     "html_about_browserstack_suffix": {
-        "message": "für die kostenlosen Chrome Testwerkzeuge."
+        "message": "for providing free browser testing tools."
     },
     "html_about_tgs_prefix": {
         "message": "Ohne diese Erweiterung hätte es nie geben können"
@@ -153,7 +153,7 @@
         "message": "Oh oh!"
     },
     "html_broken_line1": {
-        "message": "konnte nicht starten. Vielleicht verwendest du eine inkompatible Version von Chrome?"
+        "message": "failed to start. Perhaps you are using an incompatible browser?"
     },
     "html_broken_line2": {
         "message": "Versuche die Erweiterung neu zu starten. Falls das Problem weiterhin besteht, frage nach Hilfe auf der"
@@ -267,13 +267,13 @@
         "message": "Tab automatisch aufwachen, wenn er aufgerufen wird"
     },
     "html_options_suspend_discard_after_suspend": {
-        "message": "Benutze integrierte Speicherfunktion von Chrome beim Aussetzen"
+        "message": "Apply your browser's built-in memory-saving when suspending"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1a": {
         "message": "Reduziert den Speicherverbrauch eines Tabs dank"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-        "message": "der integrierten \"Tab verwerfen\" Funktion in Chrome. Das kann bis"
+        "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1c": {
         "message": "zu 500% mehr Speicher sparen, wenn man eine Vielzahl von Tabs geöffnet hat."
@@ -285,7 +285,7 @@
         "message": "eines ausgesetzten Tabs."
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-        "message": "Mehr Informationen über diese Funktionalität gibt es hier:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3b": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -327,7 +327,7 @@
         "message": "erhöhte Speicherbelegung sorgen."
     },
     "html_options_suspend_screen_capturing_tooltip_line3a": {
-        "message": "Wenn sich Tabs stark verzögert aussetzen lassen oder Chrome"
+        "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
     },
     "html_options_suspend_screen_capturing_tooltip_line3b": {
         "message": "unerwartet abstürzt, solltest du diese Einstellung deaktivieren."
@@ -381,31 +381,31 @@
         "message": "nicht in der Erweiterung zu finden sind."
     },
     "html_options_other_enable_sync": {
-        "message": "Synchronisiere die Einstellungen mit deinem Chrome Profil"
+        "message": "Sync settings with your browser profile"
     },
     "html_options_other_enable_sync_tooltip_line1a": {
-        "message": "Einstellungen der Erweiterung werden zu allen Chrome Browsern synchronisiert,"
+        "message": "Extension settings will be synchronized across all browsers which are"
     },
     "html_options_other_enable_sync_tooltip_line1b": {
         "message": "auf denen das gleiche Profil angemeldet ist."
     },
     "html_options_other_enable_sync_tooltip_line2": {
-        "message": "Das synchronisiert die Einstellungen auch für den Inkognitomodus."
+        "message": "This will also synchronize settings in incognito mode."
     },
     "html_options_other_enable_sync_warning": {
-        "message": "Diese Option wird die Einstellungen für alle Browser mit dem gleichen Chrome Profil überschreiben"
+        "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
     },
     "html_options_suspend_on_low_memory": {
         "message": "Bei geringer Speicherverfügbarkeit sofort aussetzen"
     },
     "html_options_suspend_on_low_memory_tooltip_line1": {
-        "message": "Diese Option wird die automatische Tab verwerfen Funktion von Chrome ausschalten."
+        "message": "This option will override automatic tab discarding functionality."
     },
     "html_options_suspend_on_low_memory_tooltip_line2": {
-        "message": "Ist sie aktiv, wird ein Tab ausgesetzt statt verworfen."
+        "message": "If enabled, it will force a tab to suspend instead of being discarded."
     },
     "html_options_suspend_on_low_memory_tooltip_line3": {
-        "message": "Typischerweise wird Chrome Tabs nur bei geringer Speicherverfügbarkeit verwerfen."
+        "message": "Typically, your browser will only discard tabs once system memory gets very low."
     },
     "html_options_suspend_on_low_memory_tooltip_line4": {
         "message": "Hinweis: Das kann Tabs früher aussetzen als"
@@ -414,7 +414,7 @@
         "message": "in den Einstellung für automatisches Tab aussetzen."
     },
     "html_options_suspend_on_low_memory_tooltip_line6": {
-        "message": "Mehr Informationen zu Chromes Verwerfen Funktionalität findest du unter:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_on_low_memory_tooltip_discarding_link": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
