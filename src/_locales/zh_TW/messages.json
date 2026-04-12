@@ -138,7 +138,7 @@
         "message": "同時也謝謝"
     },
     "html_about_browserstack_suffix": {
-        "message": "提供免費的 Chrome 測試工具。"
+        "message": "for providing free browser testing tools."
     },
     "html_about_tgs_prefix": {
         "message": "如果沒有 "
@@ -153,7 +153,7 @@
         "message": "噢！"
     },
     "html_broken_line1": {
-        "message": "重新啟動失敗。您是否正在使用不相容的 Chrome 版本？"
+        "message": "failed to start. Perhaps you are using an incompatible browser?"
     },
     "html_broken_line2": {
         "message": "請嘗試重新啟動擴充功能。若問題持續發生，請您透過此連結尋求協助："
@@ -267,13 +267,13 @@
         "message": "當分頁被瀏覽就自動回復分頁"
     },
     "html_options_suspend_discard_after_suspend": {
-        "message": "凍結分頁時使用 Chrome 內建的系統記憶體釋放功能"
+        "message": "Apply your browser's built-in memory-saving when suspending"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1a": {
         "message": "通過利用 Chrome 內建的分頁凍結功能，"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-        "message": "可以更多的降低記憶體使用。當同時打開多個分頁時，"
+        "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1c": {
         "message": "可以降低500%的系統記憶體消耗。"
@@ -285,7 +285,7 @@
         "message": "將會有微小的分頁加載延時。"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-        "message": "有關 Chrome discarding 的更多資訊，請參閱："
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3b": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -327,7 +327,7 @@
         "message": "可能會讓 CPU 使用率大幅提高，並讓記憶體使用量些微地提高。"
     },
     "html_options_suspend_screen_capturing_tooltip_line3a": {
-        "message": "如果您注意到奇怪的狀況，例如需要很長時間才能凍結分頁，"
+        "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
     },
     "html_options_suspend_screen_capturing_tooltip_line3b": {
         "message": "或者 Chrome 意外當機，請嘗試關閉此功能。"
@@ -381,31 +381,31 @@
         "message": "進階凍結操作。"
     },
     "html_options_other_enable_sync": {
-        "message": "使用 Chrome 使用者設定檔同步設定"
+        "message": "Sync settings with your browser profile"
     },
     "html_options_other_enable_sync_tooltip_line1a": {
-        "message": "將擴充功能的設定將同步至"
+        "message": "Extension settings will be synchronized across all browsers which are"
     },
     "html_options_other_enable_sync_tooltip_line1b": {
         "message": "登入相同帳號的 Chrome。"
     },
     "html_options_other_enable_sync_tooltip_line2": {
-        "message": "這也將使無痕模式下的設定同步。"
+        "message": "This will also synchronize settings in incognito mode."
     },
     "html_options_other_enable_sync_warning": {
-        "message": "打開此選項將覆蓋掉其他登入相同帳號的 Chrome 的擴充功能設定"
+        "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
     },
     "html_options_suspend_on_low_memory": {
         "message": "當系統記憶體非常少時凍結分頁"
     },
     "html_options_suspend_on_low_memory_tooltip_line1": {
-        "message": "此選項會覆蓋 Chrome 的 automatic tab discarding 功能。"
+        "message": "This option will override automatic tab discarding functionality."
     },
     "html_options_suspend_on_low_memory_tooltip_line2": {
-        "message": "如果啟用，該分頁將被強制凍結，而不是被 Chrome 刪除。"
+        "message": "If enabled, it will force a tab to suspend instead of being discarded."
     },
     "html_options_suspend_on_low_memory_tooltip_line3": {
-        "message": "正常時 Chrome 僅在系統記憶體非常低時刪除分頁。"
+        "message": "Typically, your browser will only discard tabs once system memory gets very low."
     },
     "html_options_suspend_on_low_memory_tooltip_line4": {
         "message": "注意："
@@ -414,7 +414,7 @@
         "message": "這可能導致分頁在「自動分頁凍結」選項中指定的時間到達之前凍結。"
     },
     "html_options_suspend_on_low_memory_tooltip_line6": {
-        "message": "有關 Chrome discarding 的更多資訊，請參閱："
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_on_low_memory_tooltip_discarding_link": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
