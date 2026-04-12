@@ -9,6 +9,8 @@ import  { tgs }                   from './tgs.js';
 
   const currentTabs   = {};
   const browser       = navigator.userAgent.match(/Chrome\/.*Edg\//i) ? 'edge' : 'chrome';
+  // 2026-04: Brave colors appear to match chrome nicely
+  // 2026-04: Vivaldi and Opera are doing weird things with Tab Groups.  Ignoring their special colors for now.
 
   function generateTabInfo(info) {
     // console.log(info.tabId, info);

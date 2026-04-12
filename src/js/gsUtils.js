@@ -190,7 +190,7 @@ export const gsUtils = {
       return false;
     }
     const url = gsUtils.getTabUrl(tab);
-    if (url.startsWith('file')) {
+    if (url?.startsWith('file')) {
       return true;
     }
     return false;
@@ -266,7 +266,7 @@ export const gsUtils = {
   removeTabsByUrlAsPromised(url) {
     return new Promise(async (resolve) => {
       const tabs = await gsChrome.tabsQuery({ url });
-      const tabIds = tabs.map((tab) => tab.id).filter(item => item !== undefined);
+      const tabIds = tabs.map((tab) => tab.id).filter((item) => item !== undefined);
       chrome.tabs.remove(tabIds, () => {
         resolve(null);
       });
@@ -600,8 +600,7 @@ export const gsUtils = {
       gsUtils.decodeString(gsUtils.getHashVariable('url', urlStr) || '')
     );
   },
-
-  getCleanTabTitle: function(tab) {
+  getCleanTabTitle(tab) {
     let cleanedTitle = gsUtils.decodeString(tab.title);
     if (
       !cleanedTitle ||

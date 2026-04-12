@@ -103,6 +103,8 @@ export const gsFavicon = (() => {
    */
   function getChromeFavIconUrl(url) {
     // gsUtils.log( 'gsFavicon', 'getChromeFavIconUrl', url );
+    // https://developer.chrome.com/docs/extensions/how-to/ui/favicons
+    // chrome-extension://EXTENSION_ID/_favicon/?pageUrl=EXAMPLE_URL&size=FAV_SIZE
     const icon_url = new URL(chrome.runtime.getURL('/_favicon/'));
     icon_url.searchParams.set('pageUrl', url);
     icon_url.searchParams.set('size', '32');
