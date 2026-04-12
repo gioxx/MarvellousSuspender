@@ -243,6 +243,9 @@ ul.unorderedList li {
 .center {
     text-align: center;
 }
+.right {
+    text-align: right;
+}
 .italic {
     font-style: italic;
 }
@@ -613,6 +616,46 @@ input[type='text'] {
 }
 
 
+div.log {
+  display: inline-grid;
+  /* grid-template-columns: 32px min-content min-content; */
+  grid-template-columns: 32px auto auto auto;
+  /* white-space: nowrap; */
+  column-gap: 8px;
+  row-gap: 0;
+  margin: 10px 0;
+}
+
+div.log div.span-3 {
+  grid-column: span 3;
+}
+
+div#log div {
+  line-height: 1.8rem;
+}
+
+.progress {
+  height: 38px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 3px;
+  text-align: center;
+}
+
+.progress .inner {
+  margin: 0;
+  /* background: #3477db66; */
+  background: repeating-linear-gradient(-45deg, #3477db33, #3477db44 10px, #3477db33 20px);
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  padding: 4px 0;
+  overflow: hidden;
+}
+
+
 /* dark theme */
 /* Automatically set dark background based on OS settings */
 /* This prevents flickering on initial page load */
@@ -718,63 +761,63 @@ span.group.edge.orange {
 /* tab group colors for dark mode  */
 
 body.dark {
-span.group {
-  color: #000;
-}
+  span.group {
+    color: #000;
+  }
 
-span.group.chrome.grey {
-  background: #dadce0;
-}
-span.group.chrome.blue {
-  background: #8ab4f8;
-}
-span.group.chrome.red {
-  background: #f28b82;
-}
-span.group.chrome.yellow {
-  background: #fdd663;
-}
-span.group.chrome.green {
-  background: #81c995;
-}
-span.group.chrome.pink {
-  background: #ff8bcb;
-}
-span.group.chrome.purple {
-  background: #c58af9;
-}
-span.group.chrome.cyan {
-  background: #78d9ec;
-}
-span.group.chrome.orange {
-  background: #fcad70;
-}
+  span.group.chrome.grey {
+    background: #dadce0;
+  }
+  span.group.chrome.blue {
+    background: #8ab4f8;
+  }
+  span.group.chrome.red {
+    background: #f28b82;
+  }
+  span.group.chrome.yellow {
+    background: #fdd663;
+  }
+  span.group.chrome.green {
+    background: #81c995;
+  }
+  span.group.chrome.pink {
+    background: #ff8bcb;
+  }
+  span.group.chrome.purple {
+    background: #c58af9;
+  }
+  span.group.chrome.cyan {
+    background: #78d9ec;
+  }
+  span.group.chrome.orange {
+    background: #fcad70;
+  }
 
-span.group.edge.grey {
-  background: #84817e;
-}
-span.group.edge.blue {
-  background: #69a1fa;
-}
-span.group.edge.red {
-  background: #cf87da;
-}
-span.group.edge.yellow {
-  background: #c1a256;
-}
-span.group.edge.green {
-  background: #4a89ba;
-}
-span.group.edge.pink {
-  background: #ee5fb7;
-}
-span.group.edge.purple {
-  background: #b696ff;
-}
-span.group.edge.cyan {
-  background: #4cb4b7;
-}
-span.group.edge.orange {
-  background: #df8e64;
-}
+  span.group.edge.grey {
+    background: #84817e;
+  }
+  span.group.edge.blue {
+    background: #69a1fa;
+  }
+  span.group.edge.red {
+    background: #cf87da;
+  }
+  span.group.edge.yellow {
+    background: #c1a256;
+  }
+  span.group.edge.green {
+    background: #4a89ba;
+  }
+  span.group.edge.pink {
+    background: #ee5fb7;
+  }
+  span.group.edge.purple {
+    background: #b696ff;
+  }
+  span.group.edge.cyan {
+    background: #4cb4b7;
+  }
+  span.group.edge.orange {
+    background: #df8e64;
+  }
 }

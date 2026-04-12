@@ -103,6 +103,8 @@ export const gsFavicon = (() => {
    */
   function getChromeFavIconUrl(url) {
     // gsUtils.log( 'gsFavicon', 'getChromeFavIconUrl', url );
+    // https://developer.chrome.com/docs/extensions/how-to/ui/favicons
+    // chrome-extension://EXTENSION_ID/_favicon/?pageUrl=EXAMPLE_URL&size=FAV_SIZE
     const icon_url = new URL(chrome.runtime.getURL('/_favicon/'));
     icon_url.searchParams.set('pageUrl', url);
     icon_url.searchParams.set('size', '32');
@@ -128,9 +130,10 @@ export const gsFavicon = (() => {
     faviconMeta = await buildFaviconMetaFromChrome(url);
     if (faviconMeta) {
       await saveFaviconMetaToCache(url, faviconMeta);
+      gsUtils.log('gsFavicon', 'Found favicon from Chrome', url, faviconMeta);
       return faviconMeta;
     }
-    gsUtils.log('gsFavicon', 'No entry in chrome favicon cache', url);
+    gsUtils.log('gsFavicon', 'No favicon in chrome cache', url);
 
     // Else try to build from tabFavIconUrl
     faviconMeta = await buildFaviconMetaFromTab(tabFavIconUrl);
@@ -180,12 +183,13 @@ export const gsFavicon = (() => {
    */
   async function getFaviconMeta(tab) {
     gsUtils.log('gsFavicon', 'getFaviconMeta', tab.url);
-    let   originalUrl   = tab.url ?? '';
-    const tabFavIconUrl = tab.favIconUrl ?? '';
 
-    if (gsUtils.isFileTab(tab)) {
+    if (!tab.url || gsUtils.isFileTab(tab)) {
       return _defaultChromeFaviconMeta;
     }
+
+    let   originalUrl   = tab.url ?? '';
+    const tabFavIconUrl = tab.favIconUrl ?? '';
 
     // First try to fetch from cache
     if (gsUtils.isSuspendedTab(tab)) {
@@ -296,7 +300,7 @@ export const gsFavicon = (() => {
         normalisedFingerprint === defaultFaviconFingerprint ||
         transparentFingerprint === defaultFaviconFingerprint
       ) {
-        gsUtils.log('gsFavicon', `FaviconMeta not valid as it matches fingerprint of default favicon ${id}`, faviconMeta);
+        // gsUtils.log('gsFavicon', `FaviconMeta not valid as it matches fingerprint of default favicon ${id}`, faviconMeta);
         return false;
       }
     }
@@ -462,5 +466,7 @@ export const gsFavicon = (() => {
     getChromeFavIconUrl,
     // buildFaviconMetaFromChrome,
     // saveFaviconMetaToCache,
+    isFaviconMetaValid,
+    buildFaviconMeta,
   };
 })();

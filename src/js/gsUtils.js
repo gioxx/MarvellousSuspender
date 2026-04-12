@@ -190,7 +190,7 @@ export const gsUtils = {
       return false;
     }
     const url = gsUtils.getTabUrl(tab);
-    if (url?.indexOf('file') === 0) {
+    if (url?.startsWith('file')) {
       return true;
     }
     return false;
@@ -266,7 +266,8 @@ export const gsUtils = {
   removeTabsByUrlAsPromised(url) {
     return new Promise(async (resolve) => {
       const tabs = await gsChrome.tabsQuery({ url });
-      chrome.tabs.remove(tabs.map((o) => o.id ?? 0), () => {
+      const tabIds = tabs.map((tab) => tab.id).filter((item) => item !== undefined);
+      chrome.tabs.remove(tabIds, () => {
         resolve(null);
       });
     });
@@ -575,6 +576,24 @@ export const gsUtils = {
   getSuspendedScrollPosition(urlStr) {
     return gsUtils.decodeString(gsUtils.getHashVariable('pos', urlStr) || '');
   },
+
+  /**
+   * @param   {chrome.tabs.Tab} tab
+   * @returns {Promise<boolean>}
+   */
+  async resuspendSuspendedTab(tab) {
+    gsUtils.log(tab.id, 'Resuspending unresponsive suspended tab.');
+    if (await gsChrome.contextGetByTabId(tab.id)) {
+      await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_DISABLE_UNSUSPEND_ON_RELOAD, true);
+    }
+    const reloadOk = await gsChrome.tabsReload(tab.id);
+    return reloadOk;
+  },
+
+  /**
+   * @param {string} urlStr
+   * @returns {string}
+   */
   getOriginalUrl(urlStr) {
     return (
       gsUtils.getHashVariable('uri', urlStr) ||

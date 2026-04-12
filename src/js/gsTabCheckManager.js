@@ -29,7 +29,7 @@ export const gsTabCheckManager = (function() {
   // script is responsive, as we then need to rely on the form input and scroll behavior.
   function initAsPromised() {
     gsUtils.log('gsTabCheckManager initAsPromised', _tabCheckQueue);
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const queueProps = {
         concurrentExecutors: DEFAULT_CONCURRENT_TAB_CHECKS,
         jobTimeout: DEFAULT_TAB_CHECK_TIMEOUT,
@@ -131,7 +131,7 @@ export const gsTabCheckManager = (function() {
   }
 
   function queueTabCheck(tab, executionProps, processingDelay) {
-    queueTabCheckAsPromise(tab, executionProps, processingDelay).catch(e => {
+    queueTabCheckAsPromise(tab, executionProps, processingDelay).catch((e) => {
       gsUtils.log(tab.id, QUEUE_ID, e);
     });
   }
@@ -203,14 +203,14 @@ export const gsTabCheckManager = (function() {
       discarded: true,
       windowId: tab.windowId,
     });
-    tabs = tabs.filter(o => o.url === tab.url);
+    tabs = tabs.filter((o) => o.url === tab.url);
     gsUtils.log(tab.id, QUEUE_ID, 'Searching for discarded tab matching tab: ', tab);
-    const matchingTab = tabs.find(o => o.index === tab.index);
+    const matchingTab = tabs.find((o) => o.index === tab.index);
     if (matchingTab) {
       tabs = [matchingTab];
     }
     for (const tab of tabs) {
-      await resuspendSuspendedTab(tab);
+      await gsUtils.resuspendSuspendedTab(tab);
       queueTabCheck(tab, { refetchTab: true }, 2000);
     }
   }
@@ -218,7 +218,7 @@ export const gsTabCheckManager = (function() {
   async function checkSuspendedTab(tab, executionProps, resolve, reject, requeue) {
     gsUtils.log(tab.id, QUEUE_ID, 'checkSuspendedTab', tab.url);
     if (executionProps.resuspend && !executionProps.resuspended) {
-      await resuspendSuspendedTab(tab);
+      await gsUtils.resuspendSuspendedTab(tab);
       requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, {
         resuspended: true,
       });
@@ -253,7 +253,7 @@ export const gsTabCheckManager = (function() {
     if (!(await gsChrome.contextGetByTabId(tab.id))) {
       gsUtils.log(tab.id, QUEUE_ID, 'Could not find an internal view for suspended tab.', tab);
       if (!executionProps.resuspended) {
-        const resuspendOk = await resuspendSuspendedTab(tab);
+        const resuspendOk = await gsUtils.resuspendSuspendedTab(tab);
         if (resuspendOk) {
           requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { resuspended: true, refetchTab: true });
           return;
@@ -324,15 +324,6 @@ export const gsTabCheckManager = (function() {
     resolve(discarded ? gsUtils.STATUS_DISCARDED : gsUtils.STATUS_SUSPENDED);
   }
 
-  async function resuspendSuspendedTab(tab) {
-    gsUtils.log(tab.id, QUEUE_ID, 'Resuspending unresponsive suspended tab.');
-    if (await gsChrome.contextGetByTabId(tab.id)) {
-      await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_DISABLE_UNSUSPEND_ON_RELOAD, true);
-    }
-    const reloadOk = await gsChrome.tabsReload(tab.id);
-    return reloadOk;
-  }
-
   // function ensureSuspendedTabVisible(tabView) {
   //   if (!tabView) {
   //     return false;
@@ -395,7 +386,7 @@ export const gsTabCheckManager = (function() {
       return;
     }
 
-    let tabInfo = await new Promise(resolve => {
+    let tabInfo = await new Promise((resolve) => {
       gsMessages.sendRequestInfoToContentScript(tab.id, (error, tabInfo) =>
         resolve(tabInfo)
       );
@@ -439,13 +430,13 @@ export const gsTabCheckManager = (function() {
   // if using: window.addEventListener('keydown', formInputListener);
   function reinjectContentScriptOnTab(tab) {
     gsUtils.log(tab.id, 'reinjectContentScriptOnTab');
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       gsUtils.log(tab.id, QUEUE_ID, 'Reinjecting contentscript into unresponsive unsuspended tab.', tab);
       const executeScriptTimeout = setTimeout(() => {
         gsUtils.log(QUEUE_ID, tab.id, 'chrome.scripting.executeScript failed to trigger callback');
         resolve(null);
       }, 10000);
-      gsMessages.executeScriptOnTab(tab.id, 'js/contentscript.js', error => {
+      gsMessages.executeScriptOnTab(tab.id, 'js/contentscript.js', (error) => {
         clearTimeout(executeScriptTimeout);
         if (error) {
           gsUtils.log(tab.id, 'Failed to execute js/contentscript.js on tab', error);
@@ -453,10 +444,10 @@ export const gsTabCheckManager = (function() {
           return;
         }
         tgs.initialiseTabContentScript(tab)
-          .then(tabInfo => {
+          .then((tabInfo) => {
             resolve(tabInfo);
           })
-          .catch(error => {
+          .catch((error) => {
             resolve(null);
           });
       });
