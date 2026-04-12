@@ -138,7 +138,7 @@
         "message": "Ayrıca teşekkürler"
     },
     "html_about_browserstack_suffix": {
-        "message": "ücretsiz Chrome test araçları sağladığı için."
+        "message": "for providing free browser testing tools."
     },
     "html_about_tgs_prefix": {
         "message": "Bu uzantı olmadan asla var olamazdı"
@@ -153,7 +153,7 @@
         "message": "Ruh Roh!"
     },
     "html_broken_line1": {
-        "message": "başlatılamadı. Belki de Chrome'un uyumsuz bir sürümünü kullanıyorsunuzdur?"
+        "message": "failed to start. Perhaps you are using an incompatible browser?"
     },
     "html_broken_line2": {
         "message": "Try to restart the extension. If the problem persists, ask for help on the"
@@ -267,13 +267,13 @@
         "message": "Sekme görüntülendiğinde askısını kaldır"
     },
     "html_options_suspend_discard_after_suspend": {
-        "message": "Askıya alırken Chrome'un dahili hafıza tasarrufunu uygula"
+        "message": "Apply your browser's built-in memory-saving when suspending"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1a": {
         "message": "Askıya alınmış bir sekmenin bellek kullanımını daha da azaltarak"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-        "message": "Chrome'un yerleşil 'sekme atma' özelliği. Bu sonuçlabilir"
+        "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1c": {
         "message": "çok sayıda sekmeler ile çalışırken %500'e varan bellek tasarrufu."
@@ -285,7 +285,7 @@
         "message": "işlem işlemede gecikmeye sebep olur."
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-        "message": "Bilgi için Chrome'un referans bilgisi:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3b": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -327,7 +327,7 @@
         "message": "ve az miktarda bellek kullanımına."
     },
     "html_options_suspend_screen_capturing_tooltip_line3a": {
-        "message": "Sekmelerin askıya alınması uzun zaman alıyorsa veya chrome uygulamasında "
+        "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
     },
     "html_options_suspend_screen_capturing_tooltip_line3b": {
         "message": "beklenmedik çekilde çökme vb. olursa, bu özelliği kapatmayı deneyin."
@@ -381,31 +381,31 @@
         "message": "buradan erişmenizi sağlayacaktır."
     },
     "html_options_other_enable_sync": {
-        "message": "Ayarları Chrome profilinizle senkronize yap"
+        "message": "Sync settings with your browser profile"
     },
     "html_options_other_enable_sync_tooltip_line1a": {
-        "message": "Yaptığınız uzantı ayarları, aynı profil ile giriş yaptığınız tarayıcı"
+        "message": "Extension settings will be synchronized across all browsers which are"
     },
     "html_options_other_enable_sync_tooltip_line1b": {
         "message": "arasında senkronize edilir."
     },
     "html_options_other_enable_sync_tooltip_line2": {
-        "message": "Bu aynı zamanda ayarları gizli modda senkronize edecektir."
+        "message": "This will also synchronize settings in incognito mode."
     },
     "html_options_other_enable_sync_warning": {
-        "message": "Bunu açtığınızda, aynı Chrome profilinde oturum açan tarayıcıların ayarlarının üzerine yazılacak"
+        "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
     },
     "html_options_suspend_on_low_memory": {
         "message": "Sistem belleği çok azaldığında anında askıya al"
     },
     "html_options_suspend_on_low_memory_tooltip_line1": {
-        "message": "Bu seçenek, Chrome'un otomatik sekme atma özelliğini geçersiz kılar."
+        "message": "This option will override automatic tab discarding functionality."
     },
     "html_options_suspend_on_low_memory_tooltip_line2": {
-        "message": "Etkinleştirilirse, Chrome tarafından atılmak yerine sekmeyi askıya almaya zorlar."
+        "message": "If enabled, it will force a tab to suspend instead of being discarded."
     },
     "html_options_suspend_on_low_memory_tooltip_line3": {
-        "message": "Genellikle, Chrome yalnızca sistem belleği çok azaldığında sekmeleri atar."
+        "message": "Typically, your browser will only discard tabs once system memory gets very low."
     },
     "html_options_suspend_on_low_memory_tooltip_line4": {
         "message": "Lütfen dikkat: Bu, sekmelerin sahip olduğunuz süreden daha erken askıya alınmasına sebep olabilir."
@@ -414,7 +414,7 @@
         "message": "otomatik sekme askıya alma seçeneklerinde belirtilen."
     },
     "html_options_suspend_on_low_memory_tooltip_line6": {
-        "message": "Daha fazla bilgi için Chrome'un referansına bakınız:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_on_low_memory_tooltip_discarding_link": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
