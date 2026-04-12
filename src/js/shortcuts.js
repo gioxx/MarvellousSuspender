@@ -1,15 +1,12 @@
 import  { gsUtils }               from './gsUtils.js';
 
 (() => {
-  'use strict';
 
-  gsUtils.documentReadyAndLocalisedAsPromised(window).then(function() {
+  function render() {
+    const shortcutsEl   = document.getElementById('keyboardShortcuts');
 
-    var shortcutsEl = document.getElementById('keyboardShortcuts');
-    var configureShortcutsEl = document.getElementById('configureShortcuts');
-
-    var notSetMessage = chrome.i18n.getMessage('js_shortcuts_not_set');
-    var groupingKeys = [
+    const notSetMessage = chrome.i18n.getMessage('js_shortcuts_not_set');
+    const groupingKeys  = [
       '_execute_action',
       '2-toggle-temp-whitelist-tab',
       '2b-unsuspend-selected-tabs',
@@ -18,24 +15,34 @@ import  { gsUtils }               from './gsUtils.js';
     ];
 
     //populate keyboard shortcuts
-    chrome.commands.getAll(commands => {
-      commands.forEach(command => {
+    shortcutsEl.innerHTML = '';
+    chrome.commands.getAll((commands) => {
+      commands.forEach((command) => {
         const shortcut =
           command.shortcut !== ''
             ? gsUtils.formatHotkeyString(command.shortcut)
-            : '(' + notSetMessage + ')';
-        var addMarginBottom = groupingKeys.includes(command.name);
+            : `(${notSetMessage})`;
+        const addMarginBottom = groupingKeys.includes(command.name);
+        const description     = command.description || chrome.i18n.getMessage('js_shortcuts_default_command'); // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
         shortcutsEl.innerHTML += `
-          <div ${ addMarginBottom ? ' class="bottomMargin"' : '' }>${ command.description || chrome.i18n.getMessage('js_shortcuts_default_command') }</div>
+          <div ${ addMarginBottom ? ' class="bottomMargin"' : '' }>${description}</div>
           <div class="${ command.shortcut ? 'hotkeyCommand' : 'lesserText' }">${shortcut}</div>
           `;
       });
     });
+  }
 
-    //listener for configureShortcuts
-    configureShortcutsEl.onclick = function(e) {
-      chrome.tabs.update({ url: 'chrome://extensions/shortcuts' });
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(() => {
+
+    document.getElementById('configureShortcuts').onclick = function(e) {
+      chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
     };
+
+    window.onfocus = () => {
+      render();
+    };
+    render();
+
   });
 
 })();

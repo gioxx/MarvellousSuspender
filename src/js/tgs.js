@@ -9,7 +9,6 @@ import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
 import  { gsUtils }               from './gsUtils.js';
 
 export const tgs = (function() {
-  'use strict';
 
   const ICON_SUSPENSION_ACTIVE = {
     '16': '/img/ic_suspendy_16x16.png',
@@ -89,7 +88,8 @@ export const tgs = (function() {
     var lastStationaryTabIdForWindow = (await getCurrentStationaryTabIdByWindowId())[tab.windowId];
     if (lastStationaryTabIdForWindow) {
       return tab.id === lastStationaryTabIdForWindow;
-    } else {
+    }
+    else {
       // fallback on active flag
       return tab.active;
     }
@@ -102,7 +102,8 @@ export const tgs = (function() {
     var currentFocusedTabIdForWindow = (await getCurrentFocusedTabIdByWindowId())[tab.windowId];
     if (currentFocusedTabIdForWindow) {
       return tab.id === currentFocusedTabIdForWindow;
-    } else {
+    }
+    else {
       // fallback on active flag
       return tab.active;
     }
@@ -112,7 +113,8 @@ export const tgs = (function() {
     const activeTabIdForWindow = (await getCurrentFocusedTabIdByWindowId())[tab.windowId];
     if (activeTabIdForWindow) {
       return tab.id === activeTabIdForWindow;
-    } else {
+    }
+    else {
       // fallback on active flag
       return tab.active;
     }
@@ -123,7 +125,7 @@ export const tgs = (function() {
     getCurrentlyActiveTab(async (activeTab) => {
       if (activeTab) {
         if (gsUtils.isSuspendedTab(activeTab)) {
-          let url = gsUtils.getRootUrl(
+          const url = gsUtils.getRootUrl(
             gsUtils.getOriginalUrl(activeTab.url),
             includePath,
             false,
@@ -132,9 +134,9 @@ export const tgs = (function() {
           await unsuspendTab(activeTab);
         }
         else if (gsUtils.isNormalTab(activeTab)) {
-          let url = gsUtils.getRootUrl(activeTab.url, includePath, false);
+          const url = gsUtils.getRootUrl(activeTab.url, includePath, false);
           await gsUtils.saveToWhitelist(url);
-          calculateTabStatus(activeTab, null, function(status) {
+          calculateTabStatus(activeTab, null, (status) => {
             setIconStatus(status, activeTab.id);
           });
         }
@@ -143,7 +145,7 @@ export const tgs = (function() {
   }
 
   function unwhitelistHighlightedTab(callback) {
-    getCurrentlyActiveTab(function(activeTab) {
+    getCurrentlyActiveTab((activeTab) => {
       if (activeTab) {
         gsUtils.removeFromWhitelist(activeTab.url).then(() => {
           calculateTabStatus(activeTab, null, (status) => {
@@ -174,18 +176,20 @@ export const tgs = (function() {
         return;
       }
 
-      calculateTabStatus(activeTab, null, function(status) {
+      calculateTabStatus(activeTab, null, (status) => {
         if (
           status === gsUtils.STATUS_ACTIVE ||
           status === gsUtils.STATUS_NORMAL
         ) {
           setTempWhitelistStateForTab(activeTab, callback);
-        } else if (
+        }
+        else if (
           status === gsUtils.STATUS_TEMPWHITELIST ||
           status === gsUtils.STATUS_FORMINPUT
         ) {
           unsetTempWhitelistStateForTab(activeTab, callback);
-        } else {
+        }
+        else {
           if (callback) callback(status);
         }
       });
@@ -193,16 +197,16 @@ export const tgs = (function() {
   }
 
   function setTempWhitelistStateForTab(tab, callback) {
-    gsMessages.sendTemporaryWhitelistToContentScript(tab.id, function(
+    gsMessages.sendTemporaryWhitelistToContentScript(tab.id, (
       error,
       response,
-    ) {
+    ) => {
       if (error) {
-        gsUtils.warning( tab.id, 'Failed to sendTemporaryWhitelistToContentScript', error );
+        gsUtils.warning( tab.id, 'tgs', 'setTempWhitelistStateForTab', 'Failed to sendTemporaryWhitelistToContentScript', error );
       }
       var contentScriptStatus =
         response && response.status ? response.status : null;
-      calculateTabStatus(tab, contentScriptStatus, function(newStatus) {
+      calculateTabStatus(tab, contentScriptStatus, (newStatus) => {
         setIconStatus(newStatus, tab.id);
         //This is a hotfix for issue #723
         if (newStatus === 'tempWhitelist' && tab.autoDiscardable) {
@@ -216,16 +220,16 @@ export const tgs = (function() {
   }
 
   function unsetTempWhitelistStateForTab(tab, callback) {
-    gsMessages.sendUndoTemporaryWhitelistToContentScript(tab.id, function(
+    gsMessages.sendUndoTemporaryWhitelistToContentScript(tab.id, (
       error,
       response,
-    ) {
+    ) => {
       if (error) {
-        gsUtils.warning( tab.id, 'Failed to sendUndoTemporaryWhitelistToContentScript', error );
+        gsUtils.warning( tab.id, 'tgs', 'unsetTempWhitelistStateForTab', 'Failed to sendUndoTemporaryWhitelistToContentScript', error );
       }
       var contentScriptStatus =
         response && response.status ? response.status : null;
-      calculateTabStatus(tab, contentScriptStatus, function(newStatus) {
+      calculateTabStatus(tab, contentScriptStatus, (newStatus) => {
         setIconStatus(newStatus, tab.id);
         //This is a hotfix for issue #723
         if (newStatus !== 'tempWhitelist' && !tab.autoDiscardable) {
@@ -241,7 +245,7 @@ export const tgs = (function() {
 
   function openLinkInSuspendedTab(parentTab, linkedUrl) {
     //imitate chromes 'open link in new tab' behaviour in how it selects the correct index
-    chrome.tabs.query({ windowId: chrome.windows.WINDOW_ID_CURRENT }, tabs => {
+    chrome.tabs.query({ windowId: chrome.windows.WINDOW_ID_CURRENT }, (tabs) => {
       var newTabIndex = parentTab.index + 1;
       var nextTab = tabs[newTabIndex];
       while (nextTab && nextTab.openerTabId === parentTab.id) {
@@ -254,7 +258,7 @@ export const tgs = (function() {
         openerTabId: parentTab.id,
         active: false,
       };
-      chrome.tabs.create(newTabProperties, tab => {
+      chrome.tabs.create(newTabProperties, (tab) => {
         gsTabSuspendManager.queueTabForSuspension(tab, 1);
       });
     });
@@ -265,7 +269,8 @@ export const tgs = (function() {
       if (activeTab) {
         if (gsUtils.isSuspendedTab(activeTab)) {
           await unsuspendTab(activeTab);
-        } else {
+        }
+        else {
           gsTabSuspendManager.queueTabForSuspension(activeTab, 1);
         }
       }
@@ -273,7 +278,7 @@ export const tgs = (function() {
   }
 
   function suspendHighlightedTab() {
-    getCurrentlyActiveTab(activeTab => {
+    getCurrentlyActiveTab((activeTab) => {
       if (activeTab) {
         gsTabSuspendManager.queueTabForSuspension(activeTab, 1);
       }
@@ -290,9 +295,9 @@ export const tgs = (function() {
 
   function suspendAllTabs(force) {
     const forceLevel = force ? 1 : 2;
-    getCurrentlyActiveTab(activeTab => {
+    getCurrentlyActiveTab((activeTab) => {
       if (!activeTab) {
-        gsUtils.warning( 'background', 'Could not determine currently active window.' );
+        gsUtils.warning( 'tgs', 'suspendAllTabs', 'Could not determine currently active window.' );
         return;
       }
       chrome.windows.get(activeTab.windowId, { populate: true }, (curWindow) => {
@@ -307,7 +312,7 @@ export const tgs = (function() {
 
   function suspendAllTabsInAllWindows(force) {
     const forceLevel = force ? 1 : 2;
-    chrome.tabs.query({}, tabs => {
+    chrome.tabs.query({}, (tabs) => {
       for (const tab of tabs) {
         gsTabSuspendManager.queueTabForSuspension(tab, forceLevel);
       }
@@ -315,9 +320,9 @@ export const tgs = (function() {
   }
 
   function unsuspendAllTabs() {
-    getCurrentlyActiveTab(function(activeTab) {
+    getCurrentlyActiveTab((activeTab) => {
       if (!activeTab) {
-        gsUtils.warning( 'background', 'Could not determine currently active window.' );
+        gsUtils.warning( 'tgs', 'unsuspendAllTabs', 'Could not determine currently active window.' );
         return;
       }
       chrome.windows.get(activeTab.windowId, { populate: true }, async (curWindow) => {
@@ -325,7 +330,8 @@ export const tgs = (function() {
           gsTabSuspendManager.unqueueTabForSuspension(tab);
           if (gsUtils.isSuspendedTab(tab)) {
             await unsuspendTab(tab);
-          } else if (gsUtils.isNormalTab(tab) && !tab.active) {
+          }
+          else if (gsUtils.isNormalTab(tab) && !tab.active) {
             await resetAutoSuspendTimerForTab(tab);
           }
         }
@@ -334,7 +340,7 @@ export const tgs = (function() {
   }
 
   function unsuspendAllTabsInAllWindows() {
-    chrome.windows.getLastFocused({}, currentWindow => {
+    chrome.windows.getLastFocused({}, (currentWindow) => {
       chrome.tabs.query({}, async (tabs) => {
         // Because of the way that unsuspending steals window focus, we defer the suspending of tabs in the
         // current window until last
@@ -363,7 +369,7 @@ export const tgs = (function() {
   function suspendSelectedTabs() {
     chrome.tabs.query(
       { highlighted: true, lastFocusedWindow: true },
-      selectedTabs => {
+      (selectedTabs) => {
         for (const tab of selectedTabs) {
           gsTabSuspendManager.queueTabForSuspension(tab, 1);
         }
@@ -384,7 +390,7 @@ export const tgs = (function() {
 
   function queueSessionTimer() {
     clearTimeout(_sessionSaveTimer);
-    _sessionSaveTimer = setTimeout(function() {
+    _sessionSaveTimer = setTimeout(() => {
       gsSession.updateCurrentSession(); //async
     }, 1000);
   }
@@ -406,7 +412,7 @@ export const tgs = (function() {
 
     chrome.alarms.create( String(tab.id), { when } )
       .catch((error) => {
-        gsUtils.warning(tab.id, 'chrome alarm create failed', error);
+        gsUtils.warning(tab.id, 'tgs', 'resetAutoSuspendTimerForTab', 'chrome alarm create failed', error);
       });
 
     gsUtils.log( tab.id, 'tgs', 'resetAutoSuspendTimerForTab', timeToSuspend, new Date(when) );
@@ -469,7 +475,7 @@ export const tgs = (function() {
     const scrollPosition = gsUtils.getSuspendedScrollPosition(tab.url);
     await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SCROLL_POS, scrollPosition);
 
-    let originalUrl = gsUtils.getOriginalUrl(tab.url);
+    const originalUrl = gsUtils.getOriginalUrl(tab.url);
     if (originalUrl) {
       // Reloading chrome.tabs.update causes a history item for the suspended tab
       // to be made in the tab history. We clean this up on tab updated hook
@@ -490,23 +496,27 @@ export const tgs = (function() {
   }
 
   function buildSuspensionToggleHotkey() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       let printableHotkey = '';
-      chrome.commands.getAll(commands => {
-        const toggleCommand = commands.find(o => o.name === '1-suspend-tab');
+      chrome.commands.getAll((commands) => {
+        const toggleCommand = commands.find((o) => o.name === '1-suspend-tab');
         if (toggleCommand && toggleCommand.shortcut !== '') {
           printableHotkey = gsUtils.formatHotkeyString(toggleCommand.shortcut);
           resolve(printableHotkey);
-        } else {
+        }
+        else {
           resolve(null);
         }
       });
     });
   }
 
+  /**
+   * @param {chrome.tabs.Tab} tab
+   * @param {string} url
+   */
   function checkForTriggerUrls(tab, url) {
-    // test for a save of keyboard shortcuts (chrome://extensions/shortcuts)
-    if (url === 'chrome://extensions/shortcuts') {
+    if (gsUtils.isBrowserInternalURL(url, '://extensions/shortcuts')) {
       gsStorage.saveStorage('session', 'gsTriggerHotkeyUpdate', true);
     }
   }
@@ -605,8 +615,8 @@ export const tgs = (function() {
           gsUtils.log( tab.id, 'Content script status', contentScriptStatus );
         }
         initialiseTabContentScript(tab, tempWhitelistOnReload, scrollPos)
-          .catch(error => {
-            gsUtils.warning( tab.id, 'Failed to send init to content script. Tab may not behave as expected.', error );
+          .catch((error) => {
+            gsUtils.warning( tab.id, 'tgs', 'handleUnsuspendedTabStateChanged', 'Failed to send init to content script. Tab may not behave as expected.', error );
           });
           // .then(() => {
           //   // could use returned tab status here below
@@ -618,7 +628,7 @@ export const tgs = (function() {
 
     //if tab is currently visible then update popup icon
     if (hasTabStatusChanged && await isCurrentFocusedTab(tab)) {
-      calculateTabStatus(tab, null, function(status) {
+      calculateTabStatus(tab, null, (status) => {
         setIconStatus(status, tab.id);
       });
     }
@@ -627,7 +637,7 @@ export const tgs = (function() {
   function removeTabHistoryForUnsuspendedTab(suspendedUrl) {
     chrome.history.deleteUrl({ url: suspendedUrl });
     const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
-    chrome.history.getVisits({ url: originalUrl }, visits => {
+    chrome.history.getVisits({ url: originalUrl }, (visits) => {
       //assume history entry will be the second to latest one (latest one is the currently visible page)
       //NOTE: this will break if the same url has been visited by another tab more recently than the
       //suspended tab (pre suspension)
@@ -717,8 +727,8 @@ export const tgs = (function() {
     const discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
     const quickInit = discardAfterSuspend && !tab.active;
     chrome.tabs.sendMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() })
-      .catch(error => {
-        gsUtils.warning(tab.id, error);
+      .catch((error) => {
+        gsUtils.warning(tab.id, 'tgs', 'initialiseSuspendedTab', error);
       })
       .then(() => {
         gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 3000);
@@ -764,7 +774,7 @@ export const tgs = (function() {
     await setCurrentFocusedWindowId(windowId);
 
     // Get the active tab in the newly focused window
-    chrome.tabs.query({ active: true }, function(tabs) {
+    chrome.tabs.query({ active: true }, (tabs) => {
       if (!tabs || !tabs.length) {
         return;
       }
@@ -775,12 +785,12 @@ export const tgs = (function() {
         }
       }
       if (!focusedTab) {
-        gsUtils.warning( 'background', `Could not find active tab with windowId: ${windowId}. Window may have been closed.` );
+        gsUtils.warning( 'tgs', 'handleWindowFocusChanged', `Could not find active tab with windowId: ${windowId}. Window may have been closed.` );
         return;
       }
 
       //update icon
-      calculateTabStatus(focusedTab, null, function(status) {
+      calculateTabStatus(focusedTab, null, (status) => {
         setIconStatus(status, focusedTab.id);
       });
 
@@ -850,12 +860,11 @@ export const tgs = (function() {
     //will key through intermediate tabs to get to the one they want.
     queueNewTabFocusTimer(tabId, windowId, focusedTab);
 
-    //test for a save of keyboard shortcuts (chrome://extensions/shortcuts)
-    if (focusedTab.url === 'chrome://extensions/shortcuts') {
+    if (gsUtils.isBrowserInternalURL(focusedTab.url, '://extensions/shortcuts')) {
       await gsStorage.saveStorage('session', 'gsTriggerHotkeyUpdate', true);
     }
 
-    let discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
+    const discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
     if (!discardAfterSuspend) {
       return;
     }
@@ -969,7 +978,7 @@ export const tgs = (function() {
   }
 
   function promptForFilePermissions() {
-    getCurrentlyActiveTab(activeTab => {
+    getCurrentlyActiveTab((activeTab) => {
       chrome.tabs.create({
         url: chrome.runtime.getURL('permissions.html'),
         index: activeTab.index + 1,
@@ -1031,7 +1040,7 @@ export const tgs = (function() {
     if (gsUtils.isNormalTab(tab, true)) {
       gsMessages.sendRequestInfoToContentScript(tab.id, ( error, tabInfo ) => {
         // if (error) {
-        //   gsUtils.warning(tab.id, 'Failed to getDebugInfo', error);
+        //   gsUtils.warning(tab.id, 'tgs', 'getDebugInfo', 'Failed to getDebugInfo', error);
         // }
         if (tabInfo) {
           calculateTabStatus(tab, tabInfo.status, (status) => {
@@ -1053,18 +1062,20 @@ export const tgs = (function() {
   }
 
   function getContentScriptStatus(tabId, knownContentScriptStatus) {
-    return new Promise(function(resolve) {
+    return new Promise((resolve) => {
       if (knownContentScriptStatus) {
         resolve(knownContentScriptStatus);
-      } else {
-        gsMessages.sendRequestInfoToContentScript(tabId, function(error, tabInfo) {
+      }
+      else {
+        gsMessages.sendRequestInfoToContentScript(tabId, (error, tabInfo) => {
           gsUtils.log(tabId, 'sendRequestInfoToContentScript', error, tabInfo);
           if (error) {
-            gsUtils.warning(tabId, 'Failed to getContentScriptStatus', error);
+            gsUtils.warning(tabId, 'tgs', 'getContentScriptStatus', 'Failed', error);
           }
           if (tabInfo) {
             resolve(tabInfo.status);
-          } else {
+          }
+          else {
             resolve(null);
           }
         });
@@ -1168,12 +1179,12 @@ export const tgs = (function() {
   }
 
   function getActiveTabStatus(callback) {
-    getCurrentlyActiveTab(function(tab) {
+    getCurrentlyActiveTab((tab) => {
       if (!tab) {
         callback(gsUtils.STATUS_UNKNOWN);
         return;
       }
-      calculateTabStatus(tab, null, function(status) {
+      calculateTabStatus(tab, null, (status) => {
         callback(status);
       });
     });
@@ -1188,17 +1199,17 @@ export const tgs = (function() {
     // gsUtils.log(tabId, 'Setting icon status', path);
     chrome.action.setIcon({ path, tabId }, () => {
       if (chrome.runtime.lastError) {
-        gsUtils.warning(tabId, chrome.runtime.lastError);
+        gsUtils.warning(tabId, 'tgs', 'setIconStatus', chrome.runtime.lastError);
       }
     });
   }
 
   function setIconStatusForActiveTab() {
-    getCurrentlyActiveTab(function(tab) {
+    getCurrentlyActiveTab((tab) => {
       if (!tab) {
         return;
       }
-      calculateTabStatus(tab, null, function(status) {
+      calculateTabStatus(tab, null, (status) => {
         setIconStatus(status, tab.id);
       });
     });
@@ -1207,11 +1218,12 @@ export const tgs = (function() {
   //HANDLERS FOR RIGHT-CLICK CONTEXT MENU
   function buildContextMenu(showContextMenu) {
     /** @type { chrome.contextMenus.CreateProperties['contexts'] } */
-    const allContexts = [ 'page', 'frame', 'editable', 'image', 'video', 'audio' ]; //'selection',
+    const allContexts = ['page', 'frame', 'editable', 'image', 'video', 'audio']; //'selection',
 
     if (!showContextMenu) {
       chrome.contextMenus.removeAll();
-    } else {
+    }
+    else {
       chrome.contextMenus.create({
         id: 'open_link_in_suspended_tab',
         title: chrome.i18n.getMessage('js_context_open_link_in_suspended_tab'),
