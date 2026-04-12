@@ -138,7 +138,7 @@
         "message": "Merci également à"
     },
     "html_about_browserstack_suffix": {
-        "message": "pour fournir des outils de test de chrome gratuits."
+        "message": "for providing free browser testing tools."
     },
     "html_about_tgs_prefix": {
         "message": "Cette extension n'aurait jamais pu exister sans"
@@ -153,7 +153,7 @@
         "message": "Ruh Roh!"
     },
     "html_broken_line1": {
-        "message": "n'a pas pu démarrer. Peut-être utilisez-vous une version incompatible de Chrome ?"
+        "message": "failed to start. Perhaps you are using an incompatible browser?"
     },
     "html_broken_line2": {
         "message": "Essayez de redémarrer l'extension. Si le problème persiste, demandez de l'aide sur la"
@@ -267,13 +267,13 @@
         "message": "Automatiquement annuler la suspension de l'onglet lorsqu'il est vu"
     },
     "html_options_suspend_discard_after_suspend": {
-        "message": "Appliquer l'économiseur de mémoire intégré à Chrome lors de la suspension"
+        "message": "Apply your browser's built-in memory-saving when suspending"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1a": {
         "message": "Réduit encore plus l'utilisation de la mémoire d'un onglet suspendu, en utilisant la"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-        "message": "fonctionnalité intégrée de 'suppression d'onglets' de Chrome. Cela peut entraîner jusqu'à"
+        "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1c": {
         "message": "500% d'économie de mémoire lorsque vous travaillez avec un grand nombre d'onglets."
@@ -285,7 +285,7 @@
         "message": "d'un onglet suspendu."
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-        "message": "Pour plus d'informations sur les rejets de Chrome, reportez-vous à:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3b": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -327,7 +327,7 @@
         "message": "ainsi qu'une utilisation de mémoire légèrement augmentée."
     },
     "html_options_suspend_screen_capturing_tooltip_line3a": {
-        "message": "Si vous remarquez un comportement étrange, comme les onglets qui prennent beaucoup de temps à se suspendre, ou chrome"
+        "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
     },
     "html_options_suspend_screen_capturing_tooltip_line3b": {
         "message": "plantant inopinément, essayez de désactiver cette fonctionnalité."
@@ -381,31 +381,31 @@
         "message": "autre part dans l'extension."
     },
     "html_options_other_enable_sync": {
-        "message": "Synchroniser les paramètres avec votre profil Chrome"
+        "message": "Sync settings with your browser profile"
     },
     "html_options_other_enable_sync_tooltip_line1a": {
-        "message": "Les paramètres de l'extension seront synchronisés sur tous les navigateurs chrome qui sont"
+        "message": "Extension settings will be synchronized across all browsers which are"
     },
     "html_options_other_enable_sync_tooltip_line1b": {
         "message": "connecté avec le même profil."
     },
     "html_options_other_enable_sync_tooltip_line2": {
-        "message": "Cela synchronisera également les paramètres en mode incognito."
+        "message": "This will also synchronize settings in incognito mode."
     },
     "html_options_other_enable_sync_warning": {
-        "message": "Activer cette option écrasera les paramètres de tous les autres navigateurs connectés sur le même profil Chrome"
+        "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
     },
     "html_options_suspend_on_low_memory": {
         "message": "Suspendre instantanément lorsque la mémoire du système devient très faible"
     },
     "html_options_suspend_on_low_memory_tooltip_line1": {
-        "message": "Cette option remplacera la fonctionnalité de suppression automatique des onglets de Chrome."
+        "message": "This option will override automatic tab discarding functionality."
     },
     "html_options_suspend_on_low_memory_tooltip_line2": {
-        "message": "Si activé, cela forcera un onglet à suspendre au lieu d'être rejeté par Chrome."
+        "message": "If enabled, it will force a tab to suspend instead of being discarded."
     },
     "html_options_suspend_on_low_memory_tooltip_line3": {
-        "message": "Généralement, Chrome ne supprimera les onglets que lorsque la mémoire du système est très faible."
+        "message": "Typically, your browser will only discard tabs once system memory gets very low."
     },
     "html_options_suspend_on_low_memory_tooltip_line4": {
         "message": "Remarque : Cela peut entraîner la suspension des onglets plus tôt que le temps que vous avez"
@@ -414,7 +414,7 @@
         "message": "spécifié dans les options de suspension automatique des onglets."
     },
     "html_options_suspend_on_low_memory_tooltip_line6": {
-        "message": "Pour plus d'informations sur les rejets de Chrome, reportez-vous à:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_on_low_memory_tooltip_discarding_link": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
