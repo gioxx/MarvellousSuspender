@@ -77,6 +77,82 @@
     "js_context_unsuspend_all_tabs": {
         "message": "恢复所有窗口的所有标签页"
     },
+    "html_health_title": {
+        "message": "Tab Health (Beta)"
+    },
+    "html_health_title_intro": {
+        "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    },
+    "html_health_all_good": {
+        "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    },
+    "html_health_reload_intro": {
+        "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    },
+    "html_health_restore_intro": {
+        "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    },
+    "html_health_scan_button": {
+        "message": "Scan Tabs"
+    },
+    "html_health_copy_button": {
+        "message": "Copy Results"
+    },
+    "html_health_scan_label": {
+        "message": "Scanning tabs..."
+    },
+    "html_health_num_tms_tabs": {
+        "message": "TMS Suspended tabs"
+    },
+    "html_health_num_tms_cache": {
+        "message": "favicons in the TMS Cache"
+    },
+    "html_health_num_tabs_empty": {
+        "message": "tabs haven't loaded"
+    },
+    "html_health_num_tabs_extension": {
+        "message": "tabs have the TMS favicon"
+    },
+    "html_health_num_tabs_default": {
+        "message": "tabs have a default favicon"
+    },
+    "html_health_num_hostnames": {
+        "message": "unique tab hostnames"
+    },
+    "html_health_small_cache": {
+        "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    },
+    "html_health_reload_button": {
+        "message": "Next: Reload $count$ Tabs",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "html_health_restore_button": {
+        "message": "Next: Restore $count$ tabs to cache favicons",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "html_health_action_label": {
+        "message": "Restoring favicons..."
+    },
+    "html_health_after_reload": {
+        "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    },
+    "html_health_after_restore": {
+        "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    },
+    "html_health_need_help1": {
+        "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    },
+    "html_health_need_help2": {
+        "message": "Issue on GitHub."
+    },
     "html_about_title": {
         "message": "关于"
     },
@@ -88,6 +164,9 @@
     },
     "html_about_fork_end": {
         "message": "，更多信息在"
+    },
+    "html_about_contributors": {
+        "message": "Brought to you by"
     },
     "html_about_github_title": {
         "message": "GitHub"
@@ -138,7 +217,7 @@
         "message": "同时也感谢"
     },
     "html_about_browserstack_suffix": {
-        "message": "提供免费的 Chrome 测试工具"
+        "message": "for providing free browser testing tools."
     },
     "html_about_tgs_prefix": {
         "message": "如果没有这个扩展，就不可能存在"
@@ -153,7 +232,7 @@
         "message": "哦吼！"
     },
     "html_broken_line1": {
-        "message": "启动失败。也许您正在使用不兼容的Chrome版本？"
+        "message": "failed to start. Perhaps you are using an incompatible browser?"
     },
     "html_broken_line2": {
         "message": "请尝试重新启动扩展。如果问题仍然存在，请在下面寻求帮助"
@@ -267,13 +346,13 @@
         "message": "当标签页被浏览就自动恢复标签页"
     },
     "html_options_suspend_discard_after_suspend": {
-        "message": "冻结时应用 Chrome 内置的内存节省功能"
+        "message": "Apply your browser's built-in memory-saving when suspending"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1a": {
         "message": "通过启用 Chrome 内置的内存节省功能，可以更多的降低内存使用。"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-        "message": "当多个标签页同时打开时，可以降低 500% 的系统内存消耗。"
+        "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1c": {
         "message": "to 500% memory savings when working with large numbers of tabs."
@@ -285,7 +364,7 @@
         "message": "a suspended tab."
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-        "message": "有关 Chrome discarding 的更多信息，请参阅："
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3b": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -327,7 +406,7 @@
         "message": "well as slightly increased memory usage."
     },
     "html_options_suspend_screen_capturing_tooltip_line3a": {
-        "message": "如果您注意到奇怪的行为，如标签页需要很长时间才能冻结，或者 Chrome 意外崩溃，请尝试关闭此功能。"
+        "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
     },
     "html_options_suspend_screen_capturing_tooltip_line3b": {
         "message": "crashing unexpectedly, try turning this feature off."
@@ -381,31 +460,31 @@
         "message": "elsewhere in the extension."
     },
     "html_options_other_enable_sync": {
-        "message": "在不同系统之间同步设置"
+        "message": "Sync settings with your browser profile"
     },
     "html_options_other_enable_sync_tooltip_line1a": {
-        "message": "扩展的设置将在所有使用相同配置文件登录的 Chrome 浏览器中同步"
+        "message": "Extension settings will be synchronized across all browsers which are"
     },
     "html_options_other_enable_sync_tooltip_line1b": {
         "message": "。"
     },
     "html_options_other_enable_sync_tooltip_line2": {
-        "message": "在无痕模式下也会进行设置同步。"
+        "message": "This will also synchronize settings in incognito mode."
     },
     "html_options_other_enable_sync_warning": {
-        "message": "打开此项将覆盖其他同步系统上保存的设置"
+        "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
     },
     "html_options_suspend_on_low_memory": {
         "message": "当系统内存变得非常低时冻结标签页"
     },
     "html_options_suspend_on_low_memory_tooltip_line1": {
-        "message": "此选项会覆盖 Chrome 的 automatic tab discarding 功能。"
+        "message": "This option will override automatic tab discarding functionality."
     },
     "html_options_suspend_on_low_memory_tooltip_line2": {
-        "message": "如果启用，该页面将被强制冻结，而不是被 Chrome 删除。"
+        "message": "If enabled, it will force a tab to suspend instead of being discarded."
     },
     "html_options_suspend_on_low_memory_tooltip_line3": {
-        "message": "通常，Chrome 仅在系统内存非常低时删除页面。"
+        "message": "Typically, your browser will only discard tabs once system memory gets very low."
     },
     "html_options_suspend_on_low_memory_tooltip_line4": {
         "message": "注意：这可能导致标签页在“标签页自动冻结”选项中指定的时间之前冻结。"
@@ -414,7 +493,7 @@
         "message": "specified in the Automatic tab suspension options."
     },
     "html_options_suspend_on_low_memory_tooltip_line6": {
-        "message": "有关 automatic tab discarding 的更多信息，请参阅："
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_on_low_memory_tooltip_discarding_link": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -501,7 +580,10 @@
         "message": "设置"
     },
     "html_sidebar_session_management": {
-        "message": "会话管理"
+        "message": "Sessions"
+    },
+    "html_sidebar_tab_health": {
+        "message": "Tab Health"
     },
     "html_sidebar_shortcuts": {
         "message": "键盘快捷键"
@@ -564,13 +646,13 @@
         "message": "更新"
     },
     "html_update_heading2": {
-        "message": "is about to get marvellous-er"
+        "message": "is ready to get marvellous-<i>er</i>"
     },
     "html_update_info": {
-        "message": "一个新版本的 The Marvellous Suspender 已准备好安装。\n请注意：冻结的页面将在更新过程中暂时消失。"
+        "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
     },
     "html_update_info_withbackup": {
-        "message": "为了以防万一，最好对当前标签页的会话的做备份。"
+        "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
     },
     "html_update_info_nobackup_prefix": {
         "message": "强烈建议您在继续更新之前在 "

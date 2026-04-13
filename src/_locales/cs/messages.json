@@ -77,6 +77,82 @@
     "js_context_unsuspend_all_tabs": {
         "message": "Unsuspend all tabs in all windows"
     },
+    "html_health_title": {
+        "message": "Tab Health (Beta)"
+    },
+    "html_health_title_intro": {
+        "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    },
+    "html_health_all_good": {
+        "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    },
+    "html_health_reload_intro": {
+        "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    },
+    "html_health_restore_intro": {
+        "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    },
+    "html_health_scan_button": {
+        "message": "Scan Tabs"
+    },
+    "html_health_copy_button": {
+        "message": "Copy Results"
+    },
+    "html_health_scan_label": {
+        "message": "Scanning tabs..."
+    },
+    "html_health_num_tms_tabs": {
+        "message": "TMS Suspended tabs"
+    },
+    "html_health_num_tms_cache": {
+        "message": "favicons in the TMS Cache"
+    },
+    "html_health_num_tabs_empty": {
+        "message": "tabs haven't loaded"
+    },
+    "html_health_num_tabs_extension": {
+        "message": "tabs have the TMS favicon"
+    },
+    "html_health_num_tabs_default": {
+        "message": "tabs have a default favicon"
+    },
+    "html_health_num_hostnames": {
+        "message": "unique tab hostnames"
+    },
+    "html_health_small_cache": {
+        "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    },
+    "html_health_reload_button": {
+        "message": "Next: Reload $count$ Tabs",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "html_health_restore_button": {
+        "message": "Next: Restore $count$ tabs to cache favicons",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "html_health_action_label": {
+        "message": "Restoring favicons..."
+    },
+    "html_health_after_reload": {
+        "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    },
+    "html_health_after_restore": {
+        "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    },
+    "html_health_need_help1": {
+        "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    },
+    "html_health_need_help2": {
+        "message": "Issue on GitHub."
+    },
     "html_about_title": {
         "message": "About"
     },
@@ -88,6 +164,9 @@
     },
     "html_about_fork_end": {
         "message": ", more information available on"
+    },
+    "html_about_contributors": {
+        "message": "Brought to you by"
     },
     "html_about_github_title": {
         "message": "GitHub"
@@ -138,7 +217,7 @@
         "message": "Thank you also to"
     },
     "html_about_browserstack_suffix": {
-        "message": "for providing free chrome testing tools."
+        "message": "for providing free browser testing tools."
     },
     "html_about_tgs_prefix": {
         "message": "Toto rozšíření by nikdy nemohlo existovat bez"
@@ -153,7 +232,7 @@
         "message": "Ruh Roh!"
     },
     "html_broken_line1": {
-        "message": "failed to start. Perhaps you are using an incompatible version of Chrome?"
+        "message": "failed to start. Perhaps you are using an incompatible browser?"
     },
     "html_broken_line2": {
         "message": "Try to restart the extension. If the problem persists, ask for help on the"
@@ -267,13 +346,13 @@
         "message": "Automatically unsuspend tab when it is viewed"
     },
     "html_options_suspend_discard_after_suspend": {
-        "message": "Apply Chrome's built-in memory-saving when suspending"
+        "message": "Apply your browser's built-in memory-saving when suspending"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1a": {
         "message": "Reduces a suspended tab's memory usage even more, by utilizing"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-        "message": "Chrome's built-in 'tab discarding' functionality. This can result in up"
+        "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line1c": {
         "message": "to 500% memory savings when working with large numbers of tabs."
@@ -285,7 +364,7 @@
         "message": "a suspended tab."
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-        "message": "For more information on Chrome discarding refer to:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_discard_after_suspend_tooltip_line3b": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -327,7 +406,7 @@
         "message": "well as slightly increased memory usage."
     },
     "html_options_suspend_screen_capturing_tooltip_line3a": {
-        "message": "If you notice strange behaviour such as tabs taking a long time to suspend, or chrome"
+        "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
     },
     "html_options_suspend_screen_capturing_tooltip_line3b": {
         "message": "crashing unexpectedly, try turning this feature off."
@@ -381,31 +460,31 @@
         "message": "elsewhere in the extension."
     },
     "html_options_other_enable_sync": {
-        "message": "Sync settings with your Chrome profile"
+        "message": "Sync settings with your browser profile"
     },
     "html_options_other_enable_sync_tooltip_line1a": {
-        "message": "Extension settings will be synchronised across all chrome browsers which are"
+        "message": "Extension settings will be synchronized across all browsers which are"
     },
     "html_options_other_enable_sync_tooltip_line1b": {
         "message": "logged in with the same profile."
     },
     "html_options_other_enable_sync_tooltip_line2": {
-        "message": "This will also synchronise settings in incognito mode."
+        "message": "This will also synchronize settings in incognito mode."
     },
     "html_options_other_enable_sync_warning": {
-        "message": "Turning this on will overwrite settings on all other browsers logged into the same Chrome profile"
+        "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
     },
     "html_options_suspend_on_low_memory": {
         "message": "Instantly suspend when system memory gets very low"
     },
     "html_options_suspend_on_low_memory_tooltip_line1": {
-        "message": "This option will override Chrome's automatic tab discarding functionality."
+        "message": "This option will override automatic tab discarding functionality."
     },
     "html_options_suspend_on_low_memory_tooltip_line2": {
-        "message": "If enabled, it will force a tab to suspend instead of being discarded by Chrome."
+        "message": "If enabled, it will force a tab to suspend instead of being discarded."
     },
     "html_options_suspend_on_low_memory_tooltip_line3": {
-        "message": "Typically, Chrome will only discard tabs once system memory gets very low."
+        "message": "Typically, your browser will only discard tabs once system memory gets very low."
     },
     "html_options_suspend_on_low_memory_tooltip_line4": {
         "message": "Please note: This may cause tabs to suspend earlier than the time you have"
@@ -414,7 +493,7 @@
         "message": "specified in the Automatic tab suspension options."
     },
     "html_options_suspend_on_low_memory_tooltip_line6": {
-        "message": "For more information on Chrome discarding refer to:"
+        "message": "For more information on tab discarding refer to:"
     },
     "html_options_suspend_on_low_memory_tooltip_discarding_link": {
         "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -501,7 +580,10 @@
         "message": "Nastavení"
     },
     "html_sidebar_session_management": {
-        "message": "Session management"
+        "message": "Sessions"
+    },
+    "html_sidebar_tab_health": {
+        "message": "Tab Health"
     },
     "html_sidebar_shortcuts": {
         "message": "Klávesové zkratky"
@@ -564,13 +646,13 @@
         "message": "Update"
     },
     "html_update_heading2": {
-        "message": "is about to get marvellous-er"
+        "message": "is ready to get marvellous-<i>er</i>"
     },
     "html_update_info": {
-        "message": "A new version of The Marvellous Suspender is ready to be installed.\nPlease note: during the update your suspended tabs will briefly disappear."
+        "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
     },
     "html_update_info_withbackup": {
-        "message": "Just in case, now might be a good time to save a backup of your current tab session."
+        "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
     },
     "html_update_info_nobackup_prefix": {
         "message": "It is strongly recommended that you export a copy of your current session from "
