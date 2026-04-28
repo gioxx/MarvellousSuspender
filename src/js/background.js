@@ -434,11 +434,6 @@ import  { tgs }                   from './tgs.js';
     chrome.windows.onCreated.addListener(async (window) => {
       gsUtils.log(window.id, 'background', 'window created.');
       tgs.queueSessionTimer();
-
-      const noticeToDisplay = await tgs.requestNotice();
-      if (noticeToDisplay) {
-        await chrome.tabs.create({ url: chrome.runtime.getURL('notice.html') });
-      }
     });
     chrome.windows.onRemoved.addListener((windowId) => {
       gsUtils.log(windowId, 'background', 'window removed.');
