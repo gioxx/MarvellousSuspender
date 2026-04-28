@@ -27,7 +27,6 @@ export const gsStorage = {
   DISCARD_IN_PLACE_OF_SUSPEND   : 'discardInPlaceOfSuspend',
 
   APP_VERSION                   : 'gsVersion',
-  LAST_NOTICE                   : 'gsNotice',
   LAST_EXTENSION_RECOVERY       : 'gsExtensionRecovery',
   UPDATE_AVAILABLE              : 'gsUpdateAvailable',
 
@@ -344,18 +343,6 @@ export const gsStorage = {
         gsUtils.error(
           'gsStorage',
           'failed to save ' + gsStorage.APP_VERSION + ' to local storage',
-          chrome.runtime.lastError
-        );
-      }
-    });
-  },
-
-  setNoticeVersion: function(newVersion) {
-    chrome.storage.local.set({ [gsStorage.LAST_NOTICE]: JSON.stringify(newVersion) }, () => {
-      if (chrome.runtime.lastError) {
-        gsUtils.error(
-          'gsStorage',
-          'failed to save ' + gsStorage.LAST_NOTICE + ' to local storage',
           chrome.runtime.lastError
         );
       }

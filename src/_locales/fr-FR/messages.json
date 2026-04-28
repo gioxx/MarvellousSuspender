@@ -191,9 +191,6 @@
     "html_history_migrate_old_id": {
         "message": "Old TGS Extension id"
     },
-    "html_notice_title": {
-        "message": "Notice"
-    },
     "html_notice_important_notice": {
         "message": "Important notice from The Marvellous Suspender"
     },

@@ -92,8 +92,6 @@
     "html_history_import_session": { "message": "Import session" },
     "html_history_migrate_tabs": { "message": "Migrate tabs" },
     "html_history_migrate_old_id": { "message": "Extension ID" },
-    "html_notice_title": { "message": "Notice" },
-    "html_notice_important_notice": { "message": "Important notice from The Marvellous Suspender" },
     "html_options_title": { "message": "Settings" },
     "html_options_suspend_title": { "message": "Automatic tab suspension" },
     "html_options_suspended_title": { "message": "Suspended tabs" },
