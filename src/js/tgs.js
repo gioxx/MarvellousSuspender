@@ -986,14 +986,6 @@ export const tgs = (function() {
     });
   }
 
-  async function requestNotice() {
-    return gsStorage.getStorageJSON('session', 'gsNoticeToDisplay');
-  }
-
-  async function clearNotice() {
-    return gsStorage.deleteStorage('session', 'gsNoticeToDisplay');
-  }
-
   async function getCurrentStationaryTabIdByWindowId() {
     return (await gsStorage.getStorageJSON('session', 'gsCurrentStationaryTabIdByWindowId')) || {};
   }
@@ -1354,8 +1346,6 @@ export const tgs = (function() {
     setTabStatePropForTabId,
 
     initialiseTabContentScript,
-    requestNotice,
-    clearNotice,
     buildContextMenu,
     getActiveTabStatus,
     getDebugInfo,
