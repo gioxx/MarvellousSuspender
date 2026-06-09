@@ -1,90 +1,75 @@
+@import url('tokens.css');
+
 html,
 body {
   margin: 0;
   padding: 0;
 }
+
 html {
   box-sizing: border-box;
 }
+
 *,
 *::before,
 *::after {
   box-sizing: inherit;
 }
+
 body {
-  font-family: system-ui, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  color: #444;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  background-color: var(--background);
   padding: 0;
   margin: 0;
   min-width: 325px;
   position: relative;
-  font-size: 15px;
-  background: #fff;
-}
-@media (min-resolution: 192dpi) {
-  body {
-    font-weight: 300;
-  }
+  font-size: var(--text-base);
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
   outline: none;
-  color: #3477db;
+  color: var(--primary);
 }
+
 #statusDetail a {
-  color: #ffffff;
+  color: var(--primary-foreground);
 }
+
 #header {
-  padding: 15px;
-  background: #777;
-  color: #fff;
+  padding: var(--space-4);
+  background-color: var(--muted);
+  color: var(--foreground);
+  font-size: var(--text-sm);
 }
+
 #header.willSuspend {
-  background: #3477db;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
 }
+
 #header.blockedFile {
-    background: #a70707;
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
 }
 
 .group {
-  padding: 10px 0;
+  padding: var(--space-2) 0;
 }
+
 .group:not(:last-of-type) {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--border);
 }
 
 .menuOption {
   line-height: 2em;
-  font-size: 16px;
+  font-size: var(--text-md);
   white-space: nowrap;
   cursor: pointer;
-  padding: 0 15px;
+  padding: 0 var(--space-4);
 }
+
 .menuOption:hover .optionText {
   text-decoration: underline;
-}
-
-
-/* dark theme */
-/* Automatically set dark background based on OS settings */
-/* This prevents flickering on initial page load */
-@media (prefers-color-scheme: dark) {
-
-body, .option, .historyLink {
-    background: #222;
-    color: #ccc;
-}
-
-}
-
-/* when the OS is set to dar, but the user selects light mode, override the media query */
-.light, .light .option, .light .historyLink {
-    background: #fafafa;
-    color: #444;
-}
-
-/* set all explicit dark styles */
-.dark, .dark .option, .dark .historyLink {
-    background: #222;
-    color: #ccc;
 }
