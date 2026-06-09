@@ -1,0 +1,174 @@
+/* tokens.css — Design tokens for The Marvellous Suspender
+   Brand: Technical Blueprint, aligned with marvellouscode.works
+   Themes: light (default), dark (OS media query + .dark class), light override (.light class) */
+
+/* ── Web fonts (variable, self-hosted) ──────────────────────────────────── */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../font/inter-variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../font/jetbrains-mono-variable.woff2') format('woff2-variations');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* Color — Technical Blueprint, light */
+  --background:             oklch(0.98 0 0);
+  --foreground:             oklch(0.15 0 0);
+  --muted:                  oklch(0.95 0 0);
+  --muted-foreground:       oklch(0.15 0 0 / 0.5);
+  --card:                   oklch(0.96 0 0);
+  --card-foreground:        oklch(0.15 0 0);
+  --primary:                oklch(0.45 0.18 158);
+  --primary-foreground:     oklch(0.98 0 0);
+  --primary-hover:          oklch(0.35 0.16 158);
+  --secondary:              oklch(0.95 0 0);
+  --secondary-foreground:   oklch(0.15 0 0);
+  --accent:                 oklch(0.95 0 0);
+  --accent-foreground:      oklch(0.15 0 0);
+  --destructive:            oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border:                 oklch(0 0 0 / 0.08);
+  --input:                  oklch(0 0 0 / 0.10);
+  --ring:                   oklch(0.45 0.18 158);
+
+  /* Border radius */
+  --radius-sm:   0.125rem;   /* 2px  — buttons, inputs */
+  --radius-md:   0.25rem;    /* 4px  */
+  --radius-lg:   0.375rem;   /* 6px  */
+  --radius-xl:   0.625rem;   /* 10px */
+  --radius-full: 9999px;
+
+  /* Spacing (4px grid) */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Type scale (base: 16px) */
+  --text-2xs:  0.625rem;   /* 10px — eyebrow / label */
+  --text-xs:   0.6875rem;  /* 11px */
+  --text-sm:   0.8125rem;  /* 13px */
+  --text-base: 0.875rem;   /* 14px — body */
+  --text-md:   1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.5rem;     /* 24px */
+  --text-3xl:  1.875rem;   /* 30px */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.07), 0 2px 4px -2px oklch(0 0 0 / 0.05);
+
+  /* Motion */
+  --ease-studio:   cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+
+  /* Layout */
+  --content-max: 1120px;
+  --nav-width:   180px;
+}
+
+/* ── Dark tokens ────────────────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background:             oklch(0.14 0 0);
+    --foreground:             oklch(0.96 0 0);
+    --muted:                  oklch(0.20 0 0);
+    --muted-foreground:       oklch(0.96 0 0 / 0.55);
+    --card:                   oklch(0.17 0 0);
+    --card-foreground:        oklch(0.96 0 0);
+    --primary:                oklch(0.72 0.18 158);
+    --primary-foreground:     oklch(0.14 0 0);
+    --primary-hover:          oklch(0.82 0.18 158);
+    --secondary:              oklch(0.22 0 0);
+    --secondary-foreground:   oklch(0.96 0 0);
+    --accent:                 oklch(0.22 0 0);
+    --accent-foreground:      oklch(0.96 0 0);
+    --destructive:            oklch(0.65 0.22 25);
+    --destructive-foreground: oklch(0.14 0 0);
+    --border:                 oklch(1 0 0 / 0.10);
+    --input:                  oklch(1 0 0 / 0.12);
+    --ring:                   oklch(0.72 0.18 158);
+    --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.30);
+    --shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.30), 0 2px 4px -2px oklch(0 0 0 / 0.20);
+  }
+}
+
+/* Explicit dark class set by extension JS (overrides OS preference) */
+body.dark {
+  --background:             oklch(0.14 0 0);
+  --foreground:             oklch(0.96 0 0);
+  --muted:                  oklch(0.20 0 0);
+  --muted-foreground:       oklch(0.96 0 0 / 0.55);
+  --card:                   oklch(0.17 0 0);
+  --card-foreground:        oklch(0.96 0 0);
+  --primary:                oklch(0.72 0.18 158);
+  --primary-foreground:     oklch(0.14 0 0);
+  --primary-hover:          oklch(0.82 0.18 158);
+  --secondary:              oklch(0.22 0 0);
+  --secondary-foreground:   oklch(0.96 0 0);
+  --accent:                 oklch(0.22 0 0);
+  --accent-foreground:      oklch(0.96 0 0);
+  --destructive:            oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.14 0 0);
+  --border:                 oklch(1 0 0 / 0.10);
+  --input:                  oklch(1 0 0 / 0.12);
+  --ring:                   oklch(0.72 0.18 158);
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.30);
+  --shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.30), 0 2px 4px -2px oklch(0 0 0 / 0.20);
+}
+
+/* ── Light override ─────────────────────────────────────────────────────── */
+/* Restores light tokens when user selects light on a dark-OS machine       */
+
+body.light {
+  --background:             oklch(0.98 0 0);
+  --foreground:             oklch(0.15 0 0);
+  --muted:                  oklch(0.95 0 0);
+  --muted-foreground:       oklch(0.15 0 0 / 0.5);
+  --card:                   oklch(0.96 0 0);
+  --card-foreground:        oklch(0.15 0 0);
+  --primary:                oklch(0.45 0.18 158);
+  --primary-foreground:     oklch(0.98 0 0);
+  --primary-hover:          oklch(0.35 0.16 158);
+  --secondary:              oklch(0.95 0 0);
+  --secondary-foreground:   oklch(0.15 0 0);
+  --accent:                 oklch(0.95 0 0);
+  --accent-foreground:      oklch(0.15 0 0);
+  --destructive:            oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border:                 oklch(0 0 0 / 0.08);
+  --input:                  oklch(0 0 0 / 0.10);
+  --ring:                   oklch(0.45 0.18 158);
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.07), 0 2px 4px -2px oklch(0 0 0 / 0.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+  }
+}

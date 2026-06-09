@@ -2,54 +2,53 @@
 <html>
 
 <head>
-	<link type="text/css" href="css/style.css" rel="stylesheet">
-	<!-- <script type="module" src="js/historyItems.js"></script> -->
-	<script type="module" src="js/recovery.js"></script>
-	<title id="gsTitle" data-i18n="__MSG_ext_extension_name__ - __MSG_html_recovery_title__"></title>
-
+  <link type="text/css" href="css/style.css" rel="stylesheet">
+  <script type="module" src="js/recovery.js"></script>
+  <title id="gsTitle" data-i18n="__MSG_ext_extension_name__ - __MSG_html_recovery_title__"></title>
 </head>
 
 <body class="splash-wrap">
 
-	<div class="splash">
+  <div class="splash">
 
-		<div>
-			<img id="suspendy-guy-inprogress" class="suspendy-guy" src="img/suspendy-guy-uh-oh.png" />
-			<img id="suspendy-guy-complete" class="suspendy-guy reallyHidden" src="img/suspendy-guy-oops.png" />
-		</div>
-		<div>
-			<div id="recovery-inprogress">
-				<h1 data-i18n="__MSG_html_recovery_ruh_roh__"></h1>
-				<p>
-					<span data-i18n="__MSG_html_recovery_description_line1__"></span>
-					<br />
-					<span data-i18n="__MSG_html_recovery_description_line2__"></span>
-				</p>
-				<div id="screenCaptureNotice" class="notice">
-					<p data-i18n="__MSG_html_recovery_important_message__"></p>
-					<a id='previewsOffBtn' data-i18n="__MSG_html_recovery_disable_screen_capturing__"></a>
-				</div>
-				<hr />
-				<button id="restoreSession" class="btn" data-i18n="__MSG_html_recovery_restore_tabs_automatically__"></button>
-				<button id="manageManuallyLink" class="btn secondary" data-i18n="__MSG_html_recovery_go_to_session_manager__"></button>
+    <div>
+      <img id="suspendy-guy-inprogress" class="suspendy-guy" src="img/suspendy-guy-uh-oh.png" alt="" />
+      <img id="suspendy-guy-complete" class="suspendy-guy reallyHidden" src="img/suspendy-guy-oops.png" alt="" />
+    </div>
 
-				<div class="recoverySection">
-					<h5 data-i18n="__MSG_html_recovery_tabs_to_restore__:"></h5>
-					<div id="recoveryTabs"></div>
-				</div>
-			</div>
-			<div id="recovery-complete" class="reallyHidden">
-				<h1 data-i18n="__MSG_html_success_great_success__"></h1>
+    <div>
+      <div id="recovery-inprogress">
+        <h1 data-i18n="__MSG_html_recovery_ruh_roh__"></h1>
+        <p>
+          <span data-i18n="__MSG_html_recovery_description_line1__"></span>
+          <br />
+          <span data-i18n="__MSG_html_recovery_description_line2__"></span>
+        </p>
+        <div id="screenCaptureNotice" class="notice">
+          <p data-i18n="__MSG_html_recovery_important_message__"></p>
+          <a id="previewsOffBtn" data-i18n="__MSG_html_recovery_disable_screen_capturing__"></a>
+        </div>
+        <hr />
+        <button id="restoreSession" class="btn" data-i18n="__MSG_html_recovery_restore_tabs_automatically__"></button>
+        <button id="manageManuallyLink" class="btn btnNeg" data-i18n="__MSG_html_recovery_go_to_session_manager__"></button>
+        <div class="recoverySection">
+          <h5 data-i18n="__MSG_html_recovery_tabs_to_restore__:"></h5>
+          <div id="recoveryTabs"></div>
+        </div>
+      </div>
 
-				<p data-i18n="__MSG_html_success_all_tabs_restored__"></p>
-				<p>
-					<span data-i18n="__MSG_html_success_goto_advanced_prefix__ "></span>
-					<a href="/history.html" data-i18n="__MSG_html_session_manager__"></a>
-					<span data-i18n=" __MSG_html_success_goto_advanced_suffix__"></span>
-				</p>
-			</div>
-		</div>
-	</div>
+      <div id="recovery-complete" class="reallyHidden">
+        <h1 data-i18n="__MSG_html_success_great_success__"></h1>
+        <p data-i18n="__MSG_html_success_all_tabs_restored__"></p>
+        <p>
+          <span data-i18n="__MSG_html_success_goto_advanced_prefix__ "></span>
+          <a href="/history.html" data-i18n="__MSG_html_session_manager__"></a>
+          <span data-i18n=" __MSG_html_success_goto_advanced_suffix__"></span>
+        </p>
+      </div>
+    </div>
+
+  </div>
 
 </body>
 

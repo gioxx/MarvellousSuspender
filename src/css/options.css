@@ -1,0 +1,4 @@
+.welcome-message {
+  max-width: none;
+  margin-top: var(--space-6);
+}

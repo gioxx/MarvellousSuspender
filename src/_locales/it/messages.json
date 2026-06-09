@@ -270,6 +270,18 @@
     "html_history_migrate_old_id": {
         "message": "Extension ID"
     },
+    "html_history_migrate_section_title": {
+        "message": "Migrazione da altra estensione"
+    },
+    "html_history_migrate_section_desc": {
+        "message": "Recupera le schede sospese da una versione precedente o un altro fork di questa estensione. Inserisci l'ID dell'estensione precedente e fai clic su Migra le schede per convertire gli URL sospesi."
+    },
+    "html_notice_title": {
+        "message": "Avviso"
+    },
+    "html_notice_important_notice": {
+        "message": "Informazioni importanti da The Marvellous Suspender"
+    },
     "html_options_title": {
         "message": "Impostazioni"
     },

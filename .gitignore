@@ -3,8 +3,9 @@
 .vscode/bookmarks.json
 *.pem
 *.zip
+/.claude
+/.tokensave
 build
 node_modules
 Thumbs.db
 tmp
-

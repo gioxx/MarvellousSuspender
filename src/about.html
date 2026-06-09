@@ -7,36 +7,40 @@
   <title data-i18n="__MSG_ext_extension_name__ - __MSG_html_about_title__"></title>
 </head>
 
-
 <body>
 
   <div class="mainContent">
 
     <div class="pageHeader">
-      <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+      <div class="brandMark">
+        <img src="img/marvellous.png" alt="" class="brandLogo" aria-hidden="true" />
+        <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+      </div>
     </div>
 
-    <div class="contentNav">
+    <nav class="contentNav">
       <ul>
         <li>
-          <a href='options.html' data-i18n="__MSG_html_sidebar_general_settings__"></a>
+          <a href="options.html" data-i18n="__MSG_html_sidebar_general_settings__"></a>
         </li>
         <li class="noIncognito">
           <a href="history.html" data-i18n="__MSG_html_sidebar_session_management__"></a>
         </li>
         <li>
-          <a href='health.html' data-i18n='__MSG_html_sidebar_tab_health__'></a>
+          <a href="health.html" data-i18n="__MSG_html_sidebar_tab_health__"></a>
         </li>
         <li class="noIncognito">
-          <a href='shortcuts.html' data-i18n="__MSG_html_sidebar_shortcuts__"></a>
+          <a href="shortcuts.html" data-i18n="__MSG_html_sidebar_shortcuts__"></a>
         </li>
         <li>
           <a class="active" href="about.html" data-i18n="__MSG_html_sidebar_support__"></a>
         </li>
       </ul>
-    </div>
+    </nav>
 
     <div class="content">
+
+      <p class="pageTitle" data-i18n="__MSG_html_about_title__"></p>
 
       <p id="aboutVersion"></p>
 
@@ -63,12 +67,10 @@
         <br />
         <span data-i18n="__MSG_html_about_twitter_title__: "></span>
         <a href="https://twitter.com/gioxx" target="_blank">@gioxx</a>
-        <br />
       </p>
 
       <p>
         <span data-i18n="__MSG_html_about_report_issues_prefix__ "></span>
-        <!--keep the span below on the same line and the link (to remove an extra whitespace before the suffix-->
         <a href="https://github.com/gioxx/MarvellousSuspender/issues" target="_blank" data-i18n="__MSG_html_about_the_github_issues_page__"></a><span data-i18n="__MSG_html_about_report_issues_suffix__"></span>
       </p>
 
@@ -78,7 +80,8 @@
       </p>
 
       <hr />
-      <div id='thankyous'>
+
+      <div id="thankyous">
         <p>
           <span data-i18n="__MSG_html_about_html2canvas_prefix__ "></span>
           <a href="https://github.com/niklasvh/html2canvas" target="_blank" data-i18n="__MSG_html_about_html2canvas__"></a>
