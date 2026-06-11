@@ -1,17 +1,54 @@
-body {
-    padding: 20px;
-    font-size: 1.3rem;
+.debugWrap {
+  margin-top: var(--space-6);
+  padding: 0 var(--space-4) 0 var(--space-4);
 }
 
-td {
-    max-width:700px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    padding: 0 6px;
+.debugHeader {
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border);
 }
 
-img {
-    height: 16px;
-    width: 16px;
+.debugControls {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+}
+
+.debugInstructions {
+  margin-bottom: var(--space-6);
+  font-size: var(--text-sm);
+}
+
+#gsProfiler {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+}
+
+#gsProfiler th {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 2px solid var(--border);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-foreground);
+  font-weight: 700;
+}
+
+#gsProfiler td {
+  max-width: 700px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+#gsProfiler img {
+  height: 16px;
+  width: 16px;
+  vertical-align: middle;
 }

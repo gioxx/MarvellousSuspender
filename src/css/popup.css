@@ -20,10 +20,7 @@ body {
   font-family: var(--font-sans);
   color: var(--foreground);
   background-color: var(--background);
-  padding: 0;
-  margin: 0;
   min-width: 325px;
-  position: relative;
   font-size: var(--text-base);
   -webkit-font-smoothing: antialiased;
 }
@@ -34,28 +31,66 @@ a {
 }
 
 #statusDetail a {
-  color: var(--primary-foreground);
+  color: var(--foreground);
+  text-decoration: underline;
+}
+
+#brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  background-color: var(--background);
+}
+
+#brand img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+#brand span:first-of-type {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+#brandVersion {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
 }
 
 #header {
-  padding: var(--space-4);
+  padding: var(--space-3) var(--space-4);
   background-color: var(--muted);
-  color: var(--foreground);
+  color: var(--primary);
+  font-family: var(--font-mono);
   font-size: var(--text-sm);
+  border-bottom: 1px solid var(--border);
 }
 
 #header.willSuspend {
   background-color: var(--primary);
   color: var(--primary-foreground);
+  border-bottom-color: transparent;
 }
 
 #header.blockedFile {
   background-color: var(--destructive);
   color: var(--destructive-foreground);
+  border-bottom-color: transparent;
+}
+
+#popupContent {
+  padding: var(--space-1) 0;
 }
 
 .group {
-  padding: var(--space-2) 0;
+  padding: var(--space-1) 0;
 }
 
 .group:not(:last-of-type) {
@@ -63,13 +98,16 @@ a {
 }
 
 .menuOption {
-  line-height: 2em;
-  font-size: var(--text-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.5;
   white-space: nowrap;
   cursor: pointer;
-  padding: 0 var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  transition: background-color var(--duration-fast), color var(--duration-fast);
 }
 
-.menuOption:hover .optionText {
-  text-decoration: underline;
+.menuOption:hover {
+  background-color: var(--accent);
+  color: var(--foreground);
 }
