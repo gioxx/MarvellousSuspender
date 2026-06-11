@@ -64,3 +64,6 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ### Meta
 - `.gitignore`: added `/.claude` and `/.tokensave` to exclude local AI-tooling directories from version control.
+
+### Removed
+- `en/messages.json` and `it/messages.json`: deleted 25 orphaned i18n keys no longer referenced by any HTML or JS file — `html_about_github_title`, `html_about_blog_title`, `html_about_twitter_title`, `html_about_html2canvas{,_prefix,_suffix}`, `html_about_indexedDb{,_prefix,_suffix}`, `html_about_tgs_{prefix,suffix}`, `html_notice_{title,important_notice}`, `html_popup_dont_suspend_now`, `html_suspended_tab_{suspended,reload,whitelist_prefix,whitelist_suffix}`, `html_updated_{detail_header_prefix,detail_header_suffix,new_features_header,bug_fixes_header,release_notes}`, `html_welcome_title`, `js_suspended_remove_from_whitelist`.
