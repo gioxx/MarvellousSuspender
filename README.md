@@ -1,68 +1,100 @@
+<div align="center">
+
+<img src="src/img/suspendy-guy-main.png" alt="Suspendy Guy — The Marvellous Suspender mascot" width="120" />
+
 # The Marvellous Suspender
 
-[![Crowdin](https://badges.crowdin.net/tms/localized.svg)](https://crowdin.com/project/tms)
+**Free your memory. Suspend what you don't need.**
 
-"**The Marvellous Suspender**" is a free and open-source Google Chrome extension for people who find that chrome is consuming too much system resource or suffer from frequent chrome crashing. Totally based on the original "[The Great Suspender](https://github.com/greatsuspender/thegreatsuspender)" but without ADS tracking and problems explained [in this GitHub issue](https://github.com/greatsuspender/thegreatsuspender/issues/1263).
+A free, open-source Chrome extension — no ads, no tracking.  
+Based on [The Great Suspender](https://github.com/greatsuspender/thegreatsuspender), cleaned up and actively maintained.
+
+[![License: GPLv2](https://img.shields.io/badge/License-GPLv2-blue.svg)](LICENSE)
+[![Manifest V3](https://img.shields.io/badge/Manifest-v3-brightgreen)](#build-from-source)
+[![Chrome ≥ 110](https://img.shields.io/badge/Chrome-%3E%3D110-yellow?logo=googlechrome&logoColor=white)](https://go.gioxx.org/tgs)
+[![Crowdin](https://img.shields.io/badge/l10n-Crowdin-2E3340?logo=crowdin&logoColor=white)](https://crowdin.com/project/tms)
+
+---
+
+<img src="src/img/marvellous-codeworks-logo.png" alt="Marvellous Codeworks" height="26" />
+
+*A Marvellous Codeworks project*
+
+</div>
+
+---
 
 Once installed and enabled, this extension will automatically *suspend* tabs that have not been used for a default, or user-configurable, time interval. As a result, resources such as memory and CPU that the tab was consuming are freed.
 
 If you have suggestions or problems using the extension, please [submit a bug or a feature request](https://github.com/gioxx/MarvellousSuspender/issues/).
 
-**If you have lost tabs from your browser** you can read a guide for how to recover them [here](https://github.com/deanoemcke/thegreatsuspender/issues/526
-).
+**If you have lost tabs from your browser** you can read a guide for how to recover them [here](https://github.com/deanoemcke/thegreatsuspender/issues/526).
+
+---
 
 ## Chrome Web Store
 
 The Marvellous Suspender is [available via the official Chrome Web Store](https://go.gioxx.org/tgs).
 
-For more information on the permissions required for the extension, please refer to this gitHub issue: (https://github.com/greatsuspender/thegreatsuspender/issues/213)
+For more information on the permissions required by the extension, see [greatsuspender/thegreatsuspender#213](https://github.com/greatsuspender/thegreatsuspender/issues/213).
 
-### Install as an extension from source
+---
 
-1. Download the **[latest available version](https://github.com/gioxx/MarvellousSuspender/releases)** and unarchive to your preferred location (whichever suits you).
-2. Using **Google Chrome** browser, navigate to chrome://extensions/ and enable "Developer mode" in the upper right corner.
-3. Click on the <kbd>Load unpacked extension...</kbd> button.
-4. Browse to the src directory of the unarchived folder and confirm.
+## Install as an extension from source
 
-If you have completed the above steps, the "welcome" page will open indicating successful installation of the extension.
+> Requires **Google Chrome 110 or later** (Manifest V3).
 
-Be sure to unsuspend all suspended tabs before removing any other version of the extension or they will disappear forever!
+1. Download the **[latest available version](https://github.com/gioxx/MarvellousSuspender/releases)** and unarchive to your preferred location.
+2. In **Google Chrome**, navigate to `chrome://extensions/` and enable **Developer mode** (toggle in the upper right corner).
+3. Click <kbd>Load unpacked extension...</kbd>.
+4. Browse to the `src` directory of the unarchived folder and confirm.
 
-### Build from github
+The "welcome" page will open indicating successful installation.
 
-Dependencies: openssl, npm.
+> Be sure to unsuspend all suspended tabs before removing any other version of the extension — suspended tabs that are removed will disappear forever.
 
-Clone the repository and run these commands:
-```
+### Build from source
+
+Dependencies: `openssl`, `npm`.
+
+```sh
 npm install
 npm run generate-key
 npm run build
 ```
 
-It should say:
+Output should end with:
+
 ```
 Done, without errors.
 ```
 
-The extension in crx format will be inside the build/crx/ directory. You can drag it into [extensions] (chrome://extensions) to install locally.
+The extension in `.crx` format will be inside `build/crx/`. You can drag it into `chrome://extensions` to install locally.
 
-#### Note: If after importing the crx file you encounter the error: "This extension is not listed in the Chrome Web Store and may have been added without your knowledge" and Chrome prevents you from enabling the extension:
-Extract the .zip file located in the build/zip/ directory, navigate to "chrome://extensions" in your browser, Click on the <kbd>Load unpacked extension...</kbd> button, browse to the extracted folder and confirm.
+> **"This extension is not listed in the Chrome Web Store"** — if Chrome prevents you from enabling the `.crx`, extract the `.zip` from `build/zip/`, navigate to `chrome://extensions`, click <kbd>Load unpacked extension...</kbd>, browse to the extracted folder, and confirm.
 
-## Contributing to this extension
+---
 
-Contributions are very welcome. Feel free to submit pull requests for new features and bug fixes. For new features, ideally you would raise an issue for the proposed change first so that we can discuss ideas. This will go a long way to ensuring your pull request is accepted.
+## Contributing
+
+Contributions are very welcome. Feel free to submit pull requests for new features and bug fixes. For new features, please raise an issue first so we can discuss the approach — this will go a long way to ensuring your pull request is accepted.
 
 ### Localization (l10n)
 
-Feel free to help me to localize this extension in any language, you can do it using Crowdin connecting to https://crowdin.com/project/tms. If your mothertongue language is not available please "ping me" on [Twitter](https://twitter.com/Gioxx) or [submit a feature request](https://github.com/gioxx/MarvellousSuspender/issues/).
+Help localize the extension into your language via Crowdin: [crowdin.com/project/tms](https://crowdin.com/project/tms).  
+If your language is not available, [submit a feature request](https://github.com/gioxx/MarvellousSuspender/issues/).
+
+---
 
 ## License
 
-This work is licensed under a GNU GENERAL PUBLIC LICENSE (v2)
+This work is licensed under a [GNU General Public License v2](LICENSE).
+
+---
 
 ### Shoutouts
 
-This package uses the [html2canvas](https://github.com/niklasvh/html2canvas) library written by Niklas von Hertzen.
-It also uses the indexedDb wrapper [db.js](https://github.com/aaronpowell/db.js) written by Aaron Powell.
-Thank you also to [BrowserStack](https://www.browserstack.com) for providing free chrome testing tools.
+<img src="src/img/suspendy-guy-lotus.png" alt="" width="48" align="right" />
+
+This package uses the [html2canvas](https://github.com/niklasvh/html2canvas) library written by Niklas von Hertzen.  
+It also uses the IndexedDB wrapper [db.js](https://github.com/aaronpowell/db.js) written by Aaron Powell.
