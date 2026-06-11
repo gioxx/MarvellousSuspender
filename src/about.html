@@ -2,7 +2,9 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <link type="text/css" href="css/style.css" rel="stylesheet">
+  <link type="text/css" href="css/about.css" rel="stylesheet">
   <script type="module" src="js/about.js"></script>
   <title data-i18n="__MSG_ext_extension_name__ - __MSG_html_about_title__"></title>
 </head>
@@ -13,8 +15,14 @@
 
     <div class="pageHeader">
       <div class="brandMark">
-        <img src="img/marvellous.png" alt="" class="brandLogo" aria-hidden="true" />
-        <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+        <div class="brandTitle">
+          <img src="img/suspendy-guy-main.png" alt="" class="extensionIcon" aria-hidden="true" />
+          <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+        </div>
+        <div class="brandCodeworks">
+          <img src="img/marvellous-codeworks-logo.png" alt="" class="brandLogo" aria-hidden="true" />
+          <span class="brandSubtitle">a Marvellous Codeworks project</span>
+        </div>
       </div>
     </div>
 
@@ -42,63 +50,65 @@
 
       <p class="pageTitle" data-i18n="__MSG_html_about_title__"></p>
 
-      <p id="aboutVersion"></p>
+      <img src="img/suspendy-guy-lotus.png" alt="" class="aboutIllustration" aria-hidden="true" />
 
       <p>
-        <span data-i18n="__MSG_html_about_fork_beginning__ "></span>
-        <a href="https://github.com/greatsuspender/thegreatsuspender/archive/v7.1.6.zip" target="_blank">TGS 7.1.6</a>
-        <span data-i18n="__MSG_html_about_fork_mid__ "></span>
-        ( <a href="https://github.com/greatsuspender/thegreatsuspender/issues/1263" target="_blank">issue #1263</a> )
-        <span data-i18n="__MSG_html_about_fork_end__"></span>
-        <a href="https://gioxx.org/2021/02/06/the-marvellous-suspender-hello-world/" target="_blank">The Marvellous Suspender</a>.
+        <strong data-i18n="__MSG_ext_extension_name__"></strong>
+        &mdash;
+        <span data-i18n="__MSG_html_about_version_label__"></span>
+        <span id="aboutVersion"></span>
+      </p>
+
+      <p>
+        <svg class="link-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="currentColor">
+          <path
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+        </svg>
+        <a href="https://github.com/gioxx/MarvellousSuspender" target="_blank">github.com/gioxx/MarvellousSuspender</a>
+        <br />
+        <img src="img/marvellous-codeworks-logo.png" alt="" aria-hidden="true" class="link-icon" />
+        <a href="https://marvellouscode.works" target="_blank">marvellouscode.works</a>
+        <br />
+        <img src="img/marvellous-codeworks-logo.png" alt="" aria-hidden="true" class="link-icon" />
+        <a href="https://kb.marvellouscode.works" target="_blank">kb.marvellouscode.works</a>
+      </p>
+
+      <p data-i18n="__MSG_html_about_tagline__"></p>
+
+      <p>
+        <span data-i18n="__MSG_html_about_fork_beginning__"></span>
+        <a href="https://github.com/greatsuspender/thegreatsuspender/releases/tag/v7.1.6" target="_blank">TGS 7.1.6</a>
+        <span data-i18n="__MSG_html_about_fork_mid__"></span>
+        (<a href="https://github.com/greatsuspender/thegreatsuspender/issues/1263" target="_blank">issue #1263</a>). <span data-i18n="__MSG_html_about_fork_end__"></span>
+        <a href="https://kb.marvellouscode.works/blog/the-marvellous-suspender-hello-world" target="_blank">kb.marvellouscode.works/blog/the-marvellous-suspender-hello-world</a>.
       </p>
 
       <p>
         <span data-i18n="__MSG_html_about_contributors__: "></span>
         <a href="https://github.com/gioxx" target="_blank">gioxx</a>,
-        <a href="https://github.com/rkodey" target="_blank">rkodey</a>
-      </p>
-      <p>
-        <span data-i18n="__MSG_html_about_github_title__: "></span>
-        <a href="https://github.com/gioxx/MarvellousSuspender/issues" target="_blank">github.com/gioxx/MarvellousSuspender</a>
-        <br />
-        <span data-i18n="__MSG_html_about_blog_title__: "></span>
-        <a href="https://gioxx.org" target="_blank">gioxx.org</a>
-        <br />
-        <span data-i18n="__MSG_html_about_twitter_title__: "></span>
-        <a href="https://twitter.com/gioxx" target="_blank">@gioxx</a>
+        <a href="https://github.com/rkodey" target="_blank">rkodey</a><span data-i18n="__MSG_html_about_contributors_and__"></span><a href="https://github.com/gioxx/MarvellousSuspender/graphs/contributors" target="_blank" data-i18n="__MSG_html_about_community_thanks_link__"></a>.
       </p>
 
       <p>
-        <span data-i18n="__MSG_html_about_report_issues_prefix__ "></span>
+        <span data-i18n="__MSG_html_about_report_issues_prefix__"></span>
         <a href="https://github.com/gioxx/MarvellousSuspender/issues" target="_blank" data-i18n="__MSG_html_about_the_github_issues_page__"></a><span data-i18n="__MSG_html_about_report_issues_suffix__"></span>
       </p>
 
       <p>
-        <span data-i18n="__MSG_html_about_debugging_prefix__ "></span>
+        <span data-i18n="__MSG_html_about_debugging_prefix__"></span>
         <a href="debug.html" target="_blank" data-i18n="__MSG_html_about_debugging_suffix__"></a>
       </p>
 
       <hr />
 
       <div id="thankyous">
+        <p class="pageTitle" data-i18n="__MSG_html_about_section_credits__"></p>
         <p>
-          <span data-i18n="__MSG_html_about_html2canvas_prefix__ "></span>
-          <a href="https://github.com/niklasvh/html2canvas" target="_blank" data-i18n="__MSG_html_about_html2canvas__"></a>
-          <span data-i18n="__MSG_html_about_html2canvas_suffix__"></span>
-          <br />
-          <span data-i18n="__MSG_html_about_indexedDb_prefix__ "></span>
-          <a href="https://github.com/aaronpowell/db.js" target="_blank" data-i18n="__MSG_html_about_indexedDb__"></a>
-          <span data-i18n="__MSG_html_about_indexedDb_suffix__"></span>
-          <br />
-          <span data-i18n="__MSG_html_about_browserstack_prefix__ "></span>
-          <a href="https://www.browserstack.com" target="_blank" data-i18n="__MSG_html_about_browserstack__"></a>
-          <span data-i18n="__MSG_html_about_browserstack_suffix__"></span>
-        </p>
-        <p>
-          <span data-i18n="__MSG_html_about_tgs_prefix__ "></span>
-          <a href="https://github.com/greatsuspender/thegreatsuspender" target="_blank">The Great Suspender</a>
-          <span data-i18n="__MSG_html_about_tgs_suffix__ "></span>
+          <a href="font/OFL-Inter.txt" target="_blank">Inter</a> &mdash; Rasmus Andersson (SIL OFL)<br />
+          <a href="font/OFL-JetBrainsMono.txt" target="_blank">JetBrains Mono</a> &mdash; JetBrains (SIL OFL)<br />
+          <a href="https://fontello.com" target="_blank">Fontello</a> &mdash; icon font toolkit<br />
+          <a href="https://github.com/aaronpowell/db.js" target="_blank">db.js</a> &mdash; Aaron Powell<br />
+          <a href="https://github.com/niklasvh/html2canvas" target="_blank">html2canvas</a> &mdash; Niklas von Hertzen<br />
         </p>
       </div>
 

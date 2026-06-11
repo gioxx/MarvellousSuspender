@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <link type="text/css" href="css/fontello.css" rel="stylesheet">
   <link type="text/css" href="css/style.css" rel="stylesheet">
   <link type="text/css" href="css/options.css" rel="stylesheet">
@@ -15,8 +16,14 @@
 
   <div class="pageHeader">
     <div class="brandMark" id="options-heading">
-      <img src="img/marvellous.png" alt="" class="brandLogo" aria-hidden="true" />
-      <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+      <div class="brandTitle">
+        <img src="img/suspendy-guy-main.png" alt="" class="extensionIcon" aria-hidden="true" />
+        <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+      </div>
+      <div class="brandCodeworks">
+        <img src="img/marvellous-codeworks-logo.png" alt="" class="brandLogo" aria-hidden="true" />
+        <span class="brandSubtitle">a Marvellous Codeworks project</span>
+      </div>
     </div>
     <div class="splash reallyHidden welcome-message">
       <img class="suspendy-guy" src="img/suspendy-guy.png" alt="" />
@@ -52,6 +59,71 @@
   </nav>
 
   <div class="content">
+
+    <div class="sub-section">
+      <p class="pageTitle" data-i18n="__MSG_html_options_other_title__"></p>
+      <div class="formRow formRow--paired">
+        <div>
+          <label id="languageLbl" class="topLabel" for="language" data-i18n="__MSG_html_options_language__:"></label>
+          <br />
+          <div class="select-wrapper">
+            <select id="language" class="option">
+              <option value="auto"  data-i18n="__MSG_html_options_language_auto__"></option>
+              <option value="ar">العربية</option>
+              <option value="cs">Čeština</option>
+              <option value="de">Deutsch</option>
+              <option value="en">English</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="fr-FR">Français (France)</option>
+              <option value="id">Bahasa Indonesia</option>
+              <option value="it">Italiano</option>
+              <option value="ja">日本語</option>
+              <option value="pt_BR">Português (Brasil)</option>
+              <option value="pt_PT">Português (Portugal)</option>
+              <option value="ru">Русский</option>
+              <option value="si-LK">සිංහල</option>
+              <option value="sk">Slovenčina</option>
+              <option value="tr">Türkçe</option>
+              <option value="zh_CN">中文 (简体)</option>
+              <option value="zh_TW">中文 (繁體)</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label id="themeLbl" class="topLabel" for="theme" data-i18n="__MSG_html_options_suspend_theme__:"></label>
+          <br />
+          <div class="select-wrapper">
+            <select id="theme" class="option">
+              <option value="system" data-i18n="__MSG_html_options_suspend_theme_system__"></option>
+              <option value="light"  data-i18n="__MSG_html_options_suspend_theme_light__"></option>
+              <option value="dark"   data-i18n="__MSG_html_options_suspend_theme_dark__"></option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="formRow noIncognito">
+        <input type="checkbox" id="addContextMenu" class="option" />
+        <label for="addContextMenu" class="cbLabel" data-i18n="__MSG_html_options_other_enable_context_menu__&nbsp;&nbsp;"></label>
+        <span data-i18n-tooltip="__MSG_html_options_other_enable_context_menu_tooltip_line1__
+
+__MSG_html_options_other_enable_context_menu_tooltip_line2__
+__MSG_html_options_other_enable_context_menu_tooltip_line3__">
+          <i class="tooltipIcon icon icon-help-circled"></i>
+        </span>
+      </div>
+      <div class="formRow noIncognito">
+        <input type="checkbox" id="syncSettings" class="option" />
+        <label for="syncSettings" class="cbLabel" data-i18n="__MSG_html_options_other_enable_sync__&nbsp;&nbsp;"></label>
+        <span data-i18n-tooltip="__MSG_html_options_other_enable_sync_tooltip_line1a__
+__MSG_html_options_other_enable_sync_tooltip_line1b__
+
+__MSG_html_options_other_enable_sync_tooltip_line2__">
+          <i class="tooltipIcon icon icon-help-circled"></i>
+        </span>
+        <div id="syncNote" class="gsNote" data-i18n="__MSG_html_options_other_enable_sync_warning__"></div>
+      </div>
+    </div>
 
     <div class="sub-section">
       <p class="pageTitle" data-i18n="__MSG_html_options_suspend_title__"></p>
@@ -113,6 +185,21 @@
         <label for="claimByDefault" class="cbLabel" data-i18n="__MSG_html_options_suspend_claim_by_default__"></label>
       </div>
       <div class="formRow autoSuspendOption">
+        <input type="checkbox" id="suspendInPlaceOfDiscard" class="option" />
+        <label for="suspendInPlaceOfDiscard" class="cbLabel" data-i18n="__MSG_html_options_suspend_on_low_memory__&nbsp;&nbsp;"></label>
+        <span data-i18n-tooltip="__MSG_html_options_suspend_on_low_memory_tooltip_line1__
+__MSG_html_options_suspend_on_low_memory_tooltip_line2__
+__MSG_html_options_suspend_on_low_memory_tooltip_line3__
+
+__MSG_html_options_suspend_on_low_memory_tooltip_line4__
+__MSG_html_options_suspend_on_low_memory_tooltip_line5__
+
+__MSG_html_options_suspend_on_low_memory_tooltip_line6__
+__MSG_html_options_suspend_on_low_memory_tooltip_discarding_link__">
+          <i class="tooltipIcon icon icon-help-circled"></i>
+        </span>
+      </div>
+      <div class="formRow autoSuspendOption">
         <label id="whitelistLbl" for="whitelist" data-i18n="__MSG_html_options_whitelist_title__&nbsp;&nbsp;"></label>
         <span data-i18n-tooltip="__MSG_html_options_whitelist_tooltip_line1__
 &nbsp;&nbsp;&nbsp;&nbsp;https://play.google.com/music/listen
@@ -152,17 +239,6 @@ __MSG_html_options_suspend_discard_after_suspend_tooltip_line3b__">
         </span>
       </div>
       <div class="formRow">
-        <label id="themeLbl" class="topLabel" for="theme" data-i18n="__MSG_html_options_suspend_theme__:"></label>
-        <br />
-        <div class="select-wrapper">
-          <select id="theme" class="option">
-            <option value="system" data-i18n="__MSG_html_options_suspend_theme_system__"></option>
-            <option value="light"  data-i18n="__MSG_html_options_suspend_theme_light__"></option>
-            <option value="dark"   data-i18n="__MSG_html_options_suspend_theme_dark__"></option>
-          </select>
-        </div>
-      </div>
-      <div class="formRow">
         <label id="previewLbl" class="topLabel" for="preview"
                data-i18n="__MSG_html_options_suspend_screen_capturing__:&nbsp;&nbsp;"></label>
         <span data-i18n-tooltip="__MSG_html_options_suspend_screen_capturing_tooltip_line1a__
@@ -194,46 +270,6 @@ __MSG_html_options_suspend_force_screen_capture_tooltip_line5__
 
 __MSG_html_options_suspend_force_screen_capture_tooltip_line6__
 __MSG_html_options_suspend_force_screen_capture_tooltip_line7__">
-          <i class="tooltipIcon icon icon-help-circled"></i>
-        </span>
-      </div>
-    </div>
-
-    <div class="sub-section">
-      <p class="pageTitle" data-i18n="__MSG_html_options_other_title__"></p>
-      <div class="formRow noIncognito">
-        <input type="checkbox" id="addContextMenu" class="option" />
-        <label for="addContextMenu" class="cbLabel" data-i18n="__MSG_html_options_other_enable_context_menu__&nbsp;&nbsp;"></label>
-        <span data-i18n-tooltip="__MSG_html_options_other_enable_context_menu_tooltip_line1__
-
-__MSG_html_options_other_enable_context_menu_tooltip_line2__
-__MSG_html_options_other_enable_context_menu_tooltip_line3__">
-          <i class="tooltipIcon icon icon-help-circled"></i>
-        </span>
-      </div>
-      <div class="formRow noIncognito">
-        <input type="checkbox" id="syncSettings" class="option" />
-        <label for="syncSettings" class="cbLabel" data-i18n="__MSG_html_options_other_enable_sync__&nbsp;&nbsp;"></label>
-        <span data-i18n-tooltip="__MSG_html_options_other_enable_sync_tooltip_line1a__
-__MSG_html_options_other_enable_sync_tooltip_line1b__
-
-__MSG_html_options_other_enable_sync_tooltip_line2__">
-          <i class="tooltipIcon icon icon-help-circled"></i>
-        </span>
-        <div id="syncNote" class="gsNote" data-i18n="__MSG_html_options_other_enable_sync_warning__"></div>
-      </div>
-      <div class="formRow">
-        <input type="checkbox" id="suspendInPlaceOfDiscard" class="option" />
-        <label for="suspendInPlaceOfDiscard" class="cbLabel" data-i18n="__MSG_html_options_suspend_on_low_memory__&nbsp;&nbsp;"></label>
-        <span data-i18n-tooltip="__MSG_html_options_suspend_on_low_memory_tooltip_line1__
-__MSG_html_options_suspend_on_low_memory_tooltip_line2__
-__MSG_html_options_suspend_on_low_memory_tooltip_line3__
-
-__MSG_html_options_suspend_on_low_memory_tooltip_line4__
-__MSG_html_options_suspend_on_low_memory_tooltip_line5__
-
-__MSG_html_options_suspend_on_low_memory_tooltip_line6__
-__MSG_html_options_suspend_on_low_memory_tooltip_discarding_link__">
           <i class="tooltipIcon icon icon-help-circled"></i>
         </span>
       </div>

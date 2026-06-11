@@ -10,6 +10,8 @@ import  { tgs }                   from './tgs.js';
 
 'use strict';
 
+let _localeMessages = null;
+
 export const gsUtils = {
   STATUS_NORMAL         : 'normal',
   STATUS_LOADING        : 'loading',
@@ -421,9 +423,25 @@ export const gsUtils = {
     });
   },
 
+  async loadLocaleMessages(locale) {
+    if (!locale || locale === 'auto') {
+      _localeMessages = null;
+      return;
+    }
+    try {
+      const url = chrome.runtime.getURL(`_locales/${locale}/messages.json`);
+      const response = await fetch(url);
+      _localeMessages = response.ok ? await response.json() : null;
+    } catch (e) {
+      _localeMessages = null;
+    }
+  },
+
   localiseHtml(parentEl) {
     const replaceTagFunc = function(match, p1) {
-      return p1 ? chrome.i18n.getMessage(p1) : '';
+      if (!p1) return '';
+      if (_localeMessages && _localeMessages[p1]) return _localeMessages[p1].message || '';
+      return chrome.i18n.getMessage(p1) || '';
     };
     for (const el of parentEl.getElementsByTagName('*')) {
       if (el.hasAttribute('data-i18n')) {
@@ -457,6 +475,8 @@ export const gsUtils = {
 
   async documentReadyAndLocalisedAsPromised(win) {
     await gsUtils.documentReadyAsPromised(win.document);
+    const locale = await gsStorage.getOption(gsStorage.LANGUAGE);
+    await gsUtils.loadLocaleMessages(locale);
     gsUtils.localiseHtml(win.document);
 
     if (win.document?.body) {

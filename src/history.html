@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <link type="text/css" href="css/fontello.css" rel="stylesheet">
   <link type="text/css" href="css/style.css" rel="stylesheet" />
   <link type="text/css" href="css/history.css" rel="stylesheet" />
@@ -15,8 +16,14 @@
 
     <div class="pageHeader">
       <div class="brandMark">
-        <img src="img/marvellous.png" alt="" class="brandLogo" aria-hidden="true" />
-        <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+        <div class="brandTitle">
+          <img src="img/suspendy-guy-main.png" alt="" class="extensionIcon" aria-hidden="true" />
+          <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+        </div>
+        <div class="brandCodeworks">
+          <img src="img/marvellous-codeworks-logo.png" alt="" class="brandLogo" aria-hidden="true" />
+          <span class="brandSubtitle">a Marvellous Codeworks project</span>
+        </div>
       </div>
     </div>
 
@@ -46,17 +53,17 @@
       <p class="pageTitle" data-i18n="__MSG_html_history_title__"></p>
 
       <div class="sub-section">
-        <h2 data-i18n="__MSG_html_history_current_session__:"></h2>
+        <h2 data-i18n="__MSG_html_history_current_session__"></h2>
         <div id="currentSessions" class="sessionsContainer"></div>
       </div>
 
       <div class="sub-section">
-        <h2 data-i18n="__MSG_html_history_recent_sessions__:"></h2>
+        <h2 data-i18n="__MSG_html_history_recent_sessions__"></h2>
         <div id="recoverySessions" class="sessionsContainer"></div>
       </div>
 
       <div class="sub-section">
-        <h2 data-i18n="__MSG_html_history_saved_sessions__:"></h2>
+        <h2 data-i18n="__MSG_html_history_saved_sessions__"></h2>
         <div id="historySessions" class="sessionsContainer"></div>
         <a href="#" id="importSession" class="btn" data-i18n="__MSG_html_history_import_session__"></a>
         <input type="file" id="importSessionAction" hidden />
