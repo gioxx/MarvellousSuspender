@@ -9,6 +9,9 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ## [Unreleased] — feature/visual-redesign
 
+### Fixed
+- **CSP violation on suspended tab page**: `suspended.html` uses `style-src 'self'` (no `unsafe-inline`), which caused Chrome to block all `element.style.*` property assignments. Replaced every inline-style mutation in `suspended.js` with CSS-class toggles: `img-preview-mode` / `preview-scrollable` control preview visibility and body overflow; `toast-active` triggers the connectivity-toast animation; `update-available` shows the update banner. Corresponding CSS rules added to `suspended.css`.
+
 ### Added
 - `CHANGELOG.md` to track the visual redesign initiative.
 - `src/css/tokens.css`: design system tokens aligned with marvellouscode.works ("Technical Blueprint" palette). Includes:
