@@ -198,15 +198,6 @@
   "html_about_the_github_issues_page": {
     "message": "la pagina problemi su GitHub"
   },
-  "html_about_browserstack": {
-    "message": "BrowserStack"
-  },
-  "html_about_browserstack_prefix": {
-    "message": "Grazie inoltre a"
-  },
-  "html_about_browserstack_suffix": {
-    "message": "per aver fornito strumenti gratuiti per il test del browser."
-  },
   "html_broken_title": {
     "message": "si è rotta"
   },
