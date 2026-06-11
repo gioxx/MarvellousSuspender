@@ -126,19 +126,8 @@ import  { tgs }                   from './tgs.js';
     if (!document.getElementById('gsPreviewContainer')) {
       return;
     }
-    const overflow = previewMode === '2' ? 'auto' : 'hidden';
-    document.body.style['overflow'] = overflow;
-
-    if (previewMode === '0' || !previewUri) {
-      document.getElementById('gsPreviewContainer').style.display = 'none';
-      document.getElementById('suspendedMsg').style.display = 'flex';
-      document.body.classList.remove('img-preview-mode');
-    }
-    else {
-      document.getElementById('gsPreviewContainer').style.display = 'block';
-      document.getElementById('suspendedMsg').style.display = 'none';
-      document.body.classList.add('img-preview-mode');
-    }
+    document.body.classList.toggle('preview-scrollable', previewMode === '2');
+    document.body.classList.toggle('img-preview-mode', previewMode !== '0' && !!previewUri);
   }
 
   function setCommand(command) {
@@ -216,8 +205,7 @@ import  { tgs }                   from './tgs.js';
     // Check if there are updates
     const update = await gsStorage.getOption(gsStorage.UPDATE_AVAILABLE);
     if (update) {
-      let el = document.getElementById('tmsUpdateAvailable');
-      el.style.display = 'block';
+      document.getElementById('tmsUpdateAvailable').classList.add('update-available');
     }
     setGoToUpdateHandler();
   }
@@ -335,9 +323,10 @@ import  { tgs }                   from './tgs.js';
     if (!document.getElementById('disconnectedNotice')) {
       loadToastTemplate();
     }
-    document.getElementById('disconnectedNotice').style.display = 'none';
+    const noticeEl = document.getElementById('disconnectedNotice');
+    noticeEl.classList.remove('toast-active');
     setTimeout(function() {
-      document.getElementById('disconnectedNotice').style.display = 'block';
+      noticeEl.classList.add('toast-active');
     }, 50);
   }
 
