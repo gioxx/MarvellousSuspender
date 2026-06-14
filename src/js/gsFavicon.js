@@ -67,7 +67,7 @@ export const gsFavicon = (() => {
           }
           // Set the first url as the default favicon
           if (i === 0) {
-            _defaultChromeFaviconMeta = faviconMeta || FALLBACK_CHROME_FAVICON_META;
+            _defaultChromeFaviconMeta = faviconMeta ?? FALLBACK_CHROME_FAVICON_META;
           }
           resolve();
         }))
@@ -118,47 +118,32 @@ export const gsFavicon = (() => {
    * @returns { Promise< FavIconMeta | undefined > }
    */
   async function getFaviconMetaForUrl(url, tabFavIconUrl, fRecursion = false) {
+    gsUtils.log('gsFavicon', 'getFaviconMetaForUrl', url, tabFavIconUrl);
 
     let faviconMeta = await getFaviconMetaFromCache(url);
     if (faviconMeta) {
-      gsUtils.log('gsFavicon', 'Found cached favicon', url, faviconMeta);
+      gsUtils.log('gsFavicon', 'getFaviconMetaForUrl', 'Found cached favicon', url, faviconMeta);
       return faviconMeta;
     }
-    gsUtils.log('gsFavicon', 'No cached favicon', url);
+    gsUtils.log('gsFavicon', 'getFaviconMetaForUrl', 'No cached favicon', url);
 
     // Else try to build from chrome's favicon cache
     faviconMeta = await buildFaviconMetaFromChrome(url);
     if (faviconMeta) {
       await saveFaviconMetaToCache(url, faviconMeta);
-      gsUtils.log('gsFavicon', 'Found favicon from Chrome', url, faviconMeta);
+      gsUtils.log('gsFavicon', 'getFaviconMetaForUrl', 'Found favicon from Chrome', url, faviconMeta);
       return faviconMeta;
     }
-    gsUtils.log('gsFavicon', 'No favicon in chrome cache', url);
+    gsUtils.log('gsFavicon', 'getFaviconMetaForUrl', 'No favicon in chrome cache', url);
 
     // Else try to build from tabFavIconUrl
     faviconMeta = await buildFaviconMetaFromTab(tabFavIconUrl);
     if (faviconMeta) {
-      gsUtils.log('gsFavicon', 'Built faviconMeta from tabFavIconUrl', faviconMeta);
+      gsUtils.log('gsFavicon', 'getFaviconMetaForUrl', 'Built faviconMeta from tabFavIconUrl', faviconMeta);
       return faviconMeta;
     }
-    gsUtils.log('gsFavicon', 'No tabFavIconUrl', tabFavIconUrl, url);
+    gsUtils.log('gsFavicon', 'getFaviconMetaForUrl', 'No tabFavIconUrl', tabFavIconUrl, url);
 
-    // Else try to fetch from google -- this approach is no longer valid
-    // if (fallbackToGoogle) {
-    //   const rootUrl = encodeURIComponent(gsUtils.getRootUrl(url));
-    //   const tabFavIconUrl = GOOGLE_S2_URL + rootUrl;
-    //   //TODO: Handle reject case below
-    //   faviconMeta = await buildFaviconMeta(tabFavIconUrl, 5000);
-    //   faviconMetaValid = await isFaviconMetaValid(faviconMeta);
-    //   if (faviconMetaValid) {
-    //     gsUtils.log(
-    //       tab.id,
-    //       'Built faviconMeta from google.com/s2 service',
-    //       faviconMeta
-    //     );
-    //     return faviconMeta;
-    //   }
-    // }
 
     // Else try one more time with the root hostname -- this is needed for YouTube, for example
 
@@ -251,7 +236,7 @@ export const gsFavicon = (() => {
    */
   async function getFaviconMetaFromCache(url) {
     const fullUrl   = gsUtils.getRootUrl(url, true, false);
-    let faviconMeta = await gsIndexedDb.fetchFaviconMeta(fullUrl);
+    const faviconMeta = await gsIndexedDb.fetchFaviconMeta(fullUrl);
     // if (!faviconMeta) {
     //   const rootUrl = gsUtils.getRootUrl(url, false, false);
     //   faviconMeta   = await gsIndexedDb.fetchFaviconMeta(rootUrl);
