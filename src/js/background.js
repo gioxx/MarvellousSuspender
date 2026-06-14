@@ -365,27 +365,15 @@ import  { tgs }                   from './tgs.js';
       await tgs.handleWindowFocusChanged(windowId);
     });
     chrome.tabs.onActivated.addListener(async (activeInfo) => {
+      gsUtils.log(activeInfo.tabId, 'tab onActivated');
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
     });
     chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
-      gsUtils.highlight(removedTabId, 'tab onReplaced', addedTabId, removedTabId);
+      gsUtils.log(removedTabId, 'tab onReplaced', addedTabId, removedTabId);
       // await tgs.updateTabIdReferences(addedTabId, removedTabId);
       tgs.queueSessionTimer();
       await tgs.removeTabIdReferences(removedTabId);
-
-      // Work-around for Chrome tab groups bug https://crbug.com/522338670
-      // https://github.com/gioxx/MarvellousSuspender/issues/369
-      // Suspended tabs should never be Replaced in practice
-      // The current bug is explicitly Replacing non "web" tabs ( and discarding them )
-      // Weirdly / luckily the defunct tab maintains the original URL while also being a "new tab"
-      // So, if a Replaced tab is also a Suspended tab, we're going to swap it out for a fresh tab
-      const addedTab    = await gsChrome.tabsGet(addedTabId);
-      if (addedTab?.url && gsUtils.isSuspendedTab(addedTab)) {
-        const { windowId, url, index, pinned, active }  = addedTab;
-        // await new Promise((resolve) => { setTimeout(resolve, 1000); });
-        await gsChrome.tabsCreate({ windowId, url, index, pinned, active });
-        await gsChrome.tabsRemove(addedTabId);
-      }
+      gsSession.pushReplacedTab(addedTabId);
     });
     chrome.tabs.onCreated.addListener(async (tab) => {
       gsUtils.log(tab.id, 'tab onCreated', tab.url);
