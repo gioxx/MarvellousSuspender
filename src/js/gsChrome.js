@@ -49,6 +49,12 @@ export const gsChrome = {
       });
     });
   },
+
+  /**
+   * @param   { number | undefined }            tabId
+   * @param   { chrome.tabs.UpdateProperties }  updateProperties
+   * @returns { Promise<chrome.tabs.Tab | undefined | null> }
+   */
   tabsUpdate(tabId, updateProperties) {
     return new Promise((resolve) => {
       if (!tabId || !updateProperties) {
@@ -256,7 +262,7 @@ export const gsChrome = {
     if (!tabId) return;
     // NOTE: getContexts probably isn't really needed, since the workaround should be quick enough
     const contexts  = await chrome.runtime.getContexts({ tabIds: [tabId] });
-    gsUtils.log('contextGetByTabId', contexts[0]?.tabId, tabId);
+    gsUtils.log(tabId, 'contextGetByTabId', contexts[0]?.tabId);
     if (contexts.length === 1) {
       return contexts[0];
     }
@@ -264,10 +270,12 @@ export const gsChrome = {
     // Workaround for Vivaldi bug.  chrome.runtime.getContexts is returning an empty list.
     // Vivaldi bug reported: VB-122957
     // https://forum.vivaldi.net/search?in=titlesposts&term=122957&matchWords=any
-    const tab     = await chrome.tabs.get(tabId);
-    gsUtils.log('contextGetByTabId fallback', tabId, tab.id);
-    if (tab.url?.match(new RegExp(EXTENSION_URL_MATCH, 'i'))) {
-      return { tabId };
+    const tab   = await gsChrome.tabsGet(tabId);
+    if (tab) {
+      gsUtils.log(tabId, 'contextGetByTabId fallback', tab.id);
+      if (tab.url?.match(new RegExp(EXTENSION_URL_MATCH, 'i'))) {
+        return { tabId };
+      }
     }
 
   },

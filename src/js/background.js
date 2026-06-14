@@ -365,16 +365,18 @@ import  { tgs }                   from './tgs.js';
       await tgs.handleWindowFocusChanged(windowId);
     });
     chrome.tabs.onActivated.addListener(async (activeInfo) => {
+      gsUtils.log(activeInfo.tabId, 'tab onActivated');
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
     });
     chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
+      gsUtils.log(removedTabId, 'tab onReplaced', addedTabId, removedTabId);
       // await tgs.updateTabIdReferences(addedTabId, removedTabId);
       tgs.queueSessionTimer();
       await tgs.removeTabIdReferences(removedTabId);
-      // @TODO: Do we need to do anything here?  Seems like onCreated doesn't
+      gsSession.pushReplacedTab(addedTabId);
     });
     chrome.tabs.onCreated.addListener(async (tab) => {
-      gsUtils.log(tab.id, 'tab created. tabUrl: ', tab.url);
+      gsUtils.log(tab.id, 'tab onCreated', tab.url);
       tgs.queueSessionTimer();
 
       // It's unusual for a suspended tab to be created. Usually they are updated
