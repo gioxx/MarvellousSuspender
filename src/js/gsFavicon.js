@@ -252,10 +252,10 @@ export const gsFavicon = (() => {
   async function getFaviconMetaFromCache(url) {
     const fullUrl   = gsUtils.getRootUrl(url, true, false);
     let faviconMeta = await gsIndexedDb.fetchFaviconMeta(fullUrl);
-    if (!faviconMeta) {
-      const rootUrl = gsUtils.getRootUrl(url, false, false);
-      faviconMeta   = await gsIndexedDb.fetchFaviconMeta(rootUrl);
-    }
+    // if (!faviconMeta) {
+    //   const rootUrl = gsUtils.getRootUrl(url, false, false);
+    //   faviconMeta   = await gsIndexedDb.fetchFaviconMeta(rootUrl);
+    // }
     const isValid   = await isFaviconMetaValid(faviconMeta);
     if (isValid) {
       return faviconMeta;
@@ -268,11 +268,11 @@ export const gsFavicon = (() => {
    */
   async function saveFaviconMetaToCache(url, faviconMeta) {
     const fullUrl = gsUtils.getRootUrl(url, true, false);
-    const rootUrl = gsUtils.getRootUrl(url, false, false);
+    // const rootUrl = gsUtils.getRootUrl(url, false, false);
     gsUtils.log('gsFavicon', `Saving favicon cache entry for ${fullUrl}`, faviconMeta);
     await gsIndexedDb.addFaviconMeta(fullUrl, Object.assign({}, faviconMeta));
-    gsUtils.log('gsFavicon', `Saving favicon cache entry for ${rootUrl}`, faviconMeta);
-    await gsIndexedDb.addFaviconMeta(rootUrl, Object.assign({}, faviconMeta));
+    // gsUtils.log('gsFavicon', `Saving favicon cache entry for ${rootUrl}`, faviconMeta);
+    // await gsIndexedDb.addFaviconMeta(rootUrl, Object.assign({}, faviconMeta));
   }
 
   /**
