@@ -640,10 +640,10 @@
     "message": "È stato effettuato un backup automatico delle schede prima dell'aggiornamento."
   },
   "html_updated_info_line2_prefix": {
-    "message": "Se hai incontrato problemi durante l'aggiornamento, è possibile recuperare le schede perse dal "
+    "message": "Se hai incontrato problemi durante l'aggiornamento, è possibile recuperare le schede perse dalla pagina di "
   },
   "html_updated_info_line2_suffix": {
-    "message": " pagina."
+    "message": "."
   },
   "html_updated_patch_message": {
     "message": "Mi dispiace per il disturbo. Avevo solo bisogno di eseguire un po' di manutenzione."
