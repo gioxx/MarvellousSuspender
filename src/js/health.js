@@ -194,7 +194,7 @@ import  { gsSession }             from './gsSession.js';
 
         if (tab.favIconUrl) {
           const faviconMeta = await gsFavicon.buildFaviconMeta(tab.favIconUrl);
-          const isExtension = (tab.favIconUrl === chrome.runtime.getURL('img/ic_suspendy_16x16.png'));
+          const isExtension = (tab.favIconUrl === chrome.runtime.getURL('img/ic_suspendy_16x16.webp'));
           const isValid     = await gsFavicon.isFaviconMetaValid(faviconMeta);
 
           if (isExtension) {

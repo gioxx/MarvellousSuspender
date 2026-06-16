@@ -11,12 +11,12 @@ import  { gsUtils }               from './gsUtils.js';
 export const tgs = (function() {
 
   const ICON_SUSPENSION_ACTIVE = {
-    '16': '/img/ic_suspendy_16x16.png',
-    '32': '/img/ic_suspendy_32x32.png',
+    '16': '/img/ic_suspendy_16x16.webp',
+    '32': '/img/ic_suspendy_32x32.webp',
   };
   const ICON_SUSPENSION_PAUSED = {
-    '16': '/img/ic_suspendy_16x16_grey.png',
-    '32': '/img/ic_suspendy_32x32_grey.png',
+    '16': '/img/ic_suspendy_16x16_grey.webp',
+    '32': '/img/ic_suspendy_32x32_grey.webp',
   };
 
   // Suspended tab props
