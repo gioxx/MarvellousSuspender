@@ -26,17 +26,17 @@
   "action": {
     "default_title": "__MSG_ext_default_title__",
     "default_icon": {
-      "16": "img/ic_suspendy_16x16.webp",
-      "32": "img/ic_suspendy_32x32.webp"
+      "16": "img/ic_suspendy_16x16.png",
+      "32": "img/ic_suspendy_32x32.png"
     },
     "default_popup": "popup.html"
   },
   "options_page": "options.html",
   "icons": {
-    "16": "img/ic_suspendy_16x16.webp",
-    "32": "img/ic_suspendy_32x32.webp",
-    "48": "img/ic_suspendy_48x48.webp",
-    "128": "img/ic_suspendy_128x128.webp"
+    "16": "img/ic_suspendy_16x16.png",
+    "32": "img/ic_suspendy_32x32.png",
+    "48": "img/ic_suspendy_48x48.png",
+    "128": "img/ic_suspendy_128x128.png"
   },
   "web_accessible_resources": [
     {
