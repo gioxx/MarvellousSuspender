@@ -174,38 +174,46 @@ export const gsSession = (function() {
   }
 
 
-  /** @type { number[] } */
-  const replacedTabs            = [];
+  /** @type { { tabId: number, url ?:string }[] } */
+  const replacedTabs  = [];
 
   /**
    * @param { number } tabId
+   * @param { string } [url]
    */
-  function pushReplacedTab(tabId) {
+  function pushReplacedTab(tabId, url) {
     // We need to handle the replaced tabs sequentially to ensure proper placement.
     // So, add them to a queue during startup and process them only once below.
-    replacedTabs.push(tabId);
+    // @TODO: Stop pushing to the queue after initialization, to reduce memory build-up
+    replacedTabs.push({tabId, url});
   }
 
   async function handleReplacedTabs() {
     gsUtils.log('gsSession', 'handleReplacedTabs', replacedTabs.length);
     // Work-around for Chrome tab groups bug https://crbug.com/522338670
     // https://github.com/gioxx/MarvellousSuspender/issues/369
+    // https://github.com/gioxx/MarvellousSuspender/issues/374
+    // Chrome:
     // Suspended tabs should never be Replaced in practice
     // The current bug is explicitly Replacing non "web" tabs ( and discarding them )
     // Weirdly / luckily the defunct tab maintains the original URL while also being a "new tab"
     // So, if a Replaced tab is also a Suspended tab, we're going to swap it out for a fresh tab
+    // Edge:
+    // Edge's version of this bug is more complex.  We have to tap into the main tab onUpdated event, which triggers all the time
+    // We only queue up tabs that are suspended, are in a tab group, and are transitions to "new tab"
+    // Further, since the queued tabId does not have the correct URL, we're sending it into the queue to override the new-tab URL
 
     gsUtils.setTimeout(2000).then(async () => {
-      for (const tabId of replacedTabs) {
-        const addedTab    = await gsChrome.tabsGet(tabId);
+      for (const replaceInfo of replacedTabs) {
+        const addedTab    = await gsChrome.tabsGet(replaceInfo.tabId);
+        const replaceUrl  = replaceInfo.url ?? addedTab?.url;
         // gsUtils.log(tabId, 'gsSession', 'handleReplacedTabs', addedTab);
-        if (addedTab?.url && addedTab.groupId && gsUtils.isSuspendedTab(addedTab)) {
-          gsTabCheckManager.queueTabCheck(addedTab, { replaceTab: true }, 3000);
-          const { windowId, url, index, pinned, active, groupId }  = addedTab;
-          const newTab    = await gsChrome.tabsCreate({ windowId, url, index, pinned, active });
+        if (replaceUrl && addedTab?.groupId && gsUtils.isSuspendedUrl(replaceUrl)) {
+          const { windowId, index, pinned, active, groupId }  = addedTab;
+          const newTab    = await gsChrome.tabsCreate({ windowId, index, pinned, active, url: replaceUrl });
           if (newTab?.id) {
             await gsChrome.tabsGroup(newTab.id, windowId, groupId);
-            await gsChrome.tabsRemove(tabId);
+            await gsChrome.tabsRemove(replaceInfo.tabId);
           }
         }
       }

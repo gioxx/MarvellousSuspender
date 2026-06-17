@@ -369,11 +369,14 @@ import  { tgs }                   from './tgs.js';
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
     });
     chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
-      gsUtils.log(removedTabId, 'tab onReplaced', addedTabId, removedTabId);
+      gsUtils.highlight(removedTabId, 'tab onReplaced', addedTabId, removedTabId);
       // await tgs.updateTabIdReferences(addedTabId, removedTabId);
       tgs.queueSessionTimer();
       await tgs.removeTabIdReferences(removedTabId);
+
+      // This event is rather unique to the Chrome Tab Group Bug, so queue up everything
       gsSession.pushReplacedTab(addedTabId);
+
     });
     chrome.tabs.onCreated.addListener(async (tab) => {
       gsUtils.log(tab.id, 'tab onCreated', tab.url);
@@ -413,7 +416,14 @@ import  { tgs }                   from './tgs.js';
     };
 
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+      gsUtils.highlight(tabId, 'tab onUpdated', changeInfo, tab.url);
       if (!changeInfo) return;
+
+      // Edge's version of the Tab Group Bug bug is more complicated.
+      // Here, we need to save the suspended URL and the tabId for grouped tabs
+      if (changeInfo.title == 'New Tab' && tab.groupId && gsUtils.isSuspendedTab(tab)) {
+        gsSession.pushReplacedTab(tabId, tab.url);
+      }
 
       if (await gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT) && changeInfo.status === 'complete') {
         await claimTab(tabId);
