@@ -192,7 +192,7 @@ export const gsSession = (function() {
 
   async function handleReplacedTabs() {
     gsUtils.log('gsSession', 'handleReplacedTabs', replacedTabs.length);
-    // Work-around for Chrome tab groups bug https://crbug.com/522338670
+    // Work-around for Chrome and Edge tab groups bug https://crbug.com/522338670
     // https://github.com/gioxx/MarvellousSuspender/issues/369
     // https://github.com/gioxx/MarvellousSuspender/issues/374
     // Chrome:

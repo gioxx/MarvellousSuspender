@@ -369,7 +369,7 @@ import  { tgs }                   from './tgs.js';
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
     });
     chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
-      gsUtils.highlight(removedTabId, 'tab onReplaced', addedTabId, removedTabId);
+      gsUtils.log(removedTabId, 'tab onReplaced', addedTabId, removedTabId);
       // await tgs.updateTabIdReferences(addedTabId, removedTabId);
       tgs.queueSessionTimer();
       await tgs.removeTabIdReferences(removedTabId);
@@ -416,7 +416,7 @@ import  { tgs }                   from './tgs.js';
     };
 
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-      gsUtils.highlight(tabId, 'tab onUpdated', changeInfo, tab.url);
+      gsUtils.log(tabId, 'tab onUpdated', changeInfo, tab.url);
       if (!changeInfo) return;
 
       // Edge's version of the Tab Group Bug bug is more complicated.
