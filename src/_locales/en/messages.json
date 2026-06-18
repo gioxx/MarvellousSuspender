@@ -817,5 +817,97 @@
   },
   "js_session_save_point": {
     "message": "Automatic save point for v"
+  },
+  "html_options_backup_title": {
+    "message": "Automatic session backup"
+  },
+  "html_options_backup_enable": {
+    "message": "Automatically back up your session"
+  },
+  "html_options_backup_enable_tooltip_line1": {
+    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2": {
+    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+  },
+  "html_options_backup_interval": {
+    "message": "Backup every"
+  },
+  "html_options_backup_note": {
+    "message": "Saves your session automatically at the chosen interval. Local backups go to the tms-backups folder inside your Downloads; Drive backups go to a 'TMS Backups' folder in your Google Drive. Files are named by date and time (e.g. tms-session-2026-06-18T14-30.json). The 10 most recent backups are kept per destination; older ones are deleted automatically."
+  },
+  "html_options_backup_now": {
+    "message": "Test backup now"
+  },
+  "html_options_back_to_top": {
+    "message": "↑ Top"
+  },
+  "html_history_backup_hint_prefix": {
+    "message": "Looking for automatic session backups?"
+  },
+  "html_history_backup_settings_link": {
+    "message": "Configure them in Settings."
+  },
+  "js_options_backup_now_running": {
+    "message": "Testing…"
+  },
+  "js_options_backup_now_done": {
+    "message": "All set! Backups will run silently in the background."
+  },
+  "js_options_backup_now_error": {
+    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+  },
+  "js_options_backup_next_run": {
+    "message": "Next run: $time$",
+    "placeholders": { "time": { "content": "$1" } }
+  },
+  "js_options_backup_file_count": {
+    "message": "Archived backups: $count$",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "html_options_backup_destination": {
+    "message": "Backup destination"
+  },
+  "html_options_backup_dest_local": {
+    "message": "Local (Downloads folder)"
+  },
+  "html_options_backup_dest_drive": {
+    "message": "Google Drive"
+  },
+  "html_options_backup_drive_account": {
+    "message": "Connected account"
+  },
+  "html_options_backup_drive_connect": {
+    "message": "Connect Google Account"
+  },
+  "html_options_backup_drive_disconnect": {
+    "message": "Disconnect"
+  },
+  "js_options_backup_drive_connecting": {
+    "message": "Connecting…"
+  },
+  "js_options_backup_drive_auth_error": {
+    "message": "Could not connect to Google. Please try again."
+  },
+  "html_options_settings_backup": {
+    "message": "Settings backup"
+  },
+  "html_options_settings_export": {
+    "message": "Export settings"
+  },
+  "html_options_settings_import": {
+    "message": "Import settings"
+  },
+  "js_options_settings_import_confirm": {
+    "message": "This will overwrite your current settings. Continue?"
+  },
+  "js_options_settings_import_success": {
+    "message": "Settings imported. Reloading…"
+  },
+  "js_options_settings_import_error": {
+    "message": "Invalid settings file."
+  },
+  "html_history_migrate_nav": {
+    "message": "Migrate"
   }
 }
