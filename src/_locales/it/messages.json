@@ -817,5 +817,97 @@
   },
   "js_session_save_point": {
     "message": "Punto di salvataggio automatico per v"
+  },
+  "html_options_backup_title": {
+    "message": "Backup automatico della sessione"
+  },
+  "html_options_backup_enable": {
+    "message": "Salva automaticamente la sessione"
+  },
+  "html_options_backup_enable_tooltip_line1": {
+    "message": "Salva silenziosamente una copia della sessione corrente come file JSON. Puoi scegliere di salvarla localmente (cartella tms-backups dentro i Download) oppure su Google Drive, nella cartella 'TMS Backups'."
+  },
+  "html_options_backup_enable_tooltip_line2": {
+    "message": "Per i backup locali, Chrome deve essere configurato per scaricare i file automaticamente — controlla chrome://settings/downloads. I backup su Google Drive non hanno questo requisito."
+  },
+  "html_options_backup_interval": {
+    "message": "Backup ogni"
+  },
+  "html_options_backup_note": {
+    "message": "Salva automaticamente la sessione all'intervallo scelto. I backup locali vanno nella cartella tms-backups dentro i Download; quelli su Drive nella cartella 'TMS Backups' del tuo Google Drive. I file sono nominati con data e ora (es. tms-session-2026-06-18T14-30.json). Vengono conservati i 10 backup più recenti per destinazione; i precedenti vengono eliminati automaticamente."
+  },
+  "html_options_backup_now": {
+    "message": "Prova subito"
+  },
+  "html_options_back_to_top": {
+    "message": "↑ Su"
+  },
+  "html_history_backup_hint_prefix": {
+    "message": "Stai cercando le impostazioni per il backup automatico delle sessioni?"
+  },
+  "html_history_backup_settings_link": {
+    "message": "Configurale nelle Impostazioni."
+  },
+  "js_options_backup_now_running": {
+    "message": "Verifica in corso…"
+  },
+  "js_options_backup_now_done": {
+    "message": "Tutto pronto! I backup partiranno in silenzio senza disturbarti."
+  },
+  "js_options_backup_now_error": {
+    "message": "Chrome sta chiedendo dove salvare i file — i backup automatici non funzioneranno in silenzio. Disattiva \"Chiedi dove salvare\" in chrome://settings/downloads."
+  },
+  "js_options_backup_next_run": {
+    "message": "Prossima esecuzione: $time$",
+    "placeholders": { "time": { "content": "$1" } }
+  },
+  "js_options_backup_file_count": {
+    "message": "Backup archiviati: $count$",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "html_options_backup_destination": {
+    "message": "Destinazione backup"
+  },
+  "html_options_backup_dest_local": {
+    "message": "Locale (cartella Download)"
+  },
+  "html_options_backup_dest_drive": {
+    "message": "Google Drive"
+  },
+  "html_options_backup_drive_account": {
+    "message": "Account collegato"
+  },
+  "html_options_backup_drive_connect": {
+    "message": "Collega account Google"
+  },
+  "html_options_backup_drive_disconnect": {
+    "message": "Scollega"
+  },
+  "js_options_backup_drive_connecting": {
+    "message": "Connessione in corso…"
+  },
+  "js_options_backup_drive_auth_error": {
+    "message": "Impossibile connettersi a Google. Riprova."
+  },
+  "html_options_settings_backup": {
+    "message": "Backup impostazioni"
+  },
+  "html_options_settings_export": {
+    "message": "Esporta impostazioni"
+  },
+  "html_options_settings_import": {
+    "message": "Importa impostazioni"
+  },
+  "js_options_settings_import_confirm": {
+    "message": "Questa operazione sovrascriverà le impostazioni attuali. Continuare?"
+  },
+  "js_options_settings_import_success": {
+    "message": "Impostazioni importate. Ricaricamento in corso…"
+  },
+  "js_options_settings_import_error": {
+    "message": "File impostazioni non valido."
+  },
+  "html_history_migrate_nav": {
+    "message": "Migrazione"
   }
 }

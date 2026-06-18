@@ -12,8 +12,16 @@
     "alarms",
     "favicon",
     "scripting",
-    "tabGroups"
+    "tabGroups",
+    "downloads",
+    "identity"
   ],
+  "oauth2": {
+    "client_id": "630779328171-1ijjbqo2n5k675q4rdp3q55fjuk0dnhh.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.file"
+    ]
+  },
   "host_permissions": [
     "http://*/*",
     "https://*/*"
@@ -46,8 +54,9 @@
   ],
   "content_security_policy": {
     "extension_pages":
-      "script-src 'self'; object-src 'self'; child-src 'self'; connect-src 'self'; img-src 'self' data: chrome:; style-src 'self'; default-src 'self'"
+      "script-src 'self'; object-src 'self'; child-src 'self'; connect-src 'self' https://www.googleapis.com https://accounts.google.com; img-src 'self' data: chrome:; style-src 'self'; default-src 'self'"
   },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1SOsmPwb7FtV38YXvhtOX6dMsLkMQvH4c0eTQZECxECquV+qo1npuATmS1XvEZloV5dnmFHCkSVPeTBYYAC+mCSl+xr1qcPITN5jzZhkXjosuv5arDTQqjhgXqLJIdNO1sJTe6KVeVj2SDRpsQ41gn4/TczJvrUL5RuT3RZfS5FaFCmu/Wx1boWjY9uZSSnhyk0EKnOJWU4gbf3z5fLz4Z/htmOr8Ww/lOYfzwiJsXYXJ+RtvYM0vPDj7Ny7Ye1Lsy1qM0m/ECJmfrTJE9wPKhzgc/TwPZ30fEHTnagXmvBT0r2/nVW9+HYZeb2BXGc8v9UPuH57Vr+4o8v/DCekVwIDAQAB",
   "incognito": "split",
   "manifest_version": 3,
   "minimum_chrome_version": "110",

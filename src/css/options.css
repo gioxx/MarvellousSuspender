@@ -5,6 +5,138 @@
   align-items: flex-start;
 }
 
+/* ── Backup interval row (select + test button inline) ─────────────────── */
+
+.backupIntervalRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.backupIntervalRow button.btn {
+  height: auto;
+  align-self: stretch;
+  line-height: normal;
+  padding: 0 var(--space-4);
+}
+
+/* ── Backup destination selector ────────────────────────────────────────── */
+
+.backupDestinationRow {
+  margin-top: var(--space-6);
+}
+
+.backupDestinationOptions {
+  display: flex;
+  gap: var(--space-5);
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+/* ── Drive auth panel ────────────────────────────────────────────────────── */
+
+.driveAuthContainer {
+  display: none;
+  margin-top: var(--space-6);
+}
+
+.driveConnectedInfo {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.driveAccountBox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.driveUserEmail {
+  display: inline-block;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-alt, var(--surface));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--foreground);
+  font-family: var(--font-mono, monospace);
+}
+
+.driveDisconnectedInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.driveAuthStatus {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+/* ── Backup meta: next run + file count ─────────────────────────────────── */
+
+.backupMeta {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  min-height: 1em;
+}
+
+/* ── Backup-now status feedback ─────────────────────────────────────────── */
+
+.backupNowStatus {
+  display: inline-block;
+  margin-left: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  vertical-align: middle;
+  opacity: 0;
+  transition: opacity var(--duration-base);
+}
+
+.backupNowStatus.visible {
+  opacity: 1;
+}
+
+/* ── Settings export / import ────────────────────────────────────────────── */
+
+.settingsBackupRow {
+  margin-top: var(--space-4);
+}
+
+.settingsBackupBtns {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+.settingsImportStatus {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+.fileInputHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .welcome-message {
   max-width: none;
   margin-top: var(--space-6);

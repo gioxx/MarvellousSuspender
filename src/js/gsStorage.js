@@ -27,6 +27,10 @@ export const gsStorage = {
   DISCARD_AFTER_SUSPEND         : 'discardAfterSuspend',
   DISCARD_IN_PLACE_OF_SUSPEND   : 'discardInPlaceOfSuspend',
 
+  AUTO_BACKUP_ENABLED           : 'gsAutoBackupEnabled',
+  AUTO_BACKUP_INTERVAL          : 'gsAutoBackupInterval',
+  AUTO_BACKUP_DESTINATION       : 'gsAutoBackupDestination',
+
   APP_VERSION                   : 'gsVersion',
   LAST_EXTENSION_RECOVERY       : 'gsExtensionRecovery',
   UPDATE_AVAILABLE              : 'gsUpdateAvailable',
@@ -59,6 +63,9 @@ export const gsStorage = {
     defaults[gsStorage.THEME] = 'system';
     defaults[gsStorage.LANGUAGE] = 'auto';
     defaults[gsStorage.UPDATE_AVAILABLE] = false; //Set to true for debug
+    defaults[gsStorage.AUTO_BACKUP_ENABLED] = false;
+    defaults[gsStorage.AUTO_BACKUP_INTERVAL] = '1';
+    defaults[gsStorage.AUTO_BACKUP_DESTINATION] = 'local';
 
     return defaults;
   },
