@@ -65,8 +65,6 @@ export const gsStorage = {
    * LOCAL STORAGE FUNCTIONS
    */
 
-  // @TODO: try to remove JSON calls since the storage does it natively -- but what about existing saved options?
-
   //populate local storage settings with sync settings where undefined
   initSettingsAsPromised: function() {
     return new Promise(function(resolve) {
@@ -78,12 +76,16 @@ export const gsStorage = {
 
         chrome.storage.local.get(['gsSettings'], async (result) => {
 
-          var rawLocalSettings;
-          try {
-            rawLocalSettings = JSON.parse(result.gsSettings || null);
-          } catch (e) {
-            gsUtils.error( 'gsStorage', 'Failed to parse gsSettings: ', result, );
+          var rawLocalSettings = result.gsSettings;
+          if (typeof rawLocalSettings === 'string') {
+            try {
+              rawLocalSettings = JSON.parse(rawLocalSettings);
+            } catch (e) {
+              gsUtils.error( 'gsStorage', 'Failed to parse gsSettings: ', result, );
+              rawLocalSettings = null;
+            }
           }
+
           if (!rawLocalSettings) {
             rawLocalSettings = {};
           } else {
@@ -197,7 +199,7 @@ export const gsStorage = {
 
         if (changedSettingKeys.length > 0) {
           await gsStorage.saveSettings(localSettings);
-          gsUtils.performPostSaveUpdates(
+          gsStorage.performPostSaveUpdates(
             changedSettingKeys,
             oldValueBySettingKey,
             newValueBySettingKey,
@@ -235,13 +237,15 @@ export const gsStorage = {
    * @param {'session'|'local'} store
    * @param {string}            name
    */
-  getStorageJSON: async (store, name) => {
+  getStorage: async (store, name) => {
     const result = await chrome.storage[store].get([name]);
-    let value;
-    try {
-      value = JSON.parse(result[name] || null);
-    } catch (e) {
-      gsUtils.error( 'gsStorage', 'Failed to parse gsSettings: ', result );
+    let value = result[name];
+    if (typeof value === 'string') {
+      try {
+        value = JSON.parse(value);
+      } catch (e) {
+        gsUtils.error( 'gsStorage', 'Failed to parse', name, value );
+      }
     }
     return value;
   },
@@ -252,7 +256,7 @@ export const gsStorage = {
    * @param {any}               value
    */
   saveStorage: async (store, name, value) => {
-    await chrome.storage[store].set({ [name]: JSON.stringify(value) });
+    await chrome.storage[store].set({ [name]: value });
     if (chrome.runtime.lastError) {
       gsUtils.error( 'gsStorage', 'failed to save to local storage', chrome.runtime.lastError );
     }
@@ -270,7 +274,7 @@ export const gsStorage = {
   },
 
   getSettings: async () => {
-    let settings = await gsStorage.getStorageJSON('local', 'gsSettings');
+    let settings = await gsStorage.getStorage('local', 'gsSettings');
     if (!settings) {
       settings = gsStorage.getSettingsDefaults();
       await gsStorage.saveSettings(settings);
@@ -284,7 +288,7 @@ export const gsStorage = {
   },
 
   getTabState: async (tabId) => {
-    return gsStorage.getStorageJSON('session', `gsTab${tabId}`);
+    return gsStorage.getStorage('session', `gsTab${tabId}`);
   },
 
   saveTabState: async (tabId, state) => {
@@ -321,15 +325,17 @@ export const gsStorage = {
   fetchLastVersion: function() {
     return new Promise((resolve) => {
       chrome.storage.local.get([gsStorage.APP_VERSION], (result) => {
-        var version;
-        try {
-          version = JSON.parse(result[gsStorage.APP_VERSION] || null);
-        } catch (e) {
-          gsUtils.error(
-            'gsStorage',
-            'Failed to parse ' + gsStorage.APP_VERSION + ': ',
-            result,
-          );
+        var version = result[gsStorage.APP_VERSION];
+        if (typeof version === 'string') {
+          try {
+            version = JSON.parse(version);
+          } catch (e) {
+            gsUtils.error(
+              'gsStorage',
+              'Failed to parse ' + gsStorage.APP_VERSION + ': ',
+              result,
+            );
+          }
         }
         version = version || '0.0.0';
         resolve(version + '');
@@ -338,7 +344,7 @@ export const gsStorage = {
   },
 
   setLastVersion: function(newVersion) {
-    chrome.storage.local.set({ [gsStorage.APP_VERSION]: JSON.stringify(newVersion) }, () => {
+    chrome.storage.local.set({ [gsStorage.APP_VERSION]: newVersion }, () => {
       if (chrome.runtime.lastError) {
         gsUtils.error(
           'gsStorage',
@@ -352,15 +358,17 @@ export const gsStorage = {
   fetchLastExtensionRecoveryTimestamp: function() {
     return new Promise((resolve) => {
       chrome.storage.local.get([gsStorage.LAST_EXTENSION_RECOVERY], (result) => {
-        var lastExtensionRecoveryTimestamp;
-        try {
-          lastExtensionRecoveryTimestamp = JSON.parse(result[gsStorage.LAST_EXTENSION_RECOVERY] || null);
-        } catch (e) {
-          gsUtils.error(
-            'gsStorage',
-            'Failed to parse ' + gsStorage.LAST_EXTENSION_RECOVERY + ': ',
-            result,
-          );
+        var lastExtensionRecoveryTimestamp = result[gsStorage.LAST_EXTENSION_RECOVERY];
+        if (typeof lastExtensionRecoveryTimestamp === 'string') {
+          try {
+            lastExtensionRecoveryTimestamp = JSON.parse(lastExtensionRecoveryTimestamp);
+          } catch (e) {
+            gsUtils.error(
+              'gsStorage',
+              'Failed to parse ' + gsStorage.LAST_EXTENSION_RECOVERY + ': ',
+              result,
+            );
+          }
         }
         resolve(lastExtensionRecoveryTimestamp);
       });
@@ -368,7 +376,7 @@ export const gsStorage = {
   },
 
   setLastExtensionRecoveryTimestamp: function(extensionRecoveryTimestamp) {
-    chrome.storage.local.set({ [gsStorage.LAST_EXTENSION_RECOVERY]: JSON.stringify(extensionRecoveryTimestamp) }, () => {
+    chrome.storage.local.set({ [gsStorage.LAST_EXTENSION_RECOVERY]: extensionRecoveryTimestamp }, () => {
       if (chrome.runtime.lastError) {
         gsUtils.error(
           'gsStorage',
