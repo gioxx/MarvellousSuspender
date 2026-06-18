@@ -421,7 +421,10 @@ import  { tgs }                   from './tgs.js';
 
       // Edge's version of the Tab Group Bug bug is more complicated.
       // Here, we need to save the suspended URL and the tabId for grouped tabs
-      if (changeInfo.title == 'New Tab' && tab.groupId && gsUtils.isSuspendedTab(tab)) {
+      // Originally we limit tab replacement to only suspended tabs, but Edge is braking some live tabs too
+      // if (changeInfo.title == 'New Tab' && tab.groupId && gsUtils.isSuspendedTab(tab)) {
+      if (changeInfo.title?.toLowerCase() == 'new tab' && tab.groupId) {
+        // Attempt to queue up any tab moving to "new tab" -- pushReplacedTab will stop queueing after initialization ends
         gsSession.pushReplacedTab(tabId, tab.url);
       }
 

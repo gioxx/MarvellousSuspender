@@ -176,6 +176,7 @@ export const gsSession = (function() {
 
   /** @type { { tabId: number, url ?:string }[] } */
   const replacedTabs  = [];
+  let   allowReplace  = true;
 
   /**
    * @param { number } tabId
@@ -184,8 +185,9 @@ export const gsSession = (function() {
   function pushReplacedTab(tabId, url) {
     // We need to handle the replaced tabs sequentially to ensure proper placement.
     // So, add them to a queue during startup and process them only once below.
-    // @TODO: Stop pushing to the queue after initialization, to reduce memory build-up
-    replacedTabs.push({tabId, url});
+    if (allowReplace) {
+      replacedTabs.push({tabId, url});
+    }
   }
 
   async function handleReplacedTabs() {
@@ -204,11 +206,13 @@ export const gsSession = (function() {
     // Further, since the queued tabId does not have the correct URL, we're sending it into the queue to override the new-tab URL
 
     gsUtils.setTimeout(2000).then(async () => {
+      allowReplace        = false;
       for (const replaceInfo of replacedTabs) {
         const addedTab    = await gsChrome.tabsGet(replaceInfo.tabId);
         const replaceUrl  = replaceInfo.url ?? addedTab?.url;
-        // gsUtils.log(tabId, 'gsSession', 'handleReplacedTabs', addedTab);
-        if (replaceUrl && addedTab?.groupId && gsUtils.isSuspendedUrl(replaceUrl)) {
+        // gsUtils.highlight(replaceInfo.tabId, 'gsSession', 'handleReplacedTabs', addedTab);
+        // if (addedTab?.groupId && replaceUrl && gsUtils.isSuspendedUrl(replaceUrl)) {
+        if (addedTab?.groupId && replaceUrl) {
           const { windowId, index, pinned, active, groupId }  = addedTab;
           const newTab    = await gsChrome.tabsCreate({ windowId, index, pinned, active, url: replaceUrl });
           if (newTab?.id) {
