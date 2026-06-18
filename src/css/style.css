@@ -174,6 +174,31 @@ a.active {
   gap: var(--space-3);
 }
 
+.brandTitleText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.brandLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-2xs);
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+}
+
+.brandLinks a {
+  color: var(--muted-foreground);
+  text-decoration: none;
+}
+
+.brandLinks a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
 .extensionIcon {
   height: 40px;
   width: auto;
@@ -198,6 +223,13 @@ a.active {
   color: var(--muted-foreground);
   font-family: var(--font-mono);
   letter-spacing: 0.02em;
+}
+
+.brandSubtitle a,
+.brandSubtitle a:hover,
+.brandSubtitle a:visited {
+  color: inherit;
+  text-decoration: none;
 }
 
 .brandMark h1 {
@@ -368,6 +400,98 @@ a.active {
   min-width: 0;
 }
 
+/* ── In-page section nav (options.html, history.html) ───────────────────── */
+
+.pageInlineNav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--background);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border);
+}
+
+.pageInlineNav a {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  border: none;
+  border-radius: 0;
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  text-decoration: none;
+  position: relative;
+  margin-bottom: -1px;
+  transition: color var(--duration-fast);
+}
+
+.pageInlineNav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transition: transform var(--duration-fast) var(--ease-studio);
+}
+
+.pageInlineNav a:hover,
+.pageInlineNav a:focus-visible {
+  color: var(--foreground);
+  background: none;
+  outline: none;
+}
+
+.pageInlineNav a:hover::after,
+.pageInlineNav a:focus-visible::after,
+.pageInlineNav a.active::after {
+  transform: scaleX(1);
+}
+
+.pageInlineNav a.active {
+  color: var(--foreground);
+}
+
+/* ── Back-to-top button (all content pages) ─────────────────────────────── */
+
+#backToTop {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: var(--text-sm);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-studio),
+              background var(--duration-fast),
+              color var(--duration-fast);
+  z-index: 100;
+}
+
+#backToTop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#backToTop:hover,
+#backToTop:focus-visible {
+  background: var(--muted);
+  color: var(--foreground);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
 .content h2 {
   font-size: var(--text-md);
   font-weight: 700;
@@ -403,6 +527,15 @@ a.active {
   padding: var(--space-6) var(--space-8);
   margin-bottom: var(--space-6);
   background-color: var(--card);
+}
+
+/* ── Plain section description (below pageTitle / h2, no box) ──────────── */
+
+.sectionDesc {
+  margin: calc(-1 * var(--space-3)) 0 var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  line-height: 1.5;
 }
 
 /* ── Notification / warning note ───────────────────────────────────────── */
@@ -670,6 +803,7 @@ input[type='checkbox']:checked + label::before {
   padding: 0;
   margin: 0 0 var(--space-1);
   overflow: hidden;
+  position: relative;
 }
 
 .tabContainer > * {
@@ -754,6 +888,20 @@ a.historyLink:hover {
   padding-right: var(--space-1);
   color: var(--muted-foreground);
   font-size: var(--text-base);
+}
+
+/* Remove button is absolutely positioned so the favicon never shifts on hover */
+.tabContainer .itemHover.removeLink {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 0 var(--space-1) 3px 0;
+}
+
+.tabContainer:hover .itemHover.removeLink {
+  visibility: visible;
 }
 
 #screenCaptureNotice {

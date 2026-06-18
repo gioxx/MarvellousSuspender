@@ -479,6 +479,9 @@ export const gsUtils = {
     await gsUtils.loadLocaleMessages(locale);
     gsUtils.localiseHtml(win.document);
 
+    const vEl = win.document.getElementById('headerVersion');
+    if (vEl) vEl.textContent = 'v' + chrome.runtime.getManifest().version;
+
     if (win.document?.body) {
       const theme = await gsStorage.getOption(gsStorage.THEME);
       this.setPageTheme(win, theme);
