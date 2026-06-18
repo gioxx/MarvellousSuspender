@@ -1164,6 +1164,46 @@ export const tgs = (function() {
     });
   }
 
+  async function toggleSuspendStateOfTab(tab) {
+    if (!tab) return;
+    if (gsUtils.isSuspendedTab(tab)) {
+      await unsuspendTab(tab);
+    } else {
+      gsTabSuspendManager.queueTabForSuspension(tab, 1);
+    }
+  }
+
+  async function requestToggleTempWhitelistStateOfTab(tab) {
+    if (!tab) return;
+    if (gsUtils.isSuspendedTab(tab)) {
+      await unsuspendTab(tab);
+      return;
+    }
+    if (!gsUtils.isNormalTab(tab, true)) return;
+    calculateTabStatus(tab, null, (status) => {
+      if (status === gsUtils.STATUS_ACTIVE || status === gsUtils.STATUS_NORMAL) {
+        setTempWhitelistStateForTab(tab, null);
+      } else if (status === gsUtils.STATUS_TEMPWHITELIST || status === gsUtils.STATUS_FORMINPUT) {
+        unsetTempWhitelistStateForTab(tab, null);
+      }
+    });
+  }
+
+  async function whitelistTab(tab, includePath) {
+    if (!tab) return;
+    if (gsUtils.isSuspendedTab(tab)) {
+      const url = gsUtils.getRootUrl(gsUtils.getOriginalUrl(tab.url), includePath, false);
+      await gsUtils.saveToWhitelist(url);
+      await unsuspendTab(tab);
+    } else if (gsUtils.isNormalTab(tab)) {
+      const url = gsUtils.getRootUrl(tab.url, includePath, false);
+      await gsUtils.saveToWhitelist(url);
+      calculateTabStatus(tab, null, (status) => {
+        setIconStatus(status, tab.id);
+      });
+    }
+  }
+
   //HANDLERS FOR RIGHT-CLICK CONTEXT MENU
   function buildContextMenu(showContextMenu) {
     /** @type { chrome.contextMenus.CreateProperties['contexts'] } */
@@ -1281,6 +1321,58 @@ export const tgs = (function() {
         title: chrome.i18n.getMessage('html_recovery_go_to_session_manager'),
         contexts: allContexts,
       });
+
+      // Tab strip context menu items (right-click on tab in tab bar)
+      chrome.contextMenus.create({
+        id: 'tab_toggle_suspend',
+        title: chrome.i18n.getMessage('js_context_toggle_suspend_state'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_toggle_pause',
+        title: chrome.i18n.getMessage('js_context_toggle_pause_suspension'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_never_suspend_domain',
+        title: chrome.i18n.getMessage('js_context_never_suspend_domain'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_never_suspend_page',
+        title: chrome.i18n.getMessage('js_context_never_suspend_page'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_separator1',
+        type: 'separator',
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_soft_suspend_other_tabs',
+        title: chrome.i18n.getMessage('js_context_soft_suspend_other_tabs_in_window'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_unsuspend_all_in_window',
+        title: chrome.i18n.getMessage('js_context_unsuspend_all_tabs_in_window'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_separator2',
+        type: 'separator',
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_soft_suspend_all',
+        title: chrome.i18n.getMessage('js_context_soft_suspend_all_tabs'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_unsuspend_all',
+        title: chrome.i18n.getMessage('js_context_unsuspend_all_tabs'),
+        contexts: ['tab'],
+      });
     }
   }
 
@@ -1347,6 +1439,10 @@ export const tgs = (function() {
     whitelistHighlightedTab,
     unsuspendAllTabsInAllWindows,
     promptForFilePermissions,
+
+    toggleSuspendStateOfTab,
+    requestToggleTempWhitelistStateOfTab,
+    whitelistTab,
   };
 
 })();

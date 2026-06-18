@@ -1,4 +1,5 @@
 // @ts-check
+import  { gsBackup }              from './gsBackup.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
@@ -301,6 +302,30 @@ import  { tgs }                   from './tgs.js';
       case 'open_session_history':
         await chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
         break;
+      case 'tab_toggle_suspend':
+        tgs.toggleSuspendStateOfTab(tab);
+        break;
+      case 'tab_toggle_pause':
+        tgs.requestToggleTempWhitelistStateOfTab(tab);
+        break;
+      case 'tab_never_suspend_domain':
+        tgs.whitelistTab(tab, false);
+        break;
+      case 'tab_never_suspend_page':
+        tgs.whitelistTab(tab, true);
+        break;
+      case 'tab_soft_suspend_other_tabs':
+        tgs.suspendAllTabs(false);
+        break;
+      case 'tab_unsuspend_all_in_window':
+        tgs.unsuspendAllTabs();
+        break;
+      case 'tab_soft_suspend_all':
+        tgs.suspendAllTabsInAllWindows(false);
+        break;
+      case 'tab_unsuspend_all':
+        tgs.unsuspendAllTabsInAllWindows();
+        break;
       default:
         break;
     }
@@ -349,6 +374,12 @@ import  { tgs }                   from './tgs.js';
   /** @param { chrome.alarms.Alarm } alarm */
   async function alarmListener(alarm) {
     gsUtils.log('background', 'alarmListener', alarm);
+
+    if (alarm.name === gsBackup.ALARM_NAME) {
+      await gsBackup.performBackup();
+      return;
+    }
+
     const tabId = parseInt(alarm.name);
     const tab = await gsChrome.tabsGet(tabId);
     if (!tab) {
@@ -547,6 +578,10 @@ import  { tgs }                   from './tgs.js';
     .then(initAsPromised)
     .catch((error) => {
       gsUtils.error('background init error: ', error);
+    })
+    .then(() => gsBackup.syncAlarmWithSettings())
+    .catch((error) => {
+      gsUtils.error('background backup alarm sync error: ', error);
     });
 
 

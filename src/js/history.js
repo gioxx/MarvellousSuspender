@@ -321,6 +321,39 @@ import  { historyUtils }          from './historyUtils.js';
 
     render();
 
+    // Back-to-top button
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTopBtn.classList.toggle('visible', window.scrollY > 200);
+    }, { passive: true });
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Active section tracking for in-page nav
+    const navSections = Array.from(document.querySelectorAll('.sub-section[id]'));
+    const navLinks    = Array.from(document.querySelectorAll('.pageInlineNav a[href^="#"]'));
+    let navClickLock  = null;
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        clearTimeout(navClickLock);
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        navClickLock = setTimeout(() => { navClickLock = null; }, 1000);
+      });
+    });
+    function updateActiveNavLink() {
+      if (navClickLock) return;
+      const scrollPos = window.scrollY + 120;
+      let activeId    = navSections[0]?.id;
+      for (const section of navSections) {
+        if (section.offsetTop <= scrollPos) activeId = section.id;
+      }
+      navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`));
+    }
+    window.addEventListener('scroll', updateActiveNavLink, { passive: true });
+    updateActiveNavLink();
+
   });
 
 })();

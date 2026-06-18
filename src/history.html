@@ -18,11 +18,20 @@
       <div class="brandMark">
         <div class="brandTitle">
           <img src="img/suspendy-guy-main.webp" alt="" class="extensionIcon" aria-hidden="true" />
-          <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+          <div class="brandTitleText">
+            <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+            <div class="brandLinks">
+              <span id="headerVersion"></span>
+              <span aria-hidden="true">·</span>
+              <a href="https://marvellouscode.works/tms" target="_blank">marvellouscode.works/tms</a>
+              <span aria-hidden="true">·</span>
+              <a href="https://kb.marvellouscode.works" target="_blank">kb.marvellouscode.works</a>
+            </div>
+          </div>
         </div>
         <div class="brandCodeworks">
           <img src="img/marvellous-codeworks-logo.webp" alt="" class="brandLogo" aria-hidden="true" />
-          <span class="brandSubtitle">a Marvellous Codeworks project</span>
+          <span class="brandSubtitle">a <a href="https://marvellouscode.works" target="_blank">Marvellous Codeworks</a> project</span>
         </div>
       </div>
     </div>
@@ -52,35 +61,45 @@
 
       <p class="pageTitle" data-i18n="__MSG_html_history_title__"></p>
 
-      <div class="sub-section">
+      <nav class="pageInlineNav" aria-label="Jump to section">
+        <a href="#section-current"  data-i18n="__MSG_html_history_current_session__"></a>
+        <a href="#section-recent"   data-i18n="__MSG_html_history_recent_sessions__"></a>
+        <a href="#section-saved"    data-i18n="__MSG_html_history_saved_sessions__"></a>
+        <a href="#section-migrate"  data-i18n="__MSG_html_history_migrate_nav__"></a>
+      </nav>
+
+      <p class="historyBackupHint noIncognito">
+        <span data-i18n="__MSG_html_history_backup_hint_prefix__"></span>
+        <a href="options.html#section-backup" data-i18n="__MSG_html_history_backup_settings_link__"></a>
+      </p>
+
+      <div class="sub-section" id="section-current">
         <h2 data-i18n="__MSG_html_history_current_session__"></h2>
         <div id="currentSessions" class="sessionsContainer"></div>
       </div>
 
-      <div class="sub-section">
+      <div class="sub-section" id="section-recent">
         <h2 data-i18n="__MSG_html_history_recent_sessions__"></h2>
         <div id="recoverySessions" class="sessionsContainer"></div>
       </div>
 
-      <div class="sub-section">
+      <div class="sub-section" id="section-saved">
         <h2 data-i18n="__MSG_html_history_saved_sessions__"></h2>
         <div id="historySessions" class="sessionsContainer"></div>
         <a href="#" id="importSession" class="btn" data-i18n="__MSG_html_history_import_session__"></a>
         <input type="file" id="importSessionAction" hidden />
       </div>
 
-      <div class="sub-section">
+      <div class="sub-section" id="section-migrate">
         <h2 data-i18n="__MSG_html_history_migrate_section_title__"></h2>
-        <p class="gsNote" data-i18n="__MSG_html_history_migrate_section_desc__"></p>
+        <p class="sectionDesc" data-i18n="__MSG_html_history_migrate_section_desc__"></p>
         <div class="formRow">
           <span class="topLabel" data-i18n="__MSG_html_history_migrate_old_id__"></span>
           <div class="migrate-input-row">
             <input type="text" size="33" id="migrateFromId" value="klbibkeccnjlkjkiokjodocebajanakg" />
             <div id="migrateFromName" class="lesserText"></div>
+            <a href="#" id="migrateTabs" class="btn btnNeg" data-i18n="__MSG_html_history_migrate_tabs__"></a>
           </div>
-        </div>
-        <div class="formRow">
-          <a href="#" id="migrateTabs" class="btn" data-i18n="__MSG_html_history_migrate_tabs__"></a>
         </div>
         <div id="migrateMessage"></div>
       </div>
@@ -88,6 +107,8 @@
     </div>
 
   </div>
+
+<button id="backToTop" aria-label="Back to top" data-i18n="__MSG_html_options_back_to_top__"></button>
 
 </body>
 
