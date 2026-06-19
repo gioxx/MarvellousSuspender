@@ -30,6 +30,7 @@ export const gsStorage = {
   AUTO_BACKUP_ENABLED           : 'gsAutoBackupEnabled',
   AUTO_BACKUP_INTERVAL          : 'gsAutoBackupInterval',
   AUTO_BACKUP_DESTINATION       : 'gsAutoBackupDestination',
+  AUTO_BACKUP_TIME              : 'gsAutoBackupTime',
 
   APP_VERSION                   : 'gsVersion',
   LAST_EXTENSION_RECOVERY       : 'gsExtensionRecovery',
@@ -66,6 +67,7 @@ export const gsStorage = {
     defaults[gsStorage.AUTO_BACKUP_ENABLED] = false;
     defaults[gsStorage.AUTO_BACKUP_INTERVAL] = '1';
     defaults[gsStorage.AUTO_BACKUP_DESTINATION] = 'local';
+    defaults[gsStorage.AUTO_BACKUP_TIME] = '09:00';
 
     return defaults;
   },

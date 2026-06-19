@@ -426,6 +426,9 @@
   "html_options_whitelist_test": {
     "message": "Test whitelist"
   },
+  "html_options_whitelist_unsuspend": {
+    "message": "Wake whitelisted tabs"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Add The Marvellous Suspender to right-click context menu"
   },
@@ -495,6 +498,9 @@
   "html_popup_unsuspend_all_tabs": {
     "message": "Unsuspend all tabs"
   },
+  "html_popup_unsuspend_whitelisted_tabs": {
+    "message": "Wake whitelisted tabs"
+  },
   "html_popup_suspend_selected_tabs": {
     "message": "Suspend selected tabs"
   },
@@ -503,6 +509,12 @@
   },
   "html_popup_settings": {
     "message": "Settings"
+  },
+  "html_popup_backup_now_local": {
+    "message": "Backup session now (Local)"
+  },
+  "html_popup_backup_now_cloud": {
+    "message": "Backup session now (Cloud)"
   },
   "html_restoring_title": {
     "message": "Restoring window"
@@ -566,6 +578,12 @@
   },
   "html_sidebar_support": {
     "message": "About"
+  },
+  "html_sidebar_backup": {
+    "message": "Backup"
+  },
+  "html_backup_page_title": {
+    "message": "Backup & Restore"
   },
   "html_success_great_success": {
     "message": "Marvellous success!"
@@ -833,11 +851,14 @@
   "html_options_backup_interval": {
     "message": "Backup every"
   },
+  "html_options_backup_daily_time": {
+    "message": "At what time"
+  },
   "html_options_backup_note": {
-    "message": "Saves your session automatically at the chosen interval. Local backups go to the tms-backups folder inside your Downloads; Drive backups go to a 'TMS Backups' folder in your Google Drive. Files are named by date and time (e.g. tms-session-2026-06-18T14-30.json). The 10 most recent backups are kept per destination; older ones are deleted automatically."
+    "message": "Files are named by date and time (e.g. tms-session-2026-06-18T14-30.json). The 10 most recent backups are kept per destination; older ones are deleted automatically."
   },
   "html_options_backup_now": {
-    "message": "Test backup now"
+    "message": "Backup now"
   },
   "html_options_back_to_top": {
     "message": "↑ Top"
@@ -846,13 +867,16 @@
     "message": "Looking for automatic session backups?"
   },
   "html_history_backup_settings_link": {
-    "message": "Configure them in Settings."
+    "message": "Configure them in Backup."
   },
   "js_options_backup_now_running": {
-    "message": "Testing…"
+    "message": "Running backup…"
   },
   "js_options_backup_now_done": {
-    "message": "All set! Backups will run silently in the background."
+    "message": "Backup saved."
+  },
+  "js_backup_option_saved": {
+    "message": "Saved"
   },
   "js_options_backup_now_error": {
     "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
@@ -883,6 +907,9 @@
   "html_options_backup_drive_disconnect": {
     "message": "Disconnect"
   },
+  "html_popup_backup_drive_error": {
+    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+  },
   "js_options_backup_drive_connecting": {
     "message": "Connecting…"
   },
@@ -891,6 +918,36 @@
   },
   "html_options_settings_backup": {
     "message": "Settings backup"
+  },
+  "html_backup_settings_desc": {
+    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+  },
+  "html_backup_local_folder_hint": {
+    "message": "Local backups go to the tms-backups folder inside your Downloads."
+  },
+  "html_backup_drive_folder_note": {
+    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+  },
+  "html_backup_drive_open_folder": {
+    "message": "Open TMS Backups folder on Drive ↗"
+  },
+  "html_backup_drive_label_account": {
+    "message": "Account"
+  },
+  "html_backup_drive_label_folder": {
+    "message": "Folder"
+  },
+  "html_backup_drive_save_settings": {
+    "message": "Save settings to Drive"
+  },
+  "js_backup_drive_settings_saving": {
+    "message": "Saving to Drive…"
+  },
+  "js_backup_drive_settings_saved": {
+    "message": "Settings saved to Drive."
+  },
+  "js_backup_drive_settings_error": {
+    "message": "Could not save settings to Drive. Please try again."
   },
   "html_options_settings_export": {
     "message": "Export settings"

@@ -85,6 +85,18 @@ a {
   border-bottom-color: transparent;
 }
 
+#backupErrorBanner {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+#backupErrorBanner:hover {
+  filter: brightness(0.92);
+}
+
 #popupContent {
   padding: var(--space-1) 0;
 }
@@ -110,4 +122,8 @@ a {
 .menuOption:hover {
   background-color: var(--accent);
   color: var(--foreground);
+}
+
+.hidden {
+  display: none;
 }

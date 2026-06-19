@@ -366,6 +366,28 @@ export const tgs = (function() {
     });
   }
 
+  function unsuspendWhitelistedTabs() {
+    chrome.windows.getLastFocused({}, (currentWindow) => {
+      chrome.tabs.query({}, async (tabs) => {
+        var deferredTabs = [];
+        for (const tab of tabs) {
+          if (!gsUtils.isSuspendedTab(tab)) continue;
+          const originalUrl = gsUtils.getOriginalUrl(tab.url);
+          if (!originalUrl || !(await gsUtils.checkWhiteList(originalUrl))) continue;
+          gsTabSuspendManager.unqueueTabForSuspension(tab);
+          if (tab.windowId === currentWindow.id) {
+            deferredTabs.push(tab);
+          } else {
+            await unsuspendTab(tab);
+          }
+        }
+        for (const tab of deferredTabs) {
+          await unsuspendTab(tab);
+        }
+      });
+    });
+  }
+
   function suspendSelectedTabs() {
     chrome.tabs.query(
       { highlighted: true, lastFocusedWindow: true },
@@ -1438,6 +1460,7 @@ export const tgs = (function() {
     unsuspendSelectedTabs,
     whitelistHighlightedTab,
     unsuspendAllTabsInAllWindows,
+    unsuspendWhitelistedTabs,
     promptForFilePermissions,
 
     toggleSuspendStateOfTab,

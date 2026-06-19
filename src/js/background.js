@@ -166,6 +166,10 @@ import  { tgs }                   from './tgs.js';
         tgs.unsuspendAllTabs();
         break;
       }
+      case 'unsuspendWhitelisted' : {
+        tgs.unsuspendWhitelistedTabs();
+        break;
+      }
       case 'suspendSelected' : {
         tgs.suspendSelectedTabs();
         break;
@@ -188,6 +192,10 @@ import  { tgs }                   from './tgs.js';
       }
       case 'settingsLink' : {
         await chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
+        break;
+      }
+      case 'backupNow' : {
+        await gsBackup.performBackup();
         break;
       }
       default: {

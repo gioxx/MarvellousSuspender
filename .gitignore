@@ -5,6 +5,7 @@
 *.zip
 /.claude
 /.tokensave
+/CLAUDE.md
 build
 node_modules
 Thumbs.db

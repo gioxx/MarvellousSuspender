@@ -242,14 +242,36 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  function showPopupContents() {
+  async function showPopupContents() {
     document.getElementById('brandVersion').textContent =
       'v' + chrome.runtime.getManifest().version;
-    gsStorage.getOption(gsStorage.THEME).then((theme) => {
-      if (theme === 'dark') {
-        document.body.classList.add('dark');
-      }
-    });
+    const [theme, backupEnabled, backupDest, errorFlag] = await Promise.all([
+      gsStorage.getOption(gsStorage.THEME),
+      gsStorage.getOption(gsStorage.AUTO_BACKUP_ENABLED),
+      gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION),
+      chrome.storage.local.get('tmsBackupDriveError'),
+    ]);
+    if (theme === 'dark') {
+      document.body.classList.add('dark');
+    }
+    if (backupEnabled) {
+      const labelKey = backupDest === 'drive'
+        ? 'html_popup_backup_now_cloud'
+        : 'html_popup_backup_now_local';
+      document.getElementById('backupNowLabel').textContent =
+        chrome.i18n.getMessage(labelKey);
+      document.getElementById('optsBackup').classList.remove('hidden');
+    }
+    if (errorFlag.tmsBackupDriveError) {
+      const banner = document.getElementById('backupErrorBanner');
+      banner.classList.remove('hidden');
+      banner.addEventListener('click', () => {
+        chrome.tabs.create({ url: chrome.runtime.getURL('backup.html') });
+        window.close();
+      });
+      await chrome.storage.local.remove('tmsBackupDriveError');
+      await chrome.action.setBadgeText({ text: '' });
+    }
   }
 
   function addClickListener(message) {
@@ -270,10 +292,12 @@ import  { tgs }                   from './tgs.js';
     addClickListener('unsuspendOne');
     addClickListener('suspendAll');
     addClickListener('unsuspendAll');
+    addClickListener('unsuspendWhitelisted');
     addClickListener('suspendSelected');
     addClickListener('unsuspendSelected');
     addClickListener('whitelistDomain');
     addClickListener('whitelistPage');
+    addClickListener('backupNow');
     addClickListener('sessionManagerLink');
     addClickListener('settingsLink');
   }

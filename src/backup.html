@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link type="text/css" href="css/fontello.css" rel="stylesheet">
+  <link type="text/css" href="css/style.css" rel="stylesheet">
+  <link type="text/css" href="css/backup.css" rel="stylesheet">
+  <script type="module" src="js/backup.js"></script>
+  <title data-i18n="__MSG_ext_extension_name__ - __MSG_html_backup_page_title__"></title>
+</head>
+
+<body>
+
+<div class="mainContent">
+
+  <div class="pageHeader">
+    <div class="brandMark">
+      <div class="brandTitle">
+        <img src="img/suspendy-guy-main.webp" alt="" class="extensionIcon" aria-hidden="true" />
+        <div class="brandTitleText">
+          <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+          <div class="brandLinks">
+            <span id="headerVersion"></span>
+            <span aria-hidden="true">·</span>
+            <a href="https://marvellouscode.works/tms" target="_blank">marvellouscode.works/tms</a>
+            <span aria-hidden="true">·</span>
+            <a href="https://kb.marvellouscode.works" target="_blank">kb.marvellouscode.works</a>
+          </div>
+        </div>
+      </div>
+      <div class="brandCodeworks">
+        <img src="img/marvellous-codeworks-logo.webp" alt="" class="brandLogo" aria-hidden="true" />
+        <span class="brandSubtitle">a <a href="https://marvellouscode.works" target="_blank">Marvellous Codeworks</a> project</span>
+      </div>
+    </div>
+  </div>
+
+  <nav class="contentNav">
+    <ul>
+      <li>
+        <a href="options.html" data-i18n="__MSG_html_sidebar_general_settings__"></a>
+      </li>
+      <li class="noIncognito">
+        <a href="history.html" data-i18n="__MSG_html_sidebar_session_management__"></a>
+      </li>
+      <li class="noIncognito">
+        <a class="active" href="backup.html" data-i18n="__MSG_html_sidebar_backup__"></a>
+      </li>
+      <li>
+        <a href="health.html" data-i18n="__MSG_html_sidebar_tab_health__"></a>
+      </li>
+      <li class="noIncognito">
+        <a href="shortcuts.html" data-i18n="__MSG_html_sidebar_shortcuts__"></a>
+      </li>
+      <li>
+        <a href="about.html" data-i18n="__MSG_html_sidebar_support__"></a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="content">
+
+    <div class="sub-section noIncognito" id="section-settings">
+      <p class="pageTitle" data-i18n="__MSG_html_options_settings_backup__"></p>
+      <p class="sectionDesc" data-i18n="__MSG_html_backup_settings_desc__"></p>
+      <div class="formRow settingsBackupRow">
+        <div class="settingsBackupBtns">
+          <button id="exportSettingsBtn" class="btn btnNeg" data-i18n="__MSG_html_options_settings_export__"></button>
+          <button id="importSettingsBtn" class="btn btnNeg" data-i18n="__MSG_html_options_settings_import__"></button>
+          <button id="driveSettingsBackupBtn" class="btn btnNeg hidden" data-i18n="__MSG_html_backup_drive_save_settings__"></button>
+          <input type="file" id="importSettingsFile" class="fileInputHidden" accept=".json">
+        </div>
+        <span id="settingsImportStatus" class="settingsImportStatus" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <div class="sub-section noIncognito" id="section-session">
+      <p class="pageTitle" data-i18n="__MSG_html_options_backup_title__"></p>
+      <div class="formRow checkboxRow">
+        <input type="checkbox" id="autoBackupEnabled" class="option" />
+        <label for="autoBackupEnabled" class="cbLabel" data-i18n="__MSG_html_options_backup_enable__&nbsp;&nbsp;"></label>
+        <span data-i18n-tooltip="__MSG_html_options_backup_enable_tooltip_line1__
+
+__MSG_html_options_backup_enable_tooltip_line2__">
+          <i class="tooltipIcon icon icon-help-circled"></i>
+        </span>
+        <span id="optionSavedStatus" class="optionSavedStatus" aria-live="polite"></span>
+      </div>
+      <div class="formRow autoBackupOption" id="autoBackupIntervalContainer">
+
+        <div class="backupConfigRow">
+          <div class="backupConfigGroup">
+            <label class="topLabel" for="autoBackupInterval" data-i18n="__MSG_html_options_backup_interval__:"></label>
+            <div class="select-wrapper">
+              <select id="autoBackupInterval" class="option">
+                <option value="0.25" data-i18n="15 __MSG_html_options_suspend_minutes__"></option>
+                <option value="0.5"  data-i18n="30 __MSG_html_options_suspend_minutes__"></option>
+                <option value="1"    data-i18n="1 __MSG_html_options_suspend_hour__"></option>
+                <option value="2"    data-i18n="2 __MSG_html_options_suspend_hours__"></option>
+                <option value="4"    data-i18n="4 __MSG_html_options_suspend_hours__"></option>
+                <option value="8"    data-i18n="8 __MSG_html_options_suspend_hours__"></option>
+                <option value="24"   data-i18n="1 __MSG_html_options_suspend_day__"></option>
+              </select>
+            </div>
+          </div>
+
+          <div class="backupConfigGroup">
+            <label class="topLabel" for="autoBackupDestination" data-i18n="__MSG_html_options_backup_destination__:"></label>
+            <div class="select-wrapper">
+              <select id="autoBackupDestination" class="option">
+                <option value="local" data-i18n="__MSG_html_options_backup_dest_local__"></option>
+                <option value="drive" data-i18n="__MSG_html_options_backup_dest_drive__"></option>
+              </select>
+            </div>
+          </div>
+
+          <div class="backupConfigAction">
+            <button id="backupNowBtn" class="btn btnNeg" data-i18n="__MSG_html_options_backup_now__"></button>
+          </div>
+        </div>
+
+        <div class="hidden" id="autoBackupTimeContainer">
+          <input type="time" id="autoBackupTime" class="option" value="09:00" aria-label="Orario del backup giornaliero" />
+        </div>
+
+        <div class="backupStatusRow">
+          <span id="backupNextRun" class="backupNextRun"></span>
+          <span id="backupNowStatus" class="backupNowStatus" aria-live="polite"></span>
+        </div>
+
+        <p class="backupNote" data-i18n="__MSG_html_options_backup_note__"></p>
+
+        <div id="localFolderInfo" class="localFolderInfo">
+          <p data-i18n="__MSG_html_backup_local_folder_hint__"></p>
+        </div>
+
+        <div id="driveAuthContainer" class="driveAuthContainer">
+          <p class="pageTitle" data-i18n="__MSG_html_options_backup_drive_account__"></p>
+          <div id="driveConnectedInfo" class="driveConnectedInfo">
+            <dl class="driveInfoGrid">
+              <dt data-i18n="__MSG_html_backup_drive_label_account__"></dt>
+              <dd>
+                <span id="driveUserName" class="driveUserName"></span>
+                <span id="driveUserEmail" class="driveUserEmail"></span>
+              </dd>
+              <dt data-i18n="__MSG_html_backup_drive_label_folder__"></dt>
+              <dd>
+                <span class="driveFolderName">
+                  <img id="driveIcon" src="" alt="" aria-hidden="true" class="driveIcon" />TMS Backups
+                </span>
+                <a id="driveFolderLink" class="driveFolderLink hidden" target="_blank" data-i18n="__MSG_html_backup_drive_open_folder__"></a>
+              </dd>
+            </dl>
+            <button id="driveDisconnectBtn" class="btn btnNeg btnSmall" data-i18n="__MSG_html_options_backup_drive_disconnect__"></button>
+          </div>
+          <div id="driveDisconnectedInfo" class="driveDisconnectedInfo">
+            <button id="driveConnectBtn" class="btn btnNeg" data-i18n="__MSG_html_options_backup_drive_connect__"></button>
+            <span id="driveAuthStatus" class="driveAuthStatus" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <div id="backupMetaInfo" class="backupMeta" aria-live="polite">
+          <span id="backupFileCount"></span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<button id="backToTop" aria-label="Back to top" data-i18n="__MSG_html_options_back_to_top__"></button>
+
+</body>
+
+</html>
