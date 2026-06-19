@@ -177,7 +177,12 @@ export const gsBackup = (() => {
   }
 
   async function performDriveBackup(jsonString) {
-    const token    = await getAuthToken(false);
+    let token;
+    try {
+      token = await getAuthToken(false);
+    } catch (_) {
+      throw new Error('TMS_DRIVE_AUTH_MISSING');
+    }
     const folderId = await getOrCreateDriveFolder(token);
     const filename = `tms-session-${buildTimestamp()}.json`;
 
@@ -205,7 +210,60 @@ export const gsBackup = (() => {
     return file.id;
   }
 
+  // ─── Drive settings backup ─────────────────────────────────────────────────
+
+  async function performDriveSettingsBackup(jsonString) {
+    const token    = await getAuthToken(false);
+    const folderId = await getOrCreateDriveFolder(token);
+    const filename = 'tms-settings.json';
+
+    const q      = `'${folderId}' in parents and name='${filename}' and trashed=false`;
+    const search = await fetch(`${DRIVE_API}/files?q=${encodeURIComponent(q)}&fields=files(id)`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const { files } = await search.json();
+    const existing  = files && files[0];
+
+    if (existing) {
+      const res = await fetch(`${DRIVE_UPLOAD_API}/files/${existing.id}?uploadType=media`, {
+        method  : 'PATCH',
+        headers : { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body    : jsonString,
+      });
+      if (!res.ok) throw new Error(`Drive settings update failed: ${res.status}`);
+      const file = await res.json();
+      gsUtils.log('gsBackup', `Drive settings updated: ${filename} (id=${file.id})`);
+      return file.id;
+    } else {
+      const metadata = JSON.stringify({ name: filename, parents: [folderId] });
+      const form     = new FormData();
+      form.append('metadata', new Blob([metadata], { type: 'application/json' }));
+      form.append('file', new Blob([jsonString], { type: 'application/json' }));
+
+      const res = await fetch(`${DRIVE_UPLOAD_API}/files?uploadType=multipart`, {
+        method  : 'POST',
+        headers : { Authorization: `Bearer ${token}` },
+        body    : form,
+      });
+      if (!res.ok) throw new Error(`Drive settings create failed: ${res.status}`);
+      const file = await res.json();
+      gsUtils.log('gsBackup', `Drive settings created: ${filename} (id=${file.id})`);
+      return file.id;
+    }
+  }
+
   // ─── public API ────────────────────────────────────────────────────────────
+
+  async function flagDriveAuthError() {
+    await chrome.storage.local.set({ tmsBackupDriveError: true });
+    chrome.action.setBadgeText({ text: '!' });
+    chrome.action.setBadgeBackgroundColor({ color: '#C0392B' });
+  }
+
+  async function clearDriveAuthError() {
+    await chrome.storage.local.remove('tmsBackupDriveError');
+    chrome.action.setBadgeText({ text: '' });
+  }
 
   async function performBackup() {
     try {
@@ -222,19 +280,41 @@ export const gsBackup = (() => {
       const destination  = await gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION);
 
       if (destination === 'drive') {
-        return await performDriveBackup(jsonString);
+        const result = await performDriveBackup(jsonString);
+        await clearDriveAuthError();
+        return result;
       }
       return await performLocalBackup(jsonString);
     } catch (e) {
       gsUtils.error('gsBackup', 'performBackup failed:', e);
+      if (e?.message === 'TMS_DRIVE_AUTH_MISSING') {
+        await flagDriveAuthError();
+      }
     }
   }
 
   async function scheduleBackup(intervalHours) {
     const periodInMinutes = parseFloat(intervalHours) * 60;
     await chrome.alarms.clear(ALARM_NAME);
-    chrome.alarms.create(ALARM_NAME, { periodInMinutes, delayInMinutes: periodInMinutes });
-    gsUtils.log('gsBackup', `Alarm set every ${intervalHours}h (${periodInMinutes}m)`);
+
+    let when;
+    if (parseFloat(intervalHours) === 24) {
+      const dailyTime = await gsStorage.getOption(gsStorage.AUTO_BACKUP_TIME) || '09:00';
+      const [h, m]    = dailyTime.split(':').map(Number);
+      const next      = new Date();
+      next.setHours(h, m, 0, 0);
+      if (next.getTime() <= Date.now()) next.setDate(next.getDate() + 1);
+      when = next.getTime();
+    } else {
+      const periodMs = periodInMinutes * 60_000;
+      const midnight = new Date();
+      midnight.setHours(0, 0, 0, 0);
+      const elapsed  = Date.now() - midnight.getTime();
+      when = midnight.getTime() + Math.ceil(elapsed / periodMs) * periodMs;
+    }
+
+    chrome.alarms.create(ALARM_NAME, { when, periodInMinutes });
+    gsUtils.log('gsBackup', `Alarm set every ${intervalHours}h (${periodInMinutes}m), first fire: ${new Date(when).toLocaleTimeString()}`);
   }
 
   async function cancelBackup() {
@@ -255,6 +335,16 @@ export const gsBackup = (() => {
     }
   }
 
+  async function getDriveFolderUrl() {
+    try {
+      const token    = await getAuthToken(false);
+      const folderId = await getOrCreateDriveFolder(token);
+      return `https://drive.google.com/drive/folders/${folderId}`;
+    } catch (_) {
+      return null;
+    }
+  }
+
   return {
     ALARM_NAME,
     performBackup,
@@ -264,6 +354,8 @@ export const gsBackup = (() => {
     getAuthToken,
     revokeAuthToken,
     getDriveUserInfo,
+    getDriveFolderUrl,
+    performDriveSettingsBackup,
   };
 
 })();

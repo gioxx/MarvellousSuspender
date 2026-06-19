@@ -426,6 +426,9 @@
   "html_options_whitelist_test": {
     "message": "Verifica il funzionamento della lista bianca"
   },
+  "html_options_whitelist_unsuspend": {
+    "message": "Riattiva le schede in lista bianca"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Aggiungi The Marvellous Suspender al menu contestuale del tasto destro del mouse"
   },
@@ -495,6 +498,9 @@
   "html_popup_unsuspend_all_tabs": {
     "message": "Riattiva tutte le schede"
   },
+  "html_popup_unsuspend_whitelisted_tabs": {
+    "message": "Riattiva le schede in lista bianca"
+  },
   "html_popup_suspend_selected_tabs": {
     "message": "Sospendi le schede selezionate"
   },
@@ -503,6 +509,12 @@
   },
   "html_popup_settings": {
     "message": "Impostazioni"
+  },
+  "html_popup_backup_now_local": {
+    "message": "Esegui backup adesso (Locale)"
+  },
+  "html_popup_backup_now_cloud": {
+    "message": "Esegui backup adesso (Cloud)"
   },
   "html_restoring_title": {
     "message": "Ripristino la finestra"
@@ -567,6 +579,12 @@
   "html_sidebar_support": {
     "message": "Informazioni"
   },
+  "html_sidebar_backup": {
+    "message": "Backup"
+  },
+  "html_backup_page_title": {
+    "message": "Backup e ripristino"
+  },
   "html_success_great_success": {
     "message": "Meraviglioso successo!"
   },
@@ -574,10 +592,10 @@
     "message": "Tutte le schede sono state ripristinate."
   },
   "html_success_goto_advanced_prefix": {
-    "message": "Per la gestione avanzata delle sessioni, visita la"
+    "message": "Per la gestione avanzata delle sessioni, vai alla"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "pagina"
+    "message": ""
   },
   "html_session_manager": {
     "message": "gestione delle sessioni"
@@ -833,11 +851,14 @@
   "html_options_backup_interval": {
     "message": "Backup ogni"
   },
+  "html_options_backup_daily_time": {
+    "message": "A che ora"
+  },
   "html_options_backup_note": {
-    "message": "Salva automaticamente la sessione all'intervallo scelto. I backup locali vanno nella cartella tms-backups dentro i Download; quelli su Drive nella cartella 'TMS Backups' del tuo Google Drive. I file sono nominati con data e ora (es. tms-session-2026-06-18T14-30.json). Vengono conservati i 10 backup più recenti per destinazione; i precedenti vengono eliminati automaticamente."
+    "message": "I file sono nominati con data e ora (es. tms-session-2026-06-18T14-30.json). Vengono conservati i 10 backup più recenti per destinazione; i precedenti vengono eliminati automaticamente."
   },
   "html_options_backup_now": {
-    "message": "Prova subito"
+    "message": "Esegui backup"
   },
   "html_options_back_to_top": {
     "message": "↑ Su"
@@ -846,13 +867,16 @@
     "message": "Stai cercando le impostazioni per il backup automatico delle sessioni?"
   },
   "html_history_backup_settings_link": {
-    "message": "Configurale nelle Impostazioni."
+    "message": "Configurale in Backup."
   },
   "js_options_backup_now_running": {
-    "message": "Verifica in corso…"
+    "message": "Backup in corso…"
   },
   "js_options_backup_now_done": {
-    "message": "Tutto pronto! I backup partiranno in silenzio senza disturbarti."
+    "message": "Backup salvato."
+  },
+  "js_backup_option_saved": {
+    "message": "Salvato"
   },
   "js_options_backup_now_error": {
     "message": "Chrome sta chiedendo dove salvare i file — i backup automatici non funzioneranno in silenzio. Disattiva \"Chiedi dove salvare\" in chrome://settings/downloads."
@@ -883,6 +907,9 @@
   "html_options_backup_drive_disconnect": {
     "message": "Scollega"
   },
+  "html_popup_backup_drive_error": {
+    "message": "Backup automatico non riuscito: nessun account Google collegato. Clicca qui per rimediare."
+  },
   "js_options_backup_drive_connecting": {
     "message": "Connessione in corso…"
   },
@@ -891,6 +918,36 @@
   },
   "html_options_settings_backup": {
     "message": "Backup impostazioni"
+  },
+  "html_backup_settings_desc": {
+    "message": "Esporta tutte le impostazioni dell'estensione in un file JSON — utile come copia di sicurezza o per trasferire la configurazione su un altro profilo. L'importazione di un file sostituisce le impostazioni attuali."
+  },
+  "html_backup_local_folder_hint": {
+    "message": "I backup locali vanno nella cartella tms-backups dentro i Download."
+  },
+  "html_backup_drive_folder_note": {
+    "message": "I backup vengono salvati nella cartella 'TMS Backups' del tuo Google Drive."
+  },
+  "html_backup_drive_open_folder": {
+    "message": "Apri la cartella TMS Backups su Drive ↗"
+  },
+  "html_backup_drive_label_account": {
+    "message": "Account"
+  },
+  "html_backup_drive_label_folder": {
+    "message": "Cartella"
+  },
+  "html_backup_drive_save_settings": {
+    "message": "Salva impostazioni su Drive"
+  },
+  "js_backup_drive_settings_saving": {
+    "message": "Salvataggio su Drive in corso…"
+  },
+  "js_backup_drive_settings_saved": {
+    "message": "Impostazioni salvate su Drive."
+  },
+  "js_backup_drive_settings_error": {
+    "message": "Impossibile salvare le impostazioni su Drive. Riprova."
   },
   "html_options_settings_export": {
     "message": "Esporta impostazioni"

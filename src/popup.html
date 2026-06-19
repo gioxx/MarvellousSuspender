@@ -17,6 +17,9 @@
 	<div id="header">
 		<span id="statusDetail"></span>
 	</div>
+	<div id="backupErrorBanner" class="hidden" role="alert">
+		<span data-i18n="__MSG_html_popup_backup_drive_error__"></span>
+	</div>
 	<div id="popupContent">
 		<div class="group" id="optsCurrent">
 			<div class="menuOption" id="unsuspendOne">
@@ -48,6 +51,15 @@
 			</div>
 			<div class="menuOption" href="#" id="unsuspendAll">
 				<span class="optionText" data-i18n="__MSG_html_popup_unsuspend_all_tabs__"></span>
+			</div>
+			<div class="menuOption" id="unsuspendWhitelisted">
+				<span class="optionText" data-i18n="__MSG_html_popup_unsuspend_whitelisted_tabs__"></span>
+			</div>
+		</div>
+
+		<div class="group hidden" id="optsBackup">
+			<div class="menuOption" id="backupNow">
+				<span class="optionText" id="backupNowLabel"></span>
 			</div>
 		</div>
 

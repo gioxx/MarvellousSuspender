@@ -55,6 +55,9 @@
       <li class="noIncognito">
         <a href="history.html" data-i18n="__MSG_html_sidebar_session_management__"></a>
       </li>
+      <li class="noIncognito">
+        <a href="backup.html" data-i18n="__MSG_html_sidebar_backup__"></a>
+      </li>
       <li>
         <a href="health.html" data-i18n="__MSG_html_sidebar_tab_health__"></a>
       </li>
@@ -73,7 +76,6 @@
       <a href="#section-general"   data-i18n="__MSG_html_options_other_title__"></a>
       <a href="#section-suspend"   data-i18n="__MSG_html_options_suspend_title__"></a>
       <a href="#section-suspended" data-i18n="__MSG_html_options_suspended_title__"></a>
-      <a href="#section-backup"    data-i18n="__MSG_html_options_backup_title__"></a>
     </nav>
 
     <div class="sub-section" id="section-general">
@@ -138,15 +140,6 @@ __MSG_html_options_other_enable_sync_tooltip_line2__">
           <i class="tooltipIcon icon icon-help-circled"></i>
         </span>
         <div id="syncNote" class="gsNote" data-i18n="__MSG_html_options_other_enable_sync_warning__"></div>
-      </div>
-      <div class="formRow noIncognito settingsBackupRow">
-        <label class="topLabel" data-i18n="__MSG_html_options_settings_backup__:"></label>
-        <div class="settingsBackupBtns">
-          <button id="exportSettingsBtn" class="btn btnNeg" data-i18n="__MSG_html_options_settings_export__"></button>
-          <button id="importSettingsBtn" class="btn btnNeg" data-i18n="__MSG_html_options_settings_import__"></button>
-          <input type="file" id="importSettingsFile" class="fileInputHidden" accept=".json">
-          <span id="settingsImportStatus" class="settingsImportStatus" aria-live="polite"></span>
-        </div>
       </div>
     </div>
 
@@ -239,6 +232,8 @@ __MSG_html_options_whitelist_tooltip_line3__
         </span>
         <textarea id="whitelist" class="option" rows="10" cols="50"></textarea>
         <a id="testWhitelistBtn" href="#whitelistLbl" data-i18n="__MSG_html_options_whitelist_test__"></a>
+        <span aria-hidden="true"> · </span>
+        <a id="unsuspendWhitelistedBtn" href="#whitelistLbl" data-i18n="__MSG_html_options_whitelist_unsuspend__"></a>
       </div>
     </div>
 
@@ -297,73 +292,6 @@ __MSG_html_options_suspend_force_screen_capture_tooltip_line6__
 __MSG_html_options_suspend_force_screen_capture_tooltip_line7__">
           <i class="tooltipIcon icon icon-help-circled"></i>
         </span>
-      </div>
-    </div>
-
-    <div class="sub-section noIncognito" id="section-backup">
-      <p class="pageTitle" data-i18n="__MSG_html_options_backup_title__"></p>
-      <div class="formRow">
-        <input type="checkbox" id="autoBackupEnabled" class="option" />
-        <label for="autoBackupEnabled" class="cbLabel" data-i18n="__MSG_html_options_backup_enable__&nbsp;&nbsp;"></label>
-        <span data-i18n-tooltip="__MSG_html_options_backup_enable_tooltip_line1__
-
-__MSG_html_options_backup_enable_tooltip_line2__">
-          <i class="tooltipIcon icon icon-help-circled"></i>
-        </span>
-      </div>
-      <p class="sectionDesc" data-i18n="__MSG_html_options_backup_note__"></p>
-      <div class="formRow autoBackupOption" id="autoBackupIntervalContainer">
-        <label id="autoBackupIntervalLbl" class="topLabel" for="autoBackupInterval"
-               data-i18n="__MSG_html_options_backup_interval__:"></label>
-        <br />
-        <div class="backupIntervalRow">
-          <div class="select-wrapper">
-            <select id="autoBackupInterval" class="option">
-              <option value="0.25" data-i18n="15 __MSG_html_options_suspend_minutes__"></option>
-              <option value="0.5"  data-i18n="30 __MSG_html_options_suspend_minutes__"></option>
-              <option value="1"    data-i18n="1 __MSG_html_options_suspend_hour__"></option>
-              <option value="2"    data-i18n="2 __MSG_html_options_suspend_hours__"></option>
-              <option value="4"    data-i18n="4 __MSG_html_options_suspend_hours__"></option>
-              <option value="8"    data-i18n="8 __MSG_html_options_suspend_hours__"></option>
-              <option value="24"   data-i18n="1 __MSG_html_options_suspend_day__"></option>
-            </select>
-          </div>
-          <button id="backupNowBtn" class="btn btnNeg" data-i18n="__MSG_html_options_backup_now__"></button>
-          <span id="backupNowStatus" class="backupNowStatus" aria-live="polite"></span>
-        </div>
-
-        <div class="backupDestinationRow">
-          <label class="topLabel" data-i18n="__MSG_html_options_backup_destination__:"></label>
-          <div class="backupDestinationOptions">
-            <label class="radioLabel">
-              <input type="radio" name="autoBackupDestination" id="backupDestLocal" class="option" value="local" />
-              <span data-i18n="__MSG_html_options_backup_dest_local__"></span>
-            </label>
-            <label class="radioLabel">
-              <input type="radio" name="autoBackupDestination" id="backupDestDrive" class="option" value="drive" />
-              <span data-i18n="__MSG_html_options_backup_dest_drive__"></span>
-            </label>
-          </div>
-        </div>
-
-        <div id="driveAuthContainer" class="driveAuthContainer">
-          <div id="driveConnectedInfo" class="driveConnectedInfo">
-            <label class="topLabel" data-i18n="__MSG_html_options_backup_drive_account__:"></label>
-            <div class="driveAccountBox">
-              <span id="driveUserEmail" class="driveUserEmail"></span>
-              <button id="driveDisconnectBtn" class="btn btnNeg btnSmall" data-i18n="__MSG_html_options_backup_drive_disconnect__"></button>
-            </div>
-          </div>
-          <div id="driveDisconnectedInfo" class="driveDisconnectedInfo">
-            <button id="driveConnectBtn" class="btn btnPrimary" data-i18n="__MSG_html_options_backup_drive_connect__"></button>
-            <span id="driveAuthStatus" class="driveAuthStatus" aria-live="polite"></span>
-          </div>
-        </div>
-
-        <div id="backupMetaInfo" class="backupMeta" aria-live="polite">
-          <span id="backupNextRun"></span>
-          <span id="backupFileCount"></span>
-        </div>
       </div>
     </div>
 

@@ -1,4 +1,3 @@
-import  { gsBackup }              from './gsBackup.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
@@ -25,10 +24,6 @@ import  { gsUtils }               from './gsUtils.js';
     theme: gsStorage.THEME,
     language: gsStorage.LANGUAGE,
     whitelist: gsStorage.WHITELIST,
-    autoBackupEnabled: gsStorage.AUTO_BACKUP_ENABLED,
-    autoBackupInterval: gsStorage.AUTO_BACKUP_INTERVAL,
-    backupDestLocal: gsStorage.AUTO_BACKUP_DESTINATION,
-    backupDestDrive: gsStorage.AUTO_BACKUP_DESTINATION,
   };
 
 
@@ -58,9 +53,6 @@ import  { gsUtils }               from './gsUtils.js';
       setForceScreenCaptureVisibility(settings[gsStorage.SCREEN_CAPTURE] !== '0');
       setAutoSuspendOptionsVisibility(parseFloat(settings[gsStorage.SUSPEND_TIME]) > 0);
       setSyncNoteVisibility(!settings[gsStorage.SYNC_SETTINGS]);
-      setAutoBackupOptionsVisibility(settings[gsStorage.AUTO_BACKUP_ENABLED]);
-      setDriveDestinationVisibility(settings[gsStorage.AUTO_BACKUP_DESTINATION] === 'drive');
-      updateDriveAuthUI();
 
       const searchParams = new URL(location.href).searchParams;
       if (searchParams.has('firstTime')) {
@@ -158,58 +150,6 @@ import  { gsUtils }               from './gsUtils.js';
     );
   }
 
-  function setAutoBackupOptionsVisibility(visible) {
-    const el = document.getElementById('autoBackupIntervalContainer');
-    if (el) el.style.display = visible ? 'block' : 'none';
-  }
-
-  function setDriveDestinationVisibility(isDrive) {
-    const el = document.getElementById('driveAuthContainer');
-    if (el) el.style.display = isDrive ? 'block' : 'none';
-  }
-
-  async function updateDriveAuthUI() {
-    const connectedEl    = document.getElementById('driveConnectedInfo');
-    const disconnectedEl = document.getElementById('driveDisconnectedInfo');
-    const emailEl        = document.getElementById('driveUserEmail');
-    if (!connectedEl || !disconnectedEl) return;
-
-    const user = await gsBackup.getDriveUserInfo();
-    if (user && user.emailAddress) {
-      emailEl.textContent          = user.emailAddress;
-      connectedEl.style.display    = 'flex';
-      disconnectedEl.style.display = 'none';
-    } else {
-      connectedEl.style.display    = 'none';
-      disconnectedEl.style.display = 'flex';
-    }
-  }
-
-  async function updateBackupMeta() {
-    const nextRunEl   = document.getElementById('backupNextRun');
-    const fileCountEl = document.getElementById('backupFileCount');
-    if (!nextRunEl || !fileCountEl) return;
-
-    const alarm = await chrome.alarms.get(gsBackup.ALARM_NAME);
-    if (alarm) {
-      const t = new Date(alarm.scheduledTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      nextRunEl.textContent = chrome.i18n.getMessage('js_options_backup_next_run', [t]);
-    } else {
-      nextRunEl.textContent = '';
-    }
-
-    const destination = await gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION);
-    if (destination === 'drive') {
-      fileCountEl.textContent = '';
-    } else {
-      const items = await chrome.downloads.search({ filenameRegex: 'tms-backups.tms-session-' });
-      const count = items.filter(i => i.exists !== false).length;
-      fileCountEl.textContent = count > 0
-        ? chrome.i18n.getMessage('js_options_backup_file_count', [String(count)])
-        : '';
-    }
-  }
-
   function handleChange(element) {
     return async () => {
       const pref = elementPrefMap[element.id];
@@ -236,13 +176,6 @@ import  { gsUtils }               from './gsUtils.js';
       else if (pref === gsStorage.LANGUAGE) {
         window.location.reload();
       }
-      else if (pref === gsStorage.AUTO_BACKUP_ENABLED) {
-        setAutoBackupOptionsVisibility(getOptionValue(element));
-      }
-      else if (pref === gsStorage.AUTO_BACKUP_DESTINATION) {
-        setDriveDestinationVisibility(getOptionValue(element) === 'drive');
-        await updateDriveAuthUI();
-      }
 
       const [oldValue, newValue] = await saveChange(element);
       if (oldValue !== newValue) {
@@ -252,11 +185,6 @@ import  { gsUtils }               from './gsUtils.js';
           { [prefKey]: oldValue },
           { [prefKey]: newValue },
         );
-
-        if (pref === gsStorage.AUTO_BACKUP_ENABLED || pref === gsStorage.AUTO_BACKUP_INTERVAL) {
-          await gsBackup.syncAlarmWithSettings();
-          await updateBackupMeta();
-        }
       }
     };
   }
@@ -306,7 +234,6 @@ import  { gsUtils }               from './gsUtils.js';
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(() => {
     chrome.runtime.onMessage.addListener(messageRequestListener);
     initSettings();
-    updateBackupMeta();
 
     const optionEls = document.getElementsByClassName('option');
 
@@ -358,125 +285,6 @@ import  { gsUtils }               from './gsUtils.js';
     window.addEventListener('scroll', updateActiveNavLink, { passive: true });
     updateActiveNavLink();
 
-    // Manual backup now
-    document.getElementById('backupNowBtn').addEventListener('click', async () => {
-      const statusEl    = document.getElementById('backupNowStatus');
-      const destination = await gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION);
-      statusEl.textContent = chrome.i18n.getMessage('js_options_backup_now_running');
-      statusEl.classList.add('visible');
-
-      try {
-        const result = await gsBackup.performBackup();
-
-        if (destination === 'drive') {
-          if (result) {
-            statusEl.textContent = chrome.i18n.getMessage('js_options_backup_now_done');
-            await updateBackupMeta();
-          } else {
-            statusEl.textContent = chrome.i18n.getMessage('js_options_backup_now_error');
-          }
-        } else {
-          // Local: wait briefly, then check the download state
-          await new Promise((r) => setTimeout(r, 1500));
-          const results = await chrome.downloads.search({ id: result });
-          const item    = results && results[0];
-
-          if (item && item.state === 'complete') {
-            statusEl.textContent = chrome.i18n.getMessage('js_options_backup_now_done');
-            await updateBackupMeta();
-          } else {
-            // still 'in_progress' means Chrome is showing a save-as dialog
-            statusEl.textContent = chrome.i18n.getMessage('js_options_backup_now_error');
-          }
-        }
-      } catch (e) {
-        statusEl.textContent = chrome.i18n.getMessage('js_options_backup_now_error');
-      }
-
-      setTimeout(() => statusEl.classList.remove('visible'), 6000);
-    });
-
-    // Drive: connect button
-    document.getElementById('driveConnectBtn').addEventListener('click', async () => {
-      const statusEl = document.getElementById('driveAuthStatus');
-      statusEl.textContent = chrome.i18n.getMessage('js_options_backup_drive_connecting');
-      try {
-        await gsBackup.getAuthToken(true);
-        await updateDriveAuthUI();
-        statusEl.textContent = '';
-      } catch (e) {
-        const msg = e?.message || String(e);
-        gsUtils.error('options', 'Drive auth failed:', msg);
-        statusEl.textContent = msg || chrome.i18n.getMessage('js_options_backup_drive_auth_error');
-        setTimeout(() => { statusEl.textContent = ''; }, 8000);
-      }
-    });
-
-    // Drive: disconnect button
-    document.getElementById('driveDisconnectBtn').addEventListener('click', async () => {
-      await gsBackup.revokeAuthToken();
-      await updateDriveAuthUI();
-    });
-
-    // Export settings
-    document.getElementById('exportSettingsBtn').addEventListener('click', async () => {
-      const settings  = await gsStorage.getSettings();
-      const json      = JSON.stringify(settings, null, 2);
-      const blob      = new Blob([json], { type: 'application/json' });
-      const url       = URL.createObjectURL(blob);
-      const now       = new Date();
-      const pad       = (n) => String(n).padStart(2, '0');
-      const filename  = `tms-settings-${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}.json`;
-      const a         = document.createElement('a');
-      a.href          = url;
-      a.download      = filename;
-      a.click();
-      URL.revokeObjectURL(url);
-    });
-
-    // Import settings
-    document.getElementById('importSettingsBtn').addEventListener('click', () => {
-      document.getElementById('importSettingsFile').click();
-    });
-
-    document.getElementById('importSettingsFile').addEventListener('change', async (e) => {
-      const statusEl = document.getElementById('settingsImportStatus');
-      const file = e.target.files[0];
-      if (!file) return;
-      e.target.value = '';
-
-      const reader = new FileReader();
-      reader.onload = async (ev) => {
-        try {
-          const imported  = JSON.parse(ev.target.result);
-          const defaults  = gsStorage.getSettingsDefaults();
-          const knownKeys = Object.keys(defaults);
-
-          if (!imported || typeof imported !== 'object' || !knownKeys.some(k => Object.prototype.hasOwnProperty.call(imported, k))) {
-            throw new Error('invalid');
-          }
-
-          if (!confirm(chrome.i18n.getMessage('js_options_settings_import_confirm'))) return;
-
-          const merged = { ...defaults };
-          for (const key of knownKeys) {
-            if (Object.prototype.hasOwnProperty.call(imported, key)) {
-              merged[key] = imported[key];
-            }
-          }
-
-          await gsStorage.saveSettings(merged);
-          await gsStorage.syncSettings();
-          statusEl.textContent = chrome.i18n.getMessage('js_options_settings_import_success');
-          setTimeout(() => window.location.reload(), 1500);
-        } catch (_) {
-          statusEl.textContent = chrome.i18n.getMessage('js_options_settings_import_error');
-          setTimeout(() => { statusEl.textContent = ''; }, 5000);
-        }
-      };
-      reader.readAsText(file);
-    });
-
     document.getElementById('testWhitelistBtn').onclick = async (event) => {
       event.preventDefault();
       const tabs      = await gsChrome.tabsQuery();
@@ -508,6 +316,11 @@ import  { gsUtils }               from './gsUtils.js';
       }
       alert(alertString);
       // gsUtils.log('options', 'testWhitelistBtn', '\n', alertString);
+    };
+
+    document.getElementById('unsuspendWhitelistedBtn').onclick = async (event) => {
+      event.preventDefault();
+      await chrome.runtime.sendMessage({ action: 'unsuspendWhitelisted' });
     };
 
     // hide incompatible sidebar items if in incognito mode

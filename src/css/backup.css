@@ -1,0 +1,264 @@
+/* ── Settings export / import ────────────────────────────────────────────── */
+
+.settingsBackupRow {
+  margin-top: var(--space-4);
+}
+
+.settingsBackupBtns {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+.settingsImportStatus {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+.fileInputHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Tooltip override: allow wrapping for long backup-enable tooltip ─────── */
+
+.checkboxRow [data-i18n-tooltip]::after {
+  max-width: 400px;
+  white-space: pre-wrap;
+}
+
+/* ── Checkbox row: flex for vertical centering ───────────────────────────── */
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Session backup: interval + destination + button on same row ─────────── */
+
+.backupConfigRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  align-items: flex-end;
+  margin-top: var(--space-2);
+}
+
+.backupConfigGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.backupConfigGroup.hidden {
+  display: none;
+}
+
+/* ── Time picker: below the config row, same width as the interval select ─── */
+
+#autoBackupTimeContainer {
+  margin-top: var(--space-3);
+}
+
+#autoBackupTimeContainer.hidden {
+  display: none;
+}
+
+input[type='time'] {
+  min-width: 150px;
+  color: var(--foreground);
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  box-sizing: border-box;
+  transition: border-color var(--duration-fast);
+}
+
+input[type='time']:focus {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.backupConfigAction {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.backupConfigAction .btn {
+  height: auto;
+  line-height: 1.2;
+  padding-block: 10px;
+}
+
+.backupStatusRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  min-height: 1em;
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+}
+
+.backupNextRun {
+  flex-shrink: 0;
+}
+
+/* ── Inline hint notes ───────────────────────────────────────────────────── */
+
+.backupNote {
+  margin-top: var(--space-4);
+  margin-bottom: 0;
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+/* ── Local folder hint ───────────────────────────────────────────────────── */
+
+.localFolderInfo {
+  display: none;
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+.localFolderInfo p {
+  margin: 0;
+}
+
+/* ── Drive auth panel ────────────────────────────────────────────────────── */
+
+.driveAuthContainer {
+  display: none;
+  margin-top: var(--space-6);
+}
+
+.driveConnectedInfo {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.driveInfoGrid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--space-6);
+  row-gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+}
+
+.driveInfoGrid dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+.driveInfoGrid dd {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+}
+
+.driveUserName {
+  font-size: var(--text-sm);
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.driveUserEmail {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  font-family: var(--font-mono, monospace);
+}
+
+.driveFolderName {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.driveIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.driveDisconnectedInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.driveAuthStatus {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+/* ── Backup meta: file count ─────────────────────────────────────────────── */
+
+.backupMeta {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  min-height: 1em;
+}
+
+/* ── Backup-now status feedback ─────────────────────────────────────────── */
+
+.backupNowStatus {
+  opacity: 0;
+  transition: opacity var(--duration-base);
+}
+
+.backupNowStatus.visible {
+  opacity: 1;
+}
+
+.backupNowStatus.visible::before {
+  content: '· ';
+}
+
+.driveFolderLink {
+  font-size: var(--text-sm);
+}
+
+.driveFolderLink.hidden {
+  display: none;
+}
+
+/* ── Option saved feedback ───────────────────────────────────────────────── */
+
+.optionSavedStatus {
+  margin-left: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  opacity: 0;
+  transition: opacity var(--duration-base);
+}
+
+.optionSavedStatus.visible {
+  opacity: 1;
+}
