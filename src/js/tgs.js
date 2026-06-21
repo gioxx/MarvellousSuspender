@@ -1010,49 +1010,6 @@ export const tgs = (function() {
     return gsStorage.saveStorage('session', 'gsIsCharging', value);
   }
 
-  async function getDebugInfo(tabId, callback) {
-
-    const alarm = await chrome.alarms.get(String(tabId));
-    const tab   = await chrome.tabs.get(tabId);
-
-    const info  = {
-      windowId  : tab.windowId,
-      tabId     : tab.id,
-      groupId   : tab.groupId,
-      status    : gsUtils.STATUS_UNKNOWN,
-      timerUp   : alarm ? alarm.scheduledTime : '-',
-    };
-
-    if (chrome.runtime.lastError) {
-      gsUtils.error(tabId, chrome.runtime.lastError);
-      callback(info);
-      return;
-    }
-
-    if (gsUtils.isNormalTab(tab, true)) {
-      gsMessages.sendRequestInfoToContentScript(tab.id, ( error, tabInfo ) => {
-        // if (error) {
-        //   gsUtils.warning(tab.id, 'tgs', 'getDebugInfo', 'Failed to getDebugInfo', error);
-        // }
-        if (tabInfo) {
-          calculateTabStatus(tab, tabInfo.status, (status) => {
-            info.status = status;
-            callback(info);
-          });
-        }
-        else {
-          callback(info);
-        }
-      });
-    }
-    else {
-      calculateTabStatus(tab, null, (status) => {
-        info.status = status;
-        callback(info);
-      });
-    }
-  }
-
   function getContentScriptStatus(tabId, knownContentScriptStatus) {
     return new Promise((resolve) => {
       if (knownContentScriptStatus) {
@@ -1348,7 +1305,6 @@ export const tgs = (function() {
     initialiseTabContentScript,
     buildContextMenu,
     getActiveTabStatus,
-    getDebugInfo,
     calculateTabStatus,
 
     setIconStatus,

@@ -1,5 +1,6 @@
 import  { gsChrome }              from './gsChrome.js';
 import  { gsFavicon }             from './gsFavicon.js';
+import  { gsMessages }            from './gsMessages.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
@@ -12,6 +13,20 @@ import  { tgs }                   from './tgs.js';
   // 2026-04: Brave colors appear to match chrome nicely
   // 2026-04: Vivaldi and Opera are doing weird things with Tab Groups.  Ignoring their special colors for now.
 
+  /**
+   * @param {{
+   *    timerUp   ? : string
+   *    windowId  ? : string
+   *    tabId     ? : string
+   *    tab       ? : chrome.tabs.Tab
+   *    status    ? : string
+   *    group     ? : {
+   *      title   ? : string
+   *      color   ? : string
+   *    }
+   * }} [info]
+   * @returns {string}
+   */
   function generateTabInfo(info) {
     // console.log(info.tabId, info);
     const timerStr =
@@ -49,17 +64,83 @@ import  { tgs }                   from './tgs.js';
     return html;
   }
 
+  async function promiseWithTimeout(promise, ms, ret) {
+    let timeoutId;
+
+    const timeoutPromise = new Promise((resolve) => {
+      timeoutId = setTimeout(() => {
+        resolve(ret);
+      }, ms);
+    });
+
+    return Promise.race([promise, timeoutPromise])
+      .finally(() => { clearTimeout(timeoutId); });
+  }
+
+  async function getDebugInfo(tabId, callback) {
+
+    const alarm = await chrome.alarms.get(String(tabId));
+    const tab   = await chrome.tabs.get(tabId);
+
+    const info  = {
+      windowId  : tab.windowId,
+      tabId     : tab.id,
+      groupId   : tab.groupId,
+      status    : gsUtils.STATUS_UNKNOWN,
+      timerUp   : alarm ? alarm.scheduledTime : '-',
+    };
+
+    if (chrome.runtime.lastError) {
+      gsUtils.error(tabId, chrome.runtime.lastError);
+      callback(info);
+      return;
+    }
+
+    if (gsUtils.isNormalTab(tab, true)) {
+      gsUtils.highlight(tab.id, 'getDebugInfo', tab.url);
+      gsMessages.sendRequestInfoToContentScript(tab.id, ( error, tabInfo ) => {
+        gsUtils.highlight(tab.id, 'getDebugInfo callback', tab.url);
+        // if (error) {
+        //   gsUtils.warning(tab.id, 'tgs', 'getDebugInfo', 'Failed to getDebugInfo', error);
+        // }
+        if (tabInfo) {
+          tgs.calculateTabStatus(tab, tabInfo.status, (status) => {
+            info.status = status;
+            // callback(info);
+          });
+        }
+        // else {
+        // }
+        callback(info);
+      });
+    }
+    else {
+      tgs.calculateTabStatus(tab, null, (status) => {
+        info.status = status;
+        callback(info);
+      });
+    }
+  }
+
   async function fetchInfo() {
     const tabs = await gsChrome.tabsQuery();
     const debugInfoPromises = [];
     for (const [i, curTab] of tabs.entries()) {
       currentTabs[tabs[i].id] = tabs[i];
       debugInfoPromises.push(
-        new Promise((resolve) =>
-          tgs.getDebugInfo(curTab.id, (info) => {
-            info.tab = curTab;
-            resolve(info);
-          })
+        promiseWithTimeout(
+          new Promise((resolve) =>
+            getDebugInfo(curTab.id, (info) => {
+              info.tab = curTab;
+              resolve(info);
+            })
+          ), 500, {
+            windowId  : curTab.windowId,
+            tabId     : curTab.id,
+            groupId   : curTab.groupId,
+            status    : gsUtils.STATUS_UNKNOWN,
+            tab       : curTab,
+          }
         )
       );
     }
