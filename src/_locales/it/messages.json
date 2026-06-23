@@ -190,10 +190,10 @@
     "message": ". Ti preghiamo di verificare se la tua idea o il tuo problema esiste già prima di aprire una nuova richiesta. Grazie!"
   },
   "html_about_debugging_prefix": {
-    "message": "Per abilitare la registrazione degli eventi (logging) o per impostare i flag di debug, vai alla "
+    "message": "Per acquisire log e generare un report diagnostico, vai alla "
   },
   "html_about_debugging_suffix": {
-    "message": "pagina di debug."
+    "message": "pagina diagnostica."
   },
   "html_about_the_github_issues_page": {
     "message": "la pagina problemi su GitHub"
@@ -224,6 +224,9 @@
   },
   "html_history_title": {
     "message": "Gestione delle sessioni"
+  },
+  "html_history_page_desc": {
+    "message": "TMS mantiene uno snapshot aggiornato delle schede aperte — nessuna configurazione necessaria. Le sessioni si aggiornano automaticamente durante la navigazione, ma vivono dentro Chrome: se il profilo viene perso o corrotto, spariscono con esso."
   },
   "html_history_current_session": {
     "message": "Sessione corrente"
@@ -839,6 +842,9 @@
   "html_options_backup_title": {
     "message": "Backup automatico della sessione"
   },
+  "html_backup_session_desc": {
+    "message": "A differenza delle sessioni, il backup salva le schede come file JSON fuori da Chrome — nella cartella Download o su Google Drive. Sopravvive a crash del browser, reset del profilo e reinstallazioni. Questa è la tua vera rete di sicurezza."
+  },
   "html_options_backup_enable": {
     "message": "Salva automaticamente la sessione"
   },
@@ -854,6 +860,9 @@
   "html_options_backup_daily_time": {
     "message": "A che ora"
   },
+  "html_backup_interval_warning": {
+    "message": "Attenzione: con un intervallo così lungo, può succedere molto tra un backup e l'altro. Considera un intervallo più breve per ridurre il rischio di perdita dati."
+  },
   "html_options_backup_note": {
     "message": "I file sono nominati con data e ora (es. tms-session-2026-06-18T14-30.json). Vengono conservati i 10 backup più recenti per destinazione; i precedenti vengono eliminati automaticamente."
   },
@@ -864,10 +873,10 @@
     "message": "↑ Su"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Stai cercando le impostazioni per il backup automatico delle sessioni?"
+    "message": "Le sessioni sono memorizzate solo dentro Chrome — non sopravvivono a un crash del browser o al reset del profilo."
   },
   "html_history_backup_settings_link": {
-    "message": "Configurale in Backup."
+    "message": "Configura il Backup per salvare le schede al di fuori del browser →"
   },
   "js_options_backup_now_running": {
     "message": "Backup in corso…"

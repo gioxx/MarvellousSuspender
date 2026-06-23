@@ -8,60 +8,51 @@ import  { tgs }                   from './tgs.js';
 
 (() => {
 
-  const currentTabs   = {};
-  const browser       = navigator.userAgent.match(/Chrome\/.*Edg\//i) ? 'edge' : 'chrome';
-  // 2026-04: Brave colors appear to match chrome nicely
-  // 2026-04: Vivaldi and Opera are doing weird things with Tab Groups.  Ignoring their special colors for now.
+  const browser = navigator.userAgent.match(/Chrome\/.*Edg\//i) ? 'edge' : 'chrome';
 
-  /**
-   * @param {{
-   *    timerUp   ? : string
-   *    windowId  ? : string
-   *    tabId     ? : string
-   *    tab       ? : chrome.tabs.Tab
-   *    status    ? : string
-   *    group     ? : {
-   *      title   ? : string
-   *      color   ? : string
-   *    }
-   * }} [info]
-   * @returns {string}
-   */
+  // ── Tab profiler ────────────────────────────────────────────────────────────────────────────────
+
+  function formatTimer(totalSeconds) {
+    if (totalSeconds < 0) totalSeconds = 0;
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+    const mm = String(m).padStart(2, '0');
+    const ss = String(s).padStart(2, '0');
+    return h > 0
+      ? `${h}:${mm}:${ss}`
+      : `${mm}:${ss}`;
+  }
+
   function generateTabInfo(info) {
-    // gsUtils.log('generateTabInfo', info?.tabId, info);
-    const timerStr =
-      info?.timerUp && info?.timerUp !== '-'
-        // ? new Date(info.timerUp).toLocaleString()
+    const rawSeconds =
+      info && info.timerUp && info.timerUp !== '-'
         ? Math.round((new Date(info.timerUp).valueOf() - new Date().valueOf()) / 1000)
-        : '-';
-    let   html        = '';
-    const windowId    = info?.windowId        ?? '?';
-    const tabId       = info?.tabId           ?? '?';
-    const tabIndex    = info?.tab?.index      ?? '?';
-    const tabTitle    = info?.tab ? gsUtils.htmlEncode(info.tab.title) : '?';
-    const tabTimer    = timerStr;
-    const tabStatus   = info?.status          ?? '?';
-    const groupName   = info?.group?.title    ?? '';
+        : null;
+    const timerStr    = rawSeconds !== null ? formatTimer(rawSeconds) : '-';
+    const timerTitle  = rawSeconds !== null ? `${rawSeconds}s` : '';
+    const windowId   = info && info.windowId  ? info.windowId        : '?';
+    const tabId      = info && info.tabId     ? info.tabId           : '?';
+    const tabIndex   = info && info.tab       ? info.tab.index       : '?';
+    const tabTitle   = info && info.tab       ? gsUtils.htmlEncode(info.tab.title) : '?';
+    const tabStatus  = info ? info.status : '?';
+    const groupName  = info && info.group     ? info.group.title     : '';
+    const groupColor = info && info.group     ? info.group.color     : '';
+    const groupSpan  = groupName ? `<span class="group ${browser} ${groupColor}">${groupName}</span>` : '';
 
-    // const groupId     = info && info.groupId ? info.groupId : '?';
-    const groupColor  = info?.group?.color    ?? '';
-    const groupSpan   = groupName ? `<span class="group ${browser} ${groupColor}">${groupName}</span>` : '';
+    let favicon = info && info.tab ? info.tab.favIconUrl : '';
+    favicon = favicon && favicon.indexOf('data') === 0 ? favicon : gsFavicon.getChromeFavIconUrl(info.tab.url);
 
-    let   favicon     = info?.tab?.favIconUrl ?? '';
-    favicon   = favicon.startsWith('data') ? favicon : gsFavicon.getChromeFavIconUrl(info?.tab?.url ?? '');
-
-    html += '<tr>';
-    html += `<td>${windowId}</td>`;
-    html += `<td>${tabId}</td>`;
-    html += `<td>${tabIndex}</td>`;
-    html += `<td><img src="${favicon}"></td>`;
-    html += `<td class="center">${groupSpan}</td>`;
-    html += `<td>${tabTitle}</td>`;
-    html += `<td>${tabTimer}</td>`;
-    html += `<td>${tabStatus}</td>`;
-    html += '</tr>';
-
-    return html;
+    return `<tr>
+      <td>${windowId}</td>
+      <td>${tabId}</td>
+      <td>${tabIndex}</td>
+      <td><img src="${favicon}"></td>
+      <td class="center">${groupSpan}</td>
+      <td>${tabTitle}</td>
+      <td title="${timerTitle}">${timerStr}</td>
+      <td>${tabStatus}</td>
+    </tr>`;
   }
 
   async function promiseWithTimeout(promise, ms, ret) {
@@ -100,17 +91,11 @@ import  { tgs }                   from './tgs.js';
       gsUtils.highlight(tab.id, 'getDebugInfo', tab.url);
       gsMessages.sendRequestInfoToContentScript(tab.id, ( error, tabInfo ) => {
         gsUtils.highlight(tab.id, 'getDebugInfo callback', tab.url);
-        // if (error) {
-        //   gsUtils.warning(tab.id, 'tgs', 'getDebugInfo', 'Failed to getDebugInfo', error);
-        // }
         if (tabInfo) {
           tgs.calculateTabStatus(tab, tabInfo.status, (status) => {
             info.status = status;
-            // callback(info);
           });
         }
-        // else {
-        // }
         callback(info);
       });
     }
@@ -122,16 +107,16 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  async function fetchInfo() {
+  async function fetchTabInfo() {
     const tabs = await gsChrome.tabsQuery();
-    const debugInfoPromises = [];
-    for (const [i, curTab] of tabs.entries()) {
-      currentTabs[tabs[i].id] = tabs[i];
-      debugInfoPromises.push(
+    const tabGroupsMap = await gsChrome.tabGroupsMap();
+    const debugInfos = await Promise.all(
+      tabs.map((curTab) =>
         promiseWithTimeout(
           new Promise((resolve) =>
             getDebugInfo(curTab.id, (info) => {
-              info.tab = curTab;
+              info.tab   = curTab;
+              info.group = tabGroupsMap[info.groupId];
               resolve(info);
             })
           ), 500, {
@@ -142,83 +127,199 @@ import  { tgs }                   from './tgs.js';
             tab       : curTab,
           }
         )
-      );
-    }
-    const debugInfos = await Promise.all(debugInfoPromises);
+      )
+    );
 
+    document.getElementById('gsProfilerBody').innerHTML =
+      debugInfos.map(generateTabInfo).join('\n');
+  }
+
+  // ── Log buffer ──────────────────────────────────────────────────────────────
+
+  async function readLogBuffer() {
+    const result = await chrome.storage.local.get([gsStorage.LOG_BUFFER]);
+    try {
+      return JSON.parse(result[gsStorage.LOG_BUFFER] || '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  function levelLabel(level) {
+    if (level === 'E') return '<span class="logLevel logLevel-E">ERR</span>';
+    if (level === 'W') return '<span class="logLevel logLevel-W">WRN</span>';
+    return '<span class="logLevel logLevel-I">LOG</span>';
+  }
+
+  function renderLogEntry(entry) {
+    const time = entry.ts ? entry.ts.substring(11, 23) : '??:??:??';
+    const src  = gsUtils.htmlEncode(String(entry.src || ''));
+    const msg  = gsUtils.htmlEncode(String(entry.msg || ''));
+    return `<div class="logLine logLine-${entry.level}">${levelLabel(entry.level)}<span class="logTime">${time}</span><span class="logSrc">${src}</span><span class="logMsg">${msg}</span></div>`;
+  }
+
+  async function refreshLogs() {
+    const buffer  = await readLogBuffer();
+    const output  = document.getElementById('logOutput');
+    const counter = document.getElementById('logCount');
+    counter.textContent = buffer.length;
+    if (buffer.length === 0) {
+      output.innerHTML = '<div class="logEmpty">No entries. Errors are always captured automatically. Enable <strong>captureLogs</strong> above to also capture warnings and verbose logs, then reproduce the issue.</div>';
+    } else {
+      output.innerHTML = buffer.map(renderLogEntry).join('');
+      output.scrollTop = output.scrollHeight;
+    }
+  }
+
+  // ── Report generation ───────────────────────────────────────────────────────
+
+  async function buildReport() {
+    const manifest = chrome.runtime.getManifest();
+    const buffer   = await readLogBuffer();
+    const tabs     = await gsChrome.tabsQuery();
     const tabGroupsMap = await gsChrome.tabGroupsMap();
-    const rows = [];
-    for (const debugInfo of debugInfos) {
-      debugInfo.group = tabGroupsMap[debugInfo.groupId];
-      rows.push(generateTabInfo(debugInfo));
-    }
-    const tableEl = document.getElementById('gsProfilerBody');
-    if (tableEl) {
-      tableEl.innerHTML = rows.join('\n');
-    }
-  }
 
-  async function addFlagHtml(elementId, getterFn, setterFn) {
-    const val   = await getterFn();
-    const elem  = document.getElementById(elementId);
-    if (elem) {
-      elem.innerHTML = val;
-      elem.onclick = (event) => {
-        const newVal = !val;
-        setterFn(newVal);
-        elem.innerHTML = String(newVal);
-      };
-    }
-  }
-
-  gsUtils.documentReadyAndLocalisedAsPromised(window).then(async () => {
-
-    addFlagHtml(
-      'toggleDebugInfo',
-      ()        => gsUtils.isDebugInfo(),
-      (newVal)  => gsUtils.setDebugInfo(newVal)
-    );
-    addFlagHtml(
-      'toggleDebugError',
-      ()        => gsUtils.isDebugError(),
-      (newVal)  => gsUtils.setDebugError(newVal)
-    );
-    addFlagHtml(
-      'toggleDiscardInPlaceOfSuspend',
-      async ()        =>    await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND),
-      async (newVal)  => {  await gsStorage.setOptionAndSync(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND, newVal); }
-    );
-
-    const claim   = document.getElementById('claimSuspendedTabs');
-    if (claim) {
-      claim.onclick = async function(e) {
-        const tabs  = await gsChrome.tabsQuery();
-        for (const tab of tabs) {
-          if (
-            gsUtils.isSuspendedTab(tab, true) &&
-            !(tab.url?.includes(chrome.runtime.id))
-          ) {
-            const newUrl = tab.url?.replace( gsUtils.getRootUrl(tab.url), chrome.runtime.id );
-            await gsChrome.tabsUpdate(tab.id, { url: newUrl });
+    const debugInfos = await Promise.all(
+      tabs.map((curTab) =>
+        promiseWithTimeout(
+          new Promise((resolve) =>
+            getDebugInfo(curTab.id, (info) => {
+              info.tab   = curTab;
+              info.group = tabGroupsMap[info.groupId];
+              resolve(info);
+            })
+          ), 500, {
+            windowId  : curTab.windowId,
+            tabId     : curTab.id,
+            groupId   : curTab.groupId,
+            status    : gsUtils.STATUS_UNKNOWN,
+            tab       : curTab,
           }
-        }
-      };
+        )
+      )
+    );
+
+    const lines = [];
+    lines.push(`=== The Marvellous Suspender — Diagnostic Report ===`);
+    lines.push(`Generated : ${new Date().toISOString()}`);
+    lines.push(`Extension : v${manifest.version}`);
+    lines.push(`Browser   : ${navigator.userAgent}`);
+    lines.push('');
+    lines.push('=== Tab Status ===');
+    lines.push('WinId\tTabId\tIdx\tStatus\tTimer(s)\tTitle');
+    for (const info of debugInfos) {
+      if (!info.tab) continue;
+      const timer = info.timerUp && info.timerUp !== '-'
+        ? Math.round((new Date(info.timerUp).valueOf() - new Date().valueOf()) / 1000)
+        : '-';
+      lines.push(`${info.windowId}\t${info.tabId}\t${info.tab.index}\t${info.status}\t${timer}\t${info.tab.title}`);
     }
-
-    const extUrl  = `chrome://extensions/?id=${chrome.runtime.id}`;
-    const bgPage  = document.getElementById('backgroundPage');
-    if (bgPage) {
-      bgPage.setAttribute('href', extUrl);
-      bgPage.onclick = function() {
-        chrome.tabs.create({ url: extUrl });
-      };
+    lines.push('');
+    lines.push(`=== Log Buffer (${buffer.length} entries) ===`);
+    for (const entry of buffer) {
+      lines.push(`[${entry.ts}] [${entry.level}] ${entry.src}: ${entry.msg}`);
     }
+    return lines.join('\n');
+  }
 
-    window.onfocus = async () => {
-      await fetchInfo();
-    };
+  // ── Capture toggle ───────────────────────────────────────────────────────────────────────────
 
-    await fetchInfo();
+  async function renderCaptureToggle() {
+    const { gsCaptureVerbose } = await chrome.storage.local.get(['gsCaptureVerbose']);
+    const el = document.getElementById('toggleCaptureLogs');
+    el.textContent = gsCaptureVerbose ? 'true' : 'false';
+    el.dataset.value = gsCaptureVerbose ? 'true' : 'false';
+  }
+
+  async function onToggleCaptureLogs(e) {
+    e.preventDefault();
+    const el      = document.getElementById('toggleCaptureLogs');
+    const newVal  = el.dataset.value !== 'true';
+    el.textContent   = String(newVal);
+    el.dataset.value = String(newVal);
+    await chrome.storage.local.set({ gsCaptureVerbose: newVal });
+    // Wake the Service Worker and update its in-memory flag
+    chrome.runtime.sendMessage({ action: 'setCaptureLogs', value: newVal }).catch(() => {});
+  }
+
+  // ── Discard-in-place toggle ─────────────────────────────────────────────────────────────
+
+  async function renderDiscardToggle() {
+    const val = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
+    const el  = document.getElementById('toggleDiscardInPlaceOfSuspend');
+    el.textContent   = String(val);
+    el.dataset.value = String(val);
+  }
+
+  async function onToggleDiscard(e) {
+    e.preventDefault();
+    const el     = document.getElementById('toggleDiscardInPlaceOfSuspend');
+    const newVal = el.dataset.value !== 'true';
+    el.textContent   = String(newVal);
+    el.dataset.value = String(newVal);
+    await gsStorage.setOptionAndSync(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND, newVal);
+  }
+
+  // ── Claim suspended tabs ─────────────────────────────────────────────────────────────────
+
+  async function onClaimSuspendedTabs(e) {
+    e.preventDefault();
+    const tabs = await gsChrome.tabsQuery();
+    for (const tab of tabs) {
+      if (
+        gsUtils.isSuspendedTab(tab, true) &&
+        tab.url.indexOf(chrome.runtime.id) < 0
+      ) {
+        const newUrl = tab.url.replace(gsUtils.getRootUrl(tab.url), chrome.runtime.id);
+        await gsChrome.tabsUpdate(tab.id, { url: newUrl });
+      }
+    }
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────────────────────
+
+  gsUtils.documentReadyAndLocalisedAsPromised(window).then(async function() {
+
+    await renderCaptureToggle();
+    await renderDiscardToggle();
+    await refreshLogs();
+    await fetchTabInfo();
+
+    document.getElementById('toggleCaptureLogs').addEventListener('click', onToggleCaptureLogs);
+    document.getElementById('toggleDiscardInPlaceOfSuspend').addEventListener('click', onToggleDiscard);
+    document.getElementById('claimSuspendedTabs').addEventListener('click', onClaimSuspendedTabs);
+
+    document.getElementById('btnRefreshLogs').addEventListener('click', refreshLogs);
+
+    document.getElementById('btnClearLog').addEventListener('click', async () => {
+      await chrome.storage.local.remove([gsStorage.LOG_BUFFER]);
+      await refreshLogs();
+    });
+
+    document.getElementById('btnCopyReport').addEventListener('click', async () => {
+      const report = await buildReport();
+      await navigator.clipboard.writeText(report);
+      const btn = document.getElementById('btnCopyReport');
+      const prev = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = prev; }, 1500);
+    });
+
+    document.getElementById('btnDownloadReport').addEventListener('click', async () => {
+      const report = await buildReport();
+      const blob   = new Blob([report], { type: 'text/plain' });
+      const url    = URL.createObjectURL(blob);
+      const a      = document.createElement('a');
+      a.href     = url;
+      a.download = `tms-debug-${new Date().toISOString().substring(0, 19).replace(/:/g, '-')}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    window.addEventListener('focus', () => {
+      fetchTabInfo();
+      refreshLogs();
+    });
 
   });
 

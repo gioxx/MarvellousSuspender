@@ -38,6 +38,9 @@ export const gsStorage = {
 
   DEFAULT_FAVICON_FINGERPRINTS  : 'gsDefaultFaviconFingerprints',
 
+  CAPTURE_LOGS                  : 'gsCaptureVerbose',
+  LOG_BUFFER                    : 'gsLogBuffer',
+
   noop: function() {},
 
   getSettingsDefaults: function() {
