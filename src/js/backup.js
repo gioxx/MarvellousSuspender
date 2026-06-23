@@ -70,6 +70,7 @@ import  { gsUtils }    from './gsUtils.js';
       const isDrive = settings[gsStorage.AUTO_BACKUP_DESTINATION] === 'drive';
       setAutoBackupOptionsVisibility(settings[gsStorage.AUTO_BACKUP_ENABLED]);
       setDailyTimeVisibility(settings[gsStorage.AUTO_BACKUP_INTERVAL]);
+      setIntervalWarning(settings[gsStorage.AUTO_BACKUP_INTERVAL]);
       setDestinationPanels(isDrive);
       updateDriveAuthUI();
     });
@@ -84,6 +85,16 @@ import  { gsUtils }    from './gsUtils.js';
     const el = document.getElementById('autoBackupTimeContainer');
     if (!el) return;
     if (parseFloat(intervalValue) === 24) {
+      el.classList.remove('hidden');
+    } else {
+      el.classList.add('hidden');
+    }
+  }
+
+  function setIntervalWarning(intervalValue) {
+    const el = document.getElementById('autoBackupIntervalWarning');
+    if (!el) return;
+    if (parseFloat(intervalValue) >= 8) {
       el.classList.remove('hidden');
     } else {
       el.classList.add('hidden');
@@ -196,6 +207,7 @@ import  { gsUtils }    from './gsUtils.js';
       }
       else if (pref === gsStorage.AUTO_BACKUP_INTERVAL) {
         setDailyTimeVisibility(getOptionValue(element));
+        setIntervalWarning(getOptionValue(element));
       }
       else if (pref === gsStorage.AUTO_BACKUP_DESTINATION) {
         setDestinationPanels(getOptionValue(element) === 'drive');
@@ -241,6 +253,7 @@ import  { gsUtils }    from './gsUtils.js';
 
 
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(() => {
+    gsUtils.initSelectArrows(document);
     initSettings();
     updateBackupMeta();
 

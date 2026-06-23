@@ -17,7 +17,7 @@ export const historyItems = (() => {
     let tabText   = tabCnt > 1 ? 'js_history_tabs' : 'js_history_tab';
     tabText       = chrome.i18n.getMessage(tabText).toLowerCase();
 
-    const sessionIcon   = createEl('i',     { class: 'sessionIcon icon icon-plus-squared-alt' });
+    const sessionIcon   = createSvgIcon('square-plus', 'sessionIcon icon');
     const sessionDiv    = createEl('div',   { class: 'sessionContents' });
     const sessionTitle  = createEl('span',  { class: 'sessionLink' });
 
@@ -111,6 +111,19 @@ export const historyItems = (() => {
     linksSpan.appendChild(listLink);
 
     return linksSpan;
+  }
+
+  function createSvgIcon(iconId, className) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('class', className);
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    svg.setAttribute('data-icon', iconId);
+    const use = document.createElementNS(NS, 'use');
+    use.setAttribute('href', `img/icons.svg#${iconId}`);
+    svg.appendChild(use);
+    return svg;
   }
 
   function createEl(elType, attributes, text) {

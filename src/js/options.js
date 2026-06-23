@@ -141,7 +141,7 @@ import  { gsUtils }               from './gsUtils.js';
       document.getElementsByClassName('autoSuspendOption'),
       (el) => {
         if (visible) {
-          el.style.display = 'block';
+          el.style.display = 'flex';
         }
         else {
           el.style.display = 'none';
@@ -241,6 +241,7 @@ import  { gsUtils }               from './gsUtils.js';
 
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(() => {
     chrome.runtime.onMessage.addListener(messageRequestListener);
+    gsUtils.initSelectArrows(document);
     initSettings();
 
     const optionEls = document.getElementsByClassName('option');
