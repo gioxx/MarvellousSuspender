@@ -12,6 +12,41 @@ import  { tgs }                   from './tgs.js';
 
 let _localeMessages = null;
 
+// ── Log buffer ────────────────────────────────────────────────────────────────
+const _LOG_BUFFER_KEY = 'gsLogBuffer';
+const _LOG_BUFFER_MAX = 500;
+const _logBuffer = [];
+let   _flushTimer = null;
+
+function _serialize(v) {
+  if (v === null || v === undefined) return String(v);
+  if (typeof v === 'string') return v;
+  try { return JSON.stringify(v); } catch { return String(v); }
+}
+
+function _appendEntry(level, src, parts) {
+  _logBuffer.push({
+    ts    : new Date().toISOString(),
+    level,
+    src   : String(src),
+    msg   : parts.map(_serialize).join(' '),
+  });
+  if (_logBuffer.length > _LOG_BUFFER_MAX) _logBuffer.shift();
+}
+
+function _flushNow() {
+  if (_flushTimer) { clearTimeout(_flushTimer); _flushTimer = null; }
+  if (typeof chrome !== 'undefined' && chrome.storage) {
+    chrome.storage.local.set({ [_LOG_BUFFER_KEY]: JSON.stringify(_logBuffer) });
+  }
+}
+
+function _scheduleFlush() {
+  if (_flushTimer) return;
+  _flushTimer = setTimeout(_flushNow, 1500);
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 export const gsUtils = {
   STATUS_NORMAL         : 'normal',
   STATUS_LOADING        : 'loading',
@@ -32,6 +67,7 @@ export const gsUtils = {
 
   debugInfo   : false,
   debugError  : false,
+  captureLogs : false,
 
   contains(array, value) {
     for (var i = 0; i < array.length; i++) {
@@ -47,27 +83,34 @@ export const gsUtils = {
     }
   },
   log(id, text, ...args) {
+    args = args || [];
     if (gsUtils.debugInfo) {
-      args = args || [];
       // eslint-disable-next-line no-console
       console.log(id, (new Date() + '').split(' ')[4], text, ...args);
+    }
+    if (gsUtils.captureLogs) {
+      _appendEntry('I', id, [text, ...args]);
+      _scheduleFlush();
     }
   },
   highlight(text, ...args) {
     gsUtils.log('highlight: %s %c%s', 'color:red', text, ...args);
   },
   warning(id, text, ...args) {
+    args = args || [];
     if (gsUtils.debugError) {
-      args = args || [];
       const ignores = ['Error', 'gsUtils', 'gsMessages'];
       const errorLine = gsUtils
         .getStackTrace()
         .split('\n')
         .filter((o) => !ignores.find((p) => o.indexOf(p) >= 0))
         .join('\n');
-      args.push(`\n${errorLine}`);
       // eslint-disable-next-line no-console
-      console.warn('WARNING:', id, (new Date() + '').split(' ')[4], text, ...args,);
+      console.warn('WARNING:', id, (new Date() + '').split(' ')[4], text, ...args, `\n${errorLine}`);
+    }
+    if (gsUtils.captureLogs || gsUtils.debugError) {
+      _appendEntry('W', id, [text, ...args]);
+      _scheduleFlush();
     }
   },
   error(id, errorObj, ...args) {
@@ -76,16 +119,15 @@ export const gsUtils = {
       id = '?';
     }
     //NOTE: errorObj may be just a string :/
+    const errorMessage = errorObj && errorObj.hasOwnProperty && errorObj.hasOwnProperty('message')
+      ? errorObj.message
+      : typeof errorObj === 'string'
+        ? errorObj
+        : JSON.stringify(errorObj, null, 2);
     if (gsUtils.debugError) {
-      const stackTrace = errorObj.hasOwnProperty('stack')
+      const stackTrace = errorObj && errorObj.hasOwnProperty && errorObj.hasOwnProperty('stack')
         ? errorObj.stack
         : gsUtils.getStackTrace();
-      const errorMessage = errorObj.hasOwnProperty('message')
-        ? errorObj.message
-        : typeof errorObj === 'string'
-          ? errorObj
-          : JSON.stringify(errorObj, null, 2);
-      errorObj = errorObj || {};
       // eslint-disable-next-line no-console
       console.log(id, (new Date() + '').split(' ')[4], 'Error:');
       // eslint-disable-next-line no-console
@@ -93,11 +135,9 @@ export const gsUtils = {
         gsUtils.getPrintableError(errorMessage, stackTrace, ...args),
       );
     }
-    else {
-      // const logString = errorObj.hasOwnProperty('stack')
-      //   ? errorObj.stack
-      //   : `${JSON.stringify(errorObj)}\n${gsUtils.getStackTrace()}`;
-    }
+    // Always buffer errors regardless of flags
+    _appendEntry('E', id, [errorMessage, ...args]);
+    _flushNow();
   },
   // Puts all the error args into a single printable string so that all the info is displayed in the error console
   getPrintableError(errorMessage, stackTrace, ...args) {
@@ -128,6 +168,28 @@ export const gsUtils = {
 
   setDebugError(value) {
     gsUtils.debugError = value;
+  },
+
+  isCaptureLogs() {
+    return gsUtils.captureLogs;
+  },
+
+  setCaptureLogs(value) {
+    gsUtils.captureLogs = value;
+    if (typeof chrome !== 'undefined' && chrome.storage) {
+      chrome.storage.local.set({ gsCaptureVerbose: value });
+    }
+  },
+
+  getLogBuffer() {
+    return _logBuffer.slice();
+  },
+
+  clearLogBuffer() {
+    _logBuffer.length = 0;
+    if (typeof chrome !== 'undefined' && chrome.storage) {
+      chrome.storage.local.remove([_LOG_BUFFER_KEY]);
+    }
   },
 
   isDiscardedTab(tab) {
@@ -435,6 +497,18 @@ export const gsUtils = {
     } catch (e) {
       _localeMessages = null;
     }
+  },
+
+  initSelectArrows(parentEl) {
+    parentEl.querySelectorAll('.select-wrapper select').forEach(sel => {
+      const wrapper = sel.closest('.select-wrapper');
+      sel.addEventListener('focus',     () => wrapper.classList.add('is-open'));
+      sel.addEventListener('blur',      () => wrapper.classList.remove('is-open'));
+      sel.addEventListener('change',    () => wrapper.classList.remove('is-open'));
+      sel.addEventListener('mousedown', () => {
+        if (document.activeElement === sel) wrapper.classList.remove('is-open');
+      });
+    });
   },
 
   localiseHtml(parentEl) {

@@ -1032,6 +1032,7 @@ export const tgs = (function() {
     return gsStorage.saveStorage('session', 'gsIsCharging', value);
   }
 
+
   function getContentScriptStatus(tabId, knownContentScriptStatus) {
     return new Promise((resolve) => {
       if (knownContentScriptStatus) {

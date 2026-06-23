@@ -23,40 +23,87 @@
       </div>
     </div>
 
-    <p class="pageTitle">Debugger</p>
+    <p class="pageTitle">Diagnostic &amp; Debugger</p>
 
-    <div class="debugControls">
-      <span>debugErrors: </span>
-      <a id='toggleDebugError' href='#'></a> &nbsp;|&nbsp;
-      <span>debugInfo: </span>
-      <a id='toggleDebugInfo' href='#'></a> &nbsp;|&nbsp;
-      <span>discardInPlaceOfSuspend: </span>
-      <a id='toggleDiscardInPlaceOfSuspend' href='#'></a> &nbsp;|&nbsp;
-      <a id='claimSuspendedTabs' href='#'>claim all suspended tabs</a>
-    </div>
+    <section class="debugSection">
+      <h2 class="debugSectionTitle">Controls</h2>
 
-    <div class="debugInstructions">
-      <span>To view debug messages, go to your <a id="backgroundPage" target="_blank">browser extensions page.</a></span><br />
-      <span>Ensure "developer mode" is checked at the top of the page, then click on the "Inspect views: background page" link for this extension.</span>
-    </div>
+      <div class="debugOptionsGrid">
+
+        <div class="debugOptionCard">
+          <div class="debugOptionCardHeader">
+            <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#scroll"/></svg>
+            <span class="debugOptionLabel">captureLogs</span>
+            <a id='toggleCaptureLogs' href='#' class="debugToggle" data-value="false">false</a>
+          </div>
+          <p class="debugOptionDesc">
+            Captures <code>warning()</code> and <code>log()</code> calls from the Service Worker.
+            <strong>Errors are always captured regardless of this flag.</strong>
+            Persists across Service Worker restarts. Enable before reproducing a bug, then download the report.
+          </p>
+        </div>
+
+        <div class="debugOptionCard">
+          <div class="debugOptionCardHeader">
+            <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#archive"/></svg>
+            <span class="debugOptionLabel">discardInPlaceOfSuspend</span>
+            <a id='toggleDiscardInPlaceOfSuspend' href='#' class="debugToggle" data-value="false">false</a>
+          </div>
+          <p class="debugOptionDesc">
+            Tabs are <em>discarded</em> (Chrome unloads them from memory without navigating away)
+            instead of being redirected to a suspended page.
+            Useful for testing native discard behaviour. Not recommended for normal use.
+          </p>
+        </div>
+
+        <div class="debugOptionCard">
+          <div class="debugOptionCardHeader">
+            <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
+            <span class="debugOptionLabel">claim suspended tabs</span>
+          </div>
+          <p class="debugOptionDesc">
+            Re-assigns suspended tabs that point to a different extension ID to this instance.
+            Use after reinstalling or reloading the unpacked extension if suspended tabs show a broken page.
+          </p>
+          <a id='claimSuspendedTabs' href='#' class="debugActionLink">Run claim</a>
+        </div>
+
+      </div>
+    </section>
 
     <hr />
 
-    <table id="gsProfiler">
-      <thead>
-        <tr>
-          <th>WinId</th>
-          <th>TabId</th>
-          <th>Index</th>
-          <th></th>
-          <th>Group</th>
-          <th>Title</th>
-          <th>Seconds to<br>suspend</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody id="gsProfilerBody"></tbody>
-    </table>
+    <section class="debugSection">
+      <h2 class="debugSectionTitle">Log buffer &mdash; <span id="logCount">0</span> entries</h2>
+      <div class="debugLogActions">
+        <button id="btnRefreshLogs" class="debugBtn">Refresh</button>
+        <button id="btnClearLog" class="debugBtn">Clear log</button>
+        <button id="btnCopyReport" class="debugBtn debugBtn-primary">Copy report</button>
+        <button id="btnDownloadReport" class="debugBtn debugBtn-primary">Download report</button>
+      </div>
+      <div id="logOutput" class="logOutput" aria-live="polite"></div>
+    </section>
+
+    <hr />
+
+    <section class="debugSection">
+      <h2 class="debugSectionTitle">Tab profiler</h2>
+      <table id="gsProfiler">
+        <thead>
+          <tr>
+            <th>WinId</th>
+            <th>TabId</th>
+            <th>Index</th>
+            <th></th>
+            <th>Group</th>
+            <th>Title</th>
+            <th>Time left<br>(MM:SS)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="gsProfilerBody"></tbody>
+      </table>
+    </section>
 
   </div>
 </body>

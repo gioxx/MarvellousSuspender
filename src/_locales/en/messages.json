@@ -190,10 +190,10 @@
     "message": ". Please check to see if your idea or issue already exists before creating a new one. Thanks!"
   },
   "html_about_debugging_prefix": {
-    "message": "To enable logging, or to set debugging flags, go to the "
+    "message": "To capture logs and generate a diagnostic report, go to the "
   },
   "html_about_debugging_suffix": {
-    "message": "debug page."
+    "message": "diagnostic page."
   },
   "html_about_the_github_issues_page": {
     "message": "GitHub issues page"
@@ -224,6 +224,9 @@
   },
   "html_history_title": {
     "message": "Session management"
+  },
+  "html_history_page_desc": {
+    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
   },
   "html_history_current_session": {
     "message": "Current session"
@@ -839,6 +842,9 @@
   "html_options_backup_title": {
     "message": "Automatic session backup"
   },
+  "html_backup_session_desc": {
+    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+  },
   "html_options_backup_enable": {
     "message": "Automatically back up your session"
   },
@@ -854,6 +860,9 @@
   "html_options_backup_daily_time": {
     "message": "At what time"
   },
+  "html_backup_interval_warning": {
+    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+  },
   "html_options_backup_note": {
     "message": "Files are named by date and time (e.g. tms-session-2026-06-18T14-30.json). The 10 most recent backups are kept per destination; older ones are deleted automatically."
   },
@@ -864,10 +873,10 @@
     "message": "↑ Top"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Looking for automatic session backups?"
+    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
   },
   "html_history_backup_settings_link": {
-    "message": "Configure them in Backup."
+    "message": "Set up Backup to save your tabs outside the browser →"
   },
   "js_options_backup_now_running": {
     "message": "Running backup…"

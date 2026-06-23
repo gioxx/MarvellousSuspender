@@ -168,7 +168,6 @@ export const historyUtils = (() => {
   function exportSessionWithId(windowId, sessionId, callback) {
     callback = typeof callback !== 'function' ? noop : callback;
 
-    // document.getElementById('debugWindowId').innerText = document.getElementById('debugWindowId').innerText + ' - Window ID retrieved: ' + windowId;
     gsIndexedDb.fetchSessionBySessionId(sessionId).then(function(session) {
       if (!session || !session.windows) {
         callback();
@@ -240,7 +239,6 @@ export const historyUtils = (() => {
   }
 
   function saveSession(sessionId, windowId) {
-    // document.getElementById('debugWindowId').innerText = document.getElementById('debugWindowId').innerText + ' - Window ID retrieved: ' + windowId;
     gsIndexedDb.fetchSessionBySessionId(sessionId).then(function(session) {
       if (!session) {
         gsUtils.warning( 'historyUtils', 'Could not find session with sessionId: ' + sessionId + '. Save aborted' );
@@ -253,10 +251,8 @@ export const historyUtils = (() => {
         historyUtils.validateNewSessionName(sessionName, function(shouldSave) {
           if (shouldSave) {
             session.name = sessionName;
-            // document.getElementById('debugWindowId').innerText = document.getElementById('debugWindowId').innerText + ' - SessionData: ' + JSON.stringify(session);
             let newSession = JSON.parse(JSON.stringify(session));
             newSession.windows = (windowId !== null) ? session.windows.filter((curWindow) => (curWindow.id === windowId)) : session.windows;
-            // document.getElementById('debugWindowId').innerText = JSON.stringify(newSession);
 
             gsIndexedDb.addToSavedSessions(newSession).then(function() {
               window.location.reload();

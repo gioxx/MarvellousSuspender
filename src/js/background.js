@@ -20,6 +20,11 @@ import  { tgs }                   from './tgs.js';
     if (startupDone) return;
     startupDone = true;
 
+    // Restore persisted capture-logs flag so logs survive SW restarts
+    chrome.storage.local.get(['gsCaptureVerbose'], (result) => {
+      if (result.gsCaptureVerbose) gsUtils.captureLogs = true;
+    });
+
     tgs.resetAutoSuspendTimerForAllTabs();
 
     Promise.resolve()
@@ -54,24 +59,6 @@ import  { tgs }                   from './tgs.js';
     if (details.reason == 'update') {
       await gsStorage.setOptionAndSync(gsStorage.UPDATE_AVAILABLE, false);
     }
-
-    // gsUtils.debugInfo   = true;
-    // gsUtils.debugError  = true;
-    // if (gsUtils.debugInfo) {
-    //   // await gsStorage.setOptionAndSync(gsStorage.UPDATE_AVAILABLE, true);
-    //   // chrome.storage.local.set({'gsVersion': '"8.0.0"'});
-    //   await chrome.storage.local.remove([gsStorage.LAST_EXTENSION_RECOVERY]);
-    //   setTimeout(async () => {
-    //     // await chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+1&uri=https://www.google.com` });
-    //     // await chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+3&uri=https://www.github.com` });
-    //     await chrome.tabs.create({ url: chrome.runtime.getURL('debug.html') });
-    //     await chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
-    //     // await chrome.tabs.create({ url: chrome.runtime.getURL('health.html') });
-    //   }, 200);
-    //   // setTimeout(() => {
-    //   //   gsSession.prepareForUpdate({ version: 'new version'});
-    //   // }, 5000);
-    // }
 
   });
 
@@ -197,6 +184,10 @@ import  { tgs }                   from './tgs.js';
       }
       case 'backupNow' : {
         await gsBackup.performBackup();
+        break;
+      }
+      case 'setCaptureLogs' : {
+        gsUtils.captureLogs = request.value;
         break;
       }
       default: {
