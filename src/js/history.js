@@ -75,13 +75,10 @@ import  { historyUtils }          from './historyUtils.js';
       'sessionContents',
     )[0];
     var sessionIcon = element.getElementsByClassName('sessionIcon')[0];
-    if (sessionIcon.classList.contains('icon-plus-squared-alt')) {
-      sessionIcon.classList.remove('icon-plus-squared-alt');
-      sessionIcon.classList.add('icon-minus-squared-alt');
-    } else {
-      sessionIcon.classList.remove('icon-minus-squared-alt');
-      sessionIcon.classList.add('icon-plus-squared-alt');
-    }
+    const isExpanded = sessionIcon.getAttribute('data-icon') === 'square-minus';
+    const nextIcon = isExpanded ? 'square-plus' : 'square-minus';
+    sessionIcon.setAttribute('data-icon', nextIcon);
+    sessionIcon.querySelector('use').setAttribute('href', `img/icons.svg#${nextIcon}`);
 
     //if toggled on already, then toggle off
     if (sessionContentsEl.childElementCount > 0) {

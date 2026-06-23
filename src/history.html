@@ -3,9 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <link type="text/css" href="css/fontello.css" rel="stylesheet">
   <link type="text/css" href="css/style.css" rel="stylesheet" />
-  <link type="text/css" href="css/history.css" rel="stylesheet" />
   <script type="module" src="js/history.js"></script>
   <title id="gsTitle" data-i18n="__MSG_ext_extension_name__ - __MSG_html_history_title__"></title>
 </head>
@@ -63,6 +61,7 @@
       <span id="debugWindowId"></span>
 
       <p class="pageTitle" data-i18n="__MSG_html_history_title__"></p>
+      <p class="sectionDesc" data-i18n="__MSG_html_history_page_desc__"></p>
 
       <nav class="pageInlineNav" aria-label="Jump to section">
         <a href="#section-current"  data-i18n="__MSG_html_history_current_session__"></a>
@@ -71,10 +70,9 @@
         <a href="#section-migrate"  data-i18n="__MSG_html_history_migrate_nav__"></a>
       </nav>
 
-      <p class="historyBackupHint noIncognito">
-        <span data-i18n="__MSG_html_history_backup_hint_prefix__"></span>
-        <a href="backup.html" data-i18n="__MSG_html_history_backup_settings_link__"></a>
-      </p>
+      <div class="gsNote gsNote--warn historyBackupHint noIncognito" role="note">
+        <span><span data-i18n="__MSG_html_history_backup_hint_prefix__"></span> <a href="backup.html" data-i18n="__MSG_html_history_backup_settings_link__"></a></span>
+      </div>
 
       <div class="sub-section" id="section-current">
         <h2 data-i18n="__MSG_html_history_current_session__"></h2>

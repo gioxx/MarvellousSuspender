@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-  <link type="text/css" href="css/fontello.css" rel="stylesheet">
   <link type="text/css" href="css/style.css" rel="stylesheet">
   <link type="text/css" href="css/backup.css" rel="stylesheet">
   <script type="module" src="js/backup.js"></script>
@@ -77,13 +76,14 @@
 
     <div class="sub-section noIncognito" id="section-session">
       <p class="pageTitle" data-i18n="__MSG_html_options_backup_title__"></p>
+      <p class="sectionDesc" data-i18n="__MSG_html_backup_session_desc__"></p>
       <div class="formRow checkboxRow">
         <input type="checkbox" id="autoBackupEnabled" class="option" />
         <label for="autoBackupEnabled" class="cbLabel" data-i18n="__MSG_html_options_backup_enable__&nbsp;&nbsp;"></label>
         <span data-i18n-tooltip="__MSG_html_options_backup_enable_tooltip_line1__
 
 __MSG_html_options_backup_enable_tooltip_line2__">
-          <i class="tooltipIcon icon icon-help-circled"></i>
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
         </span>
         <span id="optionSavedStatus" class="optionSavedStatus" aria-live="polite"></span>
       </div>
@@ -122,6 +122,10 @@ __MSG_html_options_backup_enable_tooltip_line2__">
 
         <div class="hidden" id="autoBackupTimeContainer">
           <input type="time" id="autoBackupTime" class="option" value="09:00" aria-label="Orario del backup giornaliero" />
+        </div>
+
+        <div class="gsNote gsNote--warn hidden" id="autoBackupIntervalWarning" role="note">
+          <span data-i18n="__MSG_html_backup_interval_warning__"></span>
         </div>
 
         <div class="backupStatusRow">
