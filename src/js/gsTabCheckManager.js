@@ -262,6 +262,24 @@ export const gsTabCheckManager = (function() {
         resolve(gsUtils.STATUS_UNKNOWN);
         return;
       }
+      // Tab was reloaded but still has no active context.
+      // Chrome's tab-group replacement bug can navigate the reload to chrome://newtab/
+      // instead of restoring the suspended URL. Detect this and recreate the tab fresh.
+      if (tab.groupId > 0) {
+        const suspendedUrl = tab.url; // original URL before any reload
+        const latestTab = await gsChrome.tabsGet(tab.id);
+        if (latestTab && !gsUtils.isSuspendedTab(latestTab)) {
+          const targetGroupId = latestTab.groupId > 0 ? latestTab.groupId : tab.groupId;
+          const { windowId, index, pinned, active } = latestTab;
+          const newTab = await gsChrome.tabsCreate({ windowId, url: suspendedUrl, index, pinned, active });
+          if (newTab?.id) {
+            await gsChrome.tabsGroup(newTab.id, windowId, targetGroupId);
+            await gsChrome.tabsRemove(latestTab.id);
+            resolve(gsUtils.STATUS_SUSPENDED);
+            return;
+          }
+        }
+      }
       // Queue a refresh as tab may no longer exist
       requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
       return;
