@@ -146,7 +146,6 @@ __MSG_html_options_other_enable_sync_tooltip_line2__">
       <div class="formRow">
         <label id="timeToSuspendLbl" class="topLabel" for="timeToSuspend"
                data-i18n="__MSG_html_options_suspend_automatically_after__:"></label>
-        <br />
         <div class="select-wrapper">
           <select id="timeToSuspend" class="option">
             <option value="0"     data-i18n="__MSG_html_options_suspend_never__"></option>
@@ -258,8 +257,8 @@ __MSG_html_options_suspend_discard_after_suspend_tooltip_line3b__">
       </div>
       <div class="formRow">
         <label id="previewLbl" class="topLabel" for="preview"
-               data-i18n="__MSG_html_options_suspend_screen_capturing__:&nbsp;&nbsp;"></label>
-        <span data-i18n-tooltip="__MSG_html_options_suspend_screen_capturing_tooltip_line1a__
+               data-i18n="__MSG_html_options_suspend_screen_capturing__:&nbsp;&nbsp;">
+          <span data-i18n-tooltip="__MSG_html_options_suspend_screen_capturing_tooltip_line1a__
 __MSG_html_options_suspend_screen_capturing_tooltip_line1b__
 
 __MSG_html_options_suspend_screen_capturing_tooltip_line2a__
@@ -267,9 +266,9 @@ __MSG_html_options_suspend_screen_capturing_tooltip_line2b__
 
 __MSG_html_options_suspend_screen_capturing_tooltip_line3a__
 __MSG_html_options_suspend_screen_capturing_tooltip_line3b__">
-          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
-        </span>
-        <br />
+            <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
+          </span>
+        </label>
         <div class="select-wrapper">
           <select id="preview" class="option">
             <option value="0" data-i18n="__MSG_html_options_suspend_screen_capturing_disabled__"></option>
