@@ -155,6 +155,10 @@ a.active {
   margin-top: var(--space-2);
 }
 
+.formRow > .topLabel {
+  flex-basis: 100%;
+}
+
 .topLabel {
   display: inline-block;
   margin: 0 0 var(--space-2);
