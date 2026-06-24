@@ -1217,6 +1217,17 @@ body.dark span.group.edge.orange { background: #df8e64; }
 
 /* ── health.html ────────────────────────────────────────────────────────── */
 
+#scanSection,
+#actionSection,
+#actionProgress,
+#copySection {
+  margin-top: var(--space-8);
+}
+
+#copySection > div {
+  margin-bottom: var(--space-4);
+}
+
 #actionIntro {
   margin-bottom: var(--space-4);
 }
