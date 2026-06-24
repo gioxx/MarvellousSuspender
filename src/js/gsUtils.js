@@ -181,7 +181,12 @@ export const gsUtils = {
       return false;
     }
     const url = gsUtils.getTabUrl(tab);
-    // NOTE: suspended urls start with "chrome" (chrome-extension://), so we first check isSuspendedTab above
+    // chrome-extension:// pages (TMS own pages or other extensions) cannot receive
+    // content scripts and must never be suspended — isBrowserInternalURL misses them
+    // because its regex matches "chrome:" but not "chrome-extension:".
+    if (url?.startsWith(`${chrome.runtime.getURL('').split(':')[0]}://`)) {
+      return true;
+    }
     return ( this.isBrowserInternalURL(url) || gsUtils.isBlockedFileTab(tab) );
   },
 
