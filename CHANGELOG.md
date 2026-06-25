@@ -42,6 +42,10 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ---
 
+> **Rebase note (2026-06-25):** both `feature/session-backup` and `feature/visual-redesign` rebased onto `master` v8.1.6. Incorporated: CSP favicon fix for history page (`gsFavicon.js`, `historyItems.js`), `getDebugInfo` moved from `tgs.js` to `debug.js` with `promiseWithTimeout`, prevent extension tabs from being suspended (`gsUtils.js`).
+
+---
+
 ## [9.0.0] — 2026-06-24
 
 ### Changed
