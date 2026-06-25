@@ -257,6 +257,15 @@ import  { tgs }                   from './tgs.js';
       title = gsUtils.htmlEncode(title);
     }
     setTitle(title);
+
+    const appendUrl = await gsStorage.getOption(gsStorage.APPEND_URL_TO_TITLE);
+    if (appendUrl) {
+      const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
+      if (originalUrl) {
+        document.title = title + ' — ' + originalUrl;
+      }
+    }
+
     // await setUpdateBanner();
     setWatermark();
 

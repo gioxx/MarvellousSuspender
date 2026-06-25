@@ -13,6 +13,7 @@ import  { gsUtils }               from './gsUtils.js';
     unsuspendOnFocus: gsStorage.UNSUSPEND_ON_FOCUS,
     claimByDefault: gsStorage.CLAIM_BY_DEFAULT,
     discardAfterSuspend: gsStorage.DISCARD_AFTER_SUSPEND,
+    appendUrlToTitle:    gsStorage.APPEND_URL_TO_TITLE,
     dontSuspendPinned: gsStorage.IGNORE_PINNED,
     dontSuspendForms: gsStorage.IGNORE_FORMS,
     dontSuspendAudio: gsStorage.IGNORE_AUDIO,
@@ -180,8 +181,35 @@ import  { gsUtils }               from './gsUtils.js';
           { [prefKey]: oldValue },
           { [prefKey]: newValue },
         );
+        if (prefKey !== gsStorage.LANGUAGE) {
+          showSavedFeedback(element);
+        }
       }
     };
+  }
+
+  const _savedTimers = new Map();
+
+  function showSavedFeedback(element) {
+    const row = element.closest('.formRow');
+    if (!row) return;
+    const span = row.querySelector('.optionSavedFeedback');
+    if (!span) return;
+    span.textContent = chrome.i18n.getMessage('js_backup_option_saved');
+    span.classList.add('visible');
+    clearTimeout(_savedTimers.get(row));
+    _savedTimers.set(row, setTimeout(() => span.classList.remove('visible'), 2000));
+  }
+
+  function injectSavedFeedbackSpans() {
+    document.querySelectorAll('.formRow').forEach(row => {
+      if (row.querySelector('.option') && !row.querySelector('.optionSavedFeedback')) {
+        const span = document.createElement('span');
+        span.className = 'optionSavedFeedback';
+        span.setAttribute('aria-live', 'polite');
+        row.appendChild(span);
+      }
+    });
   }
 
   async function saveChange(element) {
@@ -229,6 +257,7 @@ import  { gsUtils }               from './gsUtils.js';
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(() => {
     chrome.runtime.onMessage.addListener(messageRequestListener);
     gsUtils.initSelectArrows(document);
+    injectSavedFeedbackSpans();
     initSettings();
 
     const optionEls = document.getElementsByClassName('option');
