@@ -199,7 +199,7 @@ export const gsStorage = {
 
         if (changedSettingKeys.length > 0) {
           await gsStorage.saveSettings(localSettings);
-          gsStorage.performPostSaveUpdates(
+          gsUtils.performPostSaveUpdates(
             changedSettingKeys,
             oldValueBySettingKey,
             newValueBySettingKey,
@@ -248,6 +248,10 @@ export const gsStorage = {
       }
     }
     return value;
+  },
+
+  getStorageJSON: async (store, name) => {
+    return gsStorage.getStorage(store, name);
   },
 
   /**
