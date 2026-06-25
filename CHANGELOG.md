@@ -10,6 +10,14 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 ## [Unreleased] — feature/session-backup
 
 ### Added
+- **News feed** (`news.html`, `news.js`, `gsNewsFeed.js`, `gsNavBadge.js`): new dedicated "News" page in the sidebar that fetches and displays the latest TMS articles from the Marvellous Codeworks blog (`kb.marvellouscode.works/blog/rss.xml`). Each card shows title, excerpt, publication date, and a link to the full article. Details:
+  - Feed cached in `chrome.storage.local` (TTL 6 h); periodic refresh via `chrome.alarms` in the service worker (`tms-news-feed`, every 6 h). Opening `news.html` also triggers an immediate `fetchAndCacheIfStale()` directly from the page.
+  - Only articles tagged `"The Marvellous Suspender"` via RSS `<category>` are shown — articles from other Marvellous Codeworks products (e.g. TGD) are filtered out.
+  - Maximum 10 items displayed, laid out in a 2-column grid.
+  - A red badge dot on the "News" sidebar entry signals unread articles; opening the page marks all items as seen. Badge logic lives in the shared `gsNavBadge.js` module, loaded by every extension page.
+  - `manifest.json`: added `https://kb.marvellouscode.works` to `connect-src` (required for both extension pages and the service worker under MV3).
+- New i18n keys (`html_sidebar_news`, `html_news_title`, `html_news_desc`, `html_news_loading`, `html_news_empty`) in `en` and `it` locales.
+
 - **Restore from backup** (`backup.html`, `backup.js`, `gsBackup.js`): new "Restore from backup" section at the bottom of the Backup page. Users can now recover a session directly from this page without manually navigating to the Sessions tab.
   - **From a local file**: a file picker loads any `tms-session-*.json` backup file, parses it, and imports it into IndexedDB as a saved session (auto-named from the filename, e.g. "Backup 2026-06-24 09:30"). A link to `history.html` appears inline so the user can immediately open Sessions to restore the desired windows.
   - **From Google Drive** (shown only when Drive is connected): "Load Drive backups" fetches the list of backup files from the `TMS Backups` Drive folder, populates a dropdown, and lets the user import the selected file with a single click. Same import-and-link flow as the local path.
@@ -17,7 +25,14 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 - New i18n keys (`html_backup_restore_*`, `js_backup_restore_*`) in `en` and `it` locales.
 - `gsUtils.localiseHtml()`: support for `data-i18n-aria-label` attribute — sets `aria-label` from the i18n message key, enabling accessible labels on form controls without hardcoded strings.
 
+- **Append original URL to suspended tab title** (`gsStorage.js`, `options.js`, `options.html`, `suspended.js`): new option (enabled by default) that appends the original URL to `document.title` of suspended pages so Chrome's "Search Tabs" (Ctrl+Shift+A) can find them by hostname. The visual title displayed inside the suspended page is unchanged. Option is exposed as a checkbox in the "Suspended tabs" section of the Options page. Closes [#249](https://github.com/gioxx/MarvellousSuspender/issues/249).
+- New i18n keys (`html_options_suspended_append_url_to_title`, `…_tooltip_line1`, `…_tooltip_line2`) in `en` and `it` locales.
+- **Per-element "Saved" feedback in Options** (`options.js`, `style.css`): every option on the Options page now shows a brief "Salvato / Saved" confirmation inline after the changed control when the value is actually stored. The feedback fades in and disappears after 2 seconds; language changes are excluded (page reloads immediately). Implemented via dynamic span injection — no HTML changes required.
+
 ### Fixed
+- **Drive settings-backup status message layout** (`backup.css`): the "Saving to Drive…" / "Settings saved to Drive." status span now always appears on its own line below the action buttons instead of trailing inline after them (`flex-basis: 100%`).
+- **Whitelist action links spacing** (`style.css`): "Verify whitelist" and "Unsuspend whitelisted" links now have consistent top margin separating them from the textarea above.
+- **Inconsistent tooltip-icon spacing in Options** (`options.html`): removed trailing `&nbsp;&nbsp;` from six `data-i18n` label attributes; all help icons (?) now sit at a uniform distance from their label, governed solely by the flex `column-gap`.
 - **XSS in restore status bar** (`backup.js`): `showRestoreStatus` now builds the DOM with `textContent` + a programmatically created `<a>` element instead of `span.innerHTML`, preventing injection via a maliciously crafted backup filename.
 - **Imported tab titles** (`gsBackup.js` `importBackupJson`): restored tabs now use `tab.title || tab.url` instead of always setting `title: tab.url`, preserving the human-readable title from backup files that include it.
 - **Null-deref in `removeTabFromSessionHistory`** (`gsIndexedDb.js`): added an early-return guard when `fetchSessionBySessionId` returns `null`, preventing a `TypeError` crash on stale or already-deleted session IDs.

@@ -1192,6 +1192,75 @@ body.dark span.group.edge.orange { background: #df8e64; }
   span.group.edge.orange { background: #df8e64; }
 }
 
+/* ── Sidebar news badge ──────────────────────────────────────────────────── */
+
+.navBadge {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: var(--destructive, oklch(0.55 0.22 27));
+  border-radius: var(--radius-full);
+  margin-left: var(--space-2);
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.navBadge.reallyHidden {
+  display: none;
+}
+
+/* ── news.html ───────────────────────────────────────────────────────────── */
+
+#newsFeedList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.newsCard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  background: var(--card);
+  transition: border-color var(--duration-fast);
+}
+
+.newsCard:hover {
+  border-color: var(--primary);
+}
+
+.newsCard__meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--muted-foreground);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.newsCard__title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin: 0 0 var(--space-2);
+}
+
+.newsCard__title a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.newsCard__title a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.newsCard__excerpt {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  margin: 0;
+  line-height: 1.55;
+}
+
 /* ── about.html ─────────────────────────────────────────────────────────── */
 
 .aboutIllustration {
@@ -1256,6 +1325,24 @@ body.dark span.group.edge.orange { background: #df8e64; }
 
 .welcome-message p {
   font-size: var(--text-base);
+}
+
+#testWhitelistBtn,
+#testWhitelistBtn + span[aria-hidden],
+#unsuspendWhitelistedBtn {
+  margin-top: var(--space-3);
+}
+
+.optionSavedFeedback {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base);
+}
+
+.optionSavedFeedback.visible {
+  opacity: 1;
 }
 
 #testWhitelistBtn::before,
