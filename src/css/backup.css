@@ -13,6 +13,8 @@
 }
 
 .settingsImportStatus {
+  flex-basis: 100%;
+  margin-top: var(--space-2);
   font-size: var(--text-sm);
   color: var(--muted-foreground);
 }
