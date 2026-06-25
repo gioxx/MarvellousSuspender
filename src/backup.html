@@ -171,6 +171,33 @@ __MSG_html_options_backup_enable_tooltip_line2__">
       </div>
     </div>
 
+    <div class="sub-section noIncognito" id="section-restore">
+      <p class="pageTitle" data-i18n="__MSG_html_backup_restore_title__"></p>
+      <p class="sectionDesc" data-i18n="__MSG_html_backup_restore_desc__"></p>
+
+      <div class="restoreActions" id="restoreActions">
+
+        <div class="restoreCard" id="restoreLocalCard">
+          <p class="restoreCardTitle" data-i18n="__MSG_html_backup_restore_local_title__"></p>
+          <button id="restoreFromFileBtn" class="btn btnNeg" data-i18n="__MSG_html_backup_restore_from_file__"></button>
+          <input type="file" id="restoreFile" class="fileInputHidden" accept=".json">
+        </div>
+
+        <div class="restoreCard hidden" id="restoreDriveCard">
+          <p class="restoreCardTitle" data-i18n="__MSG_html_backup_restore_drive_title__"></p>
+          <div class="driveBackupPickerRow">
+            <div class="select-wrapper">
+              <select id="driveBackupsSelect" data-i18n-aria-label="__MSG_html_backup_restore_drive_select_label__"></select>
+            </div>
+            <button id="importDriveBackupBtn" class="btn btnNeg" data-i18n="__MSG_html_backup_restore_import__"></button>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="restoreStatusBar" class="restoreStatusBar" aria-live="polite"></div>
+    </div>
+
   </div>
 
 </div>

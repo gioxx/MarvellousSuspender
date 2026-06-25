@@ -149,6 +149,8 @@ import  { gsUtils }    from './gsUtils.js';
     }
 
     const user = await gsBackup.getDriveUserInfo();
+    const driveCard    = document.getElementById('restoreDriveCard');
+    const restoreActions = document.getElementById('restoreActions');
     if (user && user.emailAddress) {
       if (nameEl)  nameEl.textContent  = user.displayName || '';
       emailEl.textContent          = user.emailAddress;
@@ -164,12 +166,36 @@ import  { gsUtils }    from './gsUtils.js';
         }
       }
       await updateDriveSettingsBackupBtn(true);
+
+      try {
+        const files = await gsBackup.listDriveBackups();
+        if (files.length && driveCard) {
+          const sel = document.getElementById('driveBackupsSelect');
+          sel.innerHTML = '';
+          for (const f of files) {
+            const opt = document.createElement('option');
+            opt.value = f.id;
+            opt.textContent = f.name
+              .replace(/\.json$/, '')
+              .replace('tms-session-', '')
+              .replace('T', ' ')
+              .replace(/-(\d{2})-(\d{2})$/, ' $1:$2');
+            sel.appendChild(opt);
+          }
+          driveCard.classList.remove('hidden');
+          restoreActions?.classList.add('has-drive-card');
+        }
+      } catch (_) {
+        // Drive list unavailable — silently keep card hidden
+      }
     } else {
       connectedEl.style.display    = 'none';
       disconnectedEl.style.display = 'flex';
       const folderLink = document.getElementById('driveFolderLink');
       if (folderLink) folderLink.classList.add('hidden');
       await updateDriveSettingsBackupBtn(false);
+      driveCard?.classList.add('hidden');
+      restoreActions?.classList.remove('has-drive-card');
     }
   }
 
@@ -397,6 +423,76 @@ import  { gsUtils }    from './gsUtils.js';
         }
       };
       reader.readAsText(file);
+    });
+
+    // ── Restore from backup ─────────────────────────────────────────────────
+
+    function showRestoreStatus(node) {
+      const bar = document.getElementById('restoreStatusBar');
+      if (!bar) return;
+      bar.innerHTML = '';
+      if (!node) return;
+      bar.appendChild(node);
+    }
+
+    function buildRestoreSuccessNode(sessionName) {
+      const msg  = chrome.i18n.getMessage('js_backup_restore_success', [sessionName]);
+      const link = chrome.i18n.getMessage('js_backup_restore_go_sessions');
+      const span = document.createElement('span');
+      span.textContent = msg + ' ';
+      const a = document.createElement('a');
+      a.href = 'history.html';
+      a.textContent = link;
+      span.appendChild(a);
+      return span;
+    }
+
+    function buildRestoreTextNode(msgKey) {
+      const span = document.createElement('span');
+      span.textContent = chrome.i18n.getMessage(msgKey);
+      return span;
+    }
+
+    async function runImport(jsonText, sourceName) {
+      showRestoreStatus(buildRestoreTextNode('js_backup_restore_importing'));
+      try {
+        const name = await gsBackup.importBackupJson(jsonText, sourceName);
+        showRestoreStatus(buildRestoreSuccessNode(name));
+      } catch (e) {
+        const key = e?.message === 'TMS_IMPORT_EMPTY' || e?.message === 'TMS_IMPORT_INVALID_JSON'
+          ? 'js_backup_restore_error_invalid'
+          : 'js_backup_restore_error_generic';
+        showRestoreStatus(buildRestoreTextNode(key));
+      }
+    }
+
+    // Restore from local file
+    document.getElementById('restoreFromFileBtn').addEventListener('click', () => {
+      document.getElementById('restoreFile').click();
+    });
+
+    document.getElementById('restoreFile').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      e.target.value = '';
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => runImport(ev.target.result, file.name);
+      reader.readAsText(file);
+    });
+
+    // Restore from Drive
+    document.getElementById('importDriveBackupBtn').addEventListener('click', async () => {
+      const sel    = document.getElementById('driveBackupsSelect');
+      const fileId = sel.value;
+      const name   = sel.options[sel.selectedIndex]?.text || fileId;
+      if (!fileId) return;
+      showRestoreStatus(buildRestoreTextNode('js_backup_restore_importing'));
+      try {
+        const json = await gsBackup.downloadDriveBackupContent(fileId);
+        await runImport(json, `tms-session-${name.replace(/\s/g, 'T').replace(':', '-')}.json`);
+      } catch (_) {
+        showRestoreStatus(buildRestoreTextNode('js_backup_restore_error_drive'));
+      }
     });
 
     // hide incompatible sections if in incognito mode

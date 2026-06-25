@@ -940,24 +940,9 @@ a.historyLink:hover {
 }
 
 .tabContainer .removeLink {
-  margin-left: -24px;
   padding-right: var(--space-1);
   color: var(--muted-foreground);
   font-size: var(--text-base);
-}
-
-/* Remove button is absolutely positioned so the favicon never shifts on hover */
-.tabContainer .itemHover.removeLink {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0;
-  padding: 0 var(--space-1) 3px 0;
-}
-
-.tabContainer:hover .itemHover.removeLink {
-  visibility: visible;
 }
 
 #screenCaptureNotice {

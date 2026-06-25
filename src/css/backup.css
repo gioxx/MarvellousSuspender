@@ -250,6 +250,62 @@ input[type='time']:focus {
   display: none;
 }
 
+/* ── Restore from backup section ─────────────────────────────────────────── */
+
+.restoreActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  align-items: stretch;
+}
+
+.restoreCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  justify-content: flex-start;
+}
+
+.restoreCardTitle {
+  display: none;
+  margin: 0;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--foreground);
+}
+
+.restoreActions.has-drive-card .restoreCard {
+  flex: 1;
+  min-width: 180px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.restoreActions.has-drive-card .restoreCardTitle {
+  display: block;
+}
+
+.driveBackupPickerRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.restoreStatusBar {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  min-height: 1.4em;
+}
+
+.restoreStatusBar a {
+  color: var(--foreground);
+  text-decoration: underline;
+}
+
 /* ── Option saved feedback ───────────────────────────────────────────────── */
 
 .optionSavedStatus {

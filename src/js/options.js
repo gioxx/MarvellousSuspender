@@ -119,12 +119,7 @@ import  { gsUtils }               from './gsUtils.js';
   }
 
   function setForceScreenCaptureVisibility(visible) {
-    if (visible) {
-      document.getElementById('forceScreenCaptureContainer').style.display = 'block';
-    }
-    else {
-      document.getElementById('forceScreenCaptureContainer').style.display = 'none';
-    }
+    document.getElementById('forceScreenCaptureContainer').classList.toggle('hidden', !visible);
   }
 
   function setSyncNoteVisibility(visible) {

@@ -345,6 +345,78 @@ export const gsBackup = (() => {
     }
   }
 
+  // ─── Restore from backup ───────────────────────────────────────────────────
+
+  async function listDriveBackups() {
+    let token;
+    try { token = await getAuthToken(false); } catch (_) { throw new Error('TMS_DRIVE_AUTH_MISSING'); }
+    const folderId = await getOrCreateDriveFolder(token);
+    const q   = `'${folderId}' in parents and name contains 'tms-session-' and trashed=false`;
+    const res = await fetch(
+      `${DRIVE_API}/files?q=${encodeURIComponent(q)}&orderBy=createdTime desc&fields=files(id,name,createdTime)`,
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+    if (!res.ok) throw new Error(`Drive list failed: ${res.status}`);
+    const data = await res.json();
+    return (data.files || []).filter(f => FILENAME_REGEX.test(f.name));
+  }
+
+  async function downloadDriveBackupContent(fileId) {
+    let token;
+    try { token = await getAuthToken(false); } catch (_) { throw new Error('TMS_DRIVE_AUTH_MISSING'); }
+    const res = await fetch(`${DRIVE_API}/files/${fileId}?alt=media`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) throw new Error(`Drive download failed: ${res.status}`);
+    return await res.text();
+  }
+
+  function _prettyNameFromSource(sourceName) {
+    const m = sourceName.match(/tms-session-(\d{4}-\d{2}-\d{2})T(\d{2})-(\d{2})\.json$/);
+    if (m) return `Backup ${m[1]} ${m[2]}:${m[3]}`;
+    return sourceName.replace(/\.json$/i, '');
+  }
+
+  async function importBackupJson(jsonText, sourceName) {
+    let importObj;
+    try { importObj = JSON.parse(jsonText); } catch (_) { throw new Error('TMS_IMPORT_INVALID_JSON'); }
+    if (!importObj || !Array.isArray(importObj.windows) || importObj.windows.length === 0) {
+      throw new Error('TMS_IMPORT_EMPTY');
+    }
+
+    const sessionName = _prettyNameFromSource(sourceName);
+    const sessionId   = '_' + gsUtils.generateHashCode(sessionName);
+
+    const windows = [];
+    for (const win of importObj.windows) {
+      const curWindow = { id: sessionId + '_' + windows.length, tabs: [] };
+      for (const tab of win.tabs) {
+        curWindow.tabs.push({
+          windowId : curWindow.id,
+          sessionId,
+          id       : curWindow.id + '_' + curWindow.tabs.length,
+          url      : tab.url,
+          title    : tab.title || tab.url,
+          index    : curWindow.tabs.length,
+          pinned   : false,
+          groupId  : tab.groupId,
+        });
+      }
+      windows.push(curWindow);
+    }
+
+    await gsIndexedDb.addToSavedSessions({
+      name      : sessionName,
+      sessionId,
+      windows,
+      tabGroups : importObj.tabGroups || [],
+      date      : new Date().toISOString(),
+    });
+
+    gsUtils.log('gsBackup', `importBackupJson: imported "${sessionName}" (${windows.length} windows)`);
+    return sessionName;
+  }
+
   return {
     ALARM_NAME,
     performBackup,
@@ -356,6 +428,9 @@ export const gsBackup = (() => {
     getDriveUserInfo,
     getDriveFolderUrl,
     performDriveSettingsBackup,
+    listDriveBackups,
+    downloadDriveBackupContent,
+    importBackupJson,
   };
 
 })();
