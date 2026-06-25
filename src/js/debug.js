@@ -91,12 +91,10 @@ import  { tgs }                   from './tgs.js';
       gsUtils.highlight(tab.id, 'getDebugInfo', tab.url);
       gsMessages.sendRequestInfoToContentScript(tab.id, ( error, tabInfo ) => {
         gsUtils.highlight(tab.id, 'getDebugInfo callback', tab.url);
-        if (tabInfo) {
-          tgs.calculateTabStatus(tab, tabInfo.status, (status) => {
-            info.status = status;
-          });
-        }
-        callback(info);
+        tgs.calculateTabStatus(tab, tabInfo ? tabInfo.status : null, (status) => {
+          info.status = status;
+          callback(info);
+        });
       });
     }
     else {
