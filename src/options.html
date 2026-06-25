@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <link type="text/css" href="css/style.css" rel="stylesheet">
   <script type="module" src="js/options.js"></script>
+  <script type="module" src="js/gsNavBadge.js"></script>
   <title data-i18n="__MSG_ext_extension_name__ - __MSG_html_options_title__"></title>
 </head>
 
@@ -61,6 +62,11 @@
       </li>
       <li class="noIncognito">
         <a href="shortcuts.html" data-i18n="__MSG_html_sidebar_shortcuts__"></a>
+      </li>
+      <li>
+        <a href="news.html" data-i18n="__MSG_html_sidebar_news__">
+          <span class="navBadge reallyHidden" id="navNewsBadge" aria-label="Unread news"></span>
+        </a>
       </li>
       <li>
         <a href="about.html" data-i18n="__MSG_html_sidebar_support__"></a>
@@ -120,7 +126,7 @@
       </div>
       <div class="formRow noIncognito">
         <input type="checkbox" id="addContextMenu" class="option" />
-        <label for="addContextMenu" class="cbLabel" data-i18n="__MSG_html_options_other_enable_context_menu__&nbsp;&nbsp;"></label>
+        <label for="addContextMenu" class="cbLabel" data-i18n="__MSG_html_options_other_enable_context_menu__"></label>
         <span data-i18n-tooltip="__MSG_html_options_other_enable_context_menu_tooltip_line1__
 
 __MSG_html_options_other_enable_context_menu_tooltip_line2__
@@ -130,7 +136,7 @@ __MSG_html_options_other_enable_context_menu_tooltip_line3__">
       </div>
       <div class="formRow noIncognito">
         <input type="checkbox" id="syncSettings" class="option" />
-        <label for="syncSettings" class="cbLabel" data-i18n="__MSG_html_options_other_enable_sync__&nbsp;&nbsp;"></label>
+        <label for="syncSettings" class="cbLabel" data-i18n="__MSG_html_options_other_enable_sync__"></label>
         <span data-i18n-tooltip="__MSG_html_options_other_enable_sync_tooltip_line1a__
 __MSG_html_options_other_enable_sync_tooltip_line1b__
 
@@ -201,7 +207,7 @@ __MSG_html_options_other_enable_sync_tooltip_line2__">
       </div>
       <div class="formRow autoSuspendOption">
         <input type="checkbox" id="suspendInPlaceOfDiscard" class="option" />
-        <label for="suspendInPlaceOfDiscard" class="cbLabel" data-i18n="__MSG_html_options_suspend_on_low_memory__&nbsp;&nbsp;"></label>
+        <label for="suspendInPlaceOfDiscard" class="cbLabel" data-i18n="__MSG_html_options_suspend_on_low_memory__"></label>
         <span data-i18n-tooltip="__MSG_html_options_suspend_on_low_memory_tooltip_line1__
 __MSG_html_options_suspend_on_low_memory_tooltip_line2__
 __MSG_html_options_suspend_on_low_memory_tooltip_line3__
@@ -215,7 +221,7 @@ __MSG_html_options_suspend_on_low_memory_tooltip_discarding_link__">
         </span>
       </div>
       <div class="formRow autoSuspendOption">
-        <label id="whitelistLbl" for="whitelist" data-i18n="__MSG_html_options_whitelist_title__&nbsp;&nbsp;"></label>
+        <label id="whitelistLbl" for="whitelist" data-i18n="__MSG_html_options_whitelist_title__"></label>
         <span data-i18n-tooltip="__MSG_html_options_whitelist_tooltip_line1__
 &nbsp;&nbsp;&nbsp;&nbsp;https://play.google.com/music/listen
 &nbsp;&nbsp;&nbsp;&nbsp;https://mail.google.com
@@ -236,6 +242,16 @@ __MSG_html_options_whitelist_tooltip_line3__
 
     <div class="sub-section" id="section-suspended">
       <p class="pageTitle" data-i18n="__MSG_html_options_suspended_title__"></p>
+      <div class="formRow">
+        <input type="checkbox" id="appendUrlToTitle" class="option" />
+        <label for="appendUrlToTitle" class="cbLabel"
+               data-i18n="__MSG_html_options_suspended_append_url_to_title__"></label>
+        <span data-i18n-tooltip="__MSG_html_options_suspended_append_url_to_title_tooltip_line1__
+
+__MSG_html_options_suspended_append_url_to_title_tooltip_line2__">
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
+        </span>
+      </div>
       <div class="formRow">
         <input type="checkbox" id="unsuspendOnFocus" class="option" />
         <label for="unsuspendOnFocus" class="cbLabel" data-i18n="__MSG_html_options_suspend_automatically_unsuspend__"></label>
@@ -279,7 +295,7 @@ __MSG_html_options_suspend_screen_capturing_tooltip_line3b__">
       </div>
       <div class="formRow" id="forceScreenCaptureContainer">
         <input type="checkbox" id="forceScreenCapture" class="option" />
-        <label for="forceScreenCapture" class="cbLabel" data-i18n="__MSG_html_options_suspend_force_screen_capture__&nbsp;&nbsp;"></label>
+        <label for="forceScreenCapture" class="cbLabel" data-i18n="__MSG_html_options_suspend_force_screen_capture__"></label>
         <span data-i18n-tooltip="__MSG_html_options_suspend_force_screen_capture_tooltip_line1__
 __MSG_html_options_suspend_force_screen_capture_tooltip_line2__
 __MSG_html_options_suspend_force_screen_capture_tooltip_line4__

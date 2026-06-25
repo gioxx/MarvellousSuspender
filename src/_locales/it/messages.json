@@ -261,6 +261,15 @@
   "html_options_suspended_title": {
     "message": "Schede sospese"
   },
+  "html_options_suspended_append_url_to_title": {
+    "message": "Aggiungi l'URL originale al titolo delle schede sospese"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1": {
+    "message": "Se abilitato, l'URL originale viene accodato al titolo della scheda del browser per le pagine sospese."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2": {
+    "message": "Permette di trovare le schede sospese per hostname tramite \"Cerca nelle schede\" di Chrome (Ctrl+Shift+A)."
+  },
   "html_options_other_title": {
     "message": "Generali"
   },
@@ -584,6 +593,21 @@
   },
   "html_sidebar_backup": {
     "message": "Backup"
+  },
+  "html_sidebar_news": {
+    "message": "Novità"
+  },
+  "html_news_title": {
+    "message": "Novità e aggiornamenti"
+  },
+  "html_news_desc": {
+    "message": "Tieniti aggiornato sulle ultime versioni, i problemi noti e gli annunci dal blog di Marvellous Codeworks."
+  },
+  "html_news_loading": {
+    "message": "Caricamento novità…"
+  },
+  "html_news_empty": {
+    "message": "Nessuna novità per ora. Riprova più tardi!"
   },
   "html_backup_page_title": {
     "message": "Backup e ripristino"

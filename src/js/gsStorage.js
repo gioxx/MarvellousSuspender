@@ -41,6 +41,8 @@ export const gsStorage = {
   CAPTURE_LOGS                  : 'gsCaptureVerbose',
   LOG_BUFFER                    : 'gsLogBuffer',
 
+  APPEND_URL_TO_TITLE           : 'gsAppendUrlToTitle',
+
   noop: function() {},
 
   getSettingsDefaults: function() {
@@ -71,6 +73,7 @@ export const gsStorage = {
     defaults[gsStorage.AUTO_BACKUP_INTERVAL] = '1';
     defaults[gsStorage.AUTO_BACKUP_DESTINATION] = 'local';
     defaults[gsStorage.AUTO_BACKUP_TIME] = '09:00';
+    defaults[gsStorage.APPEND_URL_TO_TITLE] = true;
 
     return defaults;
   },

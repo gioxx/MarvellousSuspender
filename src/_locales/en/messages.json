@@ -261,6 +261,15 @@
   "html_options_suspended_title": {
     "message": "Suspended tabs"
   },
+  "html_options_suspended_append_url_to_title": {
+    "message": "Append original URL to suspended tab title"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1": {
+    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2": {
+    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+  },
   "html_options_other_title": {
     "message": "General"
   },
@@ -584,6 +593,21 @@
   },
   "html_sidebar_backup": {
     "message": "Backup"
+  },
+  "html_sidebar_news": {
+    "message": "News"
+  },
+  "html_news_title": {
+    "message": "News & Updates"
+  },
+  "html_news_desc": {
+    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+  },
+  "html_news_loading": {
+    "message": "Loading news…"
+  },
+  "html_news_empty": {
+    "message": "No news yet. Check back soon!"
   },
   "html_backup_page_title": {
     "message": "Backup & Restore"
