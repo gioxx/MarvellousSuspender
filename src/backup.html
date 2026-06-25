@@ -6,6 +6,7 @@
   <link type="text/css" href="css/style.css" rel="stylesheet">
   <link type="text/css" href="css/backup.css" rel="stylesheet">
   <script type="module" src="js/backup.js"></script>
+  <script type="module" src="js/gsNavBadge.js"></script>
   <title data-i18n="__MSG_ext_extension_name__ - __MSG_html_backup_page_title__"></title>
 </head>
 
@@ -51,6 +52,11 @@
       </li>
       <li class="noIncognito">
         <a href="shortcuts.html" data-i18n="__MSG_html_sidebar_shortcuts__"></a>
+      </li>
+      <li>
+        <a href="news.html" data-i18n="__MSG_html_sidebar_news__">
+          <span class="navBadge reallyHidden" id="navNewsBadge" aria-label="Unread news"></span>
+        </a>
       </li>
       <li>
         <a href="about.html" data-i18n="__MSG_html_sidebar_support__"></a>

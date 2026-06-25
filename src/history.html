@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <link type="text/css" href="css/style.css" rel="stylesheet" />
   <script type="module" src="js/history.js"></script>
+  <script type="module" src="js/gsNavBadge.js"></script>
   <title id="gsTitle" data-i18n="__MSG_ext_extension_name__ - __MSG_html_history_title__"></title>
 </head>
 
@@ -50,6 +51,11 @@
         </li>
         <li class="noIncognito">
           <a href="shortcuts.html" data-i18n="__MSG_html_sidebar_shortcuts__"></a>
+        </li>
+        <li>
+          <a href="news.html" data-i18n="__MSG_html_sidebar_news__">
+            <span class="navBadge reallyHidden" id="navNewsBadge" aria-label="Unread news"></span>
+          </a>
         </li>
         <li>
           <a href="about.html" data-i18n="__MSG_html_sidebar_support__"></a>

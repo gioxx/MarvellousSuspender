@@ -1,5 +1,7 @@
 // @ts-check
+import  { gsBackup }              from './gsBackup.js';
 import  { gsChrome }              from './gsChrome.js';
+import  { gsNewsFeed }            from './gsNewsFeed.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
@@ -134,6 +136,10 @@ import  { tgs }                   from './tgs.js';
       }
       case 'savePreviewData' : {
         await gsTabSuspendManager.handlePreviewImageResponse(sender.tab, request.previewUrl, request.errorMsg); // async. unhandled promise
+        break;
+      }
+      case 'fetchNewsFeed' : {
+        gsNewsFeed.fetchAndCacheIfStale();
         break;
       }
 
@@ -373,6 +379,15 @@ import  { tgs }                   from './tgs.js';
   async function alarmListener(alarm) {
     gsUtils.log('background', 'alarmListener', alarm);
 
+    if (alarm.name === gsBackup.ALARM_NAME) {
+      await gsBackup.performBackup();
+      return;
+    }
+    if (alarm.name === gsNewsFeed.ALARM_NAME) {
+      await gsNewsFeed.fetchAndCache();
+      return;
+    }
+
     const tabId = parseInt(alarm.name);
     const tab = await gsChrome.tabsGet(tabId);
     if (!tab) {
@@ -571,6 +586,15 @@ import  { tgs }                   from './tgs.js';
     .then(initAsPromised)
     .catch((error) => {
       gsUtils.error('background init error: ', error);
+    })
+    .then(() => gsBackup.syncAlarmWithSettings())
+    .catch((error) => {
+      gsUtils.error('background backup alarm sync error: ', error);
+    })
+    .then(() => gsNewsFeed.syncAlarm())
+    .then(() => gsNewsFeed.fetchAndCacheIfStale())
+    .catch((error) => {
+      gsUtils.error('background news feed init error: ', error);
     });
 
 
