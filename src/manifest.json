@@ -54,7 +54,7 @@
   ],
   "content_security_policy": {
     "extension_pages":
-      "script-src 'self'; object-src 'self'; child-src 'self'; connect-src 'self' https://www.googleapis.com https://accounts.google.com; img-src 'self' data: chrome:; style-src 'self'; default-src 'self'"
+      "script-src 'self'; object-src 'self'; child-src 'self'; connect-src 'self' https://www.googleapis.com https://accounts.google.com https://kb.marvellouscode.works; img-src 'self' data: chrome:; style-src 'self'; default-src 'self'"
   },
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1SOsmPwb7FtV38YXvhtOX6dMsLkMQvH4c0eTQZECxECquV+qo1npuATmS1XvEZloV5dnmFHCkSVPeTBYYAC+mCSl+xr1qcPITN5jzZhkXjosuv5arDTQqjhgXqLJIdNO1sJTe6KVeVj2SDRpsQ41gn4/TczJvrUL5RuT3RZfS5FaFCmu/Wx1boWjY9uZSSnhyk0EKnOJWU4gbf3z5fLz4Z/htmOr8Ww/lOYfzwiJsXYXJ+RtvYM0vPDj7Ny7Ye1Lsy1qM0m/ECJmfrTJE9wPKhzgc/TwPZ30fEHTnagXmvBT0r2/nVW9+HYZeb2BXGc8v9UPuH57Vr+4o8v/DCekVwIDAQAB",
   "incognito": "split",

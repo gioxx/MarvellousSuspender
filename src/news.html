@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link type="text/css" href="css/style.css" rel="stylesheet">
+  <script type="module" src="js/news.js"></script>
+  <script type="module" src="js/gsNavBadge.js"></script>
+  <title data-i18n="__MSG_ext_extension_name__ - __MSG_html_news_title__"></title>
+</head>
+
+<body>
+
+<div class="mainContent">
+
+  <div class="pageHeader">
+    <div class="brandMark">
+      <div class="brandTitle">
+        <img src="img/suspendy-guy-main.webp" alt="" class="extensionIcon" aria-hidden="true" />
+        <div class="brandTitleText">
+          <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+          <div class="brandLinks">
+            <span id="headerVersion"></span>
+            <span aria-hidden="true">·</span>
+            <a href="https://marvellouscode.works/tms" target="_blank">marvellouscode.works/tms</a>
+            <span aria-hidden="true">·</span>
+            <a href="https://kb.marvellouscode.works" target="_blank">kb.marvellouscode.works</a>
+          </div>
+        </div>
+      </div>
+      <div class="brandCodeworks">
+        <img src="img/marvellous-codeworks-logo.webp" alt="" class="brandLogo" aria-hidden="true" />
+        <span class="brandSubtitle">a <a href="https://marvellouscode.works" target="_blank">Marvellous Codeworks</a> project</span>
+      </div>
+    </div>
+  </div>
+
+  <nav class="contentNav">
+    <ul>
+      <li>
+        <a href="options.html" data-i18n="__MSG_html_sidebar_general_settings__"></a>
+      </li>
+      <li class="noIncognito">
+        <a href="history.html" data-i18n="__MSG_html_sidebar_session_management__"></a>
+      </li>
+      <li class="noIncognito">
+        <a href="backup.html" data-i18n="__MSG_html_sidebar_backup__"></a>
+      </li>
+      <li>
+        <a href="health.html" data-i18n="__MSG_html_sidebar_tab_health__"></a>
+      </li>
+      <li class="noIncognito">
+        <a href="shortcuts.html" data-i18n="__MSG_html_sidebar_shortcuts__"></a>
+      </li>
+      <li>
+        <a class="active" href="news.html" data-i18n="__MSG_html_sidebar_news__">
+          <span class="navBadge reallyHidden" id="navNewsBadge" aria-label="Unread news"></span>
+        </a>
+      </li>
+      <li>
+        <a href="about.html" data-i18n="__MSG_html_sidebar_support__"></a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="content">
+
+    <p class="pageTitle" data-i18n="__MSG_html_news_title__"></p>
+
+    <p class="sectionDesc" data-i18n="__MSG_html_news_desc__"></p>
+
+    <div id="newsFeedLoading" class="lesserText" data-i18n="__MSG_html_news_loading__"></div>
+    <div id="newsFeedEmpty" class="lesserText reallyHidden" data-i18n="__MSG_html_news_empty__"></div>
+    <div id="newsFeedList" class="reallyHidden"></div>
+
+  </div>
+
+</div>
+
+<button id="backToTop" aria-label="Back to top" data-i18n="__MSG_html_options_back_to_top__"></button>
+
+</body>
+
+</html>
