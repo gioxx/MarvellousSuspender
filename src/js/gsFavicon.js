@@ -114,11 +114,12 @@ export const gsFavicon = (() => {
   /**
    * @param   { string }  url
    * @param   { string }  tabFavIconUrl
+   * @param   { boolean } fCacheOnly
    * @param   { boolean } fRecursion
    * @returns { Promise< FavIconMeta | undefined > }
    */
-  async function getFaviconMetaForUrl(url, tabFavIconUrl, fRecursion = false) {
-    gsUtils.log('gsFavicon', 'getFaviconMetaForUrl', url, tabFavIconUrl);
+  async function getFaviconMetaForUrl(url, tabFavIconUrl, fCacheOnly = false, fRecursion = false) {
+    gsUtils.log('gsFavicon', 'getFaviconMetaForUrl', url, tabFavIconUrl, fCacheOnly, fRecursion);
 
     let faviconMeta = await getFaviconMetaFromCache(url);
     if (faviconMeta) {
@@ -126,6 +127,10 @@ export const gsFavicon = (() => {
       return faviconMeta;
     }
     gsUtils.log('gsFavicon', 'getFaviconMetaForUrl', 'No cached favicon', url);
+
+    if (fCacheOnly) {
+      return;
+    }
 
     // Else try to build from chrome's favicon cache
     faviconMeta = await buildFaviconMetaFromChrome(url);
@@ -152,7 +157,7 @@ export const gsFavicon = (() => {
 
     if (!fRecursion && fullUrl && rootUrl && fullUrl != rootUrl) {
       gsUtils.log('gsFavicon', 'Trying root hostname', fullUrl, rootUrl);
-      faviconMeta = await getFaviconMetaForUrl(rootUrl, tabFavIconUrl, true);
+      faviconMeta = await getFaviconMetaForUrl(rootUrl, tabFavIconUrl, fCacheOnly, true);
       if (faviconMeta) {
         gsUtils.log('gsFavicon', 'Built faviconMeta from root hostname', faviconMeta);
         await saveFaviconMetaToCache(url, faviconMeta);
@@ -164,10 +169,11 @@ export const gsFavicon = (() => {
 
   /**
    * @param   { chrome.tabs.Tab } tab
+   * @param   { boolean }         fCacheOnly
    * @returns { Promise< FavIconMeta > }
    */
-  async function getFaviconMeta(tab) {
-    gsUtils.log('gsFavicon', 'getFaviconMeta', tab.url);
+  async function getFaviconMeta(tab, fCacheOnly = false) {
+    gsUtils.log('gsFavicon', 'getFaviconMeta', tab.url, fCacheOnly);
 
     if (!tab.url || gsUtils.isFileTab(tab)) {
       return _defaultChromeFaviconMeta;
@@ -181,7 +187,7 @@ export const gsFavicon = (() => {
       originalUrl = gsUtils.getOriginalUrl(tab.url);
     }
 
-    const faviconMeta = await getFaviconMetaForUrl(originalUrl, tabFavIconUrl);
+    const faviconMeta = await getFaviconMetaForUrl(originalUrl, tabFavIconUrl, fCacheOnly);
     if (faviconMeta) {
       return faviconMeta;
     }

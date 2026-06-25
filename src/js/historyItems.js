@@ -1,19 +1,14 @@
+// @ts-check
 import  { gsFavicon }             from './gsFavicon.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsUtils }               from './gsUtils.js';
 
 export const historyItems = (() => {
-  'use strict';
 
   async function createSessionHtml(session, showLinks) {
     session.windows = session.windows || [];
 
-    const sessionType =
-      session.sessionId === (await gsSession.getSessionId())
-        ? 'current'
-        : session.name
-        ? 'saved'
-        : 'recent';
+    const sessionType = session.sessionId === (await gsSession.getSessionId()) ? 'current' : session.name ? 'saved' : 'recent';
     const winCnt = session.windows.length;
     const tabCnt = session.windows.reduce(function(a, b) { return a + b.tabs.length; }, 0);
 
@@ -91,7 +86,7 @@ export const historyItems = (() => {
 
     const listHover = createEl( 'span', { class: 'itemHover removeLink' }, '\u274C\uFE0E');
 
-    const faviconMeta = await gsFavicon.getFaviconMeta(tab);
+    const faviconMeta = await gsFavicon.getFaviconMeta(tab, true);
     const favIconUrl = faviconMeta.normalisedDataUrl;
     const listImg = createEl('img', { src: favIconUrl, height: '16px', width: '16px' });
     const listLink = createEl('a', { class: 'historyLink', href: tab.url, target: '_blank' }, tab.title && tab.title.length > 1 ? tab.title : tab.url);
