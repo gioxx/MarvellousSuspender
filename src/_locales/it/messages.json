@@ -975,5 +975,45 @@
   },
   "html_history_migrate_nav": {
     "message": "Migrazione"
+  },
+  "html_backup_restore_title": {
+    "message": "Recupero da backup"
+  },
+  "html_backup_restore_desc": {
+    "message": "Importa un file di backup per ripristinarlo come sessione salvata. Una volta importato, apri Sessioni per scegliere quali finestre ripristinare."
+  },
+  "html_backup_restore_local_title": {
+    "message": "File locale"
+  },
+  "html_backup_restore_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_restore_from_file": {
+    "message": "Scegli file di backup…"
+  },
+  "html_backup_restore_drive_select_label": {
+    "message": "Seleziona un backup da Drive"
+  },
+  "html_backup_restore_import": {
+    "message": "Importa selezionato"
+  },
+  "js_backup_restore_importing": {
+    "message": "Importazione in corso…"
+  },
+  "js_backup_restore_success": {
+    "message": "Importata come \"$name$\".",
+    "placeholders": { "name": { "content": "$1" } }
+  },
+  "js_backup_restore_go_sessions": {
+    "message": "→ Apri Sessioni per ripristinare"
+  },
+  "js_backup_restore_error_invalid": {
+    "message": "File di backup non valido."
+  },
+  "js_backup_restore_error_drive": {
+    "message": "Impossibile scaricare il backup da Drive. Controlla la connessione e riprova."
+  },
+  "js_backup_restore_error_generic": {
+    "message": "Importazione fallita. Riprova."
   }
 }

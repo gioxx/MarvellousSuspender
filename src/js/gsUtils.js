@@ -511,6 +511,11 @@ export const gsUtils = {
     });
   },
 
+  getMessage(key) {
+    if (_localeMessages && _localeMessages[key]) return _localeMessages[key].message || '';
+    return chrome.i18n.getMessage(key) || '';
+  },
+
   localiseHtml(parentEl) {
     const replaceTagFunc = function(match, p1) {
       if (!p1) return '';
@@ -529,6 +534,14 @@ export const gsUtils = {
           'data-i18n-tooltip',
           el
             .getAttribute('data-i18n-tooltip')
+            .replace(/__MSG_(\w+)__/g, replaceTagFunc),
+        );
+      }
+      if (el.hasAttribute('data-i18n-aria-label')) {
+        el.setAttribute(
+          'aria-label',
+          el
+            .getAttribute('data-i18n-aria-label')
             .replace(/__MSG_(\w+)__/g, replaceTagFunc),
         );
       }

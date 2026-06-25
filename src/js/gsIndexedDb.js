@@ -1,99 +1,49 @@
-/* global db */
-import  './db.js';
-import  { gsChrome }              from './gsChrome.js';
-import  { gsSession }             from './gsSession.js';
-import  { gsUtils }               from './gsUtils.js';
-import  { tgs }                   from './tgs.js';
+import { openDB }    from './idb.js';
+import { gsSession } from './gsSession.js';
+import { gsUtils }   from './gsUtils.js';
 
 'use strict';
 
 export const gsIndexedDb = {
-  DB_SERVER: 'tgs',
-  DB_VERSION: '3',
-  DB_PREVIEWS: 'gsPreviews',
-  DB_SUSPENDED_TABINFO: 'gsSuspendedTabInfo',
-  DB_FAVICON_META: 'gsFaviconMeta',
-  DB_CURRENT_SESSIONS: 'gsCurrentSessions',
-  DB_SAVED_SESSIONS: 'gsSavedSessions',
+  DB_SERVER:   'tgs',
+  DB_VERSION:  3,
+  DB_PREVIEWS:             'gsPreviews',
+  DB_SUSPENDED_TABINFO:    'gsSuspendedTabInfo',
+  DB_FAVICON_META:         'gsFaviconMeta',
+  DB_CURRENT_SESSIONS:     'gsCurrentSessions',
+  DB_SAVED_SESSIONS:       'gsSavedSessions',
   DB_SESSION_PRE_UPGRADE_KEY: 'preUpgradeVersion',
 
-  server: null,
+  _db: null,
 
   getDb: async function() {
-    if (!gsIndexedDb.server) {
-      gsIndexedDb.server = await db.open({
-        server: gsIndexedDb.DB_SERVER,
-        version: gsIndexedDb.DB_VERSION,
-        schema: gsIndexedDb.getSchema,
+    if (!gsIndexedDb._db) {
+      gsIndexedDb._db = await openDB(gsIndexedDb.DB_SERVER, gsIndexedDb.DB_VERSION, {
+        upgrade(db) {
+          const stores = [
+            { name: gsIndexedDb.DB_PREVIEWS,          indexes: ['url'] },
+            { name: gsIndexedDb.DB_SUSPENDED_TABINFO, indexes: ['url'] },
+            { name: gsIndexedDb.DB_FAVICON_META,      indexes: ['url'] },
+            { name: gsIndexedDb.DB_CURRENT_SESSIONS,  indexes: ['sessionId'] },
+            { name: gsIndexedDb.DB_SAVED_SESSIONS,    indexes: ['sessionId'] },
+          ];
+          for (const { name, indexes } of stores) {
+            if (!db.objectStoreNames.contains(name)) {
+              const store = db.createObjectStore(name, { keyPath: 'id', autoIncrement: true });
+              for (const idx of indexes) store.createIndex(idx, idx);
+            }
+          }
+        },
       });
     }
-    return gsIndexedDb.server;
-  },
-
-  getSchema: function() {
-    // NOTE: Called directly from db.js so 'this' cannot be relied upon
-    return {
-      [gsIndexedDb.DB_PREVIEWS]: {
-        key: {
-          keyPath: 'id',
-          autoIncrement: true,
-        },
-        indexes: {
-          id: {},
-          url: {},
-        },
-      },
-      [gsIndexedDb.DB_SUSPENDED_TABINFO]: {
-        key: {
-          keyPath: 'id',
-          autoIncrement: true,
-        },
-        indexes: {
-          id: {},
-          url: {},
-        },
-      },
-      [gsIndexedDb.DB_FAVICON_META]: {
-        key: {
-          keyPath: 'id',
-          autoIncrement: true,
-        },
-        indexes: {
-          id: {},
-          url: {},
-        },
-      },
-      [gsIndexedDb.DB_CURRENT_SESSIONS]: {
-        key: {
-          keyPath: 'id',
-          autoIncrement: true,
-        },
-        indexes: {
-          id: {},
-          sessionId: {},
-        },
-      },
-      [gsIndexedDb.DB_SAVED_SESSIONS]: {
-        key: {
-          keyPath: 'id',
-          autoIncrement: true,
-        },
-        indexes: {
-          id: {},
-          sessionId: {},
-        },
-      },
-    };
+    return gsIndexedDb._db;
   },
 
   fetchPreviewImage: async function(tabUrl) {
     let results;
     try {
-      const gsDb = await gsIndexedDb.getDb();
-      results = await gsDb
-        .query(gsIndexedDb.DB_PREVIEWS, 'url')
-        .only(tabUrl)
-        .execute();
+      const db = await gsIndexedDb.getDb();
+      results = await db.getAllFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
@@ -105,17 +55,12 @@ export const gsIndexedDb = {
 
   addPreviewImage: async function(tabUrl, previewUrl) {
     try {
-      const gsDb = await gsIndexedDb.getDb();
-      const results = await gsDb
-        .query(gsIndexedDb.DB_PREVIEWS, 'url')
-        .only(tabUrl)
-        .execute();
-      if (results.length > 0) {
-        for (const result of results) {
-          await gsDb.remove(gsIndexedDb.DB_PREVIEWS, result.id);
-        }
+      const db = await gsIndexedDb.getDb();
+      const existing = await db.getAllFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
+      for (const item of existing) {
+        await db.delete(gsIndexedDb.DB_PREVIEWS, item.id);
       }
-      await gsDb.add(gsIndexedDb.DB_PREVIEWS, { url: tabUrl, img: previewUrl });
+      await db.add(gsIndexedDb.DB_PREVIEWS, { url: tabUrl, img: previewUrl });
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
@@ -127,17 +72,12 @@ export const gsIndexedDb = {
         gsUtils.error('gsIndexedDb', 'tabProperties.url not set.');
         return;
       }
-      const gsDb = await gsIndexedDb.getDb();
-      const results = await gsDb
-        .query(gsIndexedDb.DB_SUSPENDED_TABINFO)
-        .filter('url', tabProperties.url)
-        .execute();
-      if (results.length > 0) {
-        for (const result of results) {
-          await gsDb.remove(gsIndexedDb.DB_SUSPENDED_TABINFO, result.id);
-        }
+      const db = await gsIndexedDb.getDb();
+      const existing = await db.getAllFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabProperties.url);
+      for (const item of existing) {
+        await db.delete(gsIndexedDb.DB_SUSPENDED_TABINFO, item.id);
       }
-      await gsDb.add(gsIndexedDb.DB_SUSPENDED_TABINFO, tabProperties);
+      await db.add(gsIndexedDb.DB_SUSPENDED_TABINFO, tabProperties);
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
@@ -146,19 +86,13 @@ export const gsIndexedDb = {
   fetchTabInfo: async function(tabUrl) {
     let results;
     try {
-      const gsDb = await gsIndexedDb.getDb();
-      results = await gsDb
-        .query(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url')
-        .only(tabUrl)
-        .distinct()
-        .desc()
-        .execute();
+      const db = await gsIndexedDb.getDb();
+      results = (await db.getAllFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabUrl)).reverse();
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
     if (results && results.length > 0) {
       const tabInfo = results[0];
-      //Temporary code
       if (tabInfo.favicon) {
         if (!tabInfo.favIconUrl) {
           tabInfo.favIconUrl = tabInfo.favicon;
@@ -177,17 +111,12 @@ export const gsIndexedDb = {
         return;
       }
       const faviconMetaWithUrl = Object.assign(faviconMeta, { url });
-      const gsDb = await gsIndexedDb.getDb();
-      const results = await gsDb
-        .query(gsIndexedDb.DB_FAVICON_META)
-        .filter('url', url)
-        .execute();
-      if (results.length > 0) {
-        for (const result of results) {
-          await gsDb.remove(gsIndexedDb.DB_FAVICON_META, result.id);
-        }
+      const db = await gsIndexedDb.getDb();
+      const existing = await db.getAllFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url);
+      for (const item of existing) {
+        await db.delete(gsIndexedDb.DB_FAVICON_META, item.id);
       }
-      await gsDb.add(gsIndexedDb.DB_FAVICON_META, faviconMetaWithUrl);
+      await db.add(gsIndexedDb.DB_FAVICON_META, faviconMetaWithUrl);
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
@@ -196,45 +125,33 @@ export const gsIndexedDb = {
   fetchFaviconMeta: async function(url) {
     let results;
     try {
-      const gsDb = await gsIndexedDb.getDb();
-      results = await gsDb
-        .query(gsIndexedDb.DB_FAVICON_META, 'url')
-        .only(url)
-        .distinct()
-        .desc()
-        .execute();
+      const db = await gsIndexedDb.getDb();
+      results = (await db.getAllFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url)).reverse();
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
     if (results && results.length > 0) {
-      const faviconMeta = results[0];
-      return faviconMeta;
+      return results[0];
     }
     return null;
   },
 
   updateSession: async function(session) {
     try {
-      const gsDb = await gsIndexedDb.getDb();
+      const db = await gsIndexedDb.getDb();
+      const tableName = session.sessionId.indexOf('_') === 0
+        ? gsIndexedDb.DB_SAVED_SESSIONS
+        : gsIndexedDb.DB_CURRENT_SESSIONS;
 
-      //if it's a saved session (prefixed with an underscore)
-      const tableName =
-        session.sessionId.indexOf('_') === 0
-          ? gsIndexedDb.DB_SAVED_SESSIONS
-          : gsIndexedDb.DB_CURRENT_SESSIONS;
-
-      //first check to see if session id already exists
-      const matchingSession = await gsIndexedDb.fetchSessionBySessionId(
-        session.sessionId
-      );
+      const matchingSession = await gsIndexedDb.fetchSessionBySessionId(session.sessionId);
       if (matchingSession) {
-        gsUtils.log( 'gsIndexedDb', 'Updating existing session: ' + session.sessionId );
-        session.id = matchingSession.id; //copy across id from matching session
+        gsUtils.log('gsIndexedDb', 'Updating existing session: ' + session.sessionId);
+        session.id   = matchingSession.id;
         session.date = new Date().toISOString();
-        await gsDb.update(tableName, session); //then update based on that id
+        await db.put(tableName, session);
       } else {
-        gsUtils.log( 'gsIndexedDb', 'Creating new session: ' + session.sessionId );
-        await gsDb.add(tableName, session);
+        gsUtils.log('gsIndexedDb', 'Creating new session: ' + session.sessionId);
+        await db.add(tableName, session);
       }
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
@@ -244,12 +161,8 @@ export const gsIndexedDb = {
   fetchCurrentSessions: async function() {
     let results;
     try {
-      const gsDb = await gsIndexedDb.getDb();
-      results = await gsDb
-        .query(gsIndexedDb.DB_CURRENT_SESSIONS)
-        .all()
-        .desc()
-        .execute();
+      const db = await gsIndexedDb.getDb();
+      results = (await db.getAll(gsIndexedDb.DB_CURRENT_SESSIONS)).reverse();
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
       results = [];
@@ -260,23 +173,16 @@ export const gsIndexedDb = {
   fetchSessionBySessionId: async function(sessionId) {
     let results;
     try {
-      const gsDb = await gsIndexedDb.getDb();
-
-      //if it's a saved session (prefixed with an underscore)
-      const tableName =
-        sessionId.indexOf('_') === 0
-          ? gsIndexedDb.DB_SAVED_SESSIONS
-          : gsIndexedDb.DB_CURRENT_SESSIONS;
-      results = await gsDb
-        .query(tableName, 'sessionId')
-        .only(sessionId)
-        .desc()
-        .execute();
+      const db = await gsIndexedDb.getDb();
+      const tableName = sessionId.indexOf('_') === 0
+        ? gsIndexedDb.DB_SAVED_SESSIONS
+        : gsIndexedDb.DB_CURRENT_SESSIONS;
+      results = (await db.getAllFromIndex(tableName, 'sessionId', sessionId)).reverse();
 
       if (results.length > 1) {
-        gsUtils.warning( 'gsIndexedDb', 'Duplicate sessions found for sessionId: ' + sessionId + '! Removing older ones..' );
-        for (let session of results.slice(1)) {
-          await gsDb.remove(tableName, session.id);
+        gsUtils.warning('gsIndexedDb', 'Duplicate sessions found for sessionId: ' + sessionId + '! Removing older ones..');
+        for (const session of results.slice(1)) {
+          await db.delete(tableName, session.id);
         }
       }
     } catch (e) {
@@ -289,9 +195,7 @@ export const gsIndexedDb = {
   },
 
   createOrUpdateSessionRestorePoint: async function(session, version) {
-    const existingSessionRestorePoint = await gsIndexedDb.fetchSessionRestorePoint(
-      version
-    );
+    const existingSessionRestorePoint = await gsIndexedDb.fetchSessionRestorePoint(version);
     if (existingSessionRestorePoint) {
       existingSessionRestorePoint.windows = session.windows;
       await gsIndexedDb.updateSession(existingSessionRestorePoint);
@@ -302,23 +206,17 @@ export const gsIndexedDb = {
       await gsIndexedDb.addToSavedSessions(session);
       gsUtils.log('gsIndexedDb', 'Created automatic session restore point');
     }
-    const newSessionRestorePoint = await gsIndexedDb.fetchSessionRestorePoint(
-      version
-    );
-    gsUtils.log( 'gsIndexedDb', 'New session restore point:', newSessionRestorePoint );
+    const newSessionRestorePoint = await gsIndexedDb.fetchSessionRestorePoint(version);
+    gsUtils.log('gsIndexedDb', 'New session restore point:', newSessionRestorePoint);
     return newSessionRestorePoint || null;
   },
 
   fetchSessionRestorePoint: async function(versionValue) {
     let results;
     try {
-      const gsDb = await gsIndexedDb.getDb();
-      const tableName = gsIndexedDb.DB_SAVED_SESSIONS;
-      results = await gsDb
-        .query(tableName)
-        .filter(gsIndexedDb.DB_SESSION_PRE_UPGRADE_KEY, versionValue)
-        .distinct()
-        .execute();
+      const db = await gsIndexedDb.getDb();
+      const all = await db.getAll(gsIndexedDb.DB_SAVED_SESSIONS);
+      results = all.filter(r => r[gsIndexedDb.DB_SESSION_PRE_UPGRADE_KEY] === versionValue);
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
@@ -328,24 +226,17 @@ export const gsIndexedDb = {
     return null;
   },
 
-  // Returns most recent session in DB_CURRENT_SESSIONS EXCLUDING the current session
   fetchLastSession: async () => {
     let results;
     try {
-      const gsDb = await gsIndexedDb.getDb();
-      results = await gsDb
-        .query(gsIndexedDb.DB_CURRENT_SESSIONS, 'id')
-        .all()
-        .desc()
-        .execute();
+      const db = await gsIndexedDb.getDb();
+      results = (await db.getAll(gsIndexedDb.DB_CURRENT_SESSIONS)).reverse();
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
     if (results && results.length > 0) {
-      //don't want to match on current session
       const currentSessionId = await gsSession.getSessionId();
-      const lastSession = results.find((o) => o.sessionId !== currentSessionId);
-      return lastSession;
+      return results.find(o => o.sessionId !== currentSessionId);
     }
     return null;
   },
@@ -353,11 +244,8 @@ export const gsIndexedDb = {
   fetchSavedSessions: async function() {
     let results;
     try {
-      const gsDb = await gsIndexedDb.getDb();
-      results = await gsDb
-        .query(gsIndexedDb.DB_SAVED_SESSIONS)
-        .all()
-        .execute();
+      const db = await gsIndexedDb.getDb();
+      results = await db.getAll(gsIndexedDb.DB_SAVED_SESSIONS);
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
       results = [];
@@ -366,12 +254,9 @@ export const gsIndexedDb = {
   },
 
   addToSavedSessions: async function(session) {
-    //if sessionId does not already have an underscore prefix then generate a new unique sessionId for this saved session
     if (session.sessionId.indexOf('_') < 0) {
       session.sessionId = '_' + gsUtils.generateHashCode(session.name);
     }
-
-    //clear id as it will be either read (if sessionId match found) or generated (if creating a new session)
     delete session.id;
     await gsIndexedDb.updateSession(session);
   },
@@ -379,59 +264,50 @@ export const gsIndexedDb = {
   // For testing only!
   clearGsDatabase: async function() {
     try {
-      const gsDb = await gsIndexedDb.getDb();
-      await gsDb.clear(gsIndexedDb.DB_CURRENT_SESSIONS);
-      await gsDb.clear(gsIndexedDb.DB_SAVED_SESSIONS);
+      const db = await gsIndexedDb.getDb();
+      await db.clear(gsIndexedDb.DB_CURRENT_SESSIONS);
+      await db.clear(gsIndexedDb.DB_SAVED_SESSIONS);
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
   },
 
   removeTabFromSessionHistory: async function(sessionId, windowId, tabId) {
-    const gsSession = await gsIndexedDb.fetchSessionBySessionId(sessionId);
-    gsSession.windows.some(function(curWindow, windowIndex) {
+    const session = await gsIndexedDb.fetchSessionBySessionId(sessionId);
+    if (!session) return null;
+    session.windows.some(function(curWindow, windowIndex) {
       const matched = curWindow.tabs.some(function(curTab, tabIndex) {
-        //leave this as a loose matching as sometimes it is comparing strings. other times ints
         if (curTab.id == tabId || curTab.url == tabId) {
           curWindow.tabs.splice(tabIndex, 1);
           return true;
         }
       });
       if (matched) {
-        //remove window if it no longer contains any tabs
         if (curWindow.tabs.length === 0) {
-          gsSession.windows.splice(windowIndex, 1);
+          session.windows.splice(windowIndex, 1);
         }
         return true;
       }
     });
 
-    //update session
-    if (gsSession.windows.length > 0) {
-      await gsIndexedDb.updateSession(gsSession);
-      //or remove session if it no longer contains any windows
+    if (session.windows.length > 0) {
+      await gsIndexedDb.updateSession(session);
     } else {
       await gsIndexedDb.removeSessionFromHistory(sessionId);
     }
-    const updatedSession = await gsIndexedDb.fetchSessionBySessionId(sessionId);
-    return updatedSession;
+    return await gsIndexedDb.fetchSessionBySessionId(sessionId);
   },
 
   removeSessionFromHistory: async function(sessionId) {
-    const tableName =
-      sessionId.indexOf('_') === 0
-        ? gsIndexedDb.DB_SAVED_SESSIONS
-        : gsIndexedDb.DB_CURRENT_SESSIONS;
+    const tableName = sessionId.indexOf('_') === 0
+      ? gsIndexedDb.DB_SAVED_SESSIONS
+      : gsIndexedDb.DB_CURRENT_SESSIONS;
 
     try {
-      const gsDb = await gsIndexedDb.getDb();
-      const result = await gsDb
-        .query(tableName)
-        .filter('sessionId', sessionId)
-        .execute();
-      if (result.length > 0) {
-        const session = result[0];
-        await gsDb.remove(tableName, session.id);
+      const db = await gsIndexedDb.getDb();
+      const results = await db.getAllFromIndex(tableName, 'sessionId', sessionId);
+      if (results.length > 0) {
+        await db.delete(tableName, results[0].id);
       }
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
@@ -443,67 +319,34 @@ export const gsIndexedDb = {
     const maxHistories = 5;
 
     try {
-      const gsDb = await gsIndexedDb.getDb();
+      const db = await gsIndexedDb.getDb();
 
-      //trim suspendedTabInfo. if there are more than maxTabItems items, then remove the oldest ones
-      const suspendedTabInfos = await gsDb
-        .query(gsIndexedDb.DB_SUSPENDED_TABINFO, 'id')
-        .all()
-        .keys()
-        .execute();
-      if (suspendedTabInfos.length > maxTabItems) {
-        const itemsToRemove = suspendedTabInfos.length - maxTabItems;
-        for (let i = 0; i < itemsToRemove; i++) {
-          await gsDb.remove(
-            gsIndexedDb.DB_SUSPENDED_TABINFO,
-            suspendedTabInfos[i]
-          );
+      const tabInfoKeys = await db.getAllKeys(gsIndexedDb.DB_SUSPENDED_TABINFO);
+      if (tabInfoKeys.length > maxTabItems) {
+        for (const key of tabInfoKeys.slice(0, tabInfoKeys.length - maxTabItems)) {
+          await db.delete(gsIndexedDb.DB_SUSPENDED_TABINFO, key);
         }
       }
 
-      //trim suspendedTabInfo. if there are more than maxTabItems items, then remove the oldest ones
-      const faviconMetas = await gsDb
-        .query(gsIndexedDb.DB_FAVICON_META, 'id')
-        .all()
-        .keys()
-        .execute();
-      //when favicons are stored they also create an extra indexedDb item with the root url as the key
-      //so they will have slightly more entries than the suspendedTabInfos
+      const faviconKeys = await db.getAllKeys(gsIndexedDb.DB_FAVICON_META);
       const maxFaviconItems = parseInt(maxTabItems + maxTabItems * 0.3);
-      if (faviconMetas.length > maxFaviconItems) {
-        const itemsToRemove = faviconMetas.length - maxFaviconItems;
-        for (let i = 0; i < itemsToRemove; i++) {
-          await gsDb.remove(gsIndexedDb.DB_FAVICON_META, faviconMetas[i]);
+      if (faviconKeys.length > maxFaviconItems) {
+        for (const key of faviconKeys.slice(0, faviconKeys.length - maxFaviconItems)) {
+          await db.delete(gsIndexedDb.DB_FAVICON_META, key);
         }
       }
 
-      //trim imagePreviews. if there are more than maxTabItems items, then remove the oldest ones
-      const previews = await gsDb
-        .query(gsIndexedDb.DB_PREVIEWS, 'id')
-        .all()
-        .keys()
-        .execute();
-      if (previews.length > maxTabItems) {
-        const itemsToRemove = previews.length - maxTabItems;
-        for (let i = 0; i < itemsToRemove; i++) {
-          await gsDb.remove(gsIndexedDb.DB_PREVIEWS, previews[i]);
+      const previewKeys = await db.getAllKeys(gsIndexedDb.DB_PREVIEWS);
+      if (previewKeys.length > maxTabItems) {
+        for (const key of previewKeys.slice(0, previewKeys.length - maxTabItems)) {
+          await db.delete(gsIndexedDb.DB_PREVIEWS, key);
         }
       }
 
-      //trim currentSessions. if there are more than maxHistories items, then remove the oldest ones
-      const currentSessions = await gsDb
-        .query(gsIndexedDb.DB_CURRENT_SESSIONS, 'id')
-        .all()
-        .keys()
-        .execute();
-
-      if (currentSessions.length > maxHistories) {
-        const itemsToRemove = currentSessions.length - maxHistories;
-        for (let i = 0; i < itemsToRemove; i++) {
-          await gsDb.remove(
-            gsIndexedDb.DB_CURRENT_SESSIONS,
-            currentSessions[i]
-          );
+      const sessionKeys = await db.getAllKeys(gsIndexedDb.DB_CURRENT_SESSIONS);
+      if (sessionKeys.length > maxHistories) {
+        for (const key of sessionKeys.slice(0, sessionKeys.length - maxHistories)) {
+          await db.delete(gsIndexedDb.DB_CURRENT_SESSIONS, key);
         }
       }
     } catch (e) {
@@ -517,24 +360,7 @@ export const gsIndexedDb = {
 
   performMigration: async function(oldVersion) {
     try {
-      const gsDb = await gsIndexedDb.getDb();
-      const extensionName = chrome.runtime.getManifest().name || '';
-
-      const major = parseInt(oldVersion.split('.')[0] || 0);
-      const minor = parseInt(oldVersion.split('.')[1] || 0);
-      const testMode = extensionName.includes('Test');
-      // patch = parseInt(oldVersion.split('.')[2] || 0);
-
       // 2025: v8.1.0: Migration if-blocks have been removed, but preserved here as examples if needed in the future
-      // if (major < 6 || (major === 6 && minor < 13)) {
-      //   // if (oldVersion < 6.13)
-      // }
-      // if (major < 6 || (major === 6 && minor < 30)) {
-      //   // if (oldVersion < 6.30)
-      // }
-      // if (major < 6 || (major === 6 && minor < 31) || testMode) {
-      //   // if (oldVersion < 6.31) convert scroll position cookie to native format
-      // }
     }
     catch (e) {
       gsUtils.error('gsIndexedDb', e);

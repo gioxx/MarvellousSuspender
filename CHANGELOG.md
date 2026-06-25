@@ -10,6 +10,31 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 ## [Unreleased] — feature/session-backup
 
 ### Added
+- **Restore from backup** (`backup.html`, `backup.js`, `gsBackup.js`): new "Restore from backup" section at the bottom of the Backup page. Users can now recover a session directly from this page without manually navigating to the Sessions tab.
+  - **From a local file**: a file picker loads any `tms-session-*.json` backup file, parses it, and imports it into IndexedDB as a saved session (auto-named from the filename, e.g. "Backup 2026-06-24 09:30"). A link to `history.html` appears inline so the user can immediately open Sessions to restore the desired windows.
+  - **From Google Drive** (shown only when Drive is connected): "Load Drive backups" fetches the list of backup files from the `TMS Backups` Drive folder, populates a dropdown, and lets the user import the selected file with a single click. Same import-and-link flow as the local path.
+- `gsBackup.listDriveBackups()`, `gsBackup.downloadDriveBackupContent(fileId)`, `gsBackup.importBackupJson(jsonText, sourceName)` — three new public functions to support the restore flow.
+- New i18n keys (`html_backup_restore_*`, `js_backup_restore_*`) in `en` and `it` locales.
+- `gsUtils.localiseHtml()`: support for `data-i18n-aria-label` attribute — sets `aria-label` from the i18n message key, enabling accessible labels on form controls without hardcoded strings.
+
+### Fixed
+- **XSS in restore status bar** (`backup.js`): `showRestoreStatus` now builds the DOM with `textContent` + a programmatically created `<a>` element instead of `span.innerHTML`, preventing injection via a maliciously crafted backup filename.
+- **Imported tab titles** (`gsBackup.js` `importBackupJson`): restored tabs now use `tab.title || tab.url` instead of always setting `title: tab.url`, preserving the human-readable title from backup files that include it.
+- **Null-deref in `removeTabFromSessionHistory`** (`gsIndexedDb.js`): added an early-return guard when `fetchSessionBySessionId` returns `null`, preventing a `TypeError` crash on stale or already-deleted session IDs.
+- **aria-label hardcoded Italian** (`backup.html`): the Drive backup `<select>` now uses `data-i18n-aria-label` routed through the i18n system; added `html_backup_restore_drive_select_label` to `en` and `it` locales.
+- **`replace(/\\s/, 'T')`** (`backup.js`): changed to `/\\s/g` so all whitespace characters in the Drive backup display name are replaced when reconstructing the source filename, not just the first.
+- **`setForceScreenCaptureVisibility`** (`options.js`): replaced `style.display` manipulation with `classList.toggle('hidden', …)` per project CSP convention.
+
+---
+
+## [9.0.0] — 2026-06-24
+
+### Changed
+- **`updated.html` / `updated.js`**: after the automatic tab-restore completes, `suspendy-guy.webp` (in-progress) is now swapped to `suspendy-guy-success.webp` (success) via `toggleUpdated()`.
+- **`gsUtils.js`**: added `getMessage(key)` helper that reads from `_localeMessages` first (custom language override) and falls back to `chrome.i18n.getMessage()`, ensuring the user-chosen language is respected everywhere.
+- **`popup.js`**: replaced all `chrome.i18n.getMessage()` calls with `gsUtils.getMessage()` so that the status detail text and "Backup now" label honour the language selected in options rather than the browser UI locale.
+
+### Added
 - **Persistent log buffer and diagnostic report** (`debug.html`, `debug.js`, `gsUtils.js`): errors are now always captured to an in-memory ring buffer (max 500 entries) and flushed to `chrome.storage.local`, surviving Service Worker restarts. Warnings and verbose `log()` calls are captured when the new **captureLogs** flag is enabled. The flag persists to storage so it survives SW restarts; toggling it from the Diagnostic page immediately wakes the SW via `chrome.runtime.sendMessage`. `debug.html` is now a proper **Diagnostic page** with a log viewer (colour-coded by level), "Refresh", "Clear log", "Copy report" and "Download report" buttons. The report bundles extension version, browser user-agent, current tab profiler snapshot and the full log buffer into a single shareable text file — making it actionable for end-users who cannot access DevTools.
 - `gsStorage.CAPTURE_LOGS` (`gsCaptureVerbose`) and `gsStorage.LOG_BUFFER` (`gsLogBuffer`) storage key constants.
 
@@ -28,6 +53,17 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ### Removed
 - Dead `debugWindowId` `innerHTML` assignments (4 commented-out lines) from `historyUtils.js`.
+
+## [9.0.0] — 2026-06-24 (dependencies)
+
+### Changed
+- **`gsIndexedDb.js`**: replaced abandoned `db.js` (Aaron Powell, last commit 2021) with [`idb` v8.0.3](https://github.com/jakearchibald/idb) (Jake Archibald, ISC). All IndexedDB operations rewritten to use `openDB`, `getAllFromIndex`, `getAll`, `getAllKeys`, `add`, `put`, `delete`, `clear` directly on the idb-wrapped database handle. The `server` cache field renamed to `_db`; `DB_VERSION` changed from string `'3'` to numeric `3` (required by idb). Logic and behaviour are identical; the upgrade path preserves existing stores.
+- **`html2canvas`**: updated from `1.0.0-rc.7` (2020 release candidate) to `1.4.1` (2022 stable release).
+- **`about.html`**: credits updated to reflect idb replacing db.js.
+- **`package.json`**: `dependencies` updated from `db.js ^0.15.0` to `idb ^8.0.3`.
+
+### Removed
+- `src/js/db.js`: vendored copy of the abandoned db.js library removed.
 - **Dedicated Backup page** (`src/backup.html`, `src/js/backup.js`, `src/css/backup.css`): all backup-related UI has been extracted from `options.html` into a new first-class page. The page contains two sections: "Settings backup" (export/import of extension settings, previously at the bottom of the General section) and "Automatic session backup" (schedule, destination, Drive auth — previously `#section-backup`). A "Backup" entry is now visible in the sidebar navigation of all pages.
 - `en` and `it` locale files: added `html_sidebar_backup`, `html_backup_page_title`, `html_backup_settings_desc`, `html_backup_local_folder_hint`, `js_backup_option_saved`. Updated `html_history_backup_settings_link` to point users to the new Backup page instead of Settings.
 
@@ -40,7 +76,7 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 - **Fontello → Lucide SVG sprite**: replaced the custom fontello icon font (6 glyphs, woff/woff2) with a minimal Lucide SVG sprite (`src/img/icons.svg`) now containing `circle-help`, `chevron-right`, `chevron-up`, `chevron-down`, `square`, `square-check`, `square-plus`, `square-minus`, `shield-check`, `rotate-cw`. Tooltip icons in `options.html` and `backup.html` are now `<svg><use href="img/icons.svg#…">` elements. Custom checkboxes, the `<select>` dropdown arrow, and whitelist action link icons in `style.css` use `mask-image` with inline SVG data URIs (supports CSS custom-property colours). The session expand/collapse icon in `historyItems.js` / `history.js` is created via `createElementNS` and toggled by `data-icon` attribute + `href` swap. `fontello.css`, `fontello.woff`, `fontello.woff2` removed; credits in `about.html` updated to Lucide (ISC). Select dropdown arrow managed via JS (`gsUtils.initSelectArrows`) with `focus`/`blur`/`change`/`mousedown` listeners; arrow shows `chevron-down` when closed, `chevron-up` when open.
 - **CSS consolidation**: `about.css`, `health.css`, `history.css`, `options.css` (7–30 lines each, single-page) merged into `style.css` under clearly labelled section comments. Remaining separate files: `backup.css`, `suspended.css`, `popup.css`, `debug.css`. Whitelist action icons (`#testWhitelistBtn`, `#unsuspendWhitelistedBtn`) upgraded from Unicode `▶`/`↺` to Lucide `shield-check`/`rotate-cw` via CSS `mask-image`.
 - **Brand header tightening**: `.brandTitleText` gap reduced to `0` and `.brandMark h1` line-height reduced to `1` to bring the extension title closer to the version/links row below it.
-- **Tooltip icon alignment**: `.formRow` now uses `display: flex; align-items: center; flex-wrap: wrap` so the checkbox, label and tooltip icon are vertically centred without relying on `vertical-align` hacks. `.formRow > .gsNote` gets `flex-basis: 100%` to wrap to its own line. Fixed `setAutoSuspendOptionsVisibility` in `options.js` to restore `display: flex` (was `block`) so `.autoSuspendOption` rows keep the flex layout.
+- **Tooltip icon alignment**: `.formRow` now uses `display: flex; align-items: center; flex-wrap: wrap` so the checkbox, label and tooltip icon are vertically centred without relying on `vertical-align` hacks. `.formRow > .gsNote` gets `flex-basis: 100%` to wrap to its own line. Fixed `setAutoSuspendOptionsVisibility` and `setForceScreenCaptureVisibility` in `options.js` to restore `display: flex` (was `block`) so dynamically shown `.formRow` elements keep the flex layout.
 - **Button style consistency**: `health.html` and `shortcuts.html` action buttons changed from `btn` (filled primary) to `btn btnNeg` (outline), matching every other page in the extension.
 - **`history.html`**: the "Looking for automatic session backups?" hint now links to `backup.html` instead of `options.html#section-backup`.
 - **Backup scheduling — wall-clock alignment**: backup alarms are now anchored to real clock time instead of resetting on every browser restart. Sub-daily intervals (15 min, 30 min, 1 h, …) snap to the nearest upcoming grid slot aligned to midnight (e.g. 15 min → always fires at :00/:15/:30/:45). The "once a day" option now requires the user to select a specific time of day via a new `<input type="time">` field; that picker appears only when the 24 h interval is selected, and defaults to 09:00. A new storage key `gsAutoBackupTime` persists the chosen time. Implemented in `gsBackup.scheduleBackup()` using `chrome.alarms` `when` parameter instead of `delayInMinutes`. New locale keys: `html_options_backup_daily_time` (en + it).
@@ -81,7 +117,7 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 ### Meta
 - Branch rebased onto `feature/visual-redesign` (2026-06-24), which was itself rebased onto `master` to incorporate v8.1.5 (#374 Edge tab group bug fix in `background.js`/`gsSession.js`, #376 tab recovery for non-suspended tabs). No conflicts on our session-backup-specific files.
 
-## [Unreleased] — feature/visual-redesign
+## [9.0.0] — 2026-06-24 (visual redesign)
 
 ### Added
 - `CHANGELOG.md` to track the visual redesign initiative.

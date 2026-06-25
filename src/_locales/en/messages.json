@@ -975,5 +975,45 @@
   },
   "html_history_migrate_nav": {
     "message": "Migrate"
+  },
+  "html_backup_restore_title": {
+    "message": "Restore from backup"
+  },
+  "html_backup_restore_desc": {
+    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+  },
+  "html_backup_restore_local_title": {
+    "message": "Local file"
+  },
+  "html_backup_restore_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_restore_from_file": {
+    "message": "Choose backup file…"
+  },
+  "html_backup_restore_drive_select_label": {
+    "message": "Select a Drive backup"
+  },
+  "html_backup_restore_import": {
+    "message": "Import selected"
+  },
+  "js_backup_restore_importing": {
+    "message": "Importing…"
+  },
+  "js_backup_restore_success": {
+    "message": "Imported as \"$name$\".",
+    "placeholders": { "name": { "content": "$1" } }
+  },
+  "js_backup_restore_go_sessions": {
+    "message": "→ Open Sessions to restore"
+  },
+  "js_backup_restore_error_invalid": {
+    "message": "Invalid backup file."
+  },
+  "js_backup_restore_error_drive": {
+    "message": "Could not download from Drive. Check your connection and try again."
+  },
+  "js_backup_restore_error_generic": {
+    "message": "Import failed. Please try again."
   }
 }
