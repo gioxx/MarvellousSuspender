@@ -198,6 +198,12 @@
   "html_about_the_github_issues_page": {
     "message": "GitHub issues page"
   },
+  "html_about_section_support": {
+    "message": "Support development"
+  },
+  "html_about_support_text": {
+    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+  },
   "html_broken_title": {
     "message": "is broken"
   },
