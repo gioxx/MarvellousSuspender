@@ -407,6 +407,52 @@ a.active {
   background-color: color-mix(in oklch, var(--primary) 8%, transparent);
 }
 
+.donateBar {
+  margin-top: var(--space-16);
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.donateBar a {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.45;
+  transition: opacity var(--duration-fast);
+  text-decoration: none;
+}
+
+.donateBar a:hover {
+  opacity: 1;
+}
+
+.donateBar img {
+  width: 16px;
+  height: 16px;
+  display: block;
+  border-radius: 2px;
+}
+
+.donateBar-badge {
+  position: relative;
+  display: inline-flex;
+}
+
+.donateBar-heart {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 9px;
+  height: 9px;
+  fill: none;
+  stroke: var(--destructive);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
 .content {
   grid-area: m;
   font-size: var(--text-base);
