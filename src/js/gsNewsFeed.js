@@ -59,6 +59,13 @@ const gsNewsFeed = (() => {
     return data[CACHE_KEY] ?? { items: [], seenIds: [], fetchedAt: 0 };
   }
 
+  async function markSeen(link) {
+    const feed    = await getCachedFeed();
+    const seenIds = new Set(feed.seenIds ?? []);
+    seenIds.add(link);
+    await chrome.storage.local.set({ [CACHE_KEY]: { ...feed, seenIds: [...seenIds] } });
+  }
+
   async function markAllSeen() {
     const feed    = await getCachedFeed();
     const seenIds = feed.items.map(i => i.link);
@@ -94,7 +101,7 @@ const gsNewsFeed = (() => {
     chrome.alarms.create(ALARM_NAME, { when, periodInMinutes: 1440 });
   }
 
-  return { ALARM_NAME, fetchAndCache, fetchAndCacheIfStale, getCachedFeed, markAllSeen, hasUnread, syncAlarm };
+  return { ALARM_NAME, fetchAndCache, fetchAndCacheIfStale, getCachedFeed, markSeen, markAllSeen, hasUnread, syncAlarm };
 })();
 
 export { gsNewsFeed };

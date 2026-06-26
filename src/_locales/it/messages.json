@@ -609,6 +609,12 @@
   "html_news_empty": {
     "message": "Nessuna novità per ora. Riprova più tardi!"
   },
+  "html_news_new_pill": {
+    "message": "NUOVO"
+  },
+  "html_news_mark_all_read": {
+    "message": "Segna tutti come letti"
+  },
   "html_backup_page_title": {
     "message": "Backup e ripristino"
   },
