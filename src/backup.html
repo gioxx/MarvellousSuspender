@@ -54,7 +54,7 @@
         <a href="shortcuts.html" data-i18n="__MSG_html_sidebar_shortcuts__"></a>
       </li>
       <li>
-        <a href="news.html" data-i18n="__MSG_html_sidebar_news__">
+        <a href="news.html"><span data-i18n="__MSG_html_sidebar_news__"></span>
           <span class="navBadge reallyHidden" id="navNewsBadge" aria-label="Unread news"></span>
         </a>
       </li>
@@ -65,20 +65,6 @@
   </nav>
 
   <div class="content">
-
-    <div class="sub-section noIncognito" id="section-settings">
-      <p class="pageTitle" data-i18n="__MSG_html_options_settings_backup__"></p>
-      <p class="sectionDesc" data-i18n="__MSG_html_backup_settings_desc__"></p>
-      <div class="formRow settingsBackupRow">
-        <div class="settingsBackupBtns">
-          <button id="exportSettingsBtn" class="btn btnNeg" data-i18n="__MSG_html_options_settings_export__"></button>
-          <button id="importSettingsBtn" class="btn btnNeg" data-i18n="__MSG_html_options_settings_import__"></button>
-          <button id="driveSettingsBackupBtn" class="btn btnNeg hidden" data-i18n="__MSG_html_backup_drive_save_settings__"></button>
-          <input type="file" id="importSettingsFile" class="fileInputHidden" accept=".json">
-        </div>
-        <span id="settingsImportStatus" class="settingsImportStatus" aria-live="polite"></span>
-      </div>
-    </div>
 
     <div class="sub-section noIncognito" id="section-session">
       <p class="pageTitle" data-i18n="__MSG_html_options_backup_title__"></p>
@@ -202,6 +188,33 @@ __MSG_html_options_backup_enable_tooltip_line2__">
       </div>
 
       <div id="restoreStatusBar" class="restoreStatusBar" aria-live="polite"></div>
+    </div>
+
+    <div class="sub-section noIncognito" id="section-settings">
+      <p class="pageTitle" data-i18n="__MSG_html_options_settings_backup__"></p>
+      <p class="sectionDesc" data-i18n="__MSG_html_backup_settings_desc__"></p>
+
+      <div class="restoreActions" id="settingsActions">
+
+        <div class="restoreCard" id="settingsLocalCard">
+          <p class="restoreCardTitle" data-i18n="__MSG_html_backup_settings_local_title__"></p>
+          <button id="exportSettingsBtn" class="btn btnNeg" data-i18n="__MSG_html_options_settings_export__"></button>
+          <button id="importSettingsBtn" class="btn btnNeg" data-i18n="__MSG_html_options_settings_import__"></button>
+          <input type="file" id="importSettingsFile" class="fileInputHidden" accept=".json">
+        </div>
+
+        <div class="restoreCard hidden" id="settingsDriveCard">
+          <div class="restoreCardHeader">
+            <p class="restoreCardTitle" data-i18n="__MSG_html_backup_settings_drive_title__"></p>
+            <span id="settingsDriveBackupDate" class="settingsDriveBackupDate hidden" aria-live="polite"></span>
+          </div>
+          <button id="driveSettingsBackupBtn" class="btn btnNeg" data-i18n="__MSG_html_backup_drive_save_settings__"></button>
+          <button id="driveSettingsRestoreBtn" class="btn btnNeg" data-i18n="__MSG_html_backup_settings_drive_restore__"></button>
+        </div>
+
+      </div>
+
+      <div id="settingsStatusBar" class="restoreStatusBar" aria-live="polite"></div>
     </div>
 
   </div>

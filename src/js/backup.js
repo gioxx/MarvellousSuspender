@@ -106,21 +106,6 @@ import  { gsUtils }    from './gsUtils.js';
     const localEl = document.getElementById('localFolderInfo');
     if (driveEl) driveEl.style.display = isDrive ? 'block' : 'none';
     if (localEl) localEl.style.display = isDrive ? 'none' : 'block';
-    if (!isDrive) {
-      const btn = document.getElementById('driveSettingsBackupBtn');
-      if (btn) btn.classList.add('hidden');
-    }
-  }
-
-  async function updateDriveSettingsBackupBtn(isConnected) {
-    const destination = await gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION);
-    const btn         = document.getElementById('driveSettingsBackupBtn');
-    if (!btn) return;
-    if (destination === 'drive' && isConnected) {
-      btn.classList.remove('hidden');
-    } else {
-      btn.classList.add('hidden');
-    }
   }
 
   let savedTimer = null;
@@ -149,8 +134,11 @@ import  { gsUtils }    from './gsUtils.js';
     }
 
     const user = await gsBackup.getDriveUserInfo();
-    const driveCard    = document.getElementById('restoreDriveCard');
+    const driveCard      = document.getElementById('restoreDriveCard');
     const restoreActions = document.getElementById('restoreActions');
+    const settingsDriveCard = document.getElementById('settingsDriveCard');
+    const settingsActions   = document.getElementById('settingsActions');
+
     if (user && user.emailAddress) {
       if (nameEl)  nameEl.textContent  = user.displayName || '';
       emailEl.textContent          = user.emailAddress;
@@ -165,7 +153,21 @@ import  { gsUtils }    from './gsUtils.js';
           folderLink.classList.remove('hidden');
         }
       }
-      await updateDriveSettingsBackupBtn(true);
+
+      // Show Drive settings card whenever Drive is connected
+      settingsDriveCard?.classList.remove('hidden');
+      settingsActions?.classList.add('has-drive-card');
+
+      // Show date of last settings backup on Drive, if file exists
+      try {
+        const info    = await gsBackup.getDriveSettingsInfo();
+        const dateEl  = document.getElementById('settingsDriveBackupDate');
+        if (dateEl && info?.modifiedTime) {
+          const d = new Date(info.modifiedTime);
+          dateEl.textContent = chrome.i18n.getMessage('js_backup_settings_drive_last_backup', [d.toLocaleString()]);
+          dateEl.classList.remove('hidden');
+        }
+      } catch (_) { /* silently skip if Drive unavailable */ }
 
       try {
         const files = await gsBackup.listDriveBackups();
@@ -193,7 +195,10 @@ import  { gsUtils }    from './gsUtils.js';
       disconnectedEl.style.display = 'flex';
       const folderLink = document.getElementById('driveFolderLink');
       if (folderLink) folderLink.classList.add('hidden');
-      await updateDriveSettingsBackupBtn(false);
+
+      settingsDriveCard?.classList.add('hidden');
+      settingsActions?.classList.remove('has-drive-card');
+      document.getElementById('settingsDriveBackupDate')?.classList.add('hidden');
       driveCard?.classList.add('hidden');
       restoreActions?.classList.remove('has-drive-card');
     }
@@ -277,6 +282,39 @@ import  { gsUtils }    from './gsUtils.js';
     return [oldValue, newValue];
   }
 
+  // ── Settings import/restore shared logic ──────────────────────────────────
+
+  function showSettingsStatus(msgKey, clearAfterMs) {
+    const bar = document.getElementById('settingsStatusBar');
+    if (!bar) return;
+    bar.textContent = msgKey ? chrome.i18n.getMessage(msgKey) : '';
+    if (clearAfterMs) setTimeout(() => { bar.textContent = ''; }, clearAfterMs);
+  }
+
+  // Returns true if settings were applied, false if user cancelled.
+  async function applySettingsJson(jsonText) {
+    const imported  = JSON.parse(jsonText); // throws on invalid JSON
+    const defaults  = gsStorage.getSettingsDefaults();
+    const knownKeys = Object.keys(defaults);
+
+    if (!imported || typeof imported !== 'object' || !knownKeys.some(k => Object.prototype.hasOwnProperty.call(imported, k))) {
+      throw new Error('invalid');
+    }
+
+    if (!confirm(chrome.i18n.getMessage('js_options_settings_import_confirm'))) return false;
+
+    const merged = { ...defaults };
+    for (const key of knownKeys) {
+      if (Object.prototype.hasOwnProperty.call(imported, key)) {
+        merged[key] = imported[key];
+      }
+    }
+
+    await gsStorage.saveSettings(merged);
+    await gsStorage.syncSettings();
+    return true;
+  }
+
 
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(() => {
     gsUtils.initSelectArrows(document);
@@ -330,17 +368,55 @@ import  { gsUtils }    from './gsUtils.js';
 
     // Drive: save settings to Drive
     document.getElementById('driveSettingsBackupBtn').addEventListener('click', async () => {
-      const statusEl = document.getElementById('settingsImportStatus');
-      statusEl.textContent = chrome.i18n.getMessage('js_backup_drive_settings_saving');
+      // Option A: if a backup already exists, confirm before overwriting
+      const existing = await gsBackup.getDriveSettingsInfo();
+      if (existing) {
+        const dateStr = new Date(existing.modifiedTime).toLocaleString();
+        const msg     = chrome.i18n.getMessage('js_backup_settings_drive_overwrite_confirm', [dateStr]) ||
+                        `Existing settings backup from ${dateStr}. Overwrite?`;
+        if (!confirm(msg)) return;
+      }
+      showSettingsStatus('js_backup_drive_settings_saving');
       try {
         const settings = await gsStorage.getSettings();
         const json     = JSON.stringify(settings, null, 2);
         await gsBackup.performDriveSettingsBackup(json);
-        statusEl.textContent = chrome.i18n.getMessage('js_backup_drive_settings_saved');
+        // Refresh date badge after successful save
+        const updated = await gsBackup.getDriveSettingsInfo();
+        const dateEl  = document.getElementById('settingsDriveBackupDate');
+        if (dateEl && updated) {
+          dateEl.textContent = chrome.i18n.getMessage('js_backup_settings_drive_last_backup', [
+            new Date(updated.modifiedTime).toLocaleString(),
+          ]);
+          dateEl.classList.remove('hidden');
+        }
+        showSettingsStatus('js_backup_drive_settings_saved', 4000);
       } catch (e) {
-        statusEl.textContent = chrome.i18n.getMessage('js_backup_drive_settings_error');
+        showSettingsStatus('js_backup_drive_settings_error', 4000);
       }
-      setTimeout(() => { statusEl.textContent = ''; }, 4000);
+    });
+
+    // Drive: restore settings from Drive
+    document.getElementById('driveSettingsRestoreBtn').addEventListener('click', async () => {
+      showSettingsStatus('js_backup_settings_drive_downloading');
+      try {
+        const json    = await gsBackup.downloadDriveSettingsContent();
+        const applied = await applySettingsJson(json);
+        if (applied) {
+          showSettingsStatus('js_backup_settings_drive_restore_success');
+          setTimeout(() => window.location.reload(), 1500);
+        } else {
+          showSettingsStatus(null);
+        }
+      } catch (e) {
+        if (e?.message === 'TMS_SETTINGS_NOT_FOUND') {
+          showSettingsStatus('js_backup_settings_drive_not_found', 5000);
+        } else if (e?.message === 'invalid') {
+          showSettingsStatus('js_options_settings_import_error', 5000);
+        } else {
+          showSettingsStatus('js_backup_settings_drive_restore_error', 5000);
+        }
+      }
     });
 
     // Drive: connect button
@@ -382,13 +458,12 @@ import  { gsUtils }    from './gsUtils.js';
       URL.revokeObjectURL(url);
     });
 
-    // Import settings
+    // Import settings from local file
     document.getElementById('importSettingsBtn').addEventListener('click', () => {
       document.getElementById('importSettingsFile').click();
     });
 
     document.getElementById('importSettingsFile').addEventListener('change', async (e) => {
-      const statusEl = document.getElementById('settingsImportStatus');
       const file = e.target.files[0];
       if (!file) return;
       e.target.value = '';
@@ -396,36 +471,21 @@ import  { gsUtils }    from './gsUtils.js';
       const reader = new FileReader();
       reader.onload = async (ev) => {
         try {
-          const imported  = JSON.parse(ev.target.result);
-          const defaults  = gsStorage.getSettingsDefaults();
-          const knownKeys = Object.keys(defaults);
-
-          if (!imported || typeof imported !== 'object' || !knownKeys.some(k => Object.prototype.hasOwnProperty.call(imported, k))) {
-            throw new Error('invalid');
+          const applied = await applySettingsJson(ev.target.result);
+          if (applied) {
+            showSettingsStatus('js_options_settings_import_success');
+            setTimeout(() => window.location.reload(), 1500);
+          } else {
+            showSettingsStatus(null);
           }
-
-          if (!confirm(chrome.i18n.getMessage('js_options_settings_import_confirm'))) return;
-
-          const merged = { ...defaults };
-          for (const key of knownKeys) {
-            if (Object.prototype.hasOwnProperty.call(imported, key)) {
-              merged[key] = imported[key];
-            }
-          }
-
-          await gsStorage.saveSettings(merged);
-          await gsStorage.syncSettings();
-          statusEl.textContent = chrome.i18n.getMessage('js_options_settings_import_success');
-          setTimeout(() => window.location.reload(), 1500);
         } catch (_) {
-          statusEl.textContent = chrome.i18n.getMessage('js_options_settings_import_error');
-          setTimeout(() => { statusEl.textContent = ''; }, 5000);
+          showSettingsStatus('js_options_settings_import_error', 5000);
         }
       };
       reader.readAsText(file);
     });
 
-    // ── Restore from backup ─────────────────────────────────────────────────
+    // ── Restore session from backup ─────────────────────────────────────────
 
     function showRestoreStatus(node) {
       const bar = document.getElementById('restoreStatusBar');
@@ -466,7 +526,7 @@ import  { gsUtils }    from './gsUtils.js';
       }
     }
 
-    // Restore from local file
+    // Restore session from local file
     document.getElementById('restoreFromFileBtn').addEventListener('click', () => {
       document.getElementById('restoreFile').click();
     });
@@ -480,7 +540,7 @@ import  { gsUtils }    from './gsUtils.js';
       reader.readAsText(file);
     });
 
-    // Restore from Drive
+    // Restore session from Drive
     document.getElementById('importDriveBackupBtn').addEventListener('click', async () => {
       const sel    = document.getElementById('driveBackupsSelect');
       const fileId = sel.value;

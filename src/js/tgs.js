@@ -368,12 +368,17 @@ export const tgs = (function() {
 
   function unsuspendWhitelistedTabs() {
     chrome.windows.getLastFocused({}, (currentWindow) => {
+      gsUtils.log('tgs', 'unsuspendWhitelistedTabs currentWindow', currentWindow && currentWindow.id);
       chrome.tabs.query({}, async (tabs) => {
+        const whitelist = await gsStorage.getOption(gsStorage.WHITELIST);
+        gsUtils.log('tgs', 'unsuspendWhitelistedTabs tabs total', tabs.length, 'whitelist', JSON.stringify(whitelist));
         var deferredTabs = [];
         for (const tab of tabs) {
           if (!gsUtils.isSuspendedTab(tab)) continue;
           const originalUrl = gsUtils.getOriginalUrl(tab.url);
-          if (!originalUrl || !(await gsUtils.checkWhiteList(originalUrl))) continue;
+          const isWhitelisted = originalUrl ? gsUtils.checkSpecificWhiteList(originalUrl, whitelist) : false;
+          gsUtils.log(tab.id, 'unsuspendWhitelistedTabs check', originalUrl, 'whitelisted:', isWhitelisted);
+          if (!originalUrl || !isWhitelisted) continue;
           gsTabSuspendManager.unqueueTabForSuspension(tab);
           if (tab.windowId === currentWindow.id) {
             deferredTabs.push(tab);
@@ -381,6 +386,7 @@ export const tgs = (function() {
             await unsuspendTab(tab);
           }
         }
+        gsUtils.log('tgs', 'unsuspendWhitelistedTabs deferred', deferredTabs.length);
         for (const tab of deferredTabs) {
           await unsuspendTab(tab);
         }

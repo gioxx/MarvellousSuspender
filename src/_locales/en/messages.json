@@ -970,8 +970,17 @@
   "html_backup_drive_label_folder": {
     "message": "Folder"
   },
+  "html_backup_settings_local_title": {
+    "message": "Local"
+  },
+  "html_backup_settings_drive_title": {
+    "message": "Google Drive"
+  },
   "html_backup_drive_save_settings": {
     "message": "Save settings to Drive"
+  },
+  "html_backup_settings_drive_restore": {
+    "message": "Restore settings from Drive"
   },
   "js_backup_drive_settings_saving": {
     "message": "Saving to Drive…"
@@ -981,6 +990,26 @@
   },
   "js_backup_drive_settings_error": {
     "message": "Could not save settings to Drive. Please try again."
+  },
+  "js_backup_settings_drive_downloading": {
+    "message": "Downloading settings from Drive…"
+  },
+  "js_backup_settings_drive_not_found": {
+    "message": "No settings file found on Drive. Save your settings to Drive first."
+  },
+  "js_backup_settings_drive_restore_success": {
+    "message": "Settings restored. Reloading…"
+  },
+  "js_backup_settings_drive_restore_error": {
+    "message": "Could not restore settings from Drive. Please try again."
+  },
+  "js_backup_settings_drive_last_backup": {
+    "message": "Last backup: $date$",
+    "placeholders": { "date": { "content": "$1" } }
+  },
+  "js_backup_settings_drive_overwrite_confirm": {
+    "message": "Existing settings backup from $date$. Overwrite?",
+    "placeholders": { "date": { "content": "$1" } }
   },
   "html_options_settings_export": {
     "message": "Export settings"

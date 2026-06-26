@@ -2,6 +2,7 @@
 import  { gsChrome }              from './gsChrome.js';
 import  { gsFavicon }             from './gsFavicon.js';
 import  { gsMessages }            from './gsMessages.js';
+import  { gsNewsFeed }            from './gsNewsFeed.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
@@ -258,6 +259,40 @@ import  { tgs }                   from './tgs.js';
     await gsStorage.setOptionAndSync(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND, newVal);
   }
 
+  // ── News feed ────────────────────────────────────────────────────────────────────────────
+
+  async function renderNewsFeedStatus() {
+    const feed        = await gsNewsFeed.getCachedFeed();
+    const alarm       = await chrome.alarms.get(gsNewsFeed.ALARM_NAME);
+    const offsetData  = await chrome.storage.local.get('tmsNewsFeedMinuteOffset');
+    const lastFetchEl = document.getElementById('newsFeedLastFetch');
+    const unreadEl    = document.getElementById('newsFeedUnread');
+    const nextRunEl   = document.getElementById('newsFeedNextRun');
+    const jitterEl    = document.getElementById('newsFeedJitter');
+    lastFetchEl.textContent = feed.fetchedAt ? new Date(feed.fetchedAt).toLocaleString() : 'never';
+    const unreadCount = feed.items.filter(i => !(feed.seenIds ?? []).includes(i.link)).length;
+    unreadEl.textContent  = `${unreadCount} / ${feed.items.length}`;
+    nextRunEl.textContent = alarm ? new Date(alarm.scheduledTime).toLocaleString() : 'not scheduled';
+    const offset = offsetData['tmsNewsFeedMinuteOffset'];
+    if (typeof offset === 'number') {
+      const h = String(Math.floor(offset / 60)).padStart(2, '0');
+      const m = String(offset % 60).padStart(2, '0');
+      jitterEl.textContent = `daily at ${h}:${m} local`;
+    } else {
+      jitterEl.textContent = 'not yet assigned';
+    }
+  }
+
+  async function onForceNewsFeedRefresh(e) {
+    e.preventDefault();
+    const link = document.getElementById('forceNewsFeedRefresh');
+    link.textContent = 'refreshing…';
+    await gsNewsFeed.fetchAndCache();
+    await renderNewsFeedStatus();
+    link.textContent = 'done!';
+    setTimeout(() => { link.textContent = 'force refresh'; }, 2000);
+  }
+
   // ── Claim suspended tabs ─────────────────────────────────────────────────────────────────
 
   async function onClaimSuspendedTabs(e) {
@@ -280,12 +315,19 @@ import  { tgs }                   from './tgs.js';
 
     await renderCaptureToggle();
     await renderDiscardToggle();
+    await renderNewsFeedStatus();
     await refreshLogs();
     await fetchTabInfo();
 
     document.getElementById('toggleCaptureLogs').addEventListener('click', onToggleCaptureLogs);
     document.getElementById('toggleDiscardInPlaceOfSuspend').addEventListener('click', onToggleDiscard);
     document.getElementById('claimSuspendedTabs').addEventListener('click', onClaimSuspendedTabs);
+    const feedRefreshLink = document.getElementById('forceNewsFeedRefresh');
+    if (chrome.runtime.getManifest().update_url) {
+      feedRefreshLink.classList.add('reallyHidden');
+    } else {
+      feedRefreshLink.addEventListener('click', onForceNewsFeedRefresh);
+    }
 
     document.getElementById('btnRefreshLogs').addEventListener('click', refreshLogs);
 

@@ -970,8 +970,17 @@
   "html_backup_drive_label_folder": {
     "message": "Cartella"
   },
+  "html_backup_settings_local_title": {
+    "message": "Locale"
+  },
+  "html_backup_settings_drive_title": {
+    "message": "Google Drive"
+  },
   "html_backup_drive_save_settings": {
     "message": "Salva impostazioni su Drive"
+  },
+  "html_backup_settings_drive_restore": {
+    "message": "Ripristina impostazioni da Drive"
   },
   "js_backup_drive_settings_saving": {
     "message": "Salvataggio su Drive in corso…"
@@ -981,6 +990,26 @@
   },
   "js_backup_drive_settings_error": {
     "message": "Impossibile salvare le impostazioni su Drive. Riprova."
+  },
+  "js_backup_settings_drive_downloading": {
+    "message": "Download impostazioni da Drive in corso…"
+  },
+  "js_backup_settings_drive_not_found": {
+    "message": "Nessun file impostazioni trovato su Drive. Salva prima le impostazioni su Drive."
+  },
+  "js_backup_settings_drive_restore_success": {
+    "message": "Impostazioni ripristinate. Ricaricamento in corso…"
+  },
+  "js_backup_settings_drive_restore_error": {
+    "message": "Impossibile ripristinare le impostazioni da Drive. Riprova."
+  },
+  "js_backup_settings_drive_last_backup": {
+    "message": "Ultimo backup: $date$",
+    "placeholders": { "date": { "content": "$1" } }
+  },
+  "js_backup_settings_drive_overwrite_confirm": {
+    "message": "Esiste già un backup delle impostazioni del $date$. Sovrascrivere?",
+    "placeholders": { "date": { "content": "$1" } }
   },
   "html_options_settings_export": {
     "message": "Esporta impostazioni"
