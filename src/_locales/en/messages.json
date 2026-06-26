@@ -609,6 +609,12 @@
   "html_news_empty": {
     "message": "No news yet. Check back soon!"
   },
+  "html_news_new_pill": {
+    "message": "NEW"
+  },
+  "html_news_mark_all_read": {
+    "message": "Mark all as read"
+  },
   "html_backup_page_title": {
     "message": "Backup & Restore"
   },

@@ -1279,6 +1279,38 @@ body.dark span.group.edge.orange { background: #df8e64; }
   line-height: 1.55;
 }
 
+.newsCard--unread {
+  border-left: 3px solid var(--primary);
+  padding-left: calc(var(--space-5) - 2px);
+}
+
+.newsCard__newPill {
+  display: inline-block;
+  font-size: var(--text-2xs);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border-radius: var(--radius-full);
+  padding: 0 var(--space-2);
+  margin-right: var(--space-2);
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+
+.newsActions {
+  min-height: 1.5rem;
+  margin-bottom: var(--space-3);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.newsMarkAllRead {
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  color: var(--muted-foreground);
+}
+
 /* ── about.html ─────────────────────────────────────────────────────────── */
 
 .aboutIllustration {

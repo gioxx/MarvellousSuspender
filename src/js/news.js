@@ -5,20 +5,32 @@ import  { gsUtils }      from './gsUtils.js';
 (() => {
   'use strict';
 
-  function createCard(item) {
+  function createCard(item, isUnread) {
     const card = document.createElement('article');
-    card.className = 'newsCard';
+    card.className = 'newsCard' + (isUnread ? ' newsCard--unread' : '');
+    card.dataset.link = item.link;
+
+    const meta = document.createElement('div');
+    meta.className = 'newsCard__meta';
+
+    if (isUnread) {
+      const pill = document.createElement('span');
+      pill.className = 'newsCard__newPill';
+      pill.textContent = gsUtils.getMessage('html_news_new_pill') || 'NEW';
+      meta.appendChild(pill);
+    }
 
     if (item.pubDate) {
-      const meta = document.createElement('div');
-      meta.className = 'newsCard__meta';
+      const dateSpan = document.createElement('span');
       try {
-        meta.textContent = new Date(item.pubDate).toLocaleDateString();
+        dateSpan.textContent = new Date(item.pubDate).toLocaleDateString();
       } catch (_e) {
-        meta.textContent = item.pubDate;
+        dateSpan.textContent = item.pubDate;
       }
-      card.appendChild(meta);
+      meta.appendChild(dateSpan);
     }
+
+    card.appendChild(meta);
 
     const h2   = document.createElement('h2');
     h2.className = 'newsCard__title';
@@ -40,11 +52,16 @@ import  { gsUtils }      from './gsUtils.js';
     return card;
   }
 
+  function updateMarkAllVisibility(listEl) {
+    const hasUnread = listEl.querySelector('.newsCard--unread') !== null;
+    document.getElementById('newsMarkAllRead').classList.toggle('reallyHidden', !hasUnread);
+  }
+
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(async () => {
 
     if (chrome.extension.inIncognitoContext) {
       for (const el of document.getElementsByClassName('noIncognito')) {
-        el.style.display = 'none';
+        el.classList.add('hidden');
       }
     }
 
@@ -60,24 +77,43 @@ import  { gsUtils }      from './gsUtils.js';
     const loadingEl = document.getElementById('newsFeedLoading');
     const emptyEl   = document.getElementById('newsFeedEmpty');
 
-    // fetch directly from this page (CSP allows kb.marvellouscode.works)
     await gsNewsFeed.fetchAndCacheIfStale();
 
-    const feed = await gsNewsFeed.getCachedFeed();
+    const feed    = await gsNewsFeed.getCachedFeed();
+    const seenIds = new Set(feed.seenIds ?? []);
     loadingEl.classList.add('reallyHidden');
 
     if (!feed.items.length) {
       emptyEl.classList.remove('reallyHidden');
     } else {
       for (const item of feed.items) {
-        listEl.appendChild(createCard(item));
+        const isUnread = !seenIds.has(item.link);
+        const card     = createCard(item, isUnread);
+
+        card.querySelector('a').addEventListener('click', async () => {
+          if (card.classList.contains('newsCard--unread')) {
+            card.classList.remove('newsCard--unread');
+            card.querySelector('.newsCard__newPill')?.remove();
+            await gsNewsFeed.markSeen(item.link);
+            updateMarkAllVisibility(listEl);
+          }
+        });
+
+        listEl.appendChild(card);
       }
       listEl.classList.remove('reallyHidden');
+      updateMarkAllVisibility(listEl);
     }
 
-    await gsNewsFeed.markAllSeen();
-    const badge = document.getElementById('navNewsBadge');
-    if (badge) badge.classList.add('reallyHidden');
+    document.getElementById('newsMarkAllRead').addEventListener('click', async (e) => {
+      e.preventDefault();
+      for (const card of listEl.querySelectorAll('.newsCard--unread')) {
+        card.classList.remove('newsCard--unread');
+        card.querySelector('.newsCard__newPill')?.remove();
+      }
+      document.getElementById('newsMarkAllRead').classList.add('reallyHidden');
+      await gsNewsFeed.markAllSeen();
+    });
 
   });
 
