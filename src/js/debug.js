@@ -293,6 +293,19 @@ import  { tgs }                   from './tgs.js';
     setTimeout(() => { link.textContent = 'force refresh'; }, 2000);
   }
 
+  async function onSimulateUnread(e) {
+    e.preventDefault();
+    const feed = await gsNewsFeed.getCachedFeed();
+    if (!feed.items.length) return;
+    const latest  = feed.items[0];
+    const seenIds = (feed.seenIds ?? []).filter(id => id !== latest.link);
+    await chrome.storage.local.set({ tmsNewsFeed: { ...feed, seenIds } });
+    await renderNewsFeedStatus();
+    const link = document.getElementById('simulateUnread');
+    link.textContent = 'done!';
+    setTimeout(() => { link.textContent = 'simulate unread'; }, 2000);
+  }
+
   // ── Claim suspended tabs ─────────────────────────────────────────────────────────────────
 
   async function onClaimSuspendedTabs(e) {
@@ -322,11 +335,16 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('toggleCaptureLogs').addEventListener('click', onToggleCaptureLogs);
     document.getElementById('toggleDiscardInPlaceOfSuspend').addEventListener('click', onToggleDiscard);
     document.getElementById('claimSuspendedTabs').addEventListener('click', onClaimSuspendedTabs);
+    const isStoreInstall = !!chrome.runtime.getManifest().update_url;
     const feedRefreshLink = document.getElementById('forceNewsFeedRefresh');
-    if (chrome.runtime.getManifest().update_url) {
+    const simulateUnreadLink = document.getElementById('simulateUnread');
+    if (isStoreInstall) {
       feedRefreshLink.classList.add('reallyHidden');
+      // simulateUnread stays reallyHidden (already set in HTML)
     } else {
       feedRefreshLink.addEventListener('click', onForceNewsFeedRefresh);
+      simulateUnreadLink.classList.remove('reallyHidden');
+      simulateUnreadLink.addEventListener('click', onSimulateUnread);
     }
 
     document.getElementById('btnRefreshLogs').addEventListener('click', refreshLogs);
