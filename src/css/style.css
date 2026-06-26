@@ -1196,13 +1196,31 @@ body.dark span.group.edge.orange { background: #df8e64; }
 
 .navBadge {
   display: inline-block;
-  width: 7px;
-  height: 7px;
+  position: relative;
+  width: 8px;
+  height: 8px;
   background: var(--destructive, oklch(0.55 0.22 27));
   border-radius: var(--radius-full);
   margin-left: var(--space-2);
   vertical-align: middle;
+  position: relative;
+  top: -1px;
   flex-shrink: 0;
+}
+
+.navBadge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--destructive, oklch(0.55 0.22 27));
+  animation: navBadgePing 1.8s ease-out infinite;
+}
+
+@keyframes navBadgePing {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  80%  { transform: scale(2.6); opacity: 0; }
+  100% { transform: scale(2.6); opacity: 0; }
 }
 
 .navBadge.reallyHidden {

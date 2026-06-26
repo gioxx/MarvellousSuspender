@@ -217,39 +217,27 @@ export const gsBackup = (() => {
     const folderId = await getOrCreateDriveFolder(token);
     const filename = 'tms-settings.json';
 
-    const q      = `'${folderId}' in parents and name='${filename}' and trashed=false`;
-    const search = await fetch(`${DRIVE_API}/files?q=${encodeURIComponent(q)}&fields=files(id)`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const { files } = await search.json();
-    const existing  = files && files[0];
+    const existing = await _findDriveSettingsFile(token, folderId);
 
     if (existing) {
-      const res = await fetch(`${DRIVE_UPLOAD_API}/files/${existing.id}?uploadType=media`, {
-        method  : 'PATCH',
-        headers : { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-        body    : jsonString,
-      });
-      if (!res.ok) throw new Error(`Drive settings update failed: ${res.status}`);
-      const file = await res.json();
-      gsUtils.log('gsBackup', `Drive settings updated: ${filename} (id=${file.id})`);
-      return file.id;
-    } else {
-      const metadata = JSON.stringify({ name: filename, parents: [folderId] });
-      const form     = new FormData();
-      form.append('metadata', new Blob([metadata], { type: 'application/json' }));
-      form.append('file', new Blob([jsonString], { type: 'application/json' }));
-
-      const res = await fetch(`${DRIVE_UPLOAD_API}/files?uploadType=multipart`, {
-        method  : 'POST',
-        headers : { Authorization: `Bearer ${token}` },
-        body    : form,
-      });
-      if (!res.ok) throw new Error(`Drive settings create failed: ${res.status}`);
-      const file = await res.json();
-      gsUtils.log('gsBackup', `Drive settings created: ${filename} (id=${file.id})`);
-      return file.id;
+      // Option B: silently copy current file to tms-settings-prev.json before overwriting
+      try {
+        const prevRes = await fetch(`${DRIVE_API}/files/${existing.id}?alt=media`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (prevRes.ok) {
+          const prevContent = await prevRes.text();
+          await _writeDriveFile(token, folderId, 'tms-settings-prev.json', prevContent);
+          gsUtils.log('gsBackup', 'Drive settings: previous copy saved to tms-settings-prev.json');
+        }
+      } catch (e) {
+        gsUtils.error('gsBackup', 'Drive settings: failed to save prev copy (continuing anyway):', e);
+      }
     }
+
+    const fileId = await _writeDriveFile(token, folderId, filename, jsonString);
+    gsUtils.log('gsBackup', `Drive settings written: ${filename} (id=${fileId})`);
+    return fileId;
   }
 
   // ─── public API ────────────────────────────────────────────────────────────
@@ -371,6 +359,65 @@ export const gsBackup = (() => {
     return await res.text();
   }
 
+  async function _findDriveSettingsFile(token, folderId) {
+    if (!folderId) folderId = await getOrCreateDriveFolder(token);
+    const q   = `'${folderId}' in parents and name='tms-settings.json' and trashed=false`;
+    const res = await fetch(`${DRIVE_API}/files?q=${encodeURIComponent(q)}&fields=files(id,modifiedTime)`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const { files } = await res.json();
+    return (files && files.length > 0) ? files[0] : null;
+  }
+
+  async function _writeDriveFile(token, folderId, filename, jsonString) {
+    const q      = `'${folderId}' in parents and name='${filename}' and trashed=false`;
+    const search = await fetch(`${DRIVE_API}/files?q=${encodeURIComponent(q)}&fields=files(id)`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const { files } = await search.json();
+    const existing  = files && files[0];
+
+    if (existing) {
+      const res = await fetch(`${DRIVE_UPLOAD_API}/files/${existing.id}?uploadType=media`, {
+        method  : 'PATCH',
+        headers : { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body    : jsonString,
+      });
+      if (!res.ok) throw new Error(`Drive file update failed (${filename}): ${res.status}`);
+      return (await res.json()).id;
+    } else {
+      const metadata = JSON.stringify({ name: filename, parents: [folderId] });
+      const form     = new FormData();
+      form.append('metadata', new Blob([metadata], { type: 'application/json' }));
+      form.append('file', new Blob([jsonString], { type: 'application/json' }));
+      const res = await fetch(`${DRIVE_UPLOAD_API}/files?uploadType=multipart`, {
+        method  : 'POST',
+        headers : { Authorization: `Bearer ${token}` },
+        body    : form,
+      });
+      if (!res.ok) throw new Error(`Drive file create failed (${filename}): ${res.status}`);
+      return (await res.json()).id;
+    }
+  }
+
+  async function getDriveSettingsInfo() {
+    let token;
+    try { token = await getAuthToken(false); } catch (_) { throw new Error('TMS_DRIVE_AUTH_MISSING'); }
+    return await _findDriveSettingsFile(token);
+  }
+
+  async function downloadDriveSettingsContent() {
+    let token;
+    try { token = await getAuthToken(false); } catch (_) { throw new Error('TMS_DRIVE_AUTH_MISSING'); }
+    const file = await _findDriveSettingsFile(token);
+    if (!file) throw new Error('TMS_SETTINGS_NOT_FOUND');
+    const download = await fetch(`${DRIVE_API}/files/${file.id}?alt=media`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!download.ok) throw new Error(`Drive settings download failed: ${download.status}`);
+    return await download.text();
+  }
+
   function _prettyNameFromSource(sourceName) {
     const m = sourceName.match(/tms-session-(\d{4}-\d{2}-\d{2})T(\d{2})-(\d{2})\.json$/);
     if (m) return `Backup ${m[1]} ${m[2]}:${m[3]}`;
@@ -430,6 +477,8 @@ export const gsBackup = (() => {
     performDriveSettingsBackup,
     listDriveBackups,
     downloadDriveBackupContent,
+    getDriveSettingsInfo,
+    downloadDriveSettingsContent,
     importBackupJson,
   };
 

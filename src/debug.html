@@ -60,12 +60,25 @@
           <div class="debugOptionCardHeader">
             <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
             <span class="debugOptionLabel">claim suspended tabs</span>
+            <a id='claimSuspendedTabs' href='#' class="debugToggle">run claim</a>
           </div>
           <p class="debugOptionDesc">
             Re-assigns suspended tabs that point to a different extension ID to this instance.
             Use after reinstalling or reloading the unpacked extension if suspended tabs show a broken page.
           </p>
-          <a id='claimSuspendedTabs' href='#' class="debugActionLink">Run claim</a>
+        </div>
+
+        <div class="debugOptionCard">
+          <div class="debugOptionCardHeader">
+            <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#rss"/></svg>
+            <span class="debugOptionLabel">news feed</span>
+            <a id='forceNewsFeedRefresh' href='#' class="debugToggle">force refresh</a>
+          </div>
+          <p class="debugOptionDesc">
+            Forces an immediate RSS fetch, bypassing the 24 h TTL cache.
+            Use to verify that newly published posts are picked up without waiting for the next scheduled refresh.<br>
+            Last fetched: <strong id="newsFeedLastFetch">—</strong> &mdash; unread: <strong id="newsFeedUnread">—</strong> &mdash; next run: <strong id="newsFeedNextRun">—</strong> &mdash; jitter: <strong id="newsFeedJitter">—</strong>
+          </p>
         </div>
 
       </div>

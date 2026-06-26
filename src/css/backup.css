@@ -289,6 +289,21 @@ input[type='time']:focus {
   display: block;
 }
 
+.restoreCardHeader {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.settingsDriveBackupDate {
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+}
+
+.settingsDriveBackupDate.hidden {
+  display: none;
+}
+
 .driveBackupPickerRow {
   display: flex;
   flex-wrap: wrap;

@@ -2,11 +2,14 @@
 const gsNewsFeed = (() => {
   'use strict';
 
-  const FEED_URL     = 'https://kb.marvellouscode.works/blog/rss.xml';
-  const CACHE_KEY    = 'tmsNewsFeed';
-  const ALARM_NAME   = 'tms-news-feed';
-  const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
-  const MAX_ITEMS    = 10;
+  const FEED_URL          = 'https://kb.marvellouscode.works/blog/rss.xml';
+  const CACHE_KEY         = 'tmsNewsFeed';
+  const OFFSET_KEY        = 'tmsNewsFeedMinuteOffset';
+  const ALARM_NAME        = 'tms-news-feed';
+  const CACHE_TTL_MS      = 24 * 60 * 60 * 1000;
+  const MAX_ITEMS         = 10;
+  const WINDOW_START_MIN  = 8 * 60;   // 08:00 local
+  const WINDOW_SIZE_MIN   = 12 * 60;  // window ends at 20:00 local
 
   function parseRssXml(text) {
     const parser = new DOMParser();
@@ -68,14 +71,27 @@ const gsNewsFeed = (() => {
     return feed.items.some(i => !(feed.seenIds ?? []).includes(i.link));
   }
 
-  async function syncAlarm() {
-    const existing = await chrome.alarms.get(ALARM_NAME);
-    if (!existing) {
-      chrome.alarms.create(ALARM_NAME, {
-        delayInMinutes: 1,
-        periodInMinutes: 360,
-      });
+  async function getMinuteOffset() {
+    const data   = await chrome.storage.local.get(OFFSET_KEY);
+    const stored = data[OFFSET_KEY];
+    // accept only values inside the current window; regenerate if stale/out-of-range
+    if (typeof stored === 'number' && stored >= WINDOW_START_MIN && stored < WINDOW_START_MIN + WINDOW_SIZE_MIN) {
+      return stored;
     }
+    const offset = WINDOW_START_MIN + Math.floor(Math.random() * WINDOW_SIZE_MIN);
+    await chrome.storage.local.set({ [OFFSET_KEY]: offset });
+    return offset;
+  }
+
+  async function syncAlarm() {
+    const offset   = await getMinuteOffset();
+    const offsetMs = offset * 60_000;
+    await chrome.alarms.clear(ALARM_NAME);
+    const midnight = new Date();
+    midnight.setHours(0, 0, 0, 0);
+    const fireTime = midnight.getTime() + offsetMs;
+    const when     = fireTime > Date.now() ? fireTime : fireTime + CACHE_TTL_MS;
+    chrome.alarms.create(ALARM_NAME, { when, periodInMinutes: 1440 });
   }
 
   return { ALARM_NAME, fetchAndCache, fetchAndCacheIfStale, getCachedFeed, markAllSeen, hasUnread, syncAlarm };
