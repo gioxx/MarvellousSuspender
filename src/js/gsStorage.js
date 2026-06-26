@@ -77,7 +77,7 @@ export const gsStorage = {
         chrome.storage.local.get(['gsSettings'], async (result) => {
 
           var rawLocalSettings = result.gsSettings;
-          if (typeof rawLocalSettings === 'string') {
+          if (typeof rawLocalSettings === 'string' && (rawLocalSettings[0] === '{' || rawLocalSettings[0] === '[' || rawLocalSettings[0] === '"')) {
             try {
               rawLocalSettings = JSON.parse(rawLocalSettings);
             } catch (e) {
@@ -240,7 +240,7 @@ export const gsStorage = {
   getStorage: async (store, name) => {
     const result = await chrome.storage[store].get([name]);
     let value = result[name];
-    if (typeof value === 'string') {
+    if (typeof value === 'string' && (value[0] === '{' || value[0] === '[' || value[0] === '"')) {
       try {
         value = JSON.parse(value);
       } catch (e) {
@@ -330,7 +330,7 @@ export const gsStorage = {
     return new Promise((resolve) => {
       chrome.storage.local.get([gsStorage.APP_VERSION], (result) => {
         var version = result[gsStorage.APP_VERSION];
-        if (typeof version === 'string') {
+        if (typeof version === 'string' && (version[0] === '{' || version[0] === '[' || version[0] === '"')) {
           try {
             version = JSON.parse(version);
           } catch (e) {
@@ -363,7 +363,7 @@ export const gsStorage = {
     return new Promise((resolve) => {
       chrome.storage.local.get([gsStorage.LAST_EXTENSION_RECOVERY], (result) => {
         var lastExtensionRecoveryTimestamp = result[gsStorage.LAST_EXTENSION_RECOVERY];
-        if (typeof lastExtensionRecoveryTimestamp === 'string') {
+        if (typeof lastExtensionRecoveryTimestamp === 'string' && (lastExtensionRecoveryTimestamp[0] === '{' || lastExtensionRecoveryTimestamp[0] === '[' || lastExtensionRecoveryTimestamp[0] === '"')) {
           try {
             lastExtensionRecoveryTimestamp = JSON.parse(lastExtensionRecoveryTimestamp);
           } catch (e) {
