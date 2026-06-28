@@ -127,10 +127,7 @@ import  { gsUtils }    from './gsUtils.js';
 
     const iconEl = document.getElementById('driveIcon');
     if (iconEl) {
-      const faviconUrl = new URL(chrome.runtime.getURL('/_favicon/'));
-      faviconUrl.searchParams.set('pageUrl', 'https://drive.google.com');
-      faviconUrl.searchParams.set('size', '32');
-      iconEl.src = faviconUrl.href;
+      iconEl.src = chrome.runtime.getURL('img/google-drive.png');
     }
 
     const user = await gsBackup.getDriveUserInfo();
