@@ -63,6 +63,9 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 - **News badge stale on open pages** (`gsNavBadge.js`): the badge was computed once at page load and never updated if storage changed while the page was open (e.g. after a background feed refresh). Replaced the one-shot read with a `chrome.storage.onChanged` listener so the badge appears or disappears in real time without requiring a page reload.
 - **News badge pulse animation and alignment** (`style.css`): the badge dot now emits a red ping animation (`::before` pseudo-element, scale 1→2.6, 1.8 s loop) to draw attention. Size increased from 7 px to 8 px; added `top: -1px` to correct vertical alignment with the sidebar text.
 
+### Changed
+- **Google Drive backup scope: `drive.file` → `drive.appdata`** (`manifest.json`, `gsBackup.js`): switched from the sensitive `drive.file` scope to `drive.appdata`, which stores backup files in a hidden app-specific folder not visible in the user's Drive UI. This eliminates the need for Google OAuth verification, making the Drive backup feature available to any Google account without restrictions. `getOrCreateDriveFolder()` removed — all Drive API calls now use `'appDataFolder'` as the parent directly. `getDriveFolderUrl()` returns `null` (no public folder URL exists for appdata). All file queries include `spaces=appDataFolder` as required by the Drive API.
+
 ---
 
 > **Rebase note (2026-06-25):** both `feature/session-backup` and `feature/visual-redesign` rebased onto `master` v8.1.6. Incorporated: CSP favicon fix for history page (`gsFavicon.js`, `historyItems.js`), `getDebugInfo` moved from `tgs.js` to `debug.js` with `promiseWithTimeout`, prevent extension tabs from being suspended (`gsUtils.js`).
