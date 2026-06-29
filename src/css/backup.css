@@ -75,6 +75,10 @@
   display: none;
 }
 
+#backupDeviceNameGroup {
+  margin-top: var(--space-4);
+}
+
 /* ── Time picker: below the config row, same width as the interval select ─── */
 
 #autoBackupTimeContainer {
@@ -118,12 +122,14 @@ input[type='number']:focus {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 .backupConfigAction .btn {
   height: auto;
   line-height: 1.2;
   padding-block: 10px;
+  min-width: 150px;
 }
 
 .backupStatusRow {
