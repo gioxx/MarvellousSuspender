@@ -204,6 +204,10 @@ export const gsSession = (function() {
     // Edge's version of this bug is more complex.  We have to tap into the main tab onUpdated event, which triggers all the time
     // We only queue up tabs that are suspended, are in a tab group, and are transitions to "new tab"
     // Further, since the queued tabId does not have the correct URL, we're sending it into the queue to override the new-tab URL
+    // Brave:
+    // Brave doesn't fire onReplaced at all, and uses localized "New Tab" titles (e.g. "Nuova scheda" in Italian),
+    // so neither the Chrome nor the Edge path activates. Grouped suspended tabs show chrome://newtab/ after restart.
+    // We recover them by matching against the last saved session using window order + tab index.
 
     gsUtils.setTimeout(2000).then(async () => {
       allowReplace        = false;
@@ -221,8 +225,46 @@ export const gsSession = (function() {
           }
         }
       }
+
+      // Brave path: recover grouped tabs still showing chrome://newtab/ (missed by Chrome/Edge paths above)
+      await recoverBraveGroupedTabs();
     });
 
+  }
+
+  async function recoverBraveGroupedTabs() {
+    const allCurrentTabs  = await gsChrome.tabsQuery();
+    const brokenTabs      = allCurrentTabs.filter(t => t.groupId > 0 && t.url === 'chrome://newtab/');
+    if (!brokenTabs.length) return;
+
+    const lastSession = await gsIndexedDb.fetchLastSession();
+    if (!lastSession?.windows) return;
+
+    // Match windows by creation order (lower windowId = restored first)
+    const savedWindowsSorted  = lastSession.windows
+      .filter(w => w.tabs?.length)
+      .sort((a, b) => a.id - b.id);
+    const currentWindowIds    = [...new Set(allCurrentTabs.map(t => t.windowId))].sort((a, b) => a - b);
+
+    for (const brokenTab of brokenTabs) {
+      const windowRank    = currentWindowIds.indexOf(brokenTab.windowId);
+      const savedWindow   = windowRank !== -1 ? savedWindowsSorted[windowRank] : null;
+      if (!savedWindow?.tabs) continue;
+
+      // Match by tab index within the window
+      const savedTab = savedWindow.tabs.find(
+        t => t.index === brokenTab.index && gsUtils.isSuspendedUrl(t.url ?? ''),
+      );
+      if (!savedTab?.url) continue;
+
+      gsUtils.log('gsSession', 'recoverBraveGroupedTabs', brokenTab.id, '→', savedTab.url);
+      const { windowId, index, pinned, active, groupId }  = brokenTab;
+      const newTab    = await gsChrome.tabsCreate({ windowId, index, pinned, active, url: savedTab.url });
+      if (newTab?.id) {
+        await gsChrome.tabsGroup(newTab.id, windowId, groupId);
+        await gsChrome.tabsRemove(brokenTab.id);
+      }
+    }
   }
 
 
