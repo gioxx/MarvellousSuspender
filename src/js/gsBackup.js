@@ -71,25 +71,33 @@ export const gsBackup = (() => {
 
   // ─── local backup ──────────────────────────────────────────────────────────
 
-  async function cleanupOldLocalBackups() {
+  async function cleanupOldLocalBackups(maxFiles) {
     try {
       const results = await chrome.downloads.search({
         filenameRegex : `${BACKUP_SUBDIR}/tms-session-`,
         orderBy       : ['-startTime'],
       });
 
-      const ours = results.filter(item => FILENAME_REGEX.test(item.filename));
-
-      for (const item of ours.slice(MAX_BACKUPS)) {
-        try {
-          await chrome.downloads.removeFile(item.id);
-        } catch (_) {
-          // file may have been moved or already deleted — ignore
-        }
-        await chrome.downloads.erase({ id: item.id });
+      // Group by deviceId; legacy files (old format, no deviceId) are not rotated
+      const byDevice = new Map();
+      for (const item of results) {
+        const basename = item.filename.replace(/\\/g, '/').split('/').pop();
+        const m = FILENAME_REGEX_NEW.exec(basename);
+        if (!m) continue;
+        const did = m[1];
+        if (!byDevice.has(did)) byDevice.set(did, []);
+        byDevice.get(did).push(item);
       }
 
-      gsUtils.log('gsBackup', `Local cleanup: kept ${Math.min(ours.length, MAX_BACKUPS)}, removed ${Math.max(0, ours.length - MAX_BACKUPS)}`);
+      // Results are newest-first; keep first maxFiles per device, delete the rest
+      for (const [, deviceItems] of byDevice) {
+        for (const item of deviceItems.slice(maxFiles)) {
+          try { await chrome.downloads.removeFile(item.id); } catch (_) {}
+          await chrome.downloads.erase({ id: item.id });
+        }
+      }
+
+      gsUtils.log('gsBackup', `Local cleanup done across ${byDevice.size} device(s)`);
     } catch (e) {
       gsUtils.error('gsBackup', 'cleanupOldLocalBackups failed:', e);
     }
@@ -97,19 +105,20 @@ export const gsBackup = (() => {
 
   async function performLocalBackup(jsonString) {
     // data: URL works from service workers; Blob URLs do not survive SW lifecycle
-    const base64     = btoa(unescape(encodeURIComponent(jsonString)));
-    const dataUrl    = `data:application/json;base64,${base64}`;
-    const filename   = `${BACKUP_SUBDIR}/tms-session-${buildTimestamp()}.json`;
+    const base64  = btoa(unescape(encodeURIComponent(jsonString)));
+    const dataUrl = `data:application/json;base64,${base64}`;
+    const { localPath } = await buildFilename();
 
     const downloadId = await chrome.downloads.download({
       url           : dataUrl,
-      filename,
+      filename      : localPath,
       saveAs        : false,
       conflictAction: 'overwrite',
     });
 
-    gsUtils.log('gsBackup', `Local backup saved: ${filename} (id=${downloadId})`);
-    await cleanupOldLocalBackups();
+    gsUtils.log('gsBackup', `Local backup saved: ${localPath} (id=${downloadId})`);
+    const maxFiles = await gsStorage.getOption(gsStorage.AUTO_BACKUP_MAX_FILES);
+    await cleanupOldLocalBackups(maxFiles);
     return downloadId;
   }
 
@@ -159,7 +168,7 @@ export const gsBackup = (() => {
 
   // ─── Drive backup ──────────────────────────────────────────────────────────
 
-  async function cleanupOldDriveBackups(token) {
+  async function cleanupOldDriveBackups(token, maxFiles) {
     try {
       const q   = `'appDataFolder' in parents and name contains 'tms-session-'`;
       const res = await fetch(
@@ -169,7 +178,24 @@ export const gsBackup = (() => {
       const data  = await res.json();
       const files = data.files || [];
 
-      const toDelete = files.slice(0, Math.max(0, files.length - MAX_BACKUPS));
+      // Group by deviceId; legacy files (old format, no deviceId) are not rotated
+      const byDevice = new Map();
+      for (const f of files) {
+        const m = FILENAME_REGEX_NEW.exec(f.name);
+        if (!m) continue;
+        const did = m[1];
+        if (!byDevice.has(did)) byDevice.set(did, []);
+        byDevice.get(did).push(f);
+      }
+
+      // Files are ordered createdTime ASC — oldest first; delete the excess from the front
+      const toDelete = [];
+      for (const [, deviceFiles] of byDevice) {
+        if (deviceFiles.length > maxFiles) {
+          toDelete.push(...deviceFiles.slice(0, deviceFiles.length - maxFiles));
+        }
+      }
+
       for (const file of toDelete) {
         await fetch(`${DRIVE_API}/files/${file.id}`, {
           method  : 'DELETE',
@@ -177,7 +203,7 @@ export const gsBackup = (() => {
         });
       }
 
-      gsUtils.log('gsBackup', `Drive cleanup: kept ${Math.min(files.length, MAX_BACKUPS)}, removed ${toDelete.length}`);
+      gsUtils.log('gsBackup', `Drive cleanup: removed ${toDelete.length} file(s) across ${byDevice.size} device(s)`);
     } catch (e) {
       gsUtils.error('gsBackup', 'cleanupOldDriveBackups failed:', e);
     }
@@ -185,19 +211,13 @@ export const gsBackup = (() => {
 
   async function performDriveBackup(jsonString) {
     let token;
-    try {
-      token = await getAuthToken(false);
-    } catch (_) {
-      throw new Error('TMS_DRIVE_AUTH_MISSING');
-    }
-    const filename = `tms-session-${buildTimestamp()}.json`;
+    try { token = await getAuthToken(false); } catch (_) { throw new Error('TMS_DRIVE_AUTH_MISSING'); }
 
-    const metadata = JSON.stringify({ name: filename, parents: ['appDataFolder'] });
-    const body     = new Blob([jsonString], { type: 'application/json' });
-
-    const form = new FormData();
+    const { sessionFile, deviceId } = await buildFilename();
+    const metadata = JSON.stringify({ name: sessionFile, parents: ['appDataFolder'] });
+    const form     = new FormData();
     form.append('metadata', new Blob([metadata], { type: 'application/json' }));
-    form.append('file', body);
+    form.append('file',     new Blob([jsonString], { type: 'application/json' }));
 
     const res = await fetch(`${DRIVE_UPLOAD_API}/files?uploadType=multipart`, {
       method  : 'POST',
@@ -211,9 +231,52 @@ export const gsBackup = (() => {
     }
 
     const file = await res.json();
-    gsUtils.log('gsBackup', `Drive backup saved: ${filename} (id=${file.id})`);
-    await cleanupOldDriveBackups(token);
+    gsUtils.log('gsBackup', `Drive backup saved: ${sessionFile} (id=${file.id})`);
+
+    const maxFiles = await gsStorage.getOption(gsStorage.AUTO_BACKUP_MAX_FILES);
+    await cleanupOldDriveBackups(token, maxFiles);
+    await updateDeviceRegistry(token, deviceId);
     return file.id;
+  }
+
+  // ─── Device registry ──────────────────────────────────────────────────────
+
+  async function updateDeviceRegistry(token, deviceId) {
+    const name    = await getDeviceName();
+    const payload = JSON.stringify({ name: name || deviceId, lastSeen: new Date().toISOString() });
+    await _writeDriveFile(token, `tms-device-${deviceId}.json`, payload);
+    gsUtils.log('gsBackup', `Device registry updated: tms-device-${deviceId}.json`);
+  }
+
+  async function listDeviceRegistry() {
+    let token;
+    try { token = await getAuthToken(false); } catch (_) { return {}; }
+    try {
+      const q   = `'appDataFolder' in parents and name contains 'tms-device-'`;
+      const res = await fetch(
+        `${DRIVE_API}/files?q=${encodeURIComponent(q)}&fields=files(id,name)&spaces=appDataFolder`,
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+      const data  = await res.json();
+      const files = data.files || [];
+      const map   = {};
+      await Promise.all(files.map(async (f) => {
+        const m = DEVICE_FILE_REGEX.exec(f.name);
+        if (!m) return;
+        try {
+          const r = await fetch(`${DRIVE_API}/files/${f.id}?alt=media`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          const d = await r.json();
+          map[m[1]] = { name: d.name || m[1], lastSeen: d.lastSeen || null };
+        } catch (_) {
+          map[m[1]] = { name: m[1], lastSeen: null };
+        }
+      }));
+      return map;
+    } catch (_) {
+      return {};
+    }
   }
 
   // ─── Drive settings backup ─────────────────────────────────────────────────
@@ -343,7 +406,12 @@ export const gsBackup = (() => {
     );
     if (!res.ok) throw new Error(`Drive list failed: ${res.status}`);
     const data = await res.json();
-    return (data.files || []).filter(f => FILENAME_REGEX.test(f.name));
+    return (data.files || [])
+      .filter(f => FILENAME_REGEX_NEW.test(f.name) || FILENAME_REGEX_OLD.test(f.name))
+      .map(f => {
+        const m = FILENAME_REGEX_NEW.exec(f.name);
+        return { ...f, deviceId: m ? m[1] : null };
+      });
   }
 
   async function downloadDriveBackupContent(fileId) {
