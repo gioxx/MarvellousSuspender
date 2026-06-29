@@ -415,6 +415,8 @@ import  { tgs }                   from './tgs.js';
 
       // This event is rather unique to the Chrome Tab Group Bug, so queue up everything
       gsSession.pushReplacedTab(addedTabId);
+      // Handle replacements that fire after the startup window (Chrome lazy tab-group restore)
+      await gsSession.handleLateReplacedTab(addedTabId, removedTabId);
 
     });
     chrome.tabs.onCreated.addListener(async (tab) => {
@@ -457,6 +459,17 @@ import  { tgs }                   from './tgs.js';
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       gsUtils.log(tabId, 'tab onUpdated', changeInfo, tab.url);
       if (!changeInfo) return;
+
+      // Cache grouped suspended tabs when Chrome assigns them a groupId at startup.
+      // Used to recover them if Chrome's lazy restore bug later redirects them to newtab.
+      if (changeInfo.groupId && tab.groupId > 0) {
+        gsSession.cacheGroupedSuspendedTab(tabId, tab);
+      }
+
+      // Chrome lazy tab-group restore bug: grouped discarded tab navigates to newtab on click.
+      if (changeInfo.url === 'chrome://newtab/' && tab.groupId > 0) {
+        await gsSession.handleGroupedTabToNewTab(tabId);
+      }
 
       // Edge's version of the Tab Group Bug bug is more complicated.
       // Here, we need to save the suspended URL and the tabId for grouped tabs
