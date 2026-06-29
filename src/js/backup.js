@@ -9,6 +9,7 @@ import  { gsUtils }    from './gsUtils.js';
     autoBackupInterval     : gsStorage.AUTO_BACKUP_INTERVAL,
     autoBackupDestination  : gsStorage.AUTO_BACKUP_DESTINATION,
     autoBackupTime         : gsStorage.AUTO_BACKUP_TIME,
+    autoBackupMaxFiles     : gsStorage.AUTO_BACKUP_MAX_FILES,
   };
 
   function selectComboBox(element, key) {
@@ -31,6 +32,9 @@ import  { gsUtils }    from './gsUtils.js';
     else if (element.tagName === 'INPUT' && element.getAttribute('type') === 'time') {
       element.value = value;
     }
+    else if (element.tagName === 'INPUT' && element.getAttribute('type') === 'number') {
+      element.value = value;
+    }
     else if (element.tagName === 'SELECT') {
       selectComboBox(element, value);
     }
@@ -46,13 +50,16 @@ import  { gsUtils }    from './gsUtils.js';
     if (element.tagName === 'INPUT' && element.getAttribute('type') === 'time') {
       return element.value;
     }
+    if (element.tagName === 'INPUT' && element.getAttribute('type') === 'number') {
+      return parseInt(element.value, 10);
+    }
     if (element.tagName === 'SELECT') {
       return element.children[element.selectedIndex].value;
     }
   }
 
   function initSettings() {
-    gsStorage.getSettings().then((settings) => {
+    gsStorage.getSettings().then(async (settings) => {
       const optionEls = document.getElementsByClassName('option');
       for (let i = 0; i < optionEls.length; i++) {
         const element = optionEls[i];
@@ -65,6 +72,13 @@ import  { gsUtils }    from './gsUtils.js';
       const optionElsArr = Array.from(optionEls);
       for (const element of optionElsArr) {
         element.onchange = handleChange(element);
+      }
+
+      const deviceName = await gsBackup.getDeviceName();
+      const nameInput  = document.getElementById('backupDeviceName');
+      if (nameInput) {
+        nameInput.value       = deviceName;
+        nameInput.placeholder = chrome.i18n.getMessage('html_backup_device_name_placeholder') || 'e.g. MacBook, PC lavoro';
       }
 
       const isDrive = settings[gsStorage.AUTO_BACKUP_DESTINATION] === 'drive';
@@ -361,6 +375,14 @@ import  { gsUtils }    from './gsUtils.js';
     }, { passive: true });
     backToTopBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Device name save
+    document.getElementById('backupDeviceNameSaveBtn').addEventListener('click', async () => {
+      const nameInput = document.getElementById('backupDeviceName');
+      if (!nameInput) return;
+      await gsBackup.setDeviceName(nameInput.value);
+      showOptionSaved();
     });
 
     // Manual backup now
