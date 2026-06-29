@@ -181,10 +181,19 @@ import  { gsUtils }    from './gsUtils.js';
       } catch (_) { /* silently skip if Drive unavailable */ }
 
       try {
-        const [files, registry] = await Promise.all([
+        const [files, registry, myDeviceId] = await Promise.all([
           gsBackup.listDriveBackups(),
           gsBackup.listDeviceRegistry(),
+          gsBackup.getDeviceId(),
         ]);
+
+        // Show device name field only when other devices have backed up to this Drive account
+        const hasOtherDevices = Object.keys(registry).some(id => id !== myDeviceId);
+        const deviceNameGroup = document.getElementById('backupDeviceNameGroup');
+        if (deviceNameGroup) {
+          deviceNameGroup.classList.toggle('hidden', !hasOtherDevices);
+        }
+
         if (files.length && driveCard) {
           const sel = document.getElementById('driveBackupsSelect');
           sel.innerHTML = '';
@@ -206,29 +215,40 @@ import  { gsUtils }    from './gsUtils.js';
             groups.get(f.deviceId).push(f);
           }
 
-          for (const [did, deviceFiles] of groups) {
-            const info = registry[did];
-            const grp  = document.createElement('optgroup');
-            grp.label  = info?.name || did;
-            for (const f of deviceFiles) {
-              const opt       = document.createElement('option');
-              opt.value       = f.id;
-              opt.textContent = formatOptionLabel(f.name);
-              grp.appendChild(opt);
+          if (hasOtherDevices) {
+            // Multi-device: group by device name
+            for (const [did, deviceFiles] of groups) {
+              const info = registry[did];
+              const grp  = document.createElement('optgroup');
+              grp.label  = info?.name || did;
+              for (const f of deviceFiles) {
+                const opt       = document.createElement('option');
+                opt.value       = f.id;
+                opt.textContent = formatOptionLabel(f.name);
+                grp.appendChild(opt);
+              }
+              sel.appendChild(grp);
             }
-            sel.appendChild(grp);
-          }
 
-          if (legacy.length) {
-            const grp = document.createElement('optgroup');
-            grp.label = chrome.i18n.getMessage('js_backup_restore_legacy_group') || 'Legacy backups';
-            for (const f of legacy) {
+            if (legacy.length) {
+              const grp = document.createElement('optgroup');
+              grp.label = chrome.i18n.getMessage('js_backup_restore_legacy_group') || 'Legacy backups';
+              for (const f of legacy) {
+                const opt       = document.createElement('option');
+                opt.value       = f.id;
+                opt.textContent = formatOptionLabel(f.name);
+                grp.appendChild(opt);
+              }
+              sel.appendChild(grp);
+            }
+          } else {
+            // Single device: flat list, no optgroup headers
+            for (const f of files) {
               const opt       = document.createElement('option');
               opt.value       = f.id;
               opt.textContent = formatOptionLabel(f.name);
-              grp.appendChild(opt);
+              sel.appendChild(opt);
             }
-            sel.appendChild(grp);
           }
 
           driveCard.classList.remove('hidden');
