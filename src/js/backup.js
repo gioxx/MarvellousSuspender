@@ -12,6 +12,104 @@ import  { gsUtils }    from './gsUtils.js';
     autoBackupMaxFiles     : gsStorage.AUTO_BACKUP_MAX_FILES,
   };
 
+  function renderDriveFilesList(files, registry) {
+    const details = document.getElementById('section-drive-files');
+    const listEl  = document.getElementById('driveFilesList');
+    if (!details || !listEl) return;
+
+    if (!files.length) {
+      details.classList.add('hidden');
+      return;
+    }
+
+    listEl.innerHTML = '';
+
+    function formatSize(bytes) {
+      if (!bytes) return '';
+      const kb = Math.round(parseInt(bytes, 10) / 1024 * 10) / 10;
+      return `${kb} KB`;
+    }
+
+    function formatDate(filename) {
+      const m = filename.match(/(\d{4}-\d{2}-\d{2})T(\d{2})-(\d{2})\.json$/);
+      return m ? `${m[1]} ${m[2]}:${m[3]}` : filename;
+    }
+
+    function buildFileRow(f) {
+      const row = document.createElement('div');
+      row.className = 'driveFileRow';
+
+      const label = document.createElement('span');
+      label.className   = 'driveFileLabel';
+      label.textContent = formatDate(f.name);
+
+      const size = document.createElement('span');
+      size.className   = 'driveFileSize';
+      size.textContent = formatSize(f.size);
+
+      const btn = document.createElement('button');
+      btn.className = 'btn btnNeg btnSmall';
+      btn.setAttribute('aria-label', `${chrome.i18n.getMessage('html_backup_drive_download_btn')} ${formatDate(f.name)}`);
+      btn.textContent = chrome.i18n.getMessage('html_backup_drive_download_btn');
+      btn.addEventListener('click', async () => {
+        btn.disabled = true;
+        row.querySelector('.driveFileError')?.remove();
+        try {
+          await gsBackup.downloadDriveBackupAsFile(f.id, f.name);
+        } catch (_) {
+          const errEl = document.createElement('span');
+          errEl.className   = 'driveFileError';
+          errEl.textContent = chrome.i18n.getMessage('js_backup_restore_error_drive');
+          row.appendChild(errEl);
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      row.appendChild(label);
+      row.appendChild(size);
+      row.appendChild(btn);
+      return row;
+    }
+
+    function buildGroup(title, groupFiles) {
+      const group   = document.createElement('div');
+      group.className = 'driveFilesGroup';
+      const heading = document.createElement('p');
+      heading.className   = 'driveFilesGroupTitle';
+      heading.textContent = title;
+      group.appendChild(heading);
+      for (const f of groupFiles) group.appendChild(buildFileRow(f));
+      return group;
+    }
+
+    const groups = new Map();
+    const legacy = [];
+    for (const f of files) {
+      if (!f.deviceId) { legacy.push(f); continue; }
+      if (!groups.has(f.deviceId)) groups.set(f.deviceId, []);
+      groups.get(f.deviceId).push(f);
+    }
+
+    const hasMultiple = groups.size > 1 || (groups.size === 1 && legacy.length > 0);
+
+    for (const [did, deviceFiles] of groups) {
+      const name = registry[did]?.name || did;
+      if (hasMultiple) {
+        listEl.appendChild(buildGroup(name, deviceFiles));
+      } else {
+        for (const f of deviceFiles) listEl.appendChild(buildFileRow(f));
+      }
+    }
+
+    if (legacy.length) {
+      const legacyTitle = chrome.i18n.getMessage('js_backup_restore_legacy_group') || 'Legacy backups';
+      listEl.appendChild(buildGroup(legacyTitle, legacy));
+    }
+
+    details.classList.remove('hidden');
+  }
+
   function selectComboBox(element, key) {
     for (let i = 0; i < element.children.length; i += 1) {
       const child = element.children[i];
@@ -254,8 +352,11 @@ import  { gsUtils }    from './gsUtils.js';
           driveCard.classList.remove('hidden');
           restoreActions?.classList.add('has-drive-card');
         }
+
+        renderDriveFilesList(files, registry);
       } catch (_) {
         // Drive list unavailable — silently keep card hidden
+        renderDriveFilesList([], {});
       }
     } else {
       connectedEl.style.display    = 'none';
@@ -268,6 +369,7 @@ import  { gsUtils }    from './gsUtils.js';
       document.getElementById('settingsDriveBackupDate')?.classList.add('hidden');
       driveCard?.classList.add('hidden');
       restoreActions?.classList.remove('has-drive-card');
+      renderDriveFilesList([], {});
     }
   }
 

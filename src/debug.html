@@ -73,12 +73,23 @@
             <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#rss"/></svg>
             <span class="debugOptionLabel">news feed</span>
             <a id='forceNewsFeedRefresh' href='#' class="debugToggle">force refresh</a>
+            <span class="debugToggleSep reallyHidden" aria-hidden="true">·</span>
             <a id='simulateUnread' href='#' class="debugToggle reallyHidden">simulate unread</a>
           </div>
           <p class="debugOptionDesc">
             Forces an immediate RSS fetch, bypassing the 24 h TTL cache.
             Use to verify that newly published posts are picked up without waiting for the next scheduled refresh.<br>
             Last fetched: <strong id="newsFeedLastFetch">—</strong> &mdash; unread: <strong id="newsFeedUnread">—</strong> &mdash; next run: <strong id="newsFeedNextRun">—</strong> &mdash; jitter: <strong id="newsFeedJitter">—</strong>
+          </p>
+        </div>
+
+        <div class="debugOptionCard">
+          <div class="debugOptionCardHeader">
+            <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#shield-check"/></svg>
+            <span class="debugOptionLabel">backup device identity</span>
+          </div>
+          <p class="debugOptionDesc">
+            Device ID: <strong id="backupDeviceId" class="debugMono">—</strong> &mdash; name: <strong id="backupDeviceNameDebug">—</strong>
           </p>
         </div>
 

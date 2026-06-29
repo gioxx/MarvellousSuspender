@@ -352,6 +352,122 @@ input[type='number']:focus {
   text-decoration: underline;
 }
 
+/* ── Drive backup files: collapsible panel inside restore section ─────────── */
+
+.driveFilesDetails {
+  margin-top: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.driveFilesDetails.hidden {
+  display: none;
+}
+
+.driveFilesDetails > summary.driveFilesSummary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+  background: var(--muted, hsl(0 0% 96%));
+  transition: background var(--duration-fast);
+  user-select: none;
+}
+
+.driveFilesDetails > summary.driveFilesSummary:hover {
+  background: var(--accent, hsl(0 0% 92%));
+}
+
+.driveFilesDetails > summary.driveFilesSummary:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+
+.driveFilesDetails > summary.driveFilesSummary::after {
+  content: '';
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform var(--duration-fast);
+  flex-shrink: 0;
+  margin-right: var(--space-1);
+  opacity: 0.6;
+}
+
+.driveFilesDetails[open] > summary.driveFilesSummary::after {
+  transform: rotate(45deg);
+}
+
+.driveFilesDetails > summary.driveFilesSummary::-webkit-details-marker {
+  display: none;
+}
+
+.driveFilesDetails > #driveFilesContent {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+.driveFilesStatus {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  min-height: 1.4em;
+}
+
+.driveFilesGroup {
+  margin-top: var(--space-4);
+}
+
+.driveFilesGroupTitle {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.driveFileRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.driveFileRow:last-child {
+  border-bottom: none;
+}
+
+.driveFileLabel {
+  flex: 1;
+  font-size: var(--text-sm);
+  font-family: var(--font-mono, monospace);
+  color: var(--foreground);
+}
+
+.driveFileSize {
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.driveFileError {
+  font-size: var(--text-xs);
+  color: var(--destructive, #c0392b);
+}
+
 /* ── Option saved feedback ───────────────────────────────────────────────── */
 
 .optionSavedStatus {

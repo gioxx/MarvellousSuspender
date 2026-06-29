@@ -216,3 +216,16 @@
   width: 16px;
   vertical-align: middle;
 }
+
+.debugToggleSep {
+  color: var(--muted-foreground);
+  font-size: var(--text-xs);
+  user-select: none;
+}
+
+.debugMono {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.9em;
+  letter-spacing: 0.05em;
+  user-select: all;
+}
