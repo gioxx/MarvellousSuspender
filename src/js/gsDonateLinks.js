@@ -2,8 +2,14 @@ const links = [
   {
     href: 'https://github.com/sponsors/gioxx',
     img: 'img/favicon-github.png',
-    label: 'GitHub Sponsors',
+    label: 'gioxx',
+    groupLabel: 'GitHub Sponsors',
     heartBadge: true,
+  },
+  {
+    href: 'https://github.com/sponsors/rkodey',
+    img: 'img/favicon-github.png',
+    label: 'rkodey',
   },
   {
     href: 'https://ko-fi.com/gioxx',
@@ -36,7 +42,14 @@ if (nav) {
   const bar = document.createElement('div');
   bar.className = 'donateBar';
 
-  for (const { href, img, label, heartBadge } of links) {
+  for (const { href, img, label, groupLabel, heartBadge } of links) {
+    if (groupLabel) {
+      const text = document.createElement('span');
+      text.className = 'donateBar-groupLabel';
+      text.textContent = groupLabel + ':';
+      bar.appendChild(text);
+    }
+
     const a = document.createElement('a');
     a.href = href;
     a.target = '_blank';
