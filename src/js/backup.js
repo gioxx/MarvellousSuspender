@@ -167,20 +167,56 @@ import  { gsUtils }    from './gsUtils.js';
       } catch (_) { /* silently skip if Drive unavailable */ }
 
       try {
-        const files = await gsBackup.listDriveBackups();
+        const [files, registry] = await Promise.all([
+          gsBackup.listDriveBackups(),
+          gsBackup.listDeviceRegistry(),
+        ]);
         if (files.length && driveCard) {
           const sel = document.getElementById('driveBackupsSelect');
           sel.innerHTML = '';
-          for (const f of files) {
-            const opt = document.createElement('option');
-            opt.value = f.id;
-            opt.textContent = f.name
+
+          function formatOptionLabel(filename) {
+            return filename
               .replace(/\.json$/, '')
-              .replace('tms-session-', '')
+              .replace(/^tms-session-[a-f0-9]{8}-/, '')
+              .replace(/^tms-session-/, '')
               .replace('T', ' ')
               .replace(/-(\d{2})-(\d{2})$/, ' $1:$2');
-            sel.appendChild(opt);
           }
+
+          const groups = new Map();
+          const legacy = [];
+          for (const f of files) {
+            if (!f.deviceId) { legacy.push(f); continue; }
+            if (!groups.has(f.deviceId)) groups.set(f.deviceId, []);
+            groups.get(f.deviceId).push(f);
+          }
+
+          for (const [did, deviceFiles] of groups) {
+            const info = registry[did];
+            const grp  = document.createElement('optgroup');
+            grp.label  = info?.name || did;
+            for (const f of deviceFiles) {
+              const opt       = document.createElement('option');
+              opt.value       = f.id;
+              opt.textContent = formatOptionLabel(f.name);
+              grp.appendChild(opt);
+            }
+            sel.appendChild(grp);
+          }
+
+          if (legacy.length) {
+            const grp = document.createElement('optgroup');
+            grp.label = chrome.i18n.getMessage('js_backup_restore_legacy_group') || 'Legacy backups';
+            for (const f of legacy) {
+              const opt       = document.createElement('option');
+              opt.value       = f.id;
+              opt.textContent = formatOptionLabel(f.name);
+              grp.appendChild(opt);
+            }
+            sel.appendChild(grp);
+          }
+
           driveCard.classList.remove('hidden');
           restoreActions?.classList.add('has-drive-card');
         }
