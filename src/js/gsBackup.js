@@ -391,7 +391,7 @@ export const gsBackup = (() => {
     try { token = await getAuthToken(false); } catch (_) { throw new Error('TMS_DRIVE_AUTH_MISSING'); }
     const q   = `'appDataFolder' in parents and name contains 'tms-session-'`;
     const res = await fetch(
-      `${DRIVE_API}/files?q=${encodeURIComponent(q)}&orderBy=createdTime desc&fields=files(id,name,createdTime)&spaces=appDataFolder`,
+      `${DRIVE_API}/files?q=${encodeURIComponent(q)}&orderBy=createdTime desc&fields=files(id,name,createdTime,size)&spaces=appDataFolder`,
       { headers: { Authorization: `Bearer ${token}` } },
     );
     if (!res.ok) throw new Error(`Drive list failed: ${res.status}`);
@@ -402,6 +402,24 @@ export const gsBackup = (() => {
         const m = FILENAME_REGEX_NEW.exec(f.name);
         return { ...f, deviceId: m ? m[1] : null };
       });
+  }
+
+  async function downloadDriveBackupAsFile(fileId, filename) {
+    let token;
+    try { token = await getAuthToken(false); } catch (_) { throw new Error('TMS_DRIVE_AUTH_MISSING'); }
+    const res = await fetch(`${DRIVE_API}/files/${fileId}?alt=media`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) throw new Error(`Drive download failed: ${res.status}`);
+    const text    = await res.text();
+    const base64  = btoa(unescape(encodeURIComponent(text)));
+    const dataUrl = `data:application/json;base64,${base64}`;
+    await chrome.downloads.download({
+      url            : dataUrl,
+      filename       : `${BACKUP_SUBDIR}/${filename}`,
+      saveAs         : false,
+      conflictAction : 'overwrite',
+    });
   }
 
   async function downloadDriveBackupContent(fileId) {
@@ -532,6 +550,7 @@ export const gsBackup = (() => {
     listDriveBackups,
     listDeviceRegistry,
     downloadDriveBackupContent,
+    downloadDriveBackupAsFile,
     getDriveSettingsInfo,
     downloadDriveSettingsContent,
     importBackupJson,

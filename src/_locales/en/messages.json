@@ -1069,7 +1069,7 @@
     "message": "Google Drive"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file…"
+    "message": "Choose backup file"
   },
   "html_backup_restore_drive_select_label": {
     "message": "Select a Drive backup"
@@ -1095,5 +1095,17 @@
   },
   "js_backup_restore_error_generic": {
     "message": "Import failed. Please try again."
+  },
+  "html_backup_drive_files_title": {
+    "message": "Drive backup files"
+  },
+  "html_backup_drive_download_btn": {
+    "message": "Download"
+  },
+  "html_backup_drive_no_files": {
+    "message": "No Drive backup files found."
+  },
+  "html_backup_drive_files_loading": {
+    "message": "Loading…"
   }
 }

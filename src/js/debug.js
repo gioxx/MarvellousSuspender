@@ -1,4 +1,5 @@
 // @ts-check
+import  { gsBackup }              from './gsBackup.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsFavicon }             from './gsFavicon.js';
 import  { gsMessages }            from './gsMessages.js';
@@ -306,6 +307,17 @@ import  { tgs }                   from './tgs.js';
     setTimeout(() => { link.textContent = 'simulate unread'; }, 2000);
   }
 
+  // ── Backup device identity ────────────────────────────────────────────────────────────────
+
+  async function renderBackupDeviceInfo() {
+    const idEl   = document.getElementById('backupDeviceId');
+    const nameEl = document.getElementById('backupDeviceNameDebug');
+    if (!idEl || !nameEl) return;
+    const [id, name] = await Promise.all([gsBackup.getDeviceId(), gsBackup.getDeviceName()]);
+    idEl.textContent   = id   || '—';
+    nameEl.textContent = name || 'this device (no name set)';
+  }
+
   // ── Claim suspended tabs ─────────────────────────────────────────────────────────────────
 
   async function onClaimSuspendedTabs(e) {
@@ -329,6 +341,7 @@ import  { tgs }                   from './tgs.js';
     await renderCaptureToggle();
     await renderDiscardToggle();
     await renderNewsFeedStatus();
+    await renderBackupDeviceInfo();
     await refreshLogs();
     await fetchTabInfo();
 
@@ -343,6 +356,7 @@ import  { tgs }                   from './tgs.js';
       // simulateUnread stays reallyHidden (already set in HTML)
     } else {
       feedRefreshLink.addEventListener('click', onForceNewsFeedRefresh);
+      document.querySelector('.debugToggleSep')?.classList.remove('reallyHidden');
       simulateUnreadLink.classList.remove('reallyHidden');
       simulateUnreadLink.addEventListener('click', onSimulateUnread);
     }
