@@ -545,6 +545,7 @@ export const gsBackup = (() => {
     getDriveSettingsInfo,
     downloadDriveSettingsContent,
     importBackupJson,
+    getDeviceId   : getOrCreateDeviceId,
     getDeviceName,
     setDeviceName : setDeviceNameLocal,
   };
