@@ -625,7 +625,7 @@
     "message": "Backup e ripristino"
   },
   "html_success_great_success": {
-    "message": "Meraviglioso successo!"
+    "message": "Un successo meraviglioso!"
   },
   "html_success_all_tabs_restored": {
     "message": "Tutte le schede sono state ripristinate."
@@ -900,10 +900,10 @@
     "message": "Attenzione: con un intervallo così lungo, può succedere molto tra un backup e l'altro. Considera un intervallo più breve per ridurre il rischio di perdita dati."
   },
   "html_options_backup_note": {
-    "message": "I file includono un identificatore di dispositivo e il timestamp (es. tms-session-a3f7b2c8-2026-06-18T14-30.json). Il numero configurato di backup più recenti viene conservato per dispositivo; i precedenti vengono eliminati automaticamente."
+    "message": "I backup locali sono nominati con data e ora (es. tms-session-2026-06-18T14-30.json) e vengono conservati automaticamente gli N più recenti. I backup su Drive includono un identificatore di dispositivo (es. tms-session-a3f7b2c8-2026-06-18T14-30.json) e vengono conservati N backup per dispositivo, così le sessioni di macchine diverse non si sovrascrivono mai."
   },
   "html_backup_max_files_label": {
-    "message": "Backup massimi per dispositivo"
+    "message": "Backup massimi da conservare"
   },
   "html_backup_device_name_label": {
     "message": "Nome dispositivo"

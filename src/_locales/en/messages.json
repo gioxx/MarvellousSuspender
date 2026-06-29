@@ -900,10 +900,10 @@
     "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
   },
   "html_options_backup_note": {
-    "message": "Files include a device identifier and timestamp (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json). The configured number of most recent backups is kept per device; older ones are deleted automatically."
+    "message": "Local backups are named by date and time (e.g. tms-session-2026-06-18T14-30.json) and the most recent N are kept automatically. Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json) and N backups are kept per device, so sessions from different machines never overwrite each other."
   },
   "html_backup_max_files_label": {
-    "message": "Max backups per device"
+    "message": "Max backups to keep"
   },
   "html_backup_device_name_label": {
     "message": "Device name"

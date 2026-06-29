@@ -78,26 +78,14 @@ export const gsBackup = (() => {
         orderBy       : ['-startTime'],
       });
 
-      // Group by deviceId; legacy files (old format, no deviceId) are not rotated
-      const byDevice = new Map();
-      for (const item of results) {
-        const basename = item.filename.replace(/\\/g, '/').split('/').pop();
-        const m = FILENAME_REGEX_NEW.exec(basename);
-        if (!m) continue;
-        const did = m[1];
-        if (!byDevice.has(did)) byDevice.set(did, []);
-        byDevice.get(did).push(item);
+      // Local backups are naturally per-machine; just keep the N most recent
+      const ours = results.filter(item => FILENAME_REGEX_OLD.test(item.filename.replace(/\\/g, '/').split('/').pop()));
+      for (const item of ours.slice(maxFiles)) {
+        try { await chrome.downloads.removeFile(item.id); } catch (_) {}
+        await chrome.downloads.erase({ id: item.id });
       }
 
-      // Results are newest-first; keep first maxFiles per device, delete the rest
-      for (const [, deviceItems] of byDevice) {
-        for (const item of deviceItems.slice(maxFiles)) {
-          try { await chrome.downloads.removeFile(item.id); } catch (_) {}
-          await chrome.downloads.erase({ id: item.id });
-        }
-      }
-
-      gsUtils.log('gsBackup', `Local cleanup done across ${byDevice.size} device(s)`);
+      gsUtils.log('gsBackup', `Local cleanup: kept ${Math.min(ours.length, maxFiles)}, removed ${Math.max(0, ours.length - maxFiles)}`);
     } catch (e) {
       gsUtils.error('gsBackup', 'cleanupOldLocalBackups failed:', e);
     }
@@ -105,18 +93,20 @@ export const gsBackup = (() => {
 
   async function performLocalBackup(jsonString) {
     // data: URL works from service workers; Blob URLs do not survive SW lifecycle
-    const base64  = btoa(unescape(encodeURIComponent(jsonString)));
-    const dataUrl = `data:application/json;base64,${base64}`;
-    const { localPath } = await buildFilename();
+    // Local files use the simple date-only format — no deviceId needed since each
+    // machine has its own Downloads folder.
+    const base64   = btoa(unescape(encodeURIComponent(jsonString)));
+    const dataUrl  = `data:application/json;base64,${base64}`;
+    const filename = `${BACKUP_SUBDIR}/tms-session-${buildTimestamp()}.json`;
 
     const downloadId = await chrome.downloads.download({
       url           : dataUrl,
-      filename      : localPath,
+      filename,
       saveAs        : false,
       conflictAction: 'overwrite',
     });
 
-    gsUtils.log('gsBackup', `Local backup saved: ${localPath} (id=${downloadId})`);
+    gsUtils.log('gsBackup', `Local backup saved: ${filename} (id=${downloadId})`);
     const maxFiles = await gsStorage.getOption(gsStorage.AUTO_BACKUP_MAX_FILES);
     await cleanupOldLocalBackups(maxFiles);
     return downloadId;
