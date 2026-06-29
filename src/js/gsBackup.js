@@ -7,12 +7,32 @@ import { gsUtils }     from './gsUtils.js';
 
 export const gsBackup = (() => {
 
-  const ALARM_NAME        = 'tms-auto-backup';
-  const MAX_BACKUPS       = 10;
-  const BACKUP_SUBDIR     = 'tms-backups';
-  const FILENAME_REGEX    = /tms-session-\d{4}-\d{2}-\d{2}T\d{2}-\d{2}\.json$/;
-const DRIVE_API         = 'https://www.googleapis.com/drive/v3';
-  const DRIVE_UPLOAD_API  = 'https://www.googleapis.com/upload/drive/v3';
+  const ALARM_NAME         = 'tms-auto-backup';
+  const BACKUP_SUBDIR      = 'tms-backups';
+  const FILENAME_REGEX_NEW = /^tms-session-([a-f0-9]{8})-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2})\.json$/;
+  const FILENAME_REGEX_OLD = /^tms-session-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2})\.json$/;
+  const DEVICE_FILE_REGEX  = /^tms-device-([a-f0-9]{8})\.json$/;
+  const DRIVE_API          = 'https://www.googleapis.com/drive/v3';
+  const DRIVE_UPLOAD_API   = 'https://www.googleapis.com/upload/drive/v3';
+
+  // ─── device identity ───────────────────────────────────────────────────────
+
+  async function getOrCreateDeviceId() {
+    const r = await chrome.storage.local.get(['gsBackupDeviceId']);
+    if (r.gsBackupDeviceId) return r.gsBackupDeviceId;
+    const id = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
+    await chrome.storage.local.set({ gsBackupDeviceId: id });
+    return id;
+  }
+
+  async function getDeviceName() {
+    const r = await chrome.storage.local.get(['gsBackupDeviceName']);
+    return r.gsBackupDeviceName || '';
+  }
+
+  async function setDeviceNameLocal(name) {
+    await chrome.storage.local.set({ gsBackupDeviceName: name.trim() });
+  }
 
   // ─── shared helpers ────────────────────────────────────────────────────────
 
@@ -37,6 +57,16 @@ const DRIVE_API         = 'https://www.googleapis.com/drive/v3';
     const date = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
     const time = `${pad(now.getHours())}-${pad(now.getMinutes())}`;
     return `${date}T${time}`;
+  }
+
+  async function buildFilename() {
+    const deviceId  = await getOrCreateDeviceId();
+    const ts        = buildTimestamp();
+    return {
+      sessionFile : `tms-session-${deviceId}-${ts}.json`,
+      localPath   : `${BACKUP_SUBDIR}/tms-session-${deviceId}-${ts}.json`,
+      deviceId,
+    };
   }
 
   // ─── local backup ──────────────────────────────────────────────────────────
@@ -442,10 +472,13 @@ const DRIVE_API         = 'https://www.googleapis.com/drive/v3';
     getDriveFolderUrl,
     performDriveSettingsBackup,
     listDriveBackups,
+    listDeviceRegistry,
     downloadDriveBackupContent,
     getDriveSettingsInfo,
     downloadDriveSettingsContent,
     importBackupJson,
+    getDeviceName,
+    setDeviceName : setDeviceNameLocal,
   };
 
 })();
