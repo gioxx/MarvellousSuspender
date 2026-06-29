@@ -86,8 +86,8 @@
   display: none;
 }
 
-input[type='time'] {
-  min-width: 150px;
+input[type='time'],
+input[type='number'] {
   color: var(--foreground);
   background-color: var(--background);
   border: 1px solid var(--border);
@@ -99,7 +99,17 @@ input[type='time'] {
   transition: border-color var(--duration-fast);
 }
 
-input[type='time']:focus {
+input[type='time'] {
+  min-width: 150px;
+}
+
+input[type='number'] {
+  min-width: 80px;
+  width: 80px;
+}
+
+input[type='time']:focus,
+input[type='number']:focus {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
