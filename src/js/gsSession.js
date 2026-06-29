@@ -226,8 +226,12 @@ export const gsSession = (function() {
         }
       }
 
-      // Brave path: recover grouped tabs still showing chrome://newtab/ (missed by Chrome/Edge paths above)
-      await recoverBraveGroupedTabs();
+      // Brave path: only activate when neither Chrome nor Edge captured any replaced tabs.
+      // If replacedTabs was non-empty, Chrome/Edge already handled the grouped tabs — running
+      // the session-based recovery on top would cause double-processing and duplicate tabs.
+      if (replacedTabs.length === 0) {
+        await recoverBraveGroupedTabs();
+      }
     });
 
   }
