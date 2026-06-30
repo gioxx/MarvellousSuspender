@@ -45,11 +45,11 @@ export const gsFavicon = (() => {
     const defaultIconUrls = [
       getChromeFavIconUrl('http://chromeDefaultFavicon'),
       getChromeFavIconUrl('chromeDefaultFavicon'),
-      chrome.runtime.getURL('img/ic_suspendy_16x16.png'),
-      chrome.runtime.getURL('img/chromeDefaultFavicon.png'),
-      chrome.runtime.getURL('img/chromeDefaultFaviconSml.png'),
-      chrome.runtime.getURL('img/chromeDevDefaultFavicon.png'),
-      chrome.runtime.getURL('img/chromeDevDefaultFaviconSml.png'),
+      chrome.runtime.getURL('img/ic_suspendy_16x16.webp'),
+      chrome.runtime.getURL('img/chromeDefaultFavicon.webp'),
+      chrome.runtime.getURL('img/chromeDefaultFaviconSml.webp'),
+      chrome.runtime.getURL('img/chromeDevDefaultFavicon.webp'),
+      chrome.runtime.getURL('img/chromeDevDefaultFaviconSml.webp'),
     ];
 
     const faviconPromises = [];
@@ -221,7 +221,7 @@ export const gsFavicon = (() => {
    * @returns { Promise< FavIconMeta | undefined > }
    */
   async function buildFaviconMetaFromTab(favIconUrl) {
-    if (favIconUrl && favIconUrl !== chrome.runtime.getURL('img/ic_suspendy_16x16.png')) {
+    if (favIconUrl && favIconUrl !== chrome.runtime.getURL('img/ic_suspendy_16x16.webp')) {
       gsUtils.log('gsFavicon', 'buildFaviconMetaFromTab', favIconUrl);
       try {
         const faviconMeta = await buildFaviconMeta(favIconUrl);

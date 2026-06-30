@@ -22,6 +22,7 @@ import  { gsUtils }               from './gsUtils.js';
     syncSettings: gsStorage.SYNC_SETTINGS,
     timeToSuspend: gsStorage.SUSPEND_TIME,
     theme: gsStorage.THEME,
+    language: gsStorage.LANGUAGE,
     whitelist: gsStorage.WHITELIST,
   };
 
@@ -174,7 +175,6 @@ import  { gsUtils }               from './gsUtils.js';
         // Instead of reloading the page, just update the CSS directly
         gsUtils.setPageTheme(window, getOptionValue(element));
       }
-
       const [oldValue, newValue] = await saveChange(element);
       if (oldValue !== newValue) {
         const prefKey = elementPrefMap[element.id];
@@ -183,6 +183,10 @@ import  { gsUtils }               from './gsUtils.js';
           { [prefKey]: oldValue },
           { [prefKey]: newValue },
         );
+      }
+
+      if (pref === gsStorage.LANGUAGE) {
+        window.location.reload();
       }
     };
   }

@@ -243,6 +243,8 @@ import  { tgs }                   from './tgs.js';
   }
 
   function showPopupContents() {
+    document.getElementById('brandVersion').textContent =
+      'v' + chrome.runtime.getManifest().version;
     gsStorage.getOption(gsStorage.THEME).then((theme) => {
       if (theme === 'dark') {
         document.body.classList.add('dark');

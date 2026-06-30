@@ -1,54 +1,73 @@
 <!doctype html>
-
 <html>
 
 <head>
-	<link type="text/css" href="css/style.css" rel="stylesheet">
-	<script type="module" src="js/shortcuts.js"></script>
-	<title data-i18n="__MSG_ext_extension_name__ - __MSG_html_shortcuts_title__"></title>
+  <meta charset="UTF-8">
+  <link type="text/css" href="css/style.css" rel="stylesheet">
+  <script type="module" src="js/shortcuts.js"></script>
+  <title data-i18n="__MSG_ext_extension_name__ - __MSG_html_shortcuts_title__"></title>
 </head>
-
 
 <body>
 
-	<div class="mainContent">
+  <div class="mainContent">
 
-		<div class="pageHeader">
-			<h1 data-i18n="__MSG_ext_extension_name__"></h1>
-		</div>
-		<div class="contentNav">
-			<ul>
-				<li>
-					<a href='options.html' data-i18n="__MSG_html_sidebar_general_settings__"></a>
-				</li>
-				<li class="noIncognito">
-					<a href="history.html" data-i18n="__MSG_html_sidebar_session_management__"></a>
-				</li>
+    <div class="pageHeader">
+      <div class="brandMark">
+        <div class="brandTitle">
+          <img src="img/suspendy-guy-main.webp" alt="" class="extensionIcon" aria-hidden="true" />
+          <div class="brandTitleText">
+            <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+            <div class="brandLinks">
+              <span id="headerVersion"></span>
+              <span aria-hidden="true">·</span>
+              <a href="https://marvellouscode.works/tms" target="_blank">marvellouscode.works/tms</a>
+              <span aria-hidden="true">·</span>
+              <a href="https://kb.marvellouscode.works" target="_blank">kb.marvellouscode.works</a>
+            </div>
+          </div>
+        </div>
+        <div class="brandCodeworks">
+          <img src="img/marvellous-codeworks-logo.webp" alt="" class="brandLogo" aria-hidden="true" />
+          <span class="brandSubtitle">a <a href="https://marvellouscode.works" target="_blank">Marvellous Codeworks</a> project</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="contentNav">
+      <ul>
         <li>
-          <a href='health.html' data-i18n='__MSG_html_sidebar_tab_health__'></a>
+          <a href="options.html" data-i18n="__MSG_html_sidebar_general_settings__"></a>
         </li>
-				<li class="noIncognito">
-					<a class="active" href='shortcuts.html' data-i18n="__MSG_html_sidebar_shortcuts__"></a>
-				</li>
-				<li>
-					<a href="about.html" data-i18n="__MSG_html_sidebar_support__"></a>
-				</li>
-			</ul>
-		</div>
+        <li class="noIncognito">
+          <a href="history.html" data-i18n="__MSG_html_sidebar_session_management__"></a>
+        </li>
+        <li>
+          <a href="health.html" data-i18n="__MSG_html_sidebar_tab_health__"></a>
+        </li>
+        <li class="noIncognito">
+          <a class="active" href="shortcuts.html" data-i18n="__MSG_html_sidebar_shortcuts__"></a>
+        </li>
+        <li>
+          <a href="about.html" data-i18n="__MSG_html_sidebar_support__"></a>
+        </li>
+      </ul>
+    </nav>
 
-		<div class="content">
+    <div class="content">
 
-			<h2 data-i18n="__MSG_html_shortcuts_keyboard_shortcuts__"></h2>
-			<div class="heading-note" data-i18n="__MSG_html_shortcuts_context_menu_note__"></div>
+      <p class="pageTitle" data-i18n="__MSG_html_shortcuts_keyboard_shortcuts__"></p>
+      <div class="heading-note" data-i18n="__MSG_html_shortcuts_context_menu_note__"></div>
 
-			<div id="keyboardShortcuts" class="keyboardShortcuts"></div>
-			<br />
-			<a href="#" id="configureShortcuts" class="btn" data-i18n="__MSG_html_shortcuts_remap_keys__"></a>
+      <div id="keyboardShortcuts" class="keyboardShortcuts"></div>
+      <br />
+      <a href="#" id="configureShortcuts" class="btn" data-i18n="__MSG_html_shortcuts_remap_keys__"></a>
 
-			<br />
-		</div>
+    </div>
 
-	</div>
+  </div>
+
+<button id="backToTop" aria-label="Back to top" data-i18n="__MSG_html_options_back_to_top__"></button>
 
 </body>
 

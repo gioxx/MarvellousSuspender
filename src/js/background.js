@@ -301,6 +301,30 @@ import  { tgs }                   from './tgs.js';
       case 'open_session_history':
         await chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
         break;
+      case 'tab_toggle_suspend':
+        tgs.toggleSuspendStateOfTab(tab);
+        break;
+      case 'tab_toggle_pause':
+        tgs.requestToggleTempWhitelistStateOfTab(tab);
+        break;
+      case 'tab_never_suspend_domain':
+        tgs.whitelistTab(tab, false);
+        break;
+      case 'tab_never_suspend_page':
+        tgs.whitelistTab(tab, true);
+        break;
+      case 'tab_soft_suspend_other_tabs':
+        tgs.suspendAllTabs(false);
+        break;
+      case 'tab_unsuspend_all_in_window':
+        tgs.unsuspendAllTabs();
+        break;
+      case 'tab_soft_suspend_all':
+        tgs.suspendAllTabsInAllWindows(false);
+        break;
+      case 'tab_unsuspend_all':
+        tgs.unsuspendAllTabsInAllWindows();
+        break;
       default:
         break;
     }
@@ -349,6 +373,7 @@ import  { tgs }                   from './tgs.js';
   /** @param { chrome.alarms.Alarm } alarm */
   async function alarmListener(alarm) {
     gsUtils.log('background', 'alarmListener', alarm);
+
     const tabId = parseInt(alarm.name);
     const tab = await gsChrome.tabsGet(tabId);
     if (!tab) {

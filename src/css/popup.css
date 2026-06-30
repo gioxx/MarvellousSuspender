@@ -1,90 +1,113 @@
+@import url('tokens.css');
+
 html,
 body {
   margin: 0;
   padding: 0;
 }
+
 html {
   box-sizing: border-box;
 }
+
 *,
 *::before,
 *::after {
   box-sizing: inherit;
 }
+
 body {
-  font-family: system-ui, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  color: #444;
-  padding: 0;
-  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  background-color: var(--background);
   min-width: 325px;
-  position: relative;
-  font-size: 15px;
-  background: #fff;
-}
-@media (min-resolution: 192dpi) {
-  body {
-    font-weight: 300;
-  }
+  font-size: var(--text-base);
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
   outline: none;
-  color: #3477db;
+  color: var(--primary);
 }
+
 #statusDetail a {
-  color: #ffffff;
-}
-#header {
-  padding: 15px;
-  background: #777;
-  color: #fff;
-}
-#header.willSuspend {
-  background: #3477db;
-}
-#header.blockedFile {
-    background: #a70707;
-}
-
-.group {
-  padding: 10px 0;
-}
-.group:not(:last-of-type) {
-  border-bottom: 1px solid #ccc;
-}
-
-.menuOption {
-  line-height: 2em;
-  font-size: 16px;
-  white-space: nowrap;
-  cursor: pointer;
-  padding: 0 15px;
-}
-.menuOption:hover .optionText {
+  color: var(--foreground);
   text-decoration: underline;
 }
 
-
-/* dark theme */
-/* Automatically set dark background based on OS settings */
-/* This prevents flickering on initial page load */
-@media (prefers-color-scheme: dark) {
-
-body, .option, .historyLink {
-    background: #222;
-    color: #ccc;
+#brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  background-color: var(--background);
 }
 
+#brand img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
-/* when the OS is set to dar, but the user selects light mode, override the media query */
-.light, .light .option, .light .historyLink {
-    background: #fafafa;
-    color: #444;
+#brand span:first-of-type {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--foreground);
 }
 
-/* set all explicit dark styles */
-.dark, .dark .option, .dark .historyLink {
-    background: #222;
-    color: #ccc;
+#brandVersion {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+}
+
+#header {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--muted);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+#header.willSuspend {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-bottom-color: transparent;
+}
+
+#header.blockedFile {
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+  border-bottom-color: transparent;
+}
+
+#popupContent {
+  padding: var(--space-1) 0;
+}
+
+.group {
+  padding: var(--space-1) 0;
+}
+
+.group:not(:last-of-type) {
+  border-bottom: 1px solid var(--border);
+}
+
+.menuOption {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: var(--space-2) var(--space-4);
+  transition: background-color var(--duration-fast), color var(--duration-fast);
+}
+
+.menuOption:hover {
+  background-color: var(--accent);
+  color: var(--foreground);
 }

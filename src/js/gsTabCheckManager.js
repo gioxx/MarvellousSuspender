@@ -283,7 +283,14 @@ export const gsTabCheckManager = (function() {
       await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND) &&
       !gsUtils.isDiscardedTab(tab) &&
       !(await tgs.isCurrentActiveTab(tab));
-    const suspendInfo = await chrome.tabs.sendMessage(tab.id, { action: 'getSuspendInfo', tab });
+    let suspendInfo;
+    try {
+      suspendInfo = await chrome.tabs.sendMessage(tab.id, { action: 'getSuspendInfo', tab });
+    } catch (error) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Failed to get suspendInfo from tab. Will requeue with refetching.', error);
+      requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
+      return;
+    }
     const tabSessionOk = suspendInfo.sessionId === (await gsSession.getSessionId());
     const tabBasicsOk = ensureSuspendedTabTitleAndFaviconSet(tab);
     const tabVisibleOk = attemptDiscarding || suspendInfo.isVisible;

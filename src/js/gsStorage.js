@@ -21,6 +21,7 @@ export const gsStorage = {
   SYNC_SETTINGS                 : 'gsSyncSettings',
   NO_NAG                        : 'gsNoNag',
   THEME                         : 'gsTheme',
+  LANGUAGE                      : 'gsLanguage',
   WHITELIST                     : 'gsWhitelist',
 
   DISCARD_AFTER_SUSPEND         : 'discardAfterSuspend',
@@ -56,6 +57,7 @@ export const gsStorage = {
     defaults[gsStorage.NO_NAG] = false;
     defaults[gsStorage.WHITELIST] = '';
     defaults[gsStorage.THEME] = 'system';
+    defaults[gsStorage.LANGUAGE] = 'auto';
     defaults[gsStorage.UPDATE_AVAILABLE] = false; //Set to true for debug
 
     return defaults;

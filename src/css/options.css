@@ -1,0 +1,15 @@
+.formRow--paired {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  align-items: flex-start;
+}
+
+.welcome-message {
+  max-width: none;
+  margin-top: var(--space-6);
+}
+
+.welcome-message p {
+  font-size: var(--text-base);
+}

@@ -2,45 +2,63 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <link type="text/css" href="css/style.css" rel="stylesheet">
   <link type="text/css" href="css/debug.css" rel="stylesheet">
   <script type="module" src="js/debug.js"></script>
-  <title id='gsTitle'>The Marvellous Suspender - Debugger</title>
+  <title id='gsTitle' data-i18n="__MSG_ext_extension_name__ - Debugger"></title>
 </head>
 
 <body>
-  <div>
-    <span>debugErrors: </span>
-    <a id='toggleDebugError' href='#'></a> &nbsp;|&nbsp;
-    <span>debugInfo: </span>
-    <a id='toggleDebugInfo' href='#'></a> &nbsp;|&nbsp;
-    <span>discardInPlaceOfSuspend: </span>
-    <a id='toggleDiscardInPlaceOfSuspend' href='#'></a> &nbsp;|&nbsp;
-    <a id='claimSuspendedTabs' href='#'>claim all suspended tabs</a>
-  </div>
-  <br />
-  <div>
-    <span>To view debug messages, go to your <a id="backgroundPage" target="_blank">browser extensions page.</a></span>
-    <br />
-    <span>Ensure "developer mode" is checked at the top of the page, then click on the "Inspect views: background page" link for this extension.</span>
-  </div>
+  <div class="debugWrap">
 
-  <hr />
-  <table id="gsProfiler">
-    <thead>
-      <tr>
-        <th>WinId</th>
-        <th>TabId</th>
-        <th>Index</th>
-        <th></th>
-        <th>Group</th>
-        <th>Title</th>
-        <th>Seconds to<br>suspend</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="gsProfilerBody"></tbody>
-  </table>
+    <div class="debugHeader brandMark">
+      <div class="brandTitle">
+        <img src="img/suspendy-guy-main.webp" alt="" class="extensionIcon" aria-hidden="true" />
+        <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+      </div>
+      <div class="brandCodeworks">
+        <img src="img/marvellous-codeworks-logo.webp" alt="" class="brandLogo" aria-hidden="true" />
+        <span class="brandSubtitle">a Marvellous Codeworks project</span>
+      </div>
+    </div>
+
+    <p class="pageTitle">Debugger</p>
+
+    <div class="debugControls">
+      <span>debugErrors: </span>
+      <a id='toggleDebugError' href='#'></a> &nbsp;|&nbsp;
+      <span>debugInfo: </span>
+      <a id='toggleDebugInfo' href='#'></a> &nbsp;|&nbsp;
+      <span>discardInPlaceOfSuspend: </span>
+      <a id='toggleDiscardInPlaceOfSuspend' href='#'></a> &nbsp;|&nbsp;
+      <a id='claimSuspendedTabs' href='#'>claim all suspended tabs</a>
+    </div>
+
+    <div class="debugInstructions">
+      <span>To view debug messages, go to your <a id="backgroundPage" target="_blank">browser extensions page.</a></span><br />
+      <span>Ensure "developer mode" is checked at the top of the page, then click on the "Inspect views: background page" link for this extension.</span>
+    </div>
+
+    <hr />
+
+    <table id="gsProfiler">
+      <thead>
+        <tr>
+          <th>WinId</th>
+          <th>TabId</th>
+          <th>Index</th>
+          <th></th>
+          <th>Group</th>
+          <th>Title</th>
+          <th>Seconds to<br>suspend</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="gsProfilerBody"></tbody>
+    </table>
+
+  </div>
 </body>
 
 </html>

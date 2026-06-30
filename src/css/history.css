@@ -1,0 +1,31 @@
+.migrate-input-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.migrate-input-row a.btn,
+.migrate-input-row a.btn:link,
+.migrate-input-row a.btn:visited {
+  height: auto;
+  align-self: stretch;
+  line-height: normal;
+  padding: 0 var(--space-4);
+  flex-shrink: 0;
+}
+
+.historyBackupHint {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  margin-bottom: var(--space-5);
+}
+
+.historyBackupHint a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.historyBackupHint a:hover {
+  text-decoration: underline;
+}
