@@ -175,10 +175,6 @@ import  { gsUtils }               from './gsUtils.js';
         // Instead of reloading the page, just update the CSS directly
         gsUtils.setPageTheme(window, getOptionValue(element));
       }
-      else if (pref === gsStorage.LANGUAGE) {
-        window.location.reload();
-      }
-
       const [oldValue, newValue] = await saveChange(element);
       if (oldValue !== newValue) {
         const prefKey = elementPrefMap[element.id];
@@ -187,6 +183,10 @@ import  { gsUtils }               from './gsUtils.js';
           { [prefKey]: oldValue },
           { [prefKey]: newValue },
         );
+      }
+
+      if (pref === gsStorage.LANGUAGE) {
+        window.location.reload();
       }
     };
   }

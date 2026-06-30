@@ -63,5 +63,7 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ### Meta
 - `.gitignore`: added `/.claude` and `/.tokensave` to exclude local AI-tooling directories from version control.
+- `src/js/background.js`: removed erroneous `gsBackup` import and all references (`alarmListener` backup branch, `syncAlarmWithSettings` call in startup chain) — `gsBackup.js` belongs to the session-backup feature, not this branch.
+- `src/js/options.js`: moved `window.location.reload()` for the `LANGUAGE` preference to after `saveChange()` completes, preventing a race condition where the page could unload before the new locale value was written to storage.
 - `README.md`: visual overhaul — centered header with `suspendy-guy-main.png` mascot, tagline, and four shields.io badges (license, Manifest v3, Chrome ≥ 110, Crowdin l10n); Marvellous Codeworks logo (`marvellous-codeworks-logo.png`) with brand attribution below the badges; `suspendy-guy-lotus.png` accent in the Shoutouts section; fixed broken markdown links (permissions bare URL, tab-recovery line break); removed BrowserStack shoutout (no longer a dependency); added Manifest V3 / Chrome 110 requirement callout to install-from-source; minor prose cleanup throughout.
 - Branch rebased onto `master` (2026-06-15) to incorporate bugfixes from v8.1.4 (#369 Chrome tab group bug, #370 favicon cache, #371 logs and linter, #372 manifest prep). No conflicts with the visual-redesign changes.

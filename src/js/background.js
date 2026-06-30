@@ -1,5 +1,4 @@
 // @ts-check
-import  { gsBackup }              from './gsBackup.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
@@ -375,11 +374,6 @@ import  { tgs }                   from './tgs.js';
   async function alarmListener(alarm) {
     gsUtils.log('background', 'alarmListener', alarm);
 
-    if (alarm.name === gsBackup.ALARM_NAME) {
-      await gsBackup.performBackup();
-      return;
-    }
-
     const tabId = parseInt(alarm.name);
     const tab = await gsChrome.tabsGet(tabId);
     if (!tab) {
@@ -578,10 +572,6 @@ import  { tgs }                   from './tgs.js';
     .then(initAsPromised)
     .catch((error) => {
       gsUtils.error('background init error: ', error);
-    })
-    .then(() => gsBackup.syncAlarmWithSettings())
-    .catch((error) => {
-      gsUtils.error('background backup alarm sync error: ', error);
     });
 
 
