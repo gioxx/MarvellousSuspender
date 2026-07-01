@@ -1244,32 +1244,32 @@ export const tgs = (function() {
     else {
       chrome.contextMenus.create({
         id: 'open_link_in_suspended_tab',
-        title: chrome.i18n.getMessage('js_context_open_link_in_suspended_tab'),
+        title: gsUtils.getMessage('js_context_open_link_in_suspended_tab'),
         contexts: ['link'],
         // onclick: (info, tab) => { openLinkInSuspendedTab(tab, info.linkUrl); },
       });
 
       chrome.contextMenus.create({
         id: 'toggle_suspend_state',
-        title: chrome.i18n.getMessage('js_context_toggle_suspend_state'),
+        title: gsUtils.getMessage('js_context_toggle_suspend_state'),
         contexts: allContexts,
         // onclick: () => toggleSuspendedStateOfHighlightedTab(),
       });
       chrome.contextMenus.create({
         id: 'toggle_pause_suspension',
-        title: chrome.i18n.getMessage('js_context_toggle_pause_suspension'),
+        title: gsUtils.getMessage('js_context_toggle_pause_suspension'),
         contexts: allContexts,
         // onclick: () => requestToggleTempWhitelistStateOfHighlightedTab(),
       });
       chrome.contextMenus.create({
         id: 'never_suspend_page',
-        title: chrome.i18n.getMessage('js_context_never_suspend_page'),
+        title: gsUtils.getMessage('js_context_never_suspend_page'),
         contexts: allContexts,
         // onclick: () => whitelistHighlightedTab(true),
       });
       chrome.contextMenus.create({
         id: 'never_suspend_domain',
-        title: chrome.i18n.getMessage('js_context_never_suspend_domain'),
+        title: gsUtils.getMessage('js_context_never_suspend_domain'),
         contexts: allContexts,
         // onclick: () => whitelistHighlightedTab(false),
       });
@@ -1281,13 +1281,13 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'suspend_selected_tabs',
-        title: chrome.i18n.getMessage('js_context_suspend_selected_tabs'),
+        title: gsUtils.getMessage('js_context_suspend_selected_tabs'),
         contexts: allContexts,
         // onclick: () => suspendSelectedTabs(),
       });
       chrome.contextMenus.create({
         id: 'unsuspend_selected_tabs',
-        title: chrome.i18n.getMessage('js_context_unsuspend_selected_tabs'),
+        title: gsUtils.getMessage('js_context_unsuspend_selected_tabs'),
         contexts: allContexts,
         // onclick: () => unsuspendSelectedTabs(),
       });
@@ -1299,19 +1299,19 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'soft_suspend_other_tabs_in_window',
-        title: chrome.i18n.getMessage('js_context_soft_suspend_other_tabs_in_window'),
+        title: gsUtils.getMessage('js_context_soft_suspend_other_tabs_in_window'),
         contexts: allContexts,
         // onclick: () => suspendAllTabs(false),
       });
       chrome.contextMenus.create({
         id: 'force_suspend_other_tabs_in_window',
-        title: chrome.i18n.getMessage('js_context_force_suspend_other_tabs_in_window'),
+        title: gsUtils.getMessage('js_context_force_suspend_other_tabs_in_window'),
         contexts: allContexts,
         // onclick: () => suspendAllTabs(true),
       });
       chrome.contextMenus.create({
         id: 'unsuspend_all_tabs_in_window',
-        title: chrome.i18n.getMessage('js_context_unsuspend_all_tabs_in_window'),
+        title: gsUtils.getMessage('js_context_unsuspend_all_tabs_in_window'),
         contexts: allContexts,
         // onclick: () => unsuspendAllTabs(),
       });
@@ -1323,19 +1323,19 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'soft_suspend_all_tabs',
-        title: chrome.i18n.getMessage('js_context_soft_suspend_all_tabs'),
+        title: gsUtils.getMessage('js_context_soft_suspend_all_tabs'),
         contexts: allContexts,
         // onclick: () => suspendAllTabsInAllWindows(false),
       });
       chrome.contextMenus.create({
         id: 'force_suspend_all_tabs',
-        title: chrome.i18n.getMessage('js_context_force_suspend_all_tabs'),
+        title: gsUtils.getMessage('js_context_force_suspend_all_tabs'),
         contexts: allContexts,
         // onclick: () => suspendAllTabsInAllWindows(true),
       });
       chrome.contextMenus.create({
         id: 'unsuspend_all_tabs',
-        title: chrome.i18n.getMessage('js_context_unsuspend_all_tabs'),
+        title: gsUtils.getMessage('js_context_unsuspend_all_tabs'),
         contexts: allContexts,
         // onclick: () => unsuspendAllTabsInAllWindows(),
       });
@@ -1347,29 +1347,29 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'open_session_history',
-        title: chrome.i18n.getMessage('html_recovery_go_to_session_manager'),
+        title: gsUtils.getMessage('html_recovery_go_to_session_manager'),
         contexts: allContexts,
       });
 
       // Tab strip context menu items (right-click on tab in tab bar)
       chrome.contextMenus.create({
         id: 'tab_toggle_suspend',
-        title: chrome.i18n.getMessage('js_context_toggle_suspend_state'),
+        title: gsUtils.getMessage('js_context_toggle_suspend_state'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
         id: 'tab_toggle_pause',
-        title: chrome.i18n.getMessage('js_context_toggle_pause_suspension'),
+        title: gsUtils.getMessage('js_context_toggle_pause_suspension'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
         id: 'tab_never_suspend_domain',
-        title: chrome.i18n.getMessage('js_context_never_suspend_domain'),
+        title: gsUtils.getMessage('js_context_never_suspend_domain'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
         id: 'tab_never_suspend_page',
-        title: chrome.i18n.getMessage('js_context_never_suspend_page'),
+        title: gsUtils.getMessage('js_context_never_suspend_page'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
@@ -1379,12 +1379,12 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'tab_soft_suspend_other_tabs',
-        title: chrome.i18n.getMessage('js_context_soft_suspend_other_tabs_in_window'),
+        title: gsUtils.getMessage('js_context_soft_suspend_other_tabs_in_window'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
         id: 'tab_unsuspend_all_in_window',
-        title: chrome.i18n.getMessage('js_context_unsuspend_all_tabs_in_window'),
+        title: gsUtils.getMessage('js_context_unsuspend_all_tabs_in_window'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
@@ -1394,12 +1394,12 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'tab_soft_suspend_all',
-        title: chrome.i18n.getMessage('js_context_soft_suspend_all_tabs'),
+        title: gsUtils.getMessage('js_context_soft_suspend_all_tabs'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
         id: 'tab_unsuspend_all',
-        title: chrome.i18n.getMessage('js_context_unsuspend_all_tabs'),
+        title: gsUtils.getMessage('js_context_unsuspend_all_tabs'),
         contexts: ['tab'],
       });
     }

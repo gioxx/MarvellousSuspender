@@ -208,17 +208,23 @@ export const gsChrome = {
    * @returns { Promise<number> }
    */
   tabsGroup: (tabIds, windowId, groupId) => {
-    return new Promise(async (resolve) => {
+    return new Promise(async (resolve, reject) => {
       if (groupId === -1) {
         gsUtils.warning('tabsGroup', `Skipping groupId ${groupId}`);
         resolve(groupId);
+        return;
       }
       gsUtils.log('tabsGroup', tabIds, windowId, groupId);
-      if (groupId) {
-        resolve(chrome.tabs.group({ tabIds, groupId }));
-      }
-      else {
-        resolve(chrome.tabs.group({ tabIds, createProperties: { windowId } }));
+      try {
+        if (groupId) {
+          resolve(await chrome.tabs.group({ tabIds, groupId }));
+        }
+        else {
+          resolve(await chrome.tabs.group({ tabIds, createProperties: { windowId } }));
+        }
+      } catch (e) {
+        gsUtils.warning('tabsGroup', 'chrome.tabs.group failed:', e?.message);
+        reject(e);
       }
     });
   },

@@ -511,9 +511,22 @@ export const gsUtils = {
     });
   },
 
-  getMessage(key) {
-    if (_localeMessages && _localeMessages[key]) return _localeMessages[key].message || '';
-    return chrome.i18n.getMessage(key) || '';
+  getMessage(key, substitutions) {
+    if (_localeMessages && _localeMessages[key]) {
+      const entry = _localeMessages[key];
+      let msg = entry.message || '';
+      if (substitutions !== undefined && entry.placeholders) {
+        const subs = Array.isArray(substitutions) ? substitutions : [substitutions];
+        for (const [name, ph] of Object.entries(entry.placeholders)) {
+          const idx = parseInt((ph.content || '').replace('$', ''), 10) - 1;
+          if (!isNaN(idx) && subs[idx] !== undefined) {
+            msg = msg.replace(new RegExp(`\\$${name}\\$`, 'gi'), subs[idx]);
+          }
+        }
+      }
+      return msg;
+    }
+    return chrome.i18n.getMessage(key, substitutions) || '';
   },
 
   localiseHtml(parentEl) {

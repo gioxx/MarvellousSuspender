@@ -136,7 +136,7 @@ import  { tgs }                   from './tgs.js';
       hotkeyEl.innerHTML = '<span class="hotkeyCommand">(' + command + ')</span>';
     }
     else {
-      const reloadString = chrome.i18n.getMessage( 'js_suspended_hotkey_to_reload', );
+      const reloadString = gsUtils.getMessage( 'js_suspended_hotkey_to_reload', );
       hotkeyEl.innerHTML = `<a id='setKeyboardShortcut' href='#'>${reloadString}</a>`;
     }
   }
@@ -304,7 +304,7 @@ import  { tgs }                   from './tgs.js';
     const suspendReasonInt = await tgs.getTabStatePropForTabId( tab.id, tgs.STATE_SUSPEND_REASON );
     let suspendReason = null;
     if (suspendReasonInt === 3) {
-      suspendReason = chrome.i18n.getMessage('js_suspended_low_memory');
+      suspendReason = gsUtils.getMessage('js_suspended_low_memory');
     }
     setReason(suspendReason);
 

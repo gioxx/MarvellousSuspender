@@ -5,7 +5,7 @@ import  { gsUtils }               from './gsUtils.js';
   function render() {
     const shortcutsEl   = document.getElementById('keyboardShortcuts');
 
-    const notSetMessage = chrome.i18n.getMessage('js_shortcuts_not_set');
+    const notSetMessage = gsUtils.getMessage('js_shortcuts_not_set');
     const groupingKeys  = [
       '_execute_action',
       '2-toggle-temp-whitelist-tab',
@@ -23,7 +23,7 @@ import  { gsUtils }               from './gsUtils.js';
             ? gsUtils.formatHotkeyString(command.shortcut)
             : `(${notSetMessage})`;
         const addMarginBottom = groupingKeys.includes(command.name);
-        const description     = command.description || chrome.i18n.getMessage('js_shortcuts_default_command'); // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
+        const description     = command.description || gsUtils.getMessage('js_shortcuts_default_command'); // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
         shortcutsEl.innerHTML += `
           <div ${ addMarginBottom ? ' class="bottomMargin"' : '' }>${description}</div>
           <div class="${ command.shortcut ? 'hotkeyCommand' : 'lesserText' }">${shortcut}</div>

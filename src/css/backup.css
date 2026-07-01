@@ -438,6 +438,16 @@ input[type='number']:focus {
   color: var(--foreground);
 }
 
+.btn.btnDanger {
+  background-color: transparent;
+  color: var(--destructive, oklch(0.55 0.22 27));
+  border-color: var(--destructive, oklch(0.55 0.22 27));
+}
+
+.btn.btnDanger:hover {
+  background-color: color-mix(in oklch, var(--destructive, oklch(0.55 0.22 27)) 15%, transparent);
+}
+
 .driveFileRow {
   display: flex;
   align-items: center;
@@ -448,6 +458,14 @@ input[type='number']:focus {
 
 .driveFileRow:last-child {
   border-bottom: none;
+}
+
+.driveFileNum {
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+  white-space: nowrap;
+  min-width: 1.8em;
+  text-align: right;
 }
 
 .driveFileLabel {
@@ -466,6 +484,52 @@ input[type='number']:focus {
 .driveFileError {
   font-size: var(--text-xs);
   color: var(--destructive, #c0392b);
+}
+
+/* ── Drive → Local switch: import modal ─────────────────────────────────── */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalOverlay.hidden {
+  display: none;
+}
+
+.modalDialog {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.modalTitle {
+  margin: 0 0 var(--space-3);
+  font-weight: 600;
+  font-size: var(--text-base);
+  color: var(--foreground);
+}
+
+.modalBody {
+  margin: 0 0 var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+
+.modalActions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
 }
 
 /* ── Option saved feedback ───────────────────────────────────────────────── */

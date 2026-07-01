@@ -203,7 +203,7 @@ import  { gsUtils }               from './gsUtils.js';
     if (!row) return;
     const span = row.querySelector('.optionSavedFeedback');
     if (!span) return;
-    span.textContent = chrome.i18n.getMessage('js_backup_option_saved');
+    span.textContent = gsUtils.getMessage('js_backup_option_saved');
     span.classList.add('visible');
     clearTimeout(_savedTimers.get(row));
     _savedTimers.set(row, setTimeout(() => span.classList.remove('visible'), 2000));
@@ -331,19 +331,19 @@ import  { gsUtils }               from './gsUtils.js';
       }
 
       if (tabUrls.length === 0) {
-        alert(chrome.i18n.getMessage('js_options_whitelist_no_matches'));
+        alert(gsUtils.getMessage('js_options_whitelist_no_matches'));
         return;
       }
 
       const firstUrls = tabUrls.splice(0, 22);
-      let alertString = `${chrome.i18n.getMessage(
+      let alertString = `${gsUtils.getMessage(
         'js_options_whitelist_matches_heading',
       )}\n${firstUrls.join('\n')}`;
 
       if (tabUrls.length > 0) {
-        alertString += `\n${chrome.i18n.getMessage(
+        alertString += `\n${gsUtils.getMessage(
           'js_options_whitelist_matches_overflow_prefix',
-        )} ${tabUrls.length} ${chrome.i18n.getMessage(
+        )} ${tabUrls.length} ${gsUtils.getMessage(
           'js_options_whitelist_matches_overflow_suffix',
         )}`;
       }
@@ -364,7 +364,7 @@ import  { gsUtils }               from './gsUtils.js';
           el.style.display = 'none';
         },
       );
-      window.alert(chrome.i18n.getMessage('js_options_incognito_warning'));
+      window.alert(gsUtils.getMessage('js_options_incognito_warning'));
     }
   });
 

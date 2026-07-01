@@ -67,7 +67,7 @@ import  { gsSession }             from './gsSession.js';
     const bar = document.querySelector(`#${id}.progress .inner`);
     if (bar && bar instanceof HTMLElement) {
       bar.style.width     = `${100 * current / total}%`;
-      bar.innerHTML       = `${current} tabs`;
+      bar.innerHTML       = `${current} ${current === 1 ? 'tab' : 'tabs'}`;
     }
   }
 
@@ -85,7 +85,7 @@ import  { gsSession }             from './gsSession.js';
   function addProgressBar(id, fClear = false) {
     const actionProgress = document.getElementById('actionProgress');
     if (actionProgress) {
-      if(fClear) actionProgress.innerHTML = `<div>${chrome.i18n.getMessage('html_health_action_label')}</div>`;
+      if(fClear) actionProgress.innerHTML = `<div>${gsUtils.getMessage('html_health_action_label')}</div>`;
       const progress = document.createElement('div');
       progress.innerHTML  = '<div class="inner"></div>';
       progress.className  = 'option progress';
@@ -120,6 +120,101 @@ import  { gsSession }             from './gsSession.js';
    * @param { chrome.tabs.Tab[] } tabsHosts
    * @param { chrome.tabs.Tab[] } tabsSuspended
    */
+  /**
+   * Tab Groups repair: re-creates broken grouped tabs in their correct group.
+   * Ported from gsSession.recoverChromeDiscardedGroupedTabs (Chrome/Edge path)
+   * and gsSession.recoverBraveGroupedTabs (Brave path), preserved here so the
+   * logic survives even when the automatic startup recovery is disabled.
+   *
+   * @param { chrome.tabs.Tab[] } tabsDiscarded  grouped+discarded+suspended tabs (Chrome/Edge)
+   * @param { chrome.tabs.Tab[] } tabsNewtab     grouped tabs showing chrome://newtab/ (Brave)
+   */
+  /**
+   * Search all saved sessions (newest-first, excluding current) for a suspended URL
+   * that matches the given broken tab by window-rank and tab index.
+   *
+   * @param { chrome.tabs.Tab }  brokenTab
+   * @param { number[] }         currentWindowIds  sorted list of current window IDs
+   * @returns { Promise<string|null> }
+   */
+  async function findSuspendedUrlForBrokenTab(brokenTab, currentWindowIds) {
+    const allSessions     = await gsIndexedDb.fetchCurrentSessions();
+    const currentSessionId = await gsSession.getSessionId();
+
+    for (const session of allSessions) {
+      if (session.sessionId === currentSessionId) continue;
+      if (!session.windows?.length) continue;
+
+      const windowsSorted = session.windows
+        .filter(w => w.tabs?.length)
+        .sort((a, b) => a.id - b.id);
+
+      const windowRank  = currentWindowIds.indexOf(brokenTab.windowId);
+      const savedWindow = windowRank !== -1 ? windowsSorted[windowRank] : null;
+      const savedTab    = savedWindow?.tabs?.find(
+        t => t.index === brokenTab.index && gsUtils.isSuspendedUrl(t.url ?? ''),
+      );
+      if (savedTab?.url) return savedTab.url;
+    }
+    return null;
+  }
+
+  async function repairGroupedTabs(tabsDiscarded, tabsNewtab) {
+    logClear('actionResults');
+    addProgressBar('repair1', true);
+
+    const total = tabsDiscarded.length + tabsNewtab.length;
+    let   done  = 0;
+
+    // Chrome/Edge path: the tab still carries its suspended URL even in discarded state.
+    for (const tab of tabsDiscarded) {
+      const { windowId, index, pinned, active, groupId, url } = tab;
+      const newTab = await gsChrome.tabsCreate({ windowId, index, pinned, active, url });
+      if (newTab?.id) {
+        try {
+          await gsChrome.tabsGroup(newTab.id, windowId, groupId);
+        } catch (e) {
+          gsUtils.warning('repairGroupedTabs', 'tabsGroup failed (Chrome/Edge):', e?.message);
+        }
+        await gsChrome.tabsRemove(tab.id);
+      }
+      showProgress('repair1', ++done, total);
+    }
+
+    // Brave path: the tab URL was lost; recover from saved sessions by
+    // matching window order and tab index.
+    if (tabsNewtab.length) {
+      const allCurrentTabs   = await gsChrome.tabsQuery();
+      const currentWindowIds = [...new Set(allCurrentTabs.map(t => t.windowId))].sort((a, b) => a - b);
+      let   notRecovered     = 0;
+
+      for (const brokenTab of tabsNewtab) {
+        const suspendedUrl = await findSuspendedUrlForBrokenTab(brokenTab, currentWindowIds);
+        if (suspendedUrl) {
+          const { windowId, index, pinned, active, groupId } = brokenTab;
+          const newTab = await gsChrome.tabsCreate({ windowId, index, pinned, active, url: suspendedUrl });
+          if (newTab?.id) {
+            try {
+              await gsChrome.tabsGroup(newTab.id, windowId, groupId);
+            } catch (e) {
+              gsUtils.warning('repairGroupedTabs', 'tabsGroup failed (Brave):', e?.message);
+            }
+            await gsChrome.tabsRemove(brokenTab.id);
+          }
+        } else {
+          notRecovered++;
+        }
+        showProgress('repair1', ++done, total);
+      }
+
+      if (notRecovered > 0) {
+        warn('actionResults', `${notRecovered} tab(s) could not be recovered: no matching session data found.`);
+      }
+    }
+
+    log('actionResults', '', gsUtils.getMessage('html_health_after_repair'));
+  }
+
   async function restoreTabs(tabsHosts, tabsSuspended) {
     gsUtils.log('', 'restoreTabs');
 
@@ -158,7 +253,7 @@ import  { gsSession }             from './gsSession.js';
       await new Promise((resolve) => setTimeout(resolve, 10));  // Give the browser some time to process the tabs
     });
 
-    log('actionResults', '', chrome.i18n.getMessage('html_health_after_restore'));
+    log('actionResults', '', gsUtils.getMessage('html_health_after_restore'));
 
   }
 
@@ -171,7 +266,7 @@ import  { gsSession }             from './gsSession.js';
     await performAction('reload1', tabs, async (tab) => {
       await gsUtils.resuspendSuspendedTab(tab);
     });
-    log('actionResults', '', chrome.i18n.getMessage('html_health_after_reload'));
+    log('actionResults', '', gsUtils.getMessage('html_health_after_reload'));
   }
 
 
@@ -237,6 +332,15 @@ import  { gsSession }             from './gsSession.js';
         tabTypes.tabFrozen.push(tab);
       }
 
+      // Tab Groups bug detection (Chrome/Edge and Brave paths).
+      if (tab.groupId && tab.groupId > 0) {
+        if (tab.discarded && gsUtils.isSuspendedUrl(tab.url ?? '')) {
+          tabTypes.tabGroupsDiscarded.push(tab);
+        } else if (tab.url === 'chrome://newtab/') {
+          tabTypes.tabGroupsNewtab.push(tab);
+        }
+      }
+
       // if (Math.random() < 0.2) {
       //   await new Promise((resolve) => setTimeout(resolve, PACING));   // Dramatic effect! :)
       // }
@@ -249,17 +353,20 @@ import  { gsSession }             from './gsSession.js';
     const logName   = 'scanResults';
     const tabHosts  = new Set();
     const tabTypes  = {
-      favExtension  : [],
-      favEmpty      : [],
-      favDefault    : [],
-      favHosts      : [],
-      '---'         : [],
-      tabSuspended  : [],
-      '----'        : [],
-      tabDiscarded  : [],
-      tabFrozen     : [],
-      tabNormal     : [],
-      tabSpecial    : [],
+      favExtension      : [],
+      favEmpty          : [],
+      favDefault        : [],
+      favHosts          : [],
+      '---'             : [],
+      tabSuspended      : [],
+      '----'            : [],
+      tabDiscarded      : [],
+      tabFrozen         : [],
+      tabNormal         : [],
+      tabSpecial        : [],
+      '-----'           : [],
+      tabGroupsDiscarded: [],  // grouped + discarded + suspended (Chrome/Edge Tab Groups bug)
+      tabGroupsNewtab   : [],  // grouped + chrome://newtab/ (Brave Tab Groups bug)
     };
 
     reset();
@@ -278,23 +385,37 @@ import  { gsSession }             from './gsSession.js';
     const dbSize  = await db.count(gsIndexedDb.DB_FAVICON_META);
     // const results = await db.query(gsIndexedDb.DB_FAVICON_META, 'url').all().execute();
 
-    log(logName, tabTypes.tabSuspended.length,  chrome.i18n.getMessage('html_health_num_tms_tabs'));
-    log(logName, dbSize,                        `&ensp;&raquo; ${chrome.i18n.getMessage('html_health_num_tms_cache')}`);
-    log(logName, tabTypes.favEmpty.length,      `&ensp;&raquo; ${chrome.i18n.getMessage('html_health_num_tabs_empty')}`,      tabTypes.favEmpty.length ? '' : '✓');
-    log(logName, tabTypes.favExtension.length,  `&ensp;&raquo; ${chrome.i18n.getMessage('html_health_num_tabs_extension')}`,  tabTypes.favExtension.length ? '' : '✓');
-    log(logName, tabTypes.favDefault.length,    `&ensp;&raquo; ${chrome.i18n.getMessage('html_health_num_tabs_default')}`,    tabTypes.favDefault.length ? '' : '✓');
+    const brokenGrouped = tabTypes.tabGroupsDiscarded.length + tabTypes.tabGroupsNewtab.length;
+
+    log(logName, tabTypes.tabSuspended.length,  gsUtils.getMessage('html_health_num_tms_tabs'));
+    log(logName, dbSize,                        `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_tms_cache')}`);
+    log(logName, tabTypes.favEmpty.length,      `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_tabs_empty')}`,      tabTypes.favEmpty.length ? '' : '✓');
+    log(logName, tabTypes.favExtension.length,  `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_tabs_extension')}`,  tabTypes.favExtension.length ? '' : '✓');
+    log(logName, tabTypes.favDefault.length,    `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_tabs_default')}`,    tabTypes.favDefault.length ? '' : '✓');
     if (tabTypes.favDefault.length) {
-      log(logName, tabTypes.favHosts.length,    `&ensp;&raquo; ${chrome.i18n.getMessage('html_health_num_hostnames')}`);
+      log(logName, tabTypes.favHosts.length,    `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_hostnames')}`);
     }
+    log(logName, brokenGrouped, `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_grouped_broken')}`, brokenGrouped ? '' : '✓');
     // if (dbSize < tabTypes.favHosts.length) {
-    //   warn(logName, `${chrome.i18n.getMessage('html_health_small_cache')}`);
+    //   warn(logName, `${gsUtils.getMessage('html_health_small_cache')}`);
     // }
 
-    if (tabTypes.favEmpty.length) {
+    if (brokenGrouped) {
       quickElemById('actionSection').style.display = 'block';
-      quickElemById('actionIntro').innerHTML = chrome.i18n.getMessage('html_health_reload_intro');
+      quickElemById('actionIntro').innerHTML = gsUtils.getMessage('html_health_repair_intro');
       const button  = quickElemById('actionButton');
-      button.innerHTML = chrome.i18n.getMessage('html_health_reload_button', `${tabTypes.favEmpty.length}`);
+      button.innerHTML = gsUtils.getMessage('html_health_repair_button', `${brokenGrouped}`);
+      button.onclick = async (event) => {
+        event.preventDefault();
+        await repairGroupedTabs(tabTypes.tabGroupsDiscarded, tabTypes.tabGroupsNewtab);
+        return false;
+      };
+    }
+    else if (tabTypes.favEmpty.length) {
+      quickElemById('actionSection').style.display = 'block';
+      quickElemById('actionIntro').innerHTML = gsUtils.getMessage('html_health_reload_intro');
+      const button  = quickElemById('actionButton');
+      button.innerHTML = gsUtils.getMessage('html_health_reload_button', `${tabTypes.favEmpty.length}`);
       button.onclick = async (event) => {
         event.preventDefault();
         // button.classList.add('btnDisabled');
@@ -305,9 +426,9 @@ import  { gsSession }             from './gsSession.js';
     }
     else if (tabTypes.favHosts.length) {
       quickElemById('actionSection').style.display = 'block';
-      quickElemById('actionIntro').innerHTML = chrome.i18n.getMessage('html_health_restore_intro');
+      quickElemById('actionIntro').innerHTML = gsUtils.getMessage('html_health_restore_intro');
       const button  = quickElemById('actionButton');
-      button.innerHTML = chrome.i18n.getMessage('html_health_restore_button', `${tabTypes.favHosts.length}`);
+      button.innerHTML = gsUtils.getMessage('html_health_restore_button', `${tabTypes.favHosts.length}`);
       button.onclick = async (event) => {
         event.preventDefault();
         await restoreTabs(tabTypes.favHosts, tabTypes.favDefault);
@@ -316,7 +437,7 @@ import  { gsSession }             from './gsSession.js';
     }
     else {
       quickElemById('actionSection').style.display = 'block';
-      quickElemById('actionIntro').innerHTML = chrome.i18n.getMessage('html_health_all_good');
+      quickElemById('actionIntro').innerHTML = gsUtils.getMessage('html_health_all_good');
       const button  = quickElemById('actionButton');
       button.style.display = 'none';
     }

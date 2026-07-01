@@ -71,21 +71,55 @@ export const gsBackup = (() => {
 
   // ─── local backup ──────────────────────────────────────────────────────────
 
-  async function cleanupOldLocalBackups(maxFiles) {
+  // chrome.downloads.search `exists` field is unreliable (stale cache) and the
+  // `exists: true` query parameter does not filter reliably either. We maintain
+  // our own list of download IDs in chrome.storage.local as the single source
+  // of truth for counting and rotation.
+
+  async function getTrackedLocalIds() {
+    const r = await chrome.storage.local.get(['tmsLocalBackupIds']);
+    return r.tmsLocalBackupIds || null; // null = storage never initialised
+  }
+
+  async function initTrackedLocalIds(deviceId) {
+    const stored = await getTrackedLocalIds();
+    if (stored !== null) return stored;
+    // One-time migration: seed from downloads history ordered oldest-first
     try {
       const results = await chrome.downloads.search({
-        filenameRegex : `${BACKUP_SUBDIR}/tms-session-`,
-        orderBy       : ['-startTime'],
+        filenameRegex : `${BACKUP_SUBDIR}[/\\\\]tms-session-`,
+        orderBy       : ['startTime'],
       });
+      const ids = results
+        .filter(item => {
+          if (item.exists === false) return false; // skip confirmed-gone entries
+          const m = FILENAME_REGEX_NEW.exec(item.filename.replace(/\\/g, '/').split('/').pop());
+          return m && m[1] === deviceId;
+        })
+        .map(item => item.id);
+      await chrome.storage.local.set({ tmsLocalBackupIds: ids });
+      return ids;
+    } catch (_) {
+      await chrome.storage.local.set({ tmsLocalBackupIds: [] });
+      return [];
+    }
+  }
 
-      // Local backups are naturally per-machine; just keep the N most recent
-      const ours = results.filter(item => FILENAME_REGEX_OLD.test(item.filename.replace(/\\/g, '/').split('/').pop()));
-      for (const item of ours.slice(maxFiles)) {
-        try { await chrome.downloads.removeFile(item.id); } catch (_) {}
-        await chrome.downloads.erase({ id: item.id });
+  async function cleanupOldLocalBackups(maxFiles) {
+    try {
+      const deviceId = await getOrCreateDeviceId();
+      let ids = await initTrackedLocalIds(deviceId);
+      if (ids.length <= maxFiles) return;
+
+      const toRemove = ids.slice(0, ids.length - maxFiles); // oldest first
+      for (const id of toRemove) {
+        try { await chrome.downloads.removeFile(id); } catch (_) {}
+        await chrome.downloads.erase({ id });
       }
+      ids = ids.slice(ids.length - maxFiles);
+      await chrome.storage.local.set({ tmsLocalBackupIds: ids });
 
-      gsUtils.log('gsBackup', `Local cleanup: kept ${Math.min(ours.length, maxFiles)}, removed ${Math.max(0, ours.length - maxFiles)}`);
+      gsUtils.log('gsBackup', `Local cleanup [${deviceId}]: kept ${ids.length}, removed ${toRemove.length}`);
     } catch (e) {
       gsUtils.error('gsBackup', 'cleanupOldLocalBackups failed:', e);
     }
@@ -93,17 +127,25 @@ export const gsBackup = (() => {
 
   async function performLocalBackup(jsonString) {
     // data: URL works from service workers; Blob URLs do not survive SW lifecycle
-    // Local files use the simple date-only format — no deviceId needed since each
-    // machine has its own Downloads folder.
-    const base64   = btoa(unescape(encodeURIComponent(jsonString)));
-    const dataUrl  = `data:application/json;base64,${base64}`;
-    const filename = `${BACKUP_SUBDIR}/tms-session-${buildTimestamp()}.json`;
+    const base64                      = btoa(unescape(encodeURIComponent(jsonString)));
+    const dataUrl                     = `data:application/json;base64,${base64}`;
+    const { localPath: filename, deviceId } = await buildFilename();
 
     const downloadId = await chrome.downloads.download({
       url           : dataUrl,
       filename,
       saveAs        : false,
       conflictAction: 'overwrite',
+    });
+
+    // Register the new download in our tracking list before cleanup runs
+    const ids = await initTrackedLocalIds(deviceId);
+    ids.push(downloadId);
+    const shortName = filename.split('/').pop().split('\\').pop();
+    await chrome.storage.local.set({
+      tmsLocalBackupIds      : ids,
+      tmsLocalLastBackup     : new Date().toISOString(),
+      tmsLocalLastBackupFile : shortName,
     });
 
     gsUtils.log('gsBackup', `Local backup saved: ${filename} (id=${downloadId})`);
@@ -404,6 +446,16 @@ export const gsBackup = (() => {
       });
   }
 
+  async function deleteDriveBackup(fileId) {
+    let token;
+    try { token = await getAuthToken(false); } catch (_) { throw new Error('TMS_DRIVE_AUTH_MISSING'); }
+    const res = await fetch(`${DRIVE_API}/files/${fileId}`, {
+      method  : 'DELETE',
+      headers : { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok && res.status !== 204) throw new Error(`Drive delete failed: ${res.status}`);
+  }
+
   async function downloadDriveBackupAsFile(fileId, filename) {
     let token;
     try { token = await getAuthToken(false); } catch (_) { throw new Error('TMS_DRIVE_AUTH_MISSING'); }
@@ -536,6 +588,16 @@ export const gsBackup = (() => {
     return sessionName;
   }
 
+  async function countLocalBackups() {
+    try {
+      const deviceId = await getOrCreateDeviceId();
+      const ids = await initTrackedLocalIds(deviceId);
+      return ids.length;
+    } catch (_) {
+      return 0;
+    }
+  }
+
   return {
     ALARM_NAME,
     performBackup,
@@ -551,9 +613,18 @@ export const gsBackup = (() => {
     listDeviceRegistry,
     downloadDriveBackupContent,
     downloadDriveBackupAsFile,
+    deleteDriveBackup,
     getDriveSettingsInfo,
     downloadDriveSettingsContent,
     importBackupJson,
+    countLocalBackups,
+    getLastLocalBackupInfo : async () => {
+      const r = await chrome.storage.local.get(['tmsLocalLastBackup', 'tmsLocalLastBackupFile']);
+      return {
+        time     : r.tmsLocalLastBackup     || null,
+        filename : r.tmsLocalLastBackupFile || null,
+      };
+    },
     getDeviceId   : getOrCreateDeviceId,
     getDeviceName,
     setDeviceName : setDeviceNameLocal,

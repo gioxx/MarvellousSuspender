@@ -153,6 +153,23 @@
   "html_health_need_help2": {
     "message": "segnalazione su GitHub."
   },
+  "html_health_num_grouped_broken": {
+    "message": "schede in Tab Group con stato non corretto (bug Tab Groups)"
+  },
+  "html_health_repair_intro": {
+    "message": "Alcune schede nei Tab Group sono in uno stato non corretto — mostrano una nuova scheda invece di caricarsi correttamente dopo il riavvio del browser. TMS può tentare di ripristinarle."
+  },
+  "html_health_repair_button": {
+    "message": "Ripara $count$ scheda/e nei Tab Group",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_after_repair": {
+    "message": "Fatto. Esegui nuovamente l'analisi per verificare che le schede siano tornate al loro stato sospeso."
+  },
   "html_about_title": {
     "message": "Informazioni"
   },
@@ -900,7 +917,7 @@
     "message": "Attenzione: con un intervallo così lungo, può succedere molto tra un backup e l'altro. Considera un intervallo più breve per ridurre il rischio di perdita dati."
   },
   "html_options_backup_note": {
-    "message": "I backup locali sono nominati con data e ora (es. tms-session-2026-06-18T14-30.json) e vengono conservati automaticamente gli N più recenti. I backup su Drive includono un identificatore di dispositivo (es. tms-session-a3f7b2c8-2026-06-18T14-30.json) e vengono conservati N backup per dispositivo, così le sessioni di macchine diverse non si sovrascrivono mai."
+    "message": "Sia i backup locali che quelli su Drive includono un identificatore di dispositivo (es. tms-session-a3f7b2c8-2026-06-18T14-30.json), così ogni installazione del browser mantiene un proprio pool indipendente di backup. In locale vengono conservati gli N backup più recenti per dispositivo; su Drive vengono conservati N backup per dispositivo, così le sessioni di macchine o browser diversi non si sovrascrivono mai."
   },
   "html_backup_max_files_label": {
     "message": "Backup massimi da conservare"
@@ -945,9 +962,9 @@
     "message": "Prossima esecuzione: $time$",
     "placeholders": { "time": { "content": "$1" } }
   },
-  "js_options_backup_file_count": {
-    "message": "Backup archiviati: $count$",
-    "placeholders": { "count": { "content": "$1" } }
+  "js_options_backup_last_local": {
+    "message": "Ultimo backup: $date$",
+    "placeholders": { "date": { "content": "$1" } }
   },
   "html_options_backup_destination": {
     "message": "Destinazione backup"
@@ -1017,6 +1034,14 @@
   },
   "js_backup_drive_settings_error": {
     "message": "Impossibile salvare le impostazioni su Drive. Riprova."
+  },
+  "js_backup_cooldown": {
+    "message": "Attendi $seconds$s prima di avviare un altro backup.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
   },
   "js_backup_settings_drive_downloading": {
     "message": "Download impostazioni da Drive in corso…"
@@ -1096,11 +1121,34 @@
   "js_backup_restore_error_generic": {
     "message": "Importazione fallita. Riprova."
   },
+  "html_backup_drive_import_modal_title": {
+    "message": "Salvare il backup Drive prima di passare al locale?"
+  },
+  "html_backup_drive_import_modal_body": {
+    "message": "Il backup Drive più recente è del $date$. Vuoi salvarlo come sessione in Gestione sessioni, così puoi ripristinarlo anche senza Google Drive?",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_backup_drive_import_modal_confirm": {
+    "message": "Salva nelle Sessioni"
+  },
+  "html_backup_drive_import_modal_cancel": {
+    "message": "Salta"
+  },
   "html_backup_drive_files_title": {
     "message": "File di backup su Drive"
   },
   "html_backup_drive_download_btn": {
     "message": "Scarica"
+  },
+  "html_backup_drive_delete_btn": {
+    "message": "Elimina"
+  },
+  "js_backup_drive_delete_confirm": {
+    "message": "Eliminare questo file di backup da Drive? L'operazione non è reversibile."
   },
   "html_backup_drive_no_files": {
     "message": "Nessun file di backup trovato su Drive."

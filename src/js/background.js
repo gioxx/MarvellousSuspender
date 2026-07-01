@@ -413,10 +413,9 @@ import  { tgs }                   from './tgs.js';
       tgs.queueSessionTimer();
       await tgs.removeTabIdReferences(removedTabId);
 
-      // This event is rather unique to the Chrome Tab Group Bug, so queue up everything
-      gsSession.pushReplacedTab(addedTabId);
-      // Handle replacements that fire after the startup window (Chrome lazy tab-group restore)
-      await gsSession.handleLateReplacedTab(addedTabId, removedTabId);
+      // DISABLED FOR TESTING: Chrome 150 Tab Groups fix
+      // gsSession.pushReplacedTab(addedTabId);
+      // await gsSession.handleLateReplacedTab(addedTabId, removedTabId);
 
     });
     chrome.tabs.onCreated.addListener(async (tab) => {
@@ -460,25 +459,16 @@ import  { tgs }                   from './tgs.js';
       gsUtils.log(tabId, 'tab onUpdated', changeInfo, tab.url);
       if (!changeInfo) return;
 
-      // Cache grouped suspended tabs when Chrome assigns them a groupId at startup.
-      // Used to recover them if Chrome's lazy restore bug later redirects them to newtab.
-      if (changeInfo.groupId && tab.groupId > 0) {
-        gsSession.cacheGroupedSuspendedTab(tabId, tab);
-      }
-
-      // Chrome lazy tab-group restore bug: grouped discarded tab navigates to newtab on click.
-      if (changeInfo.url === 'chrome://newtab/' && tab.groupId > 0) {
-        await gsSession.handleGroupedTabToNewTab(tabId);
-      }
-
-      // Edge's version of the Tab Group Bug bug is more complicated.
-      // Here, we need to save the suspended URL and the tabId for grouped tabs
-      // Originally we limit tab replacement to only suspended tabs, but Edge is braking some live tabs too
-      // if (changeInfo.title == 'New Tab' && tab.groupId && gsUtils.isSuspendedTab(tab)) {
-      if (changeInfo.title?.toLowerCase() == 'new tab' && tab.groupId) {
-        // Attempt to queue up any tab moving to "new tab" -- pushReplacedTab will stop queueing after initialization ends
-        gsSession.pushReplacedTab(tabId, tab.url);
-      }
+      // DISABLED FOR TESTING: Chrome 150 Tab Groups fix — re-enable if grouped tabs still break on restart.
+      // if (changeInfo.groupId && tab.groupId > 0) {
+      //   gsSession.cacheGroupedSuspendedTab(tabId, tab);
+      // }
+      // if (changeInfo.url === 'chrome://newtab/' && tab.groupId > 0) {
+      //   await gsSession.handleGroupedTabToNewTab(tabId);
+      // }
+      // if (changeInfo.title?.toLowerCase() == 'new tab' && tab.groupId) {
+      //   gsSession.pushReplacedTab(tabId, tab.url);
+      // }
 
       if (await gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT) && changeInfo.status === 'complete') {
         await claimTab(tabId);

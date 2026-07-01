@@ -153,6 +153,23 @@
   "html_health_need_help2": {
     "message": "Issue on GitHub."
   },
+  "html_health_num_grouped_broken": {
+    "message": "grouped tabs in broken state (Tab Groups bug)"
+  },
+  "html_health_repair_intro": {
+    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+  },
+  "html_health_repair_button": {
+    "message": "Repair $count$ grouped tab(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_after_repair": {
+    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+  },
   "html_about_title": {
     "message": "About"
   },
@@ -900,7 +917,7 @@
     "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
   },
   "html_options_backup_note": {
-    "message": "Local backups are named by date and time (e.g. tms-session-2026-06-18T14-30.json) and the most recent N are kept automatically. Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json) and N backups are kept per device, so sessions from different machines never overwrite each other."
+    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
   },
   "html_backup_max_files_label": {
     "message": "Max backups to keep"
@@ -945,9 +962,9 @@
     "message": "Next run: $time$",
     "placeholders": { "time": { "content": "$1" } }
   },
-  "js_options_backup_file_count": {
-    "message": "Archived backups: $count$",
-    "placeholders": { "count": { "content": "$1" } }
+  "js_options_backup_last_local": {
+    "message": "Last backup: $date$",
+    "placeholders": { "date": { "content": "$1" } }
   },
   "html_options_backup_destination": {
     "message": "Backup destination"
@@ -1017,6 +1034,14 @@
   },
   "js_backup_drive_settings_error": {
     "message": "Could not save settings to Drive. Please try again."
+  },
+  "js_backup_cooldown": {
+    "message": "Wait $seconds$s before the next backup.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
   },
   "js_backup_settings_drive_downloading": {
     "message": "Downloading settings from Drive…"
@@ -1096,11 +1121,34 @@
   "js_backup_restore_error_generic": {
     "message": "Import failed. Please try again."
   },
+  "html_backup_drive_import_modal_title": {
+    "message": "Save Drive backup before switching?"
+  },
+  "html_backup_drive_import_modal_body": {
+    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_backup_drive_import_modal_confirm": {
+    "message": "Save to Sessions"
+  },
+  "html_backup_drive_import_modal_cancel": {
+    "message": "Skip"
+  },
   "html_backup_drive_files_title": {
     "message": "Drive backup files"
   },
   "html_backup_drive_download_btn": {
     "message": "Download"
+  },
+  "html_backup_drive_delete_btn": {
+    "message": "Delete"
+  },
+  "js_backup_drive_delete_confirm": {
+    "message": "Delete this backup file from Drive? This cannot be undone."
   },
   "html_backup_drive_no_files": {
     "message": "No Drive backup files found."
