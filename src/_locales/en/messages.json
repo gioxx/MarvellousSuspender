@@ -923,7 +923,7 @@
     "message": "Max backups to keep"
   },
   "html_backup_device_name_label": {
-    "message": "Device name"
+    "message": "Device name (optional)"
   },
   "html_backup_device_name_placeholder": {
     "message": "e.g. MacBook, Work PC"
@@ -974,9 +974,6 @@
   },
   "html_options_backup_dest_drive": {
     "message": "Google Drive"
-  },
-  "html_options_backup_drive_account": {
-    "message": "Connected account"
   },
   "html_options_backup_drive_connect": {
     "message": "Connect Google Account"

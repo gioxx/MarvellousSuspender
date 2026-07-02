@@ -82,9 +82,17 @@ __MSG_html_options_backup_enable_tooltip_line2__">
       </div>
       <div class="formRow autoBackupOption" id="autoBackupIntervalContainer">
 
-        <div class="backupConfigRow">
-          <div class="backupConfigGroup">
-            <label class="topLabel" for="autoBackupInterval" data-i18n="__MSG_html_options_backup_interval__:"></label>
+        <div class="backupSettingsGrid">
+          <label class="topLabel" for="backupDeviceName" data-i18n="__MSG_html_backup_device_name_label__:"></label>
+          <div class="backupSettingsControl" id="backupDeviceNameGroup">
+            <div class="deviceNameRow">
+              <input type="text" id="backupDeviceName" maxlength="30" placeholder="" />
+              <button id="backupDeviceNameSaveBtn" class="btn btnNeg btnSmall" data-i18n="__MSG_html_backup_device_name_save__"></button>
+            </div>
+          </div>
+
+          <label class="topLabel" for="autoBackupInterval" data-i18n="__MSG_html_options_backup_interval__:"></label>
+          <div class="backupSettingsControl">
             <div class="select-wrapper">
               <select id="autoBackupInterval" class="option">
                 <option value="0.25" data-i18n="15 __MSG_html_options_suspend_minutes__"></option>
@@ -98,8 +106,8 @@ __MSG_html_options_backup_enable_tooltip_line2__">
             </div>
           </div>
 
-          <div class="backupConfigGroup">
-            <label class="topLabel" for="autoBackupDestination" data-i18n="__MSG_html_options_backup_destination__:"></label>
+          <label class="topLabel" for="autoBackupDestination" data-i18n="__MSG_html_options_backup_destination__:"></label>
+          <div class="backupSettingsControl">
             <div class="select-wrapper">
               <select id="autoBackupDestination" class="option">
                 <option value="local" data-i18n="__MSG_html_options_backup_dest_local__"></option>
@@ -108,21 +116,38 @@ __MSG_html_options_backup_enable_tooltip_line2__">
             </div>
           </div>
 
-          <div class="backupConfigGroup">
-            <label class="topLabel" for="autoBackupMaxFiles" data-i18n="__MSG_html_backup_max_files_label__:"></label>
+          <label class="topLabel" for="autoBackupMaxFiles" data-i18n="__MSG_html_backup_max_files_label__:"></label>
+          <div class="backupSettingsControl">
             <input type="number" id="autoBackupMaxFiles" class="option" min="2" max="50" step="1" value="10" />
+          </div>
+
+          <div class="driveGridRows hidden" id="driveAuthContainer">
+            <div class="driveGridRows hidden" id="driveConnectedInfo">
+              <label class="topLabel" data-i18n="__MSG_html_backup_drive_label_account__:"></label>
+              <div class="backupSettingsControl driveInfoValue">
+                <span id="driveUserName" class="driveUserName"></span>
+                <span id="driveUserEmail" class="driveUserEmail"></span>
+              </div>
+              <label class="topLabel" data-i18n="__MSG_html_backup_drive_label_folder__:"></label>
+              <div class="backupSettingsControl driveInfoValue">
+                <span class="driveFolderName">
+                  <img id="driveIcon" src="" alt="" aria-hidden="true" class="driveIcon" />TMS Backups
+                </span>
+                <a id="driveFolderLink" class="driveFolderLink hidden" target="_blank" data-i18n="__MSG_html_backup_drive_open_folder__"></a>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="backupConfigAction">
           <button id="backupNowBtn" class="btn btnNeg" data-i18n="__MSG_html_options_backup_now__"></button>
-        </div>
 
-        <div class="backupConfigGroup hidden" id="backupDeviceNameGroup">
-          <label class="topLabel" for="backupDeviceName" data-i18n="__MSG_html_backup_device_name_label__:"></label>
-          <div class="deviceNameRow">
-            <input type="text" id="backupDeviceName" maxlength="40" placeholder="" />
-            <button id="backupDeviceNameSaveBtn" class="btn btnNeg btnSmall" data-i18n="__MSG_html_backup_device_name_save__"></button>
+          <div class="driveAuthActions hidden" id="driveAuthActions">
+            <button id="driveDisconnectBtn" class="btn btnNeg btnSmall hidden" data-i18n="__MSG_html_options_backup_drive_disconnect__"></button>
+            <div id="driveDisconnectedInfo" class="driveDisconnectedInfo">
+              <button id="driveConnectBtn" class="btn btnNeg" data-i18n="__MSG_html_options_backup_drive_connect__"></button>
+              <span id="driveAuthStatus" class="driveAuthStatus" aria-live="polite"></span>
+            </div>
           </div>
         </div>
 
@@ -143,31 +168,6 @@ __MSG_html_options_backup_enable_tooltip_line2__">
 
         <div id="localFolderInfo" class="localFolderInfo">
           <p data-i18n="__MSG_html_backup_local_folder_hint__"></p>
-        </div>
-
-        <div id="driveAuthContainer" class="driveAuthContainer">
-          <p class="pageTitle" data-i18n="__MSG_html_options_backup_drive_account__"></p>
-          <div id="driveConnectedInfo" class="driveConnectedInfo">
-            <dl class="driveInfoGrid">
-              <dt data-i18n="__MSG_html_backup_drive_label_account__"></dt>
-              <dd>
-                <span id="driveUserName" class="driveUserName"></span>
-                <span id="driveUserEmail" class="driveUserEmail"></span>
-              </dd>
-              <dt data-i18n="__MSG_html_backup_drive_label_folder__"></dt>
-              <dd>
-                <span class="driveFolderName">
-                  <img id="driveIcon" src="" alt="" aria-hidden="true" class="driveIcon" />TMS Backups
-                </span>
-                <a id="driveFolderLink" class="driveFolderLink hidden" target="_blank" data-i18n="__MSG_html_backup_drive_open_folder__"></a>
-              </dd>
-            </dl>
-            <button id="driveDisconnectBtn" class="btn btnNeg btnSmall" data-i18n="__MSG_html_options_backup_drive_disconnect__"></button>
-          </div>
-          <div id="driveDisconnectedInfo" class="driveDisconnectedInfo">
-            <button id="driveConnectBtn" class="btn btnNeg" data-i18n="__MSG_html_options_backup_drive_connect__"></button>
-            <span id="driveAuthStatus" class="driveAuthStatus" aria-live="polite"></span>
-          </div>
         </div>
 
         <div id="backupMetaInfo" class="backupMeta" aria-live="polite">

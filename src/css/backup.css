@@ -9,6 +9,13 @@
 .deviceNameRow input[type="text"] {
   flex: 1;
   min-width: 0;
+  height: 40px;
+}
+
+.deviceNameRow .btnSmall {
+  height: 40px;
+  min-width: auto;
+  padding: 0 var(--space-4);
 }
 
 /* ── Settings export / import ────────────────────────────────────────────── */
@@ -55,28 +62,30 @@
   gap: var(--space-2);
 }
 
-/* ── Session backup: interval + destination + button on same row ─────────── */
+/* ── Session backup: settings as a two-column label/control grid ─────────── */
 
-.backupConfigRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-6);
-  align-items: flex-end;
+.backupSettingsGrid {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 280px);
+  column-gap: var(--space-4);
+  row-gap: var(--space-3);
+  align-items: center;
   margin-top: var(--space-2);
 }
 
-.backupConfigGroup {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+.backupSettingsGrid .topLabel {
+  margin: 0;
+  white-space: nowrap;
 }
 
-.backupConfigGroup.hidden {
-  display: none;
+.backupSettingsControl {
+  min-width: 0;
 }
 
-#backupDeviceNameGroup {
-  margin-top: var(--space-4);
+.backupSettingsControl .select-wrapper,
+.backupSettingsControl select,
+.backupSettingsControl input[type='number'] {
+  width: 100%;
 }
 
 /* ── Time picker: below the config row, same width as the interval select ─── */
@@ -168,44 +177,34 @@ input[type='number']:focus {
   margin: 0;
 }
 
-/* ── Drive auth panel ────────────────────────────────────────────────────── */
+/* ── Drive auth: account/folder rows merged into the settings grid ───────── */
 
-.driveAuthContainer {
+.driveGridRows {
+  display: contents;
+}
+
+.driveGridRows.hidden {
   display: none;
-  margin-top: var(--space-6);
 }
 
-.driveConnectedInfo {
-  display: none;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-4);
-}
-
-.driveInfoGrid {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  column-gap: var(--space-6);
-  row-gap: var(--space-3);
-  margin: 0;
-  padding: 0;
-}
-
-.driveInfoGrid dt {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--muted-foreground);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  padding-top: 2px;
-}
-
-.driveInfoGrid dd {
+.driveInfoValue {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  margin: 0;
+}
+
+.driveAuthActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.driveAuthActions.hidden {
+  display: none;
+}
+
+#driveDisconnectBtn.hidden {
+  display: none;
 }
 
 .driveUserName {
@@ -335,9 +334,18 @@ input[type='number']:focus {
 
 .driveBackupPickerRow {
   display: flex;
-  flex-wrap: wrap;
   gap: var(--space-3);
   align-items: center;
+}
+
+.driveBackupPickerRow .select-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.driveBackupPickerRow select {
+  width: 100%;
+  min-width: 0;
 }
 
 .restoreStatusBar {

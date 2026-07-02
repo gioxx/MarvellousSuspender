@@ -263,9 +263,11 @@ import  { gsUtils }    from './gsUtils.js';
   }
 
   function setDestinationPanels(isDrive) {
-    const driveEl = document.getElementById('driveAuthContainer');
-    const localEl = document.getElementById('localFolderInfo');
-    if (driveEl) driveEl.style.display = isDrive ? 'block' : 'none';
+    const driveEl        = document.getElementById('driveAuthContainer');
+    const driveActionsEl = document.getElementById('driveAuthActions');
+    const localEl        = document.getElementById('localFolderInfo');
+    if (driveEl)        driveEl.classList.toggle('hidden', !isDrive);
+    if (driveActionsEl) driveActionsEl.classList.toggle('hidden', !isDrive);
     if (localEl) localEl.style.display = isDrive ? 'none' : 'block';
   }
 
@@ -282,6 +284,7 @@ import  { gsUtils }    from './gsUtils.js';
   async function updateDriveAuthUI() {
     const connectedEl    = document.getElementById('driveConnectedInfo');
     const disconnectedEl = document.getElementById('driveDisconnectedInfo');
+    const disconnectBtnEl = document.getElementById('driveDisconnectBtn');
     const nameEl         = document.getElementById('driveUserName');
     const emailEl        = document.getElementById('driveUserEmail');
     if (!connectedEl || !disconnectedEl) return;
@@ -303,8 +306,9 @@ import  { gsUtils }    from './gsUtils.js';
     if (user && user.emailAddress) {
       if (nameEl)  nameEl.textContent  = user.displayName || '';
       emailEl.textContent          = user.emailAddress;
-      connectedEl.style.display    = 'flex';
+      connectedEl.classList.remove('hidden');
       disconnectedEl.style.display = 'none';
+      disconnectBtnEl?.classList.remove('hidden');
 
       const folderLink = document.getElementById('driveFolderLink');
       if (folderLink) {
@@ -346,12 +350,8 @@ import  { gsUtils }    from './gsUtils.js';
           gsBackup.getDeviceId(),
         ]);
 
-        // Show device name field only when other devices have backed up to this Drive account
+        // Device name field is always visible (optional); used to label multi-device groups below
         const hasOtherDevices = Object.keys(registry).some(id => id !== myDeviceId);
-        const deviceNameGroup = document.getElementById('backupDeviceNameGroup');
-        if (deviceNameGroup) {
-          deviceNameGroup.classList.toggle('hidden', !hasOtherDevices);
-        }
 
         if (files.length && driveCard) {
           const sel = document.getElementById('driveBackupsSelect');
@@ -420,8 +420,9 @@ import  { gsUtils }    from './gsUtils.js';
         renderDriveFilesList([], {});
       }
     } else {
-      connectedEl.style.display    = 'none';
+      connectedEl.classList.add('hidden');
       disconnectedEl.style.display = 'flex';
+      disconnectBtnEl?.classList.add('hidden');
       const folderLink = document.getElementById('driveFolderLink');
       if (folderLink) folderLink.classList.add('hidden');
 
