@@ -225,7 +225,7 @@ import  { gsUtils }    from './gsUtils.js';
       const nameInput  = document.getElementById('backupDeviceName');
       if (nameInput) {
         nameInput.value       = deviceName;
-        nameInput.placeholder = gsUtils.getMessage('html_backup_device_name_placeholder') || 'e.g. MacBook, PC lavoro';
+        nameInput.placeholder = await gsBackup.getDeviceId();
       }
 
       const isDrive = settings[gsStorage.AUTO_BACKUP_DESTINATION] === 'drive';

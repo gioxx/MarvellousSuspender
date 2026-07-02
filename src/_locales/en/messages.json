@@ -925,9 +925,6 @@
   "html_backup_device_name_label": {
     "message": "Device name (optional)"
   },
-  "html_backup_device_name_placeholder": {
-    "message": "e.g. MacBook, Work PC"
-  },
   "html_backup_device_name_save": {
     "message": "Save"
   },
