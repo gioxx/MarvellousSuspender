@@ -855,7 +855,10 @@ export const tgs = (function() {
         const contexts = await gsChrome.contextsGetByViewName('suspended');
         for (const context of contexts) {
           if (context.tabId) {
-            await chrome.tabs.sendMessage(context.tabId, { action: 'updateCommand', tabId: context.tabId });
+            await chrome.tabs.sendMessage(context.tabId, { action: 'updateCommand', tabId: context.tabId })
+              .catch((error) => {
+                gsUtils.warning(context.tabId, 'tgs', 'handleTabFocusChanged', 'Failed to send updateCommand to content script', error);
+              });
           }
         }
       }
@@ -962,7 +965,10 @@ export const tgs = (function() {
     }
     else if (focusedTab.url === chrome.runtime.getURL('options.html')) {
       if (await gsChrome.contextGetByTabId(focusedTab.id)) {
-        await chrome.tabs.sendMessage(focusedTab.id, { action: 'initSettings', tab: focusedTab });
+        await chrome.tabs.sendMessage(focusedTab.id, { action: 'initSettings', tab: focusedTab })
+          .catch((error) => {
+            gsUtils.warning(focusedTab.id, 'tgs', 'handleNewStationaryTabFocus', 'Failed to send initSettings to content script', error);
+          });
       }
     }
 
@@ -999,7 +1005,10 @@ export const tgs = (function() {
       }
       else {
         if (await gsChrome.contextGetByTabId(focusedTab.id)) {
-          await chrome.tabs.sendMessage(focusedTab.id, { action: 'showNoConnectivityMessage', tab: focusedTab });
+          await chrome.tabs.sendMessage(focusedTab.id, { action: 'showNoConnectivityMessage', tab: focusedTab })
+            .catch((error) => {
+              gsUtils.warning(focusedTab.id, 'tgs', 'handleSuspendedTabFocusGained', 'Failed to send showNoConnectivityMessage to content script', error);
+            });
         }
       }
     }
