@@ -354,6 +354,10 @@ export const gsBackup = (() => {
   }
 
   async function performBackup() {
+    if (chrome.extension.inIncognitoContext) {
+      gsUtils.log('gsBackup', 'performBackup: skipped — running in a split-incognito context.');
+      return;
+    }
     try {
       const currentSessionId = await gsSession.getSessionId();
       const session          = await gsIndexedDb.fetchSessionBySessionId(currentSessionId);

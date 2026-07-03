@@ -477,10 +477,16 @@ import  { gsUtils }    from './gsUtils.js';
       }
       else if (pref === gsStorage.AUTO_BACKUP_DESTINATION) {
         setDestinationPanels(getOptionValue(element) === 'drive');
-        await updateDriveAuthUI();
       }
 
       const [oldValue, newValue] = await saveChange(element);
+
+      if (pref === gsStorage.AUTO_BACKUP_DESTINATION) {
+        // Runs after the new destination is persisted, since updateDriveAuthUI()
+        // reads AUTO_BACKUP_DESTINATION back from storage.
+        await updateDriveAuthUI();
+      }
+
       if (oldValue !== newValue) {
         const prefKey = elementPrefMap[element.id];
         gsUtils.performPostSaveUpdates(
@@ -619,6 +625,7 @@ import  { gsUtils }    from './gsUtils.js';
 
     await gsStorage.saveSettings(merged);
     await gsStorage.syncSettings();
+    await gsBackup.syncAlarmWithSettings();
     return true;
   }
 
