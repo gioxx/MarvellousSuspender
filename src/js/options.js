@@ -320,36 +320,53 @@ import  { gsUtils }               from './gsUtils.js';
 
     document.getElementById('testWhitelistBtn').onclick = async (event) => {
       event.preventDefault();
-      const tabs      = await gsChrome.tabsQuery();
-      const tabUrls   = [];
+      const tabs     = await gsChrome.tabsQuery();
+      const matches  = [];
       for (const tab of tabs) {
-        const url     = gsUtils.isSuspendedTab(tab) ? gsUtils.getOriginalUrl(tab.url) : tab.url;
+        const url    = gsUtils.isSuspendedTab(tab) ? gsUtils.getOriginalUrl(tab.url) : tab.url;
         if (!(gsUtils.isSpecialTab(tab)) && (await gsUtils.checkWhiteList(url))) {
-          const str   = url.length > 55 ? `${url.substr(0, 52)}...` : url;
-          tabUrls.push(str);
+          const label = url.length > 55 ? `${url.substr(0, 52)}...` : url;
+          matches.push({ tabId: tab.id, windowId: tab.windowId, label });
         }
       }
 
-      if (tabUrls.length === 0) {
-        alert(gsUtils.getMessage('js_options_whitelist_no_matches'));
-        return;
+      const modal    = document.getElementById('whitelistTestModal');
+      const listEl   = document.getElementById('whitelistTestModalList');
+      const emptyEl  = document.getElementById('whitelistTestModalEmpty');
+      listEl.innerHTML = '';
+
+      if (matches.length === 0) {
+        emptyEl.classList.remove('hidden');
+      } else {
+        emptyEl.classList.add('hidden');
+        for (const match of matches) {
+          const li = document.createElement('li');
+          const a  = document.createElement('a');
+          a.href        = '#';
+          a.textContent = match.label;
+          a.addEventListener('click', async (clickEvent) => {
+            clickEvent.preventDefault();
+            modal.classList.add('hidden');
+            await gsChrome.tabsUpdate(match.tabId, { active: true });
+            await gsChrome.windowsUpdate(match.windowId, { focused: true });
+          });
+          li.appendChild(a);
+          listEl.appendChild(li);
+        }
       }
 
-      const firstUrls = tabUrls.splice(0, 22);
-      let alertString = `${gsUtils.getMessage(
-        'js_options_whitelist_matches_heading',
-      )}\n${firstUrls.join('\n')}`;
-
-      if (tabUrls.length > 0) {
-        alertString += `\n${gsUtils.getMessage(
-          'js_options_whitelist_matches_overflow_prefix',
-        )} ${tabUrls.length} ${gsUtils.getMessage(
-          'js_options_whitelist_matches_overflow_suffix',
-        )}`;
-      }
-      alert(alertString);
-      // gsUtils.log('options', 'testWhitelistBtn', '\n', alertString);
+      modal.classList.remove('hidden');
     };
+
+    document.getElementById('whitelistTestModalClose').onclick = () => {
+      document.getElementById('whitelistTestModal').classList.add('hidden');
+    };
+
+    document.getElementById('whitelistTestModal').addEventListener('click', (event) => {
+      if (event.target.id === 'whitelistTestModal') {
+        event.target.classList.add('hidden');
+      }
+    });
 
     document.getElementById('unsuspendWhitelistedBtn').onclick = async (event) => {
       event.preventDefault();
