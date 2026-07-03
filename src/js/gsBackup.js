@@ -44,7 +44,8 @@ export const gsBackup = (() => {
         const url = gsUtils.isSuspendedTab(curTab)
           ? gsUtils.getOriginalUrl(curTab.url)
           : curTab.url;
-        win.tabs.push({ url, groupId: curTab.groupId });
+        const title = gsUtils.getCleanTabTitle(curTab);
+        win.tabs.push({ url, title, pinned: curTab.pinned, groupId: curTab.groupId });
       }
       windows.push(win);
     }
@@ -569,7 +570,7 @@ export const gsBackup = (() => {
           url      : tab.url,
           title    : tab.title || tab.url,
           index    : curWindow.tabs.length,
-          pinned   : false,
+          pinned   : tab.pinned || false,
           groupId  : tab.groupId,
         });
       }

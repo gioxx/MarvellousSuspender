@@ -11,20 +11,54 @@ const gsNewsFeed = (() => {
   const WINDOW_START_MIN  = 8 * 60;   // 08:00 local
   const WINDOW_SIZE_MIN   = 12 * 60;  // window ends at 20:00 local
 
-  function parseRssXml(text) {
-    const parser = new DOMParser();
-    const doc    = parser.parseFromString(text, 'application/xml');
-    const items  = doc.querySelectorAll('channel > item');
+  // Regex-based parsing (no DOMParser) so this also works from the service
+  // worker context (background.js), which has no DOM APIs available.
+  function decodeXmlEntities(str) {
+    return str
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&apos;|&#39;/g, "'")
+      .replace(/&amp;/g, '&');
+  }
+
+  function stripCData(str) {
+    const match = str.match(/^<!\[CDATA\[([\s\S]*?)\]\]>$/);
+    return match ? match[1] : str;
+  }
+
+  function extractTag(xml, tag) {
+    const match = xml.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i'));
+    return match ? stripCData(match[1]).trim() : '';
+  }
+
+  function extractAllTags(xml, tag) {
+    const re = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'gi');
     const result = [];
-    for (const item of items) {
-      const title   = item.querySelector('title')?.textContent?.trim()       ?? '';
-      const link    = item.querySelector('link')?.textContent?.trim()        ?? '';
-      const pubDate = item.querySelector('pubDate')?.textContent?.trim()     ?? '';
-      const categories = [...item.querySelectorAll('category')].map(c => c.textContent?.toLowerCase() ?? '');
+    let match;
+    while ((match = re.exec(xml))) {
+      result.push(stripCData(match[1]).trim());
+    }
+    return result;
+  }
+
+  function stripHtmlTags(html) {
+    return html.replace(/<[^>]*>/g, ' ');
+  }
+
+  function parseRssXml(text) {
+    const result  = [];
+    const itemRe  = /<item[^>]*>([\s\S]*?)<\/item>/gi;
+    let itemMatch;
+    while ((itemMatch = itemRe.exec(text))) {
+      const itemXml = itemMatch[1];
+      const title   = decodeXmlEntities(extractTag(itemXml, 'title'));
+      const link    = decodeXmlEntities(extractTag(itemXml, 'link'));
+      const pubDate = decodeXmlEntities(extractTag(itemXml, 'pubDate'));
+      const categories = extractAllTags(itemXml, 'category').map(c => decodeXmlEntities(c).toLowerCase());
       if (!categories.some(c => c.includes('marvellous suspender'))) continue;
-      const rawDesc = item.querySelector('description')?.textContent?.trim() ?? '';
-      const tmpEl   = new DOMParser().parseFromString(rawDesc, 'text/html');
-      const excerpt = (tmpEl.body?.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 220);
+      const rawDesc = decodeXmlEntities(extractTag(itemXml, 'description'));
+      const excerpt = stripHtmlTags(rawDesc).replace(/\s+/g, ' ').trim().slice(0, 220);
       if (title && link) result.push({ title, link, pubDate, excerpt });
       if (result.length >= MAX_ITEMS) break;
     }
