@@ -10,6 +10,7 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 ## [Unreleased] — feature/session-backup
 
 ### Fixed
+- **About page: doubled punctuation in the fork credit sentence** (`en/messages.json`): `html_about_fork_end` started with a leading comma (`", more information available on"`), which combined with the literal `"). "` already in `about.html` produced `"...(issue #1263). , more information..."`. Removed the leading comma and capitalized the sentence to `"More information available on"`, matching the Italian locale which was already correct.
 - **Backup page: session backup settings laid out as a two-column label/control grid** (`backup.html`, `backup.css`): device name, interval, destination and max files to keep now sit in a `backupSettingsGrid` (`grid-template-columns: max-content 1fr`) instead of a wrapping flex row, so every field's label lines up in a left column and its control in a right column — consistent alignment regardless of label length, no more unpredictable wrapping.
 - **Backup page: device name field capped at 30 characters** (`backup.html`, `backup.css`): reduced `maxlength` on the device name input from 40 to 30.
 - **Backup page: "Connected account" labels now end with a colon like the settings grid** (`backup.html`): "Account"/"Cartella" (`html_backup_drive_label_account`, `html_backup_drive_label_folder`) were missing the trailing `:` that every other `.topLabel` in the page has, making them look visually different even after sharing the same CSS class.
