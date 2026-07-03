@@ -11,3 +11,4 @@ node_modules
 Thumbs.db
 tmp
 /docs
+.dev-notes/

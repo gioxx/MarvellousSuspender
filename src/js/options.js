@@ -124,25 +124,13 @@ import  { gsUtils }               from './gsUtils.js';
   }
 
   function setSyncNoteVisibility(visible) {
-    if (visible) {
-      document.getElementById('syncNote').style.display = 'block';
-    }
-    else {
-      document.getElementById('syncNote').style.display = 'none';
-    }
+    document.getElementById('syncNote').classList.toggle('hidden', !visible);
   }
 
   function setAutoSuspendOptionsVisibility(visible) {
     Array.prototype.forEach.call(
       document.getElementsByClassName('autoSuspendOption'),
-      (el) => {
-        if (visible) {
-          el.style.display = 'flex';
-        }
-        else {
-          el.style.display = 'none';
-        }
-      },
+      (el) => el.classList.toggle('hidden', !visible),
     );
   }
 

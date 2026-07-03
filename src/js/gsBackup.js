@@ -9,8 +9,10 @@ export const gsBackup = (() => {
 
   const ALARM_NAME         = 'tms-auto-backup';
   const BACKUP_SUBDIR      = 'tms-backups';
-  const FILENAME_REGEX_NEW = /^tms-session-([a-f0-9]{8})-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2})\.json$/;
-  const FILENAME_REGEX_OLD = /^tms-session-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2})\.json$/;
+  // Seconds segment is optional so filenames written before second-precision was
+  // added (minute-only) still match for migration, cleanup and rotation.
+  const FILENAME_REGEX_NEW = /^tms-session-([a-f0-9]{8})-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2}(?:-\d{2})?)\.json$/;
+  const FILENAME_REGEX_OLD = /^tms-session-(\d{4}-\d{2}-\d{2}T\d{2}-\d{2}(?:-\d{2})?)\.json$/;
   const DEVICE_FILE_REGEX  = /^tms-device-([a-f0-9]{8})\.json$/;
   const DRIVE_API          = 'https://www.googleapis.com/drive/v3';
   const DRIVE_UPLOAD_API   = 'https://www.googleapis.com/upload/drive/v3';
@@ -56,7 +58,9 @@ export const gsBackup = (() => {
     const now  = new Date();
     const pad  = (n) => String(n).padStart(2, '0');
     const date = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
-    const time = `${pad(now.getHours())}-${pad(now.getMinutes())}`;
+    // Second precision avoids identical filenames (and duplicate tracked download
+    // IDs under conflictAction:'overwrite') when two backups fire in the same minute.
+    const time = `${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
     return `${date}T${time}`;
   }
 
@@ -565,6 +569,7 @@ export const gsBackup = (() => {
 
     const windows = [];
     for (const win of importObj.windows) {
+      if (!win || !Array.isArray(win.tabs)) continue; // skip malformed windows instead of throwing
       const curWindow = { id: sessionId + '_' + windows.length, tabs: [] };
       for (const tab of win.tabs) {
         curWindow.tabs.push({
@@ -580,6 +585,8 @@ export const gsBackup = (() => {
       }
       windows.push(curWindow);
     }
+
+    if (windows.length === 0) throw new Error('TMS_IMPORT_EMPTY');
 
     await gsIndexedDb.addToSavedSessions({
       name      : sessionName,

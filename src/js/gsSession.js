@@ -160,7 +160,6 @@ export const gsSession = (function() {
       await handleUpdate(currentSessionTabs, curVersion, gsStartupLastVersion);
     }
 
-    // await handleReplacedTabs(); // DISABLED FOR TESTING: Chrome 150 should fix Tab Groups bug natively
     await performTabChecks();
 
     // Ensure currently focused tab is initialised correctly if suspended
@@ -172,173 +171,6 @@ export const gsSession = (function() {
     updateCurrentSession(); //async
     await gsStorage.saveStorage('session', 'gsInitialisationMode', false);
   }
-
-
-  // DISABLED FOR TESTING: Chrome 150 should fix Tab Groups bug (crbug.com/522338670) natively.
-  // Re-enable the blocks below if grouped suspended tabs still break on restart.
-
-  // /** @type { { tabId: number, url ?:string }[] } */
-  // const replacedTabs  = [];
-  // let   allowReplace  = true;
-
-  // // Suspended URLs for grouped tabs, keyed by tabId. Populated when Chrome assigns groupIds
-  // // at startup so we can recover them if Chrome's lazy tab-group restore bug redirects to newtab.
-  // const groupedSuspendedCache = new Map();
-
-  // /**
-  //  * @param { number } tabId
-  //  * @param { string } [url]
-  //  */
-  // function pushReplacedTab(tabId, url) {
-  //   // We need to handle the replaced tabs sequentially to ensure proper placement.
-  //   // So, add them to a queue during startup and process them only once below.
-  //   if (allowReplace) {
-  //     replacedTabs.push({tabId, url});
-  //   }
-  // }
-
-  // async function handleReplacedTabs() {
-  //   gsUtils.log('gsSession', 'handleReplacedTabs', replacedTabs.length);
-  //   // Work-around for Chrome and Edge tab groups bug https://crbug.com/522338670
-  //   // https://github.com/gioxx/MarvellousSuspender/issues/369
-  //   // https://github.com/gioxx/MarvellousSuspender/issues/374
-  //   // Chrome:
-  //   // Suspended tabs should never be Replaced in practice
-  //   // The current bug is explicitly Replacing non "web" tabs ( and discarding them )
-  //   // Weirdly / luckily the defunct tab maintains the original URL while also being a "new tab"
-  //   // So, if a Replaced tab is also a Suspended tab, we're going to swap it out for a fresh tab
-  //   // Edge:
-  //   // Edge's version of this bug is more complex.  We have to tap into the main tab onUpdated event, which triggers all the time
-  //   // We only queue up tabs that are suspended, are in a tab group, and are transitions to "new tab"
-  //   // Further, since the queued tabId does not have the correct URL, we're sending it into the queue to override the new-tab URL
-  //   // Brave:
-  //   // Brave doesn't fire onReplaced at all, and uses localized "New Tab" titles (e.g. "Nuova scheda" in Italian),
-  //   // so neither the Chrome nor the Edge path activates. Grouped suspended tabs show chrome://newtab/ after restart.
-  //   // We recover them by matching against the last saved session using window order + tab index.
-
-  //   gsUtils.setTimeout(2000).then(async () => {
-  //     allowReplace        = false;
-  //     for (const replaceInfo of replacedTabs) {
-  //       const addedTab    = await gsChrome.tabsGet(replaceInfo.tabId);
-  //       const replaceUrl  = replaceInfo.url ?? addedTab?.url;
-  //       // gsUtils.highlight(replaceInfo.tabId, 'gsSession', 'handleReplacedTabs', addedTab);
-  //       // if (addedTab?.groupId && replaceUrl && gsUtils.isSuspendedUrl(replaceUrl)) {
-  //       if (addedTab?.groupId && replaceUrl) {
-  //         const { windowId, index, pinned, active, groupId }  = addedTab;
-  //         const newTab    = await gsChrome.tabsCreate({ windowId, index, pinned, active, url: replaceUrl });
-  //         if (newTab?.id) {
-  //           await gsChrome.tabsGroup(newTab.id, windowId, groupId);
-  //           await gsChrome.tabsRemove(replaceInfo.tabId);
-  //         }
-  //       }
-  //     }
-
-  //     // Brave path: only activate when neither Chrome nor Edge captured any replaced tabs.
-  //     // If replacedTabs was non-empty, Chrome/Edge already handled the grouped tabs — running
-  //     // the session-based recovery on top would cause double-processing and duplicate tabs.
-  //     if (replacedTabs.length === 0) {
-  //       await recoverChromeDiscardedGroupedTabs();
-  //       await recoverBraveGroupedTabs();
-  //     }
-  //   });
-
-  // }
-
-  // // Chrome browser-restart path: grouped suspended tabs are marked discarded at startup.
-  // // When the user clicks one, Chrome's session-restore group bug redirects to newtab instead
-  // // of loading the suspended URL. We pre-empt this by re-creating all such tabs now
-  // // (before the user clicks), identical to how handleReplacedTabs handles the onReplaced case.
-  // async function recoverChromeDiscardedGroupedTabs() {
-  //   const allCurrentTabs = await gsChrome.tabsQuery();
-  //   const targets = allCurrentTabs.filter(t =>
-  //     t.groupId > 0 && t.discarded && gsUtils.isSuspendedUrl(t.url ?? '')
-  //   );
-  //   if (!targets.length) return;
-
-  //   for (const tab of targets) {
-  //     groupedSuspendedCache.delete(tab.id);
-  //     const { windowId, index, pinned, active, groupId, url } = tab;
-  //     const newTab = await gsChrome.tabsCreate({ windowId, index, pinned, active, url });
-  //     if (newTab?.id) {
-  //       await gsChrome.tabsGroup(newTab.id, windowId, groupId);
-  //       await gsChrome.tabsRemove(tab.id);
-  //     }
-  //   }
-  // }
-
-  // async function recoverBraveGroupedTabs() {
-  //   const allCurrentTabs  = await gsChrome.tabsQuery();
-  //   const brokenTabs      = allCurrentTabs.filter(t => t.groupId > 0 && t.url === 'chrome://newtab/');
-  //   if (!brokenTabs.length) return;
-
-  //   const lastSession = await gsIndexedDb.fetchLastSession();
-  //   if (!lastSession?.windows) return;
-
-  //   // Match windows by creation order (lower windowId = restored first)
-  //   const savedWindowsSorted  = lastSession.windows
-  //     .filter(w => w.tabs?.length)
-  //     .sort((a, b) => a.id - b.id);
-  //   const currentWindowIds    = [...new Set(allCurrentTabs.map(t => t.windowId))].sort((a, b) => a - b);
-
-  //   for (const brokenTab of brokenTabs) {
-  //     const windowRank    = currentWindowIds.indexOf(brokenTab.windowId);
-  //     const savedWindow   = windowRank !== -1 ? savedWindowsSorted[windowRank] : null;
-  //     if (!savedWindow?.tabs) continue;
-
-  //     // Match by tab index within the window
-  //     const savedTab = savedWindow.tabs.find(
-  //       t => t.index === brokenTab.index && gsUtils.isSuspendedUrl(t.url ?? ''),
-  //     );
-  //     if (!savedTab?.url) continue;
-
-  //     gsUtils.log('gsSession', 'recoverBraveGroupedTabs', brokenTab.id, '→', savedTab.url);
-  //     const { windowId, index, pinned, active, groupId }  = brokenTab;
-  //     const newTab    = await gsChrome.tabsCreate({ windowId, index, pinned, active, url: savedTab.url });
-  //     if (newTab?.id) {
-  //       await gsChrome.tabsGroup(newTab.id, windowId, groupId);
-  //       await gsChrome.tabsRemove(brokenTab.id);
-  //     }
-  //   }
-  // }
-
-  // function cacheGroupedSuspendedTab(tabId, tab) {
-  //   if (tab?.groupId > 0 && gsUtils.isSuspendedUrl(tab.url ?? '')) {
-  //     groupedSuspendedCache.set(tabId, tab.url);
-  //   }
-  // }
-
-  // // Chrome's lazy tab-group restore bug: when the user clicks a grouped discarded tab
-  // // after browser restart, Chrome loads chrome://newtab/ instead of the suspended URL.
-  // // We detect the navigation via onUpdated and restore from the cache built at startup.
-  // async function handleGroupedTabToNewTab(tabId) {
-  //   const url = groupedSuspendedCache.get(tabId);
-  //   if (!url) return;
-  //   groupedSuspendedCache.delete(tabId);
-  //   gsUtils.log('gsSession', 'handleGroupedTabToNewTab restoring', tabId, '→', url);
-  //   await gsChrome.tabsUpdate(tabId, { url });
-  // }
-
-  // // Handles onReplaced events that fire after the startup window closes.
-  // // Tries the Chrome quirk (defunct tab keeps suspended URL) first, then falls back to cache.
-  // async function handleLateReplacedTab(addedTabId, removedTabId) {
-  //   if (allowReplace) return;
-  //   const addedTab = await gsChrome.tabsGet(addedTabId);
-  //   if (!addedTab?.groupId || addedTab.groupId === -1) return;
-
-  //   let url = addedTab.url;
-  //   if (!gsUtils.isSuspendedUrl(url ?? '')) {
-  //     url = groupedSuspendedCache.get(removedTabId);
-  //   }
-  //   if (!url || !gsUtils.isSuspendedUrl(url)) return;
-
-  //   groupedSuspendedCache.delete(removedTabId);
-  //   const { windowId, index, pinned, active, groupId } = addedTab;
-  //   const newTab = await gsChrome.tabsCreate({ windowId, index, pinned, active, url });
-  //   if (newTab?.id) {
-  //     await gsChrome.tabsGroup(newTab.id, windowId, groupId);
-  //     await gsChrome.tabsRemove(addedTabId);
-  //   }
-  // }
 
 
   //make sure the contentscript / suspended script of each tab is responsive
@@ -928,9 +760,5 @@ export const gsSession = (function() {
     prepareForUpdate,
     getUpdateType,
     unsuspendActiveTabInEachWindow,
-    // pushReplacedTab,         // DISABLED FOR TESTING: Chrome 150 Tab Groups fix
-    // cacheGroupedSuspendedTab,
-    // handleGroupedTabToNewTab,
-    // handleLateReplacedTab,
   };
 })();

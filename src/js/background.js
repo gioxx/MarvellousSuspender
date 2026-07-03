@@ -412,11 +412,6 @@ import  { tgs }                   from './tgs.js';
       // await tgs.updateTabIdReferences(addedTabId, removedTabId);
       tgs.queueSessionTimer();
       await tgs.removeTabIdReferences(removedTabId);
-
-      // DISABLED FOR TESTING: Chrome 150 Tab Groups fix
-      // gsSession.pushReplacedTab(addedTabId);
-      // await gsSession.handleLateReplacedTab(addedTabId, removedTabId);
-
     });
     chrome.tabs.onCreated.addListener(async (tab) => {
       gsUtils.log(tab.id, 'tab onCreated', tab.url);
@@ -458,17 +453,6 @@ import  { tgs }                   from './tgs.js';
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       gsUtils.log(tabId, 'tab onUpdated', changeInfo, tab.url);
       if (!changeInfo) return;
-
-      // DISABLED FOR TESTING: Chrome 150 Tab Groups fix — re-enable if grouped tabs still break on restart.
-      // if (changeInfo.groupId && tab.groupId > 0) {
-      //   gsSession.cacheGroupedSuspendedTab(tabId, tab);
-      // }
-      // if (changeInfo.url === 'chrome://newtab/' && tab.groupId > 0) {
-      //   await gsSession.handleGroupedTabToNewTab(tabId);
-      // }
-      // if (changeInfo.title?.toLowerCase() == 'new tab' && tab.groupId) {
-      //   gsSession.pushReplacedTab(tabId, tab.url);
-      // }
 
       if (await gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT) && changeInfo.status === 'complete') {
         await claimTab(tabId);
