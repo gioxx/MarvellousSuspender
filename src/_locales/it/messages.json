@@ -461,6 +461,9 @@
   "html_options_whitelist_test": {
     "message": "Verifica il funzionamento della lista bianca"
   },
+  "html_options_whitelist_close": {
+    "message": "Chiudi"
+  },
   "html_options_whitelist_unsuspend": {
     "message": "Riattiva le schede in lista bianca"
   },

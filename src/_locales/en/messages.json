@@ -461,6 +461,9 @@
   "html_options_whitelist_test": {
     "message": "Test whitelist"
   },
+  "html_options_whitelist_close": {
+    "message": "Close"
+  },
   "html_options_whitelist_unsuspend": {
     "message": "Wake whitelisted tabs"
   },
