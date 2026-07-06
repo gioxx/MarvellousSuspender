@@ -30,6 +30,22 @@ import  { gsUtils }    from './gsUtils.js';
     tick();
   }
 
+  function removeDriveSelectOption(fileId) {
+    const sel = document.getElementById('driveBackupsSelect');
+    if (!sel) return;
+    const opt = sel.querySelector(`option[value="${CSS.escape(fileId)}"]`);
+    if (!opt) return;
+    const parent = opt.parentElement;
+    opt.remove();
+    if (parent && parent.tagName === 'OPTGROUP' && !parent.children.length) {
+      parent.remove();
+    }
+    if (!sel.options.length) {
+      document.getElementById('restoreDriveCard')?.classList.add('hidden');
+      document.getElementById('restoreActions')?.classList.remove('has-drive-card');
+    }
+  }
+
   function renderDriveFilesList(files, registry) {
     const details = document.getElementById('section-drive-files');
     const listEl  = document.getElementById('driveFilesList');
@@ -103,6 +119,7 @@ import  { gsUtils }    from './gsUtils.js';
         try {
           await gsBackup.deleteDriveBackup(f.id);
           row.remove();
+          removeDriveSelectOption(f.id);
         } catch (_) {
           const errEl = document.createElement('span');
           errEl.className   = 'driveFileError';
