@@ -32,6 +32,7 @@ import  { tgs }                   from './tgs.js';
       .then(gsStorage.initSettingsAsPromised)   // ensure settings have been loaded and synced
       .then(async () => { await gsStorage.saveStorage('session', 'gsInitialisationMode', true); })
       .then(gsSession.runStartupChecks)         // performs crash check (and maybe recovery) and tab responsiveness checks
+      .then(gsBackup.retryPendingDriveBackup)   // upload any Drive backup queued by an emergency onSuspend
       .catch((error) => {
         gsUtils.error('background startup checks error: ', error);
       });
@@ -81,6 +82,7 @@ import  { tgs }                   from './tgs.js';
 
   chrome.runtime.onSuspend.addListener(() => {
     gsUtils.log('5 runtime.onSuspend');
+    gsBackup.performEmergencyBackup(); // fire-and-forget: the service worker may be killed before this resolves
   });
   chrome.runtime.onSuspendCanceled.addListener(() => {
     gsUtils.log('6 runtime.onSuspendCanceled');
@@ -381,6 +383,10 @@ import  { tgs }                   from './tgs.js';
 
     if (alarm.name === gsBackup.ALARM_NAME) {
       await gsBackup.performBackup();
+      return;
+    }
+    if (alarm.name === gsBackup.RETRY_ALARM_NAME) {
+      await gsBackup.retryPendingDriveBackup();
       return;
     }
     if (alarm.name === gsNewsFeed.ALARM_NAME) {
