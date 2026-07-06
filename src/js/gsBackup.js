@@ -431,6 +431,42 @@ export const gsBackup = (() => {
     }
   }
 
+  async function retryPendingDriveBackup() {
+    const r       = await chrome.storage.local.get(['tmsPendingDriveBackup']);
+    const pending = r.tmsPendingDriveBackup;
+    if (!pending) {
+      return;
+    }
+
+    try {
+      await performDriveBackup(pending.json);
+      await chrome.storage.local.remove('tmsPendingDriveBackup');
+      await clearDriveAuthError();
+      gsUtils.log('gsBackup', 'retryPendingDriveBackup: pending backup uploaded successfully.');
+    } catch (e) {
+      if (e?.message === 'TMS_DRIVE_AUTH_MISSING') {
+        await flagDriveAuthError();
+        await chrome.storage.local.remove('tmsPendingDriveBackup');
+        gsUtils.error('gsBackup', 'retryPendingDriveBackup: Drive auth missing, giving up.', e);
+        return;
+      }
+
+      const attempts = (pending.attempts || 0) + 1;
+      if (attempts > RETRY_BACKOFF_MINUTES.length) {
+        await chrome.storage.local.remove('tmsPendingDriveBackup');
+        gsUtils.error('gsBackup', 'retryPendingDriveBackup: giving up after max retries.', e);
+        return;
+      }
+
+      await chrome.storage.local.set({
+        tmsPendingDriveBackup: { ...pending, attempts },
+      });
+      const delayInMinutes = RETRY_BACKOFF_MINUTES[attempts - 1];
+      chrome.alarms.create(RETRY_ALARM_NAME, { delayInMinutes });
+      gsUtils.error('gsBackup', `retryPendingDriveBackup: failed (attempt ${attempts}), retrying in ${delayInMinutes}min.`, e);
+    }
+  }
+
   async function scheduleBackup(intervalHours) {
     const periodInMinutes = parseFloat(intervalHours) * 60;
     await chrome.alarms.clear(ALARM_NAME);
@@ -657,6 +693,7 @@ export const gsBackup = (() => {
     RETRY_ALARM_NAME,
     performBackup,
     performEmergencyBackup,
+    retryPendingDriveBackup,
     scheduleBackup,
     cancelBackup,
     syncAlarmWithSettings,
