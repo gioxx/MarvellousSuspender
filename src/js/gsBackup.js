@@ -16,6 +16,8 @@ export const gsBackup = (() => {
   const DEVICE_FILE_REGEX  = /^tms-device-([a-f0-9]{8})\.json$/;
   const DRIVE_API          = 'https://www.googleapis.com/drive/v3';
   const DRIVE_UPLOAD_API   = 'https://www.googleapis.com/upload/drive/v3';
+  const RETRY_ALARM_NAME      = 'tms-pending-backup-retry';
+  const RETRY_BACKOFF_MINUTES = [0.5, 2, 10];
 
   // ─── device identity ───────────────────────────────────────────────────────
 
@@ -389,6 +391,46 @@ export const gsBackup = (() => {
     }
   }
 
+  async function performEmergencyBackup() {
+    if (chrome.extension.inIncognitoContext) {
+      gsUtils.log('gsBackup', 'performEmergencyBackup: skipped — running in a split-incognito context.');
+      return;
+    }
+    const enabled = await gsStorage.getOption(gsStorage.AUTO_BACKUP_ENABLED);
+    if (!enabled) {
+      return;
+    }
+    try {
+      const currentSessionId = await gsSession.getSessionId();
+      const session          = await gsIndexedDb.fetchSessionBySessionId(currentSessionId);
+
+      if (!session || !session.windows || session.windows.length === 0) {
+        gsUtils.log('gsBackup', 'performEmergencyBackup: nothing to back up — session is empty.');
+        return;
+      }
+
+      const exportObj  = await buildExportObject(session);
+      const jsonString = JSON.stringify(exportObj, null, 2);
+
+      await performLocalBackup(jsonString);
+
+      const destination = await gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION);
+      if (destination === 'drive') {
+        await chrome.alarms.clear(RETRY_ALARM_NAME);
+        await chrome.storage.local.set({
+          tmsPendingDriveBackup: {
+            json      : jsonString,
+            createdAt : new Date().toISOString(),
+            attempts  : 0,
+          },
+        });
+        gsUtils.log('gsBackup', 'performEmergencyBackup: queued pending Drive backup for retry on next startup.');
+      }
+    } catch (e) {
+      gsUtils.error('gsBackup', 'performEmergencyBackup failed:', e);
+    }
+  }
+
   async function scheduleBackup(intervalHours) {
     const periodInMinutes = parseFloat(intervalHours) * 60;
     await chrome.alarms.clear(ALARM_NAME);
@@ -612,7 +654,9 @@ export const gsBackup = (() => {
 
   return {
     ALARM_NAME,
+    RETRY_ALARM_NAME,
     performBackup,
+    performEmergencyBackup,
     scheduleBackup,
     cancelBackup,
     syncAlarmWithSettings,
