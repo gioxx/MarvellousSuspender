@@ -358,12 +358,14 @@ import  { gsUtils }    from './gsUtils.js';
           sel.innerHTML = '';
 
           function formatOptionLabel(filename) {
-            return filename
+            const stripped = filename
               .replace(/\.json$/, '')
               .replace(/^tms-session-[a-f0-9]{8}-/, '')
-              .replace(/^tms-session-/, '')
-              .replace('T', ' ')
-              .replace(/-(\d{2})-(\d{2})$/, ' $1:$2');
+              .replace(/^tms-session-/, '');
+            const [datePart, timePart] = stripped.split('T');
+            if (!timePart) return datePart;
+            // timePart is HH-MM or HH-MM-SS (seconds optional on legacy filenames)
+            return `${datePart} ${timePart.replace(/-/g, ':')}`;
           }
 
           const groups = new Map();
