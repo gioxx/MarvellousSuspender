@@ -1521,7 +1521,8 @@ body.dark span.group.edge.orange { background: #df8e64; }
 
 #testWhitelistBtn,
 #testWhitelistBtn + span[aria-hidden],
-#unsuspendWhitelistedBtn {
+#unsuspendWhitelistedBtn,
+#unsuspendWhitelistedBtn + .optionSavedFeedback {
   margin-top: var(--space-3);
 }
 
