@@ -44,5 +44,8 @@
   },
   "dependencies": {
     "db.js": "^0.15.0"
+  },
+  "overrides": {
+    "js-yaml": "^3.15.0"
   }
 }
