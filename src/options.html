@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
-  <link type="text/css" href="css/fontello.css" rel="stylesheet">
   <link type="text/css" href="css/style.css" rel="stylesheet">
-  <link type="text/css" href="css/options.css" rel="stylesheet">
   <script type="module" src="js/options.js"></script>
+  <script type="module" src="js/gsNavBadge.js"></script>
+  <!-- <script type="module" src="js/gsDonateLinks.js"></script> -->
   <title data-i18n="__MSG_ext_extension_name__ - __MSG_html_options_title__"></title>
 </head>
 
@@ -18,11 +18,20 @@
     <div class="brandMark" id="options-heading">
       <div class="brandTitle">
         <img src="img/suspendy-guy-main.webp" alt="" class="extensionIcon" aria-hidden="true" />
-        <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+        <div class="brandTitleText">
+          <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+          <div class="brandLinks">
+            <span id="headerVersion"></span>
+            <span aria-hidden="true">·</span>
+            <a href="https://marvellouscode.works/tms" target="_blank">marvellouscode.works/tms</a>
+            <span aria-hidden="true">·</span>
+            <a href="https://kb.marvellouscode.works" target="_blank">kb.marvellouscode.works</a>
+          </div>
+        </div>
       </div>
       <div class="brandCodeworks">
         <img src="img/marvellous-codeworks-logo.webp" alt="" class="brandLogo" aria-hidden="true" />
-        <span class="brandSubtitle">a Marvellous Codeworks project</span>
+        <span class="brandSubtitle">a <a href="https://marvellouscode.works" target="_blank">Marvellous Codeworks</a> project</span>
       </div>
     </div>
     <div class="splash reallyHidden welcome-message">
@@ -46,11 +55,19 @@
       <li class="noIncognito">
         <a href="history.html" data-i18n="__MSG_html_sidebar_session_management__"></a>
       </li>
+      <li class="noIncognito">
+        <a href="backup.html" data-i18n="__MSG_html_sidebar_backup__"></a>
+      </li>
       <li>
         <a href="health.html" data-i18n="__MSG_html_sidebar_tab_health__"></a>
       </li>
       <li class="noIncognito">
         <a href="shortcuts.html" data-i18n="__MSG_html_sidebar_shortcuts__"></a>
+      </li>
+      <li>
+        <a href="news.html"><span data-i18n="__MSG_html_sidebar_news__"></span>
+          <span class="navBadge reallyHidden" id="navNewsBadge" aria-label="Unread news"></span>
+        </a>
       </li>
       <li>
         <a href="about.html" data-i18n="__MSG_html_sidebar_support__"></a>
@@ -60,7 +77,13 @@
 
   <div class="content">
 
-    <div class="sub-section">
+    <nav class="pageInlineNav" aria-label="Jump to section">
+      <a href="#section-general"   data-i18n="__MSG_html_options_other_title__"></a>
+      <a href="#section-suspend"   data-i18n="__MSG_html_options_suspend_title__"></a>
+      <a href="#section-suspended" data-i18n="__MSG_html_options_suspended_title__"></a>
+    </nav>
+
+    <div class="sub-section" id="section-general">
       <p class="pageTitle" data-i18n="__MSG_html_options_other_title__"></p>
       <div class="formRow formRow--paired">
         <div>
@@ -104,33 +127,32 @@
       </div>
       <div class="formRow noIncognito">
         <input type="checkbox" id="addContextMenu" class="option" />
-        <label for="addContextMenu" class="cbLabel" data-i18n="__MSG_html_options_other_enable_context_menu__&nbsp;&nbsp;"></label>
+        <label for="addContextMenu" class="cbLabel" data-i18n="__MSG_html_options_other_enable_context_menu__"></label>
         <span data-i18n-tooltip="__MSG_html_options_other_enable_context_menu_tooltip_line1__
 
 __MSG_html_options_other_enable_context_menu_tooltip_line2__
 __MSG_html_options_other_enable_context_menu_tooltip_line3__">
-          <i class="tooltipIcon icon icon-help-circled"></i>
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
         </span>
       </div>
       <div class="formRow noIncognito">
         <input type="checkbox" id="syncSettings" class="option" />
-        <label for="syncSettings" class="cbLabel" data-i18n="__MSG_html_options_other_enable_sync__&nbsp;&nbsp;"></label>
+        <label for="syncSettings" class="cbLabel" data-i18n="__MSG_html_options_other_enable_sync__"></label>
         <span data-i18n-tooltip="__MSG_html_options_other_enable_sync_tooltip_line1a__
 __MSG_html_options_other_enable_sync_tooltip_line1b__
 
 __MSG_html_options_other_enable_sync_tooltip_line2__">
-          <i class="tooltipIcon icon icon-help-circled"></i>
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
         </span>
         <div id="syncNote" class="gsNote" data-i18n="__MSG_html_options_other_enable_sync_warning__"></div>
       </div>
     </div>
 
-    <div class="sub-section">
+    <div class="sub-section" id="section-suspend">
       <p class="pageTitle" data-i18n="__MSG_html_options_suspend_title__"></p>
       <div class="formRow">
         <label id="timeToSuspendLbl" class="topLabel" for="timeToSuspend"
                data-i18n="__MSG_html_options_suspend_automatically_after__:"></label>
-        <br />
         <div class="select-wrapper">
           <select id="timeToSuspend" class="option">
             <option value="0"     data-i18n="__MSG_html_options_suspend_never__"></option>
@@ -186,7 +208,7 @@ __MSG_html_options_other_enable_sync_tooltip_line2__">
       </div>
       <div class="formRow autoSuspendOption">
         <input type="checkbox" id="suspendInPlaceOfDiscard" class="option" />
-        <label for="suspendInPlaceOfDiscard" class="cbLabel" data-i18n="__MSG_html_options_suspend_on_low_memory__&nbsp;&nbsp;"></label>
+        <label for="suspendInPlaceOfDiscard" class="cbLabel" data-i18n="__MSG_html_options_suspend_on_low_memory__"></label>
         <span data-i18n-tooltip="__MSG_html_options_suspend_on_low_memory_tooltip_line1__
 __MSG_html_options_suspend_on_low_memory_tooltip_line2__
 __MSG_html_options_suspend_on_low_memory_tooltip_line3__
@@ -196,11 +218,11 @@ __MSG_html_options_suspend_on_low_memory_tooltip_line5__
 
 __MSG_html_options_suspend_on_low_memory_tooltip_line6__
 __MSG_html_options_suspend_on_low_memory_tooltip_discarding_link__">
-          <i class="tooltipIcon icon icon-help-circled"></i>
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
         </span>
       </div>
       <div class="formRow autoSuspendOption">
-        <label id="whitelistLbl" for="whitelist" data-i18n="__MSG_html_options_whitelist_title__&nbsp;&nbsp;"></label>
+        <label id="whitelistLbl" for="whitelist" data-i18n="__MSG_html_options_whitelist_title__"></label>
         <span data-i18n-tooltip="__MSG_html_options_whitelist_tooltip_line1__
 &nbsp;&nbsp;&nbsp;&nbsp;https://play.google.com/music/listen
 &nbsp;&nbsp;&nbsp;&nbsp;https://mail.google.com
@@ -210,15 +232,27 @@ __MSG_html_options_whitelist_tooltip_line2__
 
 __MSG_html_options_whitelist_tooltip_line3__
 &nbsp;&nbsp;&nbsp;&nbsp;/^https:.*google\.com/">
-          <i class="tooltipIcon icon icon-help-circled"></i>
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
         </span>
         <textarea id="whitelist" class="option" rows="10" cols="50"></textarea>
         <a id="testWhitelistBtn" href="#whitelistLbl" data-i18n="__MSG_html_options_whitelist_test__"></a>
+        <span aria-hidden="true"> · </span>
+        <a id="unsuspendWhitelistedBtn" href="#whitelistLbl" data-i18n="__MSG_html_options_whitelist_unsuspend__"></a>
       </div>
     </div>
 
-    <div class="sub-section">
+    <div class="sub-section" id="section-suspended">
       <p class="pageTitle" data-i18n="__MSG_html_options_suspended_title__"></p>
+      <div class="formRow">
+        <input type="checkbox" id="appendUrlToTitle" class="option" />
+        <label for="appendUrlToTitle" class="cbLabel"
+               data-i18n="__MSG_html_options_suspended_append_url_to_title__"></label>
+        <span data-i18n-tooltip="__MSG_html_options_suspended_append_url_to_title_tooltip_line1__
+
+__MSG_html_options_suspended_append_url_to_title_tooltip_line2__">
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
+        </span>
+      </div>
       <div class="formRow">
         <input type="checkbox" id="unsuspendOnFocus" class="option" />
         <label for="unsuspendOnFocus" class="cbLabel" data-i18n="__MSG_html_options_suspend_automatically_unsuspend__"></label>
@@ -235,13 +269,13 @@ __MSG_html_options_suspend_discard_after_suspend_tooltip_line2b__
 
 __MSG_html_options_suspend_discard_after_suspend_tooltip_line3a__
 __MSG_html_options_suspend_discard_after_suspend_tooltip_line3b__">
-          <i class="tooltipIcon icon icon-help-circled"></i>
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
         </span>
       </div>
       <div class="formRow">
         <label id="previewLbl" class="topLabel" for="preview"
-               data-i18n="__MSG_html_options_suspend_screen_capturing__:&nbsp;&nbsp;"></label>
-        <span data-i18n-tooltip="__MSG_html_options_suspend_screen_capturing_tooltip_line1a__
+               data-i18n="__MSG_html_options_suspend_screen_capturing__:&nbsp;&nbsp;">
+          <span data-i18n-tooltip="__MSG_html_options_suspend_screen_capturing_tooltip_line1a__
 __MSG_html_options_suspend_screen_capturing_tooltip_line1b__
 
 __MSG_html_options_suspend_screen_capturing_tooltip_line2a__
@@ -249,9 +283,9 @@ __MSG_html_options_suspend_screen_capturing_tooltip_line2b__
 
 __MSG_html_options_suspend_screen_capturing_tooltip_line3a__
 __MSG_html_options_suspend_screen_capturing_tooltip_line3b__">
-          <i class="tooltipIcon icon icon-help-circled"></i>
-        </span>
-        <br />
+            <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
+          </span>
+        </label>
         <div class="select-wrapper">
           <select id="preview" class="option">
             <option value="0" data-i18n="__MSG_html_options_suspend_screen_capturing_disabled__"></option>
@@ -262,7 +296,7 @@ __MSG_html_options_suspend_screen_capturing_tooltip_line3b__">
       </div>
       <div class="formRow" id="forceScreenCaptureContainer">
         <input type="checkbox" id="forceScreenCapture" class="option" />
-        <label for="forceScreenCapture" class="cbLabel" data-i18n="__MSG_html_options_suspend_force_screen_capture__&nbsp;&nbsp;"></label>
+        <label for="forceScreenCapture" class="cbLabel" data-i18n="__MSG_html_options_suspend_force_screen_capture__"></label>
         <span data-i18n-tooltip="__MSG_html_options_suspend_force_screen_capture_tooltip_line1__
 __MSG_html_options_suspend_force_screen_capture_tooltip_line2__
 __MSG_html_options_suspend_force_screen_capture_tooltip_line4__
@@ -270,13 +304,26 @@ __MSG_html_options_suspend_force_screen_capture_tooltip_line5__
 
 __MSG_html_options_suspend_force_screen_capture_tooltip_line6__
 __MSG_html_options_suspend_force_screen_capture_tooltip_line7__">
-          <i class="tooltipIcon icon icon-help-circled"></i>
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
         </span>
       </div>
     </div>
 
   </div>
 
+</div>
+
+<button id="backToTop" aria-label="Back to top" data-i18n="__MSG_html_options_back_to_top__"></button>
+
+<div class="modalOverlay hidden" id="whitelistTestModal" role="dialog" aria-modal="true" aria-labelledby="whitelistTestModalTitle">
+  <div class="modalDialog">
+    <p class="modalTitle" id="whitelistTestModalTitle" data-i18n="__MSG_js_options_whitelist_matches_heading__"></p>
+    <ul class="modalList" id="whitelistTestModalList"></ul>
+    <p class="modalBody hidden" id="whitelistTestModalEmpty" data-i18n="__MSG_js_options_whitelist_no_matches__"></p>
+    <div class="modalActions">
+      <button id="whitelistTestModalClose" class="btn" data-i18n="__MSG_html_options_whitelist_close__"></button>
+    </div>
+  </div>
 </div>
 
 </body>

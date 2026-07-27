@@ -34,6 +34,13 @@ import  { historyItems }          from './historyItems.js';
     }
   }
 
+  function showRecoveryComplete() {
+    document.getElementById('suspendy-guy-inprogress').classList.add('reallyHidden');
+    document.getElementById('recovery-inprogress').classList.add('reallyHidden');
+    document.getElementById('suspendy-guy-complete').classList.remove('reallyHidden');
+    document.getElementById('recovery-complete').classList.remove('reallyHidden');
+  }
+
   function removeTabFromList(tabToRemove) {
     const recoveryTabsEl = document.getElementById('recoveryTabs');
     const childLinks = recoveryTabsEl.children;
@@ -53,21 +60,11 @@ import  { historyItems }          from './historyItems.js';
       }
     }
 
-    //if removing the last element.. (re-get the element this function gets called asynchronously
+    // if removing the last element and restore was already triggered, show success
     if (document.getElementById('recoveryTabs').children.length === 0) {
-      //if we have already clicked the restore button then redirect to success page
       if (restoreAttempted) {
-        document.getElementById('suspendy-guy-inprogress').style.display =
-          'none';
-        document.getElementById('recovery-inprogress').style.display = 'none';
-        document.getElementById('suspendy-guy-complete').style.display =
-          'inline-block';
-        document.getElementById('recovery-complete').style.display =
-          'inline-block';
-
-        //otherwise we have no tabs to recover so just hide references to recovery
-      }
-      else {
+        showRecoveryComplete();
+      } else {
         hideRecoverySection();
       }
     }
@@ -128,6 +125,7 @@ import  { historyItems }          from './historyItems.js';
         await gsUtils.setTimeout(200);
       }
       await gsSession.recoverLostTabs();
+      showRecoveryComplete();
     };
 
     restoreEl.addEventListener('click', performRestore);
