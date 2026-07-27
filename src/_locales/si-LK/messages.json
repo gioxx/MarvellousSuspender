@@ -78,52 +78,52 @@
     "message": "සියලුම කවුළු වල සියලුම ටැබ් අත්හිටුවන්න"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "ටැබ් සෞඛ්‍යය (බීටා)"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "ඔබේ අත්හිටුවන ලද ටැබ් සමඟ, විශේෂයෙන් favicon සමඟ ගැටලු ඇත්නම්, අපට ඒවා අලුත්වැඩියා කළ හැකිදැයි බැලීමට \"ටැබ් පරිලෝකනය කරන්න\" ක්ලික් කරන්න."
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "ඔබේ අත්හිටුවන ලද ටැබ් සමඟ කිසිදු ගැටලුවක් අපට හමු නොවීය. තවමත් වැරදි යමක් පෙනේ නම්, පහත අපට දන්වන්න, අපි මෙම සෞඛ්‍ය පරීක්ෂාව පුළුල් කිරීමට උත්සාහ කරන්නෙමු."
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "සම්පූර්ණයෙන් පූරණය නොවූ අත්හිටුවන ලද ටැබ් කිහිපයක් ඔබට ඇත. ඒවා පිරිසිදු කිරීමට අපට එම ටැබ් නැවත පූරණය කළ හැක."
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "ඔබේ අත්හිටුවන ලද ටැබ් කිහිපයක් බ්‍රවුසරයේ පෙරනිමි favicon භාවිතා කරයි. එයින් අදහස් වන්නේ TMS කෑෂ් එකේ ඒවා නොමැති බවයි. අස්ථානගත වූ favicon ලබා ගැනීමට අපට අවම ටැබ් ගණනක් ප්‍රතිසාධනය කර නැවත අත්හිටුවිය හැක."
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "ටැබ් පරිලෝකනය කරන්න"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "ප්‍රතිඵල පිටපත් කරන්න"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "ටැබ් පරිලෝකනය කරමින්..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "TMS මගින් අත්හිටුවන ලද ටැබ්"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "TMS කෑෂ් එකේ favicon"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "ටැබ් පූරණය වී නැත"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "ටැබ්වලට TMS favicon ඇත"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "ටැබ්වලට පෙරනිමි favicon ඇත"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "අනන්‍ය ටැබ් හෝස්ට්නාම"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "ස්ථානීය TMS favicon කෑෂ් එක සියලුම ටැබ් ආවරණය නොකළ හැක. ඔබේ බ්‍රවුසර කෑෂ් එක හිස් කළහොත්, TMS හට සමහර favicon පෙන්විය නොහැකි විය හැක."
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "ඊළඟට: ටැබ් $count$ ක් නැවත පූරණය කරන්න",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -131,7 +131,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "ඊළඟට: favicon කෑෂ් කිරීමට ටැබ් $count$ක් ප්‍රතිසාධනය කරන්න",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -139,28 +139,28 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "favicon ප්‍රතිසාධනය කරමින්..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "ඔබේ ටැබ් පසුබිමින් පූරණය වී අවසන් වූ පසු, තත්ත්වය වැඩිදියුණු වී ඇත්දැයි බැලීමට ඔබට නැවතත් \"ටැබ් පරිලෝකනය කරන්න\" ක්ලික් කළ හැක."
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "තත්ත්වය වැඩිදියුණු වී ඇත්දැයි බැලීමට ඔබට නැවතත් \"ටැබ් පරිලෝකනය කරන්න\" ක්ලික් කළ හැක."
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "තවමත් ටැබ් හෝ favicon ගැටලු තිබේ නම්, ඔබට \"ප්‍රතිඵල පිටපත් කරන්න\" ක්ලික් කර නව"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "GitHub Issue එකකට අලවන්න."
   },
   "html_health_num_grouped_broken": {
-    "message": "grouped tabs in broken state (Tab Groups bug)"
+    "message": "බිඳී ඇති තත්ත්වයේ සමූහගත ටැබ් (ටැබ් සමූහ දෝෂය)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "ටැබ් සමූහවල ඇතැම් ටැබ් බිඳී ඇති තත්ත්වයක ඇත — බ්‍රවුසරය නැවත ආරම්භ කිරීමෙන් පසු නිවැරදිව පූරණය වීමට වඩා ඒවා නව ටැබ් එකක් ලෙස පෙන්වයි. TMS හට ඒවා ප්‍රතිසාධනය කිරීමට උත්සාහ කළ හැක."
   },
   "html_health_repair_button": {
-    "message": "Repair $count$ grouped tab(s)",
+    "message": "සමූහගත ටැබ් $count$ අලුත්වැඩියා කරන්න",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -168,25 +168,25 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+    "message": "නිමයි. සමූහගත ටැබ් නැවත ඒවායේ අත්හිටුවන ලද තත්ත්වයට පැමිණ ඇත්දැයි තහවුරු කිරීමට යළි පරිලෝකනය කරන්න."
   },
   "html_about_title": {
     "message": "පිළිබඳව"
   },
   "html_about_version_label": {
-    "message": "Version"
+    "message": "අනුවාදය"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension — replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "නවීන ටැබ් අත්හිටුවීමේ ආධ්‍යාත්මික අනුප්‍රාප්තිකයා — නිෂ්ක්‍රීය ටැබ් සැහැල්ලු නිද්‍රා පිටුවකින් ප්‍රතිස්ථාපනය කර, ඒවා අවදි වන විට ඔබට සියුම් පාලනයක් ලබා දෙයි."
   },
   "html_about_section_credits": {
-    "message": "Credits"
+    "message": "ණයගැති වීම්"
   },
   "html_about_contributors_and": {
-    "message": " and "
+    "message": " සහ "
   },
   "html_about_community_thanks_link": {
-    "message": "all contributors on GitHub"
+    "message": "GitHub හි සියලුම දායකයින්"
   },
   "html_about_fork_beginning": {
     "message": "මුල් පිටපත මත පදනම්ව"
@@ -195,10 +195,10 @@
     "message": "ADS ලුහුබැඳීමකින් තොරව GitHub මත තිබේ"
   },
   "html_about_fork_end": {
-    "message": "More information available on"
+    "message": "වැඩිදුර තොරතුරු ලබා ගත හැක්කේ"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "ඔබ වෙත ගෙන එනු ලබන්නේ"
   },
   "html_about_report_issues_prefix": {
     "message": "ඔබට ප්‍රතිපෝෂණ තිබේ නම් හෝ ගැටලුවක් වාර්තා කිරීමට කැමති නම්, ඔබට එය කළ හැක"
@@ -207,19 +207,19 @@
     "message": ". කරුණාකර නව එකක් සෑදීමට පෙර ඔබේ අදහස හෝ ගැටලුව දැනටමත් තිබේදැයි පරීක්ෂා කරන්න. ස්තුතියි!"
   },
   "html_about_debugging_prefix": {
-    "message": "To capture logs and generate a diagnostic report, go to the "
+    "message": "ලඝු-සටහන් ලබාගෙන රෝග විනිශ්චය වාර්තාවක් ජනනය කිරීමට, "
   },
   "html_about_debugging_suffix": {
-    "message": "diagnostic page."
+    "message": "රෝග විනිශ්චය පිටුවට යන්න."
   },
   "html_about_the_github_issues_page": {
     "message": "GitHub නිකුතු පිටුව"
   },
   "html_about_section_support": {
-    "message": "Support development"
+    "message": "සංවර්ධනයට සහාය වන්න"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender නොමිලේ සහ විවෘත මූලාශ්‍ර වේ. එය ප්‍රයෝජනවත් යැයි ඔබට හැඟේ නම්, කුඩා දායකත්වයක් සලකා බලන්න — එය ව්‍යාපෘතිය ජීවමානව හා වර්ධනය වීමට උපකාරී වේ."
   },
   "html_broken_title": {
     "message": "කැඩිලා"
@@ -228,7 +228,7 @@
     "message": "රුහ් රොහ්!"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "ආරම්භ වීමට අසමත් විය. සමහරවිට ඔබ අනුකූල නොවන බ්‍රවුසරයක් භාවිතා කරනවා විය හැකිද?"
   },
   "html_broken_line2": {
     "message": "දිගුව නැවත ආරම්භ කිරීමට උත්සාහ කරන්න. ගැටලුව දිගටම පවතින්නේ නම්, උදව් සඳහා විමසන්න"
@@ -249,7 +249,7 @@
     "message": "සැසි කළමනාකරණය"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS ඔබේ විවෘත ටැබ්වල අඛණ්ඩ ඡායාරූපයක් තබා ගනී — කිසිදු සැකසුමක් අවශ්‍ය නොවේ. ඔබ බ්‍රවුස් කරන විට සැසි ස්වයංක්‍රීයව යාවත්කාලීන වේ, නමුත් ඒවා Chrome තුළ පමණක් පවතී: බ්‍රවුසර පැතිකඩ නැති වුවහොත් හෝ දූෂිත වුවහොත්, ඒවා ද නැති වේ."
   },
   "html_history_current_session": {
     "message": "වත්මන් සැසිය"
@@ -270,10 +270,10 @@
     "message": "Extension ID"
   },
   "html_history_migrate_section_title": {
-    "message": "Tab migration"
+    "message": "ටැබ් සංක්‍රමණය"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recover tabs suspended by a previous version or another fork of this extension. Enter the old extension ID below and click Migrate tabs to convert the suspended URLs."
+    "message": "පෙර අනුවාදයක් හෝ මෙම දිගුවේ වෙනත් fork එකක් මගින් අත්හිටුවන ලද ටැබ් ප්‍රතිසාධනය කරන්න. පහත පැරණි දිගු ID එක ඇතුළත් කර, අත්හිටුවන ලද URL පරිවර්තනය කිරීමට \"ටැබ් සංක්‍රමණය කරන්න\" ක්ලික් කරන්න."
   },
   "html_options_title": {
     "message": "සැකසුම්"
@@ -285,22 +285,22 @@
     "message": "ඇතිවූ පටිති"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Append original URL to suspended tab title"
+    "message": "අත්හිටුවන ලද ටැබ් මාතෘකාවට මුල් URL එක එකතු කරන්න"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+    "message": "සක්‍රීය කළ විට, අත්හිටුවන ලද පිටුවල බ්‍රවුසර ටැබ් මාතෘකාවට මුල් URL එක එකතු වේ."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+    "message": "මෙය Chrome හි \"ටැබ් සොයන්න\" (Ctrl+Shift+A) භාවිතයෙන් හෝස්ට්නාමය අනුව අත්හිටුවන ලද ටැබ් සොයා ගැනීමට ඉඩ දෙයි."
   },
   "html_options_other_title": {
-    "message": "General"
+    "message": "සාමාන්‍ය"
   },
   "html_options_language": {
-    "message": "Language"
+    "message": "භාෂාව"
   },
   "html_options_language_auto": {
-    "message": "System default"
+    "message": "පද්ධති පෙරනිමිය"
   },
   "html_options_suspend_automatically_after": {
     "message": "පසුව ස්වයංක්‍රීයව පටිතින්න"
@@ -360,13 +360,13 @@
     "message": "ටැබ් එක බලන විට ස්වයංක්‍රීයව අත්හිටුවීම ඉවත් කරන්න"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "අත්හිටුවීමේදී බ්‍රවුසරයේ අන්තර්ගත මතක ඉතිරි කිරීම යොදන්න"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "භාවිතය මගින් අත්හිටුවන ලද ටැබ් එකක මතක භාවිතය තවත් අඩු කරයි"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "ඔබේ බ්‍රවුසරයේ අන්තර්ගත 'ටැබ් ඉවත දැමීමේ' කාර්යභාරය. විශාල ටැබ් ගණනක් සමඟ වැඩ කරන විට මෙය"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
     "message": "ටැබ් විශාල සංඛ්‍යාවක් සමඟ වැඩ කරන විට 500% මතක ඉතිරියක් දක්වා."
@@ -378,7 +378,7 @@
     "message": "අත්හිටුවන ලද ටැබ් එකක්."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "ටැබ් ඉවත දැමීම පිළිබඳ වැඩිදුර තොරතුරු සඳහා බලන්න:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -393,7 +393,7 @@
     "message": "අඳුරු"
   },
   "html_options_suspend_theme_system": {
-    "message": "System"
+    "message": "පද්ධතිය"
   },
   "html_options_suspend_screen_capturing": {
     "message": "තිර අල්ලා ගැනීම"
@@ -420,7 +420,7 @@
     "message": "මෙන්ම මතක භාවිතය තරමක් වැඩි විය."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "ටැබ් අත්හිටුවීමට වැඩි කාලයක් ගතවීම වැනි අසාමාන්‍ය හැසිරීමක් ඔබ දුටුවහොත්, හෝ බ්‍රවුසරය"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "අනපේක්ෂිත ලෙස බිඳ වැටීම, මෙම විශේෂාංගය අක්‍රිය කිරීමට උත්සාහ කරන්න."
@@ -462,10 +462,10 @@
     "message": "පරීක්ෂණ සුදු ලැයිස්තුව"
   },
   "html_options_whitelist_close": {
-    "message": "Close"
+    "message": "වසන්න"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake whitelisted tabs"
+    "message": "සුදු ලැයිස්තු ටැබ් අවදි කරන්න"
   },
   "html_options_other_enable_context_menu": {
     "message": "සන්දර්භය මෙනුව දකුණු-ක්ලික් කිරීමට පුදුමාකාර අත්හිටුවීම එක් කරන්න"
@@ -480,31 +480,31 @@
     "message": "දිගුවේ වෙනත් තැනක."
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "ඔබේ බ්‍රවුසර පැතිකඩ සමඟ සැකසුම් සමමුහූර්ත කරන්න"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "දිගු සැකසුම් පහත සියලුම බ්‍රවුසරවල සමමුහූර්ත වනු ඇත:"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "එකම පැතිකඩකින් ලොග් වී ඇත."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "මෙයින් incognito ප්‍රකාරයේ සැකසුම් ද සමමුහූර්ත වේ."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "මෙය සක්‍රීය කිරීමෙන් එකම පැතිකඩට පිවිසී ඇති අනෙකුත් සියලුම බ්‍රවුසරවල සැකසුම් උඩින් ලියවේ"
   },
   "html_options_suspend_on_low_memory": {
     "message": "පද්ධති මතකය ඉතා අඩු වූ විට ක්ෂණිකව අත්හිටුවන්න"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "මෙම විකල්පය ස්වයංක්‍රීය ටැබ් ඉවත දැමීමේ කාර්යභාරය අභිබවා යනු ඇත."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "සක්‍රීය කළහොත්, ටැබ් එකක් ඉවත දැමීම වෙනුවට එය බලෙන් අත්හිටුවනු ඇත."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "සාමාන්‍යයෙන්, පද්ධති මතකය ඉතා අඩු වූ විට පමණක් ඔබේ බ්‍රවුසරය ටැබ් ඉවත දමයි."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "කරුණාකර සටහන් කරන්න: මෙය ඔබට ඇති කාලයට වඩා කලින් ටැබ් අත්හිටුවීමට හේතු විය හැක"
@@ -513,7 +513,7 @@
     "message": "ස්වයංක්‍රීය ටැබ් අත්හිටුවීමේ විකල්පවල දක්වා ඇත."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "ටැබ් ඉවත දැමීම පිළිබඳ වැඩිදුර තොරතුරු සඳහා බලන්න:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -537,7 +537,7 @@
     "message": "සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake whitelisted tabs"
+    "message": "සුදු ලැයිස්තු ටැබ් අවදි කරන්න"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "තෝරාගත් ටැබ් අත්හිටුවන්න"
@@ -549,10 +549,10 @@
     "message": "සැකසුම්"
   },
   "html_popup_backup_now_local": {
-    "message": "Backup session now (Local)"
+    "message": "දැන් සැසිය උපස්ථ කරන්න (ස්ථානීය)"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Backup session now (Cloud)"
+    "message": "දැන් සැසිය උපස්ථ කරන්න (වලාකුළු)"
   },
   "html_restoring_title": {
     "message": "කවුළුව ප්‍රත්‍යර්පණය ස්ථානයේ"
@@ -606,10 +606,10 @@
     "message": "සැකසුම්"
   },
   "html_sidebar_session_management": {
-    "message": "Sessions"
+    "message": "සැසි"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "ටැබ් සෞඛ්‍යය"
   },
   "html_sidebar_shortcuts": {
     "message": "යතුරුපුවරු කෙටිමං"
@@ -618,31 +618,31 @@
     "message": "පිළිබඳව"
   },
   "html_sidebar_backup": {
-    "message": "Backup"
+    "message": "උපස්ථය"
   },
   "html_sidebar_news": {
-    "message": "News"
+    "message": "පුවත්"
   },
   "html_news_title": {
-    "message": "News & Updates"
+    "message": "පුවත් සහ යාවත්කාලීන"
   },
   "html_news_desc": {
-    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+    "message": "Marvellous Codeworks බ්ලොග් අඩවියේ නවතම නිකුතු, දන්නා ගැටලු සහ නිවේදන පිළිබඳ යාවත්කාලීනව සිටින්න."
   },
   "html_news_loading": {
-    "message": "Loading news…"
+    "message": "පුවත් පූරණය කරමින්…"
   },
   "html_news_empty": {
-    "message": "No news yet. Check back soon!"
+    "message": "තවම පුවත් නැත. ඉක්මනින් නැවත පරීක්ෂා කරන්න!"
   },
   "html_news_new_pill": {
-    "message": "NEW"
+    "message": "අලුත්"
   },
   "html_news_mark_all_read": {
-    "message": "Mark all as read"
+    "message": "සියල්ල කියවූ ලෙස සලකුණු කරන්න"
   },
   "html_backup_page_title": {
-    "message": "Backup & Restore"
+    "message": "උපස්ථ සහ ප්‍රතිසාධනය"
   },
   "html_success_great_success": {
     "message": "පුදුම සාර්ථකත්වයක්!"
@@ -687,13 +687,13 @@
     "message": "යාවත්කාල කරන්න "
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "තව <i>marvellous</i> වීමට සූදානම්"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "ඔබේ බ්‍රවුසරය මීළඟට නැවත ආරම්භ කරන විට The Marvellous Suspender හි නව අනුවාදයක් ස්ථාපනය වනු ඇත."
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "වැදගත්: ඔබේ ටැබ් සඳහා ප්‍රතිසාධන ලක්ෂ්‍යයක් සෑදීමට අපට නොහැකි විය.<br>දැන් උපස්ථයක් සුරකින්න!"
   },
   "html_update_info_nobackup_prefix": {
     "message": "ඔබගේ වත්මන් සැසියේ පිටපතක් අපනයනය කිරීම තරයේ නිර්දේශ කෙරේ "
@@ -884,10 +884,10 @@
     "message": "දැන් දිගුව යාවත්කාලීන කරන්න"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "යාවත්කාලීන කිරීමට පෙර උපස්ථයක් සුරකින්න"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "දිගුව සක්‍රීය කරන්න (උත්පතන කවුළුව පෙන්වන්න)"
   },
   "js_shortcuts_not_set": {
     "message": "සකස් කර නැත"
@@ -896,70 +896,70 @@
     "message": "v සඳහා ස්වයංක්‍රීය සුරැකුම් ලක්ෂ්‍යය"
   },
   "html_options_backup_title": {
-    "message": "Automatic session backup"
+    "message": "ස්වයංක්‍රීය සැසි උපස්ථය"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "සැසිවලට වඩා වෙනස්ව, උපස්ථ Chrome වලින් පිටත JSON ගොනු ලෙස — ඔබේ බාගැනීම් ෆෝල්ඩරයට හෝ Google Drive වෙත සුරකිනු ලැබේ. ඒවා බ්‍රවුසර බිඳවැටීම්, පැතිකඩ නැවත සැකසීම් සහ නව ස්ථාපනවලින් පවතී. මෙය ඔබේ සැබෑ ආරක්ෂක දැලයයි."
   },
   "html_options_backup_enable": {
-    "message": "Automatically back up your session"
+    "message": "ඔබේ සැසිය ස්වයංක්‍රීයව උපස්ථ කරන්න"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+    "message": "ඔබේ වත්මන් සැසියේ පිටපතක් JSON ගොනුවක් ලෙස නිහඬව සුරකියි. ස්ථානීයව (ඔබේ බාගැනීම් තුළ tms-backups ෆෝල්ඩරය) හෝ Google Drive හි 'TMS Backups' ෆෝල්ඩරයකට සුරැකීමට තෝරන්න."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "ස්ථානීය උපස්ථ සඳහා, Chrome ගොනු ස්වයංක්‍රීයව බාගැනීමට (නොඅසා) සකසා තිබිය යුතුය — chrome://settings/downloads පරීක්ෂා කරන්න. Google Drive උපස්ථවලට එවැනි අවශ්‍යතාවක් නැත."
   },
   "html_options_backup_interval": {
-    "message": "Backup every"
+    "message": "සෑම"
   },
   "html_options_backup_daily_time": {
-    "message": "At what time"
+    "message": "කුමන වේලාවකද"
   },
   "html_backup_interval_warning": {
-    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+    "message": "සැලකිල්ල: මෙතරම් දිගු කාල පරතරයක් සමඟ, උපස්ථ අතර බොහෝ දේ සිදුවිය හැක. දත්ත අහිමි වීමේ අවදානම අඩු කිරීමට කෙටි කාල පරතරයක් සලකා බලන්න."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+    "message": "ස්ථානීය සහ Drive උපස්ථ දෙකෙහිම උපාංග හඳුනාගැනීමකි (උදා: tms-session-a3f7b2c8-2026-06-18T14-30.json), එබැවින් සෑම බ්‍රවුසර ස්ථාපනයක්ම එහි ස්වාධීන උපස්ථ සමූහයක් තබා ගනී. උපාංගයකට නවතම ස්ථානීය උපස්ථ N ක් තබා ගනී; Drive උපස්ථ ද උපාංගයකට N ක් තබා ගනී, එබැවින් විවිධ යන්ත්‍ර හෝ බ්‍රවුසරවලින් වූ සැසි කිසිවිටෙක එකිනෙකා උඩින් නොලියයි."
   },
   "html_backup_max_files_label": {
-    "message": "Max backups to keep"
+    "message": "තබා ගත යුතු උපරිම උපස්ථ ගණන"
   },
   "html_backup_device_name_label": {
-    "message": "Device name (optional)"
+    "message": "උපාංග නාමය (විකල්ප)"
   },
   "html_backup_device_name_save": {
-    "message": "Save"
+    "message": "සුරකින්න"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Legacy backups"
+    "message": "පැරණි උපස්ථ"
   },
   "html_options_backup_now": {
-    "message": "Backup now"
+    "message": "දැන් උපස්ථ කරන්න"
   },
   "html_options_back_to_top": {
-    "message": "↑ Top"
+    "message": "↑ ඉහළට"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+    "message": "සැසි Chrome තුළ පමණක් ගබඩා වේ — ඒවා බ්‍රවුසර බිඳවැටීමකින් හෝ පැතිකඩ නැවත සැකසීමකින් නොපවතිනු ඇත."
   },
   "html_history_backup_settings_link": {
-    "message": "Set up Backup to save your tabs outside the browser →"
+    "message": "ඔබේ ටැබ් බ්‍රවුසරයෙන් පිටත සුරැකීමට උපස්ථය සකසන්න →"
   },
   "js_options_backup_now_running": {
-    "message": "Running backup…"
+    "message": "උපස්ථය ක්‍රියාත්මක වෙමින්…"
   },
   "js_options_backup_now_done": {
-    "message": "Backup saved."
+    "message": "උපස්ථය සුරකින ලදී."
   },
   "js_backup_option_saved": {
-    "message": "Saved"
+    "message": "සුරකින ලදී"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome ගොනු කොහේ සුරැකිය යුතුදැයි අසමින් ඇත — ස්වයංක්‍රීය උපස්ථ නිහඬව ක්‍රියා නොකරනු ඇත. chrome://settings/downloads හි \"සෑම ගොනුවක්ම කොහේ සුරැකිය යුතුදැයි අසන්න\" අක්‍රීය කරන්න."
   },
   "js_options_backup_next_run": {
-    "message": "Next run: $time$",
+    "message": "ඊළඟ ධාවනය: $time$",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -967,7 +967,7 @@
     }
   },
   "js_options_backup_last_local": {
-    "message": "Last backup: $date$",
+    "message": "අවසන් උපස්ථය: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -975,73 +975,73 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "Backup destination"
+    "message": "උපස්ථ ගමනාන්තය"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (Downloads folder)"
+    "message": "ස්ථානීය (බාගැනීම් ෆෝල්ඩරය)"
   },
   "html_options_backup_dest_drive": {
     "message": "Google Drive"
   },
   "html_options_backup_drive_connect": {
-    "message": "Connect Google Account"
+    "message": "Google ගිණුම සම්බන්ධ කරන්න"
   },
   "html_options_backup_drive_disconnect": {
-    "message": "Disconnect"
+    "message": "විසන්ධි කරන්න"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+    "message": "ස්වයංක්‍රීය උපස්ථය අසාර්ථක විය: Google ගිණුමක් සම්බන්ධ කර නැත. නිවැරදි කිරීමට මෙතන ක්ලික් කරන්න."
   },
   "js_options_backup_drive_connecting": {
-    "message": "Connecting…"
+    "message": "සම්බන්ධ වෙමින්…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Could not connect to Google. Please try again."
+    "message": "Google වෙත සම්බන්ධ විය නොහැකි විය. නැවත උත්සාහ කරන්න."
   },
   "html_options_settings_backup": {
-    "message": "Settings backup"
+    "message": "සැකසුම් උපස්ථය"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "සියලුම දිගු සැකසුම් JSON ගොනුවකට නිර්යාත කරන්න — උපස්ථයක් ලෙස හෝ ඔබේ වින්‍යාසය වෙනත් බ්‍රවුසර පැතිකඩකට මාරු කිරීමට ප්‍රයෝජනවත් වේ. ගොනුවක් ආයාත කිරීම වත්මන් සැකසුම් ප්‍රතිස්ථාපනය කරයි."
   },
   "html_backup_local_folder_hint": {
-    "message": "Local backups go to the tms-backups folder inside your Downloads."
+    "message": "ස්ථානීය උපස්ථ ඔබේ බාගැනීම් තුළ ඇති tms-backups ෆෝල්ඩරයට යයි."
   },
   "html_backup_drive_folder_note": {
-    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+    "message": "උපස්ථ ඔබේ Google Drive හි 'TMS Backups' ෆෝල්ඩරයට සුරැකේ."
   },
   "html_backup_drive_open_folder": {
-    "message": "Open TMS Backups folder on Drive ↗"
+    "message": "Drive හි TMS Backups ෆෝල්ඩරය විවෘත කරන්න ↗"
   },
   "html_backup_drive_label_account": {
-    "message": "Account"
+    "message": "ගිණුම"
   },
   "html_backup_drive_label_folder": {
-    "message": "Folder"
+    "message": "ෆෝල්ඩරය"
   },
   "html_backup_settings_local_title": {
-    "message": "Local"
+    "message": "ස්ථානීය"
   },
   "html_backup_settings_drive_title": {
     "message": "Google Drive"
   },
   "html_backup_drive_save_settings": {
-    "message": "Save settings to Drive"
+    "message": "සැකසුම් Drive වෙත සුරකින්න"
   },
   "html_backup_settings_drive_restore": {
-    "message": "Restore settings from Drive"
+    "message": "Drive වෙතින් සැකසුම් ප්‍රතිසාධනය කරන්න"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Saving to Drive…"
+    "message": "Drive වෙත සුරකිමින්…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "Settings saved to Drive."
+    "message": "සැකසුම් Drive වෙත සුරකින ලදී."
   },
   "js_backup_drive_settings_error": {
-    "message": "Could not save settings to Drive. Please try again."
+    "message": "සැකසුම් Drive වෙත සුරැකිය නොහැකි විය. නැවත උත්සාහ කරන්න."
   },
   "js_backup_cooldown": {
-    "message": "Wait $seconds$s before the next backup.",
+    "message": "ඊළඟ උපස්ථයට පෙර තත්පර $seconds$ක් රැඳී සිටින්න.",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1049,19 +1049,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Downloading settings from Drive…"
+    "message": "Drive වෙතින් සැකසුම් බාගත කරමින්…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "No settings file found on Drive. Save your settings to Drive first."
+    "message": "Drive හි සැකසුම් ගොනුවක් හමු නොවීය. පළමුව ඔබේ සැකසුම් Drive වෙත සුරකින්න."
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Settings restored. Reloading…"
+    "message": "සැකසුම් ප්‍රතිසාධනය කරන ලදී. නැවත පූරණය කරමින්…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Could not restore settings from Drive. Please try again."
+    "message": "Drive වෙතින් සැකසුම් ප්‍රතිසාධනය කළ නොහැකි විය. නැවත උත්සාහ කරන්න."
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "Last backup: $date$",
+    "message": "අවසන් උපස්ථය: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1069,7 +1069,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Existing settings backup from $date$. Overwrite?",
+    "message": "$date$ දින සිටින සැකසුම් උපස්ථයක් දැනටමත් තිබේ. උඩින් ලියන්නද?",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1077,49 +1077,49 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Export settings"
+    "message": "සැකසුම් නිර්යාත කරන්න"
   },
   "html_options_settings_import": {
-    "message": "Import settings"
+    "message": "සැකසුම් ආයාත කරන්න"
   },
   "js_options_settings_import_confirm": {
-    "message": "This will overwrite your current settings. Continue?"
+    "message": "මෙය ඔබේ වත්මන් සැකසුම් උඩින් ලියනු ඇත. ඉදිරියට යන්නද?"
   },
   "js_options_settings_import_success": {
-    "message": "Settings imported. Reloading…"
+    "message": "සැකසුම් ආයාත කරන ලදී. නැවත පූරණය කරමින්…"
   },
   "js_options_settings_import_error": {
-    "message": "Invalid settings file."
+    "message": "අවලංගු සැකසුම් ගොනුවකි."
   },
   "html_history_migrate_nav": {
-    "message": "Migrate"
+    "message": "සංක්‍රමණය"
   },
   "html_backup_restore_title": {
-    "message": "Restore from backup"
+    "message": "උපස්ථයකින් ප්‍රතිසාධනය කරන්න"
   },
   "html_backup_restore_desc": {
-    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+    "message": "සුරැකි සැසියක් ලෙස එය ප්‍රතිසාධනය කිරීමට උපස්ථ ගොනුවක් ආයාත කරන්න. ආයාත කිරීමෙන් පසු, ප්‍රතිසාධනය කළ යුතු කවුළු තෝරා ගැනීමට සැසි විවෘත කරන්න."
   },
   "html_backup_restore_local_title": {
-    "message": "Local file"
+    "message": "ස්ථානීය ගොනුව"
   },
   "html_backup_restore_drive_title": {
     "message": "Google Drive"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file"
+    "message": "උපස්ථ ගොනුව තෝරන්න"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Select a Drive backup"
+    "message": "Drive උපස්ථයක් තෝරන්න"
   },
   "html_backup_restore_import": {
-    "message": "Import selected"
+    "message": "තෝරාගත් දෑ ආයාත කරන්න"
   },
   "js_backup_restore_importing": {
-    "message": "Importing…"
+    "message": "ආයාත කරමින්…"
   },
   "js_backup_restore_success": {
-    "message": "Imported as \"$name$\".",
+    "message": "\"$name$\" ලෙස ආයාත කරන ලදී.",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1127,22 +1127,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ Open Sessions to restore"
+    "message": "→ ප්‍රතිසාධනය කිරීමට සැසි විවෘත කරන්න"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Invalid backup file."
+    "message": "අවලංගු උපස්ථ ගොනුවකි."
   },
   "js_backup_restore_error_drive": {
-    "message": "Could not download from Drive. Check your connection and try again."
+    "message": "Drive වෙතින් බාගත කළ නොහැකි විය. ඔබේ සම්බන්ධතාවය පරීක්ෂා කර නැවත උත්සාහ කරන්න."
   },
   "js_backup_restore_error_generic": {
-    "message": "Import failed. Please try again."
+    "message": "ආයාතය අසාර්ථක විය. නැවත උත්සාහ කරන්න."
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Save Drive backup before switching?"
+    "message": "මාරු වීමට පෙර Drive උපස්ථය සුරකින්නද?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "message": "ඔබේ නවතම Drive උපස්ථය $date$ දිනට අයත් වේ. Google Drive අවශ්‍ය නොවී එය ප්‍රතිසාධනය කළ හැකි වන පරිදි එය සැසි කළමනාකරු තුළ සැසියක් ලෙස සුරකින්න.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1150,27 +1150,27 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Save to Sessions"
+    "message": "සැසිවලට සුරකින්න"
   },
   "html_backup_drive_import_modal_cancel": {
-    "message": "Skip"
+    "message": "මඟහරින්න"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive backup files"
+    "message": "Drive උපස්ථ ගොනු"
   },
   "html_backup_drive_download_btn": {
-    "message": "Download"
+    "message": "බාගන්න"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Delete"
+    "message": "මකන්න"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Delete this backup file from Drive? This cannot be undone."
+    "message": "Drive වෙතින් මෙම උපස්ථ ගොනුව මකන්නද? මෙය අහෝසි කළ නොහැක."
   },
   "html_backup_drive_no_files": {
-    "message": "No Drive backup files found."
+    "message": "Drive හි උපස්ථ ගොනු හමු නොවීය."
   },
   "html_backup_drive_files_loading": {
-    "message": "Loading…"
+    "message": "පූරණය කරමින්…"
   }
 }
