@@ -153,6 +153,23 @@
   "html_health_need_help2": {
     "message": "Issue on GitHub."
   },
+  "html_health_num_grouped_broken": {
+    "message": "grouped tabs in broken state (Tab Groups bug)"
+  },
+  "html_health_repair_intro": {
+    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+  },
+  "html_health_repair_button": {
+    "message": "Repair $count$ grouped tab(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_after_repair": {
+    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+  },
   "html_about_title": {
     "message": "Acerca de"
   },
@@ -178,7 +195,7 @@
     "message": "disponible en GitHub, sin seguimiento ADS"
   },
   "html_about_fork_end": {
-    "message": ", más información disponible en"
+    "message": "More information available on"
   },
   "html_about_contributors": {
     "message": "Brought to you by"
@@ -190,13 +207,19 @@
     "message": ". Por favor, compruebe si su idea o problema ya existe antes de crear una nueva. ¡Gracias!"
   },
   "html_about_debugging_prefix": {
-    "message": "Para habilitar el registro, o para establecer banderas de depuración, vaya a la "
+    "message": "To capture logs and generate a diagnostic report, go to the "
   },
   "html_about_debugging_suffix": {
-    "message": "pagina de depuración."
+    "message": "diagnostic page."
   },
   "html_about_the_github_issues_page": {
     "message": "Página de incidencias de GitHub"
+  },
+  "html_about_section_support": {
+    "message": "Support development"
+  },
+  "html_about_support_text": {
+    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
   },
   "html_broken_title": {
     "message": "está roto"
@@ -224,6 +247,9 @@
   },
   "html_history_title": {
     "message": "Administración de sesión"
+  },
+  "html_history_page_desc": {
+    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
   },
   "html_history_current_session": {
     "message": "Sesión actual"
@@ -257,6 +283,15 @@
   },
   "html_options_suspended_title": {
     "message": "Pestañas suspendidas"
+  },
+  "html_options_suspended_append_url_to_title": {
+    "message": "Append original URL to suspended tab title"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1": {
+    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2": {
+    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
   },
   "html_options_other_title": {
     "message": "General"
@@ -426,6 +461,12 @@
   "html_options_whitelist_test": {
     "message": "Probar lista blanca"
   },
+  "html_options_whitelist_close": {
+    "message": "Close"
+  },
+  "html_options_whitelist_unsuspend": {
+    "message": "Wake whitelisted tabs"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Añadir The Marvellous Suspender al menú contextual del clic derecho"
   },
@@ -495,6 +536,9 @@
   "html_popup_unsuspend_all_tabs": {
     "message": "Anular suspensión de todas las pestañas"
   },
+  "html_popup_unsuspend_whitelisted_tabs": {
+    "message": "Wake whitelisted tabs"
+  },
   "html_popup_suspend_selected_tabs": {
     "message": "Suspender pestañas seleccionadas"
   },
@@ -503,6 +547,12 @@
   },
   "html_popup_settings": {
     "message": "Configuración"
+  },
+  "html_popup_backup_now_local": {
+    "message": "Backup session now (Local)"
+  },
+  "html_popup_backup_now_cloud": {
+    "message": "Backup session now (Cloud)"
   },
   "html_restoring_title": {
     "message": "Restaurando ventana"
@@ -566,6 +616,33 @@
   },
   "html_sidebar_support": {
     "message": "Acerca de"
+  },
+  "html_sidebar_backup": {
+    "message": "Backup"
+  },
+  "html_sidebar_news": {
+    "message": "News"
+  },
+  "html_news_title": {
+    "message": "News & Updates"
+  },
+  "html_news_desc": {
+    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+  },
+  "html_news_loading": {
+    "message": "Loading news…"
+  },
+  "html_news_empty": {
+    "message": "No news yet. Check back soon!"
+  },
+  "html_news_new_pill": {
+    "message": "NEW"
+  },
+  "html_news_mark_all_read": {
+    "message": "Mark all as read"
+  },
+  "html_backup_page_title": {
+    "message": "Backup & Restore"
   },
   "html_success_great_success": {
     "message": "¡Maravilloso éxito!"
@@ -817,5 +894,283 @@
   },
   "js_session_save_point": {
     "message": "Punto de guardado automático para v"
+  },
+  "html_options_backup_title": {
+    "message": "Automatic session backup"
+  },
+  "html_backup_session_desc": {
+    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+  },
+  "html_options_backup_enable": {
+    "message": "Automatically back up your session"
+  },
+  "html_options_backup_enable_tooltip_line1": {
+    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2": {
+    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+  },
+  "html_options_backup_interval": {
+    "message": "Backup every"
+  },
+  "html_options_backup_daily_time": {
+    "message": "At what time"
+  },
+  "html_backup_interval_warning": {
+    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+  },
+  "html_options_backup_note": {
+    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+  },
+  "html_backup_max_files_label": {
+    "message": "Max backups to keep"
+  },
+  "html_backup_device_name_label": {
+    "message": "Device name (optional)"
+  },
+  "html_backup_device_name_save": {
+    "message": "Save"
+  },
+  "js_backup_restore_legacy_group": {
+    "message": "Legacy backups"
+  },
+  "html_options_backup_now": {
+    "message": "Backup now"
+  },
+  "html_options_back_to_top": {
+    "message": "↑ Top"
+  },
+  "html_history_backup_hint_prefix": {
+    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+  },
+  "html_history_backup_settings_link": {
+    "message": "Set up Backup to save your tabs outside the browser →"
+  },
+  "js_options_backup_now_running": {
+    "message": "Running backup…"
+  },
+  "js_options_backup_now_done": {
+    "message": "Backup saved."
+  },
+  "js_backup_option_saved": {
+    "message": "Saved"
+  },
+  "js_options_backup_now_error": {
+    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+  },
+  "js_options_backup_next_run": {
+    "message": "Next run: $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_backup_last_local": {
+    "message": "Last backup: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_backup_destination": {
+    "message": "Backup destination"
+  },
+  "html_options_backup_dest_local": {
+    "message": "Local (Downloads folder)"
+  },
+  "html_options_backup_dest_drive": {
+    "message": "Google Drive"
+  },
+  "html_options_backup_drive_connect": {
+    "message": "Connect Google Account"
+  },
+  "html_options_backup_drive_disconnect": {
+    "message": "Disconnect"
+  },
+  "html_popup_backup_drive_error": {
+    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+  },
+  "js_options_backup_drive_connecting": {
+    "message": "Connecting…"
+  },
+  "js_options_backup_drive_auth_error": {
+    "message": "Could not connect to Google. Please try again."
+  },
+  "html_options_settings_backup": {
+    "message": "Settings backup"
+  },
+  "html_backup_settings_desc": {
+    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+  },
+  "html_backup_local_folder_hint": {
+    "message": "Local backups go to the tms-backups folder inside your Downloads."
+  },
+  "html_backup_drive_folder_note": {
+    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+  },
+  "html_backup_drive_open_folder": {
+    "message": "Open TMS Backups folder on Drive ↗"
+  },
+  "html_backup_drive_label_account": {
+    "message": "Account"
+  },
+  "html_backup_drive_label_folder": {
+    "message": "Folder"
+  },
+  "html_backup_settings_local_title": {
+    "message": "Local"
+  },
+  "html_backup_settings_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_drive_save_settings": {
+    "message": "Save settings to Drive"
+  },
+  "html_backup_settings_drive_restore": {
+    "message": "Restore settings from Drive"
+  },
+  "js_backup_drive_settings_saving": {
+    "message": "Saving to Drive…"
+  },
+  "js_backup_drive_settings_saved": {
+    "message": "Settings saved to Drive."
+  },
+  "js_backup_drive_settings_error": {
+    "message": "Could not save settings to Drive. Please try again."
+  },
+  "js_backup_cooldown": {
+    "message": "Wait $seconds$s before the next backup.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_downloading": {
+    "message": "Downloading settings from Drive…"
+  },
+  "js_backup_settings_drive_not_found": {
+    "message": "No settings file found on Drive. Save your settings to Drive first."
+  },
+  "js_backup_settings_drive_restore_success": {
+    "message": "Settings restored. Reloading…"
+  },
+  "js_backup_settings_drive_restore_error": {
+    "message": "Could not restore settings from Drive. Please try again."
+  },
+  "js_backup_settings_drive_last_backup": {
+    "message": "Last backup: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_overwrite_confirm": {
+    "message": "Existing settings backup from $date$. Overwrite?",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_settings_export": {
+    "message": "Export settings"
+  },
+  "html_options_settings_import": {
+    "message": "Import settings"
+  },
+  "js_options_settings_import_confirm": {
+    "message": "This will overwrite your current settings. Continue?"
+  },
+  "js_options_settings_import_success": {
+    "message": "Settings imported. Reloading…"
+  },
+  "js_options_settings_import_error": {
+    "message": "Invalid settings file."
+  },
+  "html_history_migrate_nav": {
+    "message": "Migrate"
+  },
+  "html_backup_restore_title": {
+    "message": "Restore from backup"
+  },
+  "html_backup_restore_desc": {
+    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+  },
+  "html_backup_restore_local_title": {
+    "message": "Local file"
+  },
+  "html_backup_restore_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_restore_from_file": {
+    "message": "Choose backup file"
+  },
+  "html_backup_restore_drive_select_label": {
+    "message": "Select a Drive backup"
+  },
+  "html_backup_restore_import": {
+    "message": "Import selected"
+  },
+  "js_backup_restore_importing": {
+    "message": "Importing…"
+  },
+  "js_backup_restore_success": {
+    "message": "Imported as \"$name$\".",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_restore_go_sessions": {
+    "message": "→ Open Sessions to restore"
+  },
+  "js_backup_restore_error_invalid": {
+    "message": "Invalid backup file."
+  },
+  "js_backup_restore_error_drive": {
+    "message": "Could not download from Drive. Check your connection and try again."
+  },
+  "js_backup_restore_error_generic": {
+    "message": "Import failed. Please try again."
+  },
+  "html_backup_drive_import_modal_title": {
+    "message": "Save Drive backup before switching?"
+  },
+  "html_backup_drive_import_modal_body": {
+    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_backup_drive_import_modal_confirm": {
+    "message": "Save to Sessions"
+  },
+  "html_backup_drive_import_modal_cancel": {
+    "message": "Skip"
+  },
+  "html_backup_drive_files_title": {
+    "message": "Drive backup files"
+  },
+  "html_backup_drive_download_btn": {
+    "message": "Download"
+  },
+  "html_backup_drive_delete_btn": {
+    "message": "Delete"
+  },
+  "js_backup_drive_delete_confirm": {
+    "message": "Delete this backup file from Drive? This cannot be undone."
+  },
+  "html_backup_drive_no_files": {
+    "message": "No Drive backup files found."
+  },
+  "html_backup_drive_files_loading": {
+    "message": "Loading…"
   }
 }
