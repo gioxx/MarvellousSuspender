@@ -1,7 +1,0 @@
-@import url('tokens.css');
-
-.aboutIllustration {
-  float: right;
-  width: 160px;
-  margin: 0 0 var(--space-6) var(--space-8);
-}

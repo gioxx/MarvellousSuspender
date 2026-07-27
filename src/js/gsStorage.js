@@ -27,11 +27,22 @@ export const gsStorage = {
   DISCARD_AFTER_SUSPEND         : 'discardAfterSuspend',
   DISCARD_IN_PLACE_OF_SUSPEND   : 'discardInPlaceOfSuspend',
 
+  AUTO_BACKUP_ENABLED           : 'gsAutoBackupEnabled',
+  AUTO_BACKUP_INTERVAL          : 'gsAutoBackupInterval',
+  AUTO_BACKUP_DESTINATION       : 'gsAutoBackupDestination',
+  AUTO_BACKUP_TIME              : 'gsAutoBackupTime',
+  AUTO_BACKUP_MAX_FILES         : 'gsAutoBackupMaxFiles',
+
   APP_VERSION                   : 'gsVersion',
   LAST_EXTENSION_RECOVERY       : 'gsExtensionRecovery',
   UPDATE_AVAILABLE              : 'gsUpdateAvailable',
 
   DEFAULT_FAVICON_FINGERPRINTS  : 'gsDefaultFaviconFingerprints',
+
+  CAPTURE_LOGS                  : 'gsCaptureVerbose',
+  LOG_BUFFER                    : 'gsLogBuffer',
+
+  APPEND_URL_TO_TITLE           : 'gsAppendUrlToTitle',
 
   noop: function() {},
 
@@ -59,6 +70,12 @@ export const gsStorage = {
     defaults[gsStorage.THEME] = 'system';
     defaults[gsStorage.LANGUAGE] = 'auto';
     defaults[gsStorage.UPDATE_AVAILABLE] = false; //Set to true for debug
+    defaults[gsStorage.AUTO_BACKUP_ENABLED] = false;
+    defaults[gsStorage.AUTO_BACKUP_INTERVAL] = '1';
+    defaults[gsStorage.AUTO_BACKUP_DESTINATION] = 'local';
+    defaults[gsStorage.AUTO_BACKUP_TIME] = '09:00';
+    defaults[gsStorage.AUTO_BACKUP_MAX_FILES] = 10;
+    defaults[gsStorage.APPEND_URL_TO_TITLE] = true;
 
     return defaults;
   },

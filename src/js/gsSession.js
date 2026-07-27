@@ -160,7 +160,6 @@ export const gsSession = (function() {
       await handleUpdate(currentSessionTabs, curVersion, gsStartupLastVersion);
     }
 
-    await handleReplacedTabs();
     await performTabChecks();
 
     // Ensure currently focused tab is initialised correctly if suspended
@@ -171,58 +170,6 @@ export const gsSession = (function() {
 
     updateCurrentSession(); //async
     await gsStorage.saveStorage('session', 'gsInitialisationMode', false);
-  }
-
-
-  /** @type { { tabId: number, url ?:string }[] } */
-  const replacedTabs  = [];
-  let   allowReplace  = true;
-
-  /**
-   * @param { number } tabId
-   * @param { string } [url]
-   */
-  function pushReplacedTab(tabId, url) {
-    // We need to handle the replaced tabs sequentially to ensure proper placement.
-    // So, add them to a queue during startup and process them only once below.
-    if (allowReplace) {
-      replacedTabs.push({tabId, url});
-    }
-  }
-
-  async function handleReplacedTabs() {
-    gsUtils.log('gsSession', 'handleReplacedTabs', replacedTabs.length);
-    // Work-around for Chrome and Edge tab groups bug https://crbug.com/522338670
-    // https://github.com/gioxx/MarvellousSuspender/issues/369
-    // https://github.com/gioxx/MarvellousSuspender/issues/374
-    // Chrome:
-    // Suspended tabs should never be Replaced in practice
-    // The current bug is explicitly Replacing non "web" tabs ( and discarding them )
-    // Weirdly / luckily the defunct tab maintains the original URL while also being a "new tab"
-    // So, if a Replaced tab is also a Suspended tab, we're going to swap it out for a fresh tab
-    // Edge:
-    // Edge's version of this bug is more complex.  We have to tap into the main tab onUpdated event, which triggers all the time
-    // We only queue up tabs that are suspended, are in a tab group, and are transitions to "new tab"
-    // Further, since the queued tabId does not have the correct URL, we're sending it into the queue to override the new-tab URL
-
-    gsUtils.setTimeout(2000).then(async () => {
-      allowReplace        = false;
-      for (const replaceInfo of replacedTabs) {
-        const addedTab    = await gsChrome.tabsGet(replaceInfo.tabId);
-        const replaceUrl  = replaceInfo.url ?? addedTab?.url;
-        // gsUtils.highlight(replaceInfo.tabId, 'gsSession', 'handleReplacedTabs', addedTab);
-        // if (addedTab?.groupId && replaceUrl && gsUtils.isSuspendedUrl(replaceUrl)) {
-        if (addedTab?.groupId && replaceUrl) {
-          const { windowId, index, pinned, active, groupId }  = addedTab;
-          const newTab    = await gsChrome.tabsCreate({ windowId, index, pinned, active, url: replaceUrl });
-          if (newTab?.id) {
-            await gsChrome.tabsGroup(newTab.id, windowId, groupId);
-            await gsChrome.tabsRemove(replaceInfo.tabId);
-          }
-        }
-      }
-    });
-
   }
 
 
@@ -813,6 +760,5 @@ export const gsSession = (function() {
     prepareForUpdate,
     getUpdateType,
     unsuspendActiveTabInEachWindow,
-    pushReplacedTab,
   };
 })();

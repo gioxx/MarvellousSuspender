@@ -1,0 +1,555 @@
+/* ── Device name row ─────────────────────────────────────────────────────── */
+
+.deviceNameRow {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.deviceNameRow input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+}
+
+.deviceNameRow .btnSmall {
+  height: 40px;
+  min-width: auto;
+  padding: 0 var(--space-4);
+}
+
+/* ── Settings export / import ────────────────────────────────────────────── */
+
+.settingsBackupRow {
+  margin-top: var(--space-4);
+}
+
+.settingsBackupBtns {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+.settingsImportStatus {
+  flex-basis: 100%;
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+.fileInputHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Tooltip override: allow wrapping for long backup-enable tooltip ─────── */
+
+.checkboxRow [data-i18n-tooltip]::after {
+  max-width: 400px;
+  white-space: pre-wrap;
+}
+
+/* ── Checkbox row: flex for vertical centering ───────────────────────────── */
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Session backup: settings as a two-column label/control grid ─────────── */
+
+.backupSettingsGrid {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 280px);
+  column-gap: var(--space-4);
+  row-gap: var(--space-3);
+  align-items: center;
+  margin-top: var(--space-2);
+}
+
+.backupSettingsGrid .topLabel {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.backupSettingsControl {
+  min-width: 0;
+}
+
+.backupSettingsControl .select-wrapper,
+.backupSettingsControl select,
+.backupSettingsControl input[type='number'] {
+  width: 100%;
+}
+
+/* ── Time picker: below the config row, same width as the interval select ─── */
+
+#autoBackupTimeContainer {
+  margin-top: var(--space-3);
+}
+
+#autoBackupTimeContainer.hidden,
+#autoBackupIntervalWarning.hidden {
+  display: none;
+}
+
+input[type='time'],
+input[type='number'] {
+  color: var(--foreground);
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  box-sizing: border-box;
+  transition: border-color var(--duration-fast);
+}
+
+input[type='time'] {
+  min-width: 150px;
+}
+
+input[type='number'] {
+  min-width: 80px;
+  width: 80px;
+}
+
+input[type='time']:focus,
+input[type='number']:focus {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.backupConfigAction {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.backupConfigAction .btn {
+  height: auto;
+  line-height: 1.2;
+  padding-block: 10px;
+  min-width: 150px;
+}
+
+.backupStatusRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  min-height: 1em;
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+}
+
+.backupNextRun {
+  flex-shrink: 0;
+}
+
+/* ── Inline hint notes ───────────────────────────────────────────────────── */
+
+.backupNote {
+  margin-top: var(--space-4);
+  margin-bottom: 0;
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+/* ── Local folder hint ───────────────────────────────────────────────────── */
+
+.localFolderInfo {
+  display: none;
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+.localFolderInfo p {
+  margin: 0;
+}
+
+/* ── Drive auth: account/folder rows merged into the settings grid ───────── */
+
+.driveGridRows {
+  display: contents;
+}
+
+.driveGridRows.hidden {
+  display: none;
+}
+
+.driveInfoValue {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.driveAuthActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.driveAuthActions.hidden {
+  display: none;
+}
+
+#driveDisconnectBtn.hidden {
+  display: none;
+}
+
+.driveUserName {
+  font-size: var(--text-sm);
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.driveUserEmail {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  font-family: var(--font-mono, monospace);
+}
+
+.driveFolderName {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.driveIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.driveDisconnectedInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.driveAuthStatus {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+/* ── Backup meta: file count ─────────────────────────────────────────────── */
+
+.backupMeta {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  min-height: 1em;
+}
+
+/* ── Backup-now status feedback ─────────────────────────────────────────── */
+
+.backupNowStatus {
+  opacity: 0;
+  transition: opacity var(--duration-base);
+}
+
+.backupNowStatus.visible {
+  opacity: 1;
+}
+
+.backupNowStatus.visible::before {
+  content: '· ';
+}
+
+.driveFolderLink {
+  font-size: var(--text-sm);
+}
+
+.driveFolderLink.hidden {
+  display: none;
+}
+
+/* ── Restore from backup section ─────────────────────────────────────────── */
+
+.restoreActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  align-items: stretch;
+}
+
+.restoreCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  justify-content: flex-start;
+}
+
+.restoreCardTitle {
+  display: none;
+  margin: 0;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--foreground);
+}
+
+.restoreActions.has-drive-card .restoreCard {
+  flex: 1;
+  min-width: 180px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.restoreActions.has-drive-card .restoreCardTitle {
+  display: block;
+}
+
+.restoreCardHeader {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.settingsDriveBackupDate {
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+}
+
+.settingsDriveBackupDate.hidden {
+  display: none;
+}
+
+.driveBackupPickerRow {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.driveBackupPickerRow .select-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.driveBackupPickerRow select {
+  width: 100%;
+  min-width: 0;
+}
+
+.restoreStatusBar {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  min-height: 1.4em;
+}
+
+.restoreStatusBar a {
+  color: var(--foreground);
+  text-decoration: underline;
+}
+
+/* ── Drive backup files: collapsible panel inside restore section ─────────── */
+
+.driveFilesDetails {
+  margin-top: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.driveFilesDetails.hidden {
+  display: none;
+}
+
+.driveFilesDetails > summary.driveFilesSummary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+  background: var(--muted, hsl(0 0% 96%));
+  transition: background var(--duration-fast);
+  user-select: none;
+}
+
+.driveFilesDetails > summary.driveFilesSummary:hover {
+  background: var(--accent, hsl(0 0% 92%));
+}
+
+.driveFilesDetails > summary.driveFilesSummary:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+
+.driveFilesDetails > summary.driveFilesSummary::after {
+  content: '';
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform var(--duration-fast);
+  flex-shrink: 0;
+  margin-right: var(--space-1);
+  opacity: 0.6;
+}
+
+.driveFilesDetails[open] > summary.driveFilesSummary::after {
+  transform: rotate(45deg);
+}
+
+.driveFilesDetails > summary.driveFilesSummary::-webkit-details-marker {
+  display: none;
+}
+
+.driveFilesDetails > #driveFilesContent {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+.driveFilesStatus {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  min-height: 1.4em;
+}
+
+.driveFilesGroup {
+  margin-top: var(--space-4);
+}
+
+.driveFilesGroupTitle {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.btn.btnDanger {
+  background-color: transparent;
+  color: var(--destructive, oklch(0.55 0.22 27));
+  border-color: var(--destructive, oklch(0.55 0.22 27));
+}
+
+.btn.btnDanger:hover {
+  background-color: color-mix(in oklch, var(--destructive, oklch(0.55 0.22 27)) 15%, transparent);
+}
+
+.driveFileRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.driveFileRow:last-child {
+  border-bottom: none;
+}
+
+.driveFileNum {
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+  white-space: nowrap;
+  min-width: 1.8em;
+  text-align: right;
+}
+
+.driveFileLabel {
+  flex: 1;
+  font-size: var(--text-sm);
+  font-family: var(--font-mono, monospace);
+  color: var(--foreground);
+}
+
+.driveFileSize {
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.driveFileError {
+  font-size: var(--text-xs);
+  color: var(--destructive, #c0392b);
+}
+
+/* ── Drive → Local switch: import modal ─────────────────────────────────── */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalOverlay.hidden {
+  display: none;
+}
+
+.modalDialog {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.modalTitle {
+  margin: 0 0 var(--space-3);
+  font-weight: 600;
+  font-size: var(--text-base);
+  color: var(--foreground);
+}
+
+.modalBody {
+  margin: 0 0 var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+
+.modalActions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+}
+
+/* ── Option saved feedback ───────────────────────────────────────────────── */
+
+.optionSavedStatus {
+  margin-left: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+  opacity: 0;
+  transition: opacity var(--duration-base);
+}
+
+.optionSavedStatus.visible {
+  opacity: 1;
+}

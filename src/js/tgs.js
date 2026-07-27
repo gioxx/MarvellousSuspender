@@ -366,6 +366,35 @@ export const tgs = (function() {
     });
   }
 
+  function unsuspendWhitelistedTabs() {
+    chrome.windows.getLastFocused({}, (currentWindow) => {
+      const currentWindowId = currentWindow?.id;
+      gsUtils.log('tgs', 'unsuspendWhitelistedTabs currentWindow', currentWindowId);
+      chrome.tabs.query({}, async (tabs) => {
+        const whitelist = await gsStorage.getOption(gsStorage.WHITELIST);
+        gsUtils.log('tgs', 'unsuspendWhitelistedTabs tabs total', tabs.length, 'whitelist', JSON.stringify(whitelist));
+        var deferredTabs = [];
+        for (const tab of tabs) {
+          if (!gsUtils.isSuspendedTab(tab)) continue;
+          const originalUrl = gsUtils.getOriginalUrl(tab.url);
+          const isWhitelisted = originalUrl ? gsUtils.checkSpecificWhiteList(originalUrl, whitelist) : false;
+          gsUtils.log(tab.id, 'unsuspendWhitelistedTabs check', originalUrl, 'whitelisted:', isWhitelisted);
+          if (!originalUrl || !isWhitelisted) continue;
+          gsTabSuspendManager.unqueueTabForSuspension(tab);
+          if (tab.windowId === currentWindowId) {
+            deferredTabs.push(tab);
+          } else {
+            await unsuspendTab(tab);
+          }
+        }
+        gsUtils.log('tgs', 'unsuspendWhitelistedTabs deferred', deferredTabs.length);
+        for (const tab of deferredTabs) {
+          await unsuspendTab(tab);
+        }
+      });
+    });
+  }
+
   function suspendSelectedTabs() {
     chrome.tabs.query(
       { highlighted: true, lastFocusedWindow: true },
@@ -827,7 +856,10 @@ export const tgs = (function() {
         const contexts = await gsChrome.contextsGetByViewName('suspended');
         for (const context of contexts) {
           if (context.tabId) {
-            await chrome.tabs.sendMessage(context.tabId, { action: 'updateCommand', tabId: context.tabId });
+            await chrome.tabs.sendMessage(context.tabId, { action: 'updateCommand', tabId: context.tabId })
+              .catch((error) => {
+                gsUtils.warning(context.tabId, 'tgs', 'handleTabFocusChanged', 'Failed to send updateCommand to content script', error);
+              });
           }
         }
       }
@@ -934,7 +966,10 @@ export const tgs = (function() {
     }
     else if (focusedTab.url === chrome.runtime.getURL('options.html')) {
       if (await gsChrome.contextGetByTabId(focusedTab.id)) {
-        await chrome.tabs.sendMessage(focusedTab.id, { action: 'initSettings', tab: focusedTab });
+        await chrome.tabs.sendMessage(focusedTab.id, { action: 'initSettings', tab: focusedTab })
+          .catch((error) => {
+            gsUtils.warning(focusedTab.id, 'tgs', 'handleNewStationaryTabFocus', 'Failed to send initSettings to content script', error);
+          });
       }
     }
 
@@ -971,7 +1006,10 @@ export const tgs = (function() {
       }
       else {
         if (await gsChrome.contextGetByTabId(focusedTab.id)) {
-          await chrome.tabs.sendMessage(focusedTab.id, { action: 'showNoConnectivityMessage', tab: focusedTab });
+          await chrome.tabs.sendMessage(focusedTab.id, { action: 'showNoConnectivityMessage', tab: focusedTab })
+            .catch((error) => {
+              gsUtils.warning(focusedTab.id, 'tgs', 'handleSuspendedTabFocusGained', 'Failed to send showNoConnectivityMessage to content script', error);
+            });
         }
       }
     }
@@ -1009,6 +1047,7 @@ export const tgs = (function() {
   async function setCharging(value) {
     return gsStorage.saveStorage('session', 'gsIsCharging', value);
   }
+
 
   function getContentScriptStatus(tabId, knownContentScriptStatus) {
     return new Promise((resolve) => {
@@ -1215,32 +1254,32 @@ export const tgs = (function() {
     else {
       chrome.contextMenus.create({
         id: 'open_link_in_suspended_tab',
-        title: chrome.i18n.getMessage('js_context_open_link_in_suspended_tab'),
+        title: gsUtils.getMessage('js_context_open_link_in_suspended_tab'),
         contexts: ['link'],
         // onclick: (info, tab) => { openLinkInSuspendedTab(tab, info.linkUrl); },
       });
 
       chrome.contextMenus.create({
         id: 'toggle_suspend_state',
-        title: chrome.i18n.getMessage('js_context_toggle_suspend_state'),
+        title: gsUtils.getMessage('js_context_toggle_suspend_state'),
         contexts: allContexts,
         // onclick: () => toggleSuspendedStateOfHighlightedTab(),
       });
       chrome.contextMenus.create({
         id: 'toggle_pause_suspension',
-        title: chrome.i18n.getMessage('js_context_toggle_pause_suspension'),
+        title: gsUtils.getMessage('js_context_toggle_pause_suspension'),
         contexts: allContexts,
         // onclick: () => requestToggleTempWhitelistStateOfHighlightedTab(),
       });
       chrome.contextMenus.create({
         id: 'never_suspend_page',
-        title: chrome.i18n.getMessage('js_context_never_suspend_page'),
+        title: gsUtils.getMessage('js_context_never_suspend_page'),
         contexts: allContexts,
         // onclick: () => whitelistHighlightedTab(true),
       });
       chrome.contextMenus.create({
         id: 'never_suspend_domain',
-        title: chrome.i18n.getMessage('js_context_never_suspend_domain'),
+        title: gsUtils.getMessage('js_context_never_suspend_domain'),
         contexts: allContexts,
         // onclick: () => whitelistHighlightedTab(false),
       });
@@ -1252,13 +1291,13 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'suspend_selected_tabs',
-        title: chrome.i18n.getMessage('js_context_suspend_selected_tabs'),
+        title: gsUtils.getMessage('js_context_suspend_selected_tabs'),
         contexts: allContexts,
         // onclick: () => suspendSelectedTabs(),
       });
       chrome.contextMenus.create({
         id: 'unsuspend_selected_tabs',
-        title: chrome.i18n.getMessage('js_context_unsuspend_selected_tabs'),
+        title: gsUtils.getMessage('js_context_unsuspend_selected_tabs'),
         contexts: allContexts,
         // onclick: () => unsuspendSelectedTabs(),
       });
@@ -1270,19 +1309,19 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'soft_suspend_other_tabs_in_window',
-        title: chrome.i18n.getMessage('js_context_soft_suspend_other_tabs_in_window'),
+        title: gsUtils.getMessage('js_context_soft_suspend_other_tabs_in_window'),
         contexts: allContexts,
         // onclick: () => suspendAllTabs(false),
       });
       chrome.contextMenus.create({
         id: 'force_suspend_other_tabs_in_window',
-        title: chrome.i18n.getMessage('js_context_force_suspend_other_tabs_in_window'),
+        title: gsUtils.getMessage('js_context_force_suspend_other_tabs_in_window'),
         contexts: allContexts,
         // onclick: () => suspendAllTabs(true),
       });
       chrome.contextMenus.create({
         id: 'unsuspend_all_tabs_in_window',
-        title: chrome.i18n.getMessage('js_context_unsuspend_all_tabs_in_window'),
+        title: gsUtils.getMessage('js_context_unsuspend_all_tabs_in_window'),
         contexts: allContexts,
         // onclick: () => unsuspendAllTabs(),
       });
@@ -1294,19 +1333,19 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'soft_suspend_all_tabs',
-        title: chrome.i18n.getMessage('js_context_soft_suspend_all_tabs'),
+        title: gsUtils.getMessage('js_context_soft_suspend_all_tabs'),
         contexts: allContexts,
         // onclick: () => suspendAllTabsInAllWindows(false),
       });
       chrome.contextMenus.create({
         id: 'force_suspend_all_tabs',
-        title: chrome.i18n.getMessage('js_context_force_suspend_all_tabs'),
+        title: gsUtils.getMessage('js_context_force_suspend_all_tabs'),
         contexts: allContexts,
         // onclick: () => suspendAllTabsInAllWindows(true),
       });
       chrome.contextMenus.create({
         id: 'unsuspend_all_tabs',
-        title: chrome.i18n.getMessage('js_context_unsuspend_all_tabs'),
+        title: gsUtils.getMessage('js_context_unsuspend_all_tabs'),
         contexts: allContexts,
         // onclick: () => unsuspendAllTabsInAllWindows(),
       });
@@ -1318,29 +1357,29 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'open_session_history',
-        title: chrome.i18n.getMessage('html_recovery_go_to_session_manager'),
+        title: gsUtils.getMessage('html_recovery_go_to_session_manager'),
         contexts: allContexts,
       });
 
       // Tab strip context menu items (right-click on tab in tab bar)
       chrome.contextMenus.create({
         id: 'tab_toggle_suspend',
-        title: chrome.i18n.getMessage('js_context_toggle_suspend_state'),
+        title: gsUtils.getMessage('js_context_toggle_suspend_state'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
         id: 'tab_toggle_pause',
-        title: chrome.i18n.getMessage('js_context_toggle_pause_suspension'),
+        title: gsUtils.getMessage('js_context_toggle_pause_suspension'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
         id: 'tab_never_suspend_domain',
-        title: chrome.i18n.getMessage('js_context_never_suspend_domain'),
+        title: gsUtils.getMessage('js_context_never_suspend_domain'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
         id: 'tab_never_suspend_page',
-        title: chrome.i18n.getMessage('js_context_never_suspend_page'),
+        title: gsUtils.getMessage('js_context_never_suspend_page'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
@@ -1350,12 +1389,12 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'tab_soft_suspend_other_tabs',
-        title: chrome.i18n.getMessage('js_context_soft_suspend_other_tabs_in_window'),
+        title: gsUtils.getMessage('js_context_soft_suspend_other_tabs_in_window'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
         id: 'tab_unsuspend_all_in_window',
-        title: chrome.i18n.getMessage('js_context_unsuspend_all_tabs_in_window'),
+        title: gsUtils.getMessage('js_context_unsuspend_all_tabs_in_window'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
@@ -1365,12 +1404,12 @@ export const tgs = (function() {
       });
       chrome.contextMenus.create({
         id: 'tab_soft_suspend_all',
-        title: chrome.i18n.getMessage('js_context_soft_suspend_all_tabs'),
+        title: gsUtils.getMessage('js_context_soft_suspend_all_tabs'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
         id: 'tab_unsuspend_all',
-        title: chrome.i18n.getMessage('js_context_unsuspend_all_tabs'),
+        title: gsUtils.getMessage('js_context_unsuspend_all_tabs'),
         contexts: ['tab'],
       });
     }
@@ -1438,6 +1477,7 @@ export const tgs = (function() {
     unsuspendSelectedTabs,
     whitelistHighlightedTab,
     unsuspendAllTabsInAllWindows,
+    unsuspendWhitelistedTabs,
     promptForFilePermissions,
 
     toggleSuspendStateOfTab,

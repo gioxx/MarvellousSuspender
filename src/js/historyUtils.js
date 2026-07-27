@@ -14,7 +14,7 @@ export const historyUtils = (() => {
       r.onload = function(e) {
         var contents = e.target.result;
         if (f.type !== 'text/plain' && f.type !== 'application/json') {
-          alert(chrome.i18n.getMessage('js_history_import_fail'));
+          alert(gsUtils.getMessage('js_history_import_fail'));
         } else {
           handleImport(f.name, contents).then(function() {
             window.location.reload();
@@ -23,7 +23,7 @@ export const historyUtils = (() => {
       };
       r.readAsText(f);
     } else {
-      alert(chrome.i18n.getMessage('js_history_import_fail'));
+      alert(gsUtils.getMessage('js_history_import_fail'));
     }
   }
 
@@ -121,7 +121,7 @@ export const historyUtils = (() => {
 
   async function handleImport(sessionName, textContents) {
     sessionName = window.prompt(
-      chrome.i18n.getMessage('js_history_enter_name_for_session'),
+      gsUtils.getMessage('js_history_enter_name_for_session'),
       sessionName,
     );
     if (sessionName) {
@@ -168,7 +168,6 @@ export const historyUtils = (() => {
   function exportSessionWithId(windowId, sessionId, callback) {
     callback = typeof callback !== 'function' ? noop : callback;
 
-    // document.getElementById('debugWindowId').innerText = document.getElementById('debugWindowId').innerText + ' - Window ID retrieved: ' + windowId;
     gsIndexedDb.fetchSessionBySessionId(sessionId).then(function(session) {
       if (!session || !session.windows) {
         callback();
@@ -228,7 +227,7 @@ export const historyUtils = (() => {
       });
       if (nameExists) {
         var overwrite = window.confirm(
-          chrome.i18n.getMessage('js_history_confirm_session_overwrite'),
+          gsUtils.getMessage('js_history_confirm_session_overwrite'),
         );
         if (!overwrite) {
           callback(false);
@@ -240,23 +239,20 @@ export const historyUtils = (() => {
   }
 
   function saveSession(sessionId, windowId) {
-    // document.getElementById('debugWindowId').innerText = document.getElementById('debugWindowId').innerText + ' - Window ID retrieved: ' + windowId;
     gsIndexedDb.fetchSessionBySessionId(sessionId).then(function(session) {
       if (!session) {
         gsUtils.warning( 'historyUtils', 'Could not find session with sessionId: ' + sessionId + '. Save aborted' );
         return;
       }
       var sessionName = window.prompt(
-        chrome.i18n.getMessage('js_history_enter_name_for_session'),
+        gsUtils.getMessage('js_history_enter_name_for_session'),
       );
       if (sessionName) {
         historyUtils.validateNewSessionName(sessionName, function(shouldSave) {
           if (shouldSave) {
             session.name = sessionName;
-            // document.getElementById('debugWindowId').innerText = document.getElementById('debugWindowId').innerText + ' - SessionData: ' + JSON.stringify(session);
             let newSession = JSON.parse(JSON.stringify(session));
             newSession.windows = (windowId !== null) ? session.windows.filter((curWindow) => (curWindow.id === windowId)) : session.windows;
-            // document.getElementById('debugWindowId').innerText = JSON.stringify(newSession);
 
             gsIndexedDb.addToSavedSessions(newSession).then(function() {
               window.location.reload();
@@ -286,13 +282,13 @@ export const historyUtils = (() => {
           }
         }
         if (messageEl && count) {
-          messageEl.innerHTML = chrome.i18n.getMessage('js_history_migrate_success', '' + count);
+          messageEl.innerHTML = gsUtils.getMessage('js_history_migrate_success', '' + count);
         }
       });
     }
     else {
       if (messageEl) {
-        messageEl.innerHTML = chrome.i18n.getMessage('js_history_migrate_fail');
+        messageEl.innerHTML = gsUtils.getMessage('js_history_migrate_fail');
       }
     }
   }
