@@ -78,52 +78,52 @@
     "message": "إلغاء تعليق جميع علامات التبويب في جميع النوافذ"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "سلامة علامات التبويب (تجريبي)"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "إذا كنت تواجه مشكلات في علامات التبويب المعلّقة، خاصة في أيقونات المواقع، فانقر على \"فحص علامات التبويب\" لمعرفة ما إذا كان بإمكاننا إصلاحها."
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "لم نجد أي مشكلات في علامات التبويب المعلّقة لديك. إذا كنت لا تزال ترى شيئًا خاطئًا، أخبرنا أدناه وسنحاول توسيع هذا الفحص."
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "لديك بعض علامات التبويب المعلّقة التي لم يتم تحميلها بالكامل. يمكننا إعادة تحميل تلك العلامات لتنظيف الأمور."
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "بعض علامات التبويب المعلّقة لديك تستخدم أيقونة الموقع الافتراضية من المتصفح. هذا يعني أن ذاكرة التخزين المؤقت لـ TMS لا تملكها. يمكننا استعادة عدد أدنى من علامات التبويب وتعليقها من جديد لجلب الأيقونات المفقودة."
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "فحص علامات التبويب"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "نسخ النتائج"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "جارٍ فحص علامات التبويب..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "علامات تبويب معلّقة بواسطة TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "أيقونة في ذاكرة تخزين TMS المؤقتة"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "علامات تبويب لم يتم تحميلها"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "علامات تبويب تحمل أيقونة TMS"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "علامات تبويب تحمل أيقونة افتراضية"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "أسماء مضيف فريدة"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "قد لا تغطي ذاكرة التخزين المؤقت المحلية لأيقونات TMS جميع علامات التبويب. إذا تم مسح ذاكرة التخزين المؤقت للمتصفح، فقد لا يتمكن TMS من عرض بعض الأيقونات."
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "التالي: إعادة تحميل $count$ علامة تبويب",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -131,7 +131,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "التالي: استعادة $count$ علامة تبويب لتخزين الأيقونات مؤقتًا",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -139,28 +139,28 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "جارٍ استعادة الأيقونات..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "بمجرد أن تنتهي علامات التبويب من التحميل في الخلفية، يمكنك النقر على \"فحص علامات التبويب\" مرة أخرى لمعرفة ما إذا تحسنت الأمور."
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "يمكنك النقر على \"فحص علامات التبويب\" مرة أخرى لمعرفة ما إذا تحسنت الأمور."
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "إذا كنت لا تزال تواجه مشكلات في علامات التبويب أو الأيقونات، يمكنك النقر على \"نسخ النتائج\" ولصقها في"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "مشكلة جديدة (Issue) على GitHub."
   },
   "html_health_num_grouped_broken": {
-    "message": "grouped tabs in broken state (Tab Groups bug)"
+    "message": "علامات تبويب مجمّعة في حالة معطلة (خلل مجموعات علامات التبويب)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "بعض علامات التبويب في المجموعات في حالة معطلة — تظهر كعلامة تبويب جديدة بدلاً من التحميل بشكل صحيح بعد إعادة تشغيل المتصفح. يمكن لـ TMS محاولة استعادتها."
   },
   "html_health_repair_button": {
-    "message": "Repair $count$ grouped tab(s)",
+    "message": "إصلاح $count$ علامة تبويب مجمّعة",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -168,25 +168,25 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+    "message": "تم. أعد الفحص للتحقق من أن علامات التبويب المجمّعة عادت إلى حالتها المعلّقة."
   },
   "html_about_title": {
     "message": "حول عن الإضافة"
   },
   "html_about_version_label": {
-    "message": "Version"
+    "message": "الإصدار"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension — replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "الخليفة الروحي لتعليق علامات التبويب الحديث — يستبدل علامات التبويب غير النشطة بصفحة سُبات خفيفة، مانحًا إياك تحكمًا دقيقًا في وقت استيقاظها."
   },
   "html_about_section_credits": {
-    "message": "Credits"
+    "message": "شكر وتقدير"
   },
   "html_about_contributors_and": {
-    "message": " and "
+    "message": " و "
   },
   "html_about_community_thanks_link": {
-    "message": "all contributors on GitHub"
+    "message": "جميع المساهمين على GitHub"
   },
   "html_about_fork_beginning": {
     "message": "استناداً إلى الأصل"
@@ -195,10 +195,10 @@
     "message": "متاح في جيت هب، بدون تتبع ADS"
   },
   "html_about_fork_end": {
-    "message": "More information available on"
+    "message": "مزيد من المعلومات متاح على"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "قُدّم لك من قبل"
   },
   "html_about_report_issues_prefix": {
     "message": "إذا كان لديك ملاحظات أو ترغب في الإبلاغ عن مشكلة، فيمكنك القيام بذلك على سبيل المثال"
@@ -207,19 +207,19 @@
     "message": ". Lütfen yeni bir fikir oluşturmadan önce fikrinizin veya sorunun zaten var olup olmadığını kontrol edin. Teşekkürler!"
   },
   "html_about_debugging_prefix": {
-    "message": "To capture logs and generate a diagnostic report, go to the "
+    "message": "لالتقاط السجلات وإنشاء تقرير تشخيصي، انتقل إلى "
   },
   "html_about_debugging_suffix": {
-    "message": "diagnostic page."
+    "message": "صفحة التشخيص."
   },
   "html_about_the_github_issues_page": {
     "message": "صفحة المشكلات على \"جيت هاب\""
   },
   "html_about_section_support": {
-    "message": "Support development"
+    "message": "ادعم التطوير"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender مجاني ومفتوح المصدر. إذا وجدته مفيدًا، ففكّر في تقديم مساهمة صغيرة — فهذا يساعد في إبقاء المشروع حيًا ونموه."
   },
   "html_broken_title": {
     "message": "يتم كسر"
@@ -228,7 +228,7 @@
     "message": "روه روه!"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "فشل في البدء. ربما تستخدم متصفحًا غير متوافق؟"
   },
   "html_broken_line2": {
     "message": "حاول إعادة تشغيل الإضافة. إذا استمرت المشكلة، اطلب المساعدة على"
@@ -249,7 +249,7 @@
     "message": "إدارة الجلسة"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "يحتفظ TMS بلقطة مستمرة لعلامات التبويب المفتوحة لديك — دون الحاجة لأي إعداد. تتحدّث الجلسات تلقائيًا أثناء التصفح، لكنها موجودة داخل Chrome فقط: إذا فُقد ملف تعريف المتصفح أو تلف، تُفقد معه."
   },
   "html_history_current_session": {
     "message": "الجلسة الحالية"
@@ -270,10 +270,10 @@
     "message": "Extension ID"
   },
   "html_history_migrate_section_title": {
-    "message": "Tab migration"
+    "message": "ترحيل علامات التبويب"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recover tabs suspended by a previous version or another fork of this extension. Enter the old extension ID below and click Migrate tabs to convert the suspended URLs."
+    "message": "استعد علامات التبويب المعلّقة بواسطة إصدار سابق أو نسخة أخرى من هذا الامتداد. أدخل معرّف الامتداد القديم أدناه وانقر على \"ترحيل علامات التبويب\" لتحويل عناوين URL المعلّقة."
   },
   "html_options_title": {
     "message": "الإعدادات"
@@ -285,22 +285,22 @@
     "message": "علامات التبويب المعلقة"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Append original URL to suspended tab title"
+    "message": "إلحاق عنوان URL الأصلي بعنوان علامة التبويب المعلّقة"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+    "message": "عند التفعيل، يُلحق عنوان URL الأصلي بعنوان علامة تبويب المتصفح للصفحات المعلّقة."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+    "message": "يتيح ذلك العثور على علامات التبويب المعلّقة حسب اسم المضيف باستخدام ميزة \"البحث في علامات التبويب\" في Chrome (Ctrl+Shift+A)."
   },
   "html_options_other_title": {
-    "message": "General"
+    "message": "عام"
   },
   "html_options_language": {
-    "message": "Language"
+    "message": "اللغة"
   },
   "html_options_language_auto": {
-    "message": "System default"
+    "message": "افتراضي النظام"
   },
   "html_options_suspend_automatically_after": {
     "message": "تعليق علامات التبويب تلقائياً بعد"
@@ -360,13 +360,13 @@
     "message": "إلغاء تعليق علامة التبويب تلقائياً عند عرضها"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "تطبيق توفير الذاكرة المدمج في المتصفح عند التعليق"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "يقلل من استخدام ذاكرة التبويب المعلق أكثر، من خلال استخدام"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "وظيفة \"تجاهل علامات التبويب\" المدمجة في متصفحك. يمكن أن يؤدي ذلك إلى توفير يصل إلى"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
     "message": "إلى 500٪ مدخرات الذاكرة عند العمل مع عدد كبير من علامات التبويب."
@@ -378,7 +378,7 @@
     "message": "علامة التبويب المعلقة."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "لمزيد من المعلومات حول تجاهل علامات التبويب، راجع:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -393,7 +393,7 @@
     "message": "مظلم"
   },
   "html_options_suspend_theme_system": {
-    "message": "System"
+    "message": "النظام"
   },
   "html_options_suspend_screen_capturing": {
     "message": "التقاط الشاشة"
@@ -420,7 +420,7 @@
     "message": "بالإضافة إلى زيادة طفيفة في استخدام الذاكرة."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "إذا لاحظت سلوكًا غريبًا، مثل استغراق علامات التبويب وقتًا طويلاً للتعليق، أو أن المتصفح"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "تعطل بشكل غير متوقع، حاول إيقاف تشغيل هذه الميزة."
@@ -462,10 +462,10 @@
     "message": "اختبار القائمة البيضاء"
   },
   "html_options_whitelist_close": {
-    "message": "Close"
+    "message": "إغلاق"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake whitelisted tabs"
+    "message": "إيقاظ علامات التبويب في القائمة البيضاء"
   },
   "html_options_other_enable_context_menu": {
     "message": "أضف الموصل المبتكر إلى قائمة السياق بالنقر الأيمن"
@@ -480,31 +480,31 @@
     "message": "في مكان آخر من التمديد."
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "مزامنة الإعدادات مع ملف تعريف المتصفح الخاص بك"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "ستتم مزامنة إعدادات الامتداد عبر جميع المتصفحات التي"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "تم تسجيل الدخول بنفس الملف الشخصي."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "سيؤدي هذا أيضًا إلى مزامنة الإعدادات في وضع التصفح المتخفي."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "تفعيل هذا سيؤدي إلى الكتابة فوق الإعدادات في جميع المتصفحات الأخرى المسجلة بنفس الملف الشخصي"
   },
   "html_options_suspend_on_low_memory": {
     "message": "التعليق فوراً عندما تصبح ذاكرة النظام منخفضة جداً"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "سيؤدي هذا الخيار إلى تجاوز وظيفة تجاهل علامات التبويب التلقائية."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "عند التفعيل، سيُجبر علامة التبويب على التعليق بدلاً من تجاهلها."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "عادةً، لا يتجاهل متصفحك علامات التبويب إلا عندما تصبح ذاكرة النظام منخفضة جدًا."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "يرجى ملاحظة: قد يتسبب هذا في تعليق علامات التبويب قبل الوقت الذي لديك فيه"
@@ -513,7 +513,7 @@
     "message": "محدد في خيارات التعليق التلقائي للتبويب."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "لمزيد من المعلومات حول تجاهل علامات التبويب، راجع:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -537,7 +537,7 @@
     "message": "إلغاء تعليق كل علامات التبويب"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake whitelisted tabs"
+    "message": "إيقاظ علامات التبويب في القائمة البيضاء"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "إلغاء تعليق علامات التبويب المحددة"
@@ -549,10 +549,10 @@
     "message": "الإعدادات"
   },
   "html_popup_backup_now_local": {
-    "message": "Backup session now (Local)"
+    "message": "نسخ الجلسة احتياطيًا الآن (محلي)"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Backup session now (Cloud)"
+    "message": "نسخ الجلسة احتياطيًا الآن (سحابي)"
   },
   "html_restoring_title": {
     "message": "إستعادة النافذة"
@@ -606,10 +606,10 @@
     "message": "الإعدادات"
   },
   "html_sidebar_session_management": {
-    "message": "Sessions"
+    "message": "الجلسات"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "سلامة علامات التبويب"
   },
   "html_sidebar_shortcuts": {
     "message": "اختصارات لوحة المفاتيح"
@@ -618,31 +618,31 @@
     "message": "حول عن اضافة"
   },
   "html_sidebar_backup": {
-    "message": "Backup"
+    "message": "النسخ الاحتياطي"
   },
   "html_sidebar_news": {
-    "message": "News"
+    "message": "الأخبار"
   },
   "html_news_title": {
-    "message": "News & Updates"
+    "message": "الأخبار والتحديثات"
   },
   "html_news_desc": {
-    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+    "message": "ابقَ على اطّلاع بأحدث الإصدارات والمشكلات المعروفة والإعلانات من مدونة Marvellous Codeworks."
   },
   "html_news_loading": {
-    "message": "Loading news…"
+    "message": "جارٍ تحميل الأخبار…"
   },
   "html_news_empty": {
-    "message": "No news yet. Check back soon!"
+    "message": "لا توجد أخبار بعد. تحقق مرة أخرى قريبًا!"
   },
   "html_news_new_pill": {
-    "message": "NEW"
+    "message": "جديد"
   },
   "html_news_mark_all_read": {
-    "message": "Mark all as read"
+    "message": "وضع علامة مقروء على الكل"
   },
   "html_backup_page_title": {
-    "message": "Backup & Restore"
+    "message": "النسخ الاحتياطي والاستعادة"
   },
   "html_success_great_success": {
     "message": "نجاح رائع!"
@@ -687,13 +687,13 @@
     "message": "التحديث"
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "أصبح جاهزًا ليكون أكثر <i>روعة</i>"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "سيتم تثبيت إصدار جديد من The Marvellous Suspender في المرة القادمة التي يُعاد فيها تشغيل متصفحك."
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "هام: لم نتمكن من إنشاء نقطة استعادة لعلامات التبويب الخاصة بك.<br>احفظ نسخة احتياطية الآن!"
   },
   "html_update_info_nobackup_prefix": {
     "message": "يوصى بشدة بأن تقوم بتصدير نسخة من الجلسة الحالية من "
@@ -884,10 +884,10 @@
     "message": "تحديث الإضافة الآن"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "احفظ نسخة احتياطية قبل التحديث"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "تفعيل الامتداد (إظهار النافذة المنبثقة)"
   },
   "js_shortcuts_not_set": {
     "message": "لم يتم تعيينه"
@@ -896,70 +896,70 @@
     "message": "نقطة الحفظ التلقائي لـ v"
   },
   "html_options_backup_title": {
-    "message": "Automatic session backup"
+    "message": "النسخ الاحتياطي التلقائي للجلسة"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "على عكس الجلسات، تُحفظ النسخ الاحتياطية كملفات JSON خارج Chrome — في مجلد التنزيلات لديك أو على Google Drive. تصمد أمام أعطال المتصفح وإعادة ضبط الملف الشخصي والتثبيتات الجديدة. هذه شبكة الأمان الحقيقية لك."
   },
   "html_options_backup_enable": {
-    "message": "Automatically back up your session"
+    "message": "نسخ جلستك احتياطيًا تلقائيًا"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+    "message": "يحفظ بصمت نسخة من جلستك الحالية كملف JSON. اختر الحفظ محليًا (مجلد tms-backups داخل مجلد التنزيلات) أو في مجلد 'TMS Backups' على Google Drive."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "بالنسبة للنسخ الاحتياطية المحلية، يجب ضبط Chrome لتنزيل الملفات تلقائيًا (دون سؤال) — تحقق من chrome://settings/downloads. لا تتطلب النسخ الاحتياطية على Google Drive ذلك."
   },
   "html_options_backup_interval": {
-    "message": "Backup every"
+    "message": "النسخ الاحتياطي كل"
   },
   "html_options_backup_daily_time": {
-    "message": "At what time"
+    "message": "في أي وقت"
   },
   "html_backup_interval_warning": {
-    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+    "message": "تنبيه: مع فاصل زمني طويل كهذا، يمكن أن يحدث الكثير بين النسخ الاحتياطية. فكّر في فاصل زمني أقصر لتقليل خطر فقدان البيانات."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+    "message": "تتضمن كل من النسخ الاحتياطية المحلية ونسخ Drive معرّف جهاز (مثل tms-session-a3f7b2c8-2026-06-18T14-30.json)، بحيث يحتفظ كل تثبيت متصفح بمجموعة نسخ احتياطية مستقلة خاصة به. يتم الاحتفاظ بأحدث N نسخة احتياطية محلية لكل جهاز؛ وتحتفظ نسخ Drive أيضًا بـ N نسخة لكل جهاز، بحيث لا تحل جلسات الأجهزة أو المتصفحات المختلفة محل بعضها البعض أبدًا."
   },
   "html_backup_max_files_label": {
-    "message": "Max backups to keep"
+    "message": "الحد الأقصى للنسخ الاحتياطية المحتفظ بها"
   },
   "html_backup_device_name_label": {
-    "message": "Device name (optional)"
+    "message": "اسم الجهاز (اختياري)"
   },
   "html_backup_device_name_save": {
-    "message": "Save"
+    "message": "حفظ"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Legacy backups"
+    "message": "نسخ احتياطية قديمة"
   },
   "html_options_backup_now": {
-    "message": "Backup now"
+    "message": "نسخ احتياطي الآن"
   },
   "html_options_back_to_top": {
-    "message": "↑ Top"
+    "message": "↑ الأعلى"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+    "message": "تُخزَّن الجلسات داخل Chrome فقط — ولن تصمد أمام عطل في المتصفح أو إعادة ضبط الملف الشخصي."
   },
   "html_history_backup_settings_link": {
-    "message": "Set up Backup to save your tabs outside the browser →"
+    "message": "أعدّ النسخ الاحتياطي لحفظ علامات التبويب خارج المتصفح ←"
   },
   "js_options_backup_now_running": {
-    "message": "Running backup…"
+    "message": "جارٍ تشغيل النسخ الاحتياطي…"
   },
   "js_options_backup_now_done": {
-    "message": "Backup saved."
+    "message": "تم حفظ النسخة الاحتياطية."
   },
   "js_backup_option_saved": {
-    "message": "Saved"
+    "message": "تم الحفظ"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "يسألك Chrome عن مكان حفظ الملفات — لن تعمل النسخ الاحتياطية التلقائية بصمت. عطّل \"السؤال عن مكان حفظ كل ملف\" في chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
-    "message": "Next run: $time$",
+    "message": "التشغيل التالي: $time$",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -967,7 +967,7 @@
     }
   },
   "js_options_backup_last_local": {
-    "message": "Last backup: $date$",
+    "message": "آخر نسخة احتياطية: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -975,73 +975,73 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "Backup destination"
+    "message": "وجهة النسخ الاحتياطي"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (Downloads folder)"
+    "message": "محلي (مجلد التنزيلات)"
   },
   "html_options_backup_dest_drive": {
     "message": "Google Drive"
   },
   "html_options_backup_drive_connect": {
-    "message": "Connect Google Account"
+    "message": "ربط حساب Google"
   },
   "html_options_backup_drive_disconnect": {
-    "message": "Disconnect"
+    "message": "قطع الاتصال"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+    "message": "فشل النسخ الاحتياطي التلقائي: لا يوجد حساب Google متصل. انقر هنا لإصلاح ذلك."
   },
   "js_options_backup_drive_connecting": {
-    "message": "Connecting…"
+    "message": "جارٍ الاتصال…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Could not connect to Google. Please try again."
+    "message": "تعذّر الاتصال بـ Google. يُرجى المحاولة مرة أخرى."
   },
   "html_options_settings_backup": {
-    "message": "Settings backup"
+    "message": "النسخ الاحتياطي للإعدادات"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "صدّر جميع إعدادات الامتداد إلى ملف JSON — مفيد كنسخة احتياطية أو لنقل تكوينك إلى ملف تعريف متصفح آخر. استيراد ملف يستبدل الإعدادات الحالية."
   },
   "html_backup_local_folder_hint": {
-    "message": "Local backups go to the tms-backups folder inside your Downloads."
+    "message": "تذهب النسخ الاحتياطية المحلية إلى مجلد tms-backups داخل مجلد التنزيلات."
   },
   "html_backup_drive_folder_note": {
-    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+    "message": "تُحفظ النسخ الاحتياطية في مجلد 'TMS Backups' على Google Drive الخاص بك."
   },
   "html_backup_drive_open_folder": {
-    "message": "Open TMS Backups folder on Drive ↗"
+    "message": "فتح مجلد TMS Backups على Drive ↗"
   },
   "html_backup_drive_label_account": {
-    "message": "Account"
+    "message": "الحساب"
   },
   "html_backup_drive_label_folder": {
-    "message": "Folder"
+    "message": "المجلد"
   },
   "html_backup_settings_local_title": {
-    "message": "Local"
+    "message": "محلي"
   },
   "html_backup_settings_drive_title": {
     "message": "Google Drive"
   },
   "html_backup_drive_save_settings": {
-    "message": "Save settings to Drive"
+    "message": "حفظ الإعدادات على Drive"
   },
   "html_backup_settings_drive_restore": {
-    "message": "Restore settings from Drive"
+    "message": "استعادة الإعدادات من Drive"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Saving to Drive…"
+    "message": "جارٍ الحفظ على Drive…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "Settings saved to Drive."
+    "message": "تم حفظ الإعدادات على Drive."
   },
   "js_backup_drive_settings_error": {
-    "message": "Could not save settings to Drive. Please try again."
+    "message": "تعذّر حفظ الإعدادات على Drive. يُرجى المحاولة مرة أخرى."
   },
   "js_backup_cooldown": {
-    "message": "Wait $seconds$s before the next backup.",
+    "message": "انتظر $seconds$ ثانية قبل النسخة الاحتياطية التالية.",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1049,19 +1049,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Downloading settings from Drive…"
+    "message": "جارٍ تنزيل الإعدادات من Drive…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "No settings file found on Drive. Save your settings to Drive first."
+    "message": "لم يتم العثور على ملف إعدادات على Drive. احفظ إعداداتك على Drive أولاً."
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Settings restored. Reloading…"
+    "message": "تمت استعادة الإعدادات. جارٍ إعادة التحميل…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Could not restore settings from Drive. Please try again."
+    "message": "تعذّرت استعادة الإعدادات من Drive. يُرجى المحاولة مرة أخرى."
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "Last backup: $date$",
+    "message": "آخر نسخة احتياطية: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1069,7 +1069,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Existing settings backup from $date$. Overwrite?",
+    "message": "توجد بالفعل نسخة احتياطية للإعدادات من $date$. هل تريد الاستبدال؟",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1077,49 +1077,49 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Export settings"
+    "message": "تصدير الإعدادات"
   },
   "html_options_settings_import": {
-    "message": "Import settings"
+    "message": "استيراد الإعدادات"
   },
   "js_options_settings_import_confirm": {
-    "message": "This will overwrite your current settings. Continue?"
+    "message": "سيؤدي هذا إلى الكتابة فوق إعداداتك الحالية. متابعة؟"
   },
   "js_options_settings_import_success": {
-    "message": "Settings imported. Reloading…"
+    "message": "تم استيراد الإعدادات. جارٍ إعادة التحميل…"
   },
   "js_options_settings_import_error": {
-    "message": "Invalid settings file."
+    "message": "ملف إعدادات غير صالح."
   },
   "html_history_migrate_nav": {
-    "message": "Migrate"
+    "message": "ترحيل"
   },
   "html_backup_restore_title": {
-    "message": "Restore from backup"
+    "message": "الاستعادة من نسخة احتياطية"
   },
   "html_backup_restore_desc": {
-    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+    "message": "استورد ملف نسخة احتياطية لاستعادته كجلسة محفوظة. بعد الاستيراد، افتح الجلسات لاختيار النوافذ التي تريد استعادتها."
   },
   "html_backup_restore_local_title": {
-    "message": "Local file"
+    "message": "ملف محلي"
   },
   "html_backup_restore_drive_title": {
     "message": "Google Drive"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file"
+    "message": "اختيار ملف نسخة احتياطية"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Select a Drive backup"
+    "message": "اختر نسخة احتياطية من Drive"
   },
   "html_backup_restore_import": {
-    "message": "Import selected"
+    "message": "استيراد المحدد"
   },
   "js_backup_restore_importing": {
-    "message": "Importing…"
+    "message": "جارٍ الاستيراد…"
   },
   "js_backup_restore_success": {
-    "message": "Imported as \"$name$\".",
+    "message": "تم الاستيراد باسم \"$name$\".",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1127,22 +1127,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ Open Sessions to restore"
+    "message": "← افتح الجلسات للاستعادة"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Invalid backup file."
+    "message": "ملف نسخة احتياطية غير صالح."
   },
   "js_backup_restore_error_drive": {
-    "message": "Could not download from Drive. Check your connection and try again."
+    "message": "تعذّر التنزيل من Drive. تحقق من اتصالك وحاول مرة أخرى."
   },
   "js_backup_restore_error_generic": {
-    "message": "Import failed. Please try again."
+    "message": "فشل الاستيراد. يُرجى المحاولة مرة أخرى."
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Save Drive backup before switching?"
+    "message": "هل تريد حفظ نسخة Drive الاحتياطية قبل التبديل؟"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "message": "أحدث نسخة احتياطية لك على Drive من $date$. احفظها كجلسة في مدير الجلسات حتى تتمكن من استعادتها دون الحاجة إلى Google Drive.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1150,27 +1150,27 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Save to Sessions"
+    "message": "حفظ في الجلسات"
   },
   "html_backup_drive_import_modal_cancel": {
-    "message": "Skip"
+    "message": "تخطي"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive backup files"
+    "message": "ملفات النسخ الاحتياطي على Drive"
   },
   "html_backup_drive_download_btn": {
-    "message": "Download"
+    "message": "تنزيل"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Delete"
+    "message": "حذف"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Delete this backup file from Drive? This cannot be undone."
+    "message": "هل تريد حذف ملف النسخة الاحتياطية هذا من Drive؟ لا يمكن التراجع عن هذا الإجراء."
   },
   "html_backup_drive_no_files": {
-    "message": "No Drive backup files found."
+    "message": "لم يتم العثور على ملفات نسخ احتياطي على Drive."
   },
   "html_backup_drive_files_loading": {
-    "message": "Loading…"
+    "message": "جارٍ التحميل…"
   }
 }
