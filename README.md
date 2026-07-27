@@ -84,7 +84,8 @@ Contributions are very welcome. Feel free to submit pull requests for new featur
 Help localize the extension into your language via Crowdin: [crowdin.com/project/tms](https://crowdin.com/project/tms).  
 If your language is not available, [submit a feature request](https://github.com/gioxx/MarvellousSuspender/issues/).
 
-**Only `en` (English) and `it` (Italian) are maintained directly and can be relied upon as accurate.** All other languages were recently brought up to date with AI assistance to close large translation gaps — the result should be functional, but has not had a native-speaker review pass. If you're fluent in one of these languages, corrections and improvements via Crowdin are very welcome.
+> [!WARNING]  
+> **Only `en` (English) and `it` (Italian) are maintained directly and can be relied upon as accurate.** All other languages were recently brought up to date with AI assistance to close large translation gaps — the result should be functional, but has not had a native-speaker review pass. If you're fluent in one of these languages, corrections and improvements via Crowdin are very welcome.
 
 ---
 
