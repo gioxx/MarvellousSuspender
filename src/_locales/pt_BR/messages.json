@@ -78,52 +78,52 @@
     "message": "Recarregar todas as guias em todas as janelas"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "Saúde das guias (Beta)"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "Se você está tendo problemas com suas guias suspensas, especialmente com favicons, clique em \"Verificar guias\" para ver se conseguimos corrigi-los."
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "Não encontramos nenhum problema com suas guias suspensas. Se você ainda estiver vendo algo errado, avise-nos abaixo e tentaremos ampliar essa verificação."
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "Algumas de suas guias suspensas não carregaram completamente. Podemos recarregá-las para resolver isso."
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "Algumas de suas guias suspensas estão usando o favicon padrão do navegador. Isso significa que o cache do TMS não os possui. Podemos restaurar e suspender novamente um número mínimo de guias para buscar esses favicons ausentes."
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "Verificar guias"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "Copiar resultados"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "Verificando guias..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "Guias suspensas pelo TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "favicons no cache do TMS"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "guias não carregaram"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "guias têm o favicon do TMS"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "guias têm um favicon padrão"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "nomes de host únicos"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "O cache local de favicons do TMS pode não cobrir todas as guias. Se o cache do navegador for limpo, o TMS pode não conseguir exibir alguns favicons."
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "Próximo: recarregar $count$ guias",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -131,7 +131,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "Próximo: restaurar $count$ guias para armazenar favicons em cache",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -139,28 +139,28 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "Restaurando favicons..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "Assim que suas guias terminarem de carregar em segundo plano, você pode clicar em \"Verificar guias\" novamente para ver se as coisas melhoraram."
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "Você pode clicar em \"Verificar guias\" novamente para ver se as coisas melhoraram."
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "Se você ainda estiver com problemas de guias ou favicons, pode clicar em \"Copiar resultados\" e colar em uma nova"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "Issue no GitHub."
   },
   "html_health_num_grouped_broken": {
-    "message": "grouped tabs in broken state (Tab Groups bug)"
+    "message": "guias agrupadas em estado corrompido (bug de grupos de guias)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "Algumas guias em Grupos de guias estão em estado corrompido — aparecem como uma nova guia em vez de carregar corretamente após reiniciar o navegador. O TMS pode tentar restaurá-las."
   },
   "html_health_repair_button": {
-    "message": "Repair $count$ grouped tab(s)",
+    "message": "Reparar $count$ guia(s) agrupada(s)",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -168,25 +168,25 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+    "message": "Concluído. Verifique novamente para confirmar que as guias agrupadas voltaram ao estado suspenso."
   },
   "html_about_title": {
     "message": "Sobre"
   },
   "html_about_version_label": {
-    "message": "Version"
+    "message": "Versão"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension — replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "O sucessor espiritual da suspensão moderna de guias — substitui guias inativas por uma leve página de hibernação, dando a você controle granular sobre quando elas acordam."
   },
   "html_about_section_credits": {
-    "message": "Credits"
+    "message": "Créditos"
   },
   "html_about_contributors_and": {
-    "message": " and "
+    "message": " e "
   },
   "html_about_community_thanks_link": {
-    "message": "all contributors on GitHub"
+    "message": "todos os colaboradores no GitHub"
   },
   "html_about_fork_beginning": {
     "message": "Baseado no original"
@@ -195,10 +195,10 @@
     "message": "disponível no GitHub, sem rastreamento ADS"
   },
   "html_about_fork_end": {
-    "message": "More information available on"
+    "message": "Mais informações disponíveis em"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "Trazido a você por"
   },
   "html_about_report_issues_prefix": {
     "message": "Se você tiver comentários ou quiser denunciar um problema, poderá fazer isso no"
@@ -207,19 +207,19 @@
     "message": ". Por favor, verifique se a sua ideia ou problema já existe antes de criar um novo. Obrigado!"
   },
   "html_about_debugging_prefix": {
-    "message": "To capture logs and generate a diagnostic report, go to the "
+    "message": "Para capturar registros e gerar um relatório de diagnóstico, acesse a "
   },
   "html_about_debugging_suffix": {
-    "message": "diagnostic page."
+    "message": "página de diagnóstico."
   },
   "html_about_the_github_issues_page": {
     "message": "Página de problemas do GitHub"
   },
   "html_about_section_support": {
-    "message": "Support development"
+    "message": "Apoiar o desenvolvimento"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+    "message": "O The Marvellous Suspender é gratuito e de código aberto. Se você o achar útil, considere fazer uma pequena contribuição — isso ajuda a manter o projeto vivo e em crescimento."
   },
   "html_broken_title": {
     "message": "está quebrado"
@@ -228,7 +228,7 @@
     "message": "Opa!"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "falhou ao iniciar. Talvez você esteja usando um navegador incompatível?"
   },
   "html_broken_line2": {
     "message": "Tente reiniciar a extensão. Se o problema persistir, peça ajuda na"
@@ -249,7 +249,7 @@
     "message": "Gerenciamento de sessão"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "O TMS mantém um instantâneo contínuo de suas guias abertas — sem necessidade de configuração. As sessões são atualizadas automaticamente enquanto você navega, mas vivem dentro do Chrome: se o perfil do navegador for perdido ou corrompido, elas se perdem junto com ele."
   },
   "html_history_current_session": {
     "message": "Sessão atual"
@@ -270,10 +270,10 @@
     "message": "ID da extensão"
   },
   "html_history_migrate_section_title": {
-    "message": "Tab migration"
+    "message": "Migração de guias"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recover tabs suspended by a previous version or another fork of this extension. Enter the old extension ID below and click Migrate tabs to convert the suspended URLs."
+    "message": "Recupere guias suspensas por uma versão anterior ou outro fork desta extensão. Insira o ID da extensão antiga abaixo e clique em \"Migrar guias\" para converter as URLs suspensas."
   },
   "html_options_title": {
     "message": "Configurações"
@@ -285,22 +285,22 @@
     "message": "Guias suspensas"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Append original URL to suspended tab title"
+    "message": "Anexar URL original ao título da guia suspensa"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+    "message": "Quando ativado, a URL original é anexada ao título da guia do navegador em páginas suspensas."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+    "message": "Isso permite encontrar guias suspensas pelo nome do host usando o \"Pesquisar guias\" do Chrome (Ctrl+Shift+A)."
   },
   "html_options_other_title": {
-    "message": "General"
+    "message": "Geral"
   },
   "html_options_language": {
-    "message": "Language"
+    "message": "Idioma"
   },
   "html_options_language_auto": {
-    "message": "System default"
+    "message": "Padrão do sistema"
   },
   "html_options_suspend_automatically_after": {
     "message": "Suspender automaticamente as guias depois de"
@@ -315,7 +315,7 @@
     "message": "min"
   },
   "html_options_suspend_minutes": {
-    "message": "mins"
+    "message": "min"
   },
   "html_options_suspend_hour": {
     "message": "hora"
@@ -360,13 +360,13 @@
     "message": "Recarregar automaticamente quando a guia for visualizada"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "Aplicar a economia de memória integrada do navegador ao suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "Reduz ainda mais o uso de memória de uma guia suspensa, utilizando a"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "a funcionalidade nativa de \"descarte de guias\" do seu navegador. Isso pode resultar em até"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
     "message": "até 500% de economia de memória ao trabalhar com um grande número de abas."
@@ -378,7 +378,7 @@
     "message": "uma guia suspensa."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Para mais informações sobre o descarte de guias, consulte:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -393,7 +393,7 @@
     "message": "Escuro"
   },
   "html_options_suspend_theme_system": {
-    "message": "System"
+    "message": "Sistema"
   },
   "html_options_suspend_screen_capturing": {
     "message": "Captura de tela"
@@ -420,7 +420,7 @@
     "message": "um aumento pequeno no uso de memória."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "Se você notar comportamento estranho, como guias demorando muito para suspender, ou o navegador"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "travar inesperadamente, tente desativar esse recurso."
@@ -462,10 +462,10 @@
     "message": "Lista branca de teste"
   },
   "html_options_whitelist_close": {
-    "message": "Close"
+    "message": "Fechar"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake whitelisted tabs"
+    "message": "Acordar guias da lista de permissões"
   },
   "html_options_other_enable_context_menu": {
     "message": "Adicionar The Marvellous Suspender no menu de contexto do clique do botão direito"
@@ -480,31 +480,31 @@
     "message": "em outro lugar na extensão."
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "Sincronizar configurações com seu perfil do navegador"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "As configurações da extensão serão sincronizadas em todos os navegadores que estiverem"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "conectados com o mesmo perfil."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "Isso também sincronizará as configurações no modo anônimo."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "Ativar isso substituirá as configurações em todos os outros navegadores conectados ao mesmo perfil"
   },
   "html_options_suspend_on_low_memory": {
     "message": "Suspender instantaneamente quando a memória do sistema ficar muito baixa"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "Esta opção substituirá a funcionalidade de descarte automático de guias."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "Se ativada, forçará a suspensão de uma guia em vez de descartá-la."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "Normalmente, seu navegador só descarta guias quando a memória do sistema fica muito baixa."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "Observação: Isso pode fazer com que as guias sejam suspensas mais cedo do que a hora"
@@ -513,7 +513,7 @@
     "message": "especificada nas opções de suspensão de guia Automática."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Para mais informações sobre o descarte de guias, consulte:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -537,7 +537,7 @@
     "message": "Recarregar todas as outras guias"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake whitelisted tabs"
+    "message": "Acordar guias da lista de permissões"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Suspender as guias selecionadas"
@@ -549,10 +549,10 @@
     "message": "Configurações"
   },
   "html_popup_backup_now_local": {
-    "message": "Backup session now (Local)"
+    "message": "Fazer backup da sessão agora (Local)"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Backup session now (Cloud)"
+    "message": "Fazer backup da sessão agora (Nuvem)"
   },
   "html_restoring_title": {
     "message": "Restaurando janela"
@@ -606,10 +606,10 @@
     "message": "Configurações"
   },
   "html_sidebar_session_management": {
-    "message": "Sessions"
+    "message": "Sessões"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "Saúde das guias"
   },
   "html_sidebar_shortcuts": {
     "message": "Atalhos do teclado"
@@ -621,28 +621,28 @@
     "message": "Backup"
   },
   "html_sidebar_news": {
-    "message": "News"
+    "message": "Novidades"
   },
   "html_news_title": {
-    "message": "News & Updates"
+    "message": "Novidades e atualizações"
   },
   "html_news_desc": {
-    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+    "message": "Fique por dentro dos últimos lançamentos, problemas conhecidos e anúncios do blog da Marvellous Codeworks."
   },
   "html_news_loading": {
-    "message": "Loading news…"
+    "message": "Carregando novidades…"
   },
   "html_news_empty": {
-    "message": "No news yet. Check back soon!"
+    "message": "Ainda não há novidades. Volte em breve!"
   },
   "html_news_new_pill": {
-    "message": "NEW"
+    "message": "NOVO"
   },
   "html_news_mark_all_read": {
-    "message": "Mark all as read"
+    "message": "Marcar tudo como lido"
   },
   "html_backup_page_title": {
-    "message": "Backup & Restore"
+    "message": "Backup e restauração"
   },
   "html_success_great_success": {
     "message": "Grande sucesso!"
@@ -651,7 +651,7 @@
     "message": "Todas as suas guias foram restauradas."
   },
   "html_success_goto_advanced_prefix": {
-    "message": "For advanced session management, visit the"
+    "message": "Para gerenciamento avançado de sessões, visite a"
   },
   "html_success_goto_advanced_suffix": {
     "message": "página"
@@ -687,13 +687,13 @@
     "message": "Atualização"
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "está pronto para ficar ainda mais marav<i>ilhoso</i>"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "Uma nova versão do The Marvellous Suspender será instalada na próxima vez que seu navegador for reiniciado."
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "IMPORTANTE: não foi possível criar um ponto de restauração para suas guias.<br>Salve um backup AGORA!"
   },
   "html_update_info_nobackup_prefix": {
     "message": "É altamente recomendável que você exporte uma cópia de sua sessão atual de "
@@ -884,10 +884,10 @@
     "message": "Atualizar a extensão agora"
   },
   "js_suspend_button_backup": {
-    "message": "Salve uma cópia de segurança antes de atualizar"
+    "message": "Salvar um backup antes de atualizar"
   },
   "js_shortcuts_default_command": {
-    "message": "Ativar extensão (exibir janela)"
+    "message": "Ativar a extensão (mostrar pop-up)"
   },
   "js_shortcuts_not_set": {
     "message": "não definido"
@@ -896,70 +896,70 @@
     "message": "Ponto de salvamento automático para v"
   },
   "html_options_backup_title": {
-    "message": "Automatic session backup"
+    "message": "Backup automático de sessão"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "Ao contrário das sessões, os backups são salvos como arquivos JSON fora do Chrome — na sua pasta de Downloads ou no Google Drive. Eles sobrevivem a travamentos do navegador, redefinições de perfil e novas instalações. Essa é sua verdadeira rede de segurança."
   },
   "html_options_backup_enable": {
-    "message": "Automatically back up your session"
+    "message": "Fazer backup automático da sua sessão"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+    "message": "Salva silenciosamente uma cópia da sua sessão atual como arquivo JSON. Escolha salvar localmente (pasta tms-backups dentro dos seus Downloads) ou em uma pasta 'TMS Backups' no Google Drive."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "Para backups locais, o Chrome precisa estar configurado para baixar arquivos automaticamente (sem perguntar) — confira em chrome://settings/downloads. Backups no Google Drive não têm esse requisito."
   },
   "html_options_backup_interval": {
-    "message": "Backup every"
+    "message": "Fazer backup a cada"
   },
   "html_options_backup_daily_time": {
-    "message": "At what time"
+    "message": "A que horas"
   },
   "html_backup_interval_warning": {
-    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+    "message": "Atenção: com um intervalo tão longo, muita coisa pode acontecer entre os backups. Considere um intervalo mais curto para reduzir o risco de perda de dados."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+    "message": "Tanto os backups locais quanto os do Drive incluem um identificador de dispositivo (por exemplo, tms-session-a3f7b2c8-2026-06-18T14-30.json), de modo que cada instalação do navegador mantém seu próprio conjunto independente de backups. Os N backups locais mais recentes são mantidos por dispositivo; os backups do Drive também mantêm N por dispositivo, de modo que sessões de máquinas ou navegadores diferentes nunca se sobrescrevem."
   },
   "html_backup_max_files_label": {
-    "message": "Max backups to keep"
+    "message": "Máximo de backups a manter"
   },
   "html_backup_device_name_label": {
-    "message": "Device name (optional)"
+    "message": "Nome do dispositivo (opcional)"
   },
   "html_backup_device_name_save": {
-    "message": "Save"
+    "message": "Salvar"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Legacy backups"
+    "message": "Backups antigos"
   },
   "html_options_backup_now": {
-    "message": "Backup now"
+    "message": "Fazer backup agora"
   },
   "html_options_back_to_top": {
-    "message": "↑ Top"
+    "message": "↑ Topo"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+    "message": "As sessões são armazenadas apenas dentro do Chrome — elas não sobreviverão a um travamento do navegador ou redefinição de perfil."
   },
   "html_history_backup_settings_link": {
-    "message": "Set up Backup to save your tabs outside the browser →"
+    "message": "Configure o Backup para salvar suas guias fora do navegador →"
   },
   "js_options_backup_now_running": {
-    "message": "Running backup…"
+    "message": "Executando backup…"
   },
   "js_options_backup_now_done": {
-    "message": "Backup saved."
+    "message": "Backup salvo."
   },
   "js_backup_option_saved": {
-    "message": "Saved"
+    "message": "Salvo"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "O Chrome está perguntando onde salvar os arquivos — os backups automáticos não funcionarão silenciosamente. Desative \"Perguntar onde salvar cada arquivo\" em chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
-    "message": "Next run: $time$",
+    "message": "Próxima execução: $time$",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -967,7 +967,7 @@
     }
   },
   "js_options_backup_last_local": {
-    "message": "Last backup: $date$",
+    "message": "Último backup: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -975,49 +975,49 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "Backup destination"
+    "message": "Destino do backup"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (Downloads folder)"
+    "message": "Local (pasta Downloads)"
   },
   "html_options_backup_dest_drive": {
     "message": "Google Drive"
   },
   "html_options_backup_drive_connect": {
-    "message": "Connect Google Account"
+    "message": "Conectar conta do Google"
   },
   "html_options_backup_drive_disconnect": {
-    "message": "Disconnect"
+    "message": "Desconectar"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+    "message": "Falha no backup automático: nenhuma conta do Google conectada. Clique aqui para corrigir."
   },
   "js_options_backup_drive_connecting": {
-    "message": "Connecting…"
+    "message": "Conectando…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Could not connect to Google. Please try again."
+    "message": "Não foi possível conectar ao Google. Tente novamente."
   },
   "html_options_settings_backup": {
-    "message": "Settings backup"
+    "message": "Backup de configurações"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "Exporte todas as configurações da extensão para um arquivo JSON — útil como backup ou para transferir sua configuração para outro perfil do navegador. Importar um arquivo substitui as configurações atuais."
   },
   "html_backup_local_folder_hint": {
-    "message": "Local backups go to the tms-backups folder inside your Downloads."
+    "message": "Backups locais vão para a pasta tms-backups dentro dos seus Downloads."
   },
   "html_backup_drive_folder_note": {
-    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+    "message": "Os backups são salvos na pasta 'TMS Backups' no seu Google Drive."
   },
   "html_backup_drive_open_folder": {
-    "message": "Open TMS Backups folder on Drive ↗"
+    "message": "Abrir pasta TMS Backups no Drive ↗"
   },
   "html_backup_drive_label_account": {
-    "message": "Account"
+    "message": "Conta"
   },
   "html_backup_drive_label_folder": {
-    "message": "Folder"
+    "message": "Pasta"
   },
   "html_backup_settings_local_title": {
     "message": "Local"
@@ -1026,22 +1026,22 @@
     "message": "Google Drive"
   },
   "html_backup_drive_save_settings": {
-    "message": "Save settings to Drive"
+    "message": "Salvar configurações no Drive"
   },
   "html_backup_settings_drive_restore": {
-    "message": "Restore settings from Drive"
+    "message": "Restaurar configurações do Drive"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Saving to Drive…"
+    "message": "Salvando no Drive…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "Settings saved to Drive."
+    "message": "Configurações salvas no Drive."
   },
   "js_backup_drive_settings_error": {
-    "message": "Could not save settings to Drive. Please try again."
+    "message": "Não foi possível salvar as configurações no Drive. Tente novamente."
   },
   "js_backup_cooldown": {
-    "message": "Wait $seconds$s before the next backup.",
+    "message": "Aguarde $seconds$s antes do próximo backup.",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1049,19 +1049,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Downloading settings from Drive…"
+    "message": "Baixando configurações do Drive…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "No settings file found on Drive. Save your settings to Drive first."
+    "message": "Nenhum arquivo de configurações encontrado no Drive. Salve suas configurações no Drive primeiro."
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Settings restored. Reloading…"
+    "message": "Configurações restauradas. Recarregando…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Could not restore settings from Drive. Please try again."
+    "message": "Não foi possível restaurar as configurações do Drive. Tente novamente."
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "Last backup: $date$",
+    "message": "Último backup: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1069,7 +1069,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Existing settings backup from $date$. Overwrite?",
+    "message": "Já existe um backup de configurações de $date$. Substituir?",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1077,49 +1077,49 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Export settings"
+    "message": "Exportar configurações"
   },
   "html_options_settings_import": {
-    "message": "Import settings"
+    "message": "Importar configurações"
   },
   "js_options_settings_import_confirm": {
-    "message": "This will overwrite your current settings. Continue?"
+    "message": "Isso substituirá suas configurações atuais. Continuar?"
   },
   "js_options_settings_import_success": {
-    "message": "Settings imported. Reloading…"
+    "message": "Configurações importadas. Recarregando…"
   },
   "js_options_settings_import_error": {
-    "message": "Invalid settings file."
+    "message": "Arquivo de configurações inválido."
   },
   "html_history_migrate_nav": {
-    "message": "Migrate"
+    "message": "Migrar"
   },
   "html_backup_restore_title": {
-    "message": "Restore from backup"
+    "message": "Restaurar a partir de backup"
   },
   "html_backup_restore_desc": {
-    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+    "message": "Importe um arquivo de backup para restaurá-lo como uma sessão salva. Depois de importado, abra Sessões para escolher quais janelas restaurar."
   },
   "html_backup_restore_local_title": {
-    "message": "Local file"
+    "message": "Arquivo local"
   },
   "html_backup_restore_drive_title": {
     "message": "Google Drive"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file"
+    "message": "Escolher arquivo de backup"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Select a Drive backup"
+    "message": "Selecione um backup do Drive"
   },
   "html_backup_restore_import": {
-    "message": "Import selected"
+    "message": "Importar selecionado"
   },
   "js_backup_restore_importing": {
-    "message": "Importing…"
+    "message": "Importando…"
   },
   "js_backup_restore_success": {
-    "message": "Imported as \"$name$\".",
+    "message": "Importado como \"$name$\".",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1127,22 +1127,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ Open Sessions to restore"
+    "message": "→ Abrir Sessões para restaurar"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Invalid backup file."
+    "message": "Arquivo de backup inválido."
   },
   "js_backup_restore_error_drive": {
-    "message": "Could not download from Drive. Check your connection and try again."
+    "message": "Não foi possível baixar do Drive. Verifique sua conexão e tente novamente."
   },
   "js_backup_restore_error_generic": {
-    "message": "Import failed. Please try again."
+    "message": "Falha na importação. Tente novamente."
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Save Drive backup before switching?"
+    "message": "Salvar o backup do Drive antes de trocar?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "message": "Seu backup mais recente do Drive é de $date$. Salve-o como uma sessão no Gerenciador de sessões para poder restaurá-lo sem precisar do Google Drive.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1150,27 +1150,27 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Save to Sessions"
+    "message": "Salvar em Sessões"
   },
   "html_backup_drive_import_modal_cancel": {
-    "message": "Skip"
+    "message": "Pular"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive backup files"
+    "message": "Arquivos de backup do Drive"
   },
   "html_backup_drive_download_btn": {
-    "message": "Download"
+    "message": "Baixar"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Delete"
+    "message": "Excluir"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Delete this backup file from Drive? This cannot be undone."
+    "message": "Excluir este arquivo de backup do Drive? Isso não pode ser desfeito."
   },
   "html_backup_drive_no_files": {
-    "message": "No Drive backup files found."
+    "message": "Nenhum arquivo de backup encontrado no Drive."
   },
   "html_backup_drive_files_loading": {
-    "message": "Loading…"
+    "message": "Carregando…"
   }
 }
