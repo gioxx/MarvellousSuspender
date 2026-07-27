@@ -78,52 +78,52 @@
     "message": "すべてのウィンドウ内のすべてのタブをサスペンド解除"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "タブの状態（ベータ版）"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "停止中のタブ、特にファビコンに問題がある場合は、「タブをスキャン」をクリックして修復できるか確認してください。"
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "停止中のタブに問題は見つかりませんでした。それでも異常があると思われる場合は、以下からお知らせください。このチェックの拡張を検討します。"
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "完全に読み込まれていない停止中のタブがあります。これらを再読み込みして解消できます。"
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "一部の停止中のタブがブラウザのデフォルトのファビコンを使用しています。これはTMSのキャッシュにそれらがないことを意味します。不足しているファビコンを取得するために、最小限のタブを復元してから再度停止できます。"
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "タブをスキャン"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "結果をコピー"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "タブをスキャン中..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "TMSにより停止中のタブ"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "TMSキャッシュ内のファビコン"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "タブが読み込まれていません"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "タブがTMSファビコンを使用"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "タブがデフォルトのファビコンを使用"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "個の一意なタブのホスト名"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "ローカルのTMSファビコンキャッシュは、すべてのタブをカバーしていない場合があります。ブラウザのキャッシュがクリアされると、TMSは一部のファビコンを表示できないことがあります。"
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "次へ: $count$ 個のタブを再読み込み",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -131,7 +131,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "次へ: ファビコンをキャッシュするため $count$ 個のタブを復元",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -139,28 +139,28 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "ファビコンを復元中..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "タブがバックグラウンドで読み込みを終えたら、再度「タブをスキャン」をクリックして状況が改善したか確認できます。"
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "再度「タブをスキャン」をクリックして状況が改善したか確認できます。"
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "それでもタブやファビコンに問題がある場合は、「結果をコピー」をクリックして新しい"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "GitHub Issueに貼り付けてください。"
   },
   "html_health_num_grouped_broken": {
-    "message": "grouped tabs in broken state (Tab Groups bug)"
+    "message": "個の破損状態のグループ化されたタブ（タブグループのバグ）"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "タブグループ内の一部のタブが破損状態です — ブラウザの再起動後、正しく読み込まれる代わりに新しいタブとして表示されます。TMSはこれらの復元を試みることができます。"
   },
   "html_health_repair_button": {
-    "message": "Repair $count$ grouped tab(s)",
+    "message": "グループ化されたタブ $count$ 個を修復",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -168,37 +168,37 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+    "message": "完了しました。再スキャンして、グループ化されたタブが停止状態に戻ったことを確認してください。"
   },
   "html_about_title": {
     "message": "このアプリについて"
   },
   "html_about_version_label": {
-    "message": "Version"
+    "message": "バージョン"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension — replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "現代のタブ停止機能の精神的後継者 — 非アクティブなタブを軽量な休止ページに置き換え、いつ復帰させるかを細かく制御できます。"
   },
   "html_about_section_credits": {
-    "message": "Credits"
+    "message": "クレジット"
   },
   "html_about_contributors_and": {
-    "message": " and "
+    "message": " と "
   },
   "html_about_community_thanks_link": {
-    "message": "all contributors on GitHub"
+    "message": "GitHub上のすべての貢献者"
   },
   "html_about_fork_beginning": {
-    "message": "Based on the original"
+    "message": "オリジナル版をベースにしています"
   },
   "html_about_fork_mid": {
-    "message": "available on GitHub, without ADS tracking"
+    "message": "GitHubで公開されており、広告トラッキングはありません"
   },
   "html_about_fork_end": {
-    "message": "More information available on"
+    "message": "詳細情報はこちらでご覧いただけます:"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "提供者:"
   },
   "html_about_report_issues_prefix": {
     "message": "フィードバックがある場合、または問題を報告したい場合は、以下で行うことができます:"
@@ -207,37 +207,37 @@
     "message": "新しく作成する前に、同じ提案や問題が既に存在しているかどうかを確認してください。ありがとうございます！"
   },
   "html_about_debugging_prefix": {
-    "message": "To capture logs and generate a diagnostic report, go to the "
+    "message": "ログを取得して診断レポートを生成するには、"
   },
   "html_about_debugging_suffix": {
-    "message": "diagnostic page."
+    "message": "診断ページに移動してください。"
   },
   "html_about_the_github_issues_page": {
-    "message": "GitHub issues page"
+    "message": "GitHub issuesページ"
   },
   "html_about_section_support": {
-    "message": "Support development"
+    "message": "開発を支援する"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+    "message": "The Marvellous Suspenderは無料でオープンソースです。役立つと感じたら、小さな貢献をご検討ください — プロジェクトの存続と成長に役立ちます。"
   },
   "html_broken_title": {
-    "message": "is broken"
+    "message": "が壊れています"
   },
   "html_broken_ruh_roh": {
-    "message": "Ruh Roh!"
+    "message": "あちゃー!"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "の起動に失敗しました。互換性のないブラウザを使用している可能性があります。"
   },
   "html_broken_line2": {
-    "message": "Try to restart the extension. If the problem persists, ask for help on the"
+    "message": "拡張機能の再起動を試してください。問題が解決しない場合は、次の場所で助けを求めてください"
   },
   "html_broken_line2_github_page": {
     "message": "GitHubのプロジェクトページ"
   },
   "html_broken_line3": {
-    "message": "You can recover lost tabs from the"
+    "message": "失われたタブは次の場所から復元できます"
   },
   "html_broken_line3_session_management": {
     "message": "セッション管理ページ"
@@ -249,7 +249,7 @@
     "message": "セッション管理"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMSは開いているタブの継続的なスナップショットを保持します — 設定は不要です。セッションは閲覧中に自動的に更新されますが、Chrome内にのみ存在します。ブラウザのプロファイルが失われたり破損したりすると、セッションも一緒に失われます。"
   },
   "html_history_current_session": {
     "message": "現在のセッション"
@@ -264,559 +264,559 @@
     "message": "セッションをインポート"
   },
   "html_history_migrate_tabs": {
-    "message": "Migrate tabs"
+    "message": "タブを移行"
   },
   "html_history_migrate_old_id": {
     "message": "Extension ID"
   },
   "html_history_migrate_section_title": {
-    "message": "Tab migration"
+    "message": "タブの移行"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recover tabs suspended by a previous version or another fork of this extension. Enter the old extension ID below and click Migrate tabs to convert the suspended URLs."
+    "message": "この拡張機能の以前のバージョンや他のフォークによって停止されたタブを復元します。以下に古い拡張機能IDを入力し、「タブを移行」をクリックして停止中のURLを変換してください。"
   },
   "html_options_title": {
-    "message": "Settings"
+    "message": "設定"
   },
   "html_options_suspend_title": {
-    "message": "Automatic tab suspension"
+    "message": "タブの自動停止"
   },
   "html_options_suspended_title": {
-    "message": "Suspended tabs"
+    "message": "停止中のタブ"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Append original URL to suspended tab title"
+    "message": "停止中のタブのタイトルに元のURLを追加する"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+    "message": "有効にすると、停止中のページのブラウザタブタイトルに元のURLが追加されます。"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+    "message": "これにより、Chromeの「タブを検索」機能（Ctrl+Shift+A）を使ってホスト名で停止中のタブを見つけられるようになります。"
   },
   "html_options_other_title": {
-    "message": "General"
+    "message": "一般"
   },
   "html_options_language": {
-    "message": "Language"
+    "message": "言語"
   },
   "html_options_language_auto": {
-    "message": "System default"
+    "message": "システムのデフォルト"
   },
   "html_options_suspend_automatically_after": {
-    "message": "Automatically suspend tabs after"
+    "message": "指定した時間後に自動的にタブを停止する:"
   },
   "html_options_suspend_never": {
-    "message": "Never"
+    "message": "しない"
   },
   "html_options_suspend_seconds": {
-    "message": "seconds"
+    "message": "秒"
   },
   "html_options_suspend_minute": {
-    "message": "min"
+    "message": "分"
   },
   "html_options_suspend_minutes": {
-    "message": "mins"
+    "message": "分"
   },
   "html_options_suspend_hour": {
-    "message": "hour"
+    "message": "時間"
   },
   "html_options_suspend_hours": {
-    "message": "hours"
+    "message": "時間"
   },
   "html_options_suspend_day": {
-    "message": "day"
+    "message": "日"
   },
   "html_options_suspend_days": {
-    "message": "days"
+    "message": "日"
   },
   "html_options_suspend_week": {
-    "message": "week"
+    "message": "週間"
   },
   "html_options_suspend_weeks": {
-    "message": "weeks"
+    "message": "週間"
   },
   "html_options_suspend_no_pinned": {
-    "message": "Never suspend pinned tabs"
+    "message": "ピン留めされたタブは停止しない"
   },
   "html_options_suspend_no_forms": {
-    "message": "Never suspend tabs that contain unsaved form inputs"
+    "message": "未保存のフォーム入力があるタブは停止しない"
   },
   "html_options_suspend_no_audio": {
-    "message": "Never suspend tabs that are playing audio"
+    "message": "音声を再生中のタブは停止しない"
   },
   "html_options_suspend_only_connected": {
-    "message": "Never suspend tabs when offline"
+    "message": "オフライン時はタブを停止しない"
   },
   "html_options_suspend_claim_by_default": {
     "message": "Claim by default (seamless migration; tab considered suspended if 'suspended.html' is in url)"
   },
   "html_options_suspend_only_on_battery": {
-    "message": "Never suspend tabs when connected to power source"
+    "message": "電源に接続されている場合はタブを停止しない"
   },
   "html_options_suspend_no_active_tabs": {
-    "message": "Never suspend active tab in each window"
+    "message": "各ウィンドウのアクティブなタブは停止しない"
   },
   "html_options_suspend_automatically_unsuspend": {
-    "message": "Automatically unsuspend tab when it is viewed"
+    "message": "表示されたときに自動的にタブを再開する"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "停止時にブラウザ内蔵のメモリ節約機能を適用する"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Reduces a suspended tab's memory usage even more, by utilizing"
+    "message": "停止中のタブのメモリ使用量をさらに削減するために、次の機能を利用します:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "ブラウザ内蔵の「タブの破棄」機能。多数のタブを扱う場合、これにより最大"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "to 500% memory savings when working with large numbers of tabs."
+    "message": "多数のタブを扱う場合、最大500%のメモリ節約になります。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "However, it will also cause a slight rendering delay when selecting"
+    "message": "ただし、停止中のタブを選択した際に"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "a suspended tab."
+    "message": "わずかな表示遅延が発生します。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "タブの破棄についての詳細は次を参照してください:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_options_suspend_theme": {
-    "message": "Theme"
+    "message": "テーマ"
   },
   "html_options_suspend_theme_light": {
-    "message": "Light"
+    "message": "ライト"
   },
   "html_options_suspend_theme_dark": {
-    "message": "Dark"
+    "message": "ダーク"
   },
   "html_options_suspend_theme_system": {
     "message": "System"
   },
   "html_options_suspend_screen_capturing": {
-    "message": "Screen capturing"
+    "message": "スクリーンキャプチャ"
   },
   "html_options_suspend_screen_capturing_disabled": {
-    "message": "Disabled"
+    "message": "無効"
   },
   "html_options_suspend_screen_capturing_screen_only": {
-    "message": "Capture top of screen only"
+    "message": "画面上部のみキャプチャ"
   },
   "html_options_suspend_screen_capturing_entire_page": {
-    "message": "Capture entire page"
+    "message": "ページ全体をキャプチャ"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "On a suspended tab, the extension can display an image preview of the what the tab"
+    "message": "停止中のタブでは、拡張機能が停止直前のタブの見た目を"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "looked like just before it was suspended."
+    "message": "プレビュー画像として表示できます。"
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "The screen capturing feature is experimental and can cause significant CPU usage as"
+    "message": "スクリーンキャプチャ機能は実験的であり、CPU使用率が大幅に上昇したり"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "well as slightly increased memory usage."
+    "message": "メモリ使用量がわずかに増加したりする可能性があります。"
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "タブの停止に時間がかかりすぎる、ブラウザが"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "crashing unexpectedly, try turning this feature off."
+    "message": "予期せずクラッシュする場合は、この機能をオフにしてみてください。"
   },
   "html_options_suspend_force_screen_capture": {
-    "message": "Enable high quality screen capture mode"
+    "message": "高品質スクリーンキャプチャモードを有効にする"
   },
   "html_options_suspend_force_screen_capture_tooltip_line1": {
-    "message": "When disabled, screen captures have the following limitations to aid in performance:"
+    "message": "無効の場合、パフォーマンスを向上させるためスクリーンキャプチャには次の制限があります:"
   },
   "html_options_suspend_force_screen_capture_tooltip_line2": {
-    "message": "- Low quality screen capture"
+    "message": "- 低品質のスクリーンキャプチャ"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Will not capture screen if it takes more than 1 minute to generate image"
+    "message": "- 画像の生成に1分以上かかる場合は画面をキャプチャしません"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
-    "message": "- Maximum height of screen capture limited to 5000px"
+    "message": "- スクリーンキャプチャの最大高さは5000pxに制限されます"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Enabling high quality screen capture mode may significantly increase CPU load"
+    "message": "高品質スクリーンキャプチャモードを有効にすると、CPU負荷が大幅に増加する場合があります"
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "and memory usage."
+    "message": "また、メモリ使用量も増加します。"
   },
   "html_options_whitelist_title": {
-    "message": "Never suspend tabs with URLs from the following list:"
+    "message": "次のリストのURLを持つタブは停止しない:"
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Add the URL of each page you want to whitelist on a new line. For example:"
+    "message": "ホワイトリストに登録したい各ページのURLを改行して追加してください。例:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "To whitelist multiple sites in one line you can specify part of the url instead:"
+    "message": "複数のサイトを1行でホワイトリストに登録するには、代わりにURLの一部を指定できます:"
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "You can also specify regular expressions by enclosing the text in forward slashes:"
+    "message": "テキストをスラッシュで囲むことで正規表現を指定することもできます:"
   },
   "html_options_whitelist_test": {
-    "message": "Test whitelist"
+    "message": "ホワイトリストをテスト"
   },
   "html_options_whitelist_close": {
-    "message": "Close"
+    "message": "閉じる"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake whitelisted tabs"
+    "message": "ホワイトリストのタブを復帰"
   },
   "html_options_other_enable_context_menu": {
-    "message": "Add The Marvellous Suspender to right-click context menu"
+    "message": "右クリックのコンテキストメニューにThe Marvellous Suspenderを追加する"
   },
   "html_options_other_enable_context_menu_tooltip_line1": {
-    "message": "Add controls for this extension to the right-click menu of a web page."
+    "message": "この拡張機能の操作項目をウェブページの右クリックメニューに追加します。"
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "This will give you access to advanced suspending actions not available"
+    "message": "これにより、拡張機能の他の場所では利用できない"
   },
   "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "elsewhere in the extension."
+    "message": "高度な停止操作にアクセスできるようになります。"
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "設定をブラウザプロファイルと同期する"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "拡張機能の設定は、以下でログインしているすべてのブラウザ間で同期されます:"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "logged in with the same profile."
+    "message": "同じプロファイルでログインしている場合。"
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "これにより、シークレットモードの設定も同期されます。"
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "これをオンにすると、同じプロファイルでログインしている他のすべてのブラウザの設定が上書きされます"
   },
   "html_options_suspend_on_low_memory": {
-    "message": "Instantly suspend when system memory gets very low"
+    "message": "システムメモリが非常に少なくなったら即座に停止する"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "このオプションは自動タブ破棄機能を上書きします。"
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "有効にすると、タブを破棄する代わりに強制的に停止させます。"
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "通常、ブラウザはシステムメモリが非常に少なくなった場合にのみタブを破棄します。"
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Please note: This may cause tabs to suspend earlier than the time you have"
+    "message": "ご注意: これにより、タブの自動停止オプションで指定した時間よりも"
   },
   "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "specified in the Automatic tab suspension options."
+    "message": "早くタブが停止することがあります。"
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "タブの破棄についての詳細は次を参照してください:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_popup_unsuspend_tab": {
-    "message": "Unsuspend this tab"
+    "message": "このタブを再開する"
   },
   "html_popup_suspend_tab": {
-    "message": "Suspend this tab now"
+    "message": "このタブを今すぐ停止する"
   },
   "html_popup_never_suspend_domain": {
-    "message": "Never suspend this domain"
+    "message": "このドメインは停止しない"
   },
   "html_popup_never_suspend_page": {
-    "message": "Never suspend this URL"
+    "message": "このURLは停止しない"
   },
   "html_popup_suspend_other_tabs": {
-    "message": "Suspend all other tabs"
+    "message": "他のすべてのタブを停止する"
   },
   "html_popup_unsuspend_all_tabs": {
-    "message": "Unsuspend all tabs"
+    "message": "すべてのタブを再開する"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake whitelisted tabs"
+    "message": "ホワイトリストのタブを復帰"
   },
   "html_popup_suspend_selected_tabs": {
-    "message": "Suspend selected tabs"
+    "message": "選択したタブを停止する"
   },
   "html_popup_unsuspend_selected_tabs": {
-    "message": "Unsuspend selected tabs"
+    "message": "選択したタブを再開する"
   },
   "html_popup_settings": {
-    "message": "Settings"
+    "message": "設定"
   },
   "html_popup_backup_now_local": {
-    "message": "Backup session now (Local)"
+    "message": "今すぐセッションをバックアップ（ローカル）"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Backup session now (Cloud)"
+    "message": "今すぐセッションをバックアップ（クラウド）"
   },
   "html_restoring_title": {
-    "message": "Restoring window"
+    "message": "ウィンドウを復元中"
   },
   "html_restoring_heading": {
-    "message": "Restoring tabs"
+    "message": "タブを復元中"
   },
   "html_restoring_detail": {
-    "message": "Please wait while I restore this window..."
+    "message": "このウィンドウを復元するまでお待ちください..."
   },
   "html_recovery_title": {
-    "message": "Recovery"
+    "message": "復旧"
   },
   "html_recovery_ruh_roh": {
-    "message": "Ruh roh!"
+    "message": "あちゃー!"
   },
   "html_recovery_description_line1": {
-    "message": "Looks like you're recovering from an extension crash."
+    "message": "拡張機能のクラッシュから復旧しているようです。"
   },
   "html_recovery_description_line2": {
-    "message": "Your suspended tabs may have crashed or disappeared."
+    "message": "停止中のタブがクラッシュしたか、消えてしまった可能性があります。"
   },
   "html_recovery_restore_tabs_automatically": {
-    "message": "Restore tabs automatically"
+    "message": "タブを自動的に復元する"
   },
   "html_recovery_go_to_session_manager": {
-    "message": "Go to session manager"
+    "message": "セッションマネージャーへ移動"
   },
   "html_recovery_important_message": {
-    "message": "You currently have screen capturing turned on. If this extension is repeatedly crashing it is recommended you disable this option."
+    "message": "現在、スクリーンキャプチャがオンになっています。この拡張機能が繰り返しクラッシュする場合は、このオプションを無効にすることをお勧めします。"
   },
   "html_recovery_disable_screen_capturing": {
-    "message": "Turn off screen capturing"
+    "message": "スクリーンキャプチャをオフにする"
   },
   "html_recovery_tabs_to_restore": {
-    "message": "Tabs to restore"
+    "message": "復元するタブ"
   },
   "html_shortcuts_title": {
-    "message": "Keyboard shortcuts"
+    "message": "キーボードショートカット"
   },
   "html_shortcuts_keyboard_shortcuts": {
-    "message": "Keyboard shortcuts"
+    "message": "キーボードショートカット"
   },
   "html_shortcuts_context_menu_note": {
-    "message": "Note: These actions are also available via the right-click context menu."
+    "message": "注: これらの操作は右クリックのコンテキストメニューからも利用できます。"
   },
   "html_shortcuts_remap_keys": {
-    "message": "Change shortcuts"
+    "message": "ショートカットを変更"
   },
   "html_sidebar_general_settings": {
-    "message": "Settings"
+    "message": "設定"
   },
   "html_sidebar_session_management": {
-    "message": "Sessions"
+    "message": "セッション"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "タブの状態"
   },
   "html_sidebar_shortcuts": {
-    "message": "Keyboard shortcuts"
+    "message": "キーボードショートカット"
   },
   "html_sidebar_support": {
-    "message": "About"
+    "message": "概要"
   },
   "html_sidebar_backup": {
-    "message": "Backup"
+    "message": "バックアップ"
   },
   "html_sidebar_news": {
-    "message": "News"
+    "message": "ニュース"
   },
   "html_news_title": {
-    "message": "News & Updates"
+    "message": "ニュースと更新情報"
   },
   "html_news_desc": {
-    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+    "message": "Marvellous Codeworksブログから最新のリリース、既知の問題、お知らせをチェックしましょう。"
   },
   "html_news_loading": {
-    "message": "Loading news…"
+    "message": "ニュースを読み込み中…"
   },
   "html_news_empty": {
-    "message": "No news yet. Check back soon!"
+    "message": "まだニュースはありません。近日中に再度チェックしてください！"
   },
   "html_news_new_pill": {
-    "message": "NEW"
+    "message": "新着"
   },
   "html_news_mark_all_read": {
-    "message": "Mark all as read"
+    "message": "すべて既読にする"
   },
   "html_backup_page_title": {
-    "message": "Backup & Restore"
+    "message": "バックアップと復元"
   },
   "html_success_great_success": {
-    "message": "Marvellous success!"
+    "message": "素晴らしい成功です!"
   },
   "html_success_all_tabs_restored": {
-    "message": "All your tabs have been restored."
+    "message": "すべてのタブが復元されました。"
   },
   "html_success_goto_advanced_prefix": {
-    "message": "For advanced session management, visit the"
+    "message": "高度なセッション管理については、次のページをご覧ください"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "page"
+    "message": "ページ"
   },
   "html_session_manager": {
-    "message": "session management"
+    "message": "セッション管理"
   },
   "html_suspended_title": {
-    "message": "Suspended Tab"
+    "message": "停止中のタブ"
   },
   "html_suspended_click_to_reload": {
-    "message": "Refresh or click to reload"
+    "message": "更新するかクリックして再読み込み"
   },
   "html_suspended_toast_not_connected": {
-    "message": "You are not connected to the internet"
+    "message": "インターネットに接続されていません"
   },
   "html_suspended_toast_reload_disabled": {
-    "message": "Automatic tab reloading is temporarily disabled."
+    "message": "タブの自動再読み込みは一時的に無効になっています。"
   },
   "html_permissions_title": {
-    "message": "Permissions"
+    "message": "権限"
   },
   "html_permissions_heading": {
-    "message": "Please give me access to local file URLs"
+    "message": "ローカルファイルURLへのアクセスを許可してください"
   },
   "html_permissions_info": {
-    "message": "This extension is not currently permitted to suspend URLs beginning with the word \"file\".\nTo change this, please turn on \"Allow access to file URLs\" from the extension settings page."
+    "message": "この拡張機能は現在、\"file\"で始まるURLを停止することが許可されていません。\nこれを変更するには、拡張機能の設定ページで「ファイルのURLへのアクセスを許可する」をオンにしてください。"
   },
   "html_permissions_backup": {
-    "message": "Please note: changing this option will cause all your suspended tabs will briefly disappear.\nJust in case, now might be a good time to save a backup of your current tab session."
+    "message": "ご注意: この設定を変更すると、停止中のタブがすべて一時的に消えます。\n念のため、現在のタブセッションのバックアップを保存しておくことをお勧めします。"
   },
   "html_update_title": {
-    "message": "Update"
+    "message": "更新"
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "さらに素晴<i>らしく</i>なる準備ができました"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "次回ブラウザを再起動する際に、The Marvellous Suspenderの新しいバージョンがインストールされます。"
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "重要: タブの復元ポイントを作成できませんでした。<br>今すぐバックアップを保存してください！"
   },
   "html_update_info_nobackup_prefix": {
-    "message": "It is strongly recommended that you export a copy of your current session from "
+    "message": "更新を続行する前に、現在のセッションのコピーを "
   },
   "html_update_info_nobackup_suffix": {
-    "message": " before continuing with the update."
+    "message": " からエクスポートすることを強くお勧めします。"
   },
   "html_updated_title": {
-    "message": "Updated"
+    "message": "更新完了"
   },
   "html_updating_heading": {
-    "message": "is updating"
+    "message": "を更新しています"
   },
   "html_updating_message": {
-    "message": "Please wait while I restore your suspended tabs..."
+    "message": "停止中のタブを復元するまでお待ちください..."
   },
   "html_updated_great_suspender_updated": {
-    "message": "has been updated"
+    "message": "が更新されました"
   },
   "html_updated_info_line1": {
-    "message": "An automatic backup was made of your tabs before the update."
+    "message": "更新前にタブの自動バックアップが作成されました。"
   },
   "html_updated_info_line2_prefix": {
-    "message": "If you encountered any issues during the update, you can recover lost tabs from the "
+    "message": "更新中に問題が発生した場合は、"
   },
   "html_updated_info_line2_suffix": {
-    "message": " page."
+    "message": " ページから失われたタブを復元できます。"
   },
   "html_updated_patch_message": {
-    "message": "Sorry for the disturbance. I just needed to perform a little maintenance."
+    "message": "ご迷惑をおかけして申し訳ありません。ちょっとしたメンテナンスが必要でした。"
   },
   "html_welcome_text_line1": {
-    "message": "Thanks for trying"
+    "message": "ご利用ありがとうございます"
   },
   "html_welcome_text_line2": {
-    "message": "I make your computer run smoothly by suspending the tabs you aren't using."
+    "message": "使用していないタブを停止することで、コンピューターを快適に動作させます。"
   },
   "html_welcome_text_line3": {
-    "message": "You can fine-tune the settings below."
+    "message": "以下の設定を細かく調整できます。"
   },
   "js_popup_normal": {
-    "message": "Tab will suspend automatically."
+    "message": "タブは自動的に停止します。"
   },
   "js_popup_normal_pause": {
-    "message": "Not now"
+    "message": "今はしない"
   },
   "js_popup_special": {
-    "message": "Tab cannot be suspended"
+    "message": "このタブは停止できません"
   },
   "js_popup_suspended": {
-    "message": "Tab suspended"
+    "message": "タブは停止されました"
   },
   "js_popup_suspended_pause": {
-    "message": "Don't suspend"
+    "message": "停止しない"
   },
   "js_popup_whitelisted": {
-    "message": "Site whitelisted."
+    "message": "サイトはホワイトリストに登録されています。"
   },
   "js_popup_whitelisted_remove": {
-    "message": "Remove from whitelist"
+    "message": "ホワイトリストから削除"
   },
   "js_popup_audible": {
-    "message": "Tab is playing audio."
+    "message": "タブは音声を再生中です。"
   },
   "js_popup_form_input": {
-    "message": "Tab is receiving form input."
+    "message": "タブはフォーム入力を受け付けています。"
   },
   "js_popup_form_input_unpause": {
-    "message": "Unpause"
+    "message": "再開"
   },
   "js_popup_pinned": {
-    "message": "Tab has been pinned"
+    "message": "タブはピン留めされました"
   },
   "js_popup_temp_whitelist": {
-    "message": "Tab suspension paused."
+    "message": "タブの停止は一時停止中です。"
   },
   "js_popup_temp_whitelist_unpause": {
-    "message": "Unpause"
+    "message": "再開"
   },
   "js_popup_never": {
-    "message": "Automatic tab suspension disabled."
+    "message": "タブの自動停止は無効です。"
   },
   "js_popup_no_connectivity": {
-    "message": "No network connection"
+    "message": "ネットワーク接続がありません"
   },
   "js_popup_charging": {
-    "message": "Connected to power source"
+    "message": "電源に接続されています"
   },
   "js_popup_blockedFile": {
-    "message": "Local files cannot be suspended."
+    "message": "ローカルファイルは停止できません。"
   },
   "js_popup_blockedFile_enable": {
-    "message": "Enable"
+    "message": "有効にする"
   },
   "js_popup_unknown": {
-    "message": "Waiting for tab to load..."
+    "message": "タブの読み込みを待っています..."
   },
   "js_popup_initialising": {
-    "message": "Waiting for extension to initialize..."
+    "message": "拡張機能の初期化を待っています..."
   },
   "js_popup_error": {
-    "message": "Auto-suspend unavailable for this tab"
+    "message": "このタブでは自動停止を利用できません"
   },
   "js_history_delete": {
-    "message": "delete"
+    "message": "削除"
   },
   "js_history_export": {
-    "message": "export"
+    "message": "エクスポート"
   },
   "js_history_reload": {
-    "message": "open and load"
+    "message": "開いて読み込む"
   },
   "js_history_resuspend": {
-    "message": "open and suspend"
+    "message": "開いて停止する"
   },
   "js_history_save": {
-    "message": "save"
+    "message": "保存"
   },
   "js_history_window": {
-    "message": "Window"
+    "message": "ウィンドウ"
   },
   "js_history_windows": {
-    "message": "Windows"
+    "message": "ウィンドウ"
   },
   "js_history_tab": {
     "message": "Tab"
@@ -825,19 +825,19 @@
     "message": "Tabs"
   },
   "js_history_enter_name_for_session": {
-    "message": "Enter a name for this session"
+    "message": "このセッションの名前を入力してください"
   },
   "js_history_confirm_delete": {
-    "message": "Are you sure you want to delete this session?"
+    "message": "このセッションを削除してもよろしいですか?"
   },
   "js_history_confirm_session_overwrite": {
-    "message": "There is already a saved session with this name. Overwrite existing session?"
+    "message": "この名前のセッションは既に保存されています。既存のセッションを上書きしますか?"
   },
   "js_history_import_fail": {
-    "message": "Failed to load file. Ensure file is plain text and contains a single url per line."
+    "message": "ファイルの読み込みに失敗しました。ファイルがプレーンテキストで、1行に1つのURLが含まれていることを確認してください。"
   },
   "js_history_migrate_fail": {
-    "message": "Need 32-character extension id to migrate from"
+    "message": "移行元には32文字の拡張機能IDが必要です"
   },
   "js_history_migrate_success": {
     "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
@@ -848,118 +848,118 @@
     }
   },
   "js_suspended_hotkey_to_reload": {
-    "message": "Set keyboard shortcuts"
+    "message": "キーボードショートカットを設定"
   },
   "js_suspended_low_memory": {
-    "message": "Tab suspended due to low system memory"
+    "message": "システムメモリ不足のためタブが停止されました"
   },
   "js_options_incognito_warning": {
-    "message": "You are in incognito mode. Some features will not be available."
+    "message": "シークレットモードです。一部の機能は利用できません。"
   },
   "js_options_whitelist_no_matches": {
-    "message": "There are no open tabs that match the current whitelist."
+    "message": "現在のホワイトリストに一致する開いているタブはありません。"
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Whitelisted open tabs:"
+    "message": "ホワイトリストに登録されている開いているタブ:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
-    "message": "and"
+    "message": "他"
   },
   "js_options_whitelist_matches_overflow_suffix": {
-    "message": "more."
+    "message": "件。"
   },
   "js_permissions_button_export": {
-    "message": "Save backup"
+    "message": "バックアップを保存"
   },
   "js_permissions_button_set": {
-    "message": "Open extension settings"
+    "message": "拡張機能の設定を開く"
   },
   "js_update_confirm": {
-    "message": "You have not saved a backup yet. Update the extension anyway?"
+    "message": "まだバックアップを保存していません。それでも拡張機能を更新しますか?"
   },
   "js_update_button_export": {
-    "message": "Save backup"
+    "message": "バックアップを保存"
   },
   "js_update_button_reload": {
-    "message": "Update extension now"
+    "message": "今すぐ拡張機能を更新"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "更新前にバックアップを保存"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "拡張機能を有効化（ポップアップを表示）"
   },
   "js_shortcuts_not_set": {
-    "message": "not set"
+    "message": "未設定"
   },
   "js_session_save_point": {
-    "message": "Automatic save point for v"
+    "message": "vの自動保存ポイント"
   },
   "html_options_backup_title": {
-    "message": "Automatic session backup"
+    "message": "自動セッションバックアップ"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "セッションとは異なり、バックアップはChromeの外部にJSONファイルとして保存されます — ダウンロードフォルダまたはGoogleドライブに保存されます。ブラウザのクラッシュ、プロファイルのリセット、新規インストールを経ても保持されます。これがあなたの本当のセーフティネットです。"
   },
   "html_options_backup_enable": {
-    "message": "Automatically back up your session"
+    "message": "セッションを自動的にバックアップする"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+    "message": "現在のセッションのコピーをJSONファイルとして静かに保存します。ローカル保存（ダウンロード内のtms-backupsフォルダ）またはGoogleドライブの「TMS Backups」フォルダへの保存を選択できます。"
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "ローカルバックアップの場合、Chromeがファイルを自動的にダウンロードする（確認なし）よう設定されている必要があります — chrome://settings/downloadsを確認してください。Googleドライブのバックアップにはこの要件はありません。"
   },
   "html_options_backup_interval": {
-    "message": "Backup every"
+    "message": "バックアップ間隔"
   },
   "html_options_backup_daily_time": {
-    "message": "At what time"
+    "message": "実行時刻"
   },
   "html_backup_interval_warning": {
-    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+    "message": "ご注意: これほど長い間隔だと、バックアップの間に多くのことが起こる可能性があります。データ損失のリスクを減らすため、より短い間隔をご検討ください。"
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+    "message": "ローカルとドライブのバックアップの両方にデバイス識別子が含まれます（例: tms-session-a3f7b2c8-2026-06-18T14-30.json）。そのため、各ブラウザのインストールは独自のバックアップ群を独立して保持します。デバイスごとに最新のN個のローカルバックアップが保持されます。ドライブのバックアップもデバイスごとにN個保持されるため、異なるマシンやブラウザのセッションが互いに上書きされることはありません。"
   },
   "html_backup_max_files_label": {
-    "message": "Max backups to keep"
+    "message": "保持する最大バックアップ数"
   },
   "html_backup_device_name_label": {
-    "message": "Device name (optional)"
+    "message": "デバイス名（任意）"
   },
   "html_backup_device_name_save": {
-    "message": "Save"
+    "message": "保存"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Legacy backups"
+    "message": "従来のバックアップ"
   },
   "html_options_backup_now": {
-    "message": "Backup now"
+    "message": "今すぐバックアップ"
   },
   "html_options_back_to_top": {
-    "message": "↑ Top"
+    "message": "↑ トップへ"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+    "message": "セッションはChrome内にのみ保存されます — ブラウザのクラッシュやプロファイルのリセットには耐えられません。"
   },
   "html_history_backup_settings_link": {
-    "message": "Set up Backup to save your tabs outside the browser →"
+    "message": "バックアップを設定して、タブをブラウザの外に保存する →"
   },
   "js_options_backup_now_running": {
-    "message": "Running backup…"
+    "message": "バックアップを実行中…"
   },
   "js_options_backup_now_done": {
-    "message": "Backup saved."
+    "message": "バックアップを保存しました。"
   },
   "js_backup_option_saved": {
-    "message": "Saved"
+    "message": "保存済み"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chromeがファイルの保存先を尋ねています — このままでは自動バックアップは静かに動作しません。chrome://settings/downloadsで「ダウンロード前に各ファイルの保存場所を確認する」をオフにしてください。"
   },
   "js_options_backup_next_run": {
-    "message": "Next run: $time$",
+    "message": "次回の実行: $time$",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -967,7 +967,7 @@
     }
   },
   "js_options_backup_last_local": {
-    "message": "Last backup: $date$",
+    "message": "前回のバックアップ: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -975,73 +975,73 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "Backup destination"
+    "message": "バックアップ先"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (Downloads folder)"
+    "message": "ローカル（ダウンロードフォルダ）"
   },
   "html_options_backup_dest_drive": {
-    "message": "Google Drive"
+    "message": "Googleドライブ"
   },
   "html_options_backup_drive_connect": {
-    "message": "Connect Google Account"
+    "message": "Googleアカウントを接続"
   },
   "html_options_backup_drive_disconnect": {
-    "message": "Disconnect"
+    "message": "接続を解除"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+    "message": "自動バックアップに失敗しました: Googleアカウントが接続されていません。ここをクリックして修正してください。"
   },
   "js_options_backup_drive_connecting": {
-    "message": "Connecting…"
+    "message": "接続中…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Could not connect to Google. Please try again."
+    "message": "Googleに接続できませんでした。もう一度お試しください。"
   },
   "html_options_settings_backup": {
-    "message": "Settings backup"
+    "message": "設定のバックアップ"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "すべての拡張機能設定をJSONファイルにエクスポートします — バックアップとして、または設定を別のブラウザプロファイルに移行する際に便利です。ファイルをインポートすると現在の設定が置き換えられます。"
   },
   "html_backup_local_folder_hint": {
-    "message": "Local backups go to the tms-backups folder inside your Downloads."
+    "message": "ローカルバックアップはダウンロード内のtms-backupsフォルダに保存されます。"
   },
   "html_backup_drive_folder_note": {
-    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+    "message": "バックアップはGoogleドライブの「TMS Backups」フォルダに保存されます。"
   },
   "html_backup_drive_open_folder": {
-    "message": "Open TMS Backups folder on Drive ↗"
+    "message": "ドライブでTMS Backupsフォルダを開く ↗"
   },
   "html_backup_drive_label_account": {
-    "message": "Account"
+    "message": "アカウント"
   },
   "html_backup_drive_label_folder": {
-    "message": "Folder"
+    "message": "フォルダ"
   },
   "html_backup_settings_local_title": {
-    "message": "Local"
+    "message": "ローカル"
   },
   "html_backup_settings_drive_title": {
-    "message": "Google Drive"
+    "message": "Googleドライブ"
   },
   "html_backup_drive_save_settings": {
-    "message": "Save settings to Drive"
+    "message": "設定をドライブに保存"
   },
   "html_backup_settings_drive_restore": {
-    "message": "Restore settings from Drive"
+    "message": "ドライブから設定を復元"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Saving to Drive…"
+    "message": "ドライブに保存中…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "Settings saved to Drive."
+    "message": "設定をドライブに保存しました。"
   },
   "js_backup_drive_settings_error": {
-    "message": "Could not save settings to Drive. Please try again."
+    "message": "設定をドライブに保存できませんでした。もう一度お試しください。"
   },
   "js_backup_cooldown": {
-    "message": "Wait $seconds$s before the next backup.",
+    "message": "次のバックアップまで $seconds$ 秒お待ちください。",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1049,19 +1049,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Downloading settings from Drive…"
+    "message": "ドライブから設定をダウンロード中…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "No settings file found on Drive. Save your settings to Drive first."
+    "message": "ドライブに設定ファイルが見つかりません。まず設定をドライブに保存してください。"
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Settings restored. Reloading…"
+    "message": "設定を復元しました。再読み込み中…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Could not restore settings from Drive. Please try again."
+    "message": "ドライブから設定を復元できませんでした。もう一度お試しください。"
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "Last backup: $date$",
+    "message": "前回のバックアップ: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1069,7 +1069,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Existing settings backup from $date$. Overwrite?",
+    "message": "$date$ の設定バックアップが既に存在します。上書きしますか?",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1077,49 +1077,49 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Export settings"
+    "message": "設定をエクスポート"
   },
   "html_options_settings_import": {
-    "message": "Import settings"
+    "message": "設定をインポート"
   },
   "js_options_settings_import_confirm": {
-    "message": "This will overwrite your current settings. Continue?"
+    "message": "現在の設定が上書きされます。続行しますか?"
   },
   "js_options_settings_import_success": {
-    "message": "Settings imported. Reloading…"
+    "message": "設定をインポートしました。再読み込み中…"
   },
   "js_options_settings_import_error": {
-    "message": "Invalid settings file."
+    "message": "無効な設定ファイルです。"
   },
   "html_history_migrate_nav": {
-    "message": "Migrate"
+    "message": "移行"
   },
   "html_backup_restore_title": {
-    "message": "Restore from backup"
+    "message": "バックアップから復元"
   },
   "html_backup_restore_desc": {
-    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+    "message": "バックアップファイルをインポートして、保存済みセッションとして復元します。インポート後、セッションを開いて復元するウィンドウを選択してください。"
   },
   "html_backup_restore_local_title": {
-    "message": "Local file"
+    "message": "ローカルファイル"
   },
   "html_backup_restore_drive_title": {
-    "message": "Google Drive"
+    "message": "Googleドライブ"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file"
+    "message": "バックアップファイルを選択"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Select a Drive backup"
+    "message": "ドライブのバックアップを選択"
   },
   "html_backup_restore_import": {
-    "message": "Import selected"
+    "message": "選択項目をインポート"
   },
   "js_backup_restore_importing": {
-    "message": "Importing…"
+    "message": "インポート中…"
   },
   "js_backup_restore_success": {
-    "message": "Imported as \"$name$\".",
+    "message": "「$name$」としてインポートしました。",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1127,22 +1127,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ Open Sessions to restore"
+    "message": "→ セッションを開いて復元"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Invalid backup file."
+    "message": "無効なバックアップファイルです。"
   },
   "js_backup_restore_error_drive": {
-    "message": "Could not download from Drive. Check your connection and try again."
+    "message": "ドライブからダウンロードできませんでした。接続を確認してもう一度お試しください。"
   },
   "js_backup_restore_error_generic": {
-    "message": "Import failed. Please try again."
+    "message": "インポートに失敗しました。もう一度お試しください。"
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Save Drive backup before switching?"
+    "message": "切り替える前にドライブのバックアップを保存しますか?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "message": "最新のドライブバックアップは $date$ のものです。Googleドライブなしで復元できるよう、セッションマネージャーにセッションとして保存してください。",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1150,27 +1150,27 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Save to Sessions"
+    "message": "セッションに保存"
   },
   "html_backup_drive_import_modal_cancel": {
-    "message": "Skip"
+    "message": "スキップ"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive backup files"
+    "message": "ドライブのバックアップファイル"
   },
   "html_backup_drive_download_btn": {
-    "message": "Download"
+    "message": "ダウンロード"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Delete"
+    "message": "削除"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Delete this backup file from Drive? This cannot be undone."
+    "message": "このバックアップファイルをドライブから削除しますか? この操作は元に戻せません。"
   },
   "html_backup_drive_no_files": {
-    "message": "No Drive backup files found."
+    "message": "ドライブにバックアップファイルが見つかりません。"
   },
   "html_backup_drive_files_loading": {
-    "message": "Loading…"
+    "message": "読み込み中…"
   }
 }
