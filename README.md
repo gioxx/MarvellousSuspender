@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="src/img/suspendy-guy-main.png" alt="Suspendy Guy — The Marvellous Suspender mascot" width="120" />
+<img src="src/img/suspendy-guy-main.webp" alt="Suspendy Guy — The Marvellous Suspender mascot" width="120" />
 
 # The Marvellous Suspender
 
@@ -16,7 +16,7 @@ Based on [The Great Suspender](https://github.com/greatsuspender/thegreatsuspend
 
 ---
 
-<img src="src/img/marvellous-codeworks-logo.png" alt="Marvellous Codeworks" height="26" />
+<img src="src/img/marvellous-codeworks-logo.webp" alt="Marvellous Codeworks" height="26" />
 
 *A Marvellous Codeworks project*
 
@@ -84,6 +84,8 @@ Contributions are very welcome. Feel free to submit pull requests for new featur
 Help localize the extension into your language via Crowdin: [crowdin.com/project/tms](https://crowdin.com/project/tms).  
 If your language is not available, [submit a feature request](https://github.com/gioxx/MarvellousSuspender/issues/).
 
+**Only `en` (English) and `it` (Italian) are maintained directly and can be relied upon as accurate.** All other languages were recently brought up to date with AI assistance to close large translation gaps — the result should be functional, but has not had a native-speaker review pass. If you're fluent in one of these languages, corrections and improvements via Crowdin are very welcome.
+
 ---
 
 ## License
@@ -94,7 +96,7 @@ This work is licensed under a [GNU General Public License v2](LICENSE).
 
 ### Shoutouts
 
-<img src="src/img/suspendy-guy-lotus.png" alt="" width="48" align="right" />
+<img src="src/img/suspendy-guy-lotus.webp" alt="" width="48" align="right" />
 
 This package uses the [html2canvas](https://github.com/niklasvh/html2canvas) library written by Niklas von Hertzen.  
 It also uses the IndexedDB wrapper [db.js](https://github.com/aaronpowell/db.js) written by Aaron Powell.
