@@ -78,52 +78,52 @@
     "message": "Tüm penceredeki tüm sekmelerin askısını kaldır"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "Sekme Durumu (Beta)"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "Askıya alınmış sekmelerinizde, özellikle site simgeleriyle ilgili sorun yaşıyorsanız, onarabilir miyiz diye görmek için Sekmeleri Tara'ya tıklayın."
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "Askıya alınmış sekmelerinizde herhangi bir sorun bulamadık. Yine de bir şeylerin yanlış olduğunu düşünüyorsanız, aşağıdan bize bildirin; bu kontrolü genişletmeye çalışacağız."
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "Tam olarak yüklenmemiş bazı askıya alınmış sekmeleriniz var. Bunları temizlemek için yeniden yükleyebiliriz."
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "Bazı askıya alınmış sekmeleriniz tarayıcının varsayılan site simgesini kullanıyor. Bu, TMS önbelleğinde bunların bulunmadığı anlamına gelir. Eksik simgeleri almak için minimum sayıda sekmeyi geri yükleyip yeniden askıya alabiliriz."
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "Sekmeleri Tara"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "Sonuçları Kopyala"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "Sekmeler taranıyor..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "TMS tarafından askıya alınmış sekme"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "TMS önbelleğindeki site simgesi"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "sekme yüklenmedi"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "sekme TMS site simgesine sahip"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "sekme varsayılan site simgesine sahip"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "benzersiz sekme ana bilgisayar adı"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "Yerel TMS site simgesi önbelleği tüm sekmeleri kapsamayabilir. Tarayıcı önbelleğiniz temizlenirse TMS bazı site simgelerini gösteremeyebilir."
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "Sonraki: $count$ Sekmeyi Yeniden Yükle",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -131,7 +131,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "Sonraki: Site simgelerini önbelleğe almak için $count$ sekmeyi geri yükle",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -139,28 +139,28 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "Site simgeleri geri yükleniyor..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "Sekmeleriniz arka planda yüklenmeyi bitirdikten sonra, işlerin düzelip düzelmediğini görmek için tekrar \"Sekmeleri Tara\"ya tıklayabilirsiniz."
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "İşlerin düzelip düzelmediğini görmek için tekrar \"Sekmeleri Tara\"ya tıklayabilirsiniz."
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "Sekme veya site simgesi sorunlarınız devam ediyorsa, Sonuçları Kopyala'ya tıklayıp yeni bir"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "GitHub Issue'una yapıştırabilirsiniz."
   },
   "html_health_num_grouped_broken": {
-    "message": "grouped tabs in broken state (Tab Groups bug)"
+    "message": "bozuk durumda gruplanmış sekme (Sekme Grupları hatası)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "Sekme Gruplarındaki bazı sekmeler bozuk durumda — tarayıcı yeniden başlatıldıktan sonra doğru yüklenmek yerine yeni sekme olarak görünüyorlar. TMS bunları geri yüklemeyi deneyebilir."
   },
   "html_health_repair_button": {
-    "message": "Repair $count$ grouped tab(s)",
+    "message": "$count$ gruplanmış sekmeyi onar",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -168,37 +168,37 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+    "message": "Tamamlandı. Gruplanmış sekmelerin askıya alınmış durumlarına döndüğünü doğrulamak için yeniden tarayın."
   },
   "html_about_title": {
     "message": "Hakkında"
   },
   "html_about_version_label": {
-    "message": "Version"
+    "message": "Sürüm"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension — replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "Modern sekme askıya almanın manevi halefi — etkin olmayan sekmeleri, ne zaman uyanacaklarını ayrıntılı şekilde kontrol etmenizi sağlayan hafif bir uyku sayfasıyla değiştirir."
   },
   "html_about_section_credits": {
-    "message": "Credits"
+    "message": "Emeği Geçenler"
   },
   "html_about_contributors_and": {
-    "message": " and "
+    "message": " ve "
   },
   "html_about_community_thanks_link": {
-    "message": "all contributors on GitHub"
+    "message": "GitHub'daki tüm katkıda bulunanlar"
   },
   "html_about_fork_beginning": {
     "message": "Orijinal eklentiye dayalıdır"
   },
   "html_about_fork_mid": {
-    "message": "available on GitHub, without ADS tracking"
+    "message": "GitHub'da mevcuttur, reklam takibi olmadan"
   },
   "html_about_fork_end": {
-    "message": "More information available on"
+    "message": "Daha fazla bilgiye şuradan ulaşabilirsiniz:"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "Şunlar tarafından sunulmaktadır:"
   },
   "html_about_report_issues_prefix": {
     "message": "Geri bildiriminiz varsa veya bir sorunu bildirmek istiyorsanız"
@@ -207,49 +207,49 @@
     "message": ". Lütfen yeni bir tane oluşturmadan önce fikrinizin veya sorununun mevcut olup olmaduğını kontrol ediniz. Teşekkürler!"
   },
   "html_about_debugging_prefix": {
-    "message": "To capture logs and generate a diagnostic report, go to the "
+    "message": "Günlükleri yakalamak ve bir tanılama raporu oluşturmak için "
   },
   "html_about_debugging_suffix": {
-    "message": "diagnostic page."
+    "message": "tanılama sayfasına gidin."
   },
   "html_about_the_github_issues_page": {
     "message": "GitHub sorunlar sayfası"
   },
   "html_about_section_support": {
-    "message": "Support development"
+    "message": "Geliştirmeyi Destekle"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender ücretsiz ve açık kaynaklıdır. Faydalı bulduysanız küçük bir katkı yapmayı düşünün — bu, projenin canlı kalmasına ve büyümesine yardımcı olur."
   },
   "html_broken_title": {
     "message": "bozuk"
   },
   "html_broken_ruh_roh": {
-    "message": "Ruh Roh!"
+    "message": "Hoop!"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "başlatılamadı. Uyumsuz bir tarayıcı mı kullanıyorsunuz acaba?"
   },
   "html_broken_line2": {
-    "message": "Try to restart the extension. If the problem persists, ask for help on the"
+    "message": "Uzantıyı yeniden başlatmayı deneyin. Sorun devam ederse şu adresten yardım isteyin:"
   },
   "html_broken_line2_github_page": {
-    "message": "GitHub project page"
+    "message": "GitHub proje sayfası"
   },
   "html_broken_line3": {
-    "message": "You can recover lost tabs from the"
+    "message": "Kayıp sekmeleri şuradan kurtarabilirsiniz:"
   },
   "html_broken_line3_session_management": {
-    "message": "session management page"
+    "message": "oturum yönetimi sayfası"
   },
   "html_broken_button_restart_extension": {
-    "message": "Restart extension"
+    "message": "Uzantıyı yeniden başlat"
   },
   "html_history_title": {
     "message": "Oturum yönetimi"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS, açık sekmelerinizin sürekli bir anlık görüntüsünü tutar — herhangi bir kurulum gerekmez. Oturumlar gezinirken otomatik olarak güncellenir, ancak yalnızca Chrome içinde bulunurlar: tarayıcı profili kaybolur veya bozulursa, onlar da kaybolur."
   },
   "html_history_current_session": {
     "message": "Şuanki oturum"
@@ -270,10 +270,10 @@
     "message": "Extension ID"
   },
   "html_history_migrate_section_title": {
-    "message": "Tab migration"
+    "message": "Sekme geçişi"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recover tabs suspended by a previous version or another fork of this extension. Enter the old extension ID below and click Migrate tabs to convert the suspended URLs."
+    "message": "Bu uzantının önceki bir sürümü veya başka bir çatalı tarafından askıya alınmış sekmeleri kurtarın. Askıya alınmış URL'leri dönüştürmek için aşağıya eski uzantı kimliğini girin ve Sekmeleri Taşı'ya tıklayın."
   },
   "html_options_title": {
     "message": "Ayarlar"
@@ -285,22 +285,22 @@
     "message": "Askıya alınmış sekmeler"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Append original URL to suspended tab title"
+    "message": "Askıya alınmış sekme başlığına orijinal URL'yi ekle"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+    "message": "Etkinleştirildiğinde, askıya alınmış sayfaların tarayıcı sekme başlığına orijinal URL eklenir."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+    "message": "Bu, Chrome'un \"Sekmeleri Ara\" özelliğini (Ctrl+Shift+A) kullanarak askıya alınmış sekmeleri ana bilgisayar adına göre bulmanızı sağlar."
   },
   "html_options_other_title": {
-    "message": "General"
+    "message": "Genel"
   },
   "html_options_language": {
-    "message": "Language"
+    "message": "Dil"
   },
   "html_options_language_auto": {
-    "message": "System default"
+    "message": "Sistem varsayılanı"
   },
   "html_options_suspend_automatically_after": {
     "message": "Otomatik sekmeyi askıya al"
@@ -360,13 +360,13 @@
     "message": "Sekme görüntülendiğinde askısını kaldır"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "Askıya alırken tarayıcının yerleşik bellek tasarrufunu uygula"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "Askıya alınmış bir sekmenin bellek kullanımını daha da azaltarak"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "tarayıcınızın yerleşik 'sekme atma' işlevini kullanır. Bu, çok sayıda sekmeyle çalışırken"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
     "message": "çok sayıda sekmeler ile çalışırken %500'e varan bellek tasarrufu."
@@ -378,7 +378,7 @@
     "message": "işlem işlemede gecikmeye sebep olur."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Sekme atma hakkında daha fazla bilgi için bkz.:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -393,7 +393,7 @@
     "message": "Koyu"
   },
   "html_options_suspend_theme_system": {
-    "message": "System"
+    "message": "Sistem"
   },
   "html_options_suspend_screen_capturing": {
     "message": "Ekran görüntüsü yakalama"
@@ -420,7 +420,7 @@
     "message": "ve az miktarda bellek kullanımına."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "Sekmelerin askıya alınmasının uzun sürmesi veya tarayıcının"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "beklenmedik çekilde çökme vb. olursa, bu özelliği kapatmayı deneyin."
@@ -462,10 +462,10 @@
     "message": "Beyaz liste test"
   },
   "html_options_whitelist_close": {
-    "message": "Close"
+    "message": "Kapat"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake whitelisted tabs"
+    "message": "İzin listesindeki sekmeleri uyandır"
   },
   "html_options_other_enable_context_menu": {
     "message": "Sağ tuş menüye Marvellous Suspender için menü ekle"
@@ -480,31 +480,31 @@
     "message": "buradan erişmenizi sağlayacaktır."
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "Ayarları tarayıcı profilinizle senkronize edin"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "Uzantı ayarları, şunlarla oturum açılmış tüm tarayıcılarda senkronize edilecektir:"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "arasında senkronize edilir."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "Bu, gizli modda da ayarları senkronize edecektir."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "Bunu açmak, aynı profille oturum açılmış diğer tüm tarayıcılardaki ayarların üzerine yazacaktır"
   },
   "html_options_suspend_on_low_memory": {
     "message": "Sistem belleği çok azaldığında anında askıya al"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "Bu seçenek otomatik sekme atma işlevinin üzerine yazacaktır."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "Etkinleştirilirse, bir sekmenin atılmak yerine zorla askıya alınmasını sağlar."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "Genellikle tarayıcınız, sekmeleri yalnızca sistem belleği çok azaldığında atar."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "Lütfen dikkat: Bu, sekmelerin sahip olduğunuz süreden daha erken askıya alınmasına sebep olabilir."
@@ -513,7 +513,7 @@
     "message": "otomatik sekme askıya alma seçeneklerinde belirtilen."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Sekme atma hakkında daha fazla bilgi için bkz.:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -537,7 +537,7 @@
     "message": "Tüm sekmelerin askısını kaldır"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake whitelisted tabs"
+    "message": "İzin listesindeki sekmeleri uyandır"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Seçilen sekmeyi askıya al"
@@ -549,10 +549,10 @@
     "message": "Ayarlar"
   },
   "html_popup_backup_now_local": {
-    "message": "Backup session now (Local)"
+    "message": "Oturumu şimdi yedekle (Yerel)"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Backup session now (Cloud)"
+    "message": "Oturumu şimdi yedekle (Bulut)"
   },
   "html_restoring_title": {
     "message": "Pencere geri yükleniyor"
@@ -567,7 +567,7 @@
     "message": "Kurtarma"
   },
   "html_recovery_ruh_roh": {
-    "message": "Ruh roh!"
+    "message": "Hoop!"
   },
   "html_recovery_description_line1": {
     "message": "Uzantının çökmesinden kurtuldunuz gibi görünüyor."
@@ -606,10 +606,10 @@
     "message": "Ayarlar"
   },
   "html_sidebar_session_management": {
-    "message": "Sessions"
+    "message": "Oturumlar"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "Sekme Durumu"
   },
   "html_sidebar_shortcuts": {
     "message": "Klavye kısayolları"
@@ -618,31 +618,31 @@
     "message": "Hakkında"
   },
   "html_sidebar_backup": {
-    "message": "Backup"
+    "message": "Yedekleme"
   },
   "html_sidebar_news": {
-    "message": "News"
+    "message": "Haberler"
   },
   "html_news_title": {
-    "message": "News & Updates"
+    "message": "Haberler ve Güncellemeler"
   },
   "html_news_desc": {
-    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+    "message": "Marvellous Codeworks blogundan en son sürümler, bilinen sorunlar ve duyurularla ilgili güncel kalın."
   },
   "html_news_loading": {
-    "message": "Loading news…"
+    "message": "Haberler yükleniyor…"
   },
   "html_news_empty": {
-    "message": "No news yet. Check back soon!"
+    "message": "Henüz haber yok. Yakında tekrar kontrol edin!"
   },
   "html_news_new_pill": {
-    "message": "NEW"
+    "message": "YENİ"
   },
   "html_news_mark_all_read": {
-    "message": "Mark all as read"
+    "message": "Tümünü okundu olarak işaretle"
   },
   "html_backup_page_title": {
-    "message": "Backup & Restore"
+    "message": "Yedekleme ve Geri Yükleme"
   },
   "html_success_great_success": {
     "message": "Başarılı!"
@@ -687,13 +687,13 @@
     "message": "Güncelle"
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "daha da müthiş<i>leşmeye</i> hazır"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "Tarayıcınız bir sonraki yeniden başlatıldığında The Marvellous Suspender'ın yeni bir sürümü yüklenecek."
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "ÖNEMLİ: Sekmeleriniz için bir geri yükleme noktası oluşturamadık.<br>ŞİMDİ bir yedek kaydedin!"
   },
   "html_update_info_nobackup_prefix": {
     "message": "Şu anki oturumunuzun buradan kopyasını dışarı aktarma yapmanızı öneririz "
@@ -884,10 +884,10 @@
     "message": "Uzantı güncelle"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "Güncellemeden önce bir yedek kaydet"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "Uzantıyı etkinleştir (açılır pencereyi göster)"
   },
   "js_shortcuts_not_set": {
     "message": "tanımsız"
@@ -896,70 +896,70 @@
     "message": "v için otomatik kaydetme noktası"
   },
   "html_options_backup_title": {
-    "message": "Automatic session backup"
+    "message": "Otomatik oturum yedekleme"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "Oturumlardan farklı olarak, yedekler Chrome dışında JSON dosyaları olarak — İndirilenler klasörünüze veya Google Drive'a — kaydedilir. Tarayıcı çökmelerine, profil sıfırlamalarına ve yeni kurulumlara dayanırlar. Bu, gerçek güvenlik ağınızdır."
   },
   "html_options_backup_enable": {
-    "message": "Automatically back up your session"
+    "message": "Oturumunuzu otomatik olarak yedekleyin"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+    "message": "Mevcut oturumunuzun bir kopyasını sessizce JSON dosyası olarak kaydeder. Yerel olarak (İndirilenler'iniz içindeki tms-backups klasörü) veya Google Drive'da bir 'TMS Backups' klasörüne kaydetmeyi seçin."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "Yerel yedeklemeler için Chrome'un dosyaları otomatik olarak (sormadan) indirecek şekilde ayarlanmış olması gerekir — chrome://settings/downloads adresini kontrol edin. Google Drive yedeklemelerinde böyle bir gereklilik yoktur."
   },
   "html_options_backup_interval": {
-    "message": "Backup every"
+    "message": "Şu sıklıkla yedekle:"
   },
   "html_options_backup_daily_time": {
-    "message": "At what time"
+    "message": "Hangi saatte"
   },
   "html_backup_interval_warning": {
-    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+    "message": "Dikkat: bu kadar uzun bir aralıkla, yedeklemeler arasında çok şey olabilir. Veri kaybı riskini azaltmak için daha kısa bir aralık düşünün."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+    "message": "Hem yerel hem de Drive yedeklemeleri bir cihaz tanımlayıcısı içerir (örn. tms-session-a3f7b2c8-2026-06-18T14-30.json), böylece her tarayıcı kurulumu kendi bağımsız yedekleme havuzunu tutar. Cihaz başına en yeni N yerel yedek saklanır; Drive yedeklemeleri de cihaz başına N adet saklanır, böylece farklı makinelerden veya tarayıcılardan gelen oturumlar birbirinin üzerine asla yazılmaz."
   },
   "html_backup_max_files_label": {
-    "message": "Max backups to keep"
+    "message": "Saklanacak maksimum yedek sayısı"
   },
   "html_backup_device_name_label": {
-    "message": "Device name (optional)"
+    "message": "Cihaz adı (isteğe bağlı)"
   },
   "html_backup_device_name_save": {
-    "message": "Save"
+    "message": "Kaydet"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Legacy backups"
+    "message": "Eski yedekler"
   },
   "html_options_backup_now": {
-    "message": "Backup now"
+    "message": "Şimdi yedekle"
   },
   "html_options_back_to_top": {
-    "message": "↑ Top"
+    "message": "↑ Başa dön"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+    "message": "Oturumlar yalnızca Chrome içinde saklanır — bir tarayıcı çökmesine veya profil sıfırlamasına dayanmazlar."
   },
   "html_history_backup_settings_link": {
-    "message": "Set up Backup to save your tabs outside the browser →"
+    "message": "Sekmelerinizi tarayıcı dışında kaydetmek için Yedeklemeyi ayarlayın →"
   },
   "js_options_backup_now_running": {
-    "message": "Running backup…"
+    "message": "Yedekleme çalışıyor…"
   },
   "js_options_backup_now_done": {
-    "message": "Backup saved."
+    "message": "Yedekleme kaydedildi."
   },
   "js_backup_option_saved": {
-    "message": "Saved"
+    "message": "Kaydedildi"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome, dosyaların nereye kaydedileceğini soruyor — otomatik yedeklemeler sessizce çalışmayacak. chrome://settings/downloads adresinde \"Her dosyayı indirmeden önce nereye kaydedileceğini sor\" seçeneğini kapatın."
   },
   "js_options_backup_next_run": {
-    "message": "Next run: $time$",
+    "message": "Sonraki çalıştırma: $time$",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -967,7 +967,7 @@
     }
   },
   "js_options_backup_last_local": {
-    "message": "Last backup: $date$",
+    "message": "Son yedekleme: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -975,73 +975,73 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "Backup destination"
+    "message": "Yedekleme hedefi"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (Downloads folder)"
+    "message": "Yerel (İndirilenler klasörü)"
   },
   "html_options_backup_dest_drive": {
     "message": "Google Drive"
   },
   "html_options_backup_drive_connect": {
-    "message": "Connect Google Account"
+    "message": "Google Hesabını Bağla"
   },
   "html_options_backup_drive_disconnect": {
-    "message": "Disconnect"
+    "message": "Bağlantıyı Kes"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+    "message": "Otomatik yedekleme başarısız oldu: bağlı Google hesabı yok. Düzeltmek için buraya tıklayın."
   },
   "js_options_backup_drive_connecting": {
-    "message": "Connecting…"
+    "message": "Bağlanıyor…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Could not connect to Google. Please try again."
+    "message": "Google'a bağlanılamadı. Lütfen tekrar deneyin."
   },
   "html_options_settings_backup": {
-    "message": "Settings backup"
+    "message": "Ayar yedekleme"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "Tüm uzantı ayarlarını bir JSON dosyasına aktarın — yedekleme olarak veya yapılandırmanızı başka bir tarayıcı profiline aktarmak için kullanışlıdır. Bir dosyayı içe aktarmak mevcut ayarların yerini alır."
   },
   "html_backup_local_folder_hint": {
-    "message": "Local backups go to the tms-backups folder inside your Downloads."
+    "message": "Yerel yedeklemeler, İndirilenler'iniz içindeki tms-backups klasörüne gider."
   },
   "html_backup_drive_folder_note": {
-    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+    "message": "Yedeklemeler, Google Drive'ınızdaki 'TMS Backups' klasörüne kaydedilir."
   },
   "html_backup_drive_open_folder": {
-    "message": "Open TMS Backups folder on Drive ↗"
+    "message": "Drive'da TMS Backups klasörünü aç ↗"
   },
   "html_backup_drive_label_account": {
-    "message": "Account"
+    "message": "Hesap"
   },
   "html_backup_drive_label_folder": {
-    "message": "Folder"
+    "message": "Klasör"
   },
   "html_backup_settings_local_title": {
-    "message": "Local"
+    "message": "Yerel"
   },
   "html_backup_settings_drive_title": {
     "message": "Google Drive"
   },
   "html_backup_drive_save_settings": {
-    "message": "Save settings to Drive"
+    "message": "Ayarları Drive'a kaydet"
   },
   "html_backup_settings_drive_restore": {
-    "message": "Restore settings from Drive"
+    "message": "Ayarları Drive'dan geri yükle"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Saving to Drive…"
+    "message": "Drive'a kaydediliyor…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "Settings saved to Drive."
+    "message": "Ayarlar Drive'a kaydedildi."
   },
   "js_backup_drive_settings_error": {
-    "message": "Could not save settings to Drive. Please try again."
+    "message": "Ayarlar Drive'a kaydedilemedi. Lütfen tekrar deneyin."
   },
   "js_backup_cooldown": {
-    "message": "Wait $seconds$s before the next backup.",
+    "message": "Bir sonraki yedeklemeden önce $seconds$ saniye bekleyin.",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1049,19 +1049,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Downloading settings from Drive…"
+    "message": "Ayarlar Drive'dan indiriliyor…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "No settings file found on Drive. Save your settings to Drive first."
+    "message": "Drive'da ayar dosyası bulunamadı. Önce ayarlarınızı Drive'a kaydedin."
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Settings restored. Reloading…"
+    "message": "Ayarlar geri yüklendi. Yeniden yükleniyor…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Could not restore settings from Drive. Please try again."
+    "message": "Ayarlar Drive'dan geri yüklenemedi. Lütfen tekrar deneyin."
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "Last backup: $date$",
+    "message": "Son yedekleme: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1069,7 +1069,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Existing settings backup from $date$. Overwrite?",
+    "message": "$date$ tarihli mevcut bir ayar yedeği var. Üzerine yazılsın mı?",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1077,49 +1077,49 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Export settings"
+    "message": "Ayarları dışa aktar"
   },
   "html_options_settings_import": {
-    "message": "Import settings"
+    "message": "Ayarları içe aktar"
   },
   "js_options_settings_import_confirm": {
-    "message": "This will overwrite your current settings. Continue?"
+    "message": "Bu, mevcut ayarlarınızın üzerine yazacak. Devam edilsin mi?"
   },
   "js_options_settings_import_success": {
-    "message": "Settings imported. Reloading…"
+    "message": "Ayarlar içe aktarıldı. Yeniden yükleniyor…"
   },
   "js_options_settings_import_error": {
-    "message": "Invalid settings file."
+    "message": "Geçersiz ayar dosyası."
   },
   "html_history_migrate_nav": {
-    "message": "Migrate"
+    "message": "Taşı"
   },
   "html_backup_restore_title": {
-    "message": "Restore from backup"
+    "message": "Yedekten geri yükle"
   },
   "html_backup_restore_desc": {
-    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+    "message": "Kaydedilmiş bir oturum olarak geri yüklemek için bir yedekleme dosyası içe aktarın. İçe aktarıldıktan sonra, hangi pencerelerin geri yükleneceğini seçmek için Oturumlar'ı açın."
   },
   "html_backup_restore_local_title": {
-    "message": "Local file"
+    "message": "Yerel dosya"
   },
   "html_backup_restore_drive_title": {
     "message": "Google Drive"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file"
+    "message": "Yedek dosyası seç"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Select a Drive backup"
+    "message": "Bir Drive yedeği seçin"
   },
   "html_backup_restore_import": {
-    "message": "Import selected"
+    "message": "Seçileni içe aktar"
   },
   "js_backup_restore_importing": {
-    "message": "Importing…"
+    "message": "İçe aktarılıyor…"
   },
   "js_backup_restore_success": {
-    "message": "Imported as \"$name$\".",
+    "message": "\"$name$\" olarak içe aktarıldı.",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1127,22 +1127,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ Open Sessions to restore"
+    "message": "→ Geri yüklemek için Oturumlar'ı aç"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Invalid backup file."
+    "message": "Geçersiz yedekleme dosyası."
   },
   "js_backup_restore_error_drive": {
-    "message": "Could not download from Drive. Check your connection and try again."
+    "message": "Drive'dan indirilemedi. Bağlantınızı kontrol edip tekrar deneyin."
   },
   "js_backup_restore_error_generic": {
-    "message": "Import failed. Please try again."
+    "message": "İçe aktarma başarısız oldu. Lütfen tekrar deneyin."
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Save Drive backup before switching?"
+    "message": "Geçiş yapmadan önce Drive yedeği kaydedilsin mi?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "message": "En son Drive yedeğiniz $date$ tarihinden. Google Drive'a ihtiyaç duymadan geri yükleyebilmeniz için bunu Oturum Yöneticisi'nde bir oturum olarak kaydedin.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1150,27 +1150,27 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Save to Sessions"
+    "message": "Oturumlara Kaydet"
   },
   "html_backup_drive_import_modal_cancel": {
-    "message": "Skip"
+    "message": "Atla"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive backup files"
+    "message": "Drive yedek dosyaları"
   },
   "html_backup_drive_download_btn": {
-    "message": "Download"
+    "message": "İndir"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Delete"
+    "message": "Sil"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Delete this backup file from Drive? This cannot be undone."
+    "message": "Bu yedekleme dosyası Drive'dan silinsin mi? Bu işlem geri alınamaz."
   },
   "html_backup_drive_no_files": {
-    "message": "No Drive backup files found."
+    "message": "Drive'da yedekleme dosyası bulunamadı."
   },
   "html_backup_drive_files_loading": {
-    "message": "Loading…"
+    "message": "Yükleniyor…"
   }
 }
