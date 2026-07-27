@@ -1,4 +1,4 @@
-﻿{
+{
   "ext_extension_name": {
     "message": "The Marvellous Suspender"
   },
@@ -654,7 +654,7 @@
     "message": "Per la gestione avanzata delle sessioni, vai alla"
   },
   "html_success_goto_advanced_suffix": {
-    "message": ""
+    "message": "pagina"
   },
   "html_session_manager": {
     "message": "gestione delle sessioni"
@@ -960,11 +960,19 @@
   },
   "js_options_backup_next_run": {
     "message": "Prossima esecuzione: $time$",
-    "placeholders": { "time": { "content": "$1" } }
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_backup_last_local": {
     "message": "Ultimo backup: $date$",
-    "placeholders": { "date": { "content": "$1" } }
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
   },
   "html_options_backup_destination": {
     "message": "Destinazione backup"
@@ -1054,11 +1062,19 @@
   },
   "js_backup_settings_drive_last_backup": {
     "message": "Ultimo backup: $date$",
-    "placeholders": { "date": { "content": "$1" } }
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
   },
   "js_backup_settings_drive_overwrite_confirm": {
     "message": "Esiste già un backup delle impostazioni del $date$. Sovrascrivere?",
-    "placeholders": { "date": { "content": "$1" } }
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
   },
   "html_options_settings_export": {
     "message": "Esporta impostazioni"
@@ -1104,7 +1120,11 @@
   },
   "js_backup_restore_success": {
     "message": "Importata come \"$name$\".",
-    "placeholders": { "name": { "content": "$1" } }
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
   },
   "js_backup_restore_go_sessions": {
     "message": "→ Apri Sessioni per ripristinare"
