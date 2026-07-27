@@ -78,52 +78,52 @@
     "message": "恢复所有窗口的所有标签页"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "标签页健康检查（测试版）"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "如果挂起的标签页出现问题（尤其是网站图标问题），请点击「扫描标签页」，看看是否可以修复。"
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "未发现挂起标签页存在任何问题。如果仍然发现异常，请在下方告诉我们，我们会尝试扩展此项检查。"
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "部分挂起的标签页未完全加载。我们可以重新加载这些标签页以解决问题。"
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "部分挂起的标签页正在使用浏览器默认图标，这说明 TMS 缓存中没有它们的图标。我们可以恢复并重新挂起最少数量的标签页，以获取这些缺失的图标。"
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "扫描标签页"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "复制结果"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "正在扫描标签页..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "TMS 已挂起的标签页"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "TMS 缓存中的图标"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "个标签页未加载"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "个标签页使用 TMS 图标"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "个标签页使用默认图标"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "个唯一主机名"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "本地 TMS 图标缓存可能未覆盖所有标签页。如果浏览器缓存被清除，TMS 可能无法显示某些图标。"
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "下一步：重新加载 $count$ 个标签页",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -131,7 +131,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "下一步：恢复 $count$ 个标签页以缓存图标",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -139,28 +139,28 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "正在恢复图标..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "标签页在后台加载完成后，可以再次点击「扫描标签页」，查看情况是否有所改善。"
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "可以再次点击「扫描标签页」，查看情况是否有所改善。"
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "如果标签页或图标问题仍然存在，可以点击「复制结果」并粘贴到一个新的"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "GitHub Issue 中。"
   },
   "html_health_num_grouped_broken": {
-    "message": "grouped tabs in broken state (Tab Groups bug)"
+    "message": "个分组标签页处于损坏状态（标签组错误）"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "部分标签组中的标签页处于损坏状态——浏览器重启后它们显示为新标签页，而不是正常加载。TMS 可以尝试恢复它们。"
   },
   "html_health_repair_button": {
-    "message": "Repair $count$ grouped tab(s)",
+    "message": "修复 $count$ 个分组标签页",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -168,25 +168,25 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+    "message": "完成。请重新扫描以确认分组标签页已恢复挂起状态。"
   },
   "html_about_title": {
     "message": "关于"
   },
   "html_about_version_label": {
-    "message": "Version"
+    "message": "版本"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension — replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "现代标签页挂起的精神继承者——用轻量级休眠页面替换非活动标签页，让您精细掌控它们何时唤醒。"
   },
   "html_about_section_credits": {
-    "message": "Credits"
+    "message": "鸣谢"
   },
   "html_about_contributors_and": {
-    "message": " and "
+    "message": " 和 "
   },
   "html_about_community_thanks_link": {
-    "message": "all contributors on GitHub"
+    "message": "GitHub 上的所有贡献者"
   },
   "html_about_fork_beginning": {
     "message": "基于最初的"
@@ -195,10 +195,10 @@
     "message": "在 GitHub 上可用，没有 ADS 跟踪"
   },
   "html_about_fork_end": {
-    "message": "More information available on"
+    "message": "更多信息请见"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "由以下贡献者呈现"
   },
   "html_about_report_issues_prefix": {
     "message": "如果您有反馈意见或者想报告问题，可以在"
@@ -207,19 +207,19 @@
     "message": ". 在提出新的想法或问题之前，请检查相关想法或问题是否已存在。谢谢！"
   },
   "html_about_debugging_prefix": {
-    "message": "To capture logs and generate a diagnostic report, go to the "
+    "message": "如需采集日志并生成诊断报告，请前往"
   },
   "html_about_debugging_suffix": {
-    "message": "diagnostic page."
+    "message": "诊断页面。"
   },
   "html_about_the_github_issues_page": {
     "message": "GitHub 上进行"
   },
   "html_about_section_support": {
-    "message": "Support development"
+    "message": "支持开发"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender 是免费开源软件。如果您觉得它有用，欢迎小额赞助——这有助于项目持续维护和发展。"
   },
   "html_broken_title": {
     "message": "已损坏"
@@ -228,7 +228,7 @@
     "message": "哦吼！"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "启动失败。您使用的可能是不兼容的浏览器？"
   },
   "html_broken_line2": {
     "message": "请尝试重新启动扩展。如果问题仍然存在，请在下面寻求帮助"
@@ -249,7 +249,7 @@
     "message": "会话管理"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS 会持续记录已打开标签页的快照，无需任何设置。会话会在浏览时自动更新，但仅存在于 Chrome 内部：如果浏览器配置文件丢失或损坏，会话数据也会随之丢失。"
   },
   "html_history_current_session": {
     "message": "当前会话"
@@ -270,10 +270,10 @@
     "message": "Extension ID"
   },
   "html_history_migrate_section_title": {
-    "message": "Tab migration"
+    "message": "标签页迁移"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recover tabs suspended by a previous version or another fork of this extension. Enter the old extension ID below and click Migrate tabs to convert the suspended URLs."
+    "message": "恢复由旧版本或此扩展程序的其他分支挂起的标签页。请在下方输入旧扩展程序 ID，然后点击「迁移标签页」以转换已挂起的 URL。"
   },
   "html_options_title": {
     "message": "设置"
@@ -285,22 +285,22 @@
     "message": "冻结的标签页"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Append original URL to suspended tab title"
+    "message": "将原始 URL 附加到挂起标签页的标题"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+    "message": "启用后，挂起页面的浏览器标签页标题会附加原始 URL。"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+    "message": "这样可以使用 Chrome 的「搜索标签页」功能（Ctrl+Shift+A）按主机名查找挂起的标签页。"
   },
   "html_options_other_title": {
-    "message": "General"
+    "message": "常规"
   },
   "html_options_language": {
-    "message": "Language"
+    "message": "语言"
   },
   "html_options_language_auto": {
-    "message": "System default"
+    "message": "系统默认"
   },
   "html_options_suspend_automatically_after": {
     "message": "多久后自动冻结标签页"
@@ -360,25 +360,25 @@
     "message": "当标签页被浏览就自动恢复标签页"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "挂起时应用浏览器内置的内存节省功能"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "通过启用 Chrome 内置的内存节省功能，可以更多的降低内存使用。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "浏览器内置的「标签页丢弃」功能。在处理大量标签页时，最多可节省"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "to 500% memory savings when working with large numbers of tabs."
+    "message": "在处理大量标签页时可节省高达 500% 的内存。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
     "message": "但是，当重新打开一个被冻结/暂停的标签页时，会导致页面有微小的加载延时。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "a suspended tab."
+    "message": "已挂起的标签页时会略有延迟。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "有关标签页丢弃的更多信息，请参阅："
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -393,7 +393,7 @@
     "message": "深色"
   },
   "html_options_suspend_theme_system": {
-    "message": "System"
+    "message": "跟随系统"
   },
   "html_options_suspend_screen_capturing": {
     "message": "屏幕截图"
@@ -411,19 +411,19 @@
     "message": "在暂停的标签页上，扩展会显示该标签页在被冻结时的图像预览"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "looked like just before it was suspended."
+    "message": "挂起前的样子。"
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
     "message": "屏幕截图功能是实验性的，可能会导致明显的 CPU 占用以及内存使用量略微增加。"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "well as slightly increased memory usage."
+    "message": "以及略微增加内存使用量。"
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "如果发现异常情况，例如标签页挂起耗时过长，或浏览器"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "crashing unexpectedly, try turning this feature off."
+    "message": "意外崩溃，请尝试关闭此功能。"
   },
   "html_options_suspend_force_screen_capture": {
     "message": "启用高质量的屏幕截图模式"
@@ -444,7 +444,7 @@
     "message": "启用高质量的屏幕截图模式可能会显着增加 CPU 负载和内存使用量。"
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "and memory usage."
+    "message": "以及内存使用量。"
   },
   "html_options_whitelist_title": {
     "message": "白名单"
@@ -462,10 +462,10 @@
     "message": "测试白名单"
   },
   "html_options_whitelist_close": {
-    "message": "Close"
+    "message": "关闭"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake whitelisted tabs"
+    "message": "唤醒白名单中的标签页"
   },
   "html_options_other_enable_context_menu": {
     "message": "把 The Marvellous Suspender 加到右键菜单"
@@ -477,43 +477,43 @@
     "message": "这样，您就可以访问扩展中在其他地方无法使用的高级冻结操作了。"
   },
   "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "elsewhere in the extension."
+    "message": "扩展程序中其他位置不可用的操作。"
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "将设置与浏览器账号同步"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "扩展程序设置将在所有满足以下条件的浏览器之间同步："
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "。"
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "这也会同步无痕模式下的设置。"
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "启用此选项将覆盖使用同一账号登录的其他浏览器中的设置"
   },
   "html_options_suspend_on_low_memory": {
     "message": "当系统内存变得非常低时冻结标签页"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "此选项将覆盖自动标签页丢弃功能。"
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "启用后，标签页将被强制挂起，而不是被丢弃。"
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "通常，浏览器只有在系统内存非常不足时才会丢弃标签页。"
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "注意：这可能导致标签页在“标签页自动冻结”选项中指定的时间之前冻结。"
   },
   "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "specified in the Automatic tab suspension options."
+    "message": "在\"自动标签页挂起\"选项中指定的时间。"
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "有关标签页丢弃的更多信息，请参阅："
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -537,7 +537,7 @@
     "message": "恢复所有标签页"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake whitelisted tabs"
+    "message": "唤醒白名单中的标签页"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "冻结已选择标签页"
@@ -549,10 +549,10 @@
     "message": "设置"
   },
   "html_popup_backup_now_local": {
-    "message": "Backup session now (Local)"
+    "message": "立即备份会话（本地）"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Backup session now (Cloud)"
+    "message": "立即备份会话（云端）"
   },
   "html_restoring_title": {
     "message": "恢复窗口"
@@ -606,10 +606,10 @@
     "message": "设置"
   },
   "html_sidebar_session_management": {
-    "message": "Sessions"
+    "message": "会话"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "标签页健康检查"
   },
   "html_sidebar_shortcuts": {
     "message": "键盘快捷键"
@@ -618,31 +618,31 @@
     "message": "关于"
   },
   "html_sidebar_backup": {
-    "message": "Backup"
+    "message": "备份"
   },
   "html_sidebar_news": {
-    "message": "News"
+    "message": "资讯"
   },
   "html_news_title": {
-    "message": "News & Updates"
+    "message": "资讯与更新"
   },
   "html_news_desc": {
-    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+    "message": "随时了解 Marvellous Codeworks 博客发布的最新版本、已知问题和公告。"
   },
   "html_news_loading": {
-    "message": "Loading news…"
+    "message": "正在加载资讯…"
   },
   "html_news_empty": {
-    "message": "No news yet. Check back soon!"
+    "message": "暂无资讯，请稍后再来查看！"
   },
   "html_news_new_pill": {
-    "message": "NEW"
+    "message": "新"
   },
   "html_news_mark_all_read": {
-    "message": "Mark all as read"
+    "message": "全部标记为已读"
   },
   "html_backup_page_title": {
-    "message": "Backup & Restore"
+    "message": "备份与恢复"
   },
   "html_success_great_success": {
     "message": "成功！"
@@ -654,7 +654,7 @@
     "message": "进阶的会话管理，请前往"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "page"
+    "message": "页面"
   },
   "html_session_manager": {
     "message": "会话管理页面"
@@ -687,13 +687,13 @@
     "message": "更新"
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "已准备好变得更加奇<i>妙</i>"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "下次重启浏览器时将安装 The Marvellous Suspender 的新版本。"
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "重要提示：我们无法为您的标签页创建还原点。<br>请立即保存备份！"
   },
   "html_update_info_nobackup_prefix": {
     "message": "强烈建议您在继续更新之前在 "
@@ -884,10 +884,10 @@
     "message": "现在更新扩展"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "更新前先保存备份"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "激活扩展程序（显示弹出窗口）"
   },
   "js_shortcuts_not_set": {
     "message": "未设置"
@@ -896,70 +896,70 @@
     "message": "自动保存点 v"
   },
   "html_options_backup_title": {
-    "message": "Automatic session backup"
+    "message": "自动会话备份"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "与会话不同，备份以 JSON 文件形式保存在 Chrome 之外——存放在下载文件夹或 Google 云端硬盘中。它们可以在浏览器崩溃、配置文件重置和全新安装后依然保留，是您真正的安全保障。"
   },
   "html_options_backup_enable": {
-    "message": "Automatically back up your session"
+    "message": "自动备份您的会话"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+    "message": "以 JSON 文件形式静默保存当前会话的副本。可选择保存到本地（下载文件夹内的 tms-backups 目录）或 Google 云端硬盘中的 'TMS Backups' 文件夹。"
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "对于本地备份，Chrome 必须设置为自动下载文件（不询问）——请检查 chrome://settings/downloads。Google 云端硬盘备份无此要求。"
   },
   "html_options_backup_interval": {
-    "message": "Backup every"
+    "message": "备份间隔"
   },
   "html_options_backup_daily_time": {
-    "message": "At what time"
+    "message": "具体时间"
   },
   "html_backup_interval_warning": {
-    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+    "message": "请注意：间隔时间过长时，两次备份之间可能会发生较多变化。建议缩短间隔以降低数据丢失的风险。"
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+    "message": "本地和云端硬盘备份都包含设备标识符（例如 tms-session-a3f7b2c8-2026-06-18T14-30.json），因此每个浏览器安装都会维护独立的备份集。每台设备会保留最近的 N 个本地备份；云端硬盘备份同样按设备保留 N 个，因此不同设备或浏览器的会话永远不会相互覆盖。"
   },
   "html_backup_max_files_label": {
-    "message": "Max backups to keep"
+    "message": "保留备份的最大数量"
   },
   "html_backup_device_name_label": {
-    "message": "Device name (optional)"
+    "message": "设备名称（可选）"
   },
   "html_backup_device_name_save": {
-    "message": "Save"
+    "message": "保存"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Legacy backups"
+    "message": "旧版备份"
   },
   "html_options_backup_now": {
-    "message": "Backup now"
+    "message": "立即备份"
   },
   "html_options_back_to_top": {
-    "message": "↑ Top"
+    "message": "↑ 顶部"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+    "message": "会话仅存储在 Chrome 内部——无法在浏览器崩溃或配置文件重置后保留。"
   },
   "html_history_backup_settings_link": {
-    "message": "Set up Backup to save your tabs outside the browser →"
+    "message": "设置备份，将标签页保存到浏览器之外 →"
   },
   "js_options_backup_now_running": {
-    "message": "Running backup…"
+    "message": "正在备份…"
   },
   "js_options_backup_now_done": {
-    "message": "Backup saved."
+    "message": "备份已保存。"
   },
   "js_backup_option_saved": {
-    "message": "Saved"
+    "message": "已保存"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome 正在询问文件保存位置——自动备份将无法静默完成。请在 chrome://settings/downloads 中关闭「下载前询问每个文件的保存位置」。"
   },
   "js_options_backup_next_run": {
-    "message": "Next run: $time$",
+    "message": "下次运行：$time$",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -967,7 +967,7 @@
     }
   },
   "js_options_backup_last_local": {
-    "message": "Last backup: $date$",
+    "message": "上次备份：$date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -975,73 +975,73 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "Backup destination"
+    "message": "备份目标"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (Downloads folder)"
+    "message": "本地（下载文件夹）"
   },
   "html_options_backup_dest_drive": {
-    "message": "Google Drive"
+    "message": "Google 云端硬盘"
   },
   "html_options_backup_drive_connect": {
-    "message": "Connect Google Account"
+    "message": "连接 Google 账号"
   },
   "html_options_backup_drive_disconnect": {
-    "message": "Disconnect"
+    "message": "断开连接"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+    "message": "自动备份失败：未连接 Google 账号。点击此处修复。"
   },
   "js_options_backup_drive_connecting": {
-    "message": "Connecting…"
+    "message": "正在连接…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Could not connect to Google. Please try again."
+    "message": "无法连接到 Google，请重试。"
   },
   "html_options_settings_backup": {
-    "message": "Settings backup"
+    "message": "设置备份"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "将所有扩展程序设置导出为 JSON 文件——可用作备份，也可用于将配置转移到另一个浏览器配置文件。导入文件将替换当前设置。"
   },
   "html_backup_local_folder_hint": {
-    "message": "Local backups go to the tms-backups folder inside your Downloads."
+    "message": "本地备份将保存到下载文件夹内的 tms-backups 目录。"
   },
   "html_backup_drive_folder_note": {
-    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+    "message": "备份将保存在您 Google 云端硬盘的 'TMS Backups' 文件夹中。"
   },
   "html_backup_drive_open_folder": {
-    "message": "Open TMS Backups folder on Drive ↗"
+    "message": "在云端硬盘中打开 TMS Backups 文件夹 ↗"
   },
   "html_backup_drive_label_account": {
-    "message": "Account"
+    "message": "账号"
   },
   "html_backup_drive_label_folder": {
-    "message": "Folder"
+    "message": "文件夹"
   },
   "html_backup_settings_local_title": {
-    "message": "Local"
+    "message": "本地"
   },
   "html_backup_settings_drive_title": {
-    "message": "Google Drive"
+    "message": "Google 云端硬盘"
   },
   "html_backup_drive_save_settings": {
-    "message": "Save settings to Drive"
+    "message": "将设置保存到云端硬盘"
   },
   "html_backup_settings_drive_restore": {
-    "message": "Restore settings from Drive"
+    "message": "从云端硬盘恢复设置"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Saving to Drive…"
+    "message": "正在保存到云端硬盘…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "Settings saved to Drive."
+    "message": "设置已保存到云端硬盘。"
   },
   "js_backup_drive_settings_error": {
-    "message": "Could not save settings to Drive. Please try again."
+    "message": "无法将设置保存到云端硬盘，请重试。"
   },
   "js_backup_cooldown": {
-    "message": "Wait $seconds$s before the next backup.",
+    "message": "请等待 $seconds$ 秒后再进行下一次备份。",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1049,19 +1049,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Downloading settings from Drive…"
+    "message": "正在从云端硬盘下载设置…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "No settings file found on Drive. Save your settings to Drive first."
+    "message": "未在云端硬盘中找到设置文件。请先将设置保存到云端硬盘。"
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Settings restored. Reloading…"
+    "message": "设置已恢复，正在重新加载…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Could not restore settings from Drive. Please try again."
+    "message": "无法从云端硬盘恢复设置，请重试。"
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "Last backup: $date$",
+    "message": "上次备份：$date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1069,7 +1069,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Existing settings backup from $date$. Overwrite?",
+    "message": "已存在 $date$ 的设置备份，是否覆盖？",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1077,49 +1077,49 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Export settings"
+    "message": "导出设置"
   },
   "html_options_settings_import": {
-    "message": "Import settings"
+    "message": "导入设置"
   },
   "js_options_settings_import_confirm": {
-    "message": "This will overwrite your current settings. Continue?"
+    "message": "此操作将覆盖当前设置，是否继续？"
   },
   "js_options_settings_import_success": {
-    "message": "Settings imported. Reloading…"
+    "message": "设置已导入，正在重新加载…"
   },
   "js_options_settings_import_error": {
-    "message": "Invalid settings file."
+    "message": "设置文件无效。"
   },
   "html_history_migrate_nav": {
-    "message": "Migrate"
+    "message": "迁移"
   },
   "html_backup_restore_title": {
-    "message": "Restore from backup"
+    "message": "从备份恢复"
   },
   "html_backup_restore_desc": {
-    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+    "message": "导入备份文件，将其恢复为已保存的会话。导入后，打开「会话」以选择要恢复的窗口。"
   },
   "html_backup_restore_local_title": {
-    "message": "Local file"
+    "message": "本地文件"
   },
   "html_backup_restore_drive_title": {
-    "message": "Google Drive"
+    "message": "Google 云端硬盘"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file"
+    "message": "选择备份文件"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Select a Drive backup"
+    "message": "选择云端硬盘备份"
   },
   "html_backup_restore_import": {
-    "message": "Import selected"
+    "message": "导入所选内容"
   },
   "js_backup_restore_importing": {
-    "message": "Importing…"
+    "message": "正在导入…"
   },
   "js_backup_restore_success": {
-    "message": "Imported as \"$name$\".",
+    "message": "已导入为「$name$」。",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1127,22 +1127,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ Open Sessions to restore"
+    "message": "→ 打开会话进行恢复"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Invalid backup file."
+    "message": "备份文件无效。"
   },
   "js_backup_restore_error_drive": {
-    "message": "Could not download from Drive. Check your connection and try again."
+    "message": "无法从云端硬盘下载，请检查网络连接后重试。"
   },
   "js_backup_restore_error_generic": {
-    "message": "Import failed. Please try again."
+    "message": "导入失败，请重试。"
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Save Drive backup before switching?"
+    "message": "切换前是否保存云端硬盘备份？"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "message": "您最近的云端硬盘备份来自 $date$。将其保存为会话管理器中的会话，即可在无需 Google 云端硬盘的情况下恢复它。",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1150,27 +1150,27 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Save to Sessions"
+    "message": "保存到会话"
   },
   "html_backup_drive_import_modal_cancel": {
-    "message": "Skip"
+    "message": "跳过"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive backup files"
+    "message": "云端硬盘备份文件"
   },
   "html_backup_drive_download_btn": {
-    "message": "Download"
+    "message": "下载"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Delete"
+    "message": "删除"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Delete this backup file from Drive? This cannot be undone."
+    "message": "确定要删除云端硬盘中的这个备份文件吗？此操作无法撤销。"
   },
   "html_backup_drive_no_files": {
-    "message": "No Drive backup files found."
+    "message": "未在云端硬盘中找到备份文件。"
   },
   "html_backup_drive_files_loading": {
-    "message": "Loading…"
+    "message": "正在加载…"
   }
 }

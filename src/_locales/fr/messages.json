@@ -78,52 +78,52 @@
     "message": "Annuler la suspension de tous les onglets dans toutes les fenêtres"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "État des onglets (Bêta)"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "Si vous rencontrez des problèmes avec vos onglets suspendus, notamment avec les favicons, cliquez sur « Analyser les onglets » pour voir si nous pouvons les réparer."
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "Nous n'avons trouvé aucun problème avec vos onglets suspendus. Si vous constatez toujours une anomalie, faites-le-nous savoir ci-dessous et nous tenterons d'étendre cette vérification."
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "Certains de vos onglets suspendus ne se sont pas entièrement chargés. Nous pouvons les recharger pour nettoyer tout ça."
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "Certains de vos onglets suspendus utilisent le favicon par défaut du navigateur. Cela signifie que le cache de TMS ne les possède pas. Nous pouvons restaurer puis re-suspendre un nombre minimal d'onglets pour récupérer ces favicons manquants."
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "Analyser les onglets"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "Copier les résultats"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "Analyse des onglets..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "Onglets suspendus par TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "favicons dans le cache de TMS"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "onglets non chargés"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "onglets ont le favicon de TMS"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "onglets ont un favicon par défaut"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "noms d'hôte uniques"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "Le cache local des favicons de TMS pourrait ne pas couvrir tous les onglets. Si le cache du navigateur est vidé, TMS pourrait ne plus afficher certains favicons."
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "Suivant : recharger $count$ onglets",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -131,7 +131,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "Suivant : restaurer $count$ onglets pour mettre les favicons en cache",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -139,28 +139,28 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "Restauration des favicons..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "Une fois vos onglets chargés en arrière-plan, vous pouvez cliquer à nouveau sur « Analyser les onglets » pour voir si la situation s'est améliorée."
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "Vous pouvez cliquer à nouveau sur « Analyser les onglets » pour voir si la situation s'est améliorée."
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "Si vous rencontrez toujours des problèmes d'onglets ou de favicons, vous pouvez cliquer sur « Copier les résultats » et les coller dans une nouvelle"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "Issue sur GitHub."
   },
   "html_health_num_grouped_broken": {
-    "message": "grouped tabs in broken state (Tab Groups bug)"
+    "message": "onglets groupés dans un état défectueux (bug des groupes d'onglets)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "Certains onglets dans des groupes sont dans un état défectueux — ils apparaissent comme un nouvel onglet au lieu de se charger correctement après le redémarrage du navigateur. TMS peut tenter de les restaurer."
   },
   "html_health_repair_button": {
-    "message": "Repair $count$ grouped tab(s)",
+    "message": "Réparer $count$ onglet(s) groupé(s)",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -168,7 +168,7 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+    "message": "Terminé. Relancez une analyse pour vérifier que les onglets groupés sont bien revenus à leur état suspendu."
   },
   "html_about_title": {
     "message": "À propos"
@@ -177,16 +177,16 @@
     "message": "Version"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension — replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "Le successeur spirituel de la suspension moderne d'onglets — remplace les onglets inactifs par une page de mise en veille légère, vous donnant un contrôle précis sur leur réveil."
   },
   "html_about_section_credits": {
-    "message": "Credits"
+    "message": "Crédits"
   },
   "html_about_contributors_and": {
-    "message": " and "
+    "message": " et "
   },
   "html_about_community_thanks_link": {
-    "message": "all contributors on GitHub"
+    "message": "tous les contributeurs sur GitHub"
   },
   "html_about_fork_beginning": {
     "message": "Basé sur l'original"
@@ -195,10 +195,10 @@
     "message": "disponible sur GitHub, sans suivi publicitaire"
   },
   "html_about_fork_end": {
-    "message": "More information available on"
+    "message": "Plus d'informations disponibles sur"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "Proposé par"
   },
   "html_about_report_issues_prefix": {
     "message": "Si vous avez des commentaires ou souhaitez signaler un problème, vous pouvez le faire sur la"
@@ -207,28 +207,28 @@
     "message": ". Veuillez vérifier si votre idée ou problème existe déjà avant d'en créer une nouvelle. Merci!"
   },
   "html_about_debugging_prefix": {
-    "message": "To capture logs and generate a diagnostic report, go to the "
+    "message": "Pour capturer les journaux et générer un rapport de diagnostic, rendez-vous sur la "
   },
   "html_about_debugging_suffix": {
-    "message": "diagnostic page."
+    "message": "page de diagnostic."
   },
   "html_about_the_github_issues_page": {
     "message": "page de problèmes GitHub"
   },
   "html_about_section_support": {
-    "message": "Support development"
+    "message": "Soutenir le développement"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender est gratuit et open source. Si vous le trouvez utile, envisagez une petite contribution — cela aide à maintenir le projet vivant et à le faire grandir."
   },
   "html_broken_title": {
     "message": "est cassé"
   },
   "html_broken_ruh_roh": {
-    "message": "Ruh Roh!"
+    "message": "Oups !"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "n'a pas pu démarrer. Utilisez-vous peut-être un navigateur incompatible ?"
   },
   "html_broken_line2": {
     "message": "Essayez de redémarrer l'extension. Si le problème persiste, demandez de l'aide sur la"
@@ -249,7 +249,7 @@
     "message": "Gestion de session"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS conserve un instantané permanent de vos onglets ouverts — sans aucune configuration nécessaire. Les sessions se mettent à jour automatiquement pendant la navigation, mais elles vivent à l'intérieur de Chrome : si le profil du navigateur est perdu ou corrompu, elles disparaissent avec lui."
   },
   "html_history_current_session": {
     "message": "Session en cours"
@@ -270,10 +270,10 @@
     "message": "Extension ID"
   },
   "html_history_migrate_section_title": {
-    "message": "Tab migration"
+    "message": "Migration des onglets"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recover tabs suspended by a previous version or another fork of this extension. Enter the old extension ID below and click Migrate tabs to convert the suspended URLs."
+    "message": "Récupérez les onglets suspendus par une version précédente ou un autre fork de cette extension. Saisissez ci-dessous l'ancien identifiant d'extension et cliquez sur « Migrer les onglets » pour convertir les URL suspendues."
   },
   "html_options_title": {
     "message": "Paramètres"
@@ -285,22 +285,22 @@
     "message": "Onglets suspendus"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Append original URL to suspended tab title"
+    "message": "Ajouter l'URL d'origine au titre de l'onglet suspendu"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+    "message": "Si activé, l'URL d'origine est ajoutée au titre de l'onglet du navigateur pour les pages suspendues."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+    "message": "Cela permet de retrouver les onglets suspendus par nom d'hôte grâce à la fonction « Rechercher des onglets » de Chrome (Ctrl+Maj+A)."
   },
   "html_options_other_title": {
-    "message": "General"
+    "message": "Général"
   },
   "html_options_language": {
-    "message": "Language"
+    "message": "Langue"
   },
   "html_options_language_auto": {
-    "message": "System default"
+    "message": "Par défaut du système"
   },
   "html_options_suspend_automatically_after": {
     "message": "Suspendre automatiquement les onglets après"
@@ -360,13 +360,13 @@
     "message": "Automatiquement annuler la suspension de l'onglet lorsqu'il est vu"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "Appliquer l'économie de mémoire intégrée du navigateur lors de la suspension"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "Réduit encore plus l'utilisation de la mémoire d'un onglet suspendu, en utilisant la"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "la fonction native de « décharge d'onglets » de votre navigateur. Cela peut permettre jusqu'à"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
     "message": "500% d'économie de mémoire lorsque vous travaillez avec un grand nombre d'onglets."
@@ -378,7 +378,7 @@
     "message": "d'un onglet suspendu."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Pour plus d'informations sur la décharge d'onglets, consultez :"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -393,7 +393,7 @@
     "message": "Sombre"
   },
   "html_options_suspend_theme_system": {
-    "message": "System"
+    "message": "Système"
   },
   "html_options_suspend_screen_capturing": {
     "message": "Capture d'écran"
@@ -420,7 +420,7 @@
     "message": "ainsi qu'une utilisation de mémoire légèrement augmentée."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "Si vous remarquez un comportement étrange, comme des onglets qui mettent longtemps à se suspendre, ou que le navigateur"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "plantant inopinément, essayez de désactiver cette fonctionnalité."
@@ -462,10 +462,10 @@
     "message": "Tester la liste blanche"
   },
   "html_options_whitelist_close": {
-    "message": "Close"
+    "message": "Fermer"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake whitelisted tabs"
+    "message": "Réveiller les onglets de la liste blanche"
   },
   "html_options_other_enable_context_menu": {
     "message": "Ajouter The Marvellous Suspender au menu contextuel du clic droit"
@@ -480,31 +480,31 @@
     "message": "autre part dans l'extension."
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "Synchroniser les paramètres avec votre profil de navigateur"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "Les paramètres de l'extension seront synchronisés sur tous les navigateurs qui sont"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "connecté avec le même profil."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "Cela synchronisera également les paramètres en mode navigation privée."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "Activer cette option écrasera les paramètres sur tous les autres navigateurs connectés au même profil"
   },
   "html_options_suspend_on_low_memory": {
     "message": "Suspendre instantanément lorsque la mémoire du système devient très faible"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "Cette option remplacera la fonction de décharge automatique des onglets."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "Si activée, elle forcera la suspension d'un onglet au lieu de le décharger."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "En général, votre navigateur ne décharge les onglets que lorsque la mémoire système devient très faible."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "Remarque : Cela peut entraîner la suspension des onglets plus tôt que le temps que vous avez"
@@ -513,7 +513,7 @@
     "message": "spécifié dans les options de suspension automatique des onglets."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Pour plus d'informations sur la décharge d'onglets, consultez :"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -537,7 +537,7 @@
     "message": "Annuler la suspension de tous les onglets"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake whitelisted tabs"
+    "message": "Réveiller les onglets de la liste blanche"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Suspendre les onglets sélectionnés"
@@ -549,10 +549,10 @@
     "message": "Paramètres"
   },
   "html_popup_backup_now_local": {
-    "message": "Backup session now (Local)"
+    "message": "Sauvegarder la session maintenant (Local)"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Backup session now (Cloud)"
+    "message": "Sauvegarder la session maintenant (Cloud)"
   },
   "html_restoring_title": {
     "message": "Restauration de la fenêtre"
@@ -567,7 +567,7 @@
     "message": "Récupération"
   },
   "html_recovery_ruh_roh": {
-    "message": "Ruh roh!"
+    "message": "Oups !"
   },
   "html_recovery_description_line1": {
     "message": "On dirait que vous récupérez à partir d'un plantage d'extension."
@@ -609,7 +609,7 @@
     "message": "Sessions"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "État des onglets"
   },
   "html_sidebar_shortcuts": {
     "message": "Raccourcis clavier"
@@ -618,31 +618,31 @@
     "message": "À propos"
   },
   "html_sidebar_backup": {
-    "message": "Backup"
+    "message": "Sauvegarde"
   },
   "html_sidebar_news": {
-    "message": "News"
+    "message": "Actualités"
   },
   "html_news_title": {
-    "message": "News & Updates"
+    "message": "Actualités et mises à jour"
   },
   "html_news_desc": {
-    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+    "message": "Restez informé des dernières versions, des problèmes connus et des annonces du blog Marvellous Codeworks."
   },
   "html_news_loading": {
-    "message": "Loading news…"
+    "message": "Chargement des actualités…"
   },
   "html_news_empty": {
-    "message": "No news yet. Check back soon!"
+    "message": "Pas encore d'actualités. Revenez bientôt !"
   },
   "html_news_new_pill": {
-    "message": "NEW"
+    "message": "NOUVEAU"
   },
   "html_news_mark_all_read": {
-    "message": "Mark all as read"
+    "message": "Tout marquer comme lu"
   },
   "html_backup_page_title": {
-    "message": "Backup & Restore"
+    "message": "Sauvegarde et restauration"
   },
   "html_success_great_success": {
     "message": "Merveilleux succès!"
@@ -672,7 +672,7 @@
     "message": "Le rechargement automatique des onglets est temporairement désactivé."
   },
   "html_permissions_title": {
-    "message": "Permissions"
+    "message": "Autorisations"
   },
   "html_permissions_heading": {
     "message": "Veuillez me donner accès aux URL de fichiers locaux"
@@ -687,13 +687,13 @@
     "message": "Mis à jour"
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "est prêt à devenir encore plus <i>merveilleux</i>"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "Une nouvelle version de The Marvellous Suspender sera installée au prochain redémarrage de votre navigateur."
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "IMPORTANT : nous n'avons pas pu créer de point de restauration pour vos onglets.<br>Enregistrez une sauvegarde MAINTENANT !"
   },
   "html_update_info_nobackup_prefix": {
     "message": "Il est fortement recommandé d'exporter une copie de votre session actuelle à partir de "
@@ -884,10 +884,10 @@
     "message": "Mettre à jour l'extension"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "Enregistrer une sauvegarde avant la mise à jour"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "Activer l'extension (afficher la fenêtre contextuelle)"
   },
   "js_shortcuts_not_set": {
     "message": "non défini"
@@ -896,70 +896,70 @@
     "message": "Point de sauvegarde automatique pour v"
   },
   "html_options_backup_title": {
-    "message": "Automatic session backup"
+    "message": "Sauvegarde automatique de session"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "Contrairement aux sessions, les sauvegardes sont enregistrées sous forme de fichiers JSON en dehors de Chrome — dans votre dossier Téléchargements ou sur Google Drive. Elles survivent aux plantages du navigateur, aux réinitialisations de profil et aux nouvelles installations. C'est votre véritable filet de sécurité."
   },
   "html_options_backup_enable": {
-    "message": "Automatically back up your session"
+    "message": "Sauvegarder automatiquement votre session"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+    "message": "Enregistre silencieusement une copie de votre session actuelle sous forme de fichier JSON. Choisissez un enregistrement local (dossier tms-backups dans vos téléchargements) ou dans un dossier 'TMS Backups' sur Google Drive."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "Pour les sauvegardes locales, Chrome doit être configuré pour télécharger les fichiers automatiquement (sans demander) — vérifiez chrome://settings/downloads. Les sauvegardes Google Drive n'ont pas cette exigence."
   },
   "html_options_backup_interval": {
-    "message": "Backup every"
+    "message": "Sauvegarder toutes les"
   },
   "html_options_backup_daily_time": {
-    "message": "At what time"
+    "message": "À quelle heure"
   },
   "html_backup_interval_warning": {
-    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+    "message": "Attention : avec un intervalle aussi long, beaucoup de choses peuvent se produire entre deux sauvegardes. Envisagez un intervalle plus court pour réduire le risque de perte de données."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+    "message": "Les sauvegardes locales et Drive incluent toutes deux un identifiant d'appareil (par ex. tms-session-a3f7b2c8-2026-06-18T14-30.json), de sorte que chaque installation du navigateur conserve son propre ensemble indépendant de sauvegardes. Les N sauvegardes locales les plus récentes sont conservées par appareil ; les sauvegardes Drive conservent également N sauvegardes par appareil, de sorte que les sessions de différentes machines ou navigateurs ne s'écrasent jamais entre elles."
   },
   "html_backup_max_files_label": {
-    "message": "Max backups to keep"
+    "message": "Nombre maximal de sauvegardes à conserver"
   },
   "html_backup_device_name_label": {
-    "message": "Device name (optional)"
+    "message": "Nom de l'appareil (facultatif)"
   },
   "html_backup_device_name_save": {
-    "message": "Save"
+    "message": "Enregistrer"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Legacy backups"
+    "message": "Anciennes sauvegardes"
   },
   "html_options_backup_now": {
-    "message": "Backup now"
+    "message": "Sauvegarder maintenant"
   },
   "html_options_back_to_top": {
-    "message": "↑ Top"
+    "message": "↑ Haut de page"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+    "message": "Les sessions sont stockées uniquement dans Chrome — elles ne survivront pas à un plantage du navigateur ni à une réinitialisation de profil."
   },
   "html_history_backup_settings_link": {
-    "message": "Set up Backup to save your tabs outside the browser →"
+    "message": "Configurez la sauvegarde pour enregistrer vos onglets en dehors du navigateur →"
   },
   "js_options_backup_now_running": {
-    "message": "Running backup…"
+    "message": "Sauvegarde en cours…"
   },
   "js_options_backup_now_done": {
-    "message": "Backup saved."
+    "message": "Sauvegarde enregistrée."
   },
   "js_backup_option_saved": {
-    "message": "Saved"
+    "message": "Enregistré"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome demande où enregistrer les fichiers — les sauvegardes automatiques ne fonctionneront pas silencieusement. Désactivez « Demander où enregistrer chaque fichier » dans chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
-    "message": "Next run: $time$",
+    "message": "Prochaine exécution : $time$",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -967,7 +967,7 @@
     }
   },
   "js_options_backup_last_local": {
-    "message": "Last backup: $date$",
+    "message": "Dernière sauvegarde : $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -975,49 +975,49 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "Backup destination"
+    "message": "Destination de la sauvegarde"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (Downloads folder)"
+    "message": "Local (dossier Téléchargements)"
   },
   "html_options_backup_dest_drive": {
     "message": "Google Drive"
   },
   "html_options_backup_drive_connect": {
-    "message": "Connect Google Account"
+    "message": "Connecter un compte Google"
   },
   "html_options_backup_drive_disconnect": {
-    "message": "Disconnect"
+    "message": "Déconnecter"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+    "message": "Échec de la sauvegarde automatique : aucun compte Google connecté. Cliquez ici pour résoudre le problème."
   },
   "js_options_backup_drive_connecting": {
-    "message": "Connecting…"
+    "message": "Connexion…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Could not connect to Google. Please try again."
+    "message": "Impossible de se connecter à Google. Veuillez réessayer."
   },
   "html_options_settings_backup": {
-    "message": "Settings backup"
+    "message": "Sauvegarde des paramètres"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "Exportez tous les paramètres de l'extension dans un fichier JSON — utile comme sauvegarde ou pour transférer votre configuration vers un autre profil de navigateur. L'importation d'un fichier remplace les paramètres actuels."
   },
   "html_backup_local_folder_hint": {
-    "message": "Local backups go to the tms-backups folder inside your Downloads."
+    "message": "Les sauvegardes locales sont placées dans le dossier tms-backups de vos téléchargements."
   },
   "html_backup_drive_folder_note": {
-    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+    "message": "Les sauvegardes sont enregistrées dans le dossier 'TMS Backups' de votre Google Drive."
   },
   "html_backup_drive_open_folder": {
-    "message": "Open TMS Backups folder on Drive ↗"
+    "message": "Ouvrir le dossier TMS Backups sur Drive ↗"
   },
   "html_backup_drive_label_account": {
-    "message": "Account"
+    "message": "Compte"
   },
   "html_backup_drive_label_folder": {
-    "message": "Folder"
+    "message": "Dossier"
   },
   "html_backup_settings_local_title": {
     "message": "Local"
@@ -1026,22 +1026,22 @@
     "message": "Google Drive"
   },
   "html_backup_drive_save_settings": {
-    "message": "Save settings to Drive"
+    "message": "Enregistrer les paramètres sur Drive"
   },
   "html_backup_settings_drive_restore": {
-    "message": "Restore settings from Drive"
+    "message": "Restaurer les paramètres depuis Drive"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Saving to Drive…"
+    "message": "Enregistrement sur Drive…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "Settings saved to Drive."
+    "message": "Paramètres enregistrés sur Drive."
   },
   "js_backup_drive_settings_error": {
-    "message": "Could not save settings to Drive. Please try again."
+    "message": "Impossible d'enregistrer les paramètres sur Drive. Veuillez réessayer."
   },
   "js_backup_cooldown": {
-    "message": "Wait $seconds$s before the next backup.",
+    "message": "Patientez $seconds$s avant la prochaine sauvegarde.",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1049,19 +1049,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Downloading settings from Drive…"
+    "message": "Téléchargement des paramètres depuis Drive…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "No settings file found on Drive. Save your settings to Drive first."
+    "message": "Aucun fichier de paramètres trouvé sur Drive. Enregistrez d'abord vos paramètres sur Drive."
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Settings restored. Reloading…"
+    "message": "Paramètres restaurés. Rechargement…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Could not restore settings from Drive. Please try again."
+    "message": "Impossible de restaurer les paramètres depuis Drive. Veuillez réessayer."
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "Last backup: $date$",
+    "message": "Dernière sauvegarde : $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1069,7 +1069,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Existing settings backup from $date$. Overwrite?",
+    "message": "Une sauvegarde des paramètres existe déjà du $date$. Écraser ?",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1077,49 +1077,49 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Export settings"
+    "message": "Exporter les paramètres"
   },
   "html_options_settings_import": {
-    "message": "Import settings"
+    "message": "Importer les paramètres"
   },
   "js_options_settings_import_confirm": {
-    "message": "This will overwrite your current settings. Continue?"
+    "message": "Cela écrasera vos paramètres actuels. Continuer ?"
   },
   "js_options_settings_import_success": {
-    "message": "Settings imported. Reloading…"
+    "message": "Paramètres importés. Rechargement…"
   },
   "js_options_settings_import_error": {
-    "message": "Invalid settings file."
+    "message": "Fichier de paramètres non valide."
   },
   "html_history_migrate_nav": {
-    "message": "Migrate"
+    "message": "Migrer"
   },
   "html_backup_restore_title": {
-    "message": "Restore from backup"
+    "message": "Restaurer à partir d'une sauvegarde"
   },
   "html_backup_restore_desc": {
-    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+    "message": "Importez un fichier de sauvegarde pour le restaurer en tant que session enregistrée. Une fois importé, ouvrez Sessions pour choisir les fenêtres à restaurer."
   },
   "html_backup_restore_local_title": {
-    "message": "Local file"
+    "message": "Fichier local"
   },
   "html_backup_restore_drive_title": {
     "message": "Google Drive"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file"
+    "message": "Choisir un fichier de sauvegarde"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Select a Drive backup"
+    "message": "Sélectionner une sauvegarde Drive"
   },
   "html_backup_restore_import": {
-    "message": "Import selected"
+    "message": "Importer la sélection"
   },
   "js_backup_restore_importing": {
-    "message": "Importing…"
+    "message": "Importation…"
   },
   "js_backup_restore_success": {
-    "message": "Imported as \"$name$\".",
+    "message": "Importé sous le nom « $name$ ».",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1127,22 +1127,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ Open Sessions to restore"
+    "message": "→ Ouvrir Sessions pour restaurer"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Invalid backup file."
+    "message": "Fichier de sauvegarde non valide."
   },
   "js_backup_restore_error_drive": {
-    "message": "Could not download from Drive. Check your connection and try again."
+    "message": "Impossible de télécharger depuis Drive. Vérifiez votre connexion et réessayez."
   },
   "js_backup_restore_error_generic": {
-    "message": "Import failed. Please try again."
+    "message": "Échec de l'importation. Veuillez réessayer."
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Save Drive backup before switching?"
+    "message": "Enregistrer la sauvegarde Drive avant de changer ?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "message": "Votre sauvegarde Drive la plus récente date du $date$. Enregistrez-la en tant que session dans le gestionnaire de sessions afin de pouvoir la restaurer sans avoir besoin de Google Drive.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1150,27 +1150,27 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Save to Sessions"
+    "message": "Enregistrer dans Sessions"
   },
   "html_backup_drive_import_modal_cancel": {
-    "message": "Skip"
+    "message": "Ignorer"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive backup files"
+    "message": "Fichiers de sauvegarde Drive"
   },
   "html_backup_drive_download_btn": {
-    "message": "Download"
+    "message": "Télécharger"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Delete"
+    "message": "Supprimer"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Delete this backup file from Drive? This cannot be undone."
+    "message": "Supprimer ce fichier de sauvegarde de Drive ? Cette action est irréversible."
   },
   "html_backup_drive_no_files": {
-    "message": "No Drive backup files found."
+    "message": "Aucun fichier de sauvegarde trouvé sur Drive."
   },
   "html_backup_drive_files_loading": {
-    "message": "Loading…"
+    "message": "Chargement…"
   }
 }

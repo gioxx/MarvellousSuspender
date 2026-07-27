@@ -78,52 +78,52 @@
     "message": "回復所有視窗的所有分頁"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "分頁健康檢查（Beta）"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "如果您的暫停分頁出現問題，尤其是網站圖示方面，請點選「掃描分頁」，看看我們是否能修復它們。"
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "我們沒有發現您的暫停分頁有任何問題。如果您仍然發現異常，請在下方告訴我們，我們會嘗試擴充此項檢查。"
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "您有一些暫停分頁尚未完全載入。我們可以重新載入這些分頁以解決問題。"
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "您有一些暫停分頁正在使用瀏覽器預設圖示，這表示 TMS 快取中沒有它們的圖示。我們可以還原並重新暫停最少數量的分頁，以取得這些遺失的圖示。"
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "掃描分頁"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "複製結果"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "正在掃描分頁..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "TMS 已暫停的分頁"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "TMS 快取中的圖示"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "個分頁尚未載入"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "個分頁使用 TMS 圖示"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "個分頁使用預設圖示"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "個不重複主機名稱"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "本機 TMS 圖示快取可能未涵蓋所有分頁。如果瀏覽器快取被清除，TMS 可能無法顯示部分圖示。"
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "下一步：重新載入 $count$ 個分頁",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -131,7 +131,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "下一步：還原 $count$ 個分頁以快取圖示",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -139,28 +139,28 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "正在還原圖示..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "分頁在背景載入完成後，您可以再次點選「掃描分頁」，查看情況是否有所改善。"
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "您可以再次點選「掃描分頁」，查看情況是否有所改善。"
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "如果分頁或圖示問題仍然存在，您可以點選「複製結果」並貼到一個新的"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "GitHub Issue 中。"
   },
   "html_health_num_grouped_broken": {
-    "message": "grouped tabs in broken state (Tab Groups bug)"
+    "message": "個群組分頁處於損壞狀態（分頁群組錯誤）"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "部分分頁群組中的分頁處於損壞狀態——瀏覽器重新啟動後它們顯示為新分頁，而非正常載入。TMS 可以嘗試還原它們。"
   },
   "html_health_repair_button": {
-    "message": "Repair $count$ grouped tab(s)",
+    "message": "修復 $count$ 個群組分頁",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -168,25 +168,25 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+    "message": "完成。請重新掃描以確認群組分頁已恢復暫停狀態。"
   },
   "html_about_title": {
     "message": "關於"
   },
   "html_about_version_label": {
-    "message": "Version"
+    "message": "版本"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension — replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "現代分頁暫停功能的精神繼承者——以輕量的休眠頁面取代非使用中分頁，讓您精確掌控它們何時喚醒。"
   },
   "html_about_section_credits": {
-    "message": "Credits"
+    "message": "致謝"
   },
   "html_about_contributors_and": {
-    "message": " and "
+    "message": " 和 "
   },
   "html_about_community_thanks_link": {
-    "message": "all contributors on GitHub"
+    "message": "GitHub 上的所有貢獻者"
   },
   "html_about_fork_beginning": {
     "message": "基於 GitHub 上的原版"
@@ -195,10 +195,10 @@
     "message": "，去除廣告追蹤"
   },
   "html_about_fork_end": {
-    "message": "More information available on"
+    "message": "更多資訊請參閱"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "由以下貢獻者提供"
   },
   "html_about_report_issues_prefix": {
     "message": "如果您有建議或想回報問題，可以在"
@@ -207,19 +207,19 @@
     "message": ". 在建立新的想法或問題之前，請檢查您的想法或問題是否存在。謝謝！"
   },
   "html_about_debugging_prefix": {
-    "message": "To capture logs and generate a diagnostic report, go to the "
+    "message": "如需擷取記錄並產生診斷報告，請前往"
   },
   "html_about_debugging_suffix": {
-    "message": "diagnostic page."
+    "message": "診斷頁面。"
   },
   "html_about_the_github_issues_page": {
     "message": "GitHub issues 網頁上提問"
   },
   "html_about_section_support": {
-    "message": "Support development"
+    "message": "支持開發"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender 是免費且開放原始碼的軟體。如果您覺得它有用，歡迎小額贊助——這有助於維持專案的持續發展。"
   },
   "html_broken_title": {
     "message": "故障了"
@@ -228,7 +228,7 @@
     "message": "噢！"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "啟動失敗。您使用的可能是不相容的瀏覽器？"
   },
   "html_broken_line2": {
     "message": "請嘗試重新啟動擴充功能。若問題持續發生，請您透過此連結尋求協助："
@@ -249,7 +249,7 @@
     "message": "記錄管理"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS 會持續記錄您已開啟分頁的快照，無需任何設定。工作階段會在瀏覽時自動更新，但僅存在於 Chrome 內部：如果瀏覽器設定檔遺失或損毀，資料也會一併遺失。"
   },
   "html_history_current_session": {
     "message": "目前記錄"
@@ -270,10 +270,10 @@
     "message": "Extension ID"
   },
   "html_history_migrate_section_title": {
-    "message": "Tab migration"
+    "message": "分頁遷移"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recover tabs suspended by a previous version or another fork of this extension. Enter the old extension ID below and click Migrate tabs to convert the suspended URLs."
+    "message": "還原由舊版本或此擴充功能的其他分支所暫停的分頁。請在下方輸入舊擴充功能 ID，然後點選「遷移分頁」以轉換已暫停的網址。"
   },
   "html_options_title": {
     "message": "設定"
@@ -285,22 +285,22 @@
     "message": "凍結的分頁"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Append original URL to suspended tab title"
+    "message": "在暫停分頁標題後附加原始網址"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+    "message": "啟用後，暫停頁面的瀏覽器分頁標題會附加原始網址。"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+    "message": "這樣可以使用 Chrome 的「搜尋分頁」功能（Ctrl+Shift+A）依主機名稱尋找暫停分頁。"
   },
   "html_options_other_title": {
-    "message": "General"
+    "message": "一般"
   },
   "html_options_language": {
-    "message": "Language"
+    "message": "語言"
   },
   "html_options_language_auto": {
-    "message": "System default"
+    "message": "系統預設"
   },
   "html_options_suspend_automatically_after": {
     "message": "多久後自動凍結"
@@ -360,13 +360,13 @@
     "message": "當分頁被瀏覽就自動回復分頁"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "暫停時套用瀏覽器內建的省記憶體功能"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "通過利用 Chrome 內建的分頁凍結功能，"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "瀏覽器內建的「捨棄分頁」功能。在處理大量分頁時，最多可節省"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
     "message": "可以降低500%的系統記憶體消耗。"
@@ -378,7 +378,7 @@
     "message": "將會有微小的分頁加載延時。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "如需捨棄分頁的更多資訊，請參閱："
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -393,7 +393,7 @@
     "message": "深色"
   },
   "html_options_suspend_theme_system": {
-    "message": "System"
+    "message": "跟隨系統"
   },
   "html_options_suspend_screen_capturing": {
     "message": "螢幕擷取"
@@ -420,7 +420,7 @@
     "message": "可能會讓 CPU 使用率大幅提高，並讓記憶體使用量些微地提高。"
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "如果您發現異常狀況，例如分頁暫停耗時過長，或瀏覽器"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "或者 Chrome 意外當機，請嘗試關閉此功能。"
@@ -462,10 +462,10 @@
     "message": "測試白名單"
   },
   "html_options_whitelist_close": {
-    "message": "Close"
+    "message": "關閉"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake whitelisted tabs"
+    "message": "喚醒白名單中的分頁"
   },
   "html_options_other_enable_context_menu": {
     "message": "把 The Marvellous Suspender 加到右鍵選單"
@@ -480,31 +480,31 @@
     "message": "進階凍結操作。"
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "將設定與您的瀏覽器設定檔同步"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "擴充功能設定將在所有符合以下條件的瀏覽器之間同步："
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "登入相同帳號的 Chrome。"
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "這也會同步無痕模式下的設定。"
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "啟用此選項將覆寫使用同一設定檔登入的所有其他瀏覽器中的設定"
   },
   "html_options_suspend_on_low_memory": {
     "message": "當系統記憶體非常少時凍結分頁"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "此選項將覆寫自動捨棄分頁功能。"
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "啟用後，分頁將被強制暫停，而非被捨棄。"
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "通常，瀏覽器只有在系統記憶體非常不足時才會捨棄分頁。"
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "注意："
@@ -513,7 +513,7 @@
     "message": "這可能導致分頁在「自動分頁凍結」選項中指定的時間到達之前凍結。"
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "如需捨棄分頁的更多資訊，請參閱："
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -537,7 +537,7 @@
     "message": "回復所有分頁"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake whitelisted tabs"
+    "message": "喚醒白名單中的分頁"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "凍結已選擇分頁"
@@ -549,10 +549,10 @@
     "message": "設定"
   },
   "html_popup_backup_now_local": {
-    "message": "Backup session now (Local)"
+    "message": "立即備份工作階段（本機）"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Backup session now (Cloud)"
+    "message": "立即備份工作階段（雲端）"
   },
   "html_restoring_title": {
     "message": "回復視窗"
@@ -606,10 +606,10 @@
     "message": "設定"
   },
   "html_sidebar_session_management": {
-    "message": "Sessions"
+    "message": "工作階段"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "分頁健康檢查"
   },
   "html_sidebar_shortcuts": {
     "message": "鍵盤快速鍵"
@@ -618,31 +618,31 @@
     "message": "關於"
   },
   "html_sidebar_backup": {
-    "message": "Backup"
+    "message": "備份"
   },
   "html_sidebar_news": {
-    "message": "News"
+    "message": "消息"
   },
   "html_news_title": {
-    "message": "News & Updates"
+    "message": "消息與更新"
   },
   "html_news_desc": {
-    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+    "message": "隨時掌握 Marvellous Codeworks 部落格發布的最新版本、已知問題與公告。"
   },
   "html_news_loading": {
-    "message": "Loading news…"
+    "message": "正在載入消息…"
   },
   "html_news_empty": {
-    "message": "No news yet. Check back soon!"
+    "message": "目前尚無消息，請稍後再回來查看！"
   },
   "html_news_new_pill": {
-    "message": "NEW"
+    "message": "新"
   },
   "html_news_mark_all_read": {
-    "message": "Mark all as read"
+    "message": "全部標示為已讀"
   },
   "html_backup_page_title": {
-    "message": "Backup & Restore"
+    "message": "備份與還原"
   },
   "html_success_great_success": {
     "message": "成功！"
@@ -654,7 +654,7 @@
     "message": "進階的記錄管理，請前往"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "page"
+    "message": "頁面"
   },
   "html_session_manager": {
     "message": "記錄管理分頁"
@@ -687,13 +687,13 @@
     "message": "更新"
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "已準備好變得更加奇<i>妙</i>"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "下次重新啟動瀏覽器時將安裝 The Marvellous Suspender 的新版本。"
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "重要提示：我們無法為您的分頁建立還原點。<br>請立即儲存備份！"
   },
   "html_update_info_nobackup_prefix": {
     "message": "強烈建議您在繼續之前從"
@@ -884,10 +884,10 @@
     "message": "現在更新擴充功能"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "更新前先儲存備份"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "啟用擴充功能（顯示彈出視窗）"
   },
   "js_shortcuts_not_set": {
     "message": "沒有設定"
@@ -896,70 +896,70 @@
     "message": "自動保存點 v"
   },
   "html_options_backup_title": {
-    "message": "Automatic session backup"
+    "message": "自動工作階段備份"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "與工作階段不同，備份會以 JSON 檔案形式儲存在 Chrome 之外——存放於下載資料夾或 Google 雲端硬碟。它們能在瀏覽器當機、設定檔重設及全新安裝後仍然保留，是您真正的安全網。"
   },
   "html_options_backup_enable": {
-    "message": "Automatically back up your session"
+    "message": "自動備份您的工作階段"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+    "message": "以 JSON 檔案形式默默儲存目前工作階段的副本。可選擇儲存至本機（下載資料夾內的 tms-backups 目錄）或 Google 雲端硬碟中的 'TMS Backups' 資料夾。"
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "若要進行本機備份，Chrome 必須設定為自動下載檔案（不詢問）——請檢查 chrome://settings/downloads。Google 雲端硬碟備份則無此要求。"
   },
   "html_options_backup_interval": {
-    "message": "Backup every"
+    "message": "備份間隔"
   },
   "html_options_backup_daily_time": {
-    "message": "At what time"
+    "message": "於何時執行"
   },
   "html_backup_interval_warning": {
-    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+    "message": "請注意：間隔時間過長時，兩次備份之間可能會發生較多變化。建議縮短間隔以降低資料遺失的風險。"
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+    "message": "本機與雲端硬碟備份都包含裝置識別碼（例如 tms-session-a3f7b2c8-2026-06-18T14-30.json），因此每個瀏覽器安裝都會維護獨立的備份集。每台裝置會保留最近的 N 份本機備份；雲端硬碟備份同樣依裝置保留 N 份，因此不同裝置或瀏覽器的工作階段永遠不會互相覆寫。"
   },
   "html_backup_max_files_label": {
-    "message": "Max backups to keep"
+    "message": "保留備份的最大數量"
   },
   "html_backup_device_name_label": {
-    "message": "Device name (optional)"
+    "message": "裝置名稱（選填）"
   },
   "html_backup_device_name_save": {
-    "message": "Save"
+    "message": "儲存"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Legacy backups"
+    "message": "舊版備份"
   },
   "html_options_backup_now": {
-    "message": "Backup now"
+    "message": "立即備份"
   },
   "html_options_back_to_top": {
-    "message": "↑ Top"
+    "message": "↑ 回到頂端"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+    "message": "工作階段僅儲存於 Chrome 內部——無法在瀏覽器當機或設定檔重設後保留。"
   },
   "html_history_backup_settings_link": {
-    "message": "Set up Backup to save your tabs outside the browser →"
+    "message": "設定備份，將分頁儲存於瀏覽器之外 →"
   },
   "js_options_backup_now_running": {
-    "message": "Running backup…"
+    "message": "正在執行備份…"
   },
   "js_options_backup_now_done": {
-    "message": "Backup saved."
+    "message": "備份已儲存。"
   },
   "js_backup_option_saved": {
-    "message": "Saved"
+    "message": "已儲存"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome 正在詢問檔案儲存位置——自動備份將無法在背景靜默完成。請在 chrome://settings/downloads 中關閉「下載前詢問每個檔案的儲存位置」。"
   },
   "js_options_backup_next_run": {
-    "message": "Next run: $time$",
+    "message": "下次執行：$time$",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -967,7 +967,7 @@
     }
   },
   "js_options_backup_last_local": {
-    "message": "Last backup: $date$",
+    "message": "上次備份：$date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -975,73 +975,73 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "Backup destination"
+    "message": "備份目的地"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (Downloads folder)"
+    "message": "本機（下載資料夾）"
   },
   "html_options_backup_dest_drive": {
-    "message": "Google Drive"
+    "message": "Google 雲端硬碟"
   },
   "html_options_backup_drive_connect": {
-    "message": "Connect Google Account"
+    "message": "連結 Google 帳戶"
   },
   "html_options_backup_drive_disconnect": {
-    "message": "Disconnect"
+    "message": "中斷連結"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+    "message": "自動備份失敗：未連結 Google 帳戶。點選此處進行修復。"
   },
   "js_options_backup_drive_connecting": {
-    "message": "Connecting…"
+    "message": "正在連線…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Could not connect to Google. Please try again."
+    "message": "無法連線至 Google，請再試一次。"
   },
   "html_options_settings_backup": {
-    "message": "Settings backup"
+    "message": "設定備份"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "將所有擴充功能設定匯出為 JSON 檔案——可作為備份，或用於將您的設定轉移至其他瀏覽器設定檔。匯入檔案將取代目前的設定。"
   },
   "html_backup_local_folder_hint": {
-    "message": "Local backups go to the tms-backups folder inside your Downloads."
+    "message": "本機備份會存放於下載資料夾內的 tms-backups 目錄。"
   },
   "html_backup_drive_folder_note": {
-    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+    "message": "備份會儲存於您 Google 雲端硬碟中的 'TMS Backups' 資料夾。"
   },
   "html_backup_drive_open_folder": {
-    "message": "Open TMS Backups folder on Drive ↗"
+    "message": "在雲端硬碟開啟 TMS Backups 資料夾 ↗"
   },
   "html_backup_drive_label_account": {
-    "message": "Account"
+    "message": "帳戶"
   },
   "html_backup_drive_label_folder": {
-    "message": "Folder"
+    "message": "資料夾"
   },
   "html_backup_settings_local_title": {
-    "message": "Local"
+    "message": "本機"
   },
   "html_backup_settings_drive_title": {
-    "message": "Google Drive"
+    "message": "Google 雲端硬碟"
   },
   "html_backup_drive_save_settings": {
-    "message": "Save settings to Drive"
+    "message": "將設定儲存至雲端硬碟"
   },
   "html_backup_settings_drive_restore": {
-    "message": "Restore settings from Drive"
+    "message": "從雲端硬碟還原設定"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Saving to Drive…"
+    "message": "正在儲存至雲端硬碟…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "Settings saved to Drive."
+    "message": "設定已儲存至雲端硬碟。"
   },
   "js_backup_drive_settings_error": {
-    "message": "Could not save settings to Drive. Please try again."
+    "message": "無法將設定儲存至雲端硬碟，請再試一次。"
   },
   "js_backup_cooldown": {
-    "message": "Wait $seconds$s before the next backup.",
+    "message": "請等待 $seconds$ 秒後再進行下一次備份。",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1049,19 +1049,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Downloading settings from Drive…"
+    "message": "正在從雲端硬碟下載設定…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "No settings file found on Drive. Save your settings to Drive first."
+    "message": "在雲端硬碟中找不到設定檔案。請先將設定儲存至雲端硬碟。"
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Settings restored. Reloading…"
+    "message": "設定已還原，正在重新載入…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Could not restore settings from Drive. Please try again."
+    "message": "無法從雲端硬碟還原設定，請再試一次。"
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "Last backup: $date$",
+    "message": "上次備份：$date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1069,7 +1069,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Existing settings backup from $date$. Overwrite?",
+    "message": "已存在 $date$ 的設定備份，是否覆寫？",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1077,49 +1077,49 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Export settings"
+    "message": "匯出設定"
   },
   "html_options_settings_import": {
-    "message": "Import settings"
+    "message": "匯入設定"
   },
   "js_options_settings_import_confirm": {
-    "message": "This will overwrite your current settings. Continue?"
+    "message": "此操作將覆寫您目前的設定，是否繼續？"
   },
   "js_options_settings_import_success": {
-    "message": "Settings imported. Reloading…"
+    "message": "設定已匯入，正在重新載入…"
   },
   "js_options_settings_import_error": {
-    "message": "Invalid settings file."
+    "message": "設定檔案無效。"
   },
   "html_history_migrate_nav": {
-    "message": "Migrate"
+    "message": "遷移"
   },
   "html_backup_restore_title": {
-    "message": "Restore from backup"
+    "message": "從備份還原"
   },
   "html_backup_restore_desc": {
-    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+    "message": "匯入備份檔案，將其還原為已儲存的工作階段。匯入後，開啟「工作階段」以選擇要還原的視窗。"
   },
   "html_backup_restore_local_title": {
-    "message": "Local file"
+    "message": "本機檔案"
   },
   "html_backup_restore_drive_title": {
-    "message": "Google Drive"
+    "message": "Google 雲端硬碟"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file"
+    "message": "選擇備份檔案"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Select a Drive backup"
+    "message": "選擇雲端硬碟備份"
   },
   "html_backup_restore_import": {
-    "message": "Import selected"
+    "message": "匯入所選項目"
   },
   "js_backup_restore_importing": {
-    "message": "Importing…"
+    "message": "正在匯入…"
   },
   "js_backup_restore_success": {
-    "message": "Imported as \"$name$\".",
+    "message": "已匯入為「$name$」。",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1127,22 +1127,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ Open Sessions to restore"
+    "message": "→ 開啟工作階段以進行還原"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Invalid backup file."
+    "message": "備份檔案無效。"
   },
   "js_backup_restore_error_drive": {
-    "message": "Could not download from Drive. Check your connection and try again."
+    "message": "無法從雲端硬碟下載，請檢查網路連線後再試一次。"
   },
   "js_backup_restore_error_generic": {
-    "message": "Import failed. Please try again."
+    "message": "匯入失敗，請再試一次。"
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Save Drive backup before switching?"
+    "message": "切換前是否要儲存雲端硬碟備份？"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "message": "您最近的雲端硬碟備份來自 $date$。將其儲存為工作階段管理員中的工作階段，即可在不需要 Google 雲端硬碟的情況下還原它。",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1150,27 +1150,27 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Save to Sessions"
+    "message": "儲存至工作階段"
   },
   "html_backup_drive_import_modal_cancel": {
-    "message": "Skip"
+    "message": "略過"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive backup files"
+    "message": "雲端硬碟備份檔案"
   },
   "html_backup_drive_download_btn": {
-    "message": "Download"
+    "message": "下載"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Delete"
+    "message": "刪除"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Delete this backup file from Drive? This cannot be undone."
+    "message": "確定要刪除雲端硬碟中的這個備份檔案嗎？此操作無法復原。"
   },
   "html_backup_drive_no_files": {
-    "message": "No Drive backup files found."
+    "message": "在雲端硬碟中找不到備份檔案。"
   },
   "html_backup_drive_files_loading": {
-    "message": "Loading…"
+    "message": "正在載入…"
   }
 }

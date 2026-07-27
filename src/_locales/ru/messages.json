@@ -78,52 +78,52 @@
     "message": "Возобновить все вкладки во всех окнах"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "Состояние вкладок (Бета)"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "Если у вас проблемы с приостановленными вкладками, особенно со значками сайтов, нажмите «Сканировать вкладки», чтобы узнать, можем ли мы их исправить."
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "Мы не нашли проблем с вашими приостановленными вкладками. Если вы всё ещё видите ошибку, сообщите нам об этом ниже, и мы постараемся расширить эту проверку."
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "Некоторые из ваших приостановленных вкладок загружены не полностью. Мы можем перезагрузить их, чтобы всё исправить."
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "Некоторые из ваших приостановленных вкладок используют значок сайта по умолчанию из браузера. Это значит, что кэш TMS их не сохранил. Мы можем восстановить и снова приостановить минимальное количество вкладок, чтобы получить недостающие значки."
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "Сканировать вкладки"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "Скопировать результаты"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "Сканирование вкладок..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "Вкладок приостановлено TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "значков в кэше TMS"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "вкладок не загружено"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "вкладок со значком TMS"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "вкладок со значком по умолчанию"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "уникальных имён хостов"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "Локальный кэш значков TMS может не охватывать все вкладки. Если кэш браузера будет очищен, TMS может не показать некоторые значки."
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "Далее: перезагрузить $count$ вкладок",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -131,7 +131,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "Далее: восстановить $count$ вкладок, чтобы кэшировать значки",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -139,28 +139,28 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "Восстановление значков..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "Как только вкладки завершат загрузку в фоновом режиме, вы можете снова нажать «Сканировать вкладки», чтобы проверить, стало ли лучше."
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "Вы можете снова нажать «Сканировать вкладки», чтобы проверить, стало ли лучше."
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "Если проблемы с вкладками или значками сохраняются, вы можете нажать «Скопировать результаты» и вставить их в новый"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "Issue на GitHub."
   },
   "html_health_num_grouped_broken": {
-    "message": "grouped tabs in broken state (Tab Groups bug)"
+    "message": "сгруппированных вкладок в неисправном состоянии (ошибка групп вкладок)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "Некоторые вкладки в группах находятся в неисправном состоянии — после перезапуска браузера они отображаются как новая вкладка вместо корректной загрузки. TMS может попытаться их восстановить."
   },
   "html_health_repair_button": {
-    "message": "Repair $count$ grouped tab(s)",
+    "message": "Восстановить $count$ сгруппированных вкладок",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -168,25 +168,25 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+    "message": "Готово. Повторите сканирование, чтобы убедиться, что сгруппированные вкладки вернулись в приостановленное состояние."
   },
   "html_about_title": {
     "message": "О расширении"
   },
   "html_about_version_label": {
-    "message": "Version"
+    "message": "Версия"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension — replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "Духовный преемник современного приостановления вкладок — заменяет неактивные вкладки лёгкой страницей гибернации, давая вам точный контроль над тем, когда они «просыпаются»."
   },
   "html_about_section_credits": {
-    "message": "Credits"
+    "message": "Благодарности"
   },
   "html_about_contributors_and": {
-    "message": " and "
+    "message": " и "
   },
   "html_about_community_thanks_link": {
-    "message": "all contributors on GitHub"
+    "message": "всем участникам на GitHub"
   },
   "html_about_fork_beginning": {
     "message": "На основе оригинала"
@@ -195,10 +195,10 @@
     "message": "доступно на GitHub, без рекламных трекеров"
   },
   "html_about_fork_end": {
-    "message": "More information available on"
+    "message": "Дополнительная информация доступна на"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "Разработано для вас"
   },
   "html_about_report_issues_prefix": {
     "message": "Связаться с нами или сообщить о баге можно на"
@@ -207,19 +207,19 @@
     "message": ". Пожалуйста, убедитесь, что Ваша идея или предложение не были опубликованы ранее. Спасибо!"
   },
   "html_about_debugging_prefix": {
-    "message": "To capture logs and generate a diagnostic report, go to the "
+    "message": "Чтобы собрать журналы и создать диагностический отчёт, перейдите на "
   },
   "html_about_debugging_suffix": {
-    "message": "diagnostic page."
+    "message": "страницу диагностики."
   },
   "html_about_the_github_issues_page": {
     "message": "странице предложений GitHub"
   },
   "html_about_section_support": {
-    "message": "Support development"
+    "message": "Поддержать разработку"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender бесплатен и имеет открытый исходный код. Если он оказался полезным, рассмотрите возможность небольшого пожертвования — это помогает проекту жить и развиваться."
   },
   "html_broken_title": {
     "message": "сломан"
@@ -228,7 +228,7 @@
     "message": "Ой-ой!"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "не удалось запустить. Возможно, вы используете несовместимый браузер?"
   },
   "html_broken_line2": {
     "message": "Попробуйте перезапустить расширение. Если проблема не устранена, попросите помощи в"
@@ -249,7 +249,7 @@
     "message": "Управление сессиями"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS постоянно хранит снимок ваших открытых вкладок — настройка не требуется. Сессии обновляются автоматически во время просмотра, но существуют только внутри Chrome: если профиль браузера будет утерян или повреждён, они будут потеряны вместе с ним."
   },
   "html_history_current_session": {
     "message": "Текущая сессия"
@@ -270,10 +270,10 @@
     "message": "Extension ID"
   },
   "html_history_migrate_section_title": {
-    "message": "Tab migration"
+    "message": "Перенос вкладок"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recover tabs suspended by a previous version or another fork of this extension. Enter the old extension ID below and click Migrate tabs to convert the suspended URLs."
+    "message": "Восстановите вкладки, приостановленные предыдущей версией или другим форком этого расширения. Введите старый ID расширения ниже и нажмите «Перенести вкладки», чтобы преобразовать приостановленные URL-адреса."
   },
   "html_options_title": {
     "message": "Настройки"
@@ -285,22 +285,22 @@
     "message": "Приостановленные вкладки"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Append original URL to suspended tab title"
+    "message": "Добавлять исходный URL к заголовку приостановленной вкладки"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+    "message": "Если включено, исходный URL добавляется к заголовку вкладки браузера на приостановленных страницах."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+    "message": "Это позволяет находить приостановленные вкладки по имени хоста с помощью функции Chrome «Поиск по вкладкам» (Ctrl+Shift+A)."
   },
   "html_options_other_title": {
-    "message": "General"
+    "message": "Общие"
   },
   "html_options_language": {
-    "message": "Language"
+    "message": "Язык"
   },
   "html_options_language_auto": {
-    "message": "System default"
+    "message": "По умолчанию для системы"
   },
   "html_options_suspend_automatically_after": {
     "message": "Автоматически приостанавливать вкладки после"
@@ -360,13 +360,13 @@
     "message": "Автоматически возобновлять приостановленную вкладку при переходе на неё"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "Применять встроенную экономию памяти браузера при приостановке"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "Ещё больше уменьшает потребление памяти для приостановленных вкладок, используя"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "встроенную функцию браузера «выгрузка вкладок». Это может дать экономию памяти до"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
     "message": "потребление памяти до 500% (при работе с большим количеством вкладок)."
@@ -378,7 +378,7 @@
     "message": "вкладки при переходе на неё."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Подробнее о выгрузке вкладок см.:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -393,7 +393,7 @@
     "message": "Тёмная"
   },
   "html_options_suspend_theme_system": {
-    "message": "System"
+    "message": "Системная"
   },
   "html_options_suspend_screen_capturing": {
     "message": "Скриншот страницы"
@@ -420,7 +420,7 @@
     "message": "нагрузке на процессор, а также к повышенному потреблению памяти."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "Если вы заметили странное поведение, например, вкладки долго приостанавливаются, или браузер"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "внезапные вылеты Chrome, попробуйте отключить эту функцию."
@@ -462,10 +462,10 @@
     "message": "Протестировать белый список"
   },
   "html_options_whitelist_close": {
-    "message": "Close"
+    "message": "Закрыть"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake whitelisted tabs"
+    "message": "Разбудить вкладки из белого списка"
   },
   "html_options_other_enable_context_menu": {
     "message": "Добавить The Marvellous Suspender в контекстное меню правой кнопки мыши"
@@ -480,31 +480,31 @@
     "message": "недоступны в другом месте расширения."
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "Синхронизировать настройки с профилем браузера"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "Настройки расширения будут синхронизированы во всех браузерах, которые"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "всеми браузерами Chrome."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "Это также синхронизирует настройки в режиме инкогнито."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "Включение этой функции перезапишет настройки во всех других браузерах, вошедших в тот же профиль"
   },
   "html_options_suspend_on_low_memory": {
     "message": "Приостанавливать вкладки при нехватке системной памяти"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "Эта опция переопределит функцию автоматической выгрузки вкладок."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "Если включено, вкладка будет принудительно приостановлена вместо выгрузки."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "Обычно браузер выгружает вкладки только тогда, когда системной памяти становится очень мало."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "Обратите внимание: это может привести к приостановке вкладок раньше, чем выбрано"
@@ -513,7 +513,7 @@
     "message": "в настройке \"Автоматически приостанавливать вкладки после\"."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Подробнее о выгрузке вкладок см.:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -537,7 +537,7 @@
     "message": "Возобновить все вкладки"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake whitelisted tabs"
+    "message": "Разбудить вкладки из белого списка"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Приостановить выбранные вкладки"
@@ -549,10 +549,10 @@
     "message": "Настройки"
   },
   "html_popup_backup_now_local": {
-    "message": "Backup session now (Local)"
+    "message": "Создать резервную копию сессии сейчас (Локально)"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Backup session now (Cloud)"
+    "message": "Создать резервную копию сессии сейчас (Облако)"
   },
   "html_restoring_title": {
     "message": "Восстановление окна"
@@ -606,10 +606,10 @@
     "message": "Настройки"
   },
   "html_sidebar_session_management": {
-    "message": "Sessions"
+    "message": "Сессии"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "Состояние вкладок"
   },
   "html_sidebar_shortcuts": {
     "message": "Горячие клавиши"
@@ -618,31 +618,31 @@
     "message": "О расширении"
   },
   "html_sidebar_backup": {
-    "message": "Backup"
+    "message": "Резервное копирование"
   },
   "html_sidebar_news": {
-    "message": "News"
+    "message": "Новости"
   },
   "html_news_title": {
-    "message": "News & Updates"
+    "message": "Новости и обновления"
   },
   "html_news_desc": {
-    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+    "message": "Следите за последними релизами, известными проблемами и объявлениями в блоге Marvellous Codeworks."
   },
   "html_news_loading": {
-    "message": "Loading news…"
+    "message": "Загрузка новостей…"
   },
   "html_news_empty": {
-    "message": "No news yet. Check back soon!"
+    "message": "Пока новостей нет. Загляните позже!"
   },
   "html_news_new_pill": {
-    "message": "NEW"
+    "message": "НОВОЕ"
   },
   "html_news_mark_all_read": {
-    "message": "Mark all as read"
+    "message": "Отметить всё как прочитанное"
   },
   "html_backup_page_title": {
-    "message": "Backup & Restore"
+    "message": "Резервное копирование и восстановление"
   },
   "html_success_great_success": {
     "message": "Отлично!"
@@ -654,7 +654,7 @@
     "message": "Более продвинутое управление сессиями доступно в разделе "
   },
   "html_success_goto_advanced_suffix": {
-    "message": "page"
+    "message": "страница"
   },
   "html_session_manager": {
     "message": "управление сессиями"
@@ -687,13 +687,13 @@
     "message": "Обновление"
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "готов стать ещё <i>чудеснее</i>"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "Новая версия The Marvellous Suspender будет установлена при следующем перезапуске браузера."
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "ВАЖНО: не удалось создать точку восстановления для ваших вкладок.<br>Сохраните резервную копию СЕЙЧАС!"
   },
   "html_update_info_nobackup_prefix": {
     "message": "Рекомендуется сделать экспорт текущей сессии"
@@ -884,10 +884,10 @@
     "message": "Обновить расширение"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "Сохранить резервную копию перед обновлением"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "Активировать расширение (показать всплывающее окно)"
   },
   "js_shortcuts_not_set": {
     "message": "не задано"
@@ -896,70 +896,70 @@
     "message": "Автоматическая точка восстановления для версии "
   },
   "html_options_backup_title": {
-    "message": "Automatic session backup"
+    "message": "Автоматическое резервное копирование сессии"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "В отличие от сессий, резервные копии сохраняются как JSON-файлы вне Chrome — в папку «Загрузки» или на Google Диск. Они переживают сбои браузера, сброс профиля и новые установки. Это ваша настоящая страховка."
   },
   "html_options_backup_enable": {
-    "message": "Automatically back up your session"
+    "message": "Автоматически создавать резервную копию сессии"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+    "message": "Незаметно сохраняет копию текущей сессии в виде JSON-файла. Выберите сохранение локально (папка tms-backups внутри «Загрузок») или в папку 'TMS Backups' на Google Диске."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "Для локальных резервных копий Chrome должен быть настроен на автоматическую загрузку файлов (без запроса) — проверьте chrome://settings/downloads. Для резервных копий на Google Диске это не требуется."
   },
   "html_options_backup_interval": {
-    "message": "Backup every"
+    "message": "Резервное копирование каждые"
   },
   "html_options_backup_daily_time": {
-    "message": "At what time"
+    "message": "В какое время"
   },
   "html_backup_interval_warning": {
-    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+    "message": "Обратите внимание: при таком длинном интервале между резервными копиями многое может произойти. Рассмотрите более короткий интервал, чтобы снизить риск потери данных."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+    "message": "И локальные, и резервные копии на Диске включают идентификатор устройства (например, tms-session-a3f7b2c8-2026-06-18T14-30.json), поэтому каждая установка браузера ведёт собственный независимый набор резервных копий. Хранятся N последних локальных копий на устройство; на Диске также хранится N копий на устройство, поэтому сессии с разных устройств или браузеров никогда не перезаписывают друг друга."
   },
   "html_backup_max_files_label": {
-    "message": "Max backups to keep"
+    "message": "Максимум резервных копий для хранения"
   },
   "html_backup_device_name_label": {
-    "message": "Device name (optional)"
+    "message": "Имя устройства (необязательно)"
   },
   "html_backup_device_name_save": {
-    "message": "Save"
+    "message": "Сохранить"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Legacy backups"
+    "message": "Старые резервные копии"
   },
   "html_options_backup_now": {
-    "message": "Backup now"
+    "message": "Создать резервную копию сейчас"
   },
   "html_options_back_to_top": {
-    "message": "↑ Top"
+    "message": "↑ Наверх"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+    "message": "Сессии хранятся только внутри Chrome — они не переживут сбой браузера или сброс профиля."
   },
   "html_history_backup_settings_link": {
-    "message": "Set up Backup to save your tabs outside the browser →"
+    "message": "Настройте резервное копирование, чтобы сохранять вкладки вне браузера →"
   },
   "js_options_backup_now_running": {
-    "message": "Running backup…"
+    "message": "Выполняется резервное копирование…"
   },
   "js_options_backup_now_done": {
-    "message": "Backup saved."
+    "message": "Резервная копия сохранена."
   },
   "js_backup_option_saved": {
-    "message": "Saved"
+    "message": "Сохранено"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome спрашивает, куда сохранять файлы — автоматические резервные копии не будут работать незаметно. Отключите «Спрашивать, куда сохранять каждый файл» в chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
-    "message": "Next run: $time$",
+    "message": "Следующий запуск: $time$",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -967,7 +967,7 @@
     }
   },
   "js_options_backup_last_local": {
-    "message": "Last backup: $date$",
+    "message": "Последняя резервная копия: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -975,73 +975,73 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "Backup destination"
+    "message": "Место резервного копирования"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (Downloads folder)"
+    "message": "Локально (папка «Загрузки»)"
   },
   "html_options_backup_dest_drive": {
-    "message": "Google Drive"
+    "message": "Google Диск"
   },
   "html_options_backup_drive_connect": {
-    "message": "Connect Google Account"
+    "message": "Подключить аккаунт Google"
   },
   "html_options_backup_drive_disconnect": {
-    "message": "Disconnect"
+    "message": "Отключить"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+    "message": "Ошибка автоматического резервного копирования: аккаунт Google не подключён. Нажмите здесь, чтобы исправить."
   },
   "js_options_backup_drive_connecting": {
-    "message": "Connecting…"
+    "message": "Подключение…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Could not connect to Google. Please try again."
+    "message": "Не удалось подключиться к Google. Попробуйте ещё раз."
   },
   "html_options_settings_backup": {
-    "message": "Settings backup"
+    "message": "Резервное копирование настроек"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "Экспортируйте все настройки расширения в JSON-файл — полезно как резервная копия или для переноса конфигурации в другой профиль браузера. Импорт файла заменяет текущие настройки."
   },
   "html_backup_local_folder_hint": {
-    "message": "Local backups go to the tms-backups folder inside your Downloads."
+    "message": "Локальные резервные копии сохраняются в папку tms-backups внутри «Загрузок»."
   },
   "html_backup_drive_folder_note": {
-    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+    "message": "Резервные копии сохраняются в папку 'TMS Backups' на вашем Google Диске."
   },
   "html_backup_drive_open_folder": {
-    "message": "Open TMS Backups folder on Drive ↗"
+    "message": "Открыть папку TMS Backups на Диске ↗"
   },
   "html_backup_drive_label_account": {
-    "message": "Account"
+    "message": "Аккаунт"
   },
   "html_backup_drive_label_folder": {
-    "message": "Folder"
+    "message": "Папка"
   },
   "html_backup_settings_local_title": {
-    "message": "Local"
+    "message": "Локально"
   },
   "html_backup_settings_drive_title": {
-    "message": "Google Drive"
+    "message": "Google Диск"
   },
   "html_backup_drive_save_settings": {
-    "message": "Save settings to Drive"
+    "message": "Сохранить настройки на Диск"
   },
   "html_backup_settings_drive_restore": {
-    "message": "Restore settings from Drive"
+    "message": "Восстановить настройки с Диска"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Saving to Drive…"
+    "message": "Сохранение на Диск…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "Settings saved to Drive."
+    "message": "Настройки сохранены на Диск."
   },
   "js_backup_drive_settings_error": {
-    "message": "Could not save settings to Drive. Please try again."
+    "message": "Не удалось сохранить настройки на Диск. Попробуйте ещё раз."
   },
   "js_backup_cooldown": {
-    "message": "Wait $seconds$s before the next backup.",
+    "message": "Подождите $seconds$ с до следующей резервной копии.",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1049,19 +1049,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Downloading settings from Drive…"
+    "message": "Загрузка настроек с Диска…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "No settings file found on Drive. Save your settings to Drive first."
+    "message": "Файл настроек на Диске не найден. Сначала сохраните настройки на Диск."
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Settings restored. Reloading…"
+    "message": "Настройки восстановлены. Перезагрузка…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Could not restore settings from Drive. Please try again."
+    "message": "Не удалось восстановить настройки с Диска. Попробуйте ещё раз."
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "Last backup: $date$",
+    "message": "Последняя резервная копия: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1069,7 +1069,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Existing settings backup from $date$. Overwrite?",
+    "message": "Уже есть резервная копия настроек от $date$. Перезаписать?",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1077,49 +1077,49 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Export settings"
+    "message": "Экспорт настроек"
   },
   "html_options_settings_import": {
-    "message": "Import settings"
+    "message": "Импорт настроек"
   },
   "js_options_settings_import_confirm": {
-    "message": "This will overwrite your current settings. Continue?"
+    "message": "Это перезапишет текущие настройки. Продолжить?"
   },
   "js_options_settings_import_success": {
-    "message": "Settings imported. Reloading…"
+    "message": "Настройки импортированы. Перезагрузка…"
   },
   "js_options_settings_import_error": {
-    "message": "Invalid settings file."
+    "message": "Недопустимый файл настроек."
   },
   "html_history_migrate_nav": {
-    "message": "Migrate"
+    "message": "Перенести"
   },
   "html_backup_restore_title": {
-    "message": "Restore from backup"
+    "message": "Восстановить из резервной копии"
   },
   "html_backup_restore_desc": {
-    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+    "message": "Импортируйте файл резервной копии, чтобы восстановить его как сохранённую сессию. После импорта откройте «Сессии», чтобы выбрать, какие окна восстановить."
   },
   "html_backup_restore_local_title": {
-    "message": "Local file"
+    "message": "Локальный файл"
   },
   "html_backup_restore_drive_title": {
-    "message": "Google Drive"
+    "message": "Google Диск"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file"
+    "message": "Выбрать файл резервной копии"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Select a Drive backup"
+    "message": "Выберите резервную копию с Диска"
   },
   "html_backup_restore_import": {
-    "message": "Import selected"
+    "message": "Импортировать выбранное"
   },
   "js_backup_restore_importing": {
-    "message": "Importing…"
+    "message": "Импорт…"
   },
   "js_backup_restore_success": {
-    "message": "Imported as \"$name$\".",
+    "message": "Импортировано как «$name$».",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1127,22 +1127,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ Open Sessions to restore"
+    "message": "→ Открыть «Сессии» для восстановления"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Invalid backup file."
+    "message": "Недопустимый файл резервной копии."
   },
   "js_backup_restore_error_drive": {
-    "message": "Could not download from Drive. Check your connection and try again."
+    "message": "Не удалось скачать с Диска. Проверьте подключение и попробуйте снова."
   },
   "js_backup_restore_error_generic": {
-    "message": "Import failed. Please try again."
+    "message": "Ошибка импорта. Попробуйте ещё раз."
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Save Drive backup before switching?"
+    "message": "Сохранить резервную копию с Диска перед переключением?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "message": "Ваша последняя резервная копия на Диске от $date$. Сохраните её как сессию в менеджере сессий, чтобы восстановить без Google Диска.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1150,27 +1150,27 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Save to Sessions"
+    "message": "Сохранить в «Сессии»"
   },
   "html_backup_drive_import_modal_cancel": {
-    "message": "Skip"
+    "message": "Пропустить"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive backup files"
+    "message": "Файлы резервных копий на Диске"
   },
   "html_backup_drive_download_btn": {
-    "message": "Download"
+    "message": "Скачать"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Delete"
+    "message": "Удалить"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Delete this backup file from Drive? This cannot be undone."
+    "message": "Удалить этот файл резервной копии с Диска? Это действие нельзя отменить."
   },
   "html_backup_drive_no_files": {
-    "message": "No Drive backup files found."
+    "message": "Файлы резервных копий на Диске не найдены."
   },
   "html_backup_drive_files_loading": {
-    "message": "Loading…"
+    "message": "Загрузка…"
   }
 }

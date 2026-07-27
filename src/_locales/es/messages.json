@@ -78,52 +78,52 @@
     "message": "Anular suspensión de todas las pestañas en todas las ventanas"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "Estado de las pestañas (Beta)"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "Si tienes problemas con tus pestañas suspendidas, especialmente con los favicons, haz clic en \"Escanear pestañas\" para ver si podemos repararlas."
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "No hemos encontrado ningún problema con tus pestañas suspendidas. Si sigues viendo algo raro, avísanos abajo e intentaremos ampliar esta comprobación."
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "Algunas de tus pestañas suspendidas no se han cargado por completo. Podemos recargarlas para solucionarlo."
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "Algunas de tus pestañas suspendidas usan el favicon predeterminado del navegador. Eso significa que la caché de TMS no las tiene. Podemos restaurar y volver a suspender un número mínimo de pestañas para obtener esos favicons que faltan."
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "Escanear pestañas"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "Copiar resultados"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "Escaneando pestañas..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "Pestañas suspendidas por TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "favicons en la caché de TMS"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "pestañas no se han cargado"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "pestañas tienen el favicon de TMS"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "pestañas tienen un favicon predeterminado"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "nombres de host únicos"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "Es posible que la caché local de favicons de TMS no cubra todas las pestañas. Si se borra la caché del navegador, TMS podría no mostrar algunos favicons."
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "Siguiente: recargar $count$ pestañas",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -131,7 +131,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "Siguiente: restaurar $count$ pestañas para almacenar favicons",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -139,28 +139,28 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "Restaurando favicons..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "Cuando tus pestañas terminen de cargarse en segundo plano, puedes volver a hacer clic en \"Escanear pestañas\" para ver si algo ha mejorado."
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "Puedes volver a hacer clic en \"Escanear pestañas\" para ver si algo ha mejorado."
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "Si sigues teniendo problemas con las pestañas o los favicons, puedes hacer clic en \"Copiar resultados\" y pegarlo en un nuevo"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "Issue en GitHub."
   },
   "html_health_num_grouped_broken": {
-    "message": "grouped tabs in broken state (Tab Groups bug)"
+    "message": "pestañas agrupadas en estado defectuoso (error de grupos de pestañas)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "Algunas pestañas en grupos están en un estado defectuoso: se muestran como una nueva pestaña en lugar de cargarse correctamente tras reiniciar el navegador. TMS puede intentar restaurarlas."
   },
   "html_health_repair_button": {
-    "message": "Repair $count$ grouped tab(s)",
+    "message": "Reparar $count$ pestaña(s) agrupada(s)",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -168,25 +168,25 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+    "message": "Listo. Vuelve a escanear para verificar que las pestañas agrupadas volvieron a su estado suspendido."
   },
   "html_about_title": {
     "message": "Acerca de"
   },
   "html_about_version_label": {
-    "message": "Version"
+    "message": "Versión"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension — replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "El sucesor espiritual de la suspensión moderna de pestañas: sustituye las pestañas inactivas por una ligera página de hibernación, dándote un control preciso sobre cuándo despiertan."
   },
   "html_about_section_credits": {
-    "message": "Credits"
+    "message": "Créditos"
   },
   "html_about_contributors_and": {
-    "message": " and "
+    "message": " y "
   },
   "html_about_community_thanks_link": {
-    "message": "all contributors on GitHub"
+    "message": "todos los colaboradores en GitHub"
   },
   "html_about_fork_beginning": {
     "message": "Basado en el original"
@@ -195,10 +195,10 @@
     "message": "disponible en GitHub, sin seguimiento ADS"
   },
   "html_about_fork_end": {
-    "message": "More information available on"
+    "message": "Más información disponible en"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "Creado por"
   },
   "html_about_report_issues_prefix": {
     "message": "Si tiene comentarios o desea reportar un problema, puede hacerlo en el"
@@ -207,19 +207,19 @@
     "message": ". Por favor, compruebe si su idea o problema ya existe antes de crear una nueva. ¡Gracias!"
   },
   "html_about_debugging_prefix": {
-    "message": "To capture logs and generate a diagnostic report, go to the "
+    "message": "Para capturar registros y generar un informe de diagnóstico, ve a la "
   },
   "html_about_debugging_suffix": {
-    "message": "diagnostic page."
+    "message": "página de diagnóstico."
   },
   "html_about_the_github_issues_page": {
     "message": "Página de incidencias de GitHub"
   },
   "html_about_section_support": {
-    "message": "Support development"
+    "message": "Apoyar el desarrollo"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender es gratuito y de código abierto. Si te resulta útil, considera hacer una pequeña contribución: ayuda a mantener el proyecto vivo y en crecimiento."
   },
   "html_broken_title": {
     "message": "está roto"
@@ -228,7 +228,7 @@
     "message": "¡Oh oh!"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "no se pudo iniciar. ¿Quizás estás usando un navegador incompatible?"
   },
   "html_broken_line2": {
     "message": "Intente reiniciar la extensión. Si el problema persiste, pida ayuda en la"
@@ -249,7 +249,7 @@
     "message": "Administración de sesión"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS mantiene una instantánea continua de tus pestañas abiertas, sin necesidad de configuración. Las sesiones se actualizan automáticamente mientras navegas, pero viven dentro de Chrome: si el perfil del navegador se pierde o se corrompe, se pierden con él."
   },
   "html_history_current_session": {
     "message": "Sesión actual"
@@ -270,10 +270,10 @@
     "message": "Extension ID"
   },
   "html_history_migrate_section_title": {
-    "message": "Tab migration"
+    "message": "Migración de pestañas"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recover tabs suspended by a previous version or another fork of this extension. Enter the old extension ID below and click Migrate tabs to convert the suspended URLs."
+    "message": "Recupera pestañas suspendidas por una versión anterior u otro fork de esta extensión. Introduce abajo el ID de la extensión antigua y haz clic en \"Migrar pestañas\" para convertir las URL suspendidas."
   },
   "html_options_title": {
     "message": "Configuración"
@@ -285,22 +285,22 @@
     "message": "Pestañas suspendidas"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Append original URL to suspended tab title"
+    "message": "Añadir la URL original al título de la pestaña suspendida"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+    "message": "Si está activado, la URL original se añade al título de la pestaña del navegador en las páginas suspendidas."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+    "message": "Esto permite encontrar pestañas suspendidas por nombre de host usando \"Buscar pestañas\" de Chrome (Ctrl+Mayús+A)."
   },
   "html_options_other_title": {
     "message": "General"
   },
   "html_options_language": {
-    "message": "Language"
+    "message": "Idioma"
   },
   "html_options_language_auto": {
-    "message": "System default"
+    "message": "Predeterminado del sistema"
   },
   "html_options_suspend_automatically_after": {
     "message": "Suspender automáticamente las pestañas después de"
@@ -360,13 +360,13 @@
     "message": "Anular suspensión automáticamente de la pestaña cuando sea vista"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "Aplicar el ahorro de memoria integrado del navegador al suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "Reduce el uso de memoria de una pestaña suspendida aún más, mediante la utilización"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "la función integrada de \"descarte de pestañas\" de tu navegador. Esto puede suponer hasta"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
     "message": "al 500% de ahorro de memoria cuando se trabaja con un gran número de pestañas."
@@ -378,7 +378,7 @@
     "message": "pestañas suspendidas"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Para más información sobre el descarte de pestañas, consulta:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -393,7 +393,7 @@
     "message": "Oscuro"
   },
   "html_options_suspend_theme_system": {
-    "message": "System"
+    "message": "Sistema"
   },
   "html_options_suspend_screen_capturing": {
     "message": "Captura de pantalla"
@@ -420,7 +420,7 @@
     "message": "así como un uso de memoria ligeramente mayor."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "Si notas un comportamiento extraño, como que las pestañas tardan mucho en suspenderse o que el navegador"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "falla inesperadamente, intente deshabilitar esta función."
@@ -462,10 +462,10 @@
     "message": "Probar lista blanca"
   },
   "html_options_whitelist_close": {
-    "message": "Close"
+    "message": "Cerrar"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake whitelisted tabs"
+    "message": "Despertar pestañas de la lista blanca"
   },
   "html_options_other_enable_context_menu": {
     "message": "Añadir The Marvellous Suspender al menú contextual del clic derecho"
@@ -480,31 +480,31 @@
     "message": "en otra parte de la extensión."
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "Sincronizar la configuración con tu perfil del navegador"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "La configuración de la extensión se sincronizará en todos los navegadores que estén"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "conectado con el mismo perfil."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "Esto también sincronizará la configuración en modo incógnito."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "Activar esto sobrescribirá la configuración en todos los demás navegadores conectados con el mismo perfil"
   },
   "html_options_suspend_on_low_memory": {
     "message": "Suspender instantáneamente cuando la memoria del sistema es muy baja"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "Esta opción anulará la función de descarte automático de pestañas."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "Si está activada, forzará la suspensión de una pestaña en lugar de descartarla."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "Normalmente, tu navegador solo descarta pestañas cuando la memoria del sistema es muy baja."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "Tenga en cuenta: Esto puede causar que las pestañas se suspendan antes del tiempo que ha"
@@ -513,7 +513,7 @@
     "message": "especificado en las opciones de suspensión Automática de pestañas."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Para más información sobre el descarte de pestañas, consulta:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -537,7 +537,7 @@
     "message": "Anular suspensión de todas las pestañas"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake whitelisted tabs"
+    "message": "Despertar pestañas de la lista blanca"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Suspender pestañas seleccionadas"
@@ -549,10 +549,10 @@
     "message": "Configuración"
   },
   "html_popup_backup_now_local": {
-    "message": "Backup session now (Local)"
+    "message": "Hacer copia de la sesión ahora (Local)"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Backup session now (Cloud)"
+    "message": "Hacer copia de la sesión ahora (Nube)"
   },
   "html_restoring_title": {
     "message": "Restaurando ventana"
@@ -606,10 +606,10 @@
     "message": "Configuración"
   },
   "html_sidebar_session_management": {
-    "message": "Sessions"
+    "message": "Sesiones"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "Estado de las pestañas"
   },
   "html_sidebar_shortcuts": {
     "message": "Atajos del teclado"
@@ -618,31 +618,31 @@
     "message": "Acerca de"
   },
   "html_sidebar_backup": {
-    "message": "Backup"
+    "message": "Copia de seguridad"
   },
   "html_sidebar_news": {
-    "message": "News"
+    "message": "Novedades"
   },
   "html_news_title": {
-    "message": "News & Updates"
+    "message": "Novedades y actualizaciones"
   },
   "html_news_desc": {
-    "message": "Stay up to date with the latest releases, known issues, and announcements from the Marvellous Codeworks blog."
+    "message": "Mantente al día de los últimos lanzamientos, problemas conocidos y anuncios del blog de Marvellous Codeworks."
   },
   "html_news_loading": {
-    "message": "Loading news…"
+    "message": "Cargando novedades…"
   },
   "html_news_empty": {
-    "message": "No news yet. Check back soon!"
+    "message": "Aún no hay novedades. ¡Vuelve pronto!"
   },
   "html_news_new_pill": {
-    "message": "NEW"
+    "message": "NUEVO"
   },
   "html_news_mark_all_read": {
-    "message": "Mark all as read"
+    "message": "Marcar todo como leído"
   },
   "html_backup_page_title": {
-    "message": "Backup & Restore"
+    "message": "Copia de seguridad y restauración"
   },
   "html_success_great_success": {
     "message": "¡Maravilloso éxito!"
@@ -687,13 +687,13 @@
     "message": "Actualizar"
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "está listo para ser aún más marav<i>illoso</i>"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "Se instalará una nueva versión de The Marvellous Suspender la próxima vez que reinicies tu navegador."
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "IMPORTANTE: No pudimos crear un punto de restauración para tus pestañas.<br>¡Guarda una copia de seguridad AHORA!"
   },
   "html_update_info_nobackup_prefix": {
     "message": "Se recomienda encarecidamente que exporte una copia de su sesión actual desde "
@@ -884,10 +884,10 @@
     "message": "Actualizar extensión ahora"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "Guardar una copia de seguridad antes de actualizar"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "Activar la extensión (mostrar ventana emergente)"
   },
   "js_shortcuts_not_set": {
     "message": "no establecido"
@@ -896,70 +896,70 @@
     "message": "Punto de guardado automático para v"
   },
   "html_options_backup_title": {
-    "message": "Automatic session backup"
+    "message": "Copia de seguridad automática de la sesión"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "A diferencia de las sesiones, las copias de seguridad se guardan como archivos JSON fuera de Chrome, en tu carpeta de descargas o en Google Drive. Sobreviven a bloqueos del navegador, restablecimientos de perfil e instalaciones nuevas. Esta es tu verdadera red de seguridad."
   },
   "html_options_backup_enable": {
-    "message": "Automatically back up your session"
+    "message": "Hacer copia de seguridad de tu sesión automáticamente"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+    "message": "Guarda silenciosamente una copia de tu sesión actual como archivo JSON. Elige guardarla localmente (carpeta tms-backups dentro de tus descargas) o en una carpeta 'TMS Backups' en Google Drive."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "Para las copias locales, Chrome debe estar configurado para descargar archivos automáticamente (sin preguntar); revisa chrome://settings/downloads. Las copias en Google Drive no tienen este requisito."
   },
   "html_options_backup_interval": {
-    "message": "Backup every"
+    "message": "Copia de seguridad cada"
   },
   "html_options_backup_daily_time": {
-    "message": "At what time"
+    "message": "A qué hora"
   },
   "html_backup_interval_warning": {
-    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+    "message": "Aviso: con un intervalo tan largo, puede pasar mucho entre copias de seguridad. Considera un intervalo más corto para reducir el riesgo de pérdida de datos."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+    "message": "Tanto las copias locales como las de Drive incluyen un identificador de dispositivo (p. ej., tms-session-a3f7b2c8-2026-06-18T14-30.json), de modo que cada instalación del navegador mantiene su propio conjunto independiente de copias de seguridad. Se conservan las N copias locales más recientes por dispositivo; las copias en Drive también conservan N por dispositivo, de modo que las sesiones de diferentes equipos o navegadores nunca se sobrescriben entre sí."
   },
   "html_backup_max_files_label": {
-    "message": "Max backups to keep"
+    "message": "Máximo de copias de seguridad a conservar"
   },
   "html_backup_device_name_label": {
-    "message": "Device name (optional)"
+    "message": "Nombre del dispositivo (opcional)"
   },
   "html_backup_device_name_save": {
-    "message": "Save"
+    "message": "Guardar"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Legacy backups"
+    "message": "Copias de seguridad antiguas"
   },
   "html_options_backup_now": {
-    "message": "Backup now"
+    "message": "Hacer copia de seguridad ahora"
   },
   "html_options_back_to_top": {
-    "message": "↑ Top"
+    "message": "↑ Arriba"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+    "message": "Las sesiones se almacenan solo dentro de Chrome; no sobrevivirán a un bloqueo del navegador ni a un restablecimiento de perfil."
   },
   "html_history_backup_settings_link": {
-    "message": "Set up Backup to save your tabs outside the browser →"
+    "message": "Configura una copia de seguridad para guardar tus pestañas fuera del navegador →"
   },
   "js_options_backup_now_running": {
-    "message": "Running backup…"
+    "message": "Ejecutando copia de seguridad…"
   },
   "js_options_backup_now_done": {
-    "message": "Backup saved."
+    "message": "Copia de seguridad guardada."
   },
   "js_backup_option_saved": {
-    "message": "Saved"
+    "message": "Guardado"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome está preguntando dónde guardar los archivos; las copias de seguridad automáticas no funcionarán en silencio. Desactiva \"Preguntar dónde guardar cada archivo\" en chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
-    "message": "Next run: $time$",
+    "message": "Próxima ejecución: $time$",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -967,7 +967,7 @@
     }
   },
   "js_options_backup_last_local": {
-    "message": "Last backup: $date$",
+    "message": "Última copia de seguridad: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -975,49 +975,49 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "Backup destination"
+    "message": "Destino de la copia de seguridad"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (Downloads folder)"
+    "message": "Local (carpeta de descargas)"
   },
   "html_options_backup_dest_drive": {
     "message": "Google Drive"
   },
   "html_options_backup_drive_connect": {
-    "message": "Connect Google Account"
+    "message": "Conectar cuenta de Google"
   },
   "html_options_backup_drive_disconnect": {
-    "message": "Disconnect"
+    "message": "Desconectar"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+    "message": "Error en la copia de seguridad automática: no hay ninguna cuenta de Google conectada. Haz clic aquí para solucionarlo."
   },
   "js_options_backup_drive_connecting": {
-    "message": "Connecting…"
+    "message": "Conectando…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Could not connect to Google. Please try again."
+    "message": "No se pudo conectar con Google. Inténtalo de nuevo."
   },
   "html_options_settings_backup": {
-    "message": "Settings backup"
+    "message": "Copia de seguridad de la configuración"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "Exporta toda la configuración de la extensión a un archivo JSON; útil como copia de seguridad o para transferir tu configuración a otro perfil del navegador. Al importar un archivo se reemplaza la configuración actual."
   },
   "html_backup_local_folder_hint": {
-    "message": "Local backups go to the tms-backups folder inside your Downloads."
+    "message": "Las copias locales se guardan en la carpeta tms-backups dentro de tus descargas."
   },
   "html_backup_drive_folder_note": {
-    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+    "message": "Las copias de seguridad se guardan en la carpeta 'TMS Backups' de tu Google Drive."
   },
   "html_backup_drive_open_folder": {
-    "message": "Open TMS Backups folder on Drive ↗"
+    "message": "Abrir la carpeta TMS Backups en Drive ↗"
   },
   "html_backup_drive_label_account": {
-    "message": "Account"
+    "message": "Cuenta"
   },
   "html_backup_drive_label_folder": {
-    "message": "Folder"
+    "message": "Carpeta"
   },
   "html_backup_settings_local_title": {
     "message": "Local"
@@ -1026,22 +1026,22 @@
     "message": "Google Drive"
   },
   "html_backup_drive_save_settings": {
-    "message": "Save settings to Drive"
+    "message": "Guardar configuración en Drive"
   },
   "html_backup_settings_drive_restore": {
-    "message": "Restore settings from Drive"
+    "message": "Restaurar configuración desde Drive"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Saving to Drive…"
+    "message": "Guardando en Drive…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "Settings saved to Drive."
+    "message": "Configuración guardada en Drive."
   },
   "js_backup_drive_settings_error": {
-    "message": "Could not save settings to Drive. Please try again."
+    "message": "No se pudo guardar la configuración en Drive. Inténtalo de nuevo."
   },
   "js_backup_cooldown": {
-    "message": "Wait $seconds$s before the next backup.",
+    "message": "Espera $seconds$s antes de la próxima copia de seguridad.",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1049,19 +1049,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Downloading settings from Drive…"
+    "message": "Descargando configuración desde Drive…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "No settings file found on Drive. Save your settings to Drive first."
+    "message": "No se encontró ningún archivo de configuración en Drive. Guarda primero tu configuración en Drive."
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Settings restored. Reloading…"
+    "message": "Configuración restaurada. Recargando…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Could not restore settings from Drive. Please try again."
+    "message": "No se pudo restaurar la configuración desde Drive. Inténtalo de nuevo."
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "Last backup: $date$",
+    "message": "Última copia de seguridad: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1069,7 +1069,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Existing settings backup from $date$. Overwrite?",
+    "message": "Ya existe una copia de seguridad de configuración del $date$. ¿Sobrescribir?",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1077,49 +1077,49 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Export settings"
+    "message": "Exportar configuración"
   },
   "html_options_settings_import": {
-    "message": "Import settings"
+    "message": "Importar configuración"
   },
   "js_options_settings_import_confirm": {
-    "message": "This will overwrite your current settings. Continue?"
+    "message": "Esto sobrescribirá tu configuración actual. ¿Continuar?"
   },
   "js_options_settings_import_success": {
-    "message": "Settings imported. Reloading…"
+    "message": "Configuración importada. Recargando…"
   },
   "js_options_settings_import_error": {
-    "message": "Invalid settings file."
+    "message": "Archivo de configuración no válido."
   },
   "html_history_migrate_nav": {
-    "message": "Migrate"
+    "message": "Migrar"
   },
   "html_backup_restore_title": {
-    "message": "Restore from backup"
+    "message": "Restaurar desde una copia de seguridad"
   },
   "html_backup_restore_desc": {
-    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+    "message": "Importa un archivo de copia de seguridad para restaurarlo como sesión guardada. Una vez importado, abre Sesiones para elegir qué ventanas restaurar."
   },
   "html_backup_restore_local_title": {
-    "message": "Local file"
+    "message": "Archivo local"
   },
   "html_backup_restore_drive_title": {
     "message": "Google Drive"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file"
+    "message": "Elegir archivo de copia de seguridad"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Select a Drive backup"
+    "message": "Selecciona una copia de seguridad de Drive"
   },
   "html_backup_restore_import": {
-    "message": "Import selected"
+    "message": "Importar selección"
   },
   "js_backup_restore_importing": {
-    "message": "Importing…"
+    "message": "Importando…"
   },
   "js_backup_restore_success": {
-    "message": "Imported as \"$name$\".",
+    "message": "Importado como \"$name$\".",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1127,22 +1127,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ Open Sessions to restore"
+    "message": "→ Abrir Sesiones para restaurar"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Invalid backup file."
+    "message": "Archivo de copia de seguridad no válido."
   },
   "js_backup_restore_error_drive": {
-    "message": "Could not download from Drive. Check your connection and try again."
+    "message": "No se pudo descargar desde Drive. Comprueba tu conexión e inténtalo de nuevo."
   },
   "js_backup_restore_error_generic": {
-    "message": "Import failed. Please try again."
+    "message": "Error al importar. Inténtalo de nuevo."
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Save Drive backup before switching?"
+    "message": "¿Guardar la copia de seguridad de Drive antes de cambiar?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "message": "Tu copia de seguridad de Drive más reciente es del $date$. Guárdala como sesión en el Administrador de sesiones para poder restaurarla sin necesitar Google Drive.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1150,27 +1150,27 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Save to Sessions"
+    "message": "Guardar en Sesiones"
   },
   "html_backup_drive_import_modal_cancel": {
-    "message": "Skip"
+    "message": "Omitir"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive backup files"
+    "message": "Archivos de copia de seguridad de Drive"
   },
   "html_backup_drive_download_btn": {
-    "message": "Download"
+    "message": "Descargar"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Delete"
+    "message": "Eliminar"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Delete this backup file from Drive? This cannot be undone."
+    "message": "¿Eliminar este archivo de copia de seguridad de Drive? Esto no se puede deshacer."
   },
   "html_backup_drive_no_files": {
-    "message": "No Drive backup files found."
+    "message": "No se encontraron archivos de copia de seguridad en Drive."
   },
   "html_backup_drive_files_loading": {
-    "message": "Loading…"
+    "message": "Cargando…"
   }
 }
