@@ -7,18 +7,12 @@
 **Free your memory. Suspend what you don't need.**
 
 A free, open-source Chrome extension - no ads, no tracking.  
-Based on [The Great Suspender](https://github.com/greatsuspender/thegreatsuspender), cleaned up and actively maintained.
+Based on The Great Suspender, cleaned up and actively maintained.
 
 [![License: GPLv2](https://img.shields.io/badge/License-GPLv2-blue.svg)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/Manifest-v3-brightgreen)](#build-from-source)
 [![Chrome ≥ 110](https://img.shields.io/badge/Chrome-%3E%3D110-yellow?logo=googlechrome&logoColor=white)](https://go.gioxx.org/tgs)
 [![Crowdin](https://img.shields.io/badge/l10n-Crowdin-2E3340?logo=crowdin&logoColor=white)](https://crowdin.com/project/tms)
-
----
-
-<img src="src/img/marvellous-codeworks-logo.webp" alt="Marvellous Codeworks" height="26" />
-
-*A Marvellous Codeworks project*
 
 </div>
 
@@ -28,15 +22,13 @@ Once installed and enabled, this extension will automatically *suspend* tabs tha
 
 If you have suggestions or problems using the extension, please [submit a bug or a feature request](https://github.com/gioxx/MarvellousSuspender/issues/).
 
-**If you have lost tabs from your browser** you can read a guide for how to recover them [here](https://github.com/deanoemcke/thegreatsuspender/issues/526).
-
 ---
 
 ## Chrome Web Store
 
-The Marvellous Suspender is [available via the official Chrome Web Store](https://go.gioxx.org/tgs).
+The Marvellous Suspender is [available via the official Chrome Web Store](https://chromewebstore.google.com/detail/the-marvellous-suspender/noogafoofpebimajpfpamcfhoaifemoa).
 
-For more information on the permissions required by the extension, see [greatsuspender/thegreatsuspender#213](https://github.com/greatsuspender/thegreatsuspender/issues/213).
+For more information on the permissions required by the extension, see [kb.marvellouscode.works/docs/TMS/permissions](https://kb.marvellouscode.works/docs/TMS/permissions).
 
 ---
 
@@ -85,7 +77,9 @@ Help localize the extension into your language via Crowdin: [crowdin.com/project
 If your language is not available, [submit a feature request](https://github.com/gioxx/MarvellousSuspender/issues/).
 
 > [!WARNING]  
-> **Only `en` (English) and `it` (Italian) are maintained directly and can be relied upon as accurate.** All other languages were recently brought up to date with AI assistance to close large translation gaps - the result should be functional, but has not had a native-speaker review pass. If you're fluent in one of these languages, corrections and improvements via Crowdin are very welcome.
+> **Only `en` (English) and `it` (Italian) are maintained directly and can be relied upon as accurate**.
+> All other languages were recently brought up to date with AI assistance to close large translation gaps - the result should be functional, but has not had a native-speaker review pass.
+> If you're fluent in one of these languages, **corrections and improvements via Crowdin are very welcome**.
 
 ---
 
@@ -95,9 +89,7 @@ This work is licensed under a [GNU General Public License v2](LICENSE).
 
 ---
 
-### Shoutouts
-
-<img src="src/img/suspendy-guy-lotus.webp" alt="" width="48" align="right" />
-
-This package uses the [html2canvas](https://github.com/niklasvh/html2canvas) library written by Niklas von Hertzen.  
-It also uses the IndexedDB wrapper [db.js](https://github.com/aaronpowell/db.js) written by Aaron Powell.
+<div>
+  <img src="src/img/suspendy-guy-lotus.webp" alt="" width="48" align="right" />
+  <img src="src/img/marvellous-codeworks-logo.webp" alt="Marvellous Codeworks" height="26" align="left" /> <i>A Marvellous Codeworks project</i>
+</div>
