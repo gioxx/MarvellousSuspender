@@ -1,5 +1,7 @@
 // @ts-check
+import  { gsBackup }              from './gsBackup.js';
 import  { gsChrome }              from './gsChrome.js';
+import  { gsNewsFeed }            from './gsNewsFeed.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
@@ -19,12 +21,18 @@ import  { tgs }                   from './tgs.js';
     if (startupDone) return;
     startupDone = true;
 
+    // Restore persisted capture-logs flag so logs survive SW restarts
+    chrome.storage.local.get(['gsCaptureVerbose'], (result) => {
+      if (result.gsCaptureVerbose) gsUtils.captureLogs = true;
+    });
+
     tgs.resetAutoSuspendTimerForAllTabs();
 
     Promise.resolve()
       .then(gsStorage.initSettingsAsPromised)   // ensure settings have been loaded and synced
       .then(async () => { await gsStorage.saveStorage('session', 'gsInitialisationMode', true); })
       .then(gsSession.runStartupChecks)         // performs crash check (and maybe recovery) and tab responsiveness checks
+      .then(gsBackup.retryPendingDriveBackup)   // upload any Drive backup queued by an emergency onSuspend
       .catch((error) => {
         gsUtils.error('background startup checks error: ', error);
       });
@@ -54,24 +62,6 @@ import  { tgs }                   from './tgs.js';
       await gsStorage.setOptionAndSync(gsStorage.UPDATE_AVAILABLE, false);
     }
 
-    // gsUtils.debugInfo   = true;
-    // gsUtils.debugError  = true;
-    // if (gsUtils.debugInfo) {
-    //   // await gsStorage.setOptionAndSync(gsStorage.UPDATE_AVAILABLE, true);
-    //   // chrome.storage.local.set({'gsVersion': '"8.0.0"'});
-    //   await chrome.storage.local.remove([gsStorage.LAST_EXTENSION_RECOVERY]);
-    //   setTimeout(async () => {
-    //     // await chrome.tabs.create({ url: `${getSuspendURL()}#ttl=Google+1&uri=https://www.google.com` });
-    //     // await chrome.tabs.create({ url: `${getSuspendURL()}#ttl=GitHub+3&uri=https://www.github.com` });
-    //     await chrome.tabs.create({ url: chrome.runtime.getURL('debug.html') });
-    //     await chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
-    //     // await chrome.tabs.create({ url: chrome.runtime.getURL('health.html') });
-    //   }, 200);
-    //   // setTimeout(() => {
-    //   //   gsSession.prepareForUpdate({ version: 'new version'});
-    //   // }, 5000);
-    // }
-
   });
 
   if (self instanceof ServiceWorkerGlobalScope) {
@@ -92,6 +82,7 @@ import  { tgs }                   from './tgs.js';
 
   chrome.runtime.onSuspend.addListener(() => {
     gsUtils.log('5 runtime.onSuspend');
+    gsBackup.performEmergencyBackup(); // fire-and-forget: the service worker may be killed before this resolves
   });
   chrome.runtime.onSuspendCanceled.addListener(() => {
     gsUtils.log('6 runtime.onSuspendCanceled');
@@ -149,6 +140,10 @@ import  { tgs }                   from './tgs.js';
         await gsTabSuspendManager.handlePreviewImageResponse(sender.tab, request.previewUrl, request.errorMsg); // async. unhandled promise
         break;
       }
+      case 'fetchNewsFeed' : {
+        gsNewsFeed.fetchAndCacheIfStale();
+        break;
+      }
 
       case 'suspendOne' : {
         tgs.suspendHighlightedTab();
@@ -164,6 +159,10 @@ import  { tgs }                   from './tgs.js';
       }
       case 'unsuspendAll' : {
         tgs.unsuspendAllTabs();
+        break;
+      }
+      case 'unsuspendWhitelisted' : {
+        tgs.unsuspendWhitelistedTabs();
         break;
       }
       case 'suspendSelected' : {
@@ -188,6 +187,14 @@ import  { tgs }                   from './tgs.js';
       }
       case 'settingsLink' : {
         await chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
+        break;
+      }
+      case 'backupNow' : {
+        await gsBackup.performBackup();
+        break;
+      }
+      case 'setCaptureLogs' : {
+        gsUtils.captureLogs = request.value;
         break;
       }
       default: {
@@ -301,6 +308,30 @@ import  { tgs }                   from './tgs.js';
       case 'open_session_history':
         await chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
         break;
+      case 'tab_toggle_suspend':
+        tgs.toggleSuspendStateOfTab(tab);
+        break;
+      case 'tab_toggle_pause':
+        tgs.requestToggleTempWhitelistStateOfTab(tab);
+        break;
+      case 'tab_never_suspend_domain':
+        tgs.whitelistTab(tab, false);
+        break;
+      case 'tab_never_suspend_page':
+        tgs.whitelistTab(tab, true);
+        break;
+      case 'tab_soft_suspend_other_tabs':
+        tgs.suspendAllTabs(false);
+        break;
+      case 'tab_unsuspend_all_in_window':
+        tgs.unsuspendAllTabs();
+        break;
+      case 'tab_soft_suspend_all':
+        tgs.suspendAllTabsInAllWindows(false);
+        break;
+      case 'tab_unsuspend_all':
+        tgs.unsuspendAllTabsInAllWindows();
+        break;
       default:
         break;
     }
@@ -349,6 +380,20 @@ import  { tgs }                   from './tgs.js';
   /** @param { chrome.alarms.Alarm } alarm */
   async function alarmListener(alarm) {
     gsUtils.log('background', 'alarmListener', alarm);
+
+    if (alarm.name === gsBackup.ALARM_NAME) {
+      await gsBackup.performBackup();
+      return;
+    }
+    if (alarm.name === gsBackup.RETRY_ALARM_NAME) {
+      await gsBackup.retryPendingDriveBackup();
+      return;
+    }
+    if (alarm.name === gsNewsFeed.ALARM_NAME) {
+      await gsNewsFeed.fetchAndCache();
+      return;
+    }
+
     const tabId = parseInt(alarm.name);
     const tab = await gsChrome.tabsGet(tabId);
     if (!tab) {
@@ -365,16 +410,17 @@ import  { tgs }                   from './tgs.js';
       await tgs.handleWindowFocusChanged(windowId);
     });
     chrome.tabs.onActivated.addListener(async (activeInfo) => {
+      gsUtils.log(activeInfo.tabId, 'tab onActivated');
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
     });
     chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
+      gsUtils.log(removedTabId, 'tab onReplaced', addedTabId, removedTabId);
       // await tgs.updateTabIdReferences(addedTabId, removedTabId);
       tgs.queueSessionTimer();
       await tgs.removeTabIdReferences(removedTabId);
-      // @TODO: Do we need to do anything here?  Seems like onCreated doesn't
     });
     chrome.tabs.onCreated.addListener(async (tab) => {
-      gsUtils.log(tab.id, 'tab created. tabUrl: ', tab.url);
+      gsUtils.log(tab.id, 'tab onCreated', tab.url);
       tgs.queueSessionTimer();
 
       // It's unusual for a suspended tab to be created. Usually they are updated
@@ -411,6 +457,7 @@ import  { tgs }                   from './tgs.js';
     };
 
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+      gsUtils.log(tabId, 'tab onUpdated', changeInfo, tab.url);
       if (!changeInfo) return;
 
       if (await gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT) && changeInfo.status === 'complete') {
@@ -532,6 +579,15 @@ import  { tgs }                   from './tgs.js';
     .then(initAsPromised)
     .catch((error) => {
       gsUtils.error('background init error: ', error);
+    })
+    .then(() => gsBackup.syncAlarmWithSettings())
+    .catch((error) => {
+      gsUtils.error('background backup alarm sync error: ', error);
+    })
+    .then(() => gsNewsFeed.syncAlarm())
+    .then(() => gsNewsFeed.fetchAndCacheIfStale())
+    .catch((error) => {
+      gsUtils.error('background news feed init error: ', error);
     });
 
 

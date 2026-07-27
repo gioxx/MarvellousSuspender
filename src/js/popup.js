@@ -117,62 +117,62 @@ import  { tgs }                   from './tgs.js';
     // Update status icon and text
     if (status === gsUtils.STATUS_NORMAL || status === gsUtils.STATUS_ACTIVE) {
       statusDetail =
-        chrome.i18n.getMessage('js_popup_normal') +
+        gsUtils.getMessage('js_popup_normal') +
         " <a href='#'>" +
-        chrome.i18n.getMessage('js_popup_normal_pause') +
+        gsUtils.getMessage('js_popup_normal_pause') +
         '</a>';
       //    statusIconClass = 'fa fa-clock-o';
     } else if (status === gsUtils.STATUS_SUSPENDED) {
       // statusDetail =
-      //   chrome.i18n.getMessage('js_popup_suspended') +
+      //   gsUtils.getMessage('js_popup_suspended') +
       //   " <a href='#'>" +
-      //   chrome.i18n.getMessage('js_popup_suspended_pause') +
+      //   gsUtils.getMessage('js_popup_suspended_pause') +
       //   '</a>';
-      statusDetail = chrome.i18n.getMessage('js_popup_suspended');
+      statusDetail = gsUtils.getMessage('js_popup_suspended');
       //    statusIconClass = 'fa fa-pause';
     } else if (status === gsUtils.STATUS_NEVER) {
-      statusDetail = chrome.i18n.getMessage('js_popup_never');
+      statusDetail = gsUtils.getMessage('js_popup_never');
       //    statusIconClass = 'fa fa-ban';
     } else if (status === gsUtils.STATUS_SPECIAL) {
-      statusDetail = chrome.i18n.getMessage('js_popup_special');
+      statusDetail = gsUtils.getMessage('js_popup_special');
       //    statusIconClass = 'fa fa-remove';
     } else if (status === gsUtils.STATUS_WHITELISTED) {
       statusDetail =
-        chrome.i18n.getMessage('js_popup_whitelisted') +
+        gsUtils.getMessage('js_popup_whitelisted') +
         " <a href='#'>" +
-        chrome.i18n.getMessage('js_popup_whitelisted_remove') +
+        gsUtils.getMessage('js_popup_whitelisted_remove') +
         '</a>';
       //    statusIconClass = 'fa fa-check';
     } else if (status === gsUtils.STATUS_AUDIBLE) {
-      statusDetail = chrome.i18n.getMessage('js_popup_audible');
+      statusDetail = gsUtils.getMessage('js_popup_audible');
       //    statusIconClass = 'fa fa-volume-up';
     } else if (status === gsUtils.STATUS_FORMINPUT) {
       statusDetail =
-        chrome.i18n.getMessage('js_popup_form_input') +
+        gsUtils.getMessage('js_popup_form_input') +
         " <a href='#'>" +
-        chrome.i18n.getMessage('js_popup_form_input_unpause') +
+        gsUtils.getMessage('js_popup_form_input_unpause') +
         '</a>';
       //    statusIconClass = 'fa fa-edit';
     } else if (status === gsUtils.STATUS_PINNED) {
-      statusDetail = chrome.i18n.getMessage('js_popup_pinned'); //  statusIconClass = 'fa fa-thumb-tack';
+      statusDetail = gsUtils.getMessage('js_popup_pinned'); //  statusIconClass = 'fa fa-thumb-tack';
     } else if (status === gsUtils.STATUS_TEMPWHITELIST) {
       statusDetail =
-        chrome.i18n.getMessage('js_popup_temp_whitelist') +
+        gsUtils.getMessage('js_popup_temp_whitelist') +
         " <a href='#'>" +
-        chrome.i18n.getMessage('js_popup_temp_whitelist_unpause') +
+        gsUtils.getMessage('js_popup_temp_whitelist_unpause') +
         '</a>';
       //    statusIconClass = 'fa fa-pause';
     } else if (status === gsUtils.STATUS_NOCONNECTIVITY) {
-      statusDetail = chrome.i18n.getMessage('js_popup_no_connectivity');
+      statusDetail = gsUtils.getMessage('js_popup_no_connectivity');
       //    statusIconClass = 'fa fa-plane';
     } else if (status === gsUtils.STATUS_CHARGING) {
-      statusDetail = chrome.i18n.getMessage('js_popup_charging');
+      statusDetail = gsUtils.getMessage('js_popup_charging');
       //    statusIconClass = 'fa fa-plug';
     } else if (status === gsUtils.STATUS_BLOCKED_FILE) {
       statusDetail =
-        chrome.i18n.getMessage('js_popup_blockedFile') +
+        gsUtils.getMessage('js_popup_blockedFile') +
         " <a href='#'>" +
-        chrome.i18n.getMessage('js_popup_blockedFile_enable') +
+        gsUtils.getMessage('js_popup_blockedFile_enable') +
         '</a>';
       //    statusIconClass = 'fa fa-exclamation-triangle';
     } else if (
@@ -180,13 +180,13 @@ import  { tgs }                   from './tgs.js';
       status === gsUtils.STATUS_UNKNOWN
     ) {
       if (await gsSession.isInitialising()) {
-        statusDetail = chrome.i18n.getMessage('js_popup_initialising');
+        statusDetail = gsUtils.getMessage('js_popup_initialising');
       } else {
-        statusDetail = chrome.i18n.getMessage('js_popup_unknown');
+        statusDetail = gsUtils.getMessage('js_popup_unknown');
       }
       //    statusIconClass = 'fa fa-circle-o-notch';
     } else if (status === 'error') {
-      statusDetail = chrome.i18n.getMessage('js_popup_error');
+      statusDetail = gsUtils.getMessage('js_popup_error');
       //    statusIconClass = 'fa fa-exclamation-triangle';
     } else {
       gsUtils.warning('popup', 'Could not process tab status of: ' + status);
@@ -242,12 +242,36 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  function showPopupContents() {
-    gsStorage.getOption(gsStorage.THEME).then((theme) => {
-      if (theme === 'dark') {
-        document.body.classList.add('dark');
-      }
-    });
+  async function showPopupContents() {
+    document.getElementById('brandVersion').textContent =
+      'v' + chrome.runtime.getManifest().version;
+    const [theme, backupEnabled, backupDest, errorFlag] = await Promise.all([
+      gsStorage.getOption(gsStorage.THEME),
+      gsStorage.getOption(gsStorage.AUTO_BACKUP_ENABLED),
+      gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION),
+      chrome.storage.local.get('tmsBackupDriveError'),
+    ]);
+    if (theme === 'dark') {
+      document.body.classList.add('dark');
+    }
+    if (backupEnabled) {
+      const labelKey = backupDest === 'drive'
+        ? 'html_popup_backup_now_cloud'
+        : 'html_popup_backup_now_local';
+      document.getElementById('backupNowLabel').textContent =
+        gsUtils.getMessage(labelKey);
+      document.getElementById('optsBackup').classList.remove('hidden');
+    }
+    if (errorFlag.tmsBackupDriveError) {
+      const banner = document.getElementById('backupErrorBanner');
+      banner.classList.remove('hidden');
+      banner.addEventListener('click', () => {
+        chrome.tabs.create({ url: chrome.runtime.getURL('backup.html') });
+        window.close();
+      });
+      await chrome.storage.local.remove('tmsBackupDriveError');
+      await chrome.action.setBadgeText({ text: '' });
+    }
   }
 
   function addClickListener(message) {
@@ -268,10 +292,12 @@ import  { tgs }                   from './tgs.js';
     addClickListener('unsuspendOne');
     addClickListener('suspendAll');
     addClickListener('unsuspendAll');
+    addClickListener('unsuspendWhitelisted');
     addClickListener('suspendSelected');
     addClickListener('unsuspendSelected');
     addClickListener('whitelistDomain');
     addClickListener('whitelistPage');
+    addClickListener('backupNow');
     addClickListener('sessionManagerLink');
     addClickListener('settingsLink');
   }

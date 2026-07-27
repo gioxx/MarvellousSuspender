@@ -2,8 +2,8 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <link type="text/css" href="css/style.css" rel="stylesheet">
-  <!-- <script type="module" src="js/historyUtils.js"></script> -->
   <script type="module" src="js/permissions.js"></script>
   <title id="gsTitle" data-i18n="__MSG_ext_extension_name__ - __MSG_html_permissions_title__"></title>
 </head>
@@ -12,14 +12,23 @@
 
   <div class="splash">
 
-    <img class="suspendy-guy" src="img/suspendy-guy.png" />
+    <div class="splash-header brandMark">
+      <div class="brandTitle">
+        <img src="img/suspendy-guy-main.webp" alt="" class="extensionIcon" aria-hidden="true" />
+        <h1 data-i18n="__MSG_ext_extension_name__"></h1>
+      </div>
+      <div class="brandCodeworks">
+        <img src="img/marvellous-codeworks-logo.webp" alt="" class="brandLogo" aria-hidden="true" />
+        <span class="brandSubtitle">a Marvellous Codeworks project</span>
+      </div>
+    </div>
+
+    <img class="suspendy-guy" src="img/suspendy-guy.webp" alt="" />
 
     <div>
-      <h2><span data-i18n="__MSG_html_permissions_heading__"></span></h2>
-
+      <h1 data-i18n="__MSG_html_permissions_heading__"></h1>
       <p data-i18n="__MSG_html_permissions_info__"></p>
       <p data-i18n="__MSG_html_permissions_backup__"></p>
-
       <hr />
       <div>
         <a href="#" id="exportBackupBtn" class="btn" data-i18n="__MSG_js_permissions_button_export__"></a>

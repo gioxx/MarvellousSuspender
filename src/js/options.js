@@ -13,6 +13,7 @@ import  { gsUtils }               from './gsUtils.js';
     unsuspendOnFocus: gsStorage.UNSUSPEND_ON_FOCUS,
     claimByDefault: gsStorage.CLAIM_BY_DEFAULT,
     discardAfterSuspend: gsStorage.DISCARD_AFTER_SUSPEND,
+    appendUrlToTitle:    gsStorage.APPEND_URL_TO_TITLE,
     dontSuspendPinned: gsStorage.IGNORE_PINNED,
     dontSuspendForms: gsStorage.IGNORE_FORMS,
     dontSuspendAudio: gsStorage.IGNORE_AUDIO,
@@ -22,6 +23,7 @@ import  { gsUtils }               from './gsUtils.js';
     syncSettings: gsStorage.SYNC_SETTINGS,
     timeToSuspend: gsStorage.SUSPEND_TIME,
     theme: gsStorage.THEME,
+    language: gsStorage.LANGUAGE,
     whitelist: gsStorage.WHITELIST,
   };
 
@@ -88,12 +90,11 @@ import  { gsUtils }               from './gsUtils.js';
   }
 
   function populateOption(element, value) {
-    if (
-      element.tagName === 'INPUT' &&
-      element.hasAttribute('type') &&
-      element.getAttribute('type') === 'checkbox'
-    ) {
+    if (element.tagName === 'INPUT' && element.getAttribute('type') === 'checkbox') {
       element.checked = value;
+    }
+    else if (element.tagName === 'INPUT' && element.getAttribute('type') === 'radio') {
+      element.checked = (element.value === value);
     }
     else if (element.tagName === 'SELECT') {
       selectComboBox(element, value);
@@ -104,12 +105,11 @@ import  { gsUtils }               from './gsUtils.js';
   }
 
   function getOptionValue(element) {
-    if (
-      element.tagName === 'INPUT' &&
-      element.hasAttribute('type') &&
-      element.getAttribute('type') === 'checkbox'
-    ) {
+    if (element.tagName === 'INPUT' && element.getAttribute('type') === 'checkbox') {
       return element.checked;
+    }
+    if (element.tagName === 'INPUT' && element.getAttribute('type') === 'radio') {
+      return element.value;
     }
     if (element.tagName === 'SELECT') {
       return element.children[element.selectedIndex].value;
@@ -120,34 +120,17 @@ import  { gsUtils }               from './gsUtils.js';
   }
 
   function setForceScreenCaptureVisibility(visible) {
-    if (visible) {
-      document.getElementById('forceScreenCaptureContainer').style.display = 'block';
-    }
-    else {
-      document.getElementById('forceScreenCaptureContainer').style.display = 'none';
-    }
+    document.getElementById('forceScreenCaptureContainer').classList.toggle('hidden', !visible);
   }
 
   function setSyncNoteVisibility(visible) {
-    if (visible) {
-      document.getElementById('syncNote').style.display = 'block';
-    }
-    else {
-      document.getElementById('syncNote').style.display = 'none';
-    }
+    document.getElementById('syncNote').classList.toggle('hidden', !visible);
   }
 
   function setAutoSuspendOptionsVisibility(visible) {
     Array.prototype.forEach.call(
       document.getElementsByClassName('autoSuspendOption'),
-      (el) => {
-        if (visible) {
-          el.style.display = 'block';
-        }
-        else {
-          el.style.display = 'none';
-        }
-      },
+      (el) => el.classList.toggle('hidden', !visible),
     );
   }
 
@@ -174,6 +157,13 @@ import  { gsUtils }               from './gsUtils.js';
         // Instead of reloading the page, just update the CSS directly
         gsUtils.setPageTheme(window, getOptionValue(element));
       }
+      else if (pref === gsStorage.AUTO_BACKUP_ENABLED) {
+        setAutoBackupOptionsVisibility(getOptionValue(element));
+      }
+      else if (pref === gsStorage.AUTO_BACKUP_DESTINATION) {
+        setDriveDestinationVisibility(getOptionValue(element) === 'drive');
+        await updateDriveAuthUI();
+      }
 
       const [oldValue, newValue] = await saveChange(element);
       if (oldValue !== newValue) {
@@ -183,8 +173,39 @@ import  { gsUtils }               from './gsUtils.js';
           { [prefKey]: oldValue },
           { [prefKey]: newValue },
         );
+        if (prefKey !== gsStorage.LANGUAGE) {
+          showSavedFeedback(element);
+        }
+      }
+
+      if (pref === gsStorage.LANGUAGE) {
+        window.location.reload();
       }
     };
+  }
+
+  const _savedTimers = new Map();
+
+  function showSavedFeedback(element) {
+    const row = element.closest('.formRow');
+    if (!row) return;
+    const span = row.querySelector('.optionSavedFeedback');
+    if (!span) return;
+    span.textContent = gsUtils.getMessage('js_backup_option_saved');
+    span.classList.add('visible');
+    clearTimeout(_savedTimers.get(row));
+    _savedTimers.set(row, setTimeout(() => span.classList.remove('visible'), 2000));
+  }
+
+  function injectSavedFeedbackSpans() {
+    document.querySelectorAll('.formRow').forEach(row => {
+      if (row.querySelector('.option') && !row.querySelector('.optionSavedFeedback')) {
+        const span = document.createElement('span');
+        span.className = 'optionSavedFeedback';
+        span.setAttribute('aria-live', 'polite');
+        row.appendChild(span);
+      }
+    });
   }
 
   async function saveChange(element) {
@@ -231,6 +252,8 @@ import  { gsUtils }               from './gsUtils.js';
 
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(() => {
     chrome.runtime.onMessage.addListener(messageRequestListener);
+    gsUtils.initSelectArrows(document);
+    injectSavedFeedbackSpans();
     initSettings();
 
     const optionEls = document.getElementsByClassName('option');
@@ -250,37 +273,92 @@ import  { gsUtils }               from './gsUtils.js';
       }
     }
 
+    // Back-to-top button
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTopBtn.classList.toggle('visible', window.scrollY > 200);
+    }, { passive: true });
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Active section tracking for in-page nav
+    const navSections = Array.from(document.querySelectorAll('.sub-section[id]'));
+    const navLinks    = Array.from(document.querySelectorAll('.pageInlineNav a[href^="#"]'));
+    let navClickLock  = null;
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        clearTimeout(navClickLock);
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        navClickLock = setTimeout(() => { navClickLock = null; }, 1000);
+      });
+    });
+    function updateActiveNavLink() {
+      if (navClickLock) return;
+      const scrollPos = window.scrollY + 120;
+      let activeId    = navSections[0]?.id;
+      for (const section of navSections) {
+        if (section.offsetTop <= scrollPos) activeId = section.id;
+      }
+      navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`));
+    }
+    window.addEventListener('scroll', updateActiveNavLink, { passive: true });
+    updateActiveNavLink();
+
     document.getElementById('testWhitelistBtn').onclick = async (event) => {
       event.preventDefault();
-      const tabs      = await gsChrome.tabsQuery();
-      const tabUrls   = [];
+      const tabs     = await gsChrome.tabsQuery();
+      const matches  = [];
       for (const tab of tabs) {
-        const url     = gsUtils.isSuspendedTab(tab) ? gsUtils.getOriginalUrl(tab.url) : tab.url;
+        const url    = gsUtils.isSuspendedTab(tab) ? gsUtils.getOriginalUrl(tab.url) : tab.url;
         if (!(gsUtils.isSpecialTab(tab)) && (await gsUtils.checkWhiteList(url))) {
-          const str   = url.length > 55 ? `${url.substr(0, 52)}...` : url;
-          tabUrls.push(str);
+          const label = url.length > 55 ? `${url.substr(0, 52)}...` : url;
+          matches.push({ tabId: tab.id, windowId: tab.windowId, label });
         }
       }
 
-      if (tabUrls.length === 0) {
-        alert(chrome.i18n.getMessage('js_options_whitelist_no_matches'));
-        return;
+      const modal    = document.getElementById('whitelistTestModal');
+      const listEl   = document.getElementById('whitelistTestModalList');
+      const emptyEl  = document.getElementById('whitelistTestModalEmpty');
+      listEl.innerHTML = '';
+
+      if (matches.length === 0) {
+        emptyEl.classList.remove('hidden');
+      } else {
+        emptyEl.classList.add('hidden');
+        for (const match of matches) {
+          const li = document.createElement('li');
+          const a  = document.createElement('a');
+          a.href        = '#';
+          a.textContent = match.label;
+          a.addEventListener('click', async (clickEvent) => {
+            clickEvent.preventDefault();
+            modal.classList.add('hidden');
+            await gsChrome.tabsUpdate(match.tabId, { active: true });
+            await gsChrome.windowsUpdate(match.windowId, { focused: true });
+          });
+          li.appendChild(a);
+          listEl.appendChild(li);
+        }
       }
 
-      const firstUrls = tabUrls.splice(0, 22);
-      let alertString = `${chrome.i18n.getMessage(
-        'js_options_whitelist_matches_heading',
-      )}\n${firstUrls.join('\n')}`;
+      modal.classList.remove('hidden');
+    };
 
-      if (tabUrls.length > 0) {
-        alertString += `\n${chrome.i18n.getMessage(
-          'js_options_whitelist_matches_overflow_prefix',
-        )} ${tabUrls.length} ${chrome.i18n.getMessage(
-          'js_options_whitelist_matches_overflow_suffix',
-        )}`;
+    document.getElementById('whitelistTestModalClose').onclick = () => {
+      document.getElementById('whitelistTestModal').classList.add('hidden');
+    };
+
+    document.getElementById('whitelistTestModal').addEventListener('click', (event) => {
+      if (event.target.id === 'whitelistTestModal') {
+        event.target.classList.add('hidden');
       }
-      alert(alertString);
-      // gsUtils.log('options', 'testWhitelistBtn', '\n', alertString);
+    });
+
+    document.getElementById('unsuspendWhitelistedBtn').onclick = async (event) => {
+      event.preventDefault();
+      await chrome.runtime.sendMessage({ action: 'unsuspendWhitelisted' });
     };
 
     // hide incompatible sidebar items if in incognito mode
@@ -291,7 +369,7 @@ import  { gsUtils }               from './gsUtils.js';
           el.style.display = 'none';
         },
       );
-      window.alert(chrome.i18n.getMessage('js_options_incognito_warning'));
+      window.alert(gsUtils.getMessage('js_options_incognito_warning'));
     }
   });
 

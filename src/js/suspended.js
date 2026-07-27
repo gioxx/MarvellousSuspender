@@ -126,19 +126,8 @@ import  { tgs }                   from './tgs.js';
     if (!document.getElementById('gsPreviewContainer')) {
       return;
     }
-    const overflow = previewMode === '2' ? 'auto' : 'hidden';
-    document.body.style['overflow'] = overflow;
-
-    if (previewMode === '0' || !previewUri) {
-      document.getElementById('gsPreviewContainer').style.display = 'none';
-      document.getElementById('suspendedMsg').style.display = 'flex';
-      document.body.classList.remove('img-preview-mode');
-    }
-    else {
-      document.getElementById('gsPreviewContainer').style.display = 'block';
-      document.getElementById('suspendedMsg').style.display = 'none';
-      document.body.classList.add('img-preview-mode');
-    }
+    document.body.classList.toggle('preview-scrollable', previewMode === '2');
+    document.body.classList.toggle('img-preview-mode', previewMode !== '0' && !!previewUri);
   }
 
   function setCommand(command) {
@@ -147,7 +136,7 @@ import  { tgs }                   from './tgs.js';
       hotkeyEl.innerHTML = '<span class="hotkeyCommand">(' + command + ')</span>';
     }
     else {
-      const reloadString = chrome.i18n.getMessage( 'js_suspended_hotkey_to_reload', );
+      const reloadString = gsUtils.getMessage( 'js_suspended_hotkey_to_reload', );
       hotkeyEl.innerHTML = `<a id='setKeyboardShortcut' href='#'>${reloadString}</a>`;
     }
   }
@@ -216,8 +205,7 @@ import  { tgs }                   from './tgs.js';
     // Check if there are updates
     const update = await gsStorage.getOption(gsStorage.UPDATE_AVAILABLE);
     if (update) {
-      let el = document.getElementById('tmsUpdateAvailable');
-      el.style.display = 'block';
+      document.getElementById('tmsUpdateAvailable').classList.add('update-available');
     }
     setGoToUpdateHandler();
   }
@@ -269,6 +257,15 @@ import  { tgs }                   from './tgs.js';
       title = gsUtils.htmlEncode(title);
     }
     setTitle(title);
+
+    const appendUrl = await gsStorage.getOption(gsStorage.APPEND_URL_TO_TITLE);
+    if (appendUrl) {
+      const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
+      if (originalUrl) {
+        document.title = title + ' — ' + originalUrl;
+      }
+    }
+
     // await setUpdateBanner();
     setWatermark();
 
@@ -307,7 +304,7 @@ import  { tgs }                   from './tgs.js';
     const suspendReasonInt = await tgs.getTabStatePropForTabId( tab.id, tgs.STATE_SUSPEND_REASON );
     let suspendReason = null;
     if (suspendReasonInt === 3) {
-      suspendReason = chrome.i18n.getMessage('js_suspended_low_memory');
+      suspendReason = gsUtils.getMessage('js_suspended_low_memory');
     }
     setReason(suspendReason);
 
@@ -335,9 +332,10 @@ import  { tgs }                   from './tgs.js';
     if (!document.getElementById('disconnectedNotice')) {
       loadToastTemplate();
     }
-    document.getElementById('disconnectedNotice').style.display = 'none';
+    const noticeEl = document.getElementById('disconnectedNotice');
+    noticeEl.classList.remove('toast-active');
     setTimeout(function() {
-      document.getElementById('disconnectedNotice').style.display = 'block';
+      noticeEl.classList.add('toast-active');
     }, 50);
   }
 

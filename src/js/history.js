@@ -40,7 +40,7 @@ import  { historyUtils }          from './historyUtils.js';
 
   function deleteSession(sessionId) {
     var result = window.confirm(
-      chrome.i18n.getMessage('js_history_confirm_delete'),
+      gsUtils.getMessage('js_history_confirm_delete'),
     );
     if (result) {
       gsIndexedDb.removeSessionFromHistory(sessionId).then(function() {
@@ -75,13 +75,10 @@ import  { historyUtils }          from './historyUtils.js';
       'sessionContents',
     )[0];
     var sessionIcon = element.getElementsByClassName('sessionIcon')[0];
-    if (sessionIcon.classList.contains('icon-plus-squared-alt')) {
-      sessionIcon.classList.remove('icon-plus-squared-alt');
-      sessionIcon.classList.add('icon-minus-squared-alt');
-    } else {
-      sessionIcon.classList.remove('icon-minus-squared-alt');
-      sessionIcon.classList.add('icon-plus-squared-alt');
-    }
+    const isExpanded = sessionIcon.getAttribute('data-icon') === 'square-minus';
+    const nextIcon = isExpanded ? 'square-plus' : 'square-minus';
+    sessionIcon.setAttribute('data-icon', nextIcon);
+    sessionIcon.querySelector('use').setAttribute('href', `img/icons.svg#${nextIcon}`);
 
     //if toggled on already, then toggle off
     if (sessionContentsEl.childElementCount > 0) {
@@ -320,6 +317,39 @@ import  { historyUtils }          from './historyUtils.js';
     };
 
     render();
+
+    // Back-to-top button
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTopBtn.classList.toggle('visible', window.scrollY > 200);
+    }, { passive: true });
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Active section tracking for in-page nav
+    const navSections = Array.from(document.querySelectorAll('.sub-section[id]'));
+    const navLinks    = Array.from(document.querySelectorAll('.pageInlineNav a[href^="#"]'));
+    let navClickLock  = null;
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        clearTimeout(navClickLock);
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        navClickLock = setTimeout(() => { navClickLock = null; }, 1000);
+      });
+    });
+    function updateActiveNavLink() {
+      if (navClickLock) return;
+      const scrollPos = window.scrollY + 120;
+      let activeId    = navSections[0]?.id;
+      for (const section of navSections) {
+        if (section.offsetTop <= scrollPos) activeId = section.id;
+      }
+      navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`));
+    }
+    window.addEventListener('scroll', updateActiveNavLink, { passive: true });
+    updateActiveNavLink();
 
   });
 

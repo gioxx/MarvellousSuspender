@@ -8,7 +8,6 @@ import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
 
 export const gsSession = (function() {
-  'use strict';
 
   const tabsToRestorePerSecond  = 15;
   const tabsToGroupPerSecond    = 50;
@@ -172,6 +171,7 @@ export const gsSession = (function() {
     updateCurrentSession(); //async
     await gsStorage.saveStorage('session', 'gsInitialisationMode', false);
   }
+
 
   //make sure the contentscript / suspended script of each tab is responsive
   async function performTabChecks() {
