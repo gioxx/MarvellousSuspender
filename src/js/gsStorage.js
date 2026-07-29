@@ -43,6 +43,7 @@ export const gsStorage = {
   LOG_BUFFER                    : 'gsLogBuffer',
 
   APPEND_URL_TO_TITLE           : 'gsAppendUrlToTitle',
+  ADD_YOUTUBE_TIMESTAMP         : 'gsAddYouTubeTimestamp',
 
   noop: function() {},
 
@@ -76,6 +77,7 @@ export const gsStorage = {
     defaults[gsStorage.AUTO_BACKUP_TIME] = '09:00';
     defaults[gsStorage.AUTO_BACKUP_MAX_FILES] = 10;
     defaults[gsStorage.APPEND_URL_TO_TITLE] = true;
+    defaults[gsStorage.ADD_YOUTUBE_TIMESTAMP] = true;
 
     return defaults;
   },

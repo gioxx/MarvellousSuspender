@@ -14,6 +14,7 @@ import  { gsUtils }               from './gsUtils.js';
     claimByDefault: gsStorage.CLAIM_BY_DEFAULT,
     discardAfterSuspend: gsStorage.DISCARD_AFTER_SUSPEND,
     appendUrlToTitle:    gsStorage.APPEND_URL_TO_TITLE,
+    addYouTubeTimestamp: gsStorage.ADD_YOUTUBE_TIMESTAMP,
     dontSuspendPinned: gsStorage.IGNORE_PINNED,
     dontSuspendForms: gsStorage.IGNORE_FORMS,
     dontSuspendAudio: gsStorage.IGNORE_AUDIO,
