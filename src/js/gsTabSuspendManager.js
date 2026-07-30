@@ -351,13 +351,17 @@ export const gsTabSuspendManager = (function() {
     });
   }
 
-  function generateUrlWithYouTubeTimestamp(tab) {
-    return new Promise(resolve => {
-      if (tab.url.indexOf('https://www.youtube.com/watch') < 0) {
-        resolve(tab.url);
-        return;
-      }
+  async function generateUrlWithYouTubeTimestamp(tab) {
+    if (!tab.url.includes('https://www.youtube.com/watch')) {
+      return tab.url;
+    }
 
+    const addYouTubeTimestamp = await gsStorage.getOption(gsStorage.ADD_YOUTUBE_TIMESTAMP);
+    if (!addYouTubeTimestamp) {
+      return tab.url;
+    }
+
+    return new Promise(resolve => {
       gsMessages.executeCodeOnTab(
         tab.id,
         [], // args for injection
