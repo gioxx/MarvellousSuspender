@@ -293,6 +293,9 @@
   "html_options_suspended_append_url_to_title_tooltip_line2": {
     "message": "これにより、Chromeの「タブを検索」機能（Ctrl+Shift+A）を使ってホスト名で停止中のタブを見つけられるようになります。"
   },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Preserve YouTube playback position when suspending"
+  },
   "html_options_other_title": {
     "message": "一般"
   },
