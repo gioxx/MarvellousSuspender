@@ -293,6 +293,9 @@
   "html_options_suspended_append_url_to_title_tooltip_line2": {
     "message": "To umožňuje vyhľadávať pozastavené karty podľa názvu hostiteľa pomocou funkcie Chromu „Hľadať na kartách“ (Ctrl+Shift+A)."
   },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Preserve YouTube playback position when suspending"
+  },
   "html_options_other_title": {
     "message": "Všeobecné"
   },
@@ -654,7 +657,7 @@
     "message": "Pre pokročilú správu relácií navštívte stránku"
   },
   "html_success_goto_advanced_suffix": {
-    "message": ""
+    "message": "page"
   },
   "html_session_manager": {
     "message": "správa relácií"

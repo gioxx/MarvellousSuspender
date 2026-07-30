@@ -293,6 +293,9 @@
   "html_options_suspended_append_url_to_title_tooltip_line2": {
     "message": "Cela permet de retrouver les onglets suspendus par nom d'hôte grâce à la fonction « Rechercher des onglets » de Chrome (Ctrl+Maj+A)."
   },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Preserve YouTube playback position when suspending"
+  },
   "html_options_other_title": {
     "message": "Général"
   },
