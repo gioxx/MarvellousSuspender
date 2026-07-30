@@ -293,6 +293,9 @@
   "html_options_suspended_append_url_to_title_tooltip_line2": {
     "message": "这样可以使用 Chrome 的「搜索标签页」功能（Ctrl+Shift+A）按主机名查找挂起的标签页。"
   },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Preserve YouTube playback position when suspending"
+  },
   "html_options_other_title": {
     "message": "常规"
   },
