@@ -293,6 +293,9 @@
   "html_options_suspended_append_url_to_title_tooltip_line2": {
     "message": "මෙය Chrome හි \"ටැබ් සොයන්න\" (Ctrl+Shift+A) භාවිතයෙන් හෝස්ට්නාමය අනුව අත්හිටුවන ලද ටැබ් සොයා ගැනීමට ඉඩ දෙයි."
   },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Preserve YouTube playback position when suspending"
+  },
   "html_options_other_title": {
     "message": "සාමාන්‍ය"
   },
