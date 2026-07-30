@@ -294,7 +294,7 @@
     "message": "Permette di trovare le schede sospese per hostname tramite \"Cerca nelle schede\" di Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "Preserve YouTube playback position when suspending"
+    "message": "Mantieni la posizione di riproduzione di YouTube alla sospensione"
   },
   "html_options_other_title": {
     "message": "Generali"
