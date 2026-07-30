@@ -293,6 +293,9 @@
   "html_options_suspended_append_url_to_title_tooltip_line2": {
     "message": "Isto permite encontrar separadores suspensos pelo nome de anfitrião com a função \"Pesquisar separadores\" do Chrome (Ctrl+Shift+A)."
   },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Preserve YouTube playback position when suspending"
+  },
   "html_options_other_title": {
     "message": "Geral"
   },
