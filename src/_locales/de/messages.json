@@ -293,6 +293,9 @@
   "html_options_suspended_append_url_to_title_tooltip_line2": {
     "message": "Dadurch lassen sich ausgesetzte Tabs mit Chromes „Tabs durchsuchen“ (Strg+Umschalt+A) anhand des Hostnamens finden."
   },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Preserve YouTube playback position when suspending"
+  },
   "html_options_other_title": {
     "message": "Allgemein"
   },
