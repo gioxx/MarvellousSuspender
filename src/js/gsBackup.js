@@ -356,7 +356,45 @@ export const gsBackup = (() => {
 
   async function clearDriveAuthError() {
     await chrome.storage.local.remove('tmsBackupDriveError');
+    await syncBackupNudgeBadge();
+  }
+
+  async function shouldShowBackupNudge() {
+    const [enabled, optOut, dismissedUntil] = await Promise.all([
+      gsStorage.getOption(gsStorage.AUTO_BACKUP_ENABLED),
+      gsStorage.getOption(gsStorage.BACKUP_NUDGE_OPTOUT),
+      gsStorage.getOption(gsStorage.BACKUP_NUDGE_DISMISSED_UNTIL),
+    ]);
+    if (enabled || optOut) {
+      return false;
+    }
+    return !dismissedUntil || Date.now() > dismissedUntil;
+  }
+
+  async function syncBackupNudgeBadge() {
+    const { tmsBackupDriveError } = await chrome.storage.local.get('tmsBackupDriveError');
+    if (tmsBackupDriveError) {
+      chrome.action.setBadgeText({ text: '!' });
+      chrome.action.setBadgeBackgroundColor({ color: '#C0392B' });
+      return;
+    }
+    if (await shouldShowBackupNudge()) {
+      chrome.action.setBadgeText({ text: 'i' });
+      chrome.action.setBadgeBackgroundColor({ color: '#D9822B' });
+      return;
+    }
     chrome.action.setBadgeText({ text: '' });
+  }
+
+  async function dismissBackupNudge() {
+    const TEN_DAYS_MS = 10 * 24 * 60 * 60 * 1000;
+    await gsStorage.setOptionAndSync(gsStorage.BACKUP_NUDGE_DISMISSED_UNTIL, Date.now() + TEN_DAYS_MS);
+    await syncBackupNudgeBadge();
+  }
+
+  async function optOutBackupNudge() {
+    await gsStorage.setOptionAndSync(gsStorage.BACKUP_NUDGE_OPTOUT, true);
+    await syncBackupNudgeBadge();
   }
 
   async function performBackup() {
@@ -697,6 +735,10 @@ export const gsBackup = (() => {
     scheduleBackup,
     cancelBackup,
     syncAlarmWithSettings,
+    shouldShowBackupNudge,
+    syncBackupNudgeBadge,
+    dismissBackupNudge,
+    optOutBackupNudge,
     getAuthToken,
     revokeAuthToken,
     getDriveUserInfo,
