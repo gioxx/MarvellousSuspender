@@ -245,13 +245,31 @@ import  { gsUtils }    from './gsUtils.js';
         nameInput.placeholder = await gsBackup.getDeviceId();
       }
 
+      const optOutEl = document.getElementById('backupNudgeOptOut');
+      if (optOutEl) {
+        optOutEl.addEventListener('change', async () => {
+          if (optOutEl.checked) {
+            await gsBackup.optOutBackupNudge();
+            document.getElementById('backupNudgeNote').classList.add('hidden');
+          }
+        });
+      }
+
       const isDrive = settings[gsStorage.AUTO_BACKUP_DESTINATION] === 'drive';
       setAutoBackupOptionsVisibility(settings[gsStorage.AUTO_BACKUP_ENABLED]);
       setDailyTimeVisibility(settings[gsStorage.AUTO_BACKUP_INTERVAL]);
       setIntervalWarning(settings[gsStorage.AUTO_BACKUP_INTERVAL]);
       setDestinationPanels(isDrive);
       updateDriveAuthUI();
+      await refreshBackupNudgeUI();
     });
+  }
+
+  async function refreshBackupNudgeUI() {
+    const el = document.getElementById('backupNudgeNote');
+    if (!el) return;
+    const show = await gsBackup.shouldShowBackupNudge();
+    el.classList.toggle('hidden', !show);
   }
 
   function setAutoBackupOptionsVisibility(visible) {
@@ -529,6 +547,11 @@ import  { gsUtils }    from './gsUtils.js';
             await gsBackup.scheduleBackup(interval);
           }
           await updateBackupMeta();
+        }
+
+        if (pref === gsStorage.AUTO_BACKUP_ENABLED) {
+          await gsBackup.syncBackupNudgeBadge();
+          await refreshBackupNudgeUI();
         }
       }
     };
