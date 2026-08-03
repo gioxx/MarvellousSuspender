@@ -995,6 +995,18 @@
   "html_popup_backup_drive_error": {
     "message": "Backup automatico non riuscito: nessun account Google collegato. Clicca qui per rimediare."
   },
+  "html_popup_backup_nudge_text": {
+    "message": "Il backup automatico è disattivato. Proteggi le tue sessioni."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "Ricordamelo tra 10 giorni"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "Il backup automatico è disattivato. Attivandolo proteggi le tue sessioni nel caso il profilo del browser venga mai azzerato o si corrompa."
+  },
+  "html_backup_nudge_optout": {
+    "message": "Non sono interessato, non ricordarmelo più"
+  },
   "js_options_backup_drive_connecting": {
     "message": "Connessione in corso…"
   },

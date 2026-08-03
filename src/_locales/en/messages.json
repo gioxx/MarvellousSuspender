@@ -987,6 +987,18 @@
   "html_popup_backup_drive_error": {
     "message": "Automatic backup failed: no Google account connected. Click here to fix it."
   },
+  "html_popup_backup_nudge_text": {
+    "message": "Automatic backup is off. Protect your sessions."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "Remind me in 10 days"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "Automatic backup is off. Enabling it protects your sessions if this browser profile ever gets reset or corrupted."
+  },
+  "html_backup_nudge_optout": {
+    "message": "I'm not interested, stop reminding me"
+  },
   "js_options_backup_drive_connecting": {
     "message": "Connecting…"
   },
