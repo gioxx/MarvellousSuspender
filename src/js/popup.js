@@ -1,3 +1,4 @@
+import  { gsBackup }              from './gsBackup.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
@@ -271,6 +272,19 @@ import  { tgs }                   from './tgs.js';
       });
       await chrome.storage.local.remove('tmsBackupDriveError');
       await chrome.action.setBadgeText({ text: '' });
+    } else if (await gsBackup.shouldShowBackupNudge()) {
+      const banner = document.getElementById('backupNudgeBanner');
+      banner.classList.remove('hidden');
+      banner.addEventListener('click', () => {
+        chrome.tabs.create({ url: chrome.runtime.getURL('backup.html') });
+        window.close();
+      });
+      document.getElementById('backupNudgeDismiss').addEventListener('click', async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        await gsBackup.dismissBackupNudge();
+        banner.classList.add('hidden');
+      });
     }
   }
 
