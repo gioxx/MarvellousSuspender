@@ -157,7 +157,7 @@
     "message": "guias agrupadas em estado corrompido (bug de grupos de guias)"
   },
   "html_health_repair_intro": {
-    "message": "Algumas guias em Grupos de guias estão em estado corrompido — aparecem como uma nova guia em vez de carregar corretamente após reiniciar o navegador. O TMS pode tentar restaurá-las."
+    "message": "Some tabs in Tab Groups are in a broken state: they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
   },
   "html_health_repair_button": {
     "message": "Reparar $count$ guia(s) agrupada(s)",
@@ -177,7 +177,7 @@
     "message": "Versão"
   },
   "html_about_tagline": {
-    "message": "O sucessor espiritual da suspensão moderna de guias — substitui guias inativas por uma leve página de hibernação, dando a você controle granular sobre quando elas acordam."
+    "message": "The spiritual successor to modern tab suspension: replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
   },
   "html_about_section_credits": {
     "message": "Créditos"
@@ -219,7 +219,7 @@
     "message": "Apoiar o desenvolvimento"
   },
   "html_about_support_text": {
-    "message": "O The Marvellous Suspender é gratuito e de código aberto. Se você o achar útil, considere fazer uma pequena contribuição — isso ajuda a manter o projeto vivo e em crescimento."
+    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution: it helps keep the project alive and growing."
   },
   "html_broken_title": {
     "message": "está quebrado"
@@ -249,7 +249,7 @@
     "message": "Gerenciamento de sessão"
   },
   "html_history_page_desc": {
-    "message": "O TMS mantém um instantâneo contínuo de suas guias abertas — sem necessidade de configuração. As sessões são atualizadas automaticamente enquanto você navega, mas vivem dentro do Chrome: se o perfil do navegador for perdido ou corrompido, elas se perdem junto com ele."
+    "message": "TMS keeps a running snapshot of your open tabs, no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
   },
   "html_history_current_session": {
     "message": "Sessão atual"
@@ -902,7 +902,7 @@
     "message": "Backup automático de sessão"
   },
   "html_backup_session_desc": {
-    "message": "Ao contrário das sessões, os backups são salvos como arquivos JSON fora do Chrome — na sua pasta de Downloads ou no Google Drive. Eles sobrevivem a travamentos do navegador, redefinições de perfil e novas instalações. Essa é sua verdadeira rede de segurança."
+    "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
   },
   "html_options_backup_enable": {
     "message": "Fazer backup automático da sua sessão"
@@ -911,7 +911,7 @@
     "message": "Salva silenciosamente uma cópia da sua sessão atual como arquivo JSON. Escolha salvar localmente (pasta tms-backups dentro dos seus Downloads) ou em uma pasta 'TMS Backups' no Google Drive."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "Para backups locais, o Chrome precisa estar configurado para baixar arquivos automaticamente (sem perguntar) — confira em chrome://settings/downloads. Backups no Google Drive não têm esse requisito."
+    "message": "For local backups, Chrome must be set to download files automatically (without asking). Check chrome://settings/downloads. Google Drive backups have no such requirement."
   },
   "html_options_backup_interval": {
     "message": "Fazer backup a cada"
@@ -923,7 +923,7 @@
     "message": "Atenção: com um intervalo tão longo, muita coisa pode acontecer entre os backups. Considere um intervalo mais curto para reduzir o risco de perda de dados."
   },
   "html_options_backup_note": {
-    "message": "Tanto os backups locais quanto os do Drive incluem um identificador de dispositivo (por exemplo, tms-session-a3f7b2c8-2026-06-18T14-30.json), de modo que cada instalação do navegador mantém seu próprio conjunto independente de backups. Os N backups locais mais recentes são mantidos por dispositivo; os backups do Drive também mantêm N por dispositivo, de modo que sessões de máquinas ou navegadores diferentes nunca se sobrescrevem."
+    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other.\n\n<strong>Even with Google Drive selected, a local safety-net file is still written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug.</strong>"
   },
   "html_backup_max_files_label": {
     "message": "Máximo de backups a manter"
@@ -944,7 +944,7 @@
     "message": "↑ Topo"
   },
   "html_history_backup_hint_prefix": {
-    "message": "As sessões são armazenadas apenas dentro do Chrome — elas não sobreviverão a um travamento do navegador ou redefinição de perfil."
+    "message": "Sessions are stored inside Chrome only: they won't survive a browser crash or profile reset."
   },
   "html_history_backup_settings_link": {
     "message": "Configure o Backup para salvar suas guias fora do navegador →"
@@ -958,8 +958,35 @@
   "js_backup_option_saved": {
     "message": "Salvo"
   },
+  "js_backup_permission_denied": {
+    "message": "Permission denied: automatic backup was not enabled."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "Enable news feed"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1": {
+    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar."
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "Disable to skip this background request."
+  },
+  "html_permissions_notice_text": {
+    "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
+  },
+  "html_permissions_notice_link": {
+    "message": "Learn more about permissions."
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "Got it"
+  },
+  "html_permissions_info_note": {
+    "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
+  },
+  "html_permissions_info_note_link": {
+    "message": "See the full permissions breakdown."
+  },
   "js_options_backup_now_error": {
-    "message": "O Chrome está perguntando onde salvar os arquivos — os backups automáticos não funcionarão silenciosamente. Desative \"Perguntar onde salvar cada arquivo\" em chrome://settings/downloads."
+    "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "Próxima execução: $time$",
@@ -995,6 +1022,27 @@
   "html_popup_backup_drive_error": {
     "message": "Falha no backup automático: nenhuma conta do Google conectada. Clique aqui para corrigir."
   },
+  "html_popup_backup_downloads_error": {
+    "message": "Automatic backup failed: the Downloads permission is missing. Click here to fix it."
+  },
+  "html_popup_backup_nudge_text": {
+    "message": "Automatic backup is off. Protect your sessions."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "Remind me in 10 days"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "Automatic backup is off. Enabling it protects your sessions if this browser profile ever gets reset or corrupted."
+  },
+  "html_backup_nudge_optout": {
+    "message": "I'm not interested, stop reminding me"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "Automatic backup is on, but the Downloads permission isn't granted on this device (this can happen after importing settings or syncing from another browser). Backups won't run until you grant it."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "Grant permission"
+  },
   "js_options_backup_drive_connecting": {
     "message": "Conectando…"
   },
@@ -1005,7 +1053,7 @@
     "message": "Backup de configurações"
   },
   "html_backup_settings_desc": {
-    "message": "Exporte todas as configurações da extensão para um arquivo JSON — útil como backup ou para transferir sua configuração para outro perfil do navegador. Importar um arquivo substitui as configurações atuais."
+    "message": "Export all extension settings to a JSON file, useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
   },
   "html_backup_local_folder_hint": {
     "message": "Backups locais vão para a pasta tms-backups dentro dos seus Downloads."
