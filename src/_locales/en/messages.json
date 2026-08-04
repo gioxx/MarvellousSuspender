@@ -958,6 +958,33 @@
   "js_backup_option_saved": {
     "message": "Saved"
   },
+  "js_backup_permission_denied": {
+    "message": "Permission denied — automatic backup was not enabled."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "Enable news feed"
+  },
+  "html_options_other_enable_news_feed_tooltip": {
+    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar. Disable if you'd rather not have this background request."
+  },
+  "html_permissions_notice_text": {
+    "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
+  },
+  "html_permissions_notice_link": {
+    "message": "Learn more about permissions"
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "Got it"
+  },
+  "html_permissions_info_note": {
+    "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
+  },
+  "html_permissions_info_note_link": {
+    "message": "See the full permissions breakdown"
+  },
+  "html_backup_drive_local_note": {
+    "message": "Even with Google Drive selected, a local safety-net file is written when the browser closes and uploaded to Drive on the next startup — a local file appearing here is expected, not a bug."
+  },
   "js_options_backup_now_error": {
     "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
   },
