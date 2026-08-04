@@ -301,9 +301,11 @@ import  { gsUtils }    from './gsUtils.js';
     const driveEl        = document.getElementById('driveAuthContainer');
     const driveActionsEl = document.getElementById('driveAuthActions');
     const localEl        = document.getElementById('localFolderInfo');
+    const driveNoteEl    = document.getElementById('driveLocalFileNote');
     if (driveEl)        driveEl.classList.toggle('hidden', !isDrive);
     if (driveActionsEl) driveActionsEl.classList.toggle('hidden', !isDrive);
     if (localEl) localEl.style.display = isDrive ? 'none' : 'block';
+    if (driveNoteEl) driveNoteEl.classList.toggle('hidden', !isDrive);
   }
 
   let savedTimer = null;
