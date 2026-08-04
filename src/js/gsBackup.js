@@ -132,7 +132,14 @@ export const gsBackup = (() => {
     }
   }
 
+  async function hasDownloadsPermission() {
+    return chrome.permissions.contains({ permissions: ['downloads'] });
+  }
+
   async function performLocalBackup(jsonString) {
+    if (!(await hasDownloadsPermission())) {
+      throw new Error('TMS_DOWNLOADS_PERMISSION_MISSING');
+    }
     // data: URL works from service workers; Blob URLs do not survive SW lifecycle
     const base64                      = btoa(unescape(encodeURIComponent(jsonString)));
     const dataUrl                     = `data:application/json;base64,${base64}`;
@@ -356,7 +363,71 @@ export const gsBackup = (() => {
 
   async function clearDriveAuthError() {
     await chrome.storage.local.remove('tmsBackupDriveError');
+    await syncBackupNudgeBadge();
+  }
+
+  async function flagDownloadsPermissionMissing() {
+    await chrome.storage.local.set({ tmsBackupDownloadsError: true });
+    await syncBackupNudgeBadge();
+  }
+
+  async function clearDownloadsPermissionMissing() {
+    await chrome.storage.local.remove('tmsBackupDownloadsError');
+    await syncBackupNudgeBadge();
+  }
+
+  async function reconcileDownloadsPermission() {
+    const enabled = await gsStorage.getOption(gsStorage.AUTO_BACKUP_ENABLED);
+    if (!enabled) {
+      await clearDownloadsPermissionMissing();
+      return;
+    }
+    if (await hasDownloadsPermission()) {
+      await clearDownloadsPermissionMissing();
+    } else {
+      await flagDownloadsPermissionMissing();
+    }
+  }
+
+  async function shouldShowBackupNudge() {
+    const [enabled, optOut, dismissedUntil] = await Promise.all([
+      gsStorage.getOption(gsStorage.AUTO_BACKUP_ENABLED),
+      gsStorage.getOption(gsStorage.BACKUP_NUDGE_OPTOUT),
+      gsStorage.getOption(gsStorage.BACKUP_NUDGE_DISMISSED_UNTIL),
+    ]);
+    if (enabled || optOut) {
+      return false;
+    }
+    return !dismissedUntil || Date.now() > dismissedUntil;
+  }
+
+  async function syncBackupNudgeBadge() {
+    const { tmsBackupDriveError, tmsBackupDownloadsError } = await chrome.storage.local.get([
+      'tmsBackupDriveError',
+      'tmsBackupDownloadsError',
+    ]);
+    if (tmsBackupDriveError || tmsBackupDownloadsError) {
+      chrome.action.setBadgeText({ text: '!' });
+      chrome.action.setBadgeBackgroundColor({ color: '#C0392B' });
+      return;
+    }
+    if (await shouldShowBackupNudge()) {
+      chrome.action.setBadgeText({ text: 'i' });
+      chrome.action.setBadgeBackgroundColor({ color: '#D9822B' });
+      return;
+    }
     chrome.action.setBadgeText({ text: '' });
+  }
+
+  async function dismissBackupNudge() {
+    const TEN_DAYS_MS = 10 * 24 * 60 * 60 * 1000;
+    await gsStorage.setOptionAndSync(gsStorage.BACKUP_NUDGE_DISMISSED_UNTIL, Date.now() + TEN_DAYS_MS);
+    await syncBackupNudgeBadge();
+  }
+
+  async function optOutBackupNudge() {
+    await gsStorage.setOptionAndSync(gsStorage.BACKUP_NUDGE_OPTOUT, true);
+    await syncBackupNudgeBadge();
   }
 
   async function performBackup() {
@@ -382,11 +453,15 @@ export const gsBackup = (() => {
         await clearDriveAuthError();
         return result;
       }
-      return await performLocalBackup(jsonString);
+      const result = await performLocalBackup(jsonString);
+      await clearDownloadsPermissionMissing();
+      return result;
     } catch (e) {
       gsUtils.error('gsBackup', 'performBackup failed:', e);
       if (e?.message === 'TMS_DRIVE_AUTH_MISSING') {
         await flagDriveAuthError();
+      } else if (e?.message === 'TMS_DOWNLOADS_PERMISSION_MISSING') {
+        await flagDownloadsPermissionMissing();
       }
     }
   }
@@ -412,22 +487,45 @@ export const gsBackup = (() => {
       const exportObj  = await buildExportObject(session);
       const jsonString = JSON.stringify(exportObj, null, 2);
 
-      await performLocalBackup(jsonString);
+      const localDownloadId = await performLocalBackup(jsonString);
+      await clearDownloadsPermissionMissing();
 
       const destination = await gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION);
       if (destination === 'drive') {
         await chrome.alarms.clear(RETRY_ALARM_NAME);
         await chrome.storage.local.set({
           tmsPendingDriveBackup: {
-            json      : jsonString,
-            createdAt : new Date().toISOString(),
-            attempts  : 0,
+            json           : jsonString,
+            createdAt      : new Date().toISOString(),
+            attempts       : 0,
+            localDownloadId,
           },
         });
         gsUtils.log('gsBackup', 'performEmergencyBackup: queued pending Drive backup for retry on next startup.');
       }
     } catch (e) {
       gsUtils.error('gsBackup', 'performEmergencyBackup failed:', e);
+      if (e?.message === 'TMS_DOWNLOADS_PERMISSION_MISSING') {
+        await flagDownloadsPermissionMissing();
+      }
+    }
+  }
+
+  async function removeLocalBackupFile(downloadId) {
+    if (downloadId == null) return;
+    try {
+      await chrome.downloads.removeFile(downloadId);
+    } catch (_) {
+      // already gone (e.g. removed by normal AUTO_BACKUP_MAX_FILES rotation) — nothing to do
+    }
+    try {
+      const { tmsLocalBackupIds = [] } = await chrome.storage.local.get('tmsLocalBackupIds');
+      const filtered = tmsLocalBackupIds.filter((id) => id !== downloadId);
+      if (filtered.length !== tmsLocalBackupIds.length) {
+        await chrome.storage.local.set({ tmsLocalBackupIds: filtered });
+      }
+    } catch (_) {
+      // non-fatal — rotation bookkeeping will self-correct on the next local backup
     }
   }
 
@@ -442,6 +540,7 @@ export const gsBackup = (() => {
       await performDriveBackup(pending.json);
       await chrome.storage.local.remove('tmsPendingDriveBackup');
       await clearDriveAuthError();
+      await removeLocalBackupFile(pending.localDownloadId);
       gsUtils.log('gsBackup', 'retryPendingDriveBackup: pending backup uploaded successfully.');
     } catch (e) {
       if (e?.message === 'TMS_DRIVE_AUTH_MISSING') {
@@ -697,6 +796,12 @@ export const gsBackup = (() => {
     scheduleBackup,
     cancelBackup,
     syncAlarmWithSettings,
+    shouldShowBackupNudge,
+    syncBackupNudgeBadge,
+    dismissBackupNudge,
+    optOutBackupNudge,
+    hasDownloadsPermission,
+    reconcileDownloadsPermission,
     getAuthToken,
     revokeAuthToken,
     getDriveUserInfo,

@@ -33,6 +33,12 @@ export const gsStorage = {
   AUTO_BACKUP_TIME              : 'gsAutoBackupTime',
   AUTO_BACKUP_MAX_FILES         : 'gsAutoBackupMaxFiles',
 
+  BACKUP_NUDGE_DISMISSED_UNTIL  : 'gsBackupNudgeDismissedUntil',
+  BACKUP_NUDGE_OPTOUT           : 'gsBackupNudgeOptOut',
+
+  NEWS_FEED_ENABLED             : 'gsNewsFeedEnabled',
+  PERMISSIONS_NOTICE_SEEN       : 'gsPermissionsNoticeSeen',
+
   APP_VERSION                   : 'gsVersion',
   LAST_EXTENSION_RECOVERY       : 'gsExtensionRecovery',
   UPDATE_AVAILABLE              : 'gsUpdateAvailable',
@@ -76,6 +82,10 @@ export const gsStorage = {
     defaults[gsStorage.AUTO_BACKUP_DESTINATION] = 'local';
     defaults[gsStorage.AUTO_BACKUP_TIME] = '09:00';
     defaults[gsStorage.AUTO_BACKUP_MAX_FILES] = 10;
+    defaults[gsStorage.BACKUP_NUDGE_DISMISSED_UNTIL] = 0;
+    defaults[gsStorage.BACKUP_NUDGE_OPTOUT] = false;
+    defaults[gsStorage.NEWS_FEED_ENABLED] = true;
+    defaults[gsStorage.PERMISSIONS_NOTICE_SEEN] = false;
     defaults[gsStorage.APPEND_URL_TO_TITLE] = true;
     defaults[gsStorage.ADD_YOUTUBE_TIMESTAMP] = true;
 

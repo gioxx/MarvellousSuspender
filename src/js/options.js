@@ -1,4 +1,5 @@
 import  { gsChrome }              from './gsChrome.js';
+import  { gsNewsFeed }            from './gsNewsFeed.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 
@@ -26,6 +27,7 @@ import  { gsUtils }               from './gsUtils.js';
     theme: gsStorage.THEME,
     language: gsStorage.LANGUAGE,
     whitelist: gsStorage.WHITELIST,
+    newsFeedEnabled: gsStorage.NEWS_FEED_ENABLED,
   };
 
 
@@ -176,6 +178,9 @@ import  { gsUtils }               from './gsUtils.js';
         );
         if (prefKey !== gsStorage.LANGUAGE) {
           showSavedFeedback(element);
+        }
+        if (prefKey === gsStorage.NEWS_FEED_ENABLED) {
+          await gsNewsFeed.syncAlarm();
         }
       }
 

@@ -1,4 +1,5 @@
 import  { gsBackup }   from './gsBackup.js';
+import  { gsNewsFeed } from './gsNewsFeed.js';
 import  { gsStorage }  from './gsStorage.js';
 import  { gsUtils }    from './gsUtils.js';
 
@@ -245,13 +246,58 @@ import  { gsUtils }    from './gsUtils.js';
         nameInput.placeholder = await gsBackup.getDeviceId();
       }
 
+      const optOutEl = document.getElementById('backupNudgeOptOut');
+      if (optOutEl) {
+        optOutEl.addEventListener('change', async () => {
+          if (optOutEl.checked) {
+            await gsBackup.optOutBackupNudge();
+            document.getElementById('backupNudgeNote').classList.add('hidden');
+          }
+        });
+      }
+
+      const grantDownloadsBtn = document.getElementById('grantDownloadsPermissionBtn');
+      if (grantDownloadsBtn) {
+        grantDownloadsBtn.addEventListener('click', async () => {
+          let granted = false;
+          try {
+            granted = await chrome.permissions.request({ permissions: ['downloads'] });
+          } catch (e) {
+            gsUtils.error('backup', 'chrome.permissions.request(downloads) failed:', e);
+          }
+          if (granted) {
+            await gsBackup.reconcileDownloadsPermission();
+            await refreshDownloadsPermissionUI();
+          } else {
+            showBackupPermissionDenied();
+          }
+        });
+      }
+
       const isDrive = settings[gsStorage.AUTO_BACKUP_DESTINATION] === 'drive';
       setAutoBackupOptionsVisibility(settings[gsStorage.AUTO_BACKUP_ENABLED]);
       setDailyTimeVisibility(settings[gsStorage.AUTO_BACKUP_INTERVAL]);
       setIntervalWarning(settings[gsStorage.AUTO_BACKUP_INTERVAL]);
       setDestinationPanels(isDrive);
       updateDriveAuthUI();
+      await refreshBackupNudgeUI();
+      await refreshDownloadsPermissionUI();
     });
+  }
+
+  async function refreshBackupNudgeUI() {
+    const el = document.getElementById('backupNudgeNote');
+    if (!el) return;
+    const show = await gsBackup.shouldShowBackupNudge();
+    el.classList.toggle('hidden', !show);
+  }
+
+  async function refreshDownloadsPermissionUI() {
+    const el = document.getElementById('downloadsPermissionMissingNote');
+    if (!el) return;
+    const enabled = await gsStorage.getOption(gsStorage.AUTO_BACKUP_ENABLED);
+    const granted = await gsBackup.hasDownloadsPermission();
+    el.classList.toggle('hidden', !enabled || granted);
   }
 
   function setAutoBackupOptionsVisibility(visible) {
@@ -296,6 +342,29 @@ import  { gsUtils }    from './gsUtils.js';
     el.classList.add('visible');
     clearTimeout(savedTimer);
     savedTimer = setTimeout(() => el.classList.remove('visible'), 2000);
+  }
+
+  function showBackupPermissionDenied() {
+    const el = document.getElementById('optionSavedStatus');
+    if (!el) return;
+    el.textContent = gsUtils.getMessage('js_backup_permission_denied');
+    el.classList.add('visible');
+    clearTimeout(savedTimer);
+    savedTimer = setTimeout(() => el.classList.remove('visible'), 4000);
+  }
+
+  async function initPermissionsNotice() {
+    const banner = document.getElementById('permissionsNoticeBanner');
+    if (!banner) return;
+    const seen = await gsStorage.getOption(gsStorage.PERMISSIONS_NOTICE_SEEN);
+    if (!seen) banner.classList.remove('hidden');
+    const dismissBtn = document.getElementById('permissionsNoticeDismiss');
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', async () => {
+        await gsStorage.setOptionAndSync(gsStorage.PERMISSIONS_NOTICE_SEEN, true);
+        banner.classList.add('hidden');
+      });
+    }
   }
 
   async function updateDriveAuthUI() {
@@ -487,6 +556,20 @@ import  { gsUtils }    from './gsUtils.js';
     return async () => {
       const pref = elementPrefMap[element.id];
 
+      if (pref === gsStorage.AUTO_BACKUP_ENABLED && getOptionValue(element)) {
+        let granted = false;
+        try {
+          granted = await chrome.permissions.request({ permissions: ['downloads'] });
+        } catch (e) {
+          gsUtils.error('backup', 'chrome.permissions.request(downloads) failed:', e);
+        }
+        if (!granted) {
+          element.checked = false;
+          showBackupPermissionDenied();
+          return;
+        }
+      }
+
       if (pref === gsStorage.AUTO_BACKUP_ENABLED) {
         setAutoBackupOptionsVisibility(getOptionValue(element));
       }
@@ -529,6 +612,12 @@ import  { gsUtils }    from './gsUtils.js';
             await gsBackup.scheduleBackup(interval);
           }
           await updateBackupMeta();
+        }
+
+        if (pref === gsStorage.AUTO_BACKUP_ENABLED) {
+          await gsBackup.reconcileDownloadsPermission();
+          await refreshBackupNudgeUI();
+          await refreshDownloadsPermissionUI();
         }
       }
     };
@@ -645,6 +734,8 @@ import  { gsUtils }    from './gsUtils.js';
     await gsStorage.saveSettings(merged);
     await gsStorage.syncSettings();
     await gsBackup.syncAlarmWithSettings();
+    await gsBackup.reconcileDownloadsPermission();
+    await gsNewsFeed.syncAlarm();
     return true;
   }
 
@@ -653,6 +744,7 @@ import  { gsUtils }    from './gsUtils.js';
     gsUtils.initSelectArrows(document);
     initSettings();
     updateBackupMeta();
+    initPermissionsNotice();
 
     // Back-to-top button
     const backToTopBtn = document.getElementById('backToTop');
@@ -787,6 +879,17 @@ import  { gsUtils }    from './gsUtils.js';
     // Drive: connect button
     document.getElementById('driveConnectBtn').addEventListener('click', async () => {
       const statusEl = document.getElementById('driveAuthStatus');
+      let granted = false;
+      try {
+        granted = await chrome.permissions.request({ permissions: ['identity'] });
+      } catch (e) {
+        gsUtils.error('backup', 'chrome.permissions.request(identity) failed:', e);
+      }
+      if (!granted) {
+        statusEl.textContent = gsUtils.getMessage('js_options_backup_drive_auth_error');
+        setTimeout(() => { statusEl.textContent = ''; }, 8000);
+        return;
+      }
       statusEl.textContent = gsUtils.getMessage('js_options_backup_drive_connecting');
       try {
         await gsBackup.getAuthToken(true);

@@ -70,6 +70,20 @@
     <div class="sub-section noIncognito" id="section-session">
       <p class="pageTitle" data-i18n="__MSG_html_options_backup_title__"></p>
       <p class="sectionDesc" data-i18n="__MSG_html_backup_session_desc__"></p>
+      <div class="gsNote gsNote--warn hidden" id="permissionsNoticeBanner" role="status">
+        <div>
+          <span data-i18n="__MSG_html_permissions_notice_text__"></span>
+          <a href="https://kb.marvellouscode.works/docs/TMS/permissions" target="_blank" data-i18n="__MSG_html_permissions_notice_link__"></a>
+          <div class="permissionsNoticeActions">
+            <button id="permissionsNoticeDismiss" class="btn btnNeg btnSmall" data-i18n="__MSG_html_permissions_notice_dismiss__"></button>
+          </div>
+        </div>
+      </div>
+      <div class="gsNote gsNote--warn" id="permissionsInfoNote">
+        <span data-i18n="__MSG_html_permissions_info_note__"></span>
+        <a href="https://kb.marvellouscode.works/docs/TMS/permissions" target="_blank" data-i18n="__MSG_html_permissions_info_note_link__"></a>
+      </div>
+
       <div class="formRow checkboxRow">
         <input type="checkbox" id="autoBackupEnabled" class="option" />
         <label for="autoBackupEnabled" class="cbLabel" data-i18n="__MSG_html_options_backup_enable__&nbsp;&nbsp;"></label>
@@ -80,6 +94,26 @@ __MSG_html_options_backup_enable_tooltip_line2__">
         </span>
         <span id="optionSavedStatus" class="optionSavedStatus" aria-live="polite"></span>
       </div>
+
+      <div class="gsNote gsNote--warn hidden" id="backupNudgeNote" role="note">
+        <div>
+          <span data-i18n="__MSG_html_backup_nudge_note_text__"></span>
+          <div class="formRow checkboxRow">
+            <input type="checkbox" id="backupNudgeOptOut" />
+            <label for="backupNudgeOptOut" class="cbLabel" data-i18n="__MSG_html_backup_nudge_optout__"></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="gsNote gsNote--warn hidden" id="downloadsPermissionMissingNote" role="note">
+        <div>
+          <span data-i18n="__MSG_html_backup_downloads_permission_missing__"></span>
+          <div class="permissionsNoticeActions">
+            <button id="grantDownloadsPermissionBtn" class="btn btnNeg btnSmall" data-i18n="__MSG_html_backup_downloads_permission_grant__"></button>
+          </div>
+        </div>
+      </div>
+
       <div class="formRow autoBackupOption" id="autoBackupIntervalContainer">
 
         <div class="backupSettingsGrid">

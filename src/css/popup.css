@@ -97,6 +97,31 @@ a {
   filter: brightness(0.92);
 }
 
+#backupNudgeBanner {
+  padding: var(--space-3) var(--space-4);
+  background-color: color-mix(in oklch, oklch(0.75 0.15 85) 20%, var(--background));
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+#backupNudgeBanner:not(.hidden) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+#backupNudgeBanner:hover {
+  filter: brightness(0.96);
+}
+
+#backupNudgeBanner a {
+  color: var(--primary);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
 #popupContent {
   padding: var(--space-1) 0;
 }

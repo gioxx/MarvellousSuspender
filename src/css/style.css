@@ -106,7 +106,10 @@ a.active {
    The base .hidden only flips visibility, which would leave an empty gap. */
 #forceScreenCaptureContainer.hidden,
 #syncNote.hidden,
-.autoSuspendOption.hidden {
+.autoSuspendOption.hidden,
+#permissionsNoticeBanner.hidden,
+#backupNudgeNote.hidden,
+#downloadsPermissionMissingNote.hidden {
   display: none;
 }
 
@@ -636,6 +639,15 @@ a.active {
 .gsNote a {
   color: var(--primary);
   text-decoration: none;
+}
+
+.permissionsNoticeActions {
+  margin-top: var(--space-3);
+}
+
+#permissionsNoticeBanner,
+#permissionsInfoNote {
+  margin-bottom: var(--space-6);
 }
 
 .gsNote a:hover {
