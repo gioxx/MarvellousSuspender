@@ -132,7 +132,14 @@ export const gsBackup = (() => {
     }
   }
 
+  async function hasDownloadsPermission() {
+    return chrome.permissions.contains({ permissions: ['downloads'] });
+  }
+
   async function performLocalBackup(jsonString) {
+    if (!(await hasDownloadsPermission())) {
+      throw new Error('TMS_DOWNLOADS_PERMISSION_MISSING');
+    }
     // data: URL works from service workers; Blob URLs do not survive SW lifecycle
     const base64                      = btoa(unescape(encodeURIComponent(jsonString)));
     const dataUrl                     = `data:application/json;base64,${base64}`;
@@ -359,6 +366,29 @@ export const gsBackup = (() => {
     await syncBackupNudgeBadge();
   }
 
+  async function flagDownloadsPermissionMissing() {
+    await chrome.storage.local.set({ tmsBackupDownloadsError: true });
+    await syncBackupNudgeBadge();
+  }
+
+  async function clearDownloadsPermissionMissing() {
+    await chrome.storage.local.remove('tmsBackupDownloadsError');
+    await syncBackupNudgeBadge();
+  }
+
+  async function reconcileDownloadsPermission() {
+    const enabled = await gsStorage.getOption(gsStorage.AUTO_BACKUP_ENABLED);
+    if (!enabled) {
+      await clearDownloadsPermissionMissing();
+      return;
+    }
+    if (await hasDownloadsPermission()) {
+      await clearDownloadsPermissionMissing();
+    } else {
+      await flagDownloadsPermissionMissing();
+    }
+  }
+
   async function shouldShowBackupNudge() {
     const [enabled, optOut, dismissedUntil] = await Promise.all([
       gsStorage.getOption(gsStorage.AUTO_BACKUP_ENABLED),
@@ -372,8 +402,11 @@ export const gsBackup = (() => {
   }
 
   async function syncBackupNudgeBadge() {
-    const { tmsBackupDriveError } = await chrome.storage.local.get('tmsBackupDriveError');
-    if (tmsBackupDriveError) {
+    const { tmsBackupDriveError, tmsBackupDownloadsError } = await chrome.storage.local.get([
+      'tmsBackupDriveError',
+      'tmsBackupDownloadsError',
+    ]);
+    if (tmsBackupDriveError || tmsBackupDownloadsError) {
       chrome.action.setBadgeText({ text: '!' });
       chrome.action.setBadgeBackgroundColor({ color: '#C0392B' });
       return;
@@ -420,11 +453,15 @@ export const gsBackup = (() => {
         await clearDriveAuthError();
         return result;
       }
-      return await performLocalBackup(jsonString);
+      const result = await performLocalBackup(jsonString);
+      await clearDownloadsPermissionMissing();
+      return result;
     } catch (e) {
       gsUtils.error('gsBackup', 'performBackup failed:', e);
       if (e?.message === 'TMS_DRIVE_AUTH_MISSING') {
         await flagDriveAuthError();
+      } else if (e?.message === 'TMS_DOWNLOADS_PERMISSION_MISSING') {
+        await flagDownloadsPermissionMissing();
       }
     }
   }
@@ -451,6 +488,7 @@ export const gsBackup = (() => {
       const jsonString = JSON.stringify(exportObj, null, 2);
 
       const localDownloadId = await performLocalBackup(jsonString);
+      await clearDownloadsPermissionMissing();
 
       const destination = await gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION);
       if (destination === 'drive') {
@@ -467,6 +505,9 @@ export const gsBackup = (() => {
       }
     } catch (e) {
       gsUtils.error('gsBackup', 'performEmergencyBackup failed:', e);
+      if (e?.message === 'TMS_DOWNLOADS_PERMISSION_MISSING') {
+        await flagDownloadsPermissionMissing();
+      }
     }
   }
 
@@ -759,6 +800,8 @@ export const gsBackup = (() => {
     syncBackupNudgeBadge,
     dismissBackupNudge,
     optOutBackupNudge,
+    hasDownloadsPermission,
+    reconcileDownloadsPermission,
     getAuthToken,
     revokeAuthToken,
     getDriveUserInfo,

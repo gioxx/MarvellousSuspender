@@ -108,7 +108,8 @@ a.active {
 #syncNote.hidden,
 .autoSuspendOption.hidden,
 #permissionsNoticeBanner.hidden,
-#backupNudgeNote.hidden {
+#backupNudgeNote.hidden,
+#downloadsPermissionMissingNote.hidden {
   display: none;
 }
 

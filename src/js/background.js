@@ -33,7 +33,8 @@ import  { tgs }                   from './tgs.js';
       .then(async () => { await gsStorage.saveStorage('session', 'gsInitialisationMode', true); })
       .then(gsSession.runStartupChecks)         // performs crash check (and maybe recovery) and tab responsiveness checks
       .then(gsBackup.retryPendingDriveBackup)   // upload any Drive backup queued by an emergency onSuspend
-      .then(gsBackup.syncBackupNudgeBadge)      // keep the icon badge (nudge or Drive-auth-error) in sync on every restart
+      .then(gsBackup.reconcileDownloadsPermission) // catch AUTO_BACKUP_ENABLED arriving via sync/import without the downloads grant
+      .then(gsBackup.syncBackupNudgeBadge)      // keep the icon badge (nudge, Drive-auth, or missing-permission error) in sync on every restart
       .catch((error) => {
         gsUtils.error('background startup checks error: ', error);
       });

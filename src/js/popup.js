@@ -250,7 +250,7 @@ import  { tgs }                   from './tgs.js';
       gsStorage.getOption(gsStorage.THEME),
       gsStorage.getOption(gsStorage.AUTO_BACKUP_ENABLED),
       gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION),
-      chrome.storage.local.get('tmsBackupDriveError'),
+      chrome.storage.local.get(['tmsBackupDriveError', 'tmsBackupDownloadsError']),
     ]);
     if (theme === 'dark') {
       document.body.classList.add('dark');
@@ -263,15 +263,19 @@ import  { tgs }                   from './tgs.js';
         gsUtils.getMessage(labelKey);
       document.getElementById('optsBackup').classList.remove('hidden');
     }
-    if (errorFlag.tmsBackupDriveError) {
+    if (errorFlag.tmsBackupDriveError || errorFlag.tmsBackupDownloadsError) {
       const banner = document.getElementById('backupErrorBanner');
+      banner.querySelector('span').textContent = gsUtils.getMessage(
+        errorFlag.tmsBackupDriveError ? 'html_popup_backup_drive_error' : 'html_popup_backup_downloads_error',
+      );
       banner.classList.remove('hidden');
       banner.addEventListener('click', () => {
         chrome.tabs.create({ url: chrome.runtime.getURL('backup.html') });
         window.close();
       });
-      await chrome.storage.local.remove('tmsBackupDriveError');
-      await chrome.action.setBadgeText({ text: '' });
+      if (errorFlag.tmsBackupDriveError) await chrome.storage.local.remove('tmsBackupDriveError');
+      if (errorFlag.tmsBackupDownloadsError) await chrome.storage.local.remove('tmsBackupDownloadsError');
+      await gsBackup.syncBackupNudgeBadge();
     } else if (await gsBackup.shouldShowBackupNudge()) {
       const banner = document.getElementById('backupNudgeBanner');
       banner.classList.remove('hidden');

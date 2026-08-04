@@ -1,4 +1,5 @@
 import  { gsBackup }   from './gsBackup.js';
+import  { gsNewsFeed } from './gsNewsFeed.js';
 import  { gsStorage }  from './gsStorage.js';
 import  { gsUtils }    from './gsUtils.js';
 
@@ -255,6 +256,24 @@ import  { gsUtils }    from './gsUtils.js';
         });
       }
 
+      const grantDownloadsBtn = document.getElementById('grantDownloadsPermissionBtn');
+      if (grantDownloadsBtn) {
+        grantDownloadsBtn.addEventListener('click', async () => {
+          let granted = false;
+          try {
+            granted = await chrome.permissions.request({ permissions: ['downloads'] });
+          } catch (e) {
+            gsUtils.error('backup', 'chrome.permissions.request(downloads) failed:', e);
+          }
+          if (granted) {
+            await gsBackup.reconcileDownloadsPermission();
+            await refreshDownloadsPermissionUI();
+          } else {
+            showBackupPermissionDenied();
+          }
+        });
+      }
+
       const isDrive = settings[gsStorage.AUTO_BACKUP_DESTINATION] === 'drive';
       setAutoBackupOptionsVisibility(settings[gsStorage.AUTO_BACKUP_ENABLED]);
       setDailyTimeVisibility(settings[gsStorage.AUTO_BACKUP_INTERVAL]);
@@ -262,6 +281,7 @@ import  { gsUtils }    from './gsUtils.js';
       setDestinationPanels(isDrive);
       updateDriveAuthUI();
       await refreshBackupNudgeUI();
+      await refreshDownloadsPermissionUI();
     });
   }
 
@@ -270,6 +290,14 @@ import  { gsUtils }    from './gsUtils.js';
     if (!el) return;
     const show = await gsBackup.shouldShowBackupNudge();
     el.classList.toggle('hidden', !show);
+  }
+
+  async function refreshDownloadsPermissionUI() {
+    const el = document.getElementById('downloadsPermissionMissingNote');
+    if (!el) return;
+    const enabled = await gsStorage.getOption(gsStorage.AUTO_BACKUP_ENABLED);
+    const granted = await gsBackup.hasDownloadsPermission();
+    el.classList.toggle('hidden', !enabled || granted);
   }
 
   function setAutoBackupOptionsVisibility(visible) {
@@ -705,6 +733,8 @@ import  { gsUtils }    from './gsUtils.js';
     await gsStorage.saveSettings(merged);
     await gsStorage.syncSettings();
     await gsBackup.syncAlarmWithSettings();
+    await gsBackup.reconcileDownloadsPermission();
+    await gsNewsFeed.syncAlarm();
     return true;
   }
 

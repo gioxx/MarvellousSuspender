@@ -1022,6 +1022,9 @@
   "html_popup_backup_drive_error": {
     "message": "Backup automatico non riuscito: nessun account Google collegato. Clicca qui per rimediare."
   },
+  "html_popup_backup_downloads_error": {
+    "message": "Backup automatico non riuscito: permesso Download mancante. Clicca qui per rimediare."
+  },
   "html_popup_backup_nudge_text": {
     "message": "Il backup automatico è disattivato. Proteggi le tue sessioni."
   },
@@ -1033,6 +1036,12 @@
   },
   "html_backup_nudge_optout": {
     "message": "Non sono interessato, non ricordarmelo più"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "Il backup automatico è attivo, ma il permesso Download non è concesso su questo dispositivo (può succedere dopo l'importazione delle impostazioni o la sincronizzazione da un altro browser). I backup non verranno eseguiti finché non lo concedi."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "Concedi permesso"
   },
   "js_options_backup_drive_connecting": {
     "message": "Connessione in corso…"

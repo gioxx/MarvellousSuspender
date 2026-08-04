@@ -68,6 +68,8 @@ const gsNewsFeed = (() => {
   }
 
   async function fetchAndCache() {
+    const enabled = await gsStorage.getOption(gsStorage.NEWS_FEED_ENABLED);
+    if (!enabled) return;
     try {
       const response = await fetch(FEED_URL);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);

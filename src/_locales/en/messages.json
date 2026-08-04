@@ -1014,6 +1014,9 @@
   "html_popup_backup_drive_error": {
     "message": "Automatic backup failed: no Google account connected. Click here to fix it."
   },
+  "html_popup_backup_downloads_error": {
+    "message": "Automatic backup failed: the Downloads permission is missing. Click here to fix it."
+  },
   "html_popup_backup_nudge_text": {
     "message": "Automatic backup is off. Protect your sessions."
   },
@@ -1025,6 +1028,12 @@
   },
   "html_backup_nudge_optout": {
     "message": "I'm not interested, stop reminding me"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "Automatic backup is on, but the Downloads permission isn't granted on this device (this can happen after importing settings or syncing from another browser). Backups won't run until you grant it."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "Grant permission"
   },
   "js_options_backup_drive_connecting": {
     "message": "Connecting…"
