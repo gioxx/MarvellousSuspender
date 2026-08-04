@@ -137,6 +137,20 @@ import  { gsUtils }               from './gsUtils.js';
     );
   }
 
+  async function initPermissionsNotice() {
+    const banner = document.getElementById('permissionsNoticeBanner');
+    if (!banner) return;
+    const seen = await gsStorage.getOption(gsStorage.PERMISSIONS_NOTICE_SEEN);
+    if (!seen) banner.classList.remove('hidden');
+    const dismissBtn = document.getElementById('permissionsNoticeDismiss');
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', async () => {
+        await gsStorage.setOptionAndSync(gsStorage.PERMISSIONS_NOTICE_SEEN, true);
+        banner.classList.add('hidden');
+      });
+    }
+  }
+
   function handleChange(element) {
     return async () => {
       const pref = elementPrefMap[element.id];
@@ -261,6 +275,7 @@ import  { gsUtils }               from './gsUtils.js';
     gsUtils.initSelectArrows(document);
     injectSavedFeedbackSpans();
     initSettings();
+    initPermissionsNotice();
 
     const optionEls = document.getElementsByClassName('option');
 
