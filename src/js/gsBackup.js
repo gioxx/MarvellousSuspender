@@ -365,6 +365,8 @@ export const gsBackup = (() => {
       gsStorage.getOption(gsStorage.BACKUP_NUDGE_OPTOUT),
       gsStorage.getOption(gsStorage.BACKUP_NUDGE_DISMISSED_UNTIL),
     ]);
+    // eslint-disable-next-line no-console
+    console.log('[TMS DEBUG] shouldShowBackupNudge', { enabled, optOut, dismissedUntil });
     if (enabled || optOut) {
       return false;
     }
