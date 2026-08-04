@@ -157,7 +157,7 @@
     "message": "schede in Tab Group con stato non corretto (bug Tab Groups)"
   },
   "html_health_repair_intro": {
-    "message": "Alcune schede nei Tab Group sono in uno stato non corretto — mostrano una nuova scheda invece di caricarsi correttamente dopo il riavvio del browser. TMS può tentare di ripristinarle."
+    "message": "Alcune schede nei Tab Group sono in uno stato non corretto: mostrano una nuova scheda invece di caricarsi correttamente dopo il riavvio del browser. TMS può tentare di ripristinarle."
   },
   "html_health_repair_button": {
     "message": "Ripara $count$ scheda/e nei Tab Group",
@@ -177,7 +177,7 @@
     "message": "Versione"
   },
   "html_about_tagline": {
-    "message": "Il successore spirituale della sospensione moderna delle schede — sostituisce le schede inattive con una pagina di ibernazione leggera, con controllo granulare su quando risvegliarle."
+    "message": "Il successore spirituale della sospensione moderna delle schede: sostituisce le schede inattive con una pagina di ibernazione leggera, con controllo granulare su quando risvegliarle."
   },
   "html_about_section_credits": {
     "message": "Crediti"
@@ -219,7 +219,7 @@
     "message": "Supporta lo sviluppo"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender è gratuito e open-source. Se lo trovi utile, considera un piccolo contributo — aiuta a tenere il progetto vivo e in crescita."
+    "message": "The Marvellous Suspender è gratuito e open-source. Se lo trovi utile, considera un piccolo contributo: aiuta a tenere il progetto vivo e in crescita."
   },
   "html_broken_title": {
     "message": "si è rotta"
@@ -249,7 +249,7 @@
     "message": "Gestione delle sessioni"
   },
   "html_history_page_desc": {
-    "message": "TMS mantiene uno snapshot aggiornato delle schede aperte — nessuna configurazione necessaria. Le sessioni si aggiornano automaticamente durante la navigazione, ma vivono dentro Chrome: se il profilo viene perso o corrotto, spariscono con esso."
+    "message": "TMS mantiene uno snapshot aggiornato delle schede aperte, nessuna configurazione necessaria. Le sessioni si aggiornano automaticamente durante la navigazione, ma vivono dentro Chrome: se il profilo viene perso o corrotto, spariscono con esso."
   },
   "html_history_current_session": {
     "message": "Sessione corrente"
@@ -902,7 +902,7 @@
     "message": "Backup automatico della sessione"
   },
   "html_backup_session_desc": {
-    "message": "A differenza delle sessioni, il backup salva le schede come file JSON fuori da Chrome — nella cartella Download o su Google Drive. Sopravvive a crash del browser, reset del profilo e reinstallazioni. Questa è la tua vera rete di sicurezza."
+    "message": "A differenza delle sessioni, il backup salva le schede come file JSON fuori da Chrome: nella cartella Download o su Google Drive. Sopravvive a crash del browser, reset del profilo e reinstallazioni. Questa è la tua vera rete di sicurezza."
   },
   "html_options_backup_enable": {
     "message": "Salva automaticamente la sessione"
@@ -911,7 +911,7 @@
     "message": "Salva silenziosamente una copia della sessione corrente come file JSON. Puoi scegliere di salvarla localmente (cartella tms-backups dentro i Download) oppure su Google Drive, nella cartella 'TMS Backups'."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "Per i backup locali, Chrome deve essere configurato per scaricare i file automaticamente — controlla chrome://settings/downloads. I backup su Google Drive non hanno questo requisito."
+    "message": "Per i backup locali, Chrome deve essere configurato per scaricare i file automaticamente. Controlla chrome://settings/downloads. I backup su Google Drive non hanno questo requisito."
   },
   "html_options_backup_interval": {
     "message": "Backup ogni"
@@ -944,7 +944,7 @@
     "message": "↑ Su"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Le sessioni sono memorizzate solo dentro Chrome — non sopravvivono a un crash del browser o al reset del profilo."
+    "message": "Le sessioni sono memorizzate solo dentro Chrome: non sopravvivono a un crash del browser o al reset del profilo."
   },
   "html_history_backup_settings_link": {
     "message": "Configura il Backup per salvare le schede al di fuori del browser →"
@@ -974,7 +974,7 @@
     "message": "Da questa versione, TMS richiede l'accesso al filesystem/account Google solo quando attivi davvero il backup locale o su Google Drive, invece di richiederlo subito."
   },
   "html_permissions_notice_link": {
-    "message": "Scopri di più sui permessi"
+    "message": "Scopri di più sui permessi."
   },
   "html_permissions_notice_dismiss": {
     "message": "Capito"
@@ -983,13 +983,13 @@
     "message": "TMS richiede i permessi Download e account Google solo quando attivi il backup locale o su Google Drive qui sotto."
   },
   "html_permissions_info_note_link": {
-    "message": "Vedi il dettaglio completo dei permessi"
+    "message": "Vedi il dettaglio completo dei permessi."
   },
   "html_backup_drive_local_note": {
     "message": "Anche con Google Drive selezionato, alla chiusura del browser viene scritto un file locale come rete di sicurezza e caricato su Drive al riavvio successivo: vedere un file locale qui è normale, non un bug."
   },
   "js_options_backup_now_error": {
-    "message": "Chrome sta chiedendo dove salvare i file — i backup automatici non funzioneranno in silenzio. Disattiva \"Chiedi dove salvare\" in chrome://settings/downloads."
+    "message": "Chrome sta chiedendo dove salvare i file, quindi i backup automatici non funzioneranno in silenzio. Disattiva \"Chiedi dove salvare\" in chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "Prossima esecuzione: $time$",
@@ -1047,7 +1047,7 @@
     "message": "Backup impostazioni"
   },
   "html_backup_settings_desc": {
-    "message": "Esporta tutte le impostazioni dell'estensione in un file JSON — utile come copia di sicurezza o per trasferire la configurazione su un altro profilo. L'importazione di un file sostituisce le impostazioni attuali."
+    "message": "Esporta tutte le impostazioni dell'estensione in un file JSON, utile come copia di sicurezza o per trasferire la configurazione su un altro profilo. L'importazione di un file sostituisce le impostazioni attuali."
   },
   "html_backup_local_folder_hint": {
     "message": "I backup locali vanno nella cartella tms-backups dentro i Download."

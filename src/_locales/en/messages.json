@@ -157,7 +157,7 @@
     "message": "grouped tabs in broken state (Tab Groups bug)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state — they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "Some tabs in Tab Groups are in a broken state: they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
   },
   "html_health_repair_button": {
     "message": "Repair $count$ grouped tab(s)",
@@ -177,7 +177,7 @@
     "message": "Version"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension — replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "The spiritual successor to modern tab suspension: replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
   },
   "html_about_section_credits": {
     "message": "Credits"
@@ -219,7 +219,7 @@
     "message": "Support development"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution — it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution: it helps keep the project alive and growing."
   },
   "html_broken_title": {
     "message": "is broken"
@@ -249,7 +249,7 @@
     "message": "Session management"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs — no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS keeps a running snapshot of your open tabs, no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
   },
   "html_history_current_session": {
     "message": "Current session"
@@ -902,7 +902,7 @@
     "message": "Automatic session backup"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome — to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
   },
   "html_options_backup_enable": {
     "message": "Automatically back up your session"
@@ -911,7 +911,7 @@
     "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking) — check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "For local backups, Chrome must be set to download files automatically (without asking). Check chrome://settings/downloads. Google Drive backups have no such requirement."
   },
   "html_options_backup_interval": {
     "message": "Backup every"
@@ -944,7 +944,7 @@
     "message": "↑ Top"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only — they won't survive a browser crash or profile reset."
+    "message": "Sessions are stored inside Chrome only: they won't survive a browser crash or profile reset."
   },
   "html_history_backup_settings_link": {
     "message": "Set up Backup to save your tabs outside the browser →"
@@ -974,7 +974,7 @@
     "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
   },
   "html_permissions_notice_link": {
-    "message": "Learn more about permissions"
+    "message": "Learn more about permissions."
   },
   "html_permissions_notice_dismiss": {
     "message": "Got it"
@@ -983,13 +983,13 @@
     "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
   },
   "html_permissions_info_note_link": {
-    "message": "See the full permissions breakdown"
+    "message": "See the full permissions breakdown."
   },
   "html_backup_drive_local_note": {
     "message": "Even with Google Drive selected, a local safety-net file is written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug."
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files — automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "Next run: $time$",
@@ -1039,7 +1039,7 @@
     "message": "Settings backup"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file — useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "Export all extension settings to a JSON file, useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
   },
   "html_backup_local_folder_hint": {
     "message": "Local backups go to the tms-backups folder inside your Downloads."
