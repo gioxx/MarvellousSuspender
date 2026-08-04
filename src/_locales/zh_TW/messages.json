@@ -157,7 +157,7 @@
     "message": "個群組分頁處於損壞狀態（分頁群組錯誤）"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state: they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "部分分頁群組中的分頁處於損壞狀態：瀏覽器重新啟動後它們顯示為新分頁，而非正常載入。TMS 可以嘗試還原它們。"
   },
   "html_health_repair_button": {
     "message": "修復 $count$ 個群組分頁",
@@ -177,7 +177,7 @@
     "message": "版本"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension: replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "現代分頁暫停功能的精神繼承者：以輕量的休眠頁面取代非使用中分頁，讓您精確掌控它們何時喚醒。"
   },
   "html_about_section_credits": {
     "message": "致謝"
@@ -219,7 +219,7 @@
     "message": "支持開發"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution: it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender 是免費且開放原始碼的軟體。如果您覺得它有用，歡迎小額贊助：這有助於維持專案的持續發展。"
   },
   "html_broken_title": {
     "message": "故障了"
@@ -249,7 +249,7 @@
     "message": "記錄管理"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs, no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS 會持續記錄您已開啟分頁的快照，無需任何設定。工作階段會在瀏覽時自動更新，但僅存在於 Chrome 內部：如果瀏覽器設定檔遺失或損毀，資料也會一併遺失。"
   },
   "html_history_current_session": {
     "message": "目前記錄"
@@ -267,7 +267,7 @@
     "message": "移轉分頁"
   },
   "html_history_migrate_old_id": {
-    "message": "Extension ID"
+    "message": "擴充功能 ID"
   },
   "html_history_migrate_section_title": {
     "message": "分頁遷移"
@@ -294,7 +294,7 @@
     "message": "這樣可以使用 Chrome 的「搜尋分頁」功能（Ctrl+Shift+A）依主機名稱尋找暫停分頁。"
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "Preserve YouTube playback position when suspending"
+    "message": "暫停時保留 YouTube 播放位置"
   },
   "html_options_other_title": {
     "message": "一般"
@@ -351,7 +351,7 @@
     "message": "只在網路連接下才自動凍結"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Claim by default (seamless migration; tab considered suspended if 'suspended.html' is in url)"
+    "message": "預設接管（無縫遷移；若網址中包含 'suspended.html'，則該分頁視為已暫停）"
   },
   "html_options_suspend_only_on_battery": {
     "message": "只在電腦未接上電源時才自動凍結"
@@ -843,7 +843,7 @@
     "message": "需要長度 32 個字的擴充元件 ID 以供移轉"
   },
   "js_history_migrate_success": {
-    "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
+    "message": "已成功遷移 $tabcount$ 個分頁。如果遷移的分頁未自動重新載入，請重新啟動瀏覽器。",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -902,7 +902,7 @@
     "message": "自動工作階段備份"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "與工作階段不同，備份會以 JSON 檔案形式儲存在 Chrome 之外：存放於下載資料夾或 Google 雲端硬碟。它們能在瀏覽器當機、設定檔重設及全新安裝後仍然保留，是您真正的安全網。"
   },
   "html_options_backup_enable": {
     "message": "自動備份您的工作階段"
@@ -911,7 +911,7 @@
     "message": "以 JSON 檔案形式默默儲存目前工作階段的副本。可選擇儲存至本機（下載資料夾內的 tms-backups 目錄）或 Google 雲端硬碟中的 'TMS Backups' 資料夾。"
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking). Check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "若要進行本機備份，Chrome 必須設定為自動下載檔案（不詢問）。請檢查 chrome://settings/downloads。Google 雲端硬碟備份則無此要求。"
   },
   "html_options_backup_interval": {
     "message": "備份間隔"
@@ -923,7 +923,7 @@
     "message": "請注意：間隔時間過長時，兩次備份之間可能會發生較多變化。建議縮短間隔以降低資料遺失的風險。"
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other.\n\n<strong>Even with Google Drive selected, a local safety-net file is still written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug.</strong>"
+    "message": "本機與雲端硬碟備份都包含裝置識別碼（例如 tms-session-a3f7b2c8-2026-06-18T14-30.json），因此每個瀏覽器安裝都會維護獨立的備份集。每台裝置會保留最近的 N 份本機備份；雲端硬碟備份同樣依裝置保留 N 份，因此不同裝置或瀏覽器的工作階段永遠不會互相覆寫。\n\n<strong>即使選擇了 Google 雲端硬碟，瀏覽器關閉時仍會寫入一個本機安全檔案，並於下次啟動時上傳至雲端硬碟。這裡出現本機檔案是正常現象，並非錯誤。</strong>"
   },
   "html_backup_max_files_label": {
     "message": "保留備份的最大數量"
@@ -944,7 +944,7 @@
     "message": "↑ 回到頂端"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only: they won't survive a browser crash or profile reset."
+    "message": "工作階段僅儲存於 Chrome 內部：無法在瀏覽器當機或設定檔重設後保留。"
   },
   "html_history_backup_settings_link": {
     "message": "設定備份，將分頁儲存於瀏覽器之外 →"
@@ -959,34 +959,34 @@
     "message": "已儲存"
   },
   "js_backup_permission_denied": {
-    "message": "Permission denied: automatic backup was not enabled."
+    "message": "權限遭拒：自動備份未啟用。"
   },
   "html_options_other_enable_news_feed": {
-    "message": "Enable news feed"
+    "message": "啟用消息來源"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar."
+    "message": "定期檢查 marvellouscode.works 以取得 TMS 消息，並顯示於側邊欄。"
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "Disable to skip this background request."
+    "message": "停用以略過此背景請求。"
   },
   "html_permissions_notice_text": {
-    "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
+    "message": "自本版本起，TMS 僅在您實際開啟本機或 Google 雲端硬碟備份時才要求檔案系統/Google 帳戶存取權，而非事先要求。"
   },
   "html_permissions_notice_link": {
-    "message": "Learn more about permissions."
+    "message": "深入了解權限。"
   },
   "html_permissions_notice_dismiss": {
-    "message": "Got it"
+    "message": "知道了"
   },
   "html_permissions_info_note": {
-    "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
+    "message": "TMS 僅在您於下方啟用本機或 Google 雲端硬碟備份時，才要求下載與 Google 帳戶權限。"
   },
   "html_permissions_info_note_link": {
-    "message": "See the full permissions breakdown."
+    "message": "查看完整的權限明細。"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome 正在詢問檔案儲存位置，因此自動備份將無法在背景靜默完成。請在 chrome://settings/downloads 中關閉「下載前詢問每個檔案的儲存位置」。"
   },
   "js_options_backup_next_run": {
     "message": "下次執行：$time$",
@@ -1023,25 +1023,25 @@
     "message": "自動備份失敗：未連結 Google 帳戶。點選此處進行修復。"
   },
   "html_popup_backup_downloads_error": {
-    "message": "Automatic backup failed: the Downloads permission is missing. Click here to fix it."
+    "message": "自動備份失敗：缺少下載權限。按一下這裡即可修正。"
   },
   "html_popup_backup_nudge_text": {
-    "message": "Automatic backup is off. Protect your sessions."
+    "message": "自動備份已關閉。保護您的工作階段。"
   },
   "html_backup_nudge_dismiss": {
-    "message": "Remind me in 10 days"
+    "message": "10 天後提醒我"
   },
   "html_backup_nudge_note_text": {
-    "message": "Automatic backup is off. Enabling it protects your sessions if this browser profile ever gets reset or corrupted."
+    "message": "自動備份已關閉。啟用後，即使此瀏覽器設定檔遭重設或損毀，也能保護您的工作階段。"
   },
   "html_backup_nudge_optout": {
-    "message": "I'm not interested, stop reminding me"
+    "message": "沒興趣，不要再提醒我"
   },
   "html_backup_downloads_permission_missing": {
-    "message": "Automatic backup is on, but the Downloads permission isn't granted on this device (this can happen after importing settings or syncing from another browser). Backups won't run until you grant it."
+    "message": "自動備份已開啟，但此裝置未授予下載權限（在匯入設定或從其他瀏覽器同步後可能發生此情況）。在您授予權限之前，備份不會執行。"
   },
   "html_backup_downloads_permission_grant": {
-    "message": "Grant permission"
+    "message": "授予權限"
   },
   "js_options_backup_drive_connecting": {
     "message": "正在連線…"
@@ -1053,7 +1053,7 @@
     "message": "設定備份"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file, useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "將所有擴充功能設定匯出為 JSON 檔案，可作為備份，或用於將您的設定轉移至其他瀏覽器設定檔。匯入檔案將取代目前的設定。"
   },
   "html_backup_local_folder_hint": {
     "message": "本機備份會存放於下載資料夾內的 tms-backups 目錄。"

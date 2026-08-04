@@ -708,10 +708,10 @@
     "message": "Fenêtres"
   },
   "js_history_tab": {
-    "message": "Tab"
+    "message": "Onglet"
   },
   "js_history_tabs": {
-    "message": "Tabs"
+    "message": "Onglets"
   },
   "js_history_enter_name_for_session": {
     "message": "Saisissez un nom pour cette session"
@@ -1253,5 +1253,56 @@
   },
   "html_backup_drive_files_loading": {
     "message": "Chargement…"
+  },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Conserver la position de lecture YouTube lors de la mise en veille"
+  },
+  "js_backup_permission_denied": {
+    "message": "Permission refusée : la sauvegarde automatique n'a pas été activée."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "Activer le fil d'actualités"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1": {
+    "message": "Vérifie périodiquement marvellouscode.works pour les actualités de TMS et les affiche dans la barre latérale."
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "Désactivez pour éviter cette requête en arrière-plan."
+  },
+  "html_permissions_notice_text": {
+    "message": "À partir de cette version, TMS ne demande l'accès au système de fichiers/compte Google que lorsque vous activez réellement la sauvegarde locale ou Google Drive, au lieu de le demander à l'avance."
+  },
+  "html_permissions_notice_link": {
+    "message": "En savoir plus sur les permissions."
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "Compris"
+  },
+  "html_permissions_info_note": {
+    "message": "TMS demande les permissions Téléchargements et compte Google uniquement lorsque vous activez la sauvegarde locale ou Google Drive ci-dessous."
+  },
+  "html_permissions_info_note_link": {
+    "message": "Voir le détail complet des permissions."
+  },
+  "html_popup_backup_downloads_error": {
+    "message": "Échec de la sauvegarde automatique : la permission Téléchargements est manquante. Cliquez ici pour résoudre le problème."
+  },
+  "html_popup_backup_nudge_text": {
+    "message": "La sauvegarde automatique est désactivée. Protégez vos sessions."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "Me le rappeler dans 10 jours"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "La sauvegarde automatique est désactivée. L'activer protège vos sessions si ce profil de navigateur est un jour réinitialisé ou corrompu."
+  },
+  "html_backup_nudge_optout": {
+    "message": "Non merci, ne plus me le rappeler"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "La sauvegarde automatique est activée, mais la permission Téléchargements n'est pas accordée sur cet appareil (cela peut arriver après l'importation de paramètres ou une synchronisation depuis un autre navigateur). Les sauvegardes ne s'exécuteront pas tant que vous ne l'aurez pas accordée."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "Accorder la permission"
   }
 }

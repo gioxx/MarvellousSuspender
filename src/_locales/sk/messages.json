@@ -157,7 +157,7 @@
     "message": "zoskupených kariet v poškodenom stave (chyba skupín kariet)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state: they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "Niektoré karty v skupinách sú v poškodenom stave: po reštarte prehliadača sa zobrazujú ako nová karta namiesto správneho načítania. TMS sa ich môže pokúsiť obnoviť."
   },
   "html_health_repair_button": {
     "message": "Opraviť $count$ zoskupených kariet",
@@ -177,7 +177,7 @@
     "message": "Verzia"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension: replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "Duchovný nástupca moderného pozastavovania kariet: nahrádza neaktívne karty odľahčenou stránkou hibernácie a dáva vám podrobnú kontrolu nad tým, kedy sa prebudia."
   },
   "html_about_section_credits": {
     "message": "Poďakovanie"
@@ -219,7 +219,7 @@
     "message": "Podporte vývoj"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution: it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender je zadarmo a s otvoreným zdrojovým kódom. Ak ho považujete za užitočný, zvážte malý príspevok: pomôže udržať projekt nažive a rozvíjať ho."
   },
   "html_broken_title": {
     "message": "je pokazené"
@@ -249,7 +249,7 @@
     "message": "Správa relácie"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs, no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS udržuje priebežnú snímku vašich otvorených kariet, bez potreby nastavovania. Relácie sa automaticky aktualizujú počas prehliadania, ale existujú iba v rámci Chromu: ak sa profil prehliadača stratí alebo poškodí, stratia sa aj ony."
   },
   "html_history_current_session": {
     "message": "Aktuálna relácia"
@@ -267,7 +267,7 @@
     "message": "Presun tabov"
   },
   "html_history_migrate_old_id": {
-    "message": "Extension ID"
+    "message": "ID rozšírenia"
   },
   "html_history_migrate_section_title": {
     "message": "Migrácia kariet"
@@ -294,7 +294,7 @@
     "message": "To umožňuje vyhľadávať pozastavené karty podľa názvu hostiteľa pomocou funkcie Chromu „Hľadať na kartách“ (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "Preserve YouTube playback position when suspending"
+    "message": "Zachovať pozíciu prehrávania YouTube pri pozastavení"
   },
   "html_options_other_title": {
     "message": "Všeobecné"
@@ -351,7 +351,7 @@
     "message": "Nikdy nepozastav tab v móde bez siete"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Claim by default (seamless migration; tab considered suspended if 'suspended.html' is in url)"
+    "message": "Prevziať predvolene (plynulá migrácia; karta sa považuje za pozastavenú, ak URL obsahuje 'suspended.html')"
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nikdy nepozastav tab ak je počítač pripojený k elektrickej sieti"
@@ -396,7 +396,7 @@
     "message": "Tmavý"
   },
   "html_options_suspend_theme_system": {
-    "message": "System"
+    "message": "Systém"
   },
   "html_options_suspend_screen_capturing": {
     "message": "Zachytávanie obrazovky"
@@ -657,7 +657,7 @@
     "message": "Pre pokročilú správu relácií navštívte stránku"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "page"
+    "message": "."
   },
   "html_session_manager": {
     "message": "správa relácií"
@@ -822,10 +822,10 @@
     "message": "Okná"
   },
   "js_history_tab": {
-    "message": "Tab"
+    "message": "Karta"
   },
   "js_history_tabs": {
-    "message": "Tabs"
+    "message": "Karty"
   },
   "js_history_enter_name_for_session": {
     "message": "Zadajte názov tejto relácie"
@@ -843,7 +843,7 @@
     "message": "Na migráciu je potrebné 32-znakové ID rozšírenia"
   },
   "js_history_migrate_success": {
-    "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
+    "message": "Úspešne migrovaných $tabcount$ kariet. Ak sa migrované karty automaticky neobnovia, reštartujte prehliadač.",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -902,7 +902,7 @@
     "message": "Automatická záloha relácie"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "Na rozdiel od relácií sa zálohy ukladajú ako súbory JSON mimo Chrome: do vášho priečinka Stiahnuté súbory alebo na Disk Google. Prežijú pády prehliadača, resety profilu aj nové inštalácie. Toto je vaša skutočná záchranná sieť."
   },
   "html_options_backup_enable": {
     "message": "Automaticky zálohovať vašu reláciu"
@@ -911,7 +911,7 @@
     "message": "Ticho ukladá kópiu vašej aktuálnej relácie ako súbor JSON. Zvoľte ukladanie lokálne (priečinok tms-backups vo vnútri vašich Stiahnutých súborov) alebo do priečinka 'TMS Backups' na Disku Google."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking). Check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "Pri lokálnych zálohách musí byť Chrome nastavený tak, aby súbory sťahoval automaticky (bez pýtania sa). Skontrolujte chrome://settings/downloads. Zálohy na Disku Google túto požiadavku nemajú."
   },
   "html_options_backup_interval": {
     "message": "Zálohovať každých"
@@ -923,7 +923,7 @@
     "message": "Upozornenie: pri takom dlhom intervale sa medzi zálohami môže udiať veľa. Zvážte kratší interval na zníženie rizika straty dát."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other.\n\n<strong>Even with Google Drive selected, a local safety-net file is still written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug.</strong>"
+    "message": "Lokálne aj zálohy na Disku obsahujú identifikátor zariadenia (napr. tms-session-a3f7b2c8-2026-06-18T14-30.json), takže si každá inštalácia prehliadača vedie vlastnú nezávislú sadu záloh. Pre každé zariadenie je uchovávaných posledných N lokálnych záloh; zálohy na Disku uchovávajú tiež N na zariadenie, takže sa relácie z rôznych počítačov alebo prehliadačov nikdy vzájomne neprepíšu.\n\n<strong>Aj keď je vybraný Disk Google, pri zatvorení prehliadača sa aj tak zapíše lokálny záchranný súbor, ktorý sa pri ďalšom spustení nahrá na Disk. Zobrazenie lokálneho súboru tu je očakávané správanie, nie chyba.</strong>"
   },
   "html_backup_max_files_label": {
     "message": "Maximálny počet uchovávaných záloh"
@@ -944,7 +944,7 @@
     "message": "↑ Hore"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only: they won't survive a browser crash or profile reset."
+    "message": "Relácie sú uložené iba v rámci Chromu: neprežijú pád prehliadača ani reset profilu."
   },
   "html_history_backup_settings_link": {
     "message": "Nastavte zálohu na uloženie kariet mimo prehliadača →"
@@ -959,34 +959,34 @@
     "message": "Uložené"
   },
   "js_backup_permission_denied": {
-    "message": "Permission denied: automatic backup was not enabled."
+    "message": "Prístup zamietnutý: automatická záloha nebola aktivovaná."
   },
   "html_options_other_enable_news_feed": {
-    "message": "Enable news feed"
+    "message": "Povoliť kanál noviniek"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar."
+    "message": "Pravidelne kontroluje marvellouscode.works kvôli novinkám TMS a zobrazuje ich na bočnom paneli."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "Disable to skip this background request."
+    "message": "Vypnite, ak chcete preskočiť túto požiadavku na pozadí."
   },
   "html_permissions_notice_text": {
-    "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
+    "message": "Od tejto verzie si TMS vyžiada prístup k súborovému systému/účtu Google iba vtedy, keď skutočne zapnete lokálnu zálohu alebo zálohu na Disku Google, namiesto toho, aby si ho vyžiadal vopred."
   },
   "html_permissions_notice_link": {
-    "message": "Learn more about permissions."
+    "message": "Zistiť viac o povoleniach."
   },
   "html_permissions_notice_dismiss": {
-    "message": "Got it"
+    "message": "Rozumiem"
   },
   "html_permissions_info_note": {
-    "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
+    "message": "TMS si vyžiada povolenia Stiahnuté súbory a účet Google iba vtedy, keď nižšie zapnete lokálnu zálohu alebo zálohu na Disku Google."
   },
   "html_permissions_info_note_link": {
-    "message": "See the full permissions breakdown."
+    "message": "Zobraziť úplný prehľad povolení."
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome sa pýta, kam ukladať súbory, takže automatické zálohy nebudú fungovať ticho. Vypnite „Pýtať sa, kam uložiť každý súbor“ v chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "Ďalšie spustenie: $time$",
@@ -1023,25 +1023,25 @@
     "message": "Automatická záloha zlyhala: nie je pripojený žiadny účet Google. Kliknutím sem to opravíte."
   },
   "html_popup_backup_downloads_error": {
-    "message": "Automatic backup failed: the Downloads permission is missing. Click here to fix it."
+    "message": "Automatická záloha zlyhala: chýba povolenie Stiahnuté súbory. Kliknutím sem to opravíte."
   },
   "html_popup_backup_nudge_text": {
-    "message": "Automatic backup is off. Protect your sessions."
+    "message": "Automatická záloha je vypnutá. Chráňte svoje relácie."
   },
   "html_backup_nudge_dismiss": {
-    "message": "Remind me in 10 days"
+    "message": "Pripomenúť o 10 dní"
   },
   "html_backup_nudge_note_text": {
-    "message": "Automatic backup is off. Enabling it protects your sessions if this browser profile ever gets reset or corrupted."
+    "message": "Automatická záloha je vypnutá. Jej zapnutie chráni vaše relácie, ak sa tento profil prehliadača niekedy resetuje alebo poškodí."
   },
   "html_backup_nudge_optout": {
-    "message": "I'm not interested, stop reminding me"
+    "message": "Nemám záujem, prestaňte mi to pripomínať"
   },
   "html_backup_downloads_permission_missing": {
-    "message": "Automatic backup is on, but the Downloads permission isn't granted on this device (this can happen after importing settings or syncing from another browser). Backups won't run until you grant it."
+    "message": "Automatická záloha je zapnutá, ale povolenie Stiahnuté súbory nie je na tomto zariadení udelené (môže sa to stať po importe nastavení alebo synchronizácii z iného prehliadača). Zálohy sa nespustia, kým ho neudelíte."
   },
   "html_backup_downloads_permission_grant": {
-    "message": "Grant permission"
+    "message": "Udeliť povolenie"
   },
   "js_options_backup_drive_connecting": {
     "message": "Pripájanie…"
@@ -1053,7 +1053,7 @@
     "message": "Záloha nastavení"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file, useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "Exportujte všetky nastavenia rozšírenia do súboru JSON, užitočné ako záloha alebo na presun konfigurácie do iného profilu prehliadača. Import súboru nahradí aktuálne nastavenia."
   },
   "html_backup_local_folder_hint": {
     "message": "Lokálne zálohy sa ukladajú do priečinka tms-backups vo vnútri vašich Stiahnutých súborov."

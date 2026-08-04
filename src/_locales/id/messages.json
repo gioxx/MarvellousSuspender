@@ -157,7 +157,7 @@
     "message": "tab terkelompok dalam keadaan rusak (bug Grup Tab)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state: they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "Beberapa tab dalam Grup Tab berada dalam keadaan rusak: muncul sebagai tab baru, bukan dimuat dengan benar setelah browser dimulai ulang. TMS dapat mencoba memulihkannya."
   },
   "html_health_repair_button": {
     "message": "Perbaiki $count$ tab terkelompok",
@@ -177,7 +177,7 @@
     "message": "Versi"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension: replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "Penerus spiritual dari penangguhan tab modern: mengganti tab yang tidak aktif dengan halaman hibernasi ringan, memberi Anda kontrol terperinci atas kapan mereka bangun."
   },
   "html_about_section_credits": {
     "message": "Kredit"
@@ -219,7 +219,7 @@
     "message": "Dukung Pengembangan"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution: it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender gratis dan bersumber terbuka. Jika Anda merasa ini berguna, pertimbangkan kontribusi kecil: ini membantu menjaga proyek tetap hidup dan berkembang."
   },
   "html_broken_title": {
     "message": "rusak"
@@ -249,7 +249,7 @@
     "message": "Manajemen sesi peramban web"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs, no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS menyimpan cuplikan berkelanjutan dari tab Anda yang terbuka, tanpa perlu pengaturan. Sesi diperbarui secara otomatis saat Anda menjelajah, tetapi hanya ada di dalam Chrome: jika profil browser hilang atau rusak, sesi tersebut ikut hilang."
   },
   "html_history_current_session": {
     "message": "Sesi saat ini"
@@ -267,7 +267,7 @@
     "message": "Migrasikan tab"
   },
   "html_history_migrate_old_id": {
-    "message": "Extension ID"
+    "message": "ID Ekstensi"
   },
   "html_history_migrate_section_title": {
     "message": "Migrasi tab"
@@ -294,7 +294,7 @@
     "message": "Ini memungkinkan Anda menemukan tab tertangguhkan berdasarkan nama host menggunakan \"Cari Tab\" Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "Preserve YouTube playback position when suspending"
+    "message": "Pertahankan posisi pemutaran YouTube saat menangguhkan"
   },
   "html_options_other_title": {
     "message": "Umum"
@@ -351,7 +351,7 @@
     "message": "Jangan pernah menangguhkan tab saat offline"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Claim by default (seamless migration; tab considered suspended if 'suspended.html' is in url)"
+    "message": "Klaim secara default (migrasi mulus; tab dianggap ditangguhkan jika 'suspended.html' ada di URL)"
   },
   "html_options_suspend_only_on_battery": {
     "message": "Jangan pernah menangguhkan tab saat terhubung ke sumber daya (listrik)"
@@ -843,7 +843,7 @@
     "message": "Perlu ID ekstensi 32-karakter untuk migrasi dari"
   },
   "js_history_migrate_success": {
-    "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
+    "message": "Berhasil memigrasikan $tabcount$ tab. Mulai ulang browser Anda jika tab yang dimigrasikan tidak dimuat ulang secara otomatis.",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -902,7 +902,7 @@
     "message": "Cadangan sesi otomatis"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "Berbeda dengan sesi, cadangan disimpan sebagai file JSON di luar Chrome: ke folder Unduhan Anda atau Google Drive. Cadangan ini tetap ada meski browser mogok, profil direset, atau instalasi baru dilakukan. Ini adalah jaring pengaman Anda yang sesungguhnya."
   },
   "html_options_backup_enable": {
     "message": "Cadangkan sesi Anda secara otomatis"
@@ -911,7 +911,7 @@
     "message": "Secara diam-diam menyimpan salinan sesi Anda saat ini sebagai file JSON. Pilih untuk menyimpan secara lokal (folder tms-backups di dalam Unduhan Anda) atau ke folder 'TMS Backups' di Google Drive."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking). Check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "Untuk cadangan lokal, Chrome harus diatur untuk mengunduh file secara otomatis (tanpa bertanya). Periksa chrome://settings/downloads. Cadangan Google Drive tidak memiliki persyaratan seperti itu."
   },
   "html_options_backup_interval": {
     "message": "Cadangkan setiap"
@@ -923,7 +923,7 @@
     "message": "Perhatian: dengan interval sepanjang ini, banyak hal bisa terjadi di antara cadangan. Pertimbangkan interval yang lebih pendek untuk mengurangi risiko kehilangan data."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other.\n\n<strong>Even with Google Drive selected, a local safety-net file is still written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug.</strong>"
+    "message": "Baik cadangan lokal maupun Drive menyertakan pengenal perangkat (mis. tms-session-a3f7b2c8-2026-06-18T14-30.json), sehingga setiap instalasi browser menyimpan kumpulan cadangannya sendiri secara independen. N cadangan lokal terbaru disimpan per perangkat; cadangan Drive juga menyimpan N per perangkat, sehingga sesi dari mesin atau browser yang berbeda tidak akan pernah saling menimpa.\n\n<strong>Meski Google Drive dipilih, file jaring pengaman lokal tetap ditulis saat browser ditutup dan diunggah ke Drive pada saat mulai berikutnya. File lokal yang muncul di sini adalah hal yang wajar, bukan bug.</strong>"
   },
   "html_backup_max_files_label": {
     "message": "Jumlah maksimum cadangan yang disimpan"
@@ -944,7 +944,7 @@
     "message": "↑ Atas"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only: they won't survive a browser crash or profile reset."
+    "message": "Sesi hanya disimpan di dalam Chrome: tidak akan bertahan dari browser yang mogok atau reset profil."
   },
   "html_history_backup_settings_link": {
     "message": "Atur Cadangan untuk menyimpan tab Anda di luar browser →"
@@ -959,34 +959,34 @@
     "message": "Tersimpan"
   },
   "js_backup_permission_denied": {
-    "message": "Permission denied: automatic backup was not enabled."
+    "message": "Izin ditolak: cadangan otomatis tidak diaktifkan."
   },
   "html_options_other_enable_news_feed": {
-    "message": "Enable news feed"
+    "message": "Aktifkan feed berita"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar."
+    "message": "Secara berkala memeriksa marvellouscode.works untuk berita TMS dan menampilkannya di bilah sisi."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "Disable to skip this background request."
+    "message": "Nonaktifkan untuk melewati permintaan latar belakang ini."
   },
   "html_permissions_notice_text": {
-    "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
+    "message": "Mulai versi ini, TMS hanya meminta akses filesystem/akun Google saat Anda benar-benar mengaktifkan cadangan lokal atau Google Drive, alih-alih memintanya di awal."
   },
   "html_permissions_notice_link": {
-    "message": "Learn more about permissions."
+    "message": "Pelajari lebih lanjut tentang izin."
   },
   "html_permissions_notice_dismiss": {
-    "message": "Got it"
+    "message": "Mengerti"
   },
   "html_permissions_info_note": {
-    "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
+    "message": "TMS meminta izin Unduhan dan akun Google hanya saat Anda mengaktifkan cadangan lokal atau Google Drive di bawah ini."
   },
   "html_permissions_info_note_link": {
-    "message": "See the full permissions breakdown."
+    "message": "Lihat rincian lengkap izin."
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome menanyakan tempat menyimpan file, sehingga cadangan otomatis tidak akan berfungsi secara diam-diam. Nonaktifkan \"Tanyakan tempat menyimpan setiap file\" di chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "Berikutnya: $time$",
@@ -1023,25 +1023,25 @@
     "message": "Cadangan otomatis gagal: tidak ada akun Google yang terhubung. Klik di sini untuk memperbaikinya."
   },
   "html_popup_backup_downloads_error": {
-    "message": "Automatic backup failed: the Downloads permission is missing. Click here to fix it."
+    "message": "Cadangan otomatis gagal: izin Unduhan tidak ada. Klik di sini untuk memperbaikinya."
   },
   "html_popup_backup_nudge_text": {
-    "message": "Automatic backup is off. Protect your sessions."
+    "message": "Cadangan otomatis nonaktif. Lindungi sesi Anda."
   },
   "html_backup_nudge_dismiss": {
-    "message": "Remind me in 10 days"
+    "message": "Ingatkan saya dalam 10 hari"
   },
   "html_backup_nudge_note_text": {
-    "message": "Automatic backup is off. Enabling it protects your sessions if this browser profile ever gets reset or corrupted."
+    "message": "Cadangan otomatis nonaktif. Mengaktifkannya melindungi sesi Anda jika profil browser ini suatu saat direset atau rusak."
   },
   "html_backup_nudge_optout": {
-    "message": "I'm not interested, stop reminding me"
+    "message": "Saya tidak tertarik, hentikan pengingat ini"
   },
   "html_backup_downloads_permission_missing": {
-    "message": "Automatic backup is on, but the Downloads permission isn't granted on this device (this can happen after importing settings or syncing from another browser). Backups won't run until you grant it."
+    "message": "Cadangan otomatis aktif, tetapi izin Unduhan tidak diberikan pada perangkat ini (ini bisa terjadi setelah mengimpor pengaturan atau menyinkronkan dari browser lain). Cadangan tidak akan berjalan sampai Anda memberikan izin tersebut."
   },
   "html_backup_downloads_permission_grant": {
-    "message": "Grant permission"
+    "message": "Berikan izin"
   },
   "js_options_backup_drive_connecting": {
     "message": "Menghubungkan…"
@@ -1053,7 +1053,7 @@
     "message": "Cadangan pengaturan"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file, useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "Ekspor semua pengaturan ekstensi ke file JSON, berguna sebagai cadangan atau untuk memindahkan konfigurasi Anda ke profil browser lain. Mengimpor file akan menggantikan pengaturan saat ini."
   },
   "html_backup_local_folder_hint": {
     "message": "Cadangan lokal disimpan ke folder tms-backups di dalam Unduhan Anda."
