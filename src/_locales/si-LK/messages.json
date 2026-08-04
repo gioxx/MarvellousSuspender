@@ -157,7 +157,7 @@
     "message": "බිඳී ඇති තත්ත්වයේ සමූහගත ටැබ් (ටැබ් සමූහ දෝෂය)"
   },
   "html_health_repair_intro": {
-    "message": "ටැබ් සමූහවල ඇතැම් ටැබ් බිඳී ඇති තත්ත්වයක ඇත — බ්‍රවුසරය නැවත ආරම්භ කිරීමෙන් පසු නිවැරදිව පූරණය වීමට වඩා ඒවා නව ටැබ් එකක් ලෙස පෙන්වයි. TMS හට ඒවා ප්‍රතිසාධනය කිරීමට උත්සාහ කළ හැක."
+    "message": "Some tabs in Tab Groups are in a broken state: they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
   },
   "html_health_repair_button": {
     "message": "සමූහගත ටැබ් $count$ අලුත්වැඩියා කරන්න",
@@ -177,7 +177,7 @@
     "message": "අනුවාදය"
   },
   "html_about_tagline": {
-    "message": "නවීන ටැබ් අත්හිටුවීමේ ආධ්‍යාත්මික අනුප්‍රාප්තිකයා — නිෂ්ක්‍රීය ටැබ් සැහැල්ලු නිද්‍රා පිටුවකින් ප්‍රතිස්ථාපනය කර, ඒවා අවදි වන විට ඔබට සියුම් පාලනයක් ලබා දෙයි."
+    "message": "The spiritual successor to modern tab suspension: replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
   },
   "html_about_section_credits": {
     "message": "ණයගැති වීම්"
@@ -219,7 +219,7 @@
     "message": "සංවර්ධනයට සහාය වන්න"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender නොමිලේ සහ විවෘත මූලාශ්‍ර වේ. එය ප්‍රයෝජනවත් යැයි ඔබට හැඟේ නම්, කුඩා දායකත්වයක් සලකා බලන්න — එය ව්‍යාපෘතිය ජීවමානව හා වර්ධනය වීමට උපකාරී වේ."
+    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution: it helps keep the project alive and growing."
   },
   "html_broken_title": {
     "message": "කැඩිලා"
@@ -249,7 +249,7 @@
     "message": "සැසි කළමනාකරණය"
   },
   "html_history_page_desc": {
-    "message": "TMS ඔබේ විවෘත ටැබ්වල අඛණ්ඩ ඡායාරූපයක් තබා ගනී — කිසිදු සැකසුමක් අවශ්‍ය නොවේ. ඔබ බ්‍රවුස් කරන විට සැසි ස්වයංක්‍රීයව යාවත්කාලීන වේ, නමුත් ඒවා Chrome තුළ පමණක් පවතී: බ්‍රවුසර පැතිකඩ නැති වුවහොත් හෝ දූෂිත වුවහොත්, ඒවා ද නැති වේ."
+    "message": "TMS keeps a running snapshot of your open tabs, no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
   },
   "html_history_current_session": {
     "message": "වත්මන් සැසිය"
@@ -902,7 +902,7 @@
     "message": "ස්වයංක්‍රීය සැසි උපස්ථය"
   },
   "html_backup_session_desc": {
-    "message": "සැසිවලට වඩා වෙනස්ව, උපස්ථ Chrome වලින් පිටත JSON ගොනු ලෙස — ඔබේ බාගැනීම් ෆෝල්ඩරයට හෝ Google Drive වෙත සුරකිනු ලැබේ. ඒවා බ්‍රවුසර බිඳවැටීම්, පැතිකඩ නැවත සැකසීම් සහ නව ස්ථාපනවලින් පවතී. මෙය ඔබේ සැබෑ ආරක්ෂක දැලයයි."
+    "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
   },
   "html_options_backup_enable": {
     "message": "ඔබේ සැසිය ස්වයංක්‍රීයව උපස්ථ කරන්න"
@@ -911,7 +911,7 @@
     "message": "ඔබේ වත්මන් සැසියේ පිටපතක් JSON ගොනුවක් ලෙස නිහඬව සුරකියි. ස්ථානීයව (ඔබේ බාගැනීම් තුළ tms-backups ෆෝල්ඩරය) හෝ Google Drive හි 'TMS Backups' ෆෝල්ඩරයකට සුරැකීමට තෝරන්න."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "ස්ථානීය උපස්ථ සඳහා, Chrome ගොනු ස්වයංක්‍රීයව බාගැනීමට (නොඅසා) සකසා තිබිය යුතුය — chrome://settings/downloads පරීක්ෂා කරන්න. Google Drive උපස්ථවලට එවැනි අවශ්‍යතාවක් නැත."
+    "message": "For local backups, Chrome must be set to download files automatically (without asking). Check chrome://settings/downloads. Google Drive backups have no such requirement."
   },
   "html_options_backup_interval": {
     "message": "සෑම"
@@ -923,7 +923,7 @@
     "message": "සැලකිල්ල: මෙතරම් දිගු කාල පරතරයක් සමඟ, උපස්ථ අතර බොහෝ දේ සිදුවිය හැක. දත්ත අහිමි වීමේ අවදානම අඩු කිරීමට කෙටි කාල පරතරයක් සලකා බලන්න."
   },
   "html_options_backup_note": {
-    "message": "ස්ථානීය සහ Drive උපස්ථ දෙකෙහිම උපාංග හඳුනාගැනීමකි (උදා: tms-session-a3f7b2c8-2026-06-18T14-30.json), එබැවින් සෑම බ්‍රවුසර ස්ථාපනයක්ම එහි ස්වාධීන උපස්ථ සමූහයක් තබා ගනී. උපාංගයකට නවතම ස්ථානීය උපස්ථ N ක් තබා ගනී; Drive උපස්ථ ද උපාංගයකට N ක් තබා ගනී, එබැවින් විවිධ යන්ත්‍ර හෝ බ්‍රවුසරවලින් වූ සැසි කිසිවිටෙක එකිනෙකා උඩින් නොලියයි."
+    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other.\n\n<strong>Even with Google Drive selected, a local safety-net file is still written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug.</strong>"
   },
   "html_backup_max_files_label": {
     "message": "තබා ගත යුතු උපරිම උපස්ථ ගණන"
@@ -944,7 +944,7 @@
     "message": "↑ ඉහළට"
   },
   "html_history_backup_hint_prefix": {
-    "message": "සැසි Chrome තුළ පමණක් ගබඩා වේ — ඒවා බ්‍රවුසර බිඳවැටීමකින් හෝ පැතිකඩ නැවත සැකසීමකින් නොපවතිනු ඇත."
+    "message": "Sessions are stored inside Chrome only: they won't survive a browser crash or profile reset."
   },
   "html_history_backup_settings_link": {
     "message": "ඔබේ ටැබ් බ්‍රවුසරයෙන් පිටත සුරැකීමට උපස්ථය සකසන්න →"
@@ -958,8 +958,35 @@
   "js_backup_option_saved": {
     "message": "සුරකින ලදී"
   },
+  "js_backup_permission_denied": {
+    "message": "Permission denied: automatic backup was not enabled."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "Enable news feed"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1": {
+    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar."
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "Disable to skip this background request."
+  },
+  "html_permissions_notice_text": {
+    "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
+  },
+  "html_permissions_notice_link": {
+    "message": "Learn more about permissions."
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "Got it"
+  },
+  "html_permissions_info_note": {
+    "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
+  },
+  "html_permissions_info_note_link": {
+    "message": "See the full permissions breakdown."
+  },
   "js_options_backup_now_error": {
-    "message": "Chrome ගොනු කොහේ සුරැකිය යුතුදැයි අසමින් ඇත — ස්වයංක්‍රීය උපස්ථ නිහඬව ක්‍රියා නොකරනු ඇත. chrome://settings/downloads හි \"සෑම ගොනුවක්ම කොහේ සුරැකිය යුතුදැයි අසන්න\" අක්‍රීය කරන්න."
+    "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "ඊළඟ ධාවනය: $time$",
@@ -995,6 +1022,27 @@
   "html_popup_backup_drive_error": {
     "message": "ස්වයංක්‍රීය උපස්ථය අසාර්ථක විය: Google ගිණුමක් සම්බන්ධ කර නැත. නිවැරදි කිරීමට මෙතන ක්ලික් කරන්න."
   },
+  "html_popup_backup_downloads_error": {
+    "message": "Automatic backup failed: the Downloads permission is missing. Click here to fix it."
+  },
+  "html_popup_backup_nudge_text": {
+    "message": "Automatic backup is off. Protect your sessions."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "Remind me in 10 days"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "Automatic backup is off. Enabling it protects your sessions if this browser profile ever gets reset or corrupted."
+  },
+  "html_backup_nudge_optout": {
+    "message": "I'm not interested, stop reminding me"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "Automatic backup is on, but the Downloads permission isn't granted on this device (this can happen after importing settings or syncing from another browser). Backups won't run until you grant it."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "Grant permission"
+  },
   "js_options_backup_drive_connecting": {
     "message": "සම්බන්ධ වෙමින්…"
   },
@@ -1005,7 +1053,7 @@
     "message": "සැකසුම් උපස්ථය"
   },
   "html_backup_settings_desc": {
-    "message": "සියලුම දිගු සැකසුම් JSON ගොනුවකට නිර්යාත කරන්න — උපස්ථයක් ලෙස හෝ ඔබේ වින්‍යාසය වෙනත් බ්‍රවුසර පැතිකඩකට මාරු කිරීමට ප්‍රයෝජනවත් වේ. ගොනුවක් ආයාත කිරීම වත්මන් සැකසුම් ප්‍රතිස්ථාපනය කරයි."
+    "message": "Export all extension settings to a JSON file, useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
   },
   "html_backup_local_folder_hint": {
     "message": "ස්ථානීය උපස්ථ ඔබේ බාගැනීම් තුළ ඇති tms-backups ෆෝල්ඩරයට යයි."
