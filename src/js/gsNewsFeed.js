@@ -1,4 +1,6 @@
 // @ts-check
+import { gsStorage } from './gsStorage.js';
+
 const gsNewsFeed = (() => {
   'use strict';
 
@@ -82,6 +84,8 @@ const gsNewsFeed = (() => {
   }
 
   async function fetchAndCacheIfStale() {
+    const enabled = await gsStorage.getOption(gsStorage.NEWS_FEED_ENABLED);
+    if (!enabled) return;
     const data   = await chrome.storage.local.get(CACHE_KEY);
     const cached = data[CACHE_KEY];
     if (cached && Date.now() - cached.fetchedAt < CACHE_TTL_MS) return;
@@ -125,6 +129,11 @@ const gsNewsFeed = (() => {
   }
 
   async function syncAlarm() {
+    const enabled = await gsStorage.getOption(gsStorage.NEWS_FEED_ENABLED);
+    if (!enabled) {
+      await chrome.alarms.clear(ALARM_NAME);
+      return;
+    }
     const offset   = await getMinuteOffset();
     const offsetMs = offset * 60_000;
     await chrome.alarms.clear(ALARM_NAME);
