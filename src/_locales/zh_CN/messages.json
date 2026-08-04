@@ -157,7 +157,7 @@
     "message": "个分组标签页处于损坏状态（标签组错误）"
   },
   "html_health_repair_intro": {
-    "message": "部分标签组中的标签页处于损坏状态——浏览器重启后它们显示为新标签页，而不是正常加载。TMS 可以尝试恢复它们。"
+    "message": "Some tabs in Tab Groups are in a broken state: they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
   },
   "html_health_repair_button": {
     "message": "修复 $count$ 个分组标签页",
@@ -177,7 +177,7 @@
     "message": "版本"
   },
   "html_about_tagline": {
-    "message": "现代标签页挂起的精神继承者——用轻量级休眠页面替换非活动标签页，让您精细掌控它们何时唤醒。"
+    "message": "The spiritual successor to modern tab suspension: replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
   },
   "html_about_section_credits": {
     "message": "鸣谢"
@@ -219,7 +219,7 @@
     "message": "支持开发"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender 是免费开源软件。如果您觉得它有用，欢迎小额赞助——这有助于项目持续维护和发展。"
+    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution: it helps keep the project alive and growing."
   },
   "html_broken_title": {
     "message": "已损坏"
@@ -249,7 +249,7 @@
     "message": "会话管理"
   },
   "html_history_page_desc": {
-    "message": "TMS 会持续记录已打开标签页的快照，无需任何设置。会话会在浏览时自动更新，但仅存在于 Chrome 内部：如果浏览器配置文件丢失或损坏，会话数据也会随之丢失。"
+    "message": "TMS keeps a running snapshot of your open tabs, no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
   },
   "html_history_current_session": {
     "message": "当前会话"
@@ -902,7 +902,7 @@
     "message": "自动会话备份"
   },
   "html_backup_session_desc": {
-    "message": "与会话不同，备份以 JSON 文件形式保存在 Chrome 之外——存放在下载文件夹或 Google 云端硬盘中。它们可以在浏览器崩溃、配置文件重置和全新安装后依然保留，是您真正的安全保障。"
+    "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
   },
   "html_options_backup_enable": {
     "message": "自动备份您的会话"
@@ -911,7 +911,7 @@
     "message": "以 JSON 文件形式静默保存当前会话的副本。可选择保存到本地（下载文件夹内的 tms-backups 目录）或 Google 云端硬盘中的 'TMS Backups' 文件夹。"
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "对于本地备份，Chrome 必须设置为自动下载文件（不询问）——请检查 chrome://settings/downloads。Google 云端硬盘备份无此要求。"
+    "message": "For local backups, Chrome must be set to download files automatically (without asking). Check chrome://settings/downloads. Google Drive backups have no such requirement."
   },
   "html_options_backup_interval": {
     "message": "备份间隔"
@@ -923,7 +923,7 @@
     "message": "请注意：间隔时间过长时，两次备份之间可能会发生较多变化。建议缩短间隔以降低数据丢失的风险。"
   },
   "html_options_backup_note": {
-    "message": "本地和云端硬盘备份都包含设备标识符（例如 tms-session-a3f7b2c8-2026-06-18T14-30.json），因此每个浏览器安装都会维护独立的备份集。每台设备会保留最近的 N 个本地备份；云端硬盘备份同样按设备保留 N 个，因此不同设备或浏览器的会话永远不会相互覆盖。"
+    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other.\n\n<strong>Even with Google Drive selected, a local safety-net file is still written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug.</strong>"
   },
   "html_backup_max_files_label": {
     "message": "保留备份的最大数量"
@@ -944,7 +944,7 @@
     "message": "↑ 顶部"
   },
   "html_history_backup_hint_prefix": {
-    "message": "会话仅存储在 Chrome 内部——无法在浏览器崩溃或配置文件重置后保留。"
+    "message": "Sessions are stored inside Chrome only: they won't survive a browser crash or profile reset."
   },
   "html_history_backup_settings_link": {
     "message": "设置备份，将标签页保存到浏览器之外 →"
@@ -958,8 +958,35 @@
   "js_backup_option_saved": {
     "message": "已保存"
   },
+  "js_backup_permission_denied": {
+    "message": "Permission denied: automatic backup was not enabled."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "Enable news feed"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1": {
+    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar."
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "Disable to skip this background request."
+  },
+  "html_permissions_notice_text": {
+    "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
+  },
+  "html_permissions_notice_link": {
+    "message": "Learn more about permissions."
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "Got it"
+  },
+  "html_permissions_info_note": {
+    "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
+  },
+  "html_permissions_info_note_link": {
+    "message": "See the full permissions breakdown."
+  },
   "js_options_backup_now_error": {
-    "message": "Chrome 正在询问文件保存位置——自动备份将无法静默完成。请在 chrome://settings/downloads 中关闭「下载前询问每个文件的保存位置」。"
+    "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "下次运行：$time$",
@@ -995,6 +1022,27 @@
   "html_popup_backup_drive_error": {
     "message": "自动备份失败：未连接 Google 账号。点击此处修复。"
   },
+  "html_popup_backup_downloads_error": {
+    "message": "Automatic backup failed: the Downloads permission is missing. Click here to fix it."
+  },
+  "html_popup_backup_nudge_text": {
+    "message": "Automatic backup is off. Protect your sessions."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "Remind me in 10 days"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "Automatic backup is off. Enabling it protects your sessions if this browser profile ever gets reset or corrupted."
+  },
+  "html_backup_nudge_optout": {
+    "message": "I'm not interested, stop reminding me"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "Automatic backup is on, but the Downloads permission isn't granted on this device (this can happen after importing settings or syncing from another browser). Backups won't run until you grant it."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "Grant permission"
+  },
   "js_options_backup_drive_connecting": {
     "message": "正在连接…"
   },
@@ -1005,7 +1053,7 @@
     "message": "设置备份"
   },
   "html_backup_settings_desc": {
-    "message": "将所有扩展程序设置导出为 JSON 文件——可用作备份，也可用于将配置转移到另一个浏览器配置文件。导入文件将替换当前设置。"
+    "message": "Export all extension settings to a JSON file, useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
   },
   "html_backup_local_folder_hint": {
     "message": "本地备份将保存到下载文件夹内的 tms-backups 目录。"
