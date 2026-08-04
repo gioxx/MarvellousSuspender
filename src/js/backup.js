@@ -316,6 +316,15 @@ import  { gsUtils }    from './gsUtils.js';
     savedTimer = setTimeout(() => el.classList.remove('visible'), 2000);
   }
 
+  function showBackupPermissionDenied() {
+    const el = document.getElementById('optionSavedStatus');
+    if (!el) return;
+    el.textContent = gsUtils.getMessage('js_backup_permission_denied');
+    el.classList.add('visible');
+    clearTimeout(savedTimer);
+    savedTimer = setTimeout(() => el.classList.remove('visible'), 4000);
+  }
+
   async function updateDriveAuthUI() {
     const connectedEl    = document.getElementById('driveConnectedInfo');
     const disconnectedEl = document.getElementById('driveDisconnectedInfo');
@@ -504,6 +513,15 @@ import  { gsUtils }    from './gsUtils.js';
   function handleChange(element) {
     return async () => {
       const pref = elementPrefMap[element.id];
+
+      if (pref === gsStorage.AUTO_BACKUP_ENABLED && getOptionValue(element)) {
+        const granted = await chrome.permissions.request({ permissions: ['downloads'] });
+        if (!granted) {
+          element.checked = false;
+          showBackupPermissionDenied();
+          return;
+        }
+      }
 
       if (pref === gsStorage.AUTO_BACKUP_ENABLED) {
         setAutoBackupOptionsVisibility(getOptionValue(element));
@@ -810,6 +828,12 @@ import  { gsUtils }    from './gsUtils.js';
     // Drive: connect button
     document.getElementById('driveConnectBtn').addEventListener('click', async () => {
       const statusEl = document.getElementById('driveAuthStatus');
+      const granted = await chrome.permissions.request({ permissions: ['identity'] });
+      if (!granted) {
+        statusEl.textContent = gsUtils.getMessage('js_options_backup_drive_auth_error');
+        setTimeout(() => { statusEl.textContent = ''; }, 8000);
+        return;
+      }
       statusEl.textContent = gsUtils.getMessage('js_options_backup_drive_connecting');
       try {
         await gsBackup.getAuthToken(true);
