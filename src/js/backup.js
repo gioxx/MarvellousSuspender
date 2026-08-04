@@ -531,7 +531,12 @@ import  { gsUtils }    from './gsUtils.js';
       const pref = elementPrefMap[element.id];
 
       if (pref === gsStorage.AUTO_BACKUP_ENABLED && getOptionValue(element)) {
-        const granted = await chrome.permissions.request({ permissions: ['downloads'] });
+        let granted = false;
+        try {
+          granted = await chrome.permissions.request({ permissions: ['downloads'] });
+        } catch (e) {
+          gsUtils.error('backup', 'chrome.permissions.request(downloads) failed:', e);
+        }
         if (!granted) {
           element.checked = false;
           showBackupPermissionDenied();
@@ -845,7 +850,12 @@ import  { gsUtils }    from './gsUtils.js';
     // Drive: connect button
     document.getElementById('driveConnectBtn').addEventListener('click', async () => {
       const statusEl = document.getElementById('driveAuthStatus');
-      const granted = await chrome.permissions.request({ permissions: ['identity'] });
+      let granted = false;
+      try {
+        granted = await chrome.permissions.request({ permissions: ['identity'] });
+      } catch (e) {
+        gsUtils.error('backup', 'chrome.permissions.request(identity) failed:', e);
+      }
       if (!granted) {
         statusEl.textContent = gsUtils.getMessage('js_options_backup_drive_auth_error');
         setTimeout(() => { statusEl.textContent = ''; }, 8000);

@@ -964,8 +964,11 @@
   "html_options_other_enable_news_feed": {
     "message": "Attiva feed news"
   },
-  "html_options_other_enable_news_feed_tooltip": {
-    "message": "Controlla periodicamente marvellouscode.works per le novità su TMS e le mostra nella barra laterale. Disattiva se preferisci evitare questa richiesta in background."
+  "html_options_other_enable_news_feed_tooltip_line1": {
+    "message": "Controlla periodicamente marvellouscode.works per le novità su TMS"
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "e le mostra nella barra laterale. Disattiva per evitare questa richiesta in background."
   },
   "html_permissions_notice_text": {
     "message": "Da questa versione, TMS richiede l'accesso al filesystem/account Google solo quando attivi davvero il backup locale o su Google Drive, invece di richiederlo subito."

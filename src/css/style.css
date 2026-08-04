@@ -638,6 +638,10 @@ a.active {
   text-decoration: none;
 }
 
+.permissionsNoticeActions {
+  margin-top: var(--space-3);
+}
+
 .gsNote a:hover {
   text-decoration: underline;
 }
