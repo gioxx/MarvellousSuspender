@@ -157,7 +157,7 @@
     "message": "個の破損状態のグループ化されたタブ（タブグループのバグ）"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state: they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "タブグループ内の一部のタブが破損状態です。ブラウザの再起動後、正しく読み込まれる代わりに新しいタブとして表示されます。TMSはこれらの復元を試みることができます。"
   },
   "html_health_repair_button": {
     "message": "グループ化されたタブ $count$ 個を修復",
@@ -177,7 +177,7 @@
     "message": "バージョン"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension: replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "現代のタブ停止機能の精神的後継者。非アクティブなタブを軽量な休止ページに置き換え、いつ復帰させるかを細かく制御できます。"
   },
   "html_about_section_credits": {
     "message": "クレジット"
@@ -219,7 +219,7 @@
     "message": "開発を支援する"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution: it helps keep the project alive and growing."
+    "message": "The Marvellous Suspenderは無料でオープンソースです。役立つと感じたら、小さな貢献をご検討ください。プロジェクトの存続と成長に役立ちます。"
   },
   "html_broken_title": {
     "message": "が壊れています"
@@ -249,7 +249,7 @@
     "message": "セッション管理"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs, no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMSは開いているタブの継続的なスナップショットを保持します。設定は不要です。セッションは閲覧中に自動的に更新されますが、Chrome内にのみ存在します。ブラウザのプロファイルが失われたり破損したりすると、セッションも一緒に失われます。"
   },
   "html_history_current_session": {
     "message": "現在のセッション"
@@ -267,7 +267,7 @@
     "message": "タブを移行"
   },
   "html_history_migrate_old_id": {
-    "message": "Extension ID"
+    "message": "拡張機能ID"
   },
   "html_history_migrate_section_title": {
     "message": "タブの移行"
@@ -294,7 +294,7 @@
     "message": "これにより、Chromeの「タブを検索」機能（Ctrl+Shift+A）を使ってホスト名で停止中のタブを見つけられるようになります。"
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "Preserve YouTube playback position when suspending"
+    "message": "サスペンド時にYouTubeの再生位置を保持する"
   },
   "html_options_other_title": {
     "message": "一般"
@@ -351,7 +351,7 @@
     "message": "オフライン時はタブを停止しない"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Claim by default (seamless migration; tab considered suspended if 'suspended.html' is in url)"
+    "message": "デフォルトで引き継ぐ（シームレスな移行。URLに'suspended.html'が含まれる場合、タブはサスペンド中とみなされます）"
   },
   "html_options_suspend_only_on_battery": {
     "message": "電源に接続されている場合はタブを停止しない"
@@ -396,7 +396,7 @@
     "message": "ダーク"
   },
   "html_options_suspend_theme_system": {
-    "message": "System"
+    "message": "システム"
   },
   "html_options_suspend_screen_capturing": {
     "message": "スクリーンキャプチャ"
@@ -822,10 +822,10 @@
     "message": "ウィンドウ"
   },
   "js_history_tab": {
-    "message": "Tab"
+    "message": "タブ"
   },
   "js_history_tabs": {
-    "message": "Tabs"
+    "message": "タブ"
   },
   "js_history_enter_name_for_session": {
     "message": "このセッションの名前を入力してください"
@@ -843,7 +843,7 @@
     "message": "移行元には32文字の拡張機能IDが必要です"
   },
   "js_history_migrate_success": {
-    "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
+    "message": "$tabcount$ 個のタブの移行に成功しました。移行したタブが自動的に再読み込みされない場合は、ブラウザを再起動してください。",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -902,7 +902,7 @@
     "message": "自動セッションバックアップ"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "セッションとは異なり、バックアップはChromeの外部にJSONファイルとして保存されます。ダウンロードフォルダまたはGoogleドライブに保存されます。ブラウザのクラッシュ、プロファイルのリセット、新規インストールを経ても保持されます。これがあなたの本当のセーフティネットです。"
   },
   "html_options_backup_enable": {
     "message": "セッションを自動的にバックアップする"
@@ -911,7 +911,7 @@
     "message": "現在のセッションのコピーをJSONファイルとして静かに保存します。ローカル保存（ダウンロード内のtms-backupsフォルダ）またはGoogleドライブの「TMS Backups」フォルダへの保存を選択できます。"
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking). Check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "ローカルバックアップの場合、Chromeがファイルを自動的にダウンロードする（確認なし）よう設定されている必要があります。chrome://settings/downloadsを確認してください。Googleドライブのバックアップにはこの要件はありません。"
   },
   "html_options_backup_interval": {
     "message": "バックアップ間隔"
@@ -923,7 +923,7 @@
     "message": "ご注意: これほど長い間隔だと、バックアップの間に多くのことが起こる可能性があります。データ損失のリスクを減らすため、より短い間隔をご検討ください。"
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other.\n\n<strong>Even with Google Drive selected, a local safety-net file is still written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug.</strong>"
+    "message": "ローカルとドライブのバックアップの両方にデバイス識別子が含まれます（例: tms-session-a3f7b2c8-2026-06-18T14-30.json）。そのため、各ブラウザのインストールは独自のバックアップ群を独立して保持します。デバイスごとに最新のN個のローカルバックアップが保持されます。ドライブのバックアップもデバイスごとにN個保持されるため、異なるマシンやブラウザのセッションが互いに上書きされることはありません。\n\n<strong>Googleドライブを選択している場合でも、ブラウザを閉じるとローカルの安全策ファイルが書き込まれ、次回起動時にドライブへアップロードされます。ここにローカルファイルが表示されるのは想定通りの動作であり、不具合ではありません。</strong>"
   },
   "html_backup_max_files_label": {
     "message": "保持する最大バックアップ数"
@@ -944,7 +944,7 @@
     "message": "↑ トップへ"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only: they won't survive a browser crash or profile reset."
+    "message": "セッションはChrome内にのみ保存されます。ブラウザのクラッシュやプロファイルのリセットには耐えられません。"
   },
   "html_history_backup_settings_link": {
     "message": "バックアップを設定して、タブをブラウザの外に保存する →"
@@ -959,34 +959,34 @@
     "message": "保存済み"
   },
   "js_backup_permission_denied": {
-    "message": "Permission denied: automatic backup was not enabled."
+    "message": "権限が拒否されました: 自動バックアップは有効になりませんでした。"
   },
   "html_options_other_enable_news_feed": {
-    "message": "Enable news feed"
+    "message": "ニュースフィードを有効にする"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar."
+    "message": "marvellouscode.worksを定期的にチェックしてTMSのニュースを取得し、サイドバーに表示します。"
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "Disable to skip this background request."
+    "message": "無効にすると、このバックグラウンドリクエストをスキップします。"
   },
   "html_permissions_notice_text": {
-    "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
+    "message": "このバージョンから、TMSはローカルまたはGoogleドライブのバックアップを実際に有効にしたときにのみファイルシステム/Googleアカウントへのアクセスを要求するようになりました。事前に要求することはありません。"
   },
   "html_permissions_notice_link": {
-    "message": "Learn more about permissions."
+    "message": "権限について詳しく見る。"
   },
   "html_permissions_notice_dismiss": {
-    "message": "Got it"
+    "message": "わかりました"
   },
   "html_permissions_info_note": {
-    "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
+    "message": "TMSは、以下でローカルまたはGoogleドライブのバックアップを有効にしたときにのみ、ダウンロードとGoogleアカウントの権限を要求します。"
   },
   "html_permissions_info_note_link": {
-    "message": "See the full permissions breakdown."
+    "message": "権限の詳細な内訳を見る。"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chromeがファイルの保存先を尋ねています。このままでは自動バックアップは静かに動作しません。chrome://settings/downloadsで「ダウンロード前に各ファイルの保存場所を確認する」をオフにしてください。"
   },
   "js_options_backup_next_run": {
     "message": "次回の実行: $time$",
@@ -1023,25 +1023,25 @@
     "message": "自動バックアップに失敗しました: Googleアカウントが接続されていません。ここをクリックして修正してください。"
   },
   "html_popup_backup_downloads_error": {
-    "message": "Automatic backup failed: the Downloads permission is missing. Click here to fix it."
+    "message": "自動バックアップに失敗しました: ダウンロードの権限がありません。ここをクリックして修正してください。"
   },
   "html_popup_backup_nudge_text": {
-    "message": "Automatic backup is off. Protect your sessions."
+    "message": "自動バックアップはオフです。セッションを保護しましょう。"
   },
   "html_backup_nudge_dismiss": {
-    "message": "Remind me in 10 days"
+    "message": "10日後に再通知"
   },
   "html_backup_nudge_note_text": {
-    "message": "Automatic backup is off. Enabling it protects your sessions if this browser profile ever gets reset or corrupted."
+    "message": "自動バックアップはオフです。有効にすると、このブラウザのプロファイルがリセットまたは破損した場合でもセッションを保護できます。"
   },
   "html_backup_nudge_optout": {
-    "message": "I'm not interested, stop reminding me"
+    "message": "興味がないので、これ以上通知しない"
   },
   "html_backup_downloads_permission_missing": {
-    "message": "Automatic backup is on, but the Downloads permission isn't granted on this device (this can happen after importing settings or syncing from another browser). Backups won't run until you grant it."
+    "message": "自動バックアップは有効ですが、この端末ではダウンロードの権限が許可されていません（設定のインポートや別のブラウザからの同期後に発生することがあります）。権限を許可するまでバックアップは実行されません。"
   },
   "html_backup_downloads_permission_grant": {
-    "message": "Grant permission"
+    "message": "権限を許可"
   },
   "js_options_backup_drive_connecting": {
     "message": "接続中…"
@@ -1053,7 +1053,7 @@
     "message": "設定のバックアップ"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file, useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "拡張機能のすべての設定をJSONファイルにエクスポートします。バックアップとして、または設定を別のブラウザプロファイルに移行する際に便利です。ファイルをインポートすると現在の設定が置き換えられます。"
   },
   "html_backup_local_folder_hint": {
     "message": "ローカルバックアップはダウンロード内のtms-backupsフォルダに保存されます。"
