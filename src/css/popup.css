@@ -103,6 +103,9 @@ a {
   color: var(--foreground);
   font-size: var(--text-sm);
   cursor: pointer;
+}
+
+#backupNudgeBanner:not(.hidden) {
   display: flex;
   align-items: center;
   justify-content: space-between;
