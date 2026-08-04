@@ -157,7 +157,7 @@
     "message": "علامات تبويب مجمّعة في حالة معطلة (خلل مجموعات علامات التبويب)"
   },
   "html_health_repair_intro": {
-    "message": "بعض علامات التبويب في المجموعات في حالة معطلة — تظهر كعلامة تبويب جديدة بدلاً من التحميل بشكل صحيح بعد إعادة تشغيل المتصفح. يمكن لـ TMS محاولة استعادتها."
+    "message": "Some tabs in Tab Groups are in a broken state: they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
   },
   "html_health_repair_button": {
     "message": "إصلاح $count$ علامة تبويب مجمّعة",
@@ -177,7 +177,7 @@
     "message": "الإصدار"
   },
   "html_about_tagline": {
-    "message": "الخليفة الروحي لتعليق علامات التبويب الحديث — يستبدل علامات التبويب غير النشطة بصفحة سُبات خفيفة، مانحًا إياك تحكمًا دقيقًا في وقت استيقاظها."
+    "message": "The spiritual successor to modern tab suspension: replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
   },
   "html_about_section_credits": {
     "message": "شكر وتقدير"
@@ -219,7 +219,7 @@
     "message": "ادعم التطوير"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender مجاني ومفتوح المصدر. إذا وجدته مفيدًا، ففكّر في تقديم مساهمة صغيرة — فهذا يساعد في إبقاء المشروع حيًا ونموه."
+    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution: it helps keep the project alive and growing."
   },
   "html_broken_title": {
     "message": "يتم كسر"
@@ -249,7 +249,7 @@
     "message": "إدارة الجلسة"
   },
   "html_history_page_desc": {
-    "message": "يحتفظ TMS بلقطة مستمرة لعلامات التبويب المفتوحة لديك — دون الحاجة لأي إعداد. تتحدّث الجلسات تلقائيًا أثناء التصفح، لكنها موجودة داخل Chrome فقط: إذا فُقد ملف تعريف المتصفح أو تلف، تُفقد معه."
+    "message": "TMS keeps a running snapshot of your open tabs, no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
   },
   "html_history_current_session": {
     "message": "الجلسة الحالية"
@@ -902,7 +902,7 @@
     "message": "النسخ الاحتياطي التلقائي للجلسة"
   },
   "html_backup_session_desc": {
-    "message": "على عكس الجلسات، تُحفظ النسخ الاحتياطية كملفات JSON خارج Chrome — في مجلد التنزيلات لديك أو على Google Drive. تصمد أمام أعطال المتصفح وإعادة ضبط الملف الشخصي والتثبيتات الجديدة. هذه شبكة الأمان الحقيقية لك."
+    "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
   },
   "html_options_backup_enable": {
     "message": "نسخ جلستك احتياطيًا تلقائيًا"
@@ -911,7 +911,7 @@
     "message": "يحفظ بصمت نسخة من جلستك الحالية كملف JSON. اختر الحفظ محليًا (مجلد tms-backups داخل مجلد التنزيلات) أو في مجلد 'TMS Backups' على Google Drive."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "بالنسبة للنسخ الاحتياطية المحلية، يجب ضبط Chrome لتنزيل الملفات تلقائيًا (دون سؤال) — تحقق من chrome://settings/downloads. لا تتطلب النسخ الاحتياطية على Google Drive ذلك."
+    "message": "For local backups, Chrome must be set to download files automatically (without asking). Check chrome://settings/downloads. Google Drive backups have no such requirement."
   },
   "html_options_backup_interval": {
     "message": "النسخ الاحتياطي كل"
@@ -923,7 +923,7 @@
     "message": "تنبيه: مع فاصل زمني طويل كهذا، يمكن أن يحدث الكثير بين النسخ الاحتياطية. فكّر في فاصل زمني أقصر لتقليل خطر فقدان البيانات."
   },
   "html_options_backup_note": {
-    "message": "تتضمن كل من النسخ الاحتياطية المحلية ونسخ Drive معرّف جهاز (مثل tms-session-a3f7b2c8-2026-06-18T14-30.json)، بحيث يحتفظ كل تثبيت متصفح بمجموعة نسخ احتياطية مستقلة خاصة به. يتم الاحتفاظ بأحدث N نسخة احتياطية محلية لكل جهاز؛ وتحتفظ نسخ Drive أيضًا بـ N نسخة لكل جهاز، بحيث لا تحل جلسات الأجهزة أو المتصفحات المختلفة محل بعضها البعض أبدًا."
+    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other.\n\n<strong>Even with Google Drive selected, a local safety-net file is still written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug.</strong>"
   },
   "html_backup_max_files_label": {
     "message": "الحد الأقصى للنسخ الاحتياطية المحتفظ بها"
@@ -944,7 +944,7 @@
     "message": "↑ الأعلى"
   },
   "html_history_backup_hint_prefix": {
-    "message": "تُخزَّن الجلسات داخل Chrome فقط — ولن تصمد أمام عطل في المتصفح أو إعادة ضبط الملف الشخصي."
+    "message": "Sessions are stored inside Chrome only: they won't survive a browser crash or profile reset."
   },
   "html_history_backup_settings_link": {
     "message": "أعدّ النسخ الاحتياطي لحفظ علامات التبويب خارج المتصفح ←"
@@ -958,8 +958,35 @@
   "js_backup_option_saved": {
     "message": "تم الحفظ"
   },
+  "js_backup_permission_denied": {
+    "message": "Permission denied: automatic backup was not enabled."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "Enable news feed"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1": {
+    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar."
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "Disable to skip this background request."
+  },
+  "html_permissions_notice_text": {
+    "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
+  },
+  "html_permissions_notice_link": {
+    "message": "Learn more about permissions."
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "Got it"
+  },
+  "html_permissions_info_note": {
+    "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
+  },
+  "html_permissions_info_note_link": {
+    "message": "See the full permissions breakdown."
+  },
   "js_options_backup_now_error": {
-    "message": "يسألك Chrome عن مكان حفظ الملفات — لن تعمل النسخ الاحتياطية التلقائية بصمت. عطّل \"السؤال عن مكان حفظ كل ملف\" في chrome://settings/downloads."
+    "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "التشغيل التالي: $time$",
@@ -995,6 +1022,27 @@
   "html_popup_backup_drive_error": {
     "message": "فشل النسخ الاحتياطي التلقائي: لا يوجد حساب Google متصل. انقر هنا لإصلاح ذلك."
   },
+  "html_popup_backup_downloads_error": {
+    "message": "Automatic backup failed: the Downloads permission is missing. Click here to fix it."
+  },
+  "html_popup_backup_nudge_text": {
+    "message": "Automatic backup is off. Protect your sessions."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "Remind me in 10 days"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "Automatic backup is off. Enabling it protects your sessions if this browser profile ever gets reset or corrupted."
+  },
+  "html_backup_nudge_optout": {
+    "message": "I'm not interested, stop reminding me"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "Automatic backup is on, but the Downloads permission isn't granted on this device (this can happen after importing settings or syncing from another browser). Backups won't run until you grant it."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "Grant permission"
+  },
   "js_options_backup_drive_connecting": {
     "message": "جارٍ الاتصال…"
   },
@@ -1005,7 +1053,7 @@
     "message": "النسخ الاحتياطي للإعدادات"
   },
   "html_backup_settings_desc": {
-    "message": "صدّر جميع إعدادات الامتداد إلى ملف JSON — مفيد كنسخة احتياطية أو لنقل تكوينك إلى ملف تعريف متصفح آخر. استيراد ملف يستبدل الإعدادات الحالية."
+    "message": "Export all extension settings to a JSON file, useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
   },
   "html_backup_local_folder_hint": {
     "message": "تذهب النسخ الاحتياطية المحلية إلى مجلد tms-backups داخل مجلد التنزيلات."
