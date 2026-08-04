@@ -450,22 +450,41 @@ export const gsBackup = (() => {
       const exportObj  = await buildExportObject(session);
       const jsonString = JSON.stringify(exportObj, null, 2);
 
-      await performLocalBackup(jsonString);
+      const localDownloadId = await performLocalBackup(jsonString);
 
       const destination = await gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION);
       if (destination === 'drive') {
         await chrome.alarms.clear(RETRY_ALARM_NAME);
         await chrome.storage.local.set({
           tmsPendingDriveBackup: {
-            json      : jsonString,
-            createdAt : new Date().toISOString(),
-            attempts  : 0,
+            json           : jsonString,
+            createdAt      : new Date().toISOString(),
+            attempts       : 0,
+            localDownloadId,
           },
         });
         gsUtils.log('gsBackup', 'performEmergencyBackup: queued pending Drive backup for retry on next startup.');
       }
     } catch (e) {
       gsUtils.error('gsBackup', 'performEmergencyBackup failed:', e);
+    }
+  }
+
+  async function removeLocalBackupFile(downloadId) {
+    if (downloadId == null) return;
+    try {
+      await chrome.downloads.removeFile(downloadId);
+    } catch (_) {
+      // already gone (e.g. removed by normal AUTO_BACKUP_MAX_FILES rotation) — nothing to do
+    }
+    try {
+      const { tmsLocalBackupIds = [] } = await chrome.storage.local.get('tmsLocalBackupIds');
+      const filtered = tmsLocalBackupIds.filter((id) => id !== downloadId);
+      if (filtered.length !== tmsLocalBackupIds.length) {
+        await chrome.storage.local.set({ tmsLocalBackupIds: filtered });
+      }
+    } catch (_) {
+      // non-fatal — rotation bookkeeping will self-correct on the next local backup
     }
   }
 
@@ -480,6 +499,7 @@ export const gsBackup = (() => {
       await performDriveBackup(pending.json);
       await chrome.storage.local.remove('tmsPendingDriveBackup');
       await clearDriveAuthError();
+      await removeLocalBackupFile(pending.localDownloadId);
       gsUtils.log('gsBackup', 'retryPendingDriveBackup: pending backup uploaded successfully.');
     } catch (e) {
       if (e?.message === 'TMS_DRIVE_AUTH_MISSING') {
