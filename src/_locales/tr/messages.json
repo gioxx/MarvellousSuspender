@@ -157,7 +157,7 @@
     "message": "bozuk durumda gruplanmış sekme (Sekme Grupları hatası)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state: they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "Sekme Gruplarındaki bazı sekmeler bozuk durumda: tarayıcı yeniden başlatıldıktan sonra doğru yüklenmek yerine yeni sekme olarak görünüyorlar. TMS bunları geri yüklemeyi deneyebilir."
   },
   "html_health_repair_button": {
     "message": "$count$ gruplanmış sekmeyi onar",
@@ -177,7 +177,7 @@
     "message": "Sürüm"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension: replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "Modern sekme askıya almanın manevi halefi: etkin olmayan sekmeleri, ne zaman uyanacaklarını ayrıntılı şekilde kontrol etmenizi sağlayan hafif bir uyku sayfasıyla değiştirir."
   },
   "html_about_section_credits": {
     "message": "Emeği Geçenler"
@@ -219,7 +219,7 @@
     "message": "Geliştirmeyi Destekle"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender is free and open-source. If you find it useful, consider a small contribution: it helps keep the project alive and growing."
+    "message": "The Marvellous Suspender ücretsiz ve açık kaynaklıdır. Faydalı bulduysanız küçük bir katkı yapmayı düşünün: bu, projenin canlı kalmasına ve büyümesine yardımcı olur."
   },
   "html_broken_title": {
     "message": "bozuk"
@@ -249,7 +249,7 @@
     "message": "Oturum yönetimi"
   },
   "html_history_page_desc": {
-    "message": "TMS keeps a running snapshot of your open tabs, no setup needed. Sessions update automatically as you browse, but they live inside Chrome: if the browser profile is lost or corrupted, they go with it."
+    "message": "TMS, açık sekmelerinizin sürekli bir anlık görüntüsünü tutar, herhangi bir kurulum gerekmez. Oturumlar gezinirken otomatik olarak güncellenir, ancak yalnızca Chrome içinde bulunurlar: tarayıcı profili kaybolur veya bozulursa, onlar da kaybolur."
   },
   "html_history_current_session": {
     "message": "Şuanki oturum"
@@ -267,7 +267,7 @@
     "message": "Sekmeleri taşı"
   },
   "html_history_migrate_old_id": {
-    "message": "Extension ID"
+    "message": "Uzantı Kimliği"
   },
   "html_history_migrate_section_title": {
     "message": "Sekme geçişi"
@@ -294,7 +294,7 @@
     "message": "Bu, Chrome'un \"Sekmeleri Ara\" özelliğini (Ctrl+Shift+A) kullanarak askıya alınmış sekmeleri ana bilgisayar adına göre bulmanızı sağlar."
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "Preserve YouTube playback position when suspending"
+    "message": "Askıya alırken YouTube oynatma konumunu koru"
   },
   "html_options_other_title": {
     "message": "Genel"
@@ -351,7 +351,7 @@
     "message": "Çevrimdışı olduğunda askıya al yapma"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Claim by default (seamless migration; tab considered suspended if 'suspended.html' is in url)"
+    "message": "Varsayılan olarak sahiplen (kesintisiz geçiş; URL'de 'suspended.html' varsa sekme askıya alınmış sayılır)"
   },
   "html_options_suspend_only_on_battery": {
     "message": "Güç kaynağına bağlı iken sekmeleri askıya al yapma"
@@ -843,7 +843,7 @@
     "message": "Şuradan taşımak için 32 karakterlik uzantı kimliği gerekli"
   },
   "js_history_migrate_success": {
-    "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
+    "message": "$tabcount$ sekme başarıyla taşındı. Taşınan sekmeler otomatik olarak yeniden yüklenmezse tarayıcınızı yeniden başlatın.",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -902,7 +902,7 @@
     "message": "Otomatik oturum yedekleme"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "Oturumlardan farklı olarak, yedekler Chrome dışında JSON dosyaları olarak kaydedilir: İndirilenler klasörünüze veya Google Drive'a. Tarayıcı çökmelerine, profil sıfırlamalarına ve yeni kurulumlara dayanırlar. Bu, gerçek güvenlik ağınızdır."
   },
   "html_options_backup_enable": {
     "message": "Oturumunuzu otomatik olarak yedekleyin"
@@ -911,7 +911,7 @@
     "message": "Mevcut oturumunuzun bir kopyasını sessizce JSON dosyası olarak kaydeder. Yerel olarak (İndirilenler'iniz içindeki tms-backups klasörü) veya Google Drive'da bir 'TMS Backups' klasörüne kaydetmeyi seçin."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking). Check chrome://settings/downloads. Google Drive backups have no such requirement."
+    "message": "Yerel yedeklemeler için Chrome'un dosyaları otomatik olarak (sormadan) indirecek şekilde ayarlanmış olması gerekir. chrome://settings/downloads adresini kontrol edin. Google Drive yedeklemelerinde böyle bir gereklilik yoktur."
   },
   "html_options_backup_interval": {
     "message": "Şu sıklıkla yedekle:"
@@ -923,7 +923,7 @@
     "message": "Dikkat: bu kadar uzun bir aralıkla, yedeklemeler arasında çok şey olabilir. Veri kaybı riskini azaltmak için daha kısa bir aralık düşünün."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other.\n\n<strong>Even with Google Drive selected, a local safety-net file is still written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug.</strong>"
+    "message": "Hem yerel hem de Drive yedeklemeleri bir cihaz tanımlayıcısı içerir (örn. tms-session-a3f7b2c8-2026-06-18T14-30.json), böylece her tarayıcı kurulumu kendi bağımsız yedekleme havuzunu tutar. Cihaz başına en yeni N yerel yedek saklanır; Drive yedeklemeleri de cihaz başına N adet saklanır, böylece farklı makinelerden veya tarayıcılardan gelen oturumlar birbirinin üzerine asla yazılmaz.\n\n<strong>Google Drive seçili olsa bile, tarayıcı kapatıldığında yine de yerel bir güvenlik dosyası yazılır ve bir sonraki başlangıçta Drive'a yüklenir. Burada bir yerel dosya görmeniz beklenen bir durumdur, hata değildir.</strong>"
   },
   "html_backup_max_files_label": {
     "message": "Saklanacak maksimum yedek sayısı"
@@ -944,7 +944,7 @@
     "message": "↑ Başa dön"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only: they won't survive a browser crash or profile reset."
+    "message": "Oturumlar yalnızca Chrome içinde saklanır: bir tarayıcı çökmesine veya profil sıfırlamasına dayanmazlar."
   },
   "html_history_backup_settings_link": {
     "message": "Sekmelerinizi tarayıcı dışında kaydetmek için Yedeklemeyi ayarlayın →"
@@ -959,34 +959,34 @@
     "message": "Kaydedildi"
   },
   "js_backup_permission_denied": {
-    "message": "Permission denied: automatic backup was not enabled."
+    "message": "İzin reddedildi: otomatik yedekleme etkinleştirilmedi."
   },
   "html_options_other_enable_news_feed": {
-    "message": "Enable news feed"
+    "message": "Haber akışını etkinleştir"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar."
+    "message": "TMS haberleri için düzenli olarak marvellouscode.works adresini kontrol eder ve kenar çubuğunda gösterir."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "Disable to skip this background request."
+    "message": "Bu arka plan isteğini atlamak için devre dışı bırakın."
   },
   "html_permissions_notice_text": {
-    "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
+    "message": "Bu sürümden itibaren TMS, dosya sistemi/Google hesabı erişimini önceden istemek yerine, yalnızca yerel veya Google Drive yedeklemesini gerçekten açtığınızda ister."
   },
   "html_permissions_notice_link": {
-    "message": "Learn more about permissions."
+    "message": "İzinler hakkında daha fazla bilgi edinin."
   },
   "html_permissions_notice_dismiss": {
-    "message": "Got it"
+    "message": "Anladım"
   },
   "html_permissions_info_note": {
-    "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
+    "message": "TMS, İndirilenler ve Google hesabı izinlerini yalnızca aşağıda yerel veya Google Drive yedeklemesini etkinleştirdiğinizde ister."
   },
   "html_permissions_info_note_link": {
-    "message": "See the full permissions breakdown."
+    "message": "Tüm izinlerin tam dökümünü görün."
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome, dosyaların nereye kaydedileceğini soruyor, bu nedenle otomatik yedeklemeler sessizce çalışmayacak. chrome://settings/downloads adresinde \"Her dosyayı indirmeden önce nereye kaydedileceğini sor\" seçeneğini kapatın."
   },
   "js_options_backup_next_run": {
     "message": "Sonraki çalıştırma: $time$",
@@ -1023,25 +1023,25 @@
     "message": "Otomatik yedekleme başarısız oldu: bağlı Google hesabı yok. Düzeltmek için buraya tıklayın."
   },
   "html_popup_backup_downloads_error": {
-    "message": "Automatic backup failed: the Downloads permission is missing. Click here to fix it."
+    "message": "Otomatik yedekleme başarısız oldu: İndirilenler izni eksik. Düzeltmek için buraya tıklayın."
   },
   "html_popup_backup_nudge_text": {
-    "message": "Automatic backup is off. Protect your sessions."
+    "message": "Otomatik yedekleme kapalı. Oturumlarınızı koruyun."
   },
   "html_backup_nudge_dismiss": {
-    "message": "Remind me in 10 days"
+    "message": "10 gün sonra hatırlat"
   },
   "html_backup_nudge_note_text": {
-    "message": "Automatic backup is off. Enabling it protects your sessions if this browser profile ever gets reset or corrupted."
+    "message": "Otomatik yedekleme kapalı. Etkinleştirmek, bu tarayıcı profili herhangi bir zamanda sıfırlanır veya bozulursa oturumlarınızı korur."
   },
   "html_backup_nudge_optout": {
-    "message": "I'm not interested, stop reminding me"
+    "message": "İlgilenmiyorum, bir daha hatırlatma"
   },
   "html_backup_downloads_permission_missing": {
-    "message": "Automatic backup is on, but the Downloads permission isn't granted on this device (this can happen after importing settings or syncing from another browser). Backups won't run until you grant it."
+    "message": "Otomatik yedekleme açık, ancak bu cihazda İndirilenler izni verilmemiş (bu, ayarları içe aktardıktan veya başka bir tarayıcıdan senkronize ettikten sonra olabilir). İzni vermediğiniz sürece yedeklemeler çalışmayacak."
   },
   "html_backup_downloads_permission_grant": {
-    "message": "Grant permission"
+    "message": "İzin ver"
   },
   "js_options_backup_drive_connecting": {
     "message": "Bağlanıyor…"
@@ -1053,7 +1053,7 @@
     "message": "Ayar yedekleme"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file, useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "Tüm uzantı ayarlarını bir JSON dosyasına aktarın, yedekleme olarak veya yapılandırmanızı başka bir tarayıcı profiline aktarmak için kullanışlıdır. Bir dosyayı içe aktarmak mevcut ayarların yerini alır."
   },
   "html_backup_local_folder_hint": {
     "message": "Yerel yedeklemeler, İndirilenler'iniz içindeki tms-backups klasörüne gider."
