@@ -923,7 +923,7 @@
     "message": "Attenzione: con un intervallo così lungo, può succedere molto tra un backup e l'altro. Considera un intervallo più breve per ridurre il rischio di perdita dati."
   },
   "html_options_backup_note": {
-    "message": "Sia i backup locali che quelli su Drive includono un identificatore di dispositivo (es. tms-session-a3f7b2c8-2026-06-18T14-30.json), così ogni installazione del browser mantiene un proprio pool indipendente di backup. In locale vengono conservati gli N backup più recenti per dispositivo; su Drive vengono conservati N backup per dispositivo, così le sessioni di macchine o browser diversi non si sovrascrivono mai."
+    "message": "Sia i backup locali che quelli su Drive includono un identificatore di dispositivo (es. tms-session-a3f7b2c8-2026-06-18T14-30.json), così ogni installazione del browser mantiene un proprio pool indipendente di backup. In locale vengono conservati gli N backup più recenti per dispositivo; su Drive vengono conservati N backup per dispositivo, così le sessioni di macchine o browser diversi non si sovrascrivono mai.\nAnche con Google Drive selezionato, alla chiusura del browser viene comunque scritto un file locale come rete di sicurezza e caricato su Drive al riavvio successivo: vedere un file locale qui è normale, non un bug."
   },
   "html_backup_max_files_label": {
     "message": "Backup massimi da conservare"
@@ -965,10 +965,10 @@
     "message": "Attiva feed news"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Controlla periodicamente marvellouscode.works per le novità su TMS"
+    "message": "Controlla periodicamente marvellouscode.works per le novità su TMS e le mostra nella barra laterale."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "e le mostra nella barra laterale. Disattiva per evitare questa richiesta in background."
+    "message": "Disattiva per evitare questa richiesta in background."
   },
   "html_permissions_notice_text": {
     "message": "Da questa versione, TMS richiede l'accesso al filesystem/account Google solo quando attivi davvero il backup locale o su Google Drive, invece di richiederlo subito."
@@ -984,9 +984,6 @@
   },
   "html_permissions_info_note_link": {
     "message": "Vedi il dettaglio completo dei permessi."
-  },
-  "html_backup_drive_local_note": {
-    "message": "Anche con Google Drive selezionato, alla chiusura del browser viene scritto un file locale come rete di sicurezza e caricato su Drive al riavvio successivo: vedere un file locale qui è normale, non un bug."
   },
   "js_options_backup_now_error": {
     "message": "Chrome sta chiedendo dove salvare i file, quindi i backup automatici non funzioneranno in silenzio. Disattiva \"Chiedi dove salvare\" in chrome://settings/downloads."

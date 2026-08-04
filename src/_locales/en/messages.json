@@ -923,7 +923,7 @@
     "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other."
+    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other.\nEven with Google Drive selected, a local safety-net file is still written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug."
   },
   "html_backup_max_files_label": {
     "message": "Max backups to keep"
@@ -965,10 +965,10 @@
     "message": "Enable news feed"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Periodically checks marvellouscode.works for TMS news"
+    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "and shows them in the sidebar. Disable to skip this background request."
+    "message": "Disable to skip this background request."
   },
   "html_permissions_notice_text": {
     "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
@@ -984,9 +984,6 @@
   },
   "html_permissions_info_note_link": {
     "message": "See the full permissions breakdown."
-  },
-  "html_backup_drive_local_note": {
-    "message": "Even with Google Drive selected, a local safety-net file is written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug."
   },
   "js_options_backup_now_error": {
     "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
