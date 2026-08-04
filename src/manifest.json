@@ -12,7 +12,9 @@
     "alarms",
     "favicon",
     "scripting",
-    "tabGroups",
+    "tabGroups"
+  ],
+  "optional_permissions": [
     "downloads",
     "identity"
   ],
