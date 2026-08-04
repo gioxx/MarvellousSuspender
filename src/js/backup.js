@@ -325,6 +325,20 @@ import  { gsUtils }    from './gsUtils.js';
     savedTimer = setTimeout(() => el.classList.remove('visible'), 4000);
   }
 
+  async function initPermissionsNotice() {
+    const banner = document.getElementById('permissionsNoticeBanner');
+    if (!banner) return;
+    const seen = await gsStorage.getOption(gsStorage.PERMISSIONS_NOTICE_SEEN);
+    if (!seen) banner.classList.remove('hidden');
+    const dismissBtn = document.getElementById('permissionsNoticeDismiss');
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', async () => {
+        await gsStorage.setOptionAndSync(gsStorage.PERMISSIONS_NOTICE_SEEN, true);
+        banner.classList.add('hidden');
+      });
+    }
+  }
+
   async function updateDriveAuthUI() {
     const connectedEl    = document.getElementById('driveConnectedInfo');
     const disconnectedEl = document.getElementById('driveDisconnectedInfo');
@@ -694,6 +708,7 @@ import  { gsUtils }    from './gsUtils.js';
     gsUtils.initSelectArrows(document);
     initSettings();
     updateBackupMeta();
+    initPermissionsNotice();
 
     // Back-to-top button
     const backToTopBtn = document.getElementById('backToTop');
