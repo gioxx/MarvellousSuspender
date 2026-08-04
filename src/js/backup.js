@@ -615,8 +615,9 @@ import  { gsUtils }    from './gsUtils.js';
         }
 
         if (pref === gsStorage.AUTO_BACKUP_ENABLED) {
-          await gsBackup.syncBackupNudgeBadge();
+          await gsBackup.reconcileDownloadsPermission();
           await refreshBackupNudgeUI();
+          await refreshDownloadsPermissionUI();
         }
       }
     };

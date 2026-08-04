@@ -583,6 +583,8 @@ import  { tgs }                   from './tgs.js';
       gsUtils.error('background init error: ', error);
     })
     .then(() => gsBackup.syncAlarmWithSettings())
+    .then(() => gsBackup.reconcileDownloadsPermission())
+    .then(() => gsBackup.syncBackupNudgeBadge())
     .catch((error) => {
       gsUtils.error('background backup alarm sync error: ', error);
     })
