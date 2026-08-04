@@ -923,7 +923,7 @@
     "message": "Attenzione: con un intervallo così lungo, può succedere molto tra un backup e l'altro. Considera un intervallo più breve per ridurre il rischio di perdita dati."
   },
   "html_options_backup_note": {
-    "message": "Sia i backup locali che quelli su Drive includono un identificatore di dispositivo (es. tms-session-a3f7b2c8-2026-06-18T14-30.json), così ogni installazione del browser mantiene un proprio pool indipendente di backup. In locale vengono conservati gli N backup più recenti per dispositivo; su Drive vengono conservati N backup per dispositivo, così le sessioni di macchine o browser diversi non si sovrascrivono mai.\nAnche con Google Drive selezionato, alla chiusura del browser viene comunque scritto un file locale come rete di sicurezza e caricato su Drive al riavvio successivo: vedere un file locale qui è normale, non un bug."
+    "message": "Sia i backup locali che quelli su Drive includono un identificatore di dispositivo (es. tms-session-a3f7b2c8-2026-06-18T14-30.json), così ogni installazione del browser mantiene un proprio pool indipendente di backup. In locale vengono conservati gli N backup più recenti per dispositivo; su Drive vengono conservati N backup per dispositivo, così le sessioni di macchine o browser diversi non si sovrascrivono mai.\n\n<strong>Anche con Google Drive selezionato, alla chiusura del browser viene comunque scritto un file locale come rete di sicurezza e caricato su Drive al riavvio successivo: vedere un file locale qui è normale, non un bug.</strong>"
   },
   "html_backup_max_files_label": {
     "message": "Backup massimi da conservare"
