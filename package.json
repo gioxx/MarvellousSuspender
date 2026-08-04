@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "generate-key": "openssl genrsa -out key.pem",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "check-locales": "node scripts/check-locales.js",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
   },
   "repository": {
