@@ -69,6 +69,9 @@ import  { tgs }                   from './tgs.js';
   if (self instanceof ServiceWorkerGlobalScope) {
     self.addEventListener('activate', (event) => {
       gsUtils.log('3 service worker activate', event);
+      // Only fires on install/update, but also marks the session as started so the
+      // onStartup fallback below doesn't run the (heavier) checks a second time.
+      event.waitUntil(gsStorage.saveStorage('session', 'gsStartupOnceRun', true));
       startupOnce();
     });
   }
@@ -80,6 +83,18 @@ import  { tgs }                   from './tgs.js';
 
     startupOnce();
 
+  });
+
+  // Fallback for onStartup unreliability (some Chromium builds, notably Brave, never
+  // fire it after a normal restart, see #397). chrome.storage.session is cleared at the
+  // browser-session boundary, so a missing sentinel here means this is the first service
+  // worker wake of a new browser session, regardless of whether onStartup fired.
+  gsStorage.getStorage('session', 'gsStartupOnceRun').then((alreadyRun) => {
+    if (!alreadyRun) {
+      gsUtils.log('sentinel: first SW wake of a new browser session, running startupOnce');
+      gsStorage.saveStorage('session', 'gsStartupOnceRun', true);
+      startupOnce();
+    }
   });
 
   chrome.runtime.onSuspend.addListener(() => {
