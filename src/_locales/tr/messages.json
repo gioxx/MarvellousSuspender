@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "Aşağıdaki listede bulunan URL adreslerine askıya al yapma:"
   },
+  "html_options_always_suspend_title": {
+    "message": "Aşağıdaki listedeki URL'lere sahip sekmeleri her zaman askıya al:"
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Bu listeyle eşleşen sekmeler, ses, form girişi veya sabitlenmiş durumdan bağımsız olarak normal zaman aşımından sonra her zaman askıya alınır."
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Satır başına bir giriş, yukarıdaki listeyle aynı eşleştirme kuralları (URL'nin herhangi bir yerinde düz metin eşleşmesi veya eğik çizgiler arasında /regex/)."
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "Beyaz listeye eklemek istediğiniz her sayfanın URL'sini yeni bir satıra ekleyin. Örneğin:"
   },

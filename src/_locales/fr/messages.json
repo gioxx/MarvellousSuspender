@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "Ne jamais suspendre les onglets avec des URL dans la liste suivante :"
   },
+  "html_options_always_suspend_title": {
+    "message": "Toujours suspendre les onglets dont l'URL figure dans la liste suivante :"
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Les onglets correspondant à cette liste sont toujours suspendus après le délai normal, indépendamment du son, de la saisie de formulaire ou de l'état épinglé."
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Une entrée par ligne, mêmes règles de correspondance que la liste ci-dessus (correspondance de texte simple n'importe où dans l'URL, ou /regex/ entre barres obliques)."
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "Ajouter l'URL de chaque page que vous souhaitez ajouter à la liste blanche sur une nouvelle ligne. Par exemple:"
   },

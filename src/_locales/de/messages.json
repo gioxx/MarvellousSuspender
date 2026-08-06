@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "Tabs mit URL aus der Ausnahmeliste nicht aussetzen:"
   },
+  "html_options_always_suspend_title": {
+    "message": "Tabs mit URLs aus der folgenden Liste immer aussetzen:"
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Tabs, die dieser Liste entsprechen, werden nach der normalen Zeitüberschreitung immer ausgesetzt, unabhängig von Ton, Formulareingabe oder angeheftetem Status."
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Ein Eintrag pro Zeile, gleiche Übereinstimmungsregeln wie bei der obigen Liste (einfacher Textabgleich an beliebiger Stelle der URL oder /regex/ zwischen Schrägstrichen)."
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "Füge die URL jeder Seite, die zugelassen werden soll in eine eigene Zeile. Zum Beispiel:"
   },

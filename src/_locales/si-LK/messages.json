@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "පහත ලැයිස්තුවෙන් URL සහිත ටැබ් කිසි විටෙකත් අත්හිටුවන්න එපා:"
   },
+  "html_options_always_suspend_title": {
+    "message": "පහත ලැයිස්තුවේ ඇති URL සහිත ටැබ් සැමවිටම අත්හිටුවන්න:"
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "මෙම ලැයිස්තුවට ගැළපෙන ටැබ් ශබ්දය, පෝරම ආදානය, හෝ අමුණා ඇති තත්ත්වය නොසලකා, සාමාන්‍ය කාල සීමාවෙන් පසු සැමවිටම අත්හිටුවනු ලැබේ."
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "පේළියකට ඇතුළත් කිරීමක් බැගින්, ඉහත ලැයිස්තුවේම ගැළපුම් නීති (URL එකේ ඕනෑම තැනක සරල පෙළ ගැළපීම, හෝ ස්ලෑෂ් අතර /regex/)."
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "ඔබට නව පේළියක සුදු ලැයිස්තු කිරීමට අවශ්‍ය සෑම පිටුවකම URL එක් කරන්න. උදාහරණ වශයෙන්:"
   },

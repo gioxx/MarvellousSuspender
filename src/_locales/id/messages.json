@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "Jangan pernah menangguhkan tab dengan URL dari daftar berikut:"
   },
+  "html_options_always_suspend_title": {
+    "message": "Selalu tangguhkan tab dengan URL dari daftar berikut:"
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Tab yang cocok dengan daftar ini selalu ditangguhkan setelah waktu tunggu normal, terlepas dari audio, input formulir, atau status disematkan."
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Satu entri per baris, aturan pencocokan sama seperti daftar di atas (pencocokan teks biasa di mana saja dalam URL, atau /regex/ di antara garis miring)."
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "Tambahkan URL dari setiap halaman yang ingin Anda masukkan ke daftar putih pada baris baru. Misalnya:"
   },

@@ -163,7 +163,7 @@ export const gsTabSuspendManager = (function() {
       scrollPos: '0',
     };
 
-    const isEligible = checkContentScriptEligibilityForSuspension(tabInfo.status, executionProps.forceLevel,);
+    const isEligible = await checkContentScriptEligibilityForSuspension(tabInfo.status, executionProps.forceLevel, tab.url);
     if (!isEligible) {
       gsUtils.log(tab.id, QUEUE_ID, `Content script status of ${ tabInfo.status } not eligible for suspension. Removing tab from suspensionQueue.`,);
       resolve(false);
@@ -303,13 +303,19 @@ export const gsTabSuspendManager = (function() {
       }
     }
     if (forceLevel >= 2) {
-      if (
-        (await gsUtils.isProtectedActiveTab(tab)) ||
-        (await gsUtils.checkWhiteList(tab.url)) ||
-        (await gsUtils.isProtectedPinnedTab(tab)) ||
-        (await gsUtils.isProtectedAudibleTab(tab))
-      ) {
+      if (await gsUtils.isProtectedActiveTab(tab)) {
         return false;
+      }
+      // Tabs on the "always suspend" list bypass the whitelist/pinned/audible protections
+      // below (#103), but still respect the active-tab check above.
+      if (!(await gsUtils.checkAlwaysSuspendList(tab.url))) {
+        if (
+          (await gsUtils.checkWhiteList(tab.url)) ||
+          (await gsUtils.isProtectedPinnedTab(tab)) ||
+          (await gsUtils.isProtectedAudibleTab(tab))
+        ) {
+          return false;
+        }
       }
     }
     if (forceLevel >= 3) {
@@ -326,12 +332,15 @@ export const gsTabSuspendManager = (function() {
     return true;
   }
 
-  function checkContentScriptEligibilityForSuspension(contentScriptStatus, forceLevel) {
-    if (
-      forceLevel >= 2 &&
-      (contentScriptStatus === gsUtils.STATUS_FORMINPUT ||
-        contentScriptStatus === gsUtils.STATUS_TEMPWHITELIST)
-    ) {
+  async function checkContentScriptEligibilityForSuspension(contentScriptStatus, forceLevel, url) {
+    if (forceLevel >= 2 && contentScriptStatus === gsUtils.STATUS_TEMPWHITELIST) {
+      // An explicit per-tab pause is a deliberate action, the "always suspend" list does not override it.
+      return false;
+    }
+    if (forceLevel >= 2 && contentScriptStatus === gsUtils.STATUS_FORMINPUT) {
+      if (await gsUtils.checkAlwaysSuspendList(url)) {
+        return true;
+      }
       return false;
     }
     return true;

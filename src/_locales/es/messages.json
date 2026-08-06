@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "Nunca suspenda pestañas con URL de la siguiente lista:"
   },
+  "html_options_always_suspend_title": {
+    "message": "Suspender siempre las pestañas con URLs de la siguiente lista:"
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Las pestañas que coincidan con esta lista siempre se suspenden tras el tiempo de espera normal, sin importar el audio, la entrada de formularios o el estado anclado."
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Una entrada por línea, mismas reglas de coincidencia que la lista anterior (coincidencia de texto simple en cualquier parte de la URL, o /regex/ entre barras)."
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "Agregue la URL de cada página que desea incluir en la lista blanca en una nueva línea. Por ejemplo:"
   },

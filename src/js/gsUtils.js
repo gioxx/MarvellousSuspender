@@ -388,6 +388,20 @@ export const gsUtils = {
     return whitelisted;
   },
 
+  // URLs on this list always suspend after the normal timeout, bypassing the pinned/
+  // audible/form-input protections that would otherwise keep them open (#103). Global
+  // protections (offline, charging, "never suspend") and an explicit per-tab pause are
+  // still respected, this only overrides the passive/automatic ones.
+  checkAlwaysSuspendList: async (url) => {
+    const list = await gsStorage.getOption(gsStorage.ALWAYS_SUSPEND_LIST);
+    return gsUtils.checkSpecificAlwaysSuspendList(url, list);
+  },
+
+  checkSpecificAlwaysSuspendList(url, listString) {
+    const listItems = listString ? listString.split(/[\s\n]+/) : [];
+    return listItems.some((item) => gsUtils.testForMatch(item, url));
+  },
+
   removeFromWhitelist: async (url) => {
     const oldWhitelistString = (await gsStorage.getOption(gsStorage.WHITELIST)) || '';
     const whitelistItems = oldWhitelistString.split(/[\s\n]+/).sort();

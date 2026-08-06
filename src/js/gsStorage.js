@@ -23,6 +23,7 @@ export const gsStorage = {
   THEME                         : 'gsTheme',
   LANGUAGE                      : 'gsLanguage',
   WHITELIST                     : 'gsWhitelist',
+  ALWAYS_SUSPEND_LIST           : 'gsAlwaysSuspendList',
 
   DISCARD_AFTER_SUSPEND         : 'discardAfterSuspend',
   DISCARD_IN_PLACE_OF_SUSPEND   : 'discardInPlaceOfSuspend',
@@ -74,6 +75,7 @@ export const gsStorage = {
     defaults[gsStorage.SUSPEND_TIME] = '60';
     defaults[gsStorage.NO_NAG] = false;
     defaults[gsStorage.WHITELIST] = '';
+    defaults[gsStorage.ALWAYS_SUSPEND_LIST] = '';
     defaults[gsStorage.THEME] = 'system';
     defaults[gsStorage.LANGUAGE] = 'auto';
     defaults[gsStorage.UPDATE_AVAILABLE] = false; //Set to true for debug
