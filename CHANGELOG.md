@@ -15,6 +15,7 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ### Fixed
 - **Suspended tabs kept the default TMS favicon after a browser restart until clicked** (`background.js`, #397): the startup checks that repair favicons/titles on every suspended tab (`gsSession.runStartupChecks`) only ran from the service worker `activate` event (install/update only) and `chrome.runtime.onStartup`, which some Chromium builds (notably Brave) never fire after a normal restart — leaving suspended tabs stuck with the generic icon until manually focused. Added a fallback that checks a `chrome.storage.session` sentinel (cleared at the browser-session boundary) on every service worker wake and runs the startup checks once if it's missing, regardless of whether `onStartup` fired. Thanks @pbc-commits for the investigation and root-cause writeup.
+- **"Allow access to file URLs" toggle missing on every Chromium browser** (`manifest.json`, #393, #416, #267): Chrome only shows this toggle on an extension's details page when the manifest declares `file://` host access; TMS's `host_permissions` only ever listed `http://*/*`/`https://*/*`, so the toggle was invisible everywhere (confirmed on both fresh Chrome and Brave installs, not a Brave-specific quirk as first assumed). Added `"file:///*"` to a new `optional_host_permissions`, same on-demand pattern as `downloads`/`identity`, no access is granted until the user explicitly flips the toggle.
 
 ## [9.0.1] — 2026-08-04
 
