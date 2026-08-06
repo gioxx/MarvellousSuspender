@@ -315,6 +315,19 @@ export const gsStorage = {
     if (!settings) {
       settings = gsStorage.getSettingsDefaults();
       await gsStorage.saveSettings(settings);
+      return settings;
+    }
+    // backfill any settings keys introduced after the user's initial install
+    const defaults = gsStorage.getSettingsDefaults();
+    let hasNewKeys = false;
+    for (const prop in defaults) {
+      if (typeof settings[prop] === 'undefined' || settings[prop] === null) {
+        settings[prop] = defaults[prop];
+        hasNewKeys = true;
+      }
+    }
+    if (hasNewKeys) {
+      await gsStorage.saveSettings(settings);
     }
     return settings;
   },
