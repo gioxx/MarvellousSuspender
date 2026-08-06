@@ -170,19 +170,34 @@ export const gsBackup = (() => {
 
   // ─── Drive auth ────────────────────────────────────────────────────────────
   //
-  // Uses chrome.identity.launchWebAuthFlow() rather than chrome.identity.getAuthToken().
-  // getAuthToken() is broken on Brave (and possibly other non-Google Chromium forks):
-  // Brave's build of the Chrome Identity API attaches a custom URI scheme to the OAuth
-  // request that Google's authorization server rejects with "Error 400: invalid_request"
-  // (see brave/brave-browser#38066, open since May 2024, unassigned). launchWebAuthFlow
-  // drives the standard redirect-based OAuth flow ourselves instead, which works
-  // identically across Chrome, Brave and Edge. Requires the OAuth client in Google Cloud
-  // Console to be of type "Web application" with https://<extension-id>.chromiumapp.org/
-  // registered as an authorized redirect URI (the "Chrome App" client type getAuthToken
-  // needs does not support this flow).
+  // chrome.identity.getAuthToken() is broken on some non-Google Chromium forks
+  // (confirmed on Brave, brave/brave-browser#38066, open since May 2024, unassigned;
+  // the same "Error 400: invalid_request" pattern is reported on Vivaldi too): Google's
+  // OAuth backend now rejects the custom URI scheme these browsers attach to the request,
+  // since it only recognises genuine Google Chrome. There's no reliable way to detect
+  // "which browsers are affected" up front, and getAuthToken keeps working fine on real
+  // Chrome and Edge, so this is handled as a failure-driven fallback rather than browser
+  // sniffing: getAuthToken is always tried first (unchanged behaviour, zero impact for
+  // installs where it already works), and chrome.identity.launchWebAuthFlow() is only
+  // used as a fallback, the first time it succeeds for an install it's remembered so
+  // future calls skip straight to it instead of re-probing a method already known to fail.
+  // launchWebAuthFlow requires the OAuth client in Google Cloud Console to be of type
+  // "Web application" with https://<extension-id>.chromiumapp.org/ registered as an
+  // authorized redirect URI (the "Chrome App" client type getAuthToken needs does not
+  // support this flow) — a second, separate OAuth client from the one getAuthToken uses.
 
+  const AUTH_METHOD_KEY  = 'gsDriveAuthMethod';
   const AUTH_SESSION_KEY = 'tmsDriveAuthSession';
   const TOKEN_EXPIRY_SAFETY_MARGIN_MS = 60 * 1000;
+
+  async function getAuthMethod() {
+    const r = await chrome.storage.local.get([AUTH_METHOD_KEY]);
+    return r[AUTH_METHOD_KEY] || 'chrome';
+  }
+
+  async function setAuthMethod(method) {
+    await chrome.storage.local.set({ [AUTH_METHOD_KEY]: method });
+  }
 
   function getOAuthClientId() {
     return chrome.runtime.getManifest().oauth2.client_id;
@@ -203,6 +218,18 @@ export const gsBackup = (() => {
 
   async function clearCachedAuthSession() {
     await chrome.storage.session.remove([AUTH_SESSION_KEY]);
+  }
+
+  function getAuthTokenViaChromeIdentity(interactive) {
+    return new Promise((resolve, reject) => {
+      chrome.identity.getAuthToken({ interactive }, (token) => {
+        if (chrome.runtime.lastError || !token) {
+          reject(chrome.runtime.lastError || new Error('No token returned'));
+        } else {
+          resolve(token);
+        }
+      });
+    });
   }
 
   function launchWebAuthFlowAsPromised(interactive) {
@@ -239,7 +266,7 @@ export const gsBackup = (() => {
     });
   }
 
-  async function getAuthToken(interactive = false) {
+  async function getAuthTokenViaWebAuthFlow(interactive) {
     const cached = await getCachedAuthSession();
     if (cached && cached.expiresAt - TOKEN_EXPIRY_SAFETY_MARGIN_MS > Date.now()) {
       return cached.accessToken;
@@ -247,7 +274,7 @@ export const gsBackup = (() => {
 
     // Try a silent (non-interactive) refresh first, even when the caller asked for an
     // interactive flow, so an already-consented user isn't prompted again just because
-    // their token expired (mirrors getAuthToken's previous silent-refresh behaviour).
+    // their token expired.
     try {
       const session = await launchWebAuthFlowAsPromised(false);
       await setCachedAuthSession(session);
@@ -261,12 +288,46 @@ export const gsBackup = (() => {
     return session.accessToken;
   }
 
-  async function revokeAuthToken() {
+  async function getAuthToken(interactive = false) {
+    const method = await getAuthMethod();
+
+    if (method === 'webauthflow') {
+      return getAuthTokenViaWebAuthFlow(interactive);
+    }
+
     try {
-      const cached = await getCachedAuthSession();
-      const token = cached ? cached.accessToken : await getAuthToken(false);
-      await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
-      await clearCachedAuthSession();
+      return await getAuthTokenViaChromeIdentity(interactive);
+    } catch (chromeError) {
+      // Only attempt the fallback from an explicit, user-gesture-driven "Connect" click.
+      // Silent/background calls that fail with the default method just mean "not
+      // connected yet" or "token expired", not "this browser needs the fallback" — retrying
+      // those with an interactive-only API would be pointless and could surprise the user
+      // with an unexpected popup outside of a click handler.
+      if (!interactive) throw chromeError;
+      const token = await getAuthTokenViaWebAuthFlow(true);
+      await setAuthMethod('webauthflow');
+      return token;
+    }
+  }
+
+  async function revokeAuthToken() {
+    const method = await getAuthMethod();
+    try {
+      if (method === 'webauthflow') {
+        const cached = await getCachedAuthSession();
+        const token = cached ? cached.accessToken : await getAuthTokenViaWebAuthFlow(false);
+        await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
+        await clearCachedAuthSession();
+      } else {
+        const token = await getAuthTokenViaChromeIdentity(false);
+        await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
+        await new Promise((resolve, reject) => {
+          chrome.identity.removeCachedAuthToken({ token }, () => {
+            if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
+            else resolve();
+          });
+        });
+      }
       gsUtils.log('gsBackup', 'Drive token revoked.');
     } catch (e) {
       gsUtils.log('gsBackup', 'revokeAuthToken: nothing to revoke or already expired.', e?.message);
