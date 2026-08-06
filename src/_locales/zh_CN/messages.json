@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "将原始 URL 附加到挂起标签页的标题"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "启用后，挂起页面的浏览器标签页标题会附加原始 URL。"
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "启用后，原始网址会附加到挂起页面的"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "这样可以使用 Chrome 的「搜索标签页」功能（Ctrl+Shift+A）按主机名查找挂起的标签页。"
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "浏览器标签页标题中。"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "这样就可以使用 Chrome 的\"搜索标签页\"功能"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "（Ctrl+Shift+A）按主机名查找已挂起的标签页。"
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "挂起时保留 YouTube 播放位置"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "默认接管"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "自动接管已被其他兼容扩展程序（例如 The Great Suspender，或本扩展程序的另一次安装）挂起的标签页。"
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "自动接管已被其他兼容扩展（例如 The Great Suspender，"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "如果标签页的网址中包含 'suspended.html'，则视为已挂起。启用此选项会将该网址重写为指向当前安装，以便 TMS 此后可以管理该标签页。"
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "或本扩展的另一次安装）挂起的标签页。"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "如果标签页的网址包含 'suspended.html'，则视为\"已挂起\"。"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "启用此选项会将该网址重写到此安装，"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "以便 TMS 此后可以管理该标签页。"
   },
   "html_options_suspend_only_on_battery": {
     "message": "只在未充电时才自动冻结"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "始终挂起以下列表中网址的标签页："
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "与此列表匹配的标签页在正常超时后始终会被挂起，无论音频、表单输入或固定状态如何。"
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "匹配此列表的标签页会在正常超时后始终被挂起，"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "每行一个条目，匹配规则与上面的列表相同（在网址任意位置进行纯文本匹配，或使用斜杠包裹的 /regex/）。"
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "无论是否有音频、表单输入或固定状态。"
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "每行一条，匹配规则与上面的列表相同"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "（在网址任意位置匹配纯文本，或使用斜杠包裹的 /regex/）。"
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "在每一行上添加要列入白名单的每个页面的 URL。例如:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "自动备份您的会话"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "以 JSON 文件形式静默保存当前会话的副本。可选择保存到本地（下载文件夹内的 tms-backups 目录）或 Google 云端硬盘中的 'TMS Backups' 文件夹。"
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "在后台静默保存当前会话的副本为 JSON 文件。"
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "对于本地备份，Chrome 必须设置为自动下载文件（不询问）。请检查 chrome://settings/downloads。Google 云端硬盘备份无此要求。"
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "可选择保存到本地（下载文件夹中的 tms-backups 文件夹）"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "或 Google 云端硬盘中的 'TMS Backups' 文件夹。"
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "对于本地备份，Chrome 必须设置为自动下载文件（不询问）。"
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "请检查 chrome://settings/downloads。"
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Google 云端硬盘备份没有此要求。"
   },
   "html_options_backup_interval": {
     "message": "备份间隔"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "启用新闻推送"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "定期检查 marvellouscode.works 获取 TMS 新闻并在侧边栏中显示。"
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "定期检查 marvellouscode.works 获取 TMS 新闻，"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "并在侧边栏中显示。"
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "禁用以跳过此后台请求。"

@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Ursprüngliche URL an den Titel ausgesetzter Tabs anhängen"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Wenn aktiviert, wird die ursprüngliche URL an den Browser-Tab-Titel ausgesetzter Seiten angehängt."
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Wenn aktiviert, wird die ursprüngliche URL an den Browser-Tab-Titel"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Dadurch lassen sich ausgesetzte Tabs mit Chromes „Tabs durchsuchen“ (Strg+Umschalt+A) anhand des Hostnamens finden."
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "ausgesetzter Seiten angehängt."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Dadurch lassen sich ausgesetzte Tabs anhand des Hostnamens über"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "Chromes \"Tabs durchsuchen\" (Strg+Umschalt+A) finden."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "YouTube-Wiedergabeposition beim Aussetzen beibehalten"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "Standardmäßig übernehmen"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Übernimmt automatisch Tabs, die bereits von einer anderen kompatiblen Erweiterung ausgesetzt wurden (z. B. The Great Suspender oder eine andere Installation dieser Erweiterung)."
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Übernimmt automatisch Tabs, die bereits von einer anderen kompatiblen Erweiterung"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Ein Tab gilt als „ausgesetzt“, wenn seine URL 'suspended.html' enthält. Durch Aktivieren wird diese URL auf diese Installation umgeschrieben, damit TMS den Tab künftig verwalten kann."
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "ausgesetzt wurden (z. B. The Great Suspender oder einer anderen Installation dieser Erweiterung)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Ein Tab gilt als \"ausgesetzt\", wenn seine URL 'suspended.html' enthält."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Bei Aktivierung wird diese URL auf diese Installation umgeschrieben,"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "damit TMS den Tab ab sofort verwalten kann."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Tabs nicht aussetzen bei aktiver Stromversorgung"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "Tabs mit URLs aus der folgenden Liste immer aussetzen:"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "Tabs, die dieser Liste entsprechen, werden nach der normalen Zeitüberschreitung immer ausgesetzt, unabhängig von Ton, Formulareingabe oder angeheftetem Status."
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Tabs, die dieser Liste entsprechen, werden immer nach dem normalen"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "Ein Eintrag pro Zeile, gleiche Übereinstimmungsregeln wie bei der obigen Liste (einfacher Textabgleich an beliebiger Stelle der URL oder /regex/ zwischen Schrägstrichen)."
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "Timeout ausgesetzt, unabhängig von Audio, Formulareingaben oder angeheftetem Status."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Ein Eintrag pro Zeile, gleiche Übereinstimmungsregeln wie bei der Liste oben"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(einfacher Textabgleich an beliebiger Stelle der URL oder /regex/ zwischen Schrägstrichen)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Füge die URL jeder Seite, die zugelassen werden soll in eine eigene Zeile. Zum Beispiel:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "Sitzung automatisch sichern"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "Speichert unbemerkt eine Kopie deiner aktuellen Sitzung als JSON-Datei. Wähle lokale Speicherung (Ordner tms-backups in deinen Downloads) oder einen 'TMS Backups'-Ordner auf Google Drive."
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Speichert im Hintergrund eine Kopie deiner aktuellen Sitzung als JSON-Datei."
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "Für lokale Sicherungen muss Chrome so eingestellt sein, dass Dateien automatisch heruntergeladen werden (ohne Nachfrage). Siehe chrome://settings/downloads. Für Google-Drive-Sicherungen gilt diese Anforderung nicht."
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Wähle lokale Speicherung (Ordner tms-backups in deinen Downloads)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "oder einen Ordner 'TMS Backups' auf Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Für lokale Backups muss Chrome so eingestellt sein, dass Dateien automatisch heruntergeladen werden (ohne Nachfrage)."
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "Prüfe chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Google-Drive-Backups haben diese Anforderung nicht."
   },
   "html_options_backup_interval": {
     "message": "Sicherung alle"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "News-Feed aktivieren"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Prüft regelmäßig marvellouscode.works auf TMS-Neuigkeiten und zeigt sie in der Seitenleiste an."
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Prüft regelmäßig marvellouscode.works auf TMS-Neuigkeiten"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "und zeigt sie in der Seitenleiste an."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Deaktivieren, um diese Hintergrundanfrage zu überspringen."

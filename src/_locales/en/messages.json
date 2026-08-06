@@ -357,7 +357,7 @@
     "message": "Never suspend tabs when offline"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Claim by default"
+    "message": "Claim tabs suspended by other extensions"
   },
   "html_options_suspend_claim_by_default_tooltip_line1a": {
     "message": "Automatically takes over tabs already suspended by another compatible"

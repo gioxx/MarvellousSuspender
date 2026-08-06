@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Добавлять исходный URL к заголовку приостановленной вкладки"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Если включено, исходный URL добавляется к заголовку вкладки браузера на приостановленных страницах."
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Если включено, исходный URL добавляется к заголовку вкладки"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Это позволяет находить приостановленные вкладки по имени хоста с помощью функции Chrome «Поиск по вкладкам» (Ctrl+Shift+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "браузера для приостановленных страниц."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Это позволяет находить приостановленные вкладки по имени хоста"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "с помощью функции Chrome \"Поиск по вкладкам\" (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Сохранять позицию воспроизведения YouTube при приостановке"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "Принимать по умолчанию"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Автоматически берёт на себя вкладки, уже приостановленные другим совместимым расширением (например, The Great Suspender или другой установкой этого же расширения)."
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Автоматически принимает вкладки, уже приостановленные другим совместимым расширением"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Вкладка считается «приостановленной», если её URL содержит 'suspended.html'. При включении этой опции такой URL переписывается на текущую установку, чтобы TMS мог управлять вкладкой в дальнейшем."
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "(например, The Great Suspender или другой установкой этого расширения)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Вкладка считается \"приостановленной\", если её URL содержит 'suspended.html'."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "При включении этот URL переписывается на текущую установку,"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "чтобы TMS мог управлять вкладкой в дальнейшем."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Никогда не приостанавливать вкладки, когда подключён источник питания"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "Всегда приостанавливать вкладки с URL из следующего списка:"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "Вкладки, соответствующие этому списку, всегда приостанавливаются после обычного тайм-аута, независимо от звука, ввода в форму или закреплённого состояния."
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Вкладки, соответствующие этому списку, всегда приостанавливаются после"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "По одной записи на строку, те же правила соответствия, что и в списке выше (простое совпадение текста в любом месте URL или /regex/ между слэшами)."
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "обычного тайм-аута, независимо от звука, ввода в форму или закрепления."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Одна запись на строку, те же правила соответствия, что и для списка выше"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(обычный текст в любом месте URL или /regex/ между слэшами)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Добавьте URL-адрес каждой страницы, которую Вы хотите добавить в белый список, например:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "Автоматически создавать резервную копию сессии"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "Незаметно сохраняет копию текущей сессии в виде JSON-файла. Выберите сохранение локально (папка tms-backups внутри «Загрузок») или в папку 'TMS Backups' на Google Диске."
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Незаметно сохраняет копию текущей сессии в виде файла JSON."
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "Для локальных резервных копий Chrome должен быть настроен на автоматическую загрузку файлов (без запроса). Проверьте chrome://settings/downloads. Для резервных копий на Google Диске это не требуется."
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Можно сохранять локально (папка tms-backups внутри папки «Загрузки»)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "или в папку 'TMS Backups' на Google Диске."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Для локальных резервных копий Chrome должен быть настроен на автоматическую загрузку файлов (без запроса)."
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "Проверьте chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Для резервных копий на Google Диске это не требуется."
   },
   "html_options_backup_interval": {
     "message": "Резервное копирование каждые"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "Включить ленту новостей"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Периодически проверяет marvellouscode.works на наличие новостей TMS и показывает их на боковой панели."
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Периодически проверяет marvellouscode.works на наличие новостей TMS"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "и показывает их на боковой панели."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Отключите, чтобы избежать этого фонового запроса."

@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Ajouter l'URL d'origine au titre de l'onglet suspendu"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Si activé, l'URL d'origine est ajoutée au titre de l'onglet du navigateur pour les pages suspendues."
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Si activé, l'URL d'origine est ajoutée au titre de l'onglet"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Cela permet de retrouver les onglets suspendus par nom d'hôte grâce à la fonction « Rechercher des onglets » de Chrome (Ctrl+Maj+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "du navigateur pour les pages suspendues."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Cela permet de retrouver les onglets suspendus par nom d'hôte"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "grâce à la fonction \"Rechercher dans les onglets\" de Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Conserver la position de lecture YouTube lors de la mise en veille"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "Revendiquer par défaut"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Prend automatiquement en charge les onglets déjà suspendus par une autre extension compatible (par ex. The Great Suspender, ou une autre installation de celle-ci)."
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Prend automatiquement en charge les onglets déjà suspendus par une autre extension"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Un onglet est considéré comme « suspendu » si son URL contient 'suspended.html'. Activer cette option réécrit cette URL vers cette installation afin que TMS puisse gérer l'onglet par la suite."
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "compatible (par ex. The Great Suspender, ou une autre installation de celle-ci)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Un onglet est considéré comme \"suspendu\" si son URL contient 'suspended.html'."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Activer cette option réécrit cette URL vers cette installation"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "afin que TMS puisse gérer l'onglet à partir de maintenant."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Ne jamais suspendre les onglets lorsque connecté à une source d'alimentation"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "Toujours suspendre les onglets dont l'URL figure dans la liste suivante :"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "Les onglets correspondant à cette liste sont toujours suspendus après le délai normal, indépendamment du son, de la saisie de formulaire ou de l'état épinglé."
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Les onglets correspondant à cette liste sont toujours suspendus après"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "Une entrée par ligne, mêmes règles de correspondance que la liste ci-dessus (correspondance de texte simple n'importe où dans l'URL, ou /regex/ entre barres obliques)."
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "le délai normal, indépendamment de l'audio, de la saisie de formulaire ou de l'état épinglé."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Une entrée par ligne, mêmes règles de correspondance que la liste ci-dessus"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(correspondance de texte brut n'importe où dans l'URL, ou /regex/ entre barres obliques)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Ajouter l'URL de chaque page que vous souhaitez ajouter à la liste blanche sur une nouvelle ligne. Par exemple:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "Sauvegarder automatiquement votre session"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "Enregistre silencieusement une copie de votre session actuelle sous forme de fichier JSON. Choisissez un enregistrement local (dossier tms-backups dans vos téléchargements) ou dans un dossier 'TMS Backups' sur Google Drive."
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Enregistre silencieusement une copie de votre session actuelle sous forme de fichier JSON."
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "Pour les sauvegardes locales, Chrome doit être configuré pour télécharger les fichiers automatiquement (sans demander). Vérifiez chrome://settings/downloads. Les sauvegardes Google Drive n'ont pas cette exigence."
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Choisissez de l'enregistrer localement (dossier tms-backups dans vos Téléchargements)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "ou dans un dossier 'TMS Backups' sur Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Pour les sauvegardes locales, Chrome doit être configuré pour télécharger les fichiers automatiquement (sans demander)."
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "Vérifiez chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Les sauvegardes Google Drive n'ont pas cette exigence."
   },
   "html_options_backup_interval": {
     "message": "Sauvegarder toutes les"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "Activer le fil d'actualités"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Vérifie périodiquement marvellouscode.works pour les actualités de TMS et les affiche dans la barre latérale."
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Vérifie périodiquement marvellouscode.works pour les actualités"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "de TMS et les affiche dans la barre latérale."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Désactivez pour éviter cette requête en arrière-plan."

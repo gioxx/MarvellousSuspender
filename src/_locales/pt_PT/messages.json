@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Acrescentar o URL original ao título do separador suspenso"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Quando ativado, o URL original é acrescentado ao título do separador do navegador em páginas suspensas."
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Quando ativado, o URL original é acrescentado ao título do separador"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Isto permite encontrar separadores suspensos pelo nome de anfitrião com a função \"Pesquisar separadores\" do Chrome (Ctrl+Shift+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "do navegador nas páginas suspensas."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Isto permite encontrar separadores suspensos por nome de anfitrião"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "utilizando a funcionalidade \"Pesquisar separadores\" do Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Preservar a posição de reprodução do YouTube ao suspender"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "Reivindicar por predefinição"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Assume automaticamente separadores já suspensos por outra extensão compatível (por exemplo, The Great Suspender, ou outra instalação desta mesma extensão)."
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Assume automaticamente o controlo dos separadores já suspensos por outra extensão compatível"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Um separador é considerado \"suspenso\" se o seu URL contiver 'suspended.html'. Ativar esta opção reescreve esse URL para esta instalação, para que o TMS possa gerir o separador a partir daí."
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "(por exemplo, The Great Suspender, ou outra instalação desta)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Um separador é considerado \"suspenso\" se o seu URL contiver 'suspended.html'."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Ativar esta opção reescreve esse URL para esta instalação,"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "para que o TMS possa gerir o separador a partir daí."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nunca suspender as guias quando estiver conectado à fonte de energia"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "Suspender sempre os separadores com URLs da seguinte lista:"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "Os separadores que correspondem a esta lista são sempre suspensos após o tempo limite normal, independentemente do áudio, da introdução de dados em formulários ou do estado fixado."
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Os separadores correspondentes a esta lista são sempre suspensos após"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "Uma entrada por linha, as mesmas regras de correspondência da lista acima (correspondência de texto simples em qualquer parte do URL, ou /regex/ entre barras)."
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "o tempo limite normal, independentemente do áudio, da introdução de formulários ou do estado fixado."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Uma entrada por linha, as mesmas regras de correspondência da lista acima"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(correspondência de texto simples em qualquer parte do URL, ou /regex/ entre barras)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Adicione a URL de cada página que você deseja colocar na lista branca em uma nova linha. Por exemplo:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "Fazer cópia de segurança automática da sua sessão"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "Guarda silenciosamente uma cópia da sua sessão atual como ficheiro JSON. Escolha guardar localmente (pasta tms-backups dentro das suas Transferências) ou numa pasta 'TMS Backups' no Google Drive."
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Guarda silenciosamente uma cópia da sua sessão atual como um ficheiro JSON."
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "Para cópias de segurança locais, o Chrome tem de estar configurado para transferir ficheiros automaticamente (sem perguntar). Verifique chrome://settings/downloads. As cópias de segurança no Google Drive não têm este requisito."
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Escolha guardar localmente (pasta tms-backups dentro das suas Transferências)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "ou numa pasta 'TMS Backups' no Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Para cópias de segurança locais, o Chrome tem de estar configurado para transferir ficheiros automaticamente (sem perguntar)."
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "Verifique chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "As cópias no Google Drive não têm este requisito."
   },
   "html_options_backup_interval": {
     "message": "Fazer cópia de segurança a cada"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "Ativar feed de notícias"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Verifica periodicamente o marvellouscode.works em busca de novidades do TMS e mostra-as na barra lateral."
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Verifica periodicamente marvellouscode.works em busca de novidades"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "do TMS e mostra-as na barra lateral."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Desative para evitar este pedido em segundo plano."

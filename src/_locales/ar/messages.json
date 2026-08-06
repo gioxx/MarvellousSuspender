@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "إلحاق عنوان URL الأصلي بعنوان علامة التبويب المعلّقة"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "عند التفعيل، يُلحق عنوان URL الأصلي بعنوان علامة تبويب المتصفح للصفحات المعلّقة."
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "عند التفعيل، يُلحق عنوان URL الأصلي"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "يتيح ذلك العثور على علامات التبويب المعلّقة حسب اسم المضيف باستخدام ميزة \"البحث في علامات التبويب\" في Chrome (Ctrl+Shift+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "بعنوان علامة تبويب المتصفح للصفحات المعلّقة."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "هذا يتيح العثور على علامات التبويب المعلّقة حسب اسم المضيف"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "باستخدام ميزة \"البحث في علامات التبويب\" في Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "الحفاظ على موضع تشغيل يوتيوب عند التعليق"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "الاستحواذ افتراضيًا"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "تتولى تلقائيًا التحكم في علامات التبويب المعلّقة مسبقًا بواسطة إضافة متوافقة أخرى (مثل The Great Suspender، أو نسخة أخرى مثبّتة من هذه الإضافة)."
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "يستحوذ تلقائيًا على علامات التبويب المعلّقة مسبقًا بواسطة إضافة متوافقة أخرى"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "تُعتبر علامة التبويب \"معلّقة\" إذا كان الرابط الخاص بها يحتوي على 'suspended.html'. تفعيل هذا الخيار يعيد كتابة ذلك الرابط لهذا التثبيت حتى يتمكن TMS من إدارة علامة التبويب لاحقًا."
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "(مثل The Great Suspender، أو تثبيت آخر لهذه الإضافة)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "تُعتبر علامة التبويب \"معلّقة\" إذا كان عنوان URL الخاص بها يحتوي على 'suspended.html'."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "تفعيل هذا الخيار يعيد كتابة ذلك العنوان لهذا التثبيت"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "حتى يتمكن TMS من إدارة علامة التبويب من الآن فصاعدًا."
   },
   "html_options_suspend_only_on_battery": {
     "message": "لا توقف أبداً علامات التبويب عند الاتصال بمصدر الطاقة"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "قم دائمًا بتعليق علامات التبويب ذات العناوين التالية:"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "علامات التبويب المطابقة لهذه القائمة تُعلَّق دائمًا بعد المهلة العادية، بغض النظر عن الصوت أو إدخال النموذج أو حالة التثبيت."
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "علامات التبويب المطابقة لهذه القائمة تُعلَّق دائمًا بعد المهلة العادية،"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "إدخال واحد لكل سطر، نفس قواعد المطابقة للقائمة أعلاه (مطابقة نصية في أي مكان بالرابط، أو /regex/ بين شرطتين مائلتين)."
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "بغض النظر عن الصوت أو إدخال النموذج أو حالة التثبيت."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "إدخال واحد لكل سطر، نفس قواعد المطابقة المستخدمة في القائمة أعلاه"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(تطابق نصي بسيط في أي مكان من عنوان URL، أو /regex/ بين شرطتين مائلتين)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "إضافة عنوان URL لكل صفحة تريد القائمة البيضاء على سطر جديد. على سبيل المثال:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "نسخ جلستك احتياطيًا تلقائيًا"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "يحفظ بصمت نسخة من جلستك الحالية كملف JSON. اختر الحفظ محليًا (مجلد tms-backups داخل مجلد التنزيلات) أو في مجلد 'TMS Backups' على Google Drive."
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "يحفظ نسخة من جلستك الحالية بصمت كملف JSON."
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "بالنسبة للنسخ الاحتياطية المحلية، يجب ضبط Chrome لتنزيل الملفات تلقائيًا (دون سؤال). تحقق من chrome://settings/downloads. لا تتطلب النسخ الاحتياطية على Google Drive ذلك."
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "يمكنك الاختيار بين الحفظ محليًا (مجلد tms-backups داخل مجلد التنزيلات)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "أو في مجلد 'TMS Backups' على Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "بالنسبة للنسخ الاحتياطية المحلية، يجب ضبط Chrome لتنزيل الملفات تلقائيًا (دون سؤال)."
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "تحقق من chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "النسخ الاحتياطية على Google Drive لا تتطلب ذلك."
   },
   "html_options_backup_interval": {
     "message": "النسخ الاحتياطي كل"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "تفعيل خلاصة الأخبار"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "يتحقق دوريًا من marvellouscode.works بحثًا عن أخبار TMS ويعرضها في الشريط الجانبي."
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "يتحقق بشكل دوري من marvellouscode.works بحثًا عن أخبار TMS"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "ويعرضها في الشريط الجانبي."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "عطّله لتخطي هذا الطلب في الخلفية."

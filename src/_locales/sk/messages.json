@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Pripojiť pôvodnú URL adresu k názvu pozastavenej karty"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Ak je povolené, k názvu karty prehliadača na pozastavených stránkach sa pripojí pôvodná URL adresa."
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Ak je povolené, pôvodná URL adresa sa pripojí k názvu karty"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "To umožňuje vyhľadávať pozastavené karty podľa názvu hostiteľa pomocou funkcie Chromu „Hľadať na kartách“ (Ctrl+Shift+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "prehliadača pri pozastavených stránkach."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "To umožňuje nájsť pozastavené karty podľa hostname pomocou"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "funkcie prehliadača Chrome \"Hľadať na kartách\" (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Zachovať pozíciu prehrávania YouTube pri pozastavení"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "Prevziať predvolene"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Automaticky prevezme karty už pozastavené iným kompatibilným rozšírením (napr. The Great Suspender alebo inou inštaláciou tohto rozšírenia)."
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Automaticky prevezme karty už pozastavené iným kompatibilným rozšírením"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Karta sa považuje za „pozastavenú“, ak jej URL obsahuje 'suspended.html'. Zapnutím tejto voľby sa táto URL prepíše na túto inštaláciu, aby ju TMS mohlo naďalej spravovať."
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "(napr. The Great Suspender alebo inou inštaláciou tohto rozšírenia)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Karta sa považuje za \"pozastavenú\", ak jej URL adresa obsahuje 'suspended.html'."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Povolením tejto možnosti sa táto URL adresa prepíše na túto inštaláciu,"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "aby ju TMS mohol odvtedy spravovať."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nikdy nepozastav tab ak je počítač pripojený k elektrickej sieti"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "Vždy pozastaviť karty s URL adresami z nasledujúceho zoznamu:"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "Karty zodpovedajúce tomuto zoznamu sa vždy pozastavia po bežnom časovom limite, bez ohľadu na zvuk, vypĺňanie formulára alebo pripnutý stav."
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Karty zodpovedajúce tomuto zoznamu sa vždy pozastavia po uplynutí"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "Jedna položka na riadok, rovnaké pravidlá zhody ako pri zozname vyššie (jednoduchá zhoda textu kdekoľvek v URL, alebo /regex/ medzi lomítkami)."
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "bežného časového limitu, bez ohľadu na zvuk, vyplnený formulár alebo pripnutie."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Jedna položka na riadok, rovnaké pravidlá zhody ako pri vyššie"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "uvedenom zozname (obyčajný text kdekoľvek v URL adrese, alebo /regex/ medzi lomítkami)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Pridajte URL adresu každej stránky, ktorú chcete zaradiť na zoznam výnimiek, na nový riadok. Napríklad:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "Automaticky zálohovať vašu reláciu"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "Ticho ukladá kópiu vašej aktuálnej relácie ako súbor JSON. Zvoľte ukladanie lokálne (priečinok tms-backups vo vnútri vašich Stiahnutých súborov) alebo do priečinka 'TMS Backups' na Disku Google."
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Ticho uloží kópiu vašej aktuálnej relácie ako súbor JSON."
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "Pri lokálnych zálohách musí byť Chrome nastavený tak, aby súbory sťahoval automaticky (bez pýtania sa). Skontrolujte chrome://settings/downloads. Zálohy na Disku Google túto požiadavku nemajú."
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Môžete si vybrať lokálne uloženie (priečinok tms-backups vo vašich Stiahnutých súboroch)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "alebo uloženie do priečinka 'TMS Backups' na Disku Google."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Pre lokálne zálohy musí byť Chrome nastavený na automatické sťahovanie súborov (bez otázky)."
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "Skontrolujte chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Zálohy na Disk Google túto požiadavku nemajú."
   },
   "html_options_backup_interval": {
     "message": "Zálohovať každých"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "Povoliť kanál noviniek"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Pravidelne kontroluje marvellouscode.works kvôli novinkám TMS a zobrazuje ich na bočnom paneli."
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Pravidelne kontroluje marvellouscode.works ohľadom noviniek o TMS"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "a zobrazuje ich na bočnom paneli."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Vypnite, ak chcete preskočiť túto požiadavku na pozadí."

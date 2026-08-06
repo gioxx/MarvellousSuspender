@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "停止中のタブのタイトルに元のURLを追加する"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "有効にすると、停止中のページのブラウザタブタイトルに元のURLが追加されます。"
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "有効にすると、元のURLが停止中のページの"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "これにより、Chromeの「タブを検索」機能（Ctrl+Shift+A）を使ってホスト名で停止中のタブを見つけられるようになります。"
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "ブラウザタブタイトルに追加されます。"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "これにより、Chromeの「タブを検索」機能"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "（Ctrl+Shift+A）でホスト名から停止中のタブを見つけられます。"
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "サスペンド時にYouTubeの再生位置を保持する"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "デフォルトで引き継ぐ"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "他の互換性のある拡張機能(The Great Suspender や、このアプリの別のインストールなど)によってすでにサスペンドされているタブを自動的に引き継ぎます。"
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "他の互換性のある拡張機能（The Great Suspenderや、"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "URLに 'suspended.html' が含まれている場合、そのタブは「サスペンド中」とみなされます。この設定を有効にすると、そのURLがこのインストールに書き換えられ、以降TMSがそのタブを管理できるようになります。"
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "このTMSの別のインストールなど）によってすでに停止されているタブを自動的に引き継ぎます。"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "タブのURLに'suspended.html'が含まれている場合、そのタブは「停止中」とみなされます。"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "これを有効にすると、そのURLがこのインストールに書き換えられ、"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "以後TMSがタブを管理できるようになります。"
   },
   "html_options_suspend_only_on_battery": {
     "message": "電源に接続されている場合はタブを停止しない"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "次のリストにあるURLのタブは常にサスペンドする:"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "このリストに一致するタブは、音声、フォーム入力、ピン留め状態に関わらず、通常のタイムアウト後に常にサスペンドされます。"
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "このリストに一致するタブは、音声・フォーム入力・ピン留め状態に関わらず、"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "1行につき1件。上記のリストと同じ照合ルールです(URL内の任意の場所での単純なテキスト一致、またはスラッシュで囲んだ /regex/)。"
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "通常のタイムアウト後に常に停止されます。"
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "1行につき1エントリ、上記のリストと同じ照合ルールです"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "（URL内の任意の場所と一致するプレーンテキスト、またはスラッシュで囲んだ/regex/）。"
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "ホワイトリストに登録したい各ページのURLを改行して追加してください。例:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "セッションを自動的にバックアップする"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "現在のセッションのコピーをJSONファイルとして静かに保存します。ローカル保存（ダウンロード内のtms-backupsフォルダ）またはGoogleドライブの「TMS Backups」フォルダへの保存を選択できます。"
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "現在のセッションのコピーをJSONファイルとしてバックグラウンドで保存します。"
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "ローカルバックアップの場合、Chromeがファイルを自動的にダウンロードする（確認なし）よう設定されている必要があります。chrome://settings/downloadsを確認してください。Googleドライブのバックアップにはこの要件はありません。"
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "ローカル保存（ダウンロードフォルダ内のtms-backupsフォルダ）"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "またはGoogleドライブの'TMS Backups'フォルダへの保存を選択できます。"
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "ローカルバックアップには、Chromeがファイルを自動的にダウンロードする設定"
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "（確認なし）になっている必要があります。chrome://settings/downloads を確認してください。"
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Googleドライブへのバックアップにはこの条件は不要です。"
   },
   "html_options_backup_interval": {
     "message": "バックアップ間隔"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "ニュースフィードを有効にする"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "marvellouscode.worksを定期的にチェックしてTMSのニュースを取得し、サイドバーに表示します。"
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "定期的にmarvellouscode.worksを確認してTMSのニュースを取得し、"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "サイドバーに表示します。"
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "無効にすると、このバックグラウンドリクエストをスキップします。"

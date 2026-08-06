@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Askıya alınmış sekme başlığına orijinal URL'yi ekle"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Etkinleştirildiğinde, askıya alınmış sayfaların tarayıcı sekme başlığına orijinal URL eklenir."
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Etkinleştirildiğinde, orijinal URL askıya alınmış sayfaların"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Bu, Chrome'un \"Sekmeleri Ara\" özelliğini (Ctrl+Shift+A) kullanarak askıya alınmış sekmeleri ana bilgisayar adına göre bulmanızı sağlar."
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "tarayıcı sekmesi başlığına eklenir."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Bu, Chrome'un \"Sekmeleri Ara\" özelliğini (Ctrl+Shift+A) kullanarak"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "askıya alınmış sekmeleri ana bilgisayar adına göre bulmayı sağlar."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Askıya alırken YouTube oynatma konumunu koru"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "Varsayılan olarak sahiplen"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Başka uyumlu bir uzantı (ör. The Great Suspender veya bu uzantının farklı bir kurulumu) tarafından zaten askıya alınmış sekmeleri otomatik olarak devralır."
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Başka bir uyumlu uzantı (ör. The Great Suspender veya bu uzantının farklı bir kurulumu)"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Bir sekmenin URL'si 'suspended.html' içeriyorsa \"askıya alınmış\" sayılır. Bu seçeneği etkinleştirmek, o URL'yi bu kuruluma yeniden yazar, böylece TMS sekmeyi bundan sonra yönetebilir."
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "tarafından zaten askıya alınmış sekmeleri otomatik olarak devralır."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Bir sekmenin URL'si 'suspended.html' içeriyorsa \"askıya alınmış\" sayılır."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Bunu etkinleştirmek, TMS'nin sekmeyi bundan sonra yönetebilmesi için"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "o URL'yi bu kuruluma yeniden yazar."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Güç kaynağına bağlı iken sekmeleri askıya al yapma"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "Aşağıdaki listedeki URL'lere sahip sekmeleri her zaman askıya al:"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "Bu listeyle eşleşen sekmeler, ses, form girişi veya sabitlenmiş durumdan bağımsız olarak normal zaman aşımından sonra her zaman askıya alınır."
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Bu listeyle eşleşen sekmeler, ses, form girişi veya sabitlenme durumundan"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "Satır başına bir giriş, yukarıdaki listeyle aynı eşleştirme kuralları (URL'nin herhangi bir yerinde düz metin eşleşmesi veya eğik çizgiler arasında /regex/)."
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "bağımsız olarak her zaman normal zaman aşımından sonra askıya alınır."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Satır başına bir giriş, yukarıdaki liste ile aynı eşleştirme kuralları"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(URL içinde herhangi bir yerde düz metin eşleşmesi veya eğik çizgiler arasında /regex/)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Beyaz listeye eklemek istediğiniz her sayfanın URL'sini yeni bir satıra ekleyin. Örneğin:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "Oturumunuzu otomatik olarak yedekleyin"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "Mevcut oturumunuzun bir kopyasını sessizce JSON dosyası olarak kaydeder. Yerel olarak (İndirilenler'iniz içindeki tms-backups klasörü) veya Google Drive'da bir 'TMS Backups' klasörüne kaydetmeyi seçin."
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Mevcut oturumunuzun bir kopyasını sessizce JSON dosyası olarak kaydeder."
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "Yerel yedeklemeler için Chrome'un dosyaları otomatik olarak (sormadan) indirecek şekilde ayarlanmış olması gerekir. chrome://settings/downloads adresini kontrol edin. Google Drive yedeklemelerinde böyle bir gereklilik yoktur."
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Yerel olarak (İndirilenler klasörünüzdeki tms-backups klasörü)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "veya Google Drive'da 'TMS Backups' klasörüne kaydetmeyi seçebilirsiniz."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Yerel yedeklemeler için Chrome'un dosyaları otomatik olarak indirecek şekilde ayarlanmış olması gerekir (sormadan)."
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "chrome://settings/downloads adresini kontrol edin."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Google Drive yedeklemelerinde bu gereklilik yoktur."
   },
   "html_options_backup_interval": {
     "message": "Şu sıklıkla yedekle:"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "Haber akışını etkinleştir"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "TMS haberleri için düzenli olarak marvellouscode.works adresini kontrol eder ve kenar çubuğunda gösterir."
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "TMS haberleri için düzenli olarak marvellouscode.works adresini"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "kontrol eder ve kenar çubuğunda gösterir."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Bu arka plan isteğini atlamak için devre dışı bırakın."

@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Anexar URL original ao título da guia suspensa"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Quando ativado, a URL original é anexada ao título da guia do navegador em páginas suspensas."
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Quando ativado, a URL original é anexada ao título da guia"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Isso permite encontrar guias suspensas pelo nome do host usando o \"Pesquisar guias\" do Chrome (Ctrl+Shift+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "do navegador nas páginas suspensas."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Isso permite encontrar guias suspensas por nome de host"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "usando o recurso \"Pesquisar guias\" do Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Preservar a posição de reprodução do YouTube ao suspender"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "Reivindicar por padrão"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Assume automaticamente abas já suspensas por outra extensão compatível (por exemplo, The Great Suspender, ou outra instalação desta mesma extensão)."
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Assume automaticamente o controle de guias já suspensas por outra extensão compatível"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Uma aba é considerada \"suspensa\" se sua URL contiver 'suspended.html'. Ativar esta opção reescreve essa URL para esta instalação, para que o TMS possa gerenciar a aba a partir de então."
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "(por exemplo, The Great Suspender, ou outra instalação desta)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Uma guia é considerada \"suspensa\" se sua URL contiver 'suspended.html'."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Ativar isso reescreve essa URL para esta instalação,"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "para que o TMS possa gerenciar a guia daí em diante."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nunca suspender as guias quando estiver conectado à fonte de energia"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "Sempre suspender guias com URLs da seguinte lista:"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "As guias que correspondem a esta lista são sempre suspensas após o tempo limite normal, independentemente de áudio, entrada de formulário ou estado fixado."
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "As guias que correspondem a esta lista sempre são suspensas após"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "Uma entrada por linha, mesmas regras de correspondência da lista acima (correspondência de texto simples em qualquer parte da URL, ou /regex/ entre barras)."
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "o tempo limite normal, independentemente de áudio, entrada de formulário ou estado fixado."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Uma entrada por linha, mesmas regras de correspondência da lista acima"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(correspondência de texto simples em qualquer parte da URL, ou /regex/ entre barras)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Adicione a URL de cada página que você deseja colocar na lista branca em uma nova linha. Por exemplo:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "Fazer backup automático da sua sessão"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "Salva silenciosamente uma cópia da sua sessão atual como arquivo JSON. Escolha salvar localmente (pasta tms-backups dentro dos seus Downloads) ou em uma pasta 'TMS Backups' no Google Drive."
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Salva silenciosamente uma cópia da sua sessão atual como um arquivo JSON."
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "Para backups locais, o Chrome precisa estar configurado para baixar arquivos automaticamente (sem perguntar). Confira em chrome://settings/downloads. Backups no Google Drive não têm esse requisito."
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Escolha salvar localmente (pasta tms-backups dentro de seus Downloads)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "ou em uma pasta 'TMS Backups' no Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Para backups locais, o Chrome deve estar configurado para baixar arquivos automaticamente (sem perguntar)."
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "Verifique chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Backups no Google Drive não têm esse requisito."
   },
   "html_options_backup_interval": {
     "message": "Fazer backup a cada"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "Ativar feed de notícias"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Verifica periodicamente o marvellouscode.works em busca de novidades do TMS e as exibe na barra lateral."
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Verifica periodicamente marvellouscode.works em busca de novidades"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "do TMS e as exibe na barra lateral."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Desative para pular essa solicitação em segundo plano."

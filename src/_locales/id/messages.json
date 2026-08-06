@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Tambahkan URL asli ke judul tab yang ditangguhkan"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Jika diaktifkan, URL asli ditambahkan ke judul tab browser pada halaman yang ditangguhkan."
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Jika diaktifkan, URL asli akan ditambahkan ke judul tab browser"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Ini memungkinkan Anda menemukan tab tertangguhkan berdasarkan nama host menggunakan \"Cari Tab\" Chrome (Ctrl+Shift+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "untuk halaman yang ditangguhkan."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Ini memungkinkan pencarian tab yang ditangguhkan berdasarkan hostname"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "menggunakan \"Cari Tab\" Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Pertahankan posisi pemutaran YouTube saat menangguhkan"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "Klaim secara default"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Secara otomatis mengambil alih tab yang sudah ditangguhkan oleh ekstensi kompatibel lain (misalnya The Great Suspender, atau instalasi lain dari ekstensi ini)."
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Secara otomatis mengambil alih tab yang sudah ditangguhkan oleh ekstensi kompatibel lain"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Tab dianggap \"ditangguhkan\" jika URL-nya mengandung 'suspended.html'. Mengaktifkan ini akan menulis ulang URL tersebut ke instalasi ini agar TMS dapat mengelola tab tersebut selanjutnya."
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "(misalnya The Great Suspender, atau instalasi lain dari ekstensi ini)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Tab dianggap \"ditangguhkan\" jika URL-nya berisi 'suspended.html'."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Mengaktifkan ini akan menulis ulang URL tersebut ke instalasi ini"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "agar TMS dapat mengelola tab tersebut selanjutnya."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Jangan pernah menangguhkan tab saat terhubung ke sumber daya (listrik)"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "Selalu tangguhkan tab dengan URL dari daftar berikut:"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "Tab yang cocok dengan daftar ini selalu ditangguhkan setelah waktu tunggu normal, terlepas dari audio, input formulir, atau status disematkan."
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Tab yang cocok dengan daftar ini selalu ditangguhkan setelah waktu tunggu"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "Satu entri per baris, aturan pencocokan sama seperti daftar di atas (pencocokan teks biasa di mana saja dalam URL, atau /regex/ di antara garis miring)."
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "normal, terlepas dari audio, input formulir, atau status disematkan."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Satu entri per baris, aturan pencocokan yang sama seperti daftar di atas"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(kecocokan teks biasa di mana saja dalam URL, atau /regex/ di antara garis miring)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Tambahkan URL dari setiap halaman yang ingin Anda masukkan ke daftar putih pada baris baru. Misalnya:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "Cadangkan sesi Anda secara otomatis"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "Secara diam-diam menyimpan salinan sesi Anda saat ini sebagai file JSON. Pilih untuk menyimpan secara lokal (folder tms-backups di dalam Unduhan Anda) atau ke folder 'TMS Backups' di Google Drive."
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Secara diam-diam menyimpan salinan sesi Anda saat ini sebagai file JSON."
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "Untuk cadangan lokal, Chrome harus diatur untuk mengunduh file secara otomatis (tanpa bertanya). Periksa chrome://settings/downloads. Cadangan Google Drive tidak memiliki persyaratan seperti itu."
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Pilih untuk menyimpan secara lokal (folder tms-backups di dalam Unduhan Anda)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "atau ke folder 'TMS Backups' di Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Untuk cadangan lokal, Chrome harus diatur untuk mengunduh file secara otomatis (tanpa bertanya)."
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "Periksa chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Cadangan Google Drive tidak memiliki persyaratan ini."
   },
   "html_options_backup_interval": {
     "message": "Cadangkan setiap"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "Aktifkan feed berita"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Secara berkala memeriksa marvellouscode.works untuk berita TMS dan menampilkannya di bilah sisi."
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Secara berkala memeriksa marvellouscode.works untuk berita TMS"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "dan menampilkannya di bilah sisi."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Nonaktifkan untuk melewati permintaan latar belakang ini."

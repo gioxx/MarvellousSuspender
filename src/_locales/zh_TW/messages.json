@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "在暫停分頁標題後附加原始網址"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "啟用後，暫停頁面的瀏覽器分頁標題會附加原始網址。"
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "啟用後，原始網址會附加到暫停頁面的"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "這樣可以使用 Chrome 的「搜尋分頁」功能（Ctrl+Shift+A）依主機名稱尋找暫停分頁。"
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "瀏覽器分頁標題中。"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "這樣就可以使用 Chrome 的「搜尋分頁」功能"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "（Ctrl+Shift+A）依主機名稱尋找已暫停的分頁。"
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "暫停時保留 YouTube 播放位置"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "預設接管"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "自動接管已被其他相容擴充功能（例如 The Great Suspender，或本擴充功能的另一次安裝）暫停的分頁。"
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "自動接管已被其他相容擴充功能（例如 The Great Suspender，"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "若分頁的網址包含 'suspended.html'，則視為已暫停。啟用此選項會將該網址改寫為指向這次安裝，讓 TMS 之後可以管理該分頁。"
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "或本擴充功能的另一次安裝）暫停的分頁。"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "如果分頁的網址包含 'suspended.html'，則視為「已暫停」。"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "啟用此選項會將該網址重寫至此安裝，"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "以便 TMS 之後可以管理該分頁。"
   },
   "html_options_suspend_only_on_battery": {
     "message": "只在電腦未接上電源時才自動凍結"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "始終暫停以下清單中網址的分頁："
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "符合此清單的分頁在正常逾時後始終會被暫停，無論音訊、表單輸入或釘選狀態為何。"
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "符合此清單的分頁會在正常逾時後始終被暫停，"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "每行一個項目，比對規則與上方清單相同（在網址任意位置進行純文字比對，或使用斜線包裹的 /regex/）。"
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "無論是否有音訊、表單輸入或固定狀態。"
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "每行一條，比對規則與上面的清單相同"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "（在網址任意位置比對純文字，或使用斜線包裹的 /regex/）。"
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "在新的一列上新增要列入白名單的每個分頁的 URL。例如："
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "自動備份您的工作階段"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "以 JSON 檔案形式默默儲存目前工作階段的副本。可選擇儲存至本機（下載資料夾內的 tms-backups 目錄）或 Google 雲端硬碟中的 'TMS Backups' 資料夾。"
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "在背景靜默儲存目前工作階段的副本為 JSON 檔案。"
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "若要進行本機備份，Chrome 必須設定為自動下載檔案（不詢問）。請檢查 chrome://settings/downloads。Google 雲端硬碟備份則無此要求。"
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "可選擇儲存到本機（下載資料夾中的 tms-backups 資料夾）"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "或 Google 雲端硬碟中的 'TMS Backups' 資料夾。"
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "對於本機備份，Chrome 必須設定為自動下載檔案（不詢問）。"
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "請檢查 chrome://settings/downloads。"
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Google 雲端硬碟備份沒有此要求。"
   },
   "html_options_backup_interval": {
     "message": "備份間隔"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "啟用消息來源"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "定期檢查 marvellouscode.works 以取得 TMS 消息，並顯示於側邊欄。"
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "定期檢查 marvellouscode.works 取得 TMS 消息，"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "並在側邊欄中顯示。"
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "停用以略過此背景請求。"
