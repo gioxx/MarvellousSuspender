@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "次のリストのURLを持つタブは停止しない:"
   },
+  "html_options_always_suspend_title": {
+    "message": "次のリストにあるURLのタブは常にサスペンドする:"
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "このリストに一致するタブは、音声、フォーム入力、ピン留め状態に関わらず、通常のタイムアウト後に常にサスペンドされます。"
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "1行につき1件。上記のリストと同じ照合ルールです(URL内の任意の場所での単純なテキスト一致、またはスラッシュで囲んだ /regex/)。"
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "ホワイトリストに登録したい各ページのURLを改行して追加してください。例:"
   },

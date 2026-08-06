@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "Nunca suspender as guias com URLs da lista a seguir:"
   },
+  "html_options_always_suspend_title": {
+    "message": "Suspender sempre os separadores com URLs da seguinte lista:"
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Os separadores que correspondem a esta lista são sempre suspensos após o tempo limite normal, independentemente do áudio, da introdução de dados em formulários ou do estado fixado."
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Uma entrada por linha, as mesmas regras de correspondência da lista acima (correspondência de texto simples em qualquer parte do URL, ou /regex/ entre barras)."
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "Adicione a URL de cada página que você deseja colocar na lista branca em uma nova linha. Por exemplo:"
   },

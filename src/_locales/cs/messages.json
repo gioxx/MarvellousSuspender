@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "Nikdy nepozastavovat karty s URL adresami z následujícího seznamu:"
   },
+  "html_options_always_suspend_title": {
+    "message": "Vždy pozastavit karty s adresami URL z následujícího seznamu:"
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Karty odpovídající tomuto seznamu se vždy pozastaví po běžném časovém limitu, bez ohledu na zvuk, vyplňování formuláře nebo připnutý stav."
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Jedna položka na řádek, stejná pravidla shody jako u seznamu výše (obyčejná shoda textu kdekoli v URL, nebo /regex/ mezi lomítky)."
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "Přidejte URL adresu každé stránky, kterou chcete zařadit na seznam výjimek, na nový řádek. Například:"
   },

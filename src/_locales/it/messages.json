@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "Non sospendere mai le schede contenenti i seguenti indirizzi:"
   },
+  "html_options_always_suspend_title": {
+    "message": "Sospendi sempre le schede contenenti i seguenti indirizzi:"
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Le schede corrispondenti a questo elenco vengono sempre sospese dopo il normale timeout, indipendentemente da audio, input nei form o stato di appuntato."
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Una voce per riga, stesse regole di corrispondenza dell'elenco sopra (corrispondenza di testo semplice in qualsiasi punto dell'URL, oppure /regex/ tra slash)."
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "Aggiungi l'indirizzo di ogni pagina che desideri inserire nella lista bianca, uno per riga. Per esempio:"
   },

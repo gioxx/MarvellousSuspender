@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "Never suspend tabs with URLs from the following list:"
   },
+  "html_options_always_suspend_title": {
+    "message": "Always suspend tabs with URLs from the following list:"
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Tabs matching this list always suspend after the normal timeout, regardless of audio, form input, or pinned state."
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "One entry per line, same matching rules as the list above (plain text match anywhere in the URL, or /regex/ between slashes)."
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "Add the URL of each page you want to whitelist on a new line. For example:"
   },

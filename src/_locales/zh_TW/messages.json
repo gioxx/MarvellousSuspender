@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "白名單"
   },
+  "html_options_always_suspend_title": {
+    "message": "始終暫停以下清單中網址的分頁："
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "符合此清單的分頁在正常逾時後始終會被暫停，無論音訊、表單輸入或釘選狀態為何。"
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "每行一個項目，比對規則與上方清單相同（在網址任意位置進行純文字比對，或使用斜線包裹的 /regex/）。"
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "在新的一列上新增要列入白名單的每個分頁的 URL。例如："
   },

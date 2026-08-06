@@ -27,6 +27,7 @@ import  { gsUtils }               from './gsUtils.js';
     theme: gsStorage.THEME,
     language: gsStorage.LANGUAGE,
     whitelist: gsStorage.WHITELIST,
+    alwaysSuspendList: gsStorage.ALWAYS_SUSPEND_LIST,
     newsFeedEnabled: gsStorage.NEWS_FEED_ENABLED,
   };
 
@@ -219,8 +220,9 @@ import  { gsUtils }               from './gsUtils.js';
     let newValue = getOptionValue(element);
     const oldValue = await gsStorage.getOption(pref);
 
-    // clean up whitelist before saving
-    if (pref === gsStorage.WHITELIST) {
+    // clean up list-type options before saving (cleanupWhitelist is a generic
+    // dedupe/sort/trim of a newline-separated list, not whitelist-specific)
+    if (pref === gsStorage.WHITELIST || pref === gsStorage.ALWAYS_SUSPEND_LIST) {
       newValue = gsUtils.cleanupWhitelist(newValue);
     }
 

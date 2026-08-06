@@ -458,6 +458,15 @@
   "html_options_whitelist_title": {
     "message": "白名单"
   },
+  "html_options_always_suspend_title": {
+    "message": "始终挂起以下列表中网址的标签页："
+  },
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "与此列表匹配的标签页在正常超时后始终会被挂起，无论音频、表单输入或固定状态如何。"
+  },
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "每行一个条目，匹配规则与上面的列表相同（在网址任意位置进行纯文本匹配，或使用斜杠包裹的 /regex/）。"
+  },
   "html_options_whitelist_tooltip_line1": {
     "message": "在每一行上添加要列入白名单的每个页面的 URL。例如:"
   },
