@@ -294,9 +294,6 @@ import  { tgs }                   from './tgs.js';
     const isLowContrastFavicon = faviconMeta.isDark;
     setTheme(theme, isLowContrastFavicon);
 
-    // Set command
-    setCommand(await tgs.getSuspensionToggleHotkey());
-
     // Set url
     setUrl(originalUrl);
 
@@ -309,6 +306,9 @@ import  { tgs }                   from './tgs.js';
     setReason(suspendReason);
 
     // Show the view
+    // NOTE: must not be gated behind setCommand()/chrome.commands.getAll() below, that
+    // call can be slow (#320), and unsuspend click handlers are already attached above,
+    // so there's no reason to keep the page hidden/non-interactive while waiting on it.
     showContents();
 
     // Set scrollPosition (must come after showing page contents)
@@ -316,6 +316,9 @@ import  { tgs }                   from './tgs.js';
     setScrollPosition(scrollPosition, previewMode);
     await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SCROLL_POS, scrollPosition);
     // const whitelisted = gsUtils.checkWhiteList(originalUrl);
+
+    // Set command (cosmetic hotkey label only, fetched after the page is already visible/interactive)
+    setCommand(await tgs.getSuspensionToggleHotkey());
   }
 
 
