@@ -906,6 +906,14 @@ export const gsUtils = {
               ( gsUtils.checkSpecificWhiteList(tab.url, oldValueBySettingKey[gsStorage.WHITELIST]) &&
                !gsUtils.checkSpecificWhiteList(tab.url, newValueBySettingKey[gsStorage.WHITELIST])
               )
+            ) ||
+            // A tab newly added to the "always suspend" list may currently be protected
+            // (pinned/audible/active) with its timer already fired-and-rejected once, and
+            // nothing else would re-arm it, it'd just sit open indefinitely (#103 review).
+            (changedSettingKeys.includes(gsStorage.ALWAYS_SUSPEND_LIST) &&
+              ( !gsUtils.checkSpecificAlwaysSuspendList(tab.url, oldValueBySettingKey[gsStorage.ALWAYS_SUSPEND_LIST]) &&
+               gsUtils.checkSpecificAlwaysSuspendList(tab.url, newValueBySettingKey[gsStorage.ALWAYS_SUSPEND_LIST])
+              )
             );
           if (updateSuspendTime) {
             await tgs.resetAutoSuspendTimerForTab(tab);
