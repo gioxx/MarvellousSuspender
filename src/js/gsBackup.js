@@ -169,9 +169,90 @@ export const gsBackup = (() => {
   }
 
   // ─── Drive auth ────────────────────────────────────────────────────────────
+  //
+  // chrome.identity.getAuthToken() is broken on some non-Google Chromium forks
+  // (confirmed on Brave, brave/brave-browser#38066, open since May 2024, unassigned;
+  // the same "Error 400: invalid_request" pattern is reported on Vivaldi too): Google's
+  // OAuth backend now rejects the custom URI scheme these browsers attach to the request,
+  // since it only recognises genuine Google Chrome. There's no reliable way to detect
+  // "which browsers are affected" up front, and getAuthToken keeps working fine on real
+  // Chrome and Edge, so this is handled as a failure-driven fallback rather than browser
+  // sniffing: getAuthToken is always tried first (unchanged behaviour, zero impact for
+  // installs where it already works), and chrome.identity.launchWebAuthFlow() is only
+  // used as a fallback, the first time it succeeds for an install it's remembered so
+  // future calls skip straight to it instead of re-probing a method already known to fail.
+  // launchWebAuthFlow requires the OAuth client in Google Cloud Console to be of type
+  // "Web application" with https://<extension-id>.chromiumapp.org/ registered as an
+  // authorized redirect URI (the "Chrome App" client type getAuthToken needs does not
+  // support this flow) — a second, separate OAuth client from the one getAuthToken uses.
 
-  async function getAuthToken(interactive = false) {
-    return new Promise((resolve, reject) => {
+  const AUTH_METHOD_KEY  = 'gsDriveAuthMethod';
+  const AUTH_SESSION_KEY = 'tmsDriveAuthSession';
+  const TOKEN_EXPIRY_SAFETY_MARGIN_MS = 60 * 1000;
+
+  // Separate "Web application" OAuth client (#420), distinct from the "Chrome App"
+  // client_id in manifest.json's oauth2 block (that one stays reserved for getAuthToken()).
+  // Registered redirect URI: https://noogafoofpebimajpfpamcfhoaifemoa.chromiumapp.org/
+  const WEBAUTHFLOW_CLIENT_ID = '630779328171-mge0g9vebmq4pkihhi6gqs9a2agpu07e.apps.googleusercontent.com';
+
+  async function isLikelyBrokenChromeIdentity() {
+    // Brave's own chrome.identity.getAuthToken() implementation opens a native,
+    // browser-controlled tab that hits Google's servers and visibly shows the raw
+    // "Error 400: invalid_request" page before failing, we have no way to suppress or
+    // intercept that from extension code. Detecting Brave up front lets us skip the
+    // doomed first attempt entirely instead of showing that failure once no matter what.
+    try {
+      return !!(navigator.brave && await navigator.brave.isBrave());
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function getAuthMethod() {
+    const r = await chrome.storage.local.get([AUTH_METHOD_KEY]);
+    if (r[AUTH_METHOD_KEY]) return r[AUTH_METHOD_KEY];
+
+    if (await isLikelyBrokenChromeIdentity()) {
+      await setAuthMethod('webauthflow');
+      return 'webauthflow';
+    }
+    return 'chrome';
+  }
+
+  async function setAuthMethod(method) {
+    await chrome.storage.local.set({ [AUTH_METHOD_KEY]: method });
+  }
+
+  function getOAuthClientId() {
+    return WEBAUTHFLOW_CLIENT_ID;
+  }
+
+  function getOAuthScope() {
+    return chrome.runtime.getManifest().oauth2.scopes.join(' ');
+  }
+
+  async function getCachedAuthSession() {
+    const r = await chrome.storage.session.get([AUTH_SESSION_KEY]);
+    return r[AUTH_SESSION_KEY] || null;
+  }
+
+  async function setCachedAuthSession(session) {
+    await chrome.storage.session.set({ [AUTH_SESSION_KEY]: session });
+  }
+
+  async function clearCachedAuthSession() {
+    await chrome.storage.session.remove([AUTH_SESSION_KEY]);
+  }
+
+  // Silent/background calls never legitimately show any UI, so a short timeout is always
+  // safe there. Interactive calls can legitimately take a while (picking an account, 2FA,
+  // actually reading the consent screen), so that timeout is much more generous, it only
+  // exists to eventually recover from a genuinely hung callback, not to rush the user.
+  const CHROME_IDENTITY_SILENT_TIMEOUT_MS      = 6000;
+  const CHROME_IDENTITY_INTERACTIVE_TIMEOUT_MS = 45000;
+
+  function getAuthTokenViaChromeIdentity(interactive) {
+    const attempt = new Promise((resolve, reject) => {
       chrome.identity.getAuthToken({ interactive }, (token) => {
         if (chrome.runtime.lastError || !token) {
           reject(chrome.runtime.lastError || new Error('No token returned'));
@@ -180,21 +261,120 @@ export const gsBackup = (() => {
         }
       });
     });
+
+    // On some Chromium forks (confirmed on Vivaldi with browser sign-in disabled),
+    // getAuthToken's callback is never invoked at all rather than firing with an error,
+    // "The user turned off browser signin" only ever shows up as an unread
+    // chrome.runtime.lastError in the console. Without a timeout that leaves the promise
+    // (and the fallback logic that depends on it rejecting) hanging forever.
+    const timeoutMs = interactive ? CHROME_IDENTITY_INTERACTIVE_TIMEOUT_MS : CHROME_IDENTITY_SILENT_TIMEOUT_MS;
+    const timeout = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('getAuthToken timed out')), timeoutMs);
+    });
+
+    return Promise.race([attempt, timeout]);
+  }
+
+  function launchWebAuthFlowAsPromised(interactive) {
+    const redirectUri = chrome.identity.getRedirectURL();
+    const authUrl      = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+    authUrl.searchParams.set('client_id',     getOAuthClientId());
+    authUrl.searchParams.set('response_type', 'token');
+    authUrl.searchParams.set('redirect_uri',  redirectUri);
+    authUrl.searchParams.set('scope',         getOAuthScope());
+    authUrl.searchParams.set('prompt',        interactive ? 'consent' : 'none');
+
+    return new Promise((resolve, reject) => {
+      chrome.identity.launchWebAuthFlow(
+        { url: authUrl.href, interactive },
+        (redirectUrl) => {
+          if (chrome.runtime.lastError || !redirectUrl) {
+            reject(chrome.runtime.lastError || new Error('No redirect URL returned'));
+            return;
+          }
+          const responseParams = new URLSearchParams(new URL(redirectUrl).hash.slice(1));
+          if (responseParams.has('error')) {
+            reject(new Error(`OAuth error: ${ responseParams.get('error') }`));
+            return;
+          }
+          const accessToken = responseParams.get('access_token');
+          const expiresIn   = parseInt(responseParams.get('expires_in'), 10) || 3600;
+          if (!accessToken) {
+            reject(new Error('No access_token in OAuth redirect'));
+            return;
+          }
+          resolve({ accessToken, expiresAt: Date.now() + expiresIn * 1000 });
+        },
+      );
+    });
+  }
+
+  async function getAuthTokenViaWebAuthFlow(interactive) {
+    const cached = await getCachedAuthSession();
+    if (cached && cached.expiresAt - TOKEN_EXPIRY_SAFETY_MARGIN_MS > Date.now()) {
+      return cached.accessToken;
+    }
+
+    // Try a silent (non-interactive) refresh first, even when the caller asked for an
+    // interactive flow, so an already-consented user isn't prompted again just because
+    // their token expired.
+    try {
+      const session = await launchWebAuthFlowAsPromised(false);
+      await setCachedAuthSession(session);
+      return session.accessToken;
+    } catch (silentError) {
+      if (!interactive) throw silentError;
+    }
+
+    const session = await launchWebAuthFlowAsPromised(true);
+    await setCachedAuthSession(session);
+    return session.accessToken;
+  }
+
+  async function getAuthToken(interactive = false) {
+    const method = await getAuthMethod();
+
+    if (method === 'webauthflow') {
+      return getAuthTokenViaWebAuthFlow(interactive);
+    }
+
+    try {
+      return await getAuthTokenViaChromeIdentity(interactive);
+    } catch (chromeError) {
+      // Only attempt the fallback from an explicit, user-gesture-driven "Connect" click.
+      // Silent/background calls that fail with the default method just mean "not
+      // connected yet" or "token expired", not "this browser needs the fallback" — retrying
+      // those with an interactive-only API would be pointless and could surprise the user
+      // with an unexpected popup outside of a click handler.
+      if (!interactive) throw chromeError;
+      const token = await getAuthTokenViaWebAuthFlow(true);
+      await setAuthMethod('webauthflow');
+      return token;
+    }
   }
 
   async function revokeAuthToken() {
+    const method = await getAuthMethod();
     try {
-      const token = await getAuthToken(false);
-      await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
-      await new Promise((resolve, reject) => {
-        chrome.identity.removeCachedAuthToken({ token }, () => {
-          if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
-          else resolve();
+      if (method === 'webauthflow') {
+        const cached = await getCachedAuthSession();
+        const token = cached ? cached.accessToken : await getAuthTokenViaWebAuthFlow(false);
+        await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
+        await clearCachedAuthSession();
+      } else {
+        const token = await getAuthTokenViaChromeIdentity(false);
+        await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
+        await new Promise((resolve, reject) => {
+          chrome.identity.removeCachedAuthToken({ token }, () => {
+            if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
+            else resolve();
+          });
         });
-      });
+      }
       gsUtils.log('gsBackup', 'Drive token revoked.');
     } catch (e) {
       gsUtils.log('gsBackup', 'revokeAuthToken: nothing to revoke or already expired.', e?.message);
+      await clearCachedAuthSession();
     }
   }
 
