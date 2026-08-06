@@ -18,6 +18,9 @@
     "downloads",
     "identity"
   ],
+  "optional_host_permissions": [
+    "file:///*"
+  ],
   "oauth2": {
     "client_id": "630779328171-1ijjbqo2n5k675q4rdp3q55fjuk0dnhh.apps.googleusercontent.com",
     "scopes": [
