@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Append original URL to suspended tab title"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "When enabled, the original URL is appended to the browser tab title of suspended pages."
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "When enabled, the original URL is appended to the browser tab"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "This allows finding suspended tabs by hostname using Chrome's \"Search Tabs\" (Ctrl+Shift+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "title of suspended pages."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "This allows finding suspended tabs by hostname using Chrome's"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "\"Search Tabs\" (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Preserve YouTube playback position when suspending"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "Claim by default"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Automatically takes over tabs already suspended by another compatible extension (e.g. The Great Suspender, or a different install of this one)."
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Automatically takes over tabs already suspended by another compatible"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "A tab counts as \"suspended\" if its URL contains 'suspended.html'. Enabling this rewrites that URL to this install so TMS can manage the tab going forward."
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "extension (e.g. The Great Suspender, or a different install of this one)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "A tab counts as \"suspended\" if its URL contains 'suspended.html'."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Enabling this rewrites that URL to this install so TMS can manage"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "the tab going forward."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Never suspend tabs when connected to power source"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "Always suspend tabs with URLs from the following list:"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "Tabs matching this list always suspend after the normal timeout, regardless of audio, form input, or pinned state."
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Tabs matching this list always suspend after the normal timeout,"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "One entry per line, same matching rules as the list above (plain text match anywhere in the URL, or /regex/ between slashes)."
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "regardless of audio, form input, or pinned state."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "One entry per line, same matching rules as the list above (plain text"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "match anywhere in the URL, or /regex/ between slashes)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Add the URL of each page you want to whitelist on a new line. For example:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "Automatically back up your session"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "Silently saves a copy of your current session as a JSON file. Choose to save locally (tms-backups folder inside your Downloads) or to a 'TMS Backups' folder on Google Drive."
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Silently saves a copy of your current session as a JSON file."
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "For local backups, Chrome must be set to download files automatically (without asking). Check chrome://settings/downloads. Google Drive backups have no such requirement."
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Choose to save locally (tms-backups folder inside your Downloads)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "or to a 'TMS Backups' folder on Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "For local backups, Chrome must be set to download files automatically"
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "(without asking). Check chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Google Drive backups have no such requirement."
   },
   "html_options_backup_interval": {
     "message": "Backup every"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "Enable news feed"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Periodically checks marvellouscode.works for TMS news and shows them in the sidebar."
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Periodically checks marvellouscode.works for TMS news and shows them"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "in the sidebar."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Disable to skip this background request."

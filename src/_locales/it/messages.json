@@ -287,11 +287,17 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Aggiungi l'URL originale al titolo delle schede sospese"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Se abilitato, l'URL originale viene accodato al titolo della scheda del browser per le pagine sospese."
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Se abilitato, l'URL originale viene accodato al titolo della"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Permette di trovare le schede sospese per hostname tramite \"Cerca nelle schede\" di Chrome (Ctrl+Shift+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "scheda del browser per le pagine sospese."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Permette di trovare le schede sospese per hostname tramite"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "\"Cerca nelle schede\" di Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Mantieni la posizione di riproduzione di YouTube alla sospensione"
@@ -353,11 +359,20 @@
   "html_options_suspend_claim_by_default": {
     "message": "Rivendica per impostazione predefinita"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Prende automaticamente in carico le schede già sospese da un'altra estensione compatibile (es. The Great Suspender, o un'altra installazione di questa)."
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Prende automaticamente in carico le schede già sospese da un'altra"
   },
-  "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Una scheda è considerata \"sospesa\" se il suo URL contiene 'suspended.html'. Attivando questa opzione, l'URL viene riscritto verso questa installazione così TMS può gestire la scheda da quel momento in poi."
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "estensione compatibile (es. The Great Suspender, o un'altra installazione di questa)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Una scheda è considerata \"sospesa\" se il suo URL contiene 'suspended.html'."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Attivando questa opzione, l'URL viene riscritto verso questa"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "installazione così TMS può gestire la scheda da quel momento in poi."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Non sospendere mai le schede quando il PC è collegato all'alimentazione"
@@ -461,11 +476,17 @@
   "html_options_always_suspend_title": {
     "message": "Sospendi sempre le schede contenenti i seguenti indirizzi:"
   },
-  "html_options_always_suspend_tooltip_line1": {
-    "message": "Le schede corrispondenti a questo elenco vengono sempre sospese dopo il normale timeout, indipendentemente da audio, input nei form o stato di appuntato."
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Le schede corrispondenti a questo elenco vengono sempre sospese dopo"
   },
-  "html_options_always_suspend_tooltip_line2": {
-    "message": "Una voce per riga, stesse regole di corrispondenza dell'elenco sopra (corrispondenza di testo semplice in qualsiasi punto dell'URL, oppure /regex/ tra slash)."
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "il normale timeout, indipendentemente da audio, input nei form o stato di appuntato."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Una voce per riga, stesse regole di corrispondenza dell'elenco sopra"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(corrispondenza di testo semplice in qualsiasi punto dell'URL, oppure /regex/ tra slash)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Aggiungi l'indirizzo di ogni pagina che desideri inserire nella lista bianca, uno per riga. Per esempio:"
@@ -922,11 +943,23 @@
   "html_options_backup_enable": {
     "message": "Salva automaticamente la sessione"
   },
-  "html_options_backup_enable_tooltip_line1": {
-    "message": "Salva silenziosamente una copia della sessione corrente come file JSON. Puoi scegliere di salvarla localmente (cartella tms-backups dentro i Download) oppure su Google Drive, nella cartella 'TMS Backups'."
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Salva silenziosamente una copia della sessione corrente come file JSON."
   },
-  "html_options_backup_enable_tooltip_line2": {
-    "message": "Per i backup locali, Chrome deve essere configurato per scaricare i file automaticamente. Controlla chrome://settings/downloads. I backup su Google Drive non hanno questo requisito."
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Puoi scegliere di salvarla localmente (cartella tms-backups dentro i Download)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "oppure su Google Drive, nella cartella 'TMS Backups'."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Per i backup locali, Chrome deve essere configurato per scaricare i file"
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "automaticamente. Controlla chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "I backup su Google Drive non hanno questo requisito."
   },
   "html_options_backup_interval": {
     "message": "Backup ogni"
@@ -979,8 +1012,11 @@
   "html_options_other_enable_news_feed": {
     "message": "Attiva feed news"
   },
-  "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Controlla periodicamente marvellouscode.works per le novità su TMS e le mostra nella barra laterale."
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Controlla periodicamente marvellouscode.works per le novità su TMS"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "e le mostra nella barra laterale."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Disattiva per evitare questa richiesta in background."
