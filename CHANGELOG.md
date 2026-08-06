@@ -15,6 +15,7 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ### Fixed
 - **Suspended tabs kept the default TMS favicon after a browser restart until clicked** (`background.js`, #397): the startup checks that repair favicons/titles on every suspended tab (`gsSession.runStartupChecks`) only ran from the service worker `activate` event (install/update only) and `chrome.runtime.onStartup`, which some Chromium builds (notably Brave) never fire after a normal restart — leaving suspended tabs stuck with the generic icon until manually focused. Added a fallback that checks a `chrome.storage.session` sentinel (cleared at the browser-session boundary) on every service worker wake and runs the startup checks once if it's missing, regardless of whether `onStartup` fired. Thanks @pbc-commits for the investigation and root-cause writeup.
+- **"Claim by default" option unclear even to technical users** (`options.html`, #151): the checkbox crammed its explanation into a long parenthetical in the label itself. Shortened the label and moved the explanation into a proper tooltip (same pattern already used elsewhere on the page): it takes over tabs already suspended by another compatible extension (an old TGS install, or a different TMS install) by rewriting their `suspended.html` URL to this extension. Translated across all 16 non-English/Italian locales.
 
 ## [9.0.1] — 2026-08-04
 
