@@ -195,9 +195,28 @@ export const gsBackup = (() => {
   // Registered redirect URI: https://noogafoofpebimajpfpamcfhoaifemoa.chromiumapp.org/
   const WEBAUTHFLOW_CLIENT_ID = '630779328171-mge0g9vebmq4pkihhi6gqs9a2agpu07e.apps.googleusercontent.com';
 
+  async function isLikelyBrokenChromeIdentity() {
+    // Brave's own chrome.identity.getAuthToken() implementation opens a native,
+    // browser-controlled tab that hits Google's servers and visibly shows the raw
+    // "Error 400: invalid_request" page before failing, we have no way to suppress or
+    // intercept that from extension code. Detecting Brave up front lets us skip the
+    // doomed first attempt entirely instead of showing that failure once no matter what.
+    try {
+      return !!(navigator.brave && await navigator.brave.isBrave());
+    } catch (e) {
+      return false;
+    }
+  }
+
   async function getAuthMethod() {
     const r = await chrome.storage.local.get([AUTH_METHOD_KEY]);
-    return r[AUTH_METHOD_KEY] || 'chrome';
+    if (r[AUTH_METHOD_KEY]) return r[AUTH_METHOD_KEY];
+
+    if (await isLikelyBrokenChromeIdentity()) {
+      await setAuthMethod('webauthflow');
+      return 'webauthflow';
+    }
+    return 'chrome';
   }
 
   async function setAuthMethod(method) {
@@ -225,8 +244,15 @@ export const gsBackup = (() => {
     await chrome.storage.session.remove([AUTH_SESSION_KEY]);
   }
 
+  // Silent/background calls never legitimately show any UI, so a short timeout is always
+  // safe there. Interactive calls can legitimately take a while (picking an account, 2FA,
+  // actually reading the consent screen), so that timeout is much more generous, it only
+  // exists to eventually recover from a genuinely hung callback, not to rush the user.
+  const CHROME_IDENTITY_SILENT_TIMEOUT_MS      = 6000;
+  const CHROME_IDENTITY_INTERACTIVE_TIMEOUT_MS = 45000;
+
   function getAuthTokenViaChromeIdentity(interactive) {
-    return new Promise((resolve, reject) => {
+    const attempt = new Promise((resolve, reject) => {
       chrome.identity.getAuthToken({ interactive }, (token) => {
         if (chrome.runtime.lastError || !token) {
           reject(chrome.runtime.lastError || new Error('No token returned'));
@@ -235,6 +261,18 @@ export const gsBackup = (() => {
         }
       });
     });
+
+    // On some Chromium forks (confirmed on Vivaldi with browser sign-in disabled),
+    // getAuthToken's callback is never invoked at all rather than firing with an error,
+    // "The user turned off browser signin" only ever shows up as an unread
+    // chrome.runtime.lastError in the console. Without a timeout that leaves the promise
+    // (and the fallback logic that depends on it rejecting) hanging forever.
+    const timeoutMs = interactive ? CHROME_IDENTITY_INTERACTIVE_TIMEOUT_MS : CHROME_IDENTITY_SILENT_TIMEOUT_MS;
+    const timeout = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('getAuthToken timed out')), timeoutMs);
+    });
+
+    return Promise.race([attempt, timeout]);
   }
 
   function launchWebAuthFlowAsPromised(interactive) {
