@@ -351,7 +351,13 @@
     "message": "Nunca suspender as guias quando estiver off-line"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Reivindicar por predefinição (migração transparente; o separador é considerado suspenso se 'suspended.html' estiver no URL)"
+    "message": "Reivindicar por predefinição"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Assume automaticamente separadores já suspensos por outra extensão compatível (por exemplo, The Great Suspender, ou outra instalação desta mesma extensão)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Um separador é considerado \"suspenso\" se o seu URL contiver 'suspended.html'. Ativar esta opção reescreve esse URL para esta instalação, para que o TMS possa gerir o separador a partir daí."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nunca suspender as guias quando estiver conectado à fonte de energia"

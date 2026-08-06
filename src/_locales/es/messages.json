@@ -351,7 +351,13 @@
     "message": "Nunca suspender pestañas cuando estén fuera de línea"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Reclamar de forma predeterminada (migración transparente; la pestaña se considera suspendida si 'suspended.html' está en la URL)"
+    "message": "Reclamar de forma predeterminada"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Toma automáticamente el control de las pestañas ya suspendidas por otra extensión compatible (p. ej. The Great Suspender, u otra instalación de esta misma)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Una pestaña se considera \"suspendida\" si su URL contiene 'suspended.html'. Al activar esta opción, esa URL se reescribe hacia esta instalación para que TMS pueda gestionar la pestaña en adelante."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nunca suspender pestañas cuando esté conectado a la fuente de alimentación"

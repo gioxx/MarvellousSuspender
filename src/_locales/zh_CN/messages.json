@@ -351,7 +351,13 @@
     "message": "只在联网时才自动冻结"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "默认接管（无缝迁移；如果网址中包含 'suspended.html'，则该标签页被视为已挂起）"
+    "message": "默认接管"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "自动接管已被其他兼容扩展程序（例如 The Great Suspender，或本扩展程序的另一次安装）挂起的标签页。"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "如果标签页的网址中包含 'suspended.html'，则视为已挂起。启用此选项会将该网址重写为指向当前安装，以便 TMS 此后可以管理该标签页。"
   },
   "html_options_suspend_only_on_battery": {
     "message": "只在未充电时才自动冻结"

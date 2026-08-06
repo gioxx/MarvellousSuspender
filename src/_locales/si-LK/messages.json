@@ -351,7 +351,13 @@
     "message": "නොබැඳි විට කිසිවිටෙක ටැබ් අත්හිටුවන්න එපා"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "පෙරනිමියෙන් හිමිකම් කියන්න (බාධාවකින් තොර සංක්‍රමණය; URL එකේ 'suspended.html' ඇත්නම් ටැබය අත්හිටුවා ඇති බව සලකනු ලැබේ)"
+    "message": "පෙරනිමියෙන් හිමිකම් කියන්න"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "වෙනත් ගැළපෙන දිගුවක් මගින් දැනටමත් අත්හිටුවා ඇති ටැබ් ස්වයංක්‍රීයව භාරගනී (උදා: The Great Suspender, හෝ මෙම දිගුවේම වෙනත් ස්ථාපනයක්)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "ටැබයක URL එකේ 'suspended.html' අඩංගු නම් එය \"අත්හිටුවා ඇති\" ලෙස සැලකේ. මෙය සක්‍රීය කිරීමෙන් එම URL එක මෙම ස්ථාපනය වෙත නැවත ලියැවේ, එවිට TMS හට එතැන් සිට එම ටැබය කළමනාකරණය කළ හැක."
   },
   "html_options_suspend_only_on_battery": {
     "message": "බල ප්‍රභවයට සම්බන්ධ වූ විට කිසිවිටක ටැබ් අත්හිටුවන්න එපා"

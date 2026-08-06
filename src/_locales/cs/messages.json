@@ -351,7 +351,13 @@
     "message": "Nikdy nepozastavovat karty, když jste offline"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Převzít ve výchozím nastavení (plynulá migrace; karta je považována za pozastavenou, pokud URL obsahuje 'suspended.html')"
+    "message": "Převzít ve výchozím nastavení"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Automaticky převezme karty už pozastavené jiným kompatibilním rozšířením (např. The Great Suspender nebo jinou instalací tohoto rozšíření)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Karta se považuje za „pozastavenou“, pokud její URL obsahuje 'suspended.html'. Povolením této volby se tato URL přepíše na tuto instalaci, aby ji TMS mohlo dále spravovat."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nikdy nepozastavovat karty, když je zařízení připojeno k napájení"

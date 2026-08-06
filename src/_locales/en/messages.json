@@ -351,7 +351,13 @@
     "message": "Never suspend tabs when offline"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Claim by default (seamless migration; tab considered suspended if 'suspended.html' is in url)"
+    "message": "Claim by default"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Automatically takes over tabs already suspended by another compatible extension (e.g. The Great Suspender, or a different install of this one)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "A tab counts as \"suspended\" if its URL contains 'suspended.html'. Enabling this rewrites that URL to this install so TMS can manage the tab going forward."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Never suspend tabs when connected to power source"

@@ -351,7 +351,13 @@
     "message": "Nunca suspender as guias quando estiver off-line"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Reivindicar por padrão (migração perfeita; a guia é considerada suspensa se 'suspended.html' estiver na URL)"
+    "message": "Reivindicar por padrão"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Assume automaticamente abas já suspensas por outra extensão compatível (por exemplo, The Great Suspender, ou outra instalação desta mesma extensão)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Uma aba é considerada \"suspensa\" se sua URL contiver 'suspended.html'. Ativar esta opção reescreve essa URL para esta instalação, para que o TMS possa gerenciar a aba a partir de então."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nunca suspender as guias quando estiver conectado à fonte de energia"

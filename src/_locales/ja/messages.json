@@ -351,7 +351,13 @@
     "message": "オフライン時はタブを停止しない"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "デフォルトで引き継ぐ（シームレスな移行。URLに'suspended.html'が含まれる場合、タブはサスペンド中とみなされます）"
+    "message": "デフォルトで引き継ぐ"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "他の互換性のある拡張機能(The Great Suspender や、このアプリの別のインストールなど)によってすでにサスペンドされているタブを自動的に引き継ぎます。"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "URLに 'suspended.html' が含まれている場合、そのタブは「サスペンド中」とみなされます。この設定を有効にすると、そのURLがこのインストールに書き換えられ、以降TMSがそのタブを管理できるようになります。"
   },
   "html_options_suspend_only_on_battery": {
     "message": "電源に接続されている場合はタブを停止しない"

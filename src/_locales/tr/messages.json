@@ -351,7 +351,13 @@
     "message": "Çevrimdışı olduğunda askıya al yapma"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Varsayılan olarak sahiplen (kesintisiz geçiş; URL'de 'suspended.html' varsa sekme askıya alınmış sayılır)"
+    "message": "Varsayılan olarak sahiplen"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Başka uyumlu bir uzantı (ör. The Great Suspender veya bu uzantının farklı bir kurulumu) tarafından zaten askıya alınmış sekmeleri otomatik olarak devralır."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Bir sekmenin URL'si 'suspended.html' içeriyorsa \"askıya alınmış\" sayılır. Bu seçeneği etkinleştirmek, o URL'yi bu kuruluma yeniden yazar, böylece TMS sekmeyi bundan sonra yönetebilir."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Güç kaynağına bağlı iken sekmeleri askıya al yapma"

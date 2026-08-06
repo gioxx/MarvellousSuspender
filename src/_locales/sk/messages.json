@@ -351,7 +351,13 @@
     "message": "Nikdy nepozastav tab v móde bez siete"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Prevziať predvolene (plynulá migrácia; karta sa považuje za pozastavenú, ak URL obsahuje 'suspended.html')"
+    "message": "Prevziať predvolene"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Automaticky prevezme karty už pozastavené iným kompatibilným rozšírením (napr. The Great Suspender alebo inou inštaláciou tohto rozšírenia)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Karta sa považuje za „pozastavenú“, ak jej URL obsahuje 'suspended.html'. Zapnutím tejto voľby sa táto URL prepíše na túto inštaláciu, aby ju TMS mohlo naďalej spravovať."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nikdy nepozastav tab ak je počítač pripojený k elektrickej sieti"

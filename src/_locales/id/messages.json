@@ -351,7 +351,13 @@
     "message": "Jangan pernah menangguhkan tab saat offline"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Klaim secara default (migrasi mulus; tab dianggap ditangguhkan jika 'suspended.html' ada di URL)"
+    "message": "Klaim secara default"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Secara otomatis mengambil alih tab yang sudah ditangguhkan oleh ekstensi kompatibel lain (misalnya The Great Suspender, atau instalasi lain dari ekstensi ini)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Tab dianggap \"ditangguhkan\" jika URL-nya mengandung 'suspended.html'. Mengaktifkan ini akan menulis ulang URL tersebut ke instalasi ini agar TMS dapat mengelola tab tersebut selanjutnya."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Jangan pernah menangguhkan tab saat terhubung ke sumber daya (listrik)"

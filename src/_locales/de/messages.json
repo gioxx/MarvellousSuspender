@@ -351,7 +351,13 @@
     "message": "Tabs nicht aussetzen im Offline-Modus"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Standardmäßig übernehmen (nahtlose Migration; Tab gilt als ausgesetzt, wenn 'suspended.html' in der URL enthalten ist)"
+    "message": "Standardmäßig übernehmen"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Übernimmt automatisch Tabs, die bereits von einer anderen kompatiblen Erweiterung ausgesetzt wurden (z. B. The Great Suspender oder eine andere Installation dieser Erweiterung)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Ein Tab gilt als „ausgesetzt“, wenn seine URL 'suspended.html' enthält. Durch Aktivieren wird diese URL auf diese Installation umgeschrieben, damit TMS den Tab künftig verwalten kann."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Tabs nicht aussetzen bei aktiver Stromversorgung"

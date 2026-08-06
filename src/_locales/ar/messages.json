@@ -351,7 +351,13 @@
     "message": "لا توقف أبداً علامات التبويب عند عدم الاتصال"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "الاستحواذ افتراضيًا (ترحيل سلس؛ تُعد علامة التبويب معلّقة إذا كان 'suspended.html' ضمن الرابط)"
+    "message": "الاستحواذ افتراضيًا"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "تتولى تلقائيًا التحكم في علامات التبويب المعلّقة مسبقًا بواسطة إضافة متوافقة أخرى (مثل The Great Suspender، أو نسخة أخرى مثبّتة من هذه الإضافة)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "تُعتبر علامة التبويب \"معلّقة\" إذا كان الرابط الخاص بها يحتوي على 'suspended.html'. تفعيل هذا الخيار يعيد كتابة ذلك الرابط لهذا التثبيت حتى يتمكن TMS من إدارة علامة التبويب لاحقًا."
   },
   "html_options_suspend_only_on_battery": {
     "message": "لا توقف أبداً علامات التبويب عند الاتصال بمصدر الطاقة"

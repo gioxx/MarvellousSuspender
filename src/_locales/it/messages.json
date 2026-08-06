@@ -351,7 +351,13 @@
     "message": "Non sospendere mai le schede quando non sei connesso a Internet"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Rivendica per impostazione predefinita (migrazione trasparente; la scheda è considerata sospesa se l'URL contiene 'suspended.html')"
+    "message": "Rivendica per impostazione predefinita"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Prende automaticamente in carico le schede già sospese da un'altra estensione compatibile (es. The Great Suspender, o un'altra installazione di questa)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Una scheda è considerata \"sospesa\" se il suo URL contiene 'suspended.html'. Attivando questa opzione, l'URL viene riscritto verso questa installazione così TMS può gestire la scheda da quel momento in poi."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Non sospendere mai le schede quando il PC è collegato all'alimentazione"

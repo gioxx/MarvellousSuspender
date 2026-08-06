@@ -351,7 +351,13 @@
     "message": "只在網路連接下才自動凍結"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "預設接管（無縫遷移；若網址中包含 'suspended.html'，則該分頁視為已暫停）"
+    "message": "預設接管"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "自動接管已被其他相容擴充功能（例如 The Great Suspender，或本擴充功能的另一次安裝）暫停的分頁。"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "若分頁的網址包含 'suspended.html'，則視為已暫停。啟用此選項會將該網址改寫為指向這次安裝，讓 TMS 之後可以管理該分頁。"
   },
   "html_options_suspend_only_on_battery": {
     "message": "只在電腦未接上電源時才自動凍結"

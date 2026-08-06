@@ -351,7 +351,13 @@
     "message": "Ne jamais suspendre les onglets en mode hors connexion"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Revendiquer par défaut (migration transparente ; un onglet est considéré comme suspendu si 'suspended.html' figure dans l'URL)"
+    "message": "Revendiquer par défaut"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Prend automatiquement en charge les onglets déjà suspendus par une autre extension compatible (par ex. The Great Suspender, ou une autre installation de celle-ci)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Un onglet est considéré comme « suspendu » si son URL contient 'suspended.html'. Activer cette option réécrit cette URL vers cette installation afin que TMS puisse gérer l'onglet par la suite."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Ne jamais suspendre les onglets lorsque connecté à une source d'alimentation"
