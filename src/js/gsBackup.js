@@ -190,10 +190,10 @@ export const gsBackup = (() => {
   const AUTH_SESSION_KEY = 'tmsDriveAuthSession';
   const TOKEN_EXPIRY_SAFETY_MARGIN_MS = 60 * 1000;
 
-  // TODO(#420): separate "Web application" OAuth client, distinct from the "Chrome App"
+  // Separate "Web application" OAuth client (#420), distinct from the "Chrome App"
   // client_id in manifest.json's oauth2 block (that one stays reserved for getAuthToken()).
-  // Fill in once created in Google Cloud Console with the chromiumapp.org redirect URI.
-  const WEBAUTHFLOW_CLIENT_ID = 'REPLACE_ME.apps.googleusercontent.com';
+  // Registered redirect URI: https://noogafoofpebimajpfpamcfhoaifemoa.chromiumapp.org/
+  const WEBAUTHFLOW_CLIENT_ID = '630779328171-mge0g9vebmq4pkihhi6gqs9a2agpu07e.apps.googleusercontent.com';
 
   async function getAuthMethod() {
     const r = await chrome.storage.local.get([AUTH_METHOD_KEY]);
