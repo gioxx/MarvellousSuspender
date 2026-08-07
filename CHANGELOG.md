@@ -10,6 +10,7 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 ## [Unreleased]
 
 ### Added
+- **"Clear favicon cache" debug action** (`debug.html`, `debug.js`, `gsIndexedDb.js`, #395): the debug page can now wipe every cached favicon (`gsFaviconMeta` in IndexedDB) in one click. Favicons are rebuilt from Chrome's own cache the next time each tab is suspended, useful when a suspended tab keeps showing a stale or wrong icon after the site's own favicon has changed.
 - **About page: debug link highlighted in its own callout box** (`about.html`, `style.css`, `icons.svg`): the debugging link was a plain paragraph, easy to miss among the other links. Gave it a bordered callout with a wrench icon, matching the card/box language used elsewhere in the extension's UI.
 
 ### Fixed

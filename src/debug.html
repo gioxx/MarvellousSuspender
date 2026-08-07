@@ -70,6 +70,18 @@
 
         <div class="debugOptionCard">
           <div class="debugOptionCardHeader">
+            <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
+            <span class="debugOptionLabel">favicon cache</span>
+            <a id='clearFaviconCache' href='#' class="debugToggle">clear cache</a>
+          </div>
+          <p class="debugOptionDesc">
+            Wipes every cached favicon (<code>gsFaviconMeta</code> in IndexedDB). Favicons are rebuilt from Chrome's own cache the next time each tab is suspended.
+            Use if a suspended tab keeps showing a stale or wrong icon after the site's own favicon has changed.
+          </p>
+        </div>
+
+        <div class="debugOptionCard">
+          <div class="debugOptionCardHeader">
             <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#rss"/></svg>
             <span class="debugOptionLabel">news feed</span>
             <a id='forceNewsFeedRefresh' href='#' class="debugToggle">force refresh</a>
