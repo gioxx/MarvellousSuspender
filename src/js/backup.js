@@ -405,6 +405,14 @@ import  { gsUtils }    from './gsUtils.js';
         }
       }
 
+      const authMethodEl = document.getElementById('driveAuthMethod');
+      if (authMethodEl) {
+        const method = await gsBackup.getDriveAuthMethod();
+        authMethodEl.textContent = method === 'webauthflow'
+          ? 'OAuth fallback (launchWebAuthFlow, Brave/Vivaldi)'
+          : 'Chrome Identity API (getAuthToken)';
+      }
+
       if (!isDrive) {
         settingsDriveCard?.classList.add('hidden');
         settingsActions?.classList.remove('has-drive-card');

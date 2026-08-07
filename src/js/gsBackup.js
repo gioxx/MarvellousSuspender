@@ -983,6 +983,7 @@ export const gsBackup = (() => {
     hasDownloadsPermission,
     reconcileDownloadsPermission,
     getAuthToken,
+    getDriveAuthMethod : getAuthMethod,
     revokeAuthToken,
     getDriveUserInfo,
     getDriveFolderUrl,
