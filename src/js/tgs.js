@@ -395,6 +395,20 @@ export const tgs = (function() {
     });
   }
 
+  function forceSuspendAlwaysListedTabs() {
+    chrome.tabs.query({}, async (tabs) => {
+      const alwaysList = await gsStorage.getOption(gsStorage.ALWAYS_SUSPEND_LIST);
+      gsUtils.log('tgs', 'forceSuspendAlwaysListedTabs tabs total', tabs.length, 'alwaysList', JSON.stringify(alwaysList));
+      for (const tab of tabs) {
+        if (gsUtils.isSuspendedTab(tab)) continue;
+        const isListed = gsUtils.checkSpecificAlwaysSuspendList(tab.url, alwaysList);
+        gsUtils.log(tab.id, 'forceSuspendAlwaysListedTabs check', tab.url, 'listed:', isListed);
+        if (!isListed) continue;
+        gsTabSuspendManager.queueTabForSuspension(tab, 1);
+      }
+    });
+  }
+
   function suspendSelectedTabs() {
     chrome.tabs.query(
       { highlighted: true, lastFocusedWindow: true },
@@ -1478,6 +1492,7 @@ export const tgs = (function() {
     whitelistHighlightedTab,
     unsuspendAllTabsInAllWindows,
     unsuspendWhitelistedTabs,
+    forceSuspendAlwaysListedTabs,
     promptForFilePermissions,
 
     toggleSuspendStateOfTab,

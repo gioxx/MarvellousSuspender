@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "唤醒白名单中的标签页"
   },
+  "html_options_always_suspend_test": {
+    "message": "测试列表"
+  },
+  "html_options_always_suspend_force": {
+    "message": "立即挂起匹配的标签页"
+  },
   "html_options_other_enable_context_menu": {
     "message": "把 The Marvellous Suspender 加到右键菜单"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "这些打开标签页签符合当前白名单："
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "没有打开的标签页匹配当前的强制挂起列表。"
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "匹配强制挂起列表的已打开标签页："
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "和另外"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "确定要删除云端硬盘中的这个备份文件吗？此操作无法撤销。"
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "全部删除"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "删除此设备的所有备份？"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "此操作将从 Google 云端硬盘永久删除\"$device$\"的全部 $count$ 个备份文件，且无法撤销。",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "全部删除"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "取消"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "部分备份文件删除失败，请重试。"
   },
   "html_backup_drive_no_files": {
     "message": "未在云端硬盘中找到备份文件。"

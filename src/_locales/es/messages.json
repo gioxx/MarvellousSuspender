@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "Despertar pestañas de la lista blanca"
   },
+  "html_options_always_suspend_test": {
+    "message": "Probar lista"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspender ahora las pestañas coincidentes"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Añadir The Marvellous Suspender al menú contextual del clic derecho"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "Pestañas abiertas de la lista blanca:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "No hay pestañas abiertas que coincidan con la lista de suspensión forzada actual."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Pestañas abiertas que coinciden con la lista de suspensión forzada:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "y"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "¿Eliminar este archivo de copia de seguridad de Drive? Esto no se puede deshacer."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Eliminar todo"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "¿Eliminar todos los backups de este dispositivo?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Esto eliminará permanentemente los $count$ archivos de backup de \"$device$\" en Google Drive. Esta acción no se puede deshacer.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Eliminar todo"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancelar"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "No se pudieron eliminar algunos archivos de backup. Inténtalo de nuevo."
   },
   "html_backup_drive_no_files": {
     "message": "No se encontraron archivos de copia de seguridad en Drive."

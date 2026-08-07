@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "إيقاظ علامات التبويب في القائمة البيضاء"
   },
+  "html_options_always_suspend_test": {
+    "message": "اختبار القائمة"
+  },
+  "html_options_always_suspend_force": {
+    "message": "علّق علامات التبويب المطابقة الآن"
+  },
   "html_options_other_enable_context_menu": {
     "message": "أضف الموصل المبتكر إلى قائمة السياق بالنقر الأيمن"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "علامات التبويب المفتوحة في القائمة البيضاء:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "لا توجد علامات تبويب مفتوحة تطابق قائمة التعليق الدائم الحالية."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "علامات التبويب المفتوحة المطابقة لقائمة التعليق الدائم:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "و"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "هل تريد حذف ملف النسخة الاحتياطية هذا من Drive؟ لا يمكن التراجع عن هذا الإجراء."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "حذف الكل"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "حذف جميع النسخ الاحتياطية لهذا الجهاز؟"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "سيؤدي هذا إلى حذف جميع ملفات النسخ الاحتياطي البالغ عددها $count$ الخاصة بـ \"$device$\" نهائيًا من Google Drive. لا يمكن التراجع عن هذا الإجراء.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "حذف الكل"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "إلغاء"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "تعذر حذف بعض ملفات النسخ الاحتياطي. حاول مرة أخرى."
   },
   "html_backup_drive_no_files": {
     "message": "لم يتم العثور على ملفات نسخ احتياطي على Drive."

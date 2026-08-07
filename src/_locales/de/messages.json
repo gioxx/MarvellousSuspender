@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "Tabs der Ausnahmeliste aufwecken"
   },
+  "html_options_always_suspend_test": {
+    "message": "Liste testen"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Passende Tabs jetzt aussetzen"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Füge The Marvellous Suspender zum Rechtsklick-Kontextmenü hinzu"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "Erlaubte offene Seiten:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "Keine offenen Tabs entsprechen der aktuellen Immer-aussetzen-Liste."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Offene Tabs, die der Immer-aussetzen-Liste entsprechen:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "und"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Diese Sicherungsdatei von Drive löschen? Dies kann nicht rückgängig gemacht werden."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Alle löschen"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Alle Backups dieses Geräts löschen?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Dadurch werden alle $count$ Backup-Dateien für „$device$“ dauerhaft aus Google Drive gelöscht. Dies kann nicht rückgängig gemacht werden.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Alle löschen"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Abbrechen"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Einige Backup-Dateien konnten nicht gelöscht werden. Bitte erneut versuchen."
   },
   "html_backup_drive_no_files": {
     "message": "Keine Drive-Sicherungsdateien gefunden."

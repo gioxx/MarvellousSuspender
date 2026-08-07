@@ -182,6 +182,10 @@ import  { tgs }                   from './tgs.js';
         tgs.unsuspendWhitelistedTabs();
         break;
       }
+      case 'forceSuspendAlwaysList' : {
+        tgs.forceSuspendAlwaysListedTabs();
+        break;
+      }
       case 'suspendSelected' : {
         tgs.suspendSelectedTabs();
         break;

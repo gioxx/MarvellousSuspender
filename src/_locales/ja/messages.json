@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "ホワイトリストのタブを復帰"
   },
+  "html_options_always_suspend_test": {
+    "message": "リストをテスト"
+  },
+  "html_options_always_suspend_force": {
+    "message": "一致するタブを今すぐ停止"
+  },
   "html_options_other_enable_context_menu": {
     "message": "右クリックのコンテキストメニューにThe Marvellous Suspenderを追加する"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "ホワイトリストに登録されている開いているタブ:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "現在の常時停止リストに一致する開いているタブはありません。"
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "常時停止リストに一致する開いているタブ:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "他"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "このバックアップファイルをドライブから削除しますか? この操作は元に戻せません。"
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "すべて削除"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "このデバイスのバックアップをすべて削除しますか？"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "「$device$」の$count$件のバックアップファイルがGoogleドライブから完全に削除されます。この操作は元に戻せません。",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "すべて削除"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "キャンセル"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "一部のバックアップファイルを削除できませんでした。もう一度お試しください。"
   },
   "html_backup_drive_no_files": {
     "message": "ドライブにバックアップファイルが見つかりません。"

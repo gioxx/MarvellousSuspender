@@ -76,6 +76,7 @@ import  { gsUtils }    from './gsUtils.js';
       fileCounter++;
       const row = document.createElement('div');
       row.className = 'driveFileRow';
+      row.dataset.fileId = f.id;
 
       const num = document.createElement('span');
       num.className   = 'driveFileNum';
@@ -139,13 +140,76 @@ import  { gsUtils }    from './gsUtils.js';
       return row;
     }
 
-    function buildGroup(title, groupFiles) {
+    async function confirmDeviceDelete(title, count) {
+      const modal      = document.getElementById('driveDeviceDeleteModal');
+      const bodyEl      = document.getElementById('driveDeviceDeleteModalBody');
+      const confirmBtn  = document.getElementById('driveDeviceDeleteModalConfirm');
+      const cancelBtn   = document.getElementById('driveDeviceDeleteModalCancel');
+      if (!modal) return false;
+
+      bodyEl.textContent = gsUtils.getMessage('html_backup_drive_delete_device_modal_body', [count, title]);
+      modal.classList.remove('hidden');
+
+      return new Promise((resolve) => {
+        function close(result) {
+          modal.classList.add('hidden');
+          resolve(result);
+        }
+        confirmBtn.addEventListener('click', () => close(true), { once: true });
+        cancelBtn.addEventListener('click', () => close(false), { once: true });
+        modal.addEventListener('click', (e) => { if (e.target === modal) close(false); }, { once: true });
+      });
+    }
+
+    function buildGroup(title, groupFiles, deviceId) {
       const group   = document.createElement('div');
       group.className = 'driveFilesGroup';
+
+      const header = document.createElement('div');
+      header.className = 'driveFilesGroupHeader';
+
       const heading = document.createElement('p');
       heading.className   = 'driveFilesGroupTitle';
       heading.textContent = title;
-      group.appendChild(heading);
+      header.appendChild(heading);
+
+      if (deviceId) {
+        const deleteAllBtn = document.createElement('button');
+        deleteAllBtn.className = 'btn btnDanger btnSmall';
+        deleteAllBtn.textContent = gsUtils.getMessage('html_backup_drive_delete_device_btn');
+        deleteAllBtn.setAttribute('aria-label', `${gsUtils.getMessage('html_backup_drive_delete_device_btn')} ${title}`);
+        deleteAllBtn.addEventListener('click', async () => {
+          const ok = await confirmDeviceDelete(title, groupFiles.length);
+          if (!ok) return;
+
+          deleteAllBtn.disabled = true;
+          group.querySelector('.driveFileError')?.remove();
+
+          const failed = [];
+          for (const f of [...groupFiles]) {
+            try {
+              await gsBackup.deleteDriveBackup(f.id);
+              group.querySelector(`[data-file-id="${CSS.escape(f.id)}"]`)?.remove();
+              removeDriveSelectOption(f.id);
+            } catch (_) {
+              failed.push(f);
+            }
+          }
+
+          if (failed.length) {
+            const errEl = document.createElement('span');
+            errEl.className   = 'driveFileError';
+            errEl.textContent = gsUtils.getMessage('js_backup_drive_delete_device_error');
+            group.appendChild(errEl);
+            deleteAllBtn.disabled = false;
+          } else {
+            group.remove();
+          }
+        });
+        header.appendChild(deleteAllBtn);
+      }
+
+      group.appendChild(header);
       for (const f of groupFiles) group.appendChild(buildFileRow(f));
       return group;
     }
@@ -163,7 +227,7 @@ import  { gsUtils }    from './gsUtils.js';
     for (const [did, deviceFiles] of groups) {
       const name = registry[did]?.name || did;
       if (hasMultiple) {
-        listEl.appendChild(buildGroup(name, deviceFiles));
+        listEl.appendChild(buildGroup(name, deviceFiles, did));
       } else {
         for (const f of deviceFiles) listEl.appendChild(buildFileRow(f));
       }

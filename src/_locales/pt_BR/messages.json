@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "Acordar guias da lista de permissões"
   },
+  "html_options_always_suspend_test": {
+    "message": "Testar lista"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspender agora as guias correspondentes"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Adicionar The Marvellous Suspender no menu de contexto do clique do botão direito"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "Guias permitidas abertas:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "Não há guias abertas que correspondam à lista de suspensão forçada atual."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Guias abertas correspondentes à lista de suspensão forçada:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "e"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Excluir este arquivo de backup do Drive? Isso não pode ser desfeito."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Excluir tudo"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Excluir todos os backups deste dispositivo?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Isso excluirá permanentemente todos os $count$ arquivos de backup de \"$device$\" do Google Drive. Esta ação não pode ser desfeita.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Excluir tudo"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancelar"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Alguns arquivos de backup não puderam ser excluídos. Tente novamente."
   },
   "html_backup_drive_no_files": {
     "message": "Nenhum arquivo de backup encontrado no Drive."

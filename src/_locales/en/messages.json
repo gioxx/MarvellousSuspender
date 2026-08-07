@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "Wake whitelisted tabs"
   },
+  "html_options_always_suspend_test": {
+    "message": "Test list"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspend matching tabs now"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Add The Marvellous Suspender to right-click context menu"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "Whitelisted open tabs:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "There are no open tabs that match the current always-suspend list."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Open tabs matching the always-suspend list:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "and"
   },
@@ -1248,6 +1260,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Delete this backup file from Drive? This cannot be undone."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Delete all backups for this device?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "This will permanently delete all $count$ backup file(s) for \"$device$\" from Google Drive. This cannot be undone.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancel"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Some backup files could not be deleted. Try again."
   },
   "html_backup_drive_no_files": {
     "message": "No Drive backup files found."

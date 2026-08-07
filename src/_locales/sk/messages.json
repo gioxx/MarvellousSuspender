@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "Prebudiť karty zo zoznamu výnimiek"
   },
+  "html_options_always_suspend_test": {
+    "message": "Otestovať zoznam"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Teraz pozastaviť zodpovedajúce karty"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Pridať The Marvellous Suspender do kontextovej ponuky pravého tlačidla"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "Otvorené karty na zozname výnimiek:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "Žiadne otvorené karty nezodpovedajú aktuálnemu zoznamu vždy pozastaviť."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Otvorené karty zodpovedajúce zoznamu vždy pozastaviť:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "a"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Odstrániť tento súbor zálohy z Disku? Túto akciu nemožno vrátiť späť."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Zmazať všetko"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Zmazať všetky zálohy tohto zariadenia?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Týmto natrvalo zmažete všetkých $count$ záložných súborov pre „$device$“ z Disku Google. Túto akciu nemožno vrátiť späť.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Zmazať všetko"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Zrušiť"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Niektoré záložné súbory sa nepodarilo zmazať. Skúste to znova."
   },
   "html_backup_drive_no_files": {
     "message": "Na Disku neboli nájdené žiadne súbory záloh."

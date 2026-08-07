@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "Riattiva le schede in lista bianca"
   },
+  "html_options_always_suspend_test": {
+    "message": "Verifica il funzionamento della lista"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Sospendi subito le schede corrispondenti"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Aggiungi The Marvellous Suspender al menu contestuale del tasto destro del mouse"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "Schede aperte nella lista bianca:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "Non ci sono schede aperte che corrispondono all'attuale lista di sospensione forzata."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Schede aperte corrispondenti alla lista di sospensione forzata:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "e"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Eliminare questo file di backup da Drive? L'operazione non è reversibile."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Elimina tutti"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Eliminare tutti i backup di questo dispositivo?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Verranno eliminati definitivamente tutti i $count$ file di backup di \"$device$\" da Google Drive. L'operazione non è reversibile.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Elimina tutti"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Annulla"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Alcuni file di backup non sono stati eliminati. Riprova."
   },
   "html_backup_drive_no_files": {
     "message": "Nessun file di backup trovato su Drive."

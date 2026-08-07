@@ -267,6 +267,9 @@ __MSG_html_options_always_suspend_tooltip_line2b__">
           <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
         </span>
         <textarea id="alwaysSuspendList" class="option" rows="10" cols="50"></textarea>
+        <a id="testAlwaysSuspendBtn" href="#alwaysSuspendLbl" data-i18n="__MSG_html_options_always_suspend_test__"></a>
+        <span aria-hidden="true"> · </span>
+        <a id="forceSuspendAlwaysListBtn" href="#alwaysSuspendLbl" data-i18n="__MSG_html_options_always_suspend_force__"></a>
       </div>
     </div>
 
@@ -358,6 +361,17 @@ __MSG_html_options_suspend_force_screen_capture_tooltip_line7__">
     <p class="modalBody hidden" id="whitelistTestModalEmpty" data-i18n="__MSG_js_options_whitelist_no_matches__"></p>
     <div class="modalActions">
       <button id="whitelistTestModalClose" class="btn" data-i18n="__MSG_html_options_whitelist_close__"></button>
+    </div>
+  </div>
+</div>
+
+<div class="modalOverlay hidden" id="alwaysSuspendTestModal" role="dialog" aria-modal="true" aria-labelledby="alwaysSuspendTestModalTitle">
+  <div class="modalDialog">
+    <p class="modalTitle" id="alwaysSuspendTestModalTitle" data-i18n="__MSG_js_options_always_suspend_matches_heading__"></p>
+    <ul class="modalList" id="alwaysSuspendTestModalList"></ul>
+    <p class="modalBody hidden" id="alwaysSuspendTestModalEmpty" data-i18n="__MSG_js_options_always_suspend_no_matches__"></p>
+    <div class="modalActions">
+      <button id="alwaysSuspendTestModalClose" class="btn" data-i18n="__MSG_html_options_whitelist_close__"></button>
     </div>
   </div>
 </div>

@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "İzin listesindeki sekmeleri uyandır"
   },
+  "html_options_always_suspend_test": {
+    "message": "Listeyi test et"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Eşleşen sekmeleri şimdi askıya al"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Sağ tuş menüye Marvellous Suspender için menü ekle"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "Sekme beyaz listesi:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "Geçerli her zaman askıya al listesiyle eşleşen açık sekme yok."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Her zaman askıya al listesiyle eşleşen açık sekmeler:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "ve"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Bu yedekleme dosyası Drive'dan silinsin mi? Bu işlem geri alınamaz."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Tümünü sil"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Bu cihazın tüm yedekleri silinsin mi?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Bu işlem, \"$device$\" için tüm $count$ yedek dosyasını Google Drive'dan kalıcı olarak siler. Bu işlem geri alınamaz.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Tümünü sil"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "İptal"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Bazı yedek dosyaları silinemedi. Tekrar deneyin."
   },
   "html_backup_drive_no_files": {
     "message": "Drive'da yedekleme dosyası bulunamadı."

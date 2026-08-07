@@ -784,6 +784,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "Onglets ouverts sur la liste blanche:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "Aucun onglet ouvert ne correspond à la liste de suspension forcée actuelle."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Onglets ouverts correspondant à la liste de suspension forcée :"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "et"
   },
@@ -966,6 +972,12 @@
   },
   "html_options_whitelist_unsuspend": {
     "message": "Réveiller les onglets de la liste blanche"
+  },
+  "html_options_always_suspend_test": {
+    "message": "Tester la liste"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspendre maintenant les onglets correspondants"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
     "message": "Réveiller les onglets de la liste blanche"
@@ -1295,6 +1307,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Supprimer ce fichier de sauvegarde de Drive ? Cette action est irréversible."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Tout supprimer"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Supprimer toutes les sauvegardes de cet appareil ?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Cela supprimera définitivement les $count$ fichiers de sauvegarde de « $device$ » sur Google Drive. Cette action est irréversible.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Tout supprimer"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Annuler"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Certains fichiers de sauvegarde n'ont pas pu être supprimés. Réessayez."
   },
   "html_backup_drive_no_files": {
     "message": "Aucun fichier de sauvegarde trouvé sur Drive."

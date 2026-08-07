@@ -369,6 +369,61 @@ import  { gsUtils }               from './gsUtils.js';
       await chrome.runtime.sendMessage({ action: 'unsuspendWhitelisted' });
     };
 
+    document.getElementById('testAlwaysSuspendBtn').onclick = async (event) => {
+      event.preventDefault();
+      const tabs     = await gsChrome.tabsQuery();
+      const matches  = [];
+      for (const tab of tabs) {
+        const url = gsUtils.isSuspendedTab(tab) ? gsUtils.getOriginalUrl(tab.url) : tab.url;
+        if (!(gsUtils.isSpecialTab(tab)) && (await gsUtils.checkAlwaysSuspendList(url))) {
+          const label = url.length > 55 ? `${url.substr(0, 52)}...` : url;
+          matches.push({ tabId: tab.id, windowId: tab.windowId, label });
+        }
+      }
+
+      const modal    = document.getElementById('alwaysSuspendTestModal');
+      const listEl   = document.getElementById('alwaysSuspendTestModalList');
+      const emptyEl  = document.getElementById('alwaysSuspendTestModalEmpty');
+      listEl.innerHTML = '';
+
+      if (matches.length === 0) {
+        emptyEl.classList.remove('hidden');
+      } else {
+        emptyEl.classList.add('hidden');
+        for (const match of matches) {
+          const li = document.createElement('li');
+          const a  = document.createElement('a');
+          a.href        = '#';
+          a.textContent = match.label;
+          a.addEventListener('click', async (clickEvent) => {
+            clickEvent.preventDefault();
+            modal.classList.add('hidden');
+            await gsChrome.tabsUpdate(match.tabId, { active: true });
+            await gsChrome.windowsUpdate(match.windowId, { focused: true });
+          });
+          li.appendChild(a);
+          listEl.appendChild(li);
+        }
+      }
+
+      modal.classList.remove('hidden');
+    };
+
+    document.getElementById('alwaysSuspendTestModalClose').onclick = () => {
+      document.getElementById('alwaysSuspendTestModal').classList.add('hidden');
+    };
+
+    document.getElementById('alwaysSuspendTestModal').addEventListener('click', (event) => {
+      if (event.target.id === 'alwaysSuspendTestModal') {
+        event.target.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('forceSuspendAlwaysListBtn').onclick = async (event) => {
+      event.preventDefault();
+      await chrome.runtime.sendMessage({ action: 'forceSuspendAlwaysList' });
+    };
+
     // hide incompatible sidebar items if in incognito mode
     if (chrome.extension.inIncognitoContext) {
       Array.prototype.forEach.call(

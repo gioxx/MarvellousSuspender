@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "Acordar separadores da lista de permissões"
   },
+  "html_options_always_suspend_test": {
+    "message": "Testar lista"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspender já os separadores correspondentes"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Adicionar The Marvellous Suspender no menu de contexto do clique do botão direito"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "Guias permitidas abertas:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "Não existem separadores abertos que correspondam à lista de suspensão forçada atual."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Separadores abertos correspondentes à lista de suspensão forçada:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "e"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Eliminar este ficheiro de cópia de segurança do Drive? Esta ação não pode ser anulada."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Eliminar tudo"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Eliminar todos os backups deste dispositivo?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Isto irá eliminar permanentemente todos os $count$ ficheiros de backup de \"$device$\" do Google Drive. Esta ação não pode ser anulada.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Eliminar tudo"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancelar"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Não foi possível eliminar alguns ficheiros de backup. Tente novamente."
   },
   "html_backup_drive_no_files": {
     "message": "Não foram encontrados ficheiros de cópia de segurança no Drive."

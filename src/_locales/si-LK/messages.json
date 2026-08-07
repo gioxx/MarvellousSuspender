@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "සුදු ලැයිස්තු ටැබ් අවදි කරන්න"
   },
+  "html_options_always_suspend_test": {
+    "message": "ලැයිස්තුව පරීක්ෂා කරන්න"
+  },
+  "html_options_always_suspend_force": {
+    "message": "ගැළපෙන ටැබ් දැන් අත්හිටුවන්න"
+  },
   "html_options_other_enable_context_menu": {
     "message": "සන්දර්භය මෙනුව දකුණු-ක්ලික් කිරීමට පුදුමාකාර අත්හිටුවීම එක් කරන්න"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "සුදු ලැයිස්තුගත විවෘත ටැබ්:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "වත්මන් සැමවිට-අත්හිටුවන ලැයිස්තුවට ගැළපෙන විවෘත ටැබ් නොමැත."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "සැමවිට-අත්හිටුවන ලැයිස්තුවට ගැළපෙන විවෘත ටැබ්:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "සහ"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Drive වෙතින් මෙම උපස්ථ ගොනුව මකන්නද? මෙය අහෝසි කළ නොහැක."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "සියල්ල මකන්න"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "මෙම උපාංගයේ සියලුම උපස්ථ මකන්නද?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "මෙය \"$device$\" සඳහා ඇති සියලුම $count$ උපස්ථ ගොනු Google Drive වෙතින් ස්ථිරවම මකා දමයි. මෙය අහෝසි කළ නොහැක.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "සියල්ල මකන්න"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "අවලංගු කරන්න"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "සමහර උපස්ථ ගොනු මැකීමට නොහැකි විය. නැවත උත්සාහ කරන්න."
   },
   "html_backup_drive_no_files": {
     "message": "Drive හි උපස්ථ ගොනු හමු නොවීය."

@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "Разбудить вкладки из белого списка"
   },
+  "html_options_always_suspend_test": {
+    "message": "Проверить список"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Приостановить подходящие вкладки сейчас"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Добавить The Marvellous Suspender в контекстное меню правой кнопки мыши"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "Открытые вкладки, подходящие под текущий белый список:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "Нет открытых вкладок, соответствующих текущему списку принудительного приостановления."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Открытые вкладки, соответствующие списку принудительного приостановления:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "и"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Удалить этот файл резервной копии с Диска? Это действие нельзя отменить."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Удалить всё"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Удалить все резервные копии этого устройства?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Все $count$ файлов резервных копий для «$device$» будут безвозвратно удалены с Google Диска. Это действие нельзя отменить.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Удалить всё"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Отмена"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Не удалось удалить некоторые файлы резервных копий. Попробуйте снова."
   },
   "html_backup_drive_no_files": {
     "message": "Файлы резервных копий на Диске не найдены."

@@ -506,6 +506,12 @@
   "html_options_whitelist_unsuspend": {
     "message": "Bangunkan tab daftar putih"
   },
+  "html_options_always_suspend_test": {
+    "message": "Uji daftar"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Tangguhkan tab yang cocok sekarang"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Tambahkan The Marvellous Suspender ke menu konteks klik-kanan"
   },
@@ -901,6 +907,12 @@
   "js_options_whitelist_matches_heading": {
     "message": "Tab terbuka yang diberikan daftar putih:"
   },
+  "js_options_always_suspend_no_matches": {
+    "message": "Tidak ada tab terbuka yang cocok dengan daftar selalu tangguhkan saat ini."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Tab terbuka yang cocok dengan daftar selalu tangguhkan:"
+  },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "dan"
   },
@@ -1268,6 +1280,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Hapus file cadangan ini dari Drive? Ini tidak dapat dibatalkan."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Hapus semua"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Hapus semua cadangan untuk perangkat ini?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Ini akan menghapus permanen semua $count$ file cadangan untuk \"$device$\" dari Google Drive. Tindakan ini tidak dapat dibatalkan.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Hapus semua"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Batal"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Beberapa file cadangan tidak dapat dihapus. Coba lagi."
   },
   "html_backup_drive_no_files": {
     "message": "Tidak ditemukan file cadangan di Drive."
