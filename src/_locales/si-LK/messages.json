@@ -3,7 +3,7 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "ඔබ භාවිතා නොකරන ටැබ් අත්හිටුවීමෙන් ඔබේ පරිගණකය සුමටව ක්‍රියාත්මක වීමට සලස්වන්න"
+    "message": "Free your memory. Suspend the tabs you don't need, right now."
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
@@ -489,22 +489,25 @@
     "message": "(URL එකේ ඕනෑම තැනක සරල පෙළ ගැළපුම, හෝ ස්ලෑෂ් අතර /regex/)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "ඔබට නව පේළියක සුදු ලැයිස්තු කිරීමට අවශ්‍ය සෑම පිටුවකම URL එක් කරන්න. උදාහරණ වශයෙන්:"
+    "message": "Add the URL of each page you want to allow on a new line. For example:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "එක් පේළියක අඩවි කිහිපයක් සුදු ලැයිස්තු කිරීමට ඔබට ඒ වෙනුවට url හි කොටසක් සඳහන් කළ හැක:"
+    "message": "To allow multiple sites in one line you can specify part of the url instead:"
   },
   "html_options_whitelist_tooltip_line3": {
     "message": "ඔබට පෙළ ඉදිරියට slashs තුළට ඇතුළත් කිරීමෙන් සාමාන්‍ය ප්‍රකාශන ද නියම කළ හැක:"
-  },
-  "html_options_whitelist_test": {
-    "message": "පරීක්ෂණ සුදු ලැයිස්තුව"
   },
   "html_options_whitelist_close": {
     "message": "වසන්න"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "සුදු ලැයිස්තු ටැබ් අවදි කරන්න"
+    "message": "Wake matching tabs now"
+  },
+  "html_options_list_test_btn": {
+    "message": "Test list"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspend matching tabs now"
   },
   "html_options_other_enable_context_menu": {
     "message": "සන්දර්භය මෙනුව දකුණු-ක්ලික් කිරීමට පුදුමාකාර අත්හිටුවීම එක් කරන්න"
@@ -576,7 +579,7 @@
     "message": "සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "සුදු ලැයිස්තු ටැබ් අවදි කරන්න"
+    "message": "Wake matching tabs now"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "තෝරාගත් ටැබ් අත්හිටුවන්න"
@@ -789,10 +792,10 @@
     "message": "අවශ්ය එපා"
   },
   "js_popup_whitelisted": {
-    "message": "වෙබ් අඩවිය සුදු ලැයිස්තුගත කර ඇත."
+    "message": "Site allowed."
   },
   "js_popup_whitelisted_remove": {
-    "message": "සුදු ලැයිස්තුවෙන් ඉවත් කරන්න"
+    "message": "Remove from allowlist"
   },
   "js_popup_audible": {
     "message": "ටැබ් ඕඩියෝ වාදනය වේ."
@@ -896,10 +899,16 @@
     "message": "ඔබ අප්‍රකට මාදිලියේ සිටී. සමහර විශේෂාංග ලබා ගත නොහැකි වනු ඇත."
   },
   "js_options_whitelist_no_matches": {
-    "message": "වත්මන් සුදු ලැයිස්තුවට ගැලපෙන විවෘත ටැබ් නොමැත."
+    "message": "There are no open tabs that match the current allowlist."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "සුදු ලැයිස්තුගත විවෘත ටැබ්:"
+    "message": "Allowlisted open tabs:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "There are no open tabs that match the current always-suspend list."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Open tabs matching the always-suspend list:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "සහ"
@@ -1268,6 +1277,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Drive වෙතින් මෙම උපස්ථ ගොනුව මකන්නද? මෙය අහෝසි කළ නොහැක."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Delete all backups for this device?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "This will permanently delete all $count$ backup file(s) for \"$device$\" from Google Drive. This cannot be undone.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancel"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Some backup files could not be deleted. Try again."
   },
   "html_backup_drive_no_files": {
     "message": "Drive හි උපස්ථ ගොනු හමු නොවීය."
