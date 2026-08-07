@@ -3,7 +3,7 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "اجعل جهاز الكمبيوتر يعمل بسلاسة عن طريق تعليق علامات التبويب التي لا تستخدمها"
+    "message": "Free your memory. Suspend the tabs you don't need, right now."
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
@@ -489,22 +489,25 @@
     "message": "(تطابق نصي بسيط في أي مكان من عنوان URL، أو /regex/ بين شرطتين مائلتين)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "إضافة عنوان URL لكل صفحة تريد القائمة البيضاء على سطر جديد. على سبيل المثال:"
+    "message": "Add the URL of each page you want to allow on a new line. For example:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "لقائمة بيضاء متعددة المواقع في سطر واحد يمكنك تحديد جزء من url بدلاً من ذلك:"
+    "message": "To allow multiple sites in one line you can specify part of the url instead:"
   },
   "html_options_whitelist_tooltip_line3": {
     "message": "يمكنك أيضا تحديد التعبيرات العادية عن طريق إرفاق النص في الخطوط الأمامية:"
-  },
-  "html_options_whitelist_test": {
-    "message": "اختبار القائمة البيضاء"
   },
   "html_options_whitelist_close": {
     "message": "إغلاق"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "إيقاظ علامات التبويب في القائمة البيضاء"
+    "message": "Wake matching tabs now"
+  },
+  "html_options_list_test_btn": {
+    "message": "Test list"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspend matching tabs now"
   },
   "html_options_other_enable_context_menu": {
     "message": "أضف الموصل المبتكر إلى قائمة السياق بالنقر الأيمن"
@@ -576,7 +579,7 @@
     "message": "إلغاء تعليق كل علامات التبويب"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "إيقاظ علامات التبويب في القائمة البيضاء"
+    "message": "Wake matching tabs now"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "إلغاء تعليق علامات التبويب المحددة"
@@ -789,10 +792,10 @@
     "message": "عدم التعليق"
   },
   "js_popup_whitelisted": {
-    "message": "قائمة بيضاء بالموقع."
+    "message": "Site allowed."
   },
   "js_popup_whitelisted_remove": {
-    "message": "إزالة من القائمة البيضاء"
+    "message": "Remove from allowlist"
   },
   "js_popup_audible": {
     "message": "علامة التبويب تقوم بتشغيل الصوت."
@@ -896,10 +899,16 @@
     "message": "أنت في وضع التخفي. بعض الميزات لن تكون متاحة."
   },
   "js_options_whitelist_no_matches": {
-    "message": "لا توجد علامات تبويب مفتوحة تتطابق مع القائمة البيضاء الحالية."
+    "message": "There are no open tabs that match the current allowlist."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "علامات التبويب المفتوحة في القائمة البيضاء:"
+    "message": "Allowlisted open tabs:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "There are no open tabs that match the current always-suspend list."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Open tabs matching the always-suspend list:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "و"
@@ -1268,6 +1277,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "هل تريد حذف ملف النسخة الاحتياطية هذا من Drive؟ لا يمكن التراجع عن هذا الإجراء."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Delete all backups for this device?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "This will permanently delete all $count$ backup file(s) for \"$device$\" from Google Drive. This cannot be undone.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancel"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Some backup files could not be deleted. Try again."
   },
   "html_backup_drive_no_files": {
     "message": "لم يتم العثور على ملفات نسخ احتياطي على Drive."
