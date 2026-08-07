@@ -211,7 +211,11 @@ import  { tgs }                   from './tgs.js';
         break;
       }
       case 'backupNow' : {
-        await gsBackup.performBackup();
+        try {
+          await gsBackup.performManualBackup();
+        } catch (e) {
+          if (e?.message !== 'TMS_BACKUP_COOLDOWN') throw e;
+        }
         break;
       }
       case 'setCaptureLogs' : {

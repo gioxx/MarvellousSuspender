@@ -15,9 +15,9 @@ import  { gsUtils }    from './gsUtils.js';
 
   const BACKUP_COOLDOWN_MS = 30_000;
 
-  function startBackupCooldown(btn, onTick, onDone) {
+  function startBackupCooldown(btn, onTick, onDone, durationMs = BACKUP_COOLDOWN_MS) {
     btn.disabled = true;
-    const until = Date.now() + BACKUP_COOLDOWN_MS;
+    const until = Date.now() + durationMs;
     const tick = () => {
       const remaining = Math.max(0, Math.ceil((until - Date.now()) / 1000));
       if (remaining > 0) {
@@ -818,6 +818,22 @@ import  { gsUtils }    from './gsUtils.js';
     updateBackupMeta();
     initPermissionsNotice();
 
+    // In case a manual backup was just triggered from the popup
+    gsBackup.getManualBackupCooldownRemainingMs().then((remainingMs) => {
+      if (remainingMs <= 0) return;
+      const btn      = document.getElementById('backupNowBtn');
+      const statusEl = document.getElementById('backupNowStatus');
+      startBackupCooldown(
+        btn,
+        (secs) => {
+          statusEl.textContent = gsUtils.getMessage('js_backup_cooldown', [String(secs)]);
+          statusEl.classList.add('visible');
+        },
+        () => statusEl.classList.remove('visible'),
+        remainingMs,
+      );
+    });
+
     // Back-to-top button
     const backToTopBtn = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
@@ -847,7 +863,7 @@ import  { gsUtils }    from './gsUtils.js';
       statusEl.classList.add('visible');
 
       try {
-        const result = await gsBackup.performBackup();
+        const result = await gsBackup.performManualBackup();
 
         if (destination === 'drive') {
           if (result) {

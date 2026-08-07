@@ -11,6 +11,9 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ## [9.0.2] — 2026-08-06
 
+### Fixed
+- **Popup's "Backup now" bypassed the 30s manual-backup cooldown** (`gsBackup.js`, `background.js`, `backup.js`, `popup.js`): the cooldown after a manual backup was only ever a per-page UI debounce local to `backup.html`'s own button — the popup's own "Backup now" menu item had no cooldown at all and didn't share state with the page, so triggering from both let a user fire off backups back-to-back with no pause. Moved the cooldown into `gsBackup.performManualBackup()`, tracked in `chrome.storage.session` so it's enforced regardless of which UI triggers it; `backup.html` now also checks for a cooldown already in progress (e.g. started from the popup moments earlier) when the page loads, and the popup disables its "Backup now" item and shows a live countdown if opened during one. The scheduled auto-backup alarm still calls `performBackup()` directly and is unaffected.
+
 ### Changed
 - **"Whitelist" reworded to "allowlist" in user-facing strings** (all 18 `messages.json` locales): "lista bianca"/"whitelist" wording in tooltips and popup messages replaced with "elenco consentiti"/"allowlist" (and each locale's own equivalent). Internal code (the `WHITELIST` storage key, `checkWhiteList()`, HTML ids like `whitelistLbl`/`testWhitelistBtn`) intentionally left untouched — this was a user-facing copy pass only, not a rename of the underlying feature.
 - **"Wake allowlisted tabs" reworded to match the always-suspend list's "now" phrasing** (`html_options_whitelist_unsuspend`, `html_popup_unsuspend_whitelisted_tabs`, all 18 locales): "Wake allowlisted tabs" / "Riattiva le schede nell'elenco consentiti" replaced with "Wake matching tabs now" / "Riattiva subito le schede corrispondenti", mirroring the always-suspend list's "Suspend matching tabs now" so the two paired buttons read as a matched set.

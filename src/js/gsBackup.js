@@ -19,6 +19,35 @@ export const gsBackup = (() => {
   const RETRY_ALARM_NAME      = 'tms-pending-backup-retry';
   const RETRY_BACKOFF_MINUTES = [0.5, 2, 10];
 
+  // Shared across every manual "backup now" trigger (backup.html's button, the popup's
+  // menu item) so spamming one doesn't bypass a cooldown enforced only by the other.
+  // Does not apply to the scheduled ALARM_NAME auto-backup.
+  const MANUAL_BACKUP_COOLDOWN_MS  = 30 * 1000;
+  const MANUAL_BACKUP_COOLDOWN_KEY = 'tmsManualBackupCooldownUntil';
+
+  async function getManualBackupCooldownRemainingMs() {
+    const r     = await chrome.storage.session.get([MANUAL_BACKUP_COOLDOWN_KEY]);
+    const until = r[MANUAL_BACKUP_COOLDOWN_KEY] || 0;
+    return Math.max(0, until - Date.now());
+  }
+
+  async function startManualBackupCooldown() {
+    await chrome.storage.session.set({
+      [MANUAL_BACKUP_COOLDOWN_KEY]: Date.now() + MANUAL_BACKUP_COOLDOWN_MS,
+    });
+  }
+
+  async function performManualBackup() {
+    if (await getManualBackupCooldownRemainingMs() > 0) {
+      throw new Error('TMS_BACKUP_COOLDOWN');
+    }
+    try {
+      return await performBackup();
+    } finally {
+      await startManualBackupCooldown();
+    }
+  }
+
   // ─── device identity ───────────────────────────────────────────────────────
 
   async function getOrCreateDeviceId() {
@@ -971,6 +1000,9 @@ export const gsBackup = (() => {
     ALARM_NAME,
     RETRY_ALARM_NAME,
     performBackup,
+    performManualBackup,
+    getManualBackupCooldownRemainingMs,
+    MANUAL_BACKUP_COOLDOWN_MS,
     performEmergencyBackup,
     retryPendingDriveBackup,
     scheduleBackup,

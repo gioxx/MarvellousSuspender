@@ -149,6 +149,12 @@ a {
   color: var(--foreground);
 }
 
+.menuOption.disabled {
+  cursor: default;
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+
 .hidden {
   display: none;
 }

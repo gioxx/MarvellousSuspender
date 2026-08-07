@@ -243,6 +243,27 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
+  function applyBackupCooldownUI(remainingMs) {
+    const backupNowEl    = document.getElementById('backupNow');
+    const backupNowLabel = document.getElementById('backupNowLabel');
+    if (!backupNowEl || !backupNowLabel) return;
+
+    const originalLabel = backupNowLabel.textContent;
+    backupNowEl.classList.add('disabled');
+    const until = Date.now() + remainingMs;
+    const tick = () => {
+      const secs = Math.max(0, Math.ceil((until - Date.now()) / 1000));
+      if (secs > 0) {
+        backupNowLabel.textContent = gsUtils.getMessage('js_backup_cooldown', [String(secs)]);
+        setTimeout(tick, 1000);
+      } else {
+        backupNowLabel.textContent = originalLabel;
+        backupNowEl.classList.remove('disabled');
+      }
+    };
+    tick();
+  }
+
   async function showPopupContents() {
     document.getElementById('brandVersion').textContent =
       'v' + chrome.runtime.getManifest().version;
@@ -259,9 +280,14 @@ import  { tgs }                   from './tgs.js';
       const labelKey = backupDest === 'drive'
         ? 'html_popup_backup_now_cloud'
         : 'html_popup_backup_now_local';
-      document.getElementById('backupNowLabel').textContent =
-        gsUtils.getMessage(labelKey);
+      const backupNowLabel = document.getElementById('backupNowLabel');
+      backupNowLabel.textContent = gsUtils.getMessage(labelKey);
       document.getElementById('optsBackup').classList.remove('hidden');
+
+      const cooldownMs = await gsBackup.getManualBackupCooldownRemainingMs();
+      if (cooldownMs > 0) {
+        applyBackupCooldownUI(cooldownMs);
+      }
     }
     if (errorFlag.tmsBackupDriveError || errorFlag.tmsBackupDownloadsError) {
       const banner = document.getElementById('backupErrorBanner');
@@ -315,9 +341,17 @@ import  { tgs }                   from './tgs.js';
     addClickListener('unsuspendSelected');
     addClickListener('whitelistDomain');
     addClickListener('whitelistPage');
-    addClickListener('backupNow');
     addClickListener('sessionManagerLink');
     addClickListener('settingsLink');
+
+    const backupNowEl = document.getElementById('backupNow');
+    if (backupNowEl) {
+      backupNowEl.addEventListener('click', async () => {
+        if (backupNowEl.classList.contains('disabled')) return;
+        await chrome.runtime.sendMessage({ action: 'backupNow' });
+        window.close();
+      });
+    }
   }
 
   Promise.all([
