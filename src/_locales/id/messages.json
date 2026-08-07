@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "Anda juga dapat menentukan ekspresi reguler dengan melampirkan teks dalam garis miring:"
   },
-  "html_options_whitelist_test": {
-    "message": "Uji daftar putih"
-  },
   "html_options_whitelist_close": {
     "message": "Tutup"
   },
   "html_options_whitelist_unsuspend": {
     "message": "Bangunkan tab daftar putih"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "Uji daftar"
   },
   "html_options_always_suspend_force": {

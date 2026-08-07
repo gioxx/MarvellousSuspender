@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "您还可以通过正则表达式将 URL 添加白名单:"
   },
-  "html_options_whitelist_test": {
-    "message": "测试白名单"
-  },
   "html_options_whitelist_close": {
     "message": "关闭"
   },
   "html_options_whitelist_unsuspend": {
     "message": "唤醒白名单中的标签页"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "测试列表"
   },
   "html_options_always_suspend_force": {

@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "Môžete tiež zadať regulárne výrazy uzavretím textu do lomiek:"
   },
-  "html_options_whitelist_test": {
-    "message": "Otestovať zoznam výnimiek"
-  },
   "html_options_whitelist_close": {
     "message": "Zavrieť"
   },
   "html_options_whitelist_unsuspend": {
     "message": "Prebudiť karty zo zoznamu výnimiek"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "Otestovať zoznam"
   },
   "html_options_always_suspend_force": {

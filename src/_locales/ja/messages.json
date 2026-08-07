@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "テキストをスラッシュで囲むことで正規表現を指定することもできます:"
   },
-  "html_options_whitelist_test": {
-    "message": "ホワイトリストをテスト"
-  },
   "html_options_whitelist_close": {
     "message": "閉じる"
   },
   "html_options_whitelist_unsuspend": {
     "message": "ホワイトリストのタブを復帰"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "リストをテスト"
   },
   "html_options_always_suspend_force": {

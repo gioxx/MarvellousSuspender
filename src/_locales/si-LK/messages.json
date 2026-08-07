@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "ඔබට පෙළ ඉදිරියට slashs තුළට ඇතුළත් කිරීමෙන් සාමාන්‍ය ප්‍රකාශන ද නියම කළ හැක:"
   },
-  "html_options_whitelist_test": {
-    "message": "පරීක්ෂණ සුදු ලැයිස්තුව"
-  },
   "html_options_whitelist_close": {
     "message": "වසන්න"
   },
   "html_options_whitelist_unsuspend": {
     "message": "සුදු ලැයිස්තු ටැබ් අවදි කරන්න"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "ලැයිස්තුව පරීක්ෂා කරන්න"
   },
   "html_options_always_suspend_force": {

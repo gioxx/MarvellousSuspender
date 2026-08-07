@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "Du kannst auch reguläre Ausdrücke verwenden, wenn der Text von Schrägstrichen eingeschlossen ist:"
   },
-  "html_options_whitelist_test": {
-    "message": "Zulässige Seiten testen"
-  },
   "html_options_whitelist_close": {
     "message": "Schließen"
   },
   "html_options_whitelist_unsuspend": {
     "message": "Tabs der Ausnahmeliste aufwecken"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "Liste testen"
   },
   "html_options_always_suspend_force": {

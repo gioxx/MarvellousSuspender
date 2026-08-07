@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "يمكنك أيضا تحديد التعبيرات العادية عن طريق إرفاق النص في الخطوط الأمامية:"
   },
-  "html_options_whitelist_test": {
-    "message": "اختبار القائمة البيضاء"
-  },
   "html_options_whitelist_close": {
     "message": "إغلاق"
   },
   "html_options_whitelist_unsuspend": {
     "message": "إيقاظ علامات التبويب في القائمة البيضاء"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "اختبار القائمة"
   },
   "html_options_always_suspend_force": {

@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "Вы также можете использовать регулярные выражения, используя в тексте косые черты:"
   },
-  "html_options_whitelist_test": {
-    "message": "Протестировать белый список"
-  },
   "html_options_whitelist_close": {
     "message": "Закрыть"
   },
   "html_options_whitelist_unsuspend": {
     "message": "Разбудить вкладки из белого списка"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "Проверить список"
   },
   "html_options_always_suspend_force": {

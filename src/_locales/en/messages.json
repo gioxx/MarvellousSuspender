@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "You can also specify regular expressions by enclosing the text in forward slashes:"
   },
-  "html_options_whitelist_test": {
-    "message": "Test whitelist"
-  },
   "html_options_whitelist_close": {
     "message": "Close"
   },
   "html_options_whitelist_unsuspend": {
     "message": "Wake whitelisted tabs"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "Test list"
   },
   "html_options_always_suspend_force": {

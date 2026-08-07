@@ -389,9 +389,6 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "Vous pouvez également spécifier des expressions régulières en mettant le texte entre des slashs:"
   },
-  "html_options_whitelist_test": {
-    "message": "Tester la liste blanche"
-  },
   "html_options_other_enable_context_menu": {
     "message": "Ajouter The Marvellous Suspender au menu contextuel du clic droit"
   },
@@ -973,7 +970,7 @@
   "html_options_whitelist_unsuspend": {
     "message": "Réveiller les onglets de la liste blanche"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "Tester la liste"
   },
   "html_options_always_suspend_force": {

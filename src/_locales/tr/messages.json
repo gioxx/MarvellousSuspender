@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "Ayrıca, slash vb. ekleyerek de düzenli ifadeler belirleyebilirsiniz:"
   },
-  "html_options_whitelist_test": {
-    "message": "Beyaz liste test"
-  },
   "html_options_whitelist_close": {
     "message": "Kapat"
   },
   "html_options_whitelist_unsuspend": {
     "message": "İzin listesindeki sekmeleri uyandır"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "Listeyi test et"
   },
   "html_options_always_suspend_force": {

@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "También puede especificar expresiones regulares adjuntando el texto en las barras delanteras:"
   },
-  "html_options_whitelist_test": {
-    "message": "Probar lista blanca"
-  },
   "html_options_whitelist_close": {
     "message": "Cerrar"
   },
   "html_options_whitelist_unsuspend": {
     "message": "Despertar pestañas de la lista blanca"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "Probar lista"
   },
   "html_options_always_suspend_force": {

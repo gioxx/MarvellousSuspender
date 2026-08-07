@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "Puoi anche usare le espressioni regolari racchiudendo il testo tra due slash:"
   },
-  "html_options_whitelist_test": {
-    "message": "Verifica il funzionamento della lista bianca"
-  },
   "html_options_whitelist_close": {
     "message": "Chiudi"
   },
   "html_options_whitelist_unsuspend": {
     "message": "Riattiva le schede in lista bianca"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "Verifica il funzionamento della lista"
   },
   "html_options_always_suspend_force": {

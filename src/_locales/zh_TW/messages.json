@@ -497,16 +497,13 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "您還可以使用斜線包起來的文字來指定正規表示式："
   },
-  "html_options_whitelist_test": {
-    "message": "測試白名單"
-  },
   "html_options_whitelist_close": {
     "message": "關閉"
   },
   "html_options_whitelist_unsuspend": {
     "message": "喚醒白名單中的分頁"
   },
-  "html_options_always_suspend_test": {
+  "html_options_list_test_btn": {
     "message": "測試清單"
   },
   "html_options_always_suspend_force": {
