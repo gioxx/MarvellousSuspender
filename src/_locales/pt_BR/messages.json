@@ -501,7 +501,7 @@
     "message": "Fechar"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Acordar guias da lista de permissões"
+    "message": "Acordar agora as guias correspondentes"
   },
   "html_options_list_test_btn": {
     "message": "Testar lista"
@@ -579,7 +579,7 @@
     "message": "Recarregar todas as outras guias"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Acordar guias da lista de permissões"
+    "message": "Acordar agora as guias correspondentes"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Suspender as guias selecionadas"

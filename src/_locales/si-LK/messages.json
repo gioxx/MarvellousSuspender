@@ -501,7 +501,7 @@
     "message": "වසන්න"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "ඉඩ දුන් ලැයිස්තුවේ ටැබ් අවදි කරන්න"
+    "message": "ගැළපෙන ටැබ් දැන් අවදි කරන්න"
   },
   "html_options_list_test_btn": {
     "message": "ලැයිස්තුව පරීක්ෂා කරන්න"
@@ -579,7 +579,7 @@
     "message": "සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "ඉඩ දුන් ලැයිස්තුවේ ටැබ් අවදි කරන්න"
+    "message": "ගැළපෙන ටැබ් දැන් අවදි කරන්න"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "තෝරාගත් ටැබ් අත්හිටුවන්න"

@@ -501,7 +501,7 @@
     "message": "关闭"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "唤醒允许列表中的标签页"
+    "message": "立即唤醒匹配的标签页"
   },
   "html_options_list_test_btn": {
     "message": "测试列表"
@@ -579,7 +579,7 @@
     "message": "恢复所有标签页"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "唤醒允许列表中的标签页"
+    "message": "立即唤醒匹配的标签页"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "冻结已选择标签页"

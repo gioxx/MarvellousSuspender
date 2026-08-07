@@ -501,7 +501,7 @@
     "message": "Zavrieť"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Prebudiť karty zo zoznamu výnimiek"
+    "message": "Teraz prebudiť zodpovedajúce karty"
   },
   "html_options_list_test_btn": {
     "message": "Otestovať zoznam"
@@ -579,7 +579,7 @@
     "message": "Obnoviť všetky karty"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Prebudiť karty zo zoznamu výnimiek"
+    "message": "Teraz prebudiť zodpovedajúce karty"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Pozastaviť vybrané karty"

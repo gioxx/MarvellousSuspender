@@ -501,7 +501,7 @@
     "message": "إغلاق"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "إيقاظ علامات التبويب في القائمة المسموح بها"
+    "message": "أيقظ علامات التبويب المطابقة الآن"
   },
   "html_options_list_test_btn": {
     "message": "اختبار القائمة"
@@ -579,7 +579,7 @@
     "message": "إلغاء تعليق كل علامات التبويب"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "إيقاظ علامات التبويب في القائمة المسموح بها"
+    "message": "أيقظ علامات التبويب المطابقة الآن"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "إلغاء تعليق علامات التبويب المحددة"

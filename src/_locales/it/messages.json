@@ -501,7 +501,7 @@
     "message": "Chiudi"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Riattiva le schede nell'elenco consentiti"
+    "message": "Riattiva subito le schede corrispondenti"
   },
   "html_options_list_test_btn": {
     "message": "Verifica il funzionamento della lista"
@@ -579,7 +579,7 @@
     "message": "Riattiva tutte le schede"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Riattiva le schede nell'elenco consentiti"
+    "message": "Riattiva subito le schede corrispondenti"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Sospendi le schede selezionate"

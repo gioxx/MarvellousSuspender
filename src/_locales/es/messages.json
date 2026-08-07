@@ -501,7 +501,7 @@
     "message": "Cerrar"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Despertar pestañas de la lista de permitidos"
+    "message": "Despertar ahora las pestañas coincidentes"
   },
   "html_options_list_test_btn": {
     "message": "Probar lista"
@@ -579,7 +579,7 @@
     "message": "Anular suspensión de todas las pestañas"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Despertar pestañas de la lista de permitidos"
+    "message": "Despertar ahora las pestañas coincidentes"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Suspender pestañas seleccionadas"

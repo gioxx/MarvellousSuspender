@@ -13,6 +13,7 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ### Changed
 - **"Whitelist" reworded to "allowlist" in user-facing strings** (all 18 `messages.json` locales): "lista bianca"/"whitelist" wording in tooltips and popup messages replaced with "elenco consentiti"/"allowlist" (and each locale's own equivalent). Internal code (the `WHITELIST` storage key, `checkWhiteList()`, HTML ids like `whitelistLbl`/`testWhitelistBtn`) intentionally left untouched — this was a user-facing copy pass only, not a rename of the underlying feature.
+- **"Wake allowlisted tabs" reworded to match the always-suspend list's "now" phrasing** (`html_options_whitelist_unsuspend`, `html_popup_unsuspend_whitelisted_tabs`, all 18 locales): "Wake allowlisted tabs" / "Riattiva le schede nell'elenco consentiti" replaced with "Wake matching tabs now" / "Riattiva subito le schede corrispondenti", mirroring the always-suspend list's "Suspend matching tabs now" so the two paired buttons read as a matched set.
 - **Backup page: smaller font for the Drive account email and connection-method lines** (`backup.css`): `.driveUserEmail` (shared by both, since the connection-method line reuses that class) dropped from `--text-sm` to `--text-xs` — they're secondary detail, not the primary account/folder label.
 
 ### Added

@@ -501,7 +501,7 @@
     "message": "Schließen"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Tabs der Ausnahmeliste aufwecken"
+    "message": "Passende Tabs jetzt aufwecken"
   },
   "html_options_list_test_btn": {
     "message": "Liste testen"
@@ -579,7 +579,7 @@
     "message": "Alle Tabs aufwachen"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Tabs der Ausnahmeliste aufwecken"
+    "message": "Passende Tabs jetzt aufwecken"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Ausgewählte Tabs aussetzen"

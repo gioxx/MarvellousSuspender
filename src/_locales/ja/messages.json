@@ -501,7 +501,7 @@
     "message": "閉じる"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "許可リストのタブを復帰"
+    "message": "一致するタブを今すぐ復帰"
   },
   "html_options_list_test_btn": {
     "message": "リストをテスト"
@@ -579,7 +579,7 @@
     "message": "すべてのタブを再開する"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "許可リストのタブを復帰"
+    "message": "一致するタブを今すぐ復帰"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "選択したタブを停止する"

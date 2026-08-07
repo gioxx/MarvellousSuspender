@@ -501,7 +501,7 @@
     "message": "關閉"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "喚醒允許清單中的分頁"
+    "message": "立即喚醒符合的分頁"
   },
   "html_options_list_test_btn": {
     "message": "測試清單"
@@ -579,7 +579,7 @@
     "message": "回復所有分頁"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "喚醒允許清單中的分頁"
+    "message": "立即喚醒符合的分頁"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "凍結已選擇分頁"

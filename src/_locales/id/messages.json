@@ -501,7 +501,7 @@
     "message": "Tutup"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Bangunkan tab dari daftar yang diizinkan"
+    "message": "Bangunkan tab yang cocok sekarang"
   },
   "html_options_list_test_btn": {
     "message": "Uji daftar"
@@ -579,7 +579,7 @@
     "message": "Menangguhkan semua tab"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Bangunkan tab dari daftar yang diizinkan"
+    "message": "Bangunkan tab yang cocok sekarang"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Tangguhkan tab yang dipilih"

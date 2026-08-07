@@ -501,7 +501,7 @@
     "message": "Закрыть"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Разбудить вкладки из списка разрешённых"
+    "message": "Разбудить подходящие вкладки сейчас"
   },
   "html_options_list_test_btn": {
     "message": "Проверить список"
@@ -579,7 +579,7 @@
     "message": "Возобновить все вкладки"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Разбудить вкладки из списка разрешённых"
+    "message": "Разбудить подходящие вкладки сейчас"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Приостановить выбранные вкладки"
