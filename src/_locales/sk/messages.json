@@ -3,7 +3,7 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "Zabezpečte plynulý chod počítača pozastavením tabov, ktoré nepoužívate"
+    "message": "Free your memory. Suspend the tabs you don't need, right now."
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
@@ -489,22 +489,25 @@
     "message": "uvedenom zozname (obyčajný text kdekoľvek v URL adrese, alebo /regex/ medzi lomítkami)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Pridajte URL adresu každej stránky, ktorú chcete zaradiť na zoznam výnimiek, na nový riadok. Napríklad:"
+    "message": "Add the URL of each page you want to allow on a new line. For example:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "Ak chcete na jeden riadok zaradiť viac stránok, môžete namiesto toho zadať časť URL adresy:"
+    "message": "To allow multiple sites in one line you can specify part of the url instead:"
   },
   "html_options_whitelist_tooltip_line3": {
     "message": "Môžete tiež zadať regulárne výrazy uzavretím textu do lomiek:"
-  },
-  "html_options_whitelist_test": {
-    "message": "Otestovať zoznam výnimiek"
   },
   "html_options_whitelist_close": {
     "message": "Zavrieť"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Prebudiť karty zo zoznamu výnimiek"
+    "message": "Wake matching tabs now"
+  },
+  "html_options_list_test_btn": {
+    "message": "Test list"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspend matching tabs now"
   },
   "html_options_other_enable_context_menu": {
     "message": "Pridať The Marvellous Suspender do kontextovej ponuky pravého tlačidla"
@@ -576,7 +579,7 @@
     "message": "Obnoviť všetky karty"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Prebudiť karty zo zoznamu výnimiek"
+    "message": "Wake matching tabs now"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Pozastaviť vybrané karty"
@@ -789,10 +792,10 @@
     "message": "Nepozastavovať"
   },
   "js_popup_whitelisted": {
-    "message": "Stránka na zozname výnimiek."
+    "message": "Site allowed."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Odstrániť zo zoznamu výnimiek"
+    "message": "Remove from allowlist"
   },
   "js_popup_audible": {
     "message": "Karta prehráva zvuk."
@@ -896,10 +899,16 @@
     "message": "Ste v anonymnom režime. Niektoré funkcie nebudú dostupné."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Nie sú otvorené žiadne karty zodpovedajúce aktuálnemu zoznamu výnimiek."
+    "message": "There are no open tabs that match the current allowlist."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Otvorené karty na zozname výnimiek:"
+    "message": "Allowlisted open tabs:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "There are no open tabs that match the current always-suspend list."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Open tabs matching the always-suspend list:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "a"
@@ -1268,6 +1277,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Odstrániť tento súbor zálohy z Disku? Túto akciu nemožno vrátiť späť."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Delete all backups for this device?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "This will permanently delete all $count$ backup file(s) for \"$device$\" from Google Drive. This cannot be undone.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancel"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Some backup files could not be deleted. Try again."
   },
   "html_backup_drive_no_files": {
     "message": "Na Disku neboli nájdené žiadne súbory záloh."
