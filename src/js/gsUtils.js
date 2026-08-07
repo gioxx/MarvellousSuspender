@@ -18,10 +18,36 @@ const _LOG_BUFFER_MAX = 500;
 const _logBuffer = [];
 let   _flushTimer = null;
 
+// Cheap djb2-style hash so two favicons of similar length still show up as distinct in
+// the log (a bare length like "[data URL, 812 chars]" can't tell "same icon" from
+// "different icon, same size"), without hashing the full multi-KB string char-by-char.
+function _shortHash(str) {
+  let h = 5381;
+  const step = Math.max(1, Math.floor(str.length / 200)); // sample at most ~200 chars
+  for (let i = 0; i < str.length; i += step) {
+    h = ((h << 5) + h + str.charCodeAt(i)) | 0;
+  }
+  return (h >>> 0).toString(36);
+}
+
+// Tab objects logged wholesale (e.g. gsTabCheckManager's "Updated tab" dumps) carry
+// favIconUrl as a base64 data: URL, often several KB of text per entry. Replacing it
+// with a length+hash fingerprint here keeps every log call site favicon-safe without
+// having to remember to redact it at each one, stops a handful of tab dumps from
+// evicting most of the 500-entry buffer, and still lets "did the favicon change between
+// these two log lines" be answered by comparing fingerprints, useful when a reporter's
+// complaint is specifically about favicon behaviour.
+function _redactDataUrls(key, value) {
+  if (typeof value === 'string' && value.startsWith('data:') && value.length > 100) {
+    return `[data URL, ${value.length} chars, #${_shortHash(value)}]`;
+  }
+  return value;
+}
+
 function _serialize(v) {
   if (v === null || v === undefined) return String(v);
   if (typeof v === 'string') return v;
-  try { return JSON.stringify(v); } catch { return String(v); }
+  try { return JSON.stringify(v, _redactDataUrls); } catch { return String(v); }
 }
 
 function _appendEntry(level, src, parts) {
