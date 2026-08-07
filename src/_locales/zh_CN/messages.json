@@ -3,7 +3,7 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "冻结暂时用不到的标签页，以便释放系统资源。"
+    "message": "释放内存。立即挂起不需要的标签页。"
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"

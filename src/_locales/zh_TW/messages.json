@@ -3,7 +3,7 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "凍結暫時用不到的分頁，達到系統資源釋放。"
+    "message": "釋放記憶體。立即暫停不需要的分頁。"
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
