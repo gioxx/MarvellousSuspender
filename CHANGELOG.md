@@ -9,6 +9,13 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ## [Unreleased]
 
+### Added
+- **About page: debug link highlighted in its own callout box** (`about.html`, `style.css`, `icons.svg`): the debugging link was a plain paragraph, easy to miss among the other links. Gave it a bordered callout with a wrench icon, matching the card/box language used elsewhere in the extension's UI.
+
+### Fixed
+- **`captureLogs` went silently blind after the Service Worker's first restart of a session** (`background.js`): the persisted `chrome.storage.local` flag was only restored inside `startupOnce()`, which runs once per browser session, not once per Service Worker spawn — since the in-memory flag resets to `false` on every SW recycle (routine in MV3), captureLogs stopped working after the first restart, undermining the debug reports it's meant to support. Moved the restore to unconditional top-level code so it runs on every wake. Also dropped a dead call to a since-removed `tgs.updateTabIdReferences` in the `onReplaced` listener.
+- **Favicon data URLs bloated the debug log buffer** (`gsUtils.js`): tab dumps logged via `captureLogs` (`checkQueue`'s "Updated tab" entries) serialized the whole tab object including `favIconUrl` as a base64 `data:` URL, often several KB of text per entry, evicting most of the 500-entry log buffer within seconds on tab-heavy sessions. Replaced with a length + short hash fingerprint so favicon changes between log lines are still comparable without the bloat.
+
 ## [9.0.2] — 2026-08-06
 
 ### Fixed
