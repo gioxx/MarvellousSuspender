@@ -3,7 +3,7 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "Améliore les performances de votre ordinateur en suspendant les onglets que vous n'utilisez pas"
+    "message": "Free your memory. Suspend the tabs you don't need, right now."
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
@@ -489,22 +489,25 @@
     "message": "(correspondance de texte brut n'importe où dans l'URL, ou /regex/ entre barres obliques)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Ajouter l'URL de chaque page que vous souhaitez ajouter à la liste blanche sur une nouvelle ligne. Par exemple:"
+    "message": "Add the URL of each page you want to allow on a new line. For example:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "Pour mettre en liste blanche plusieurs sites en une ligne, vous pouvez spécifier une partie de l'url à la place:"
+    "message": "To allow multiple sites in one line you can specify part of the url instead:"
   },
   "html_options_whitelist_tooltip_line3": {
     "message": "Vous pouvez également spécifier des expressions régulières en mettant le texte entre des slashs:"
-  },
-  "html_options_whitelist_test": {
-    "message": "Tester la liste blanche"
   },
   "html_options_whitelist_close": {
     "message": "Fermer"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Réveiller les onglets de la liste blanche"
+    "message": "Wake matching tabs now"
+  },
+  "html_options_list_test_btn": {
+    "message": "Test list"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspend matching tabs now"
   },
   "html_options_other_enable_context_menu": {
     "message": "Ajouter The Marvellous Suspender au menu contextuel du clic droit"
@@ -576,7 +579,7 @@
     "message": "Annuler la suspension de tous les onglets"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Réveiller les onglets de la liste blanche"
+    "message": "Wake matching tabs now"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Suspendre les onglets sélectionnés"
@@ -789,10 +792,10 @@
     "message": "Ne pas suspendre"
   },
   "js_popup_whitelisted": {
-    "message": "Site sur liste blanche."
+    "message": "Site allowed."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Retirer de la liste blanche"
+    "message": "Remove from allowlist"
   },
   "js_popup_audible": {
     "message": "L'onglet est en cours de lecture audio."
@@ -896,10 +899,16 @@
     "message": "Vous êtes en mode incognito. Certaines fonctionnalités ne seront pas disponibles."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Il n'y a aucun onglet ouvert correspondant à la liste blanche actuelle."
+    "message": "There are no open tabs that match the current allowlist."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Onglets ouverts sur la liste blanche:"
+    "message": "Allowlisted open tabs:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "There are no open tabs that match the current always-suspend list."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Open tabs matching the always-suspend list:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "et"
@@ -1268,6 +1277,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Supprimer ce fichier de sauvegarde de Drive ? Cette action est irréversible."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Delete all backups for this device?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "This will permanently delete all $count$ backup file(s) for \"$device$\" from Google Drive. This cannot be undone.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancel"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Some backup files could not be deleted. Try again."
   },
   "html_backup_drive_no_files": {
     "message": "Aucun fichier de sauvegarde trouvé sur Drive."
