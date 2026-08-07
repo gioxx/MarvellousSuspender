@@ -262,7 +262,7 @@ import  { tgs }                   from './tgs.js';
     if (appendUrl) {
       const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
       if (originalUrl) {
-        document.title = title + ' — ' + originalUrl;
+        document.title = title + ' · ' + originalUrl;
       }
     }
 

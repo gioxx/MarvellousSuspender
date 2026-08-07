@@ -200,7 +200,7 @@ import  { tgs }                   from './tgs.js';
     );
 
     const lines = [];
-    lines.push(`=== The Marvellous Suspender — Diagnostic Report ===`);
+    lines.push(`=== The Marvellous Suspender: Diagnostic Report ===`);
     lines.push(`Generated : ${new Date().toISOString()}`);
     lines.push(`Extension : v${manifest.version}`);
     lines.push(`Browser   : ${navigator.userAgent}`);
@@ -314,7 +314,7 @@ import  { tgs }                   from './tgs.js';
     const nameEl = document.getElementById('backupDeviceNameDebug');
     if (!idEl || !nameEl) return;
     const [id, name] = await Promise.all([gsBackup.getDeviceId(), gsBackup.getDeviceName()]);
-    idEl.textContent   = id   || '—';
+    idEl.textContent   = id   || '-';
     nameEl.textContent = name || 'this device (no name set)';
   }
 

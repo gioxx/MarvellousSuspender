@@ -894,7 +894,7 @@
     "message": "onglets groupés dans un état défectueux (bug des groupes d'onglets)"
   },
   "html_health_repair_intro": {
-    "message": "Certains onglets dans des groupes sont dans un état défectueux — ils apparaissent comme un nouvel onglet au lieu de se charger correctement après le redémarrage du navigateur. TMS peut tenter de les restaurer."
+    "message": "Certains onglets dans des groupes sont dans un état défectueux : ils apparaissent comme un nouvel onglet au lieu de se charger correctement après le redémarrage du navigateur. TMS peut tenter de les restaurer."
   },
   "html_health_repair_button": {
     "message": "Réparer $count$ onglet(s) groupé(s)",
@@ -911,7 +911,7 @@
     "message": "Version"
   },
   "html_about_tagline": {
-    "message": "Le successeur spirituel de la suspension moderne d'onglets — remplace les onglets inactifs par une page de mise en veille légère, vous donnant un contrôle précis sur leur réveil."
+    "message": "Le successeur spirituel de la suspension moderne d'onglets : remplace les onglets inactifs par une page de mise en veille légère, vous donnant un contrôle précis sur leur réveil."
   },
   "html_about_section_credits": {
     "message": "Crédits"
@@ -929,10 +929,10 @@
     "message": "Soutenir le développement"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender est gratuit et open source. Si vous le trouvez utile, envisagez une petite contribution — cela aide à maintenir le projet vivant et à le faire grandir."
+    "message": "The Marvellous Suspender est gratuit et open source. Si vous le trouvez utile, envisagez une petite contribution : cela aide à maintenir le projet vivant et à le faire grandir."
   },
   "html_history_page_desc": {
-    "message": "TMS conserve un instantané permanent de vos onglets ouverts — sans aucune configuration nécessaire. Les sessions se mettent à jour automatiquement pendant la navigation, mais elles vivent à l'intérieur de Chrome : si le profil du navigateur est perdu ou corrompu, elles disparaissent avec lui."
+    "message": "TMS conserve un instantané permanent de vos onglets ouverts, sans aucune configuration nécessaire. Les sessions se mettent à jour automatiquement pendant la navigation, mais elles vivent à l'intérieur de Chrome : si le profil du navigateur est perdu ou corrompu, elles disparaissent avec lui."
   },
   "html_history_migrate_section_title": {
     "message": "Migration des onglets"
@@ -1025,7 +1025,7 @@
     "message": "Sauvegarde automatique de session"
   },
   "html_backup_session_desc": {
-    "message": "Contrairement aux sessions, les sauvegardes sont enregistrées sous forme de fichiers JSON en dehors de Chrome — dans votre dossier Téléchargements ou sur Google Drive. Elles survivent aux plantages du navigateur, aux réinitialisations de profil et aux nouvelles installations. C'est votre véritable filet de sécurité."
+    "message": "Contrairement aux sessions, les sauvegardes sont enregistrées sous forme de fichiers JSON en dehors de Chrome : dans votre dossier Téléchargements ou sur Google Drive. Elles survivent aux plantages du navigateur, aux réinitialisations de profil et aux nouvelles installations. C'est votre véritable filet de sécurité."
   },
   "html_options_backup_enable": {
     "message": "Sauvegarder automatiquement votre session"
@@ -1079,7 +1079,7 @@
     "message": "↑ Haut de page"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Les sessions sont stockées uniquement dans Chrome — elles ne survivront pas à un plantage du navigateur ni à une réinitialisation de profil."
+    "message": "Les sessions sont stockées uniquement dans Chrome : elles ne survivront pas à un plantage du navigateur ni à une réinitialisation de profil."
   },
   "html_history_backup_settings_link": {
     "message": "Configurez la sauvegarde pour enregistrer vos onglets en dehors du navigateur →"
@@ -1094,7 +1094,7 @@
     "message": "Enregistré"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome demande où enregistrer les fichiers — les sauvegardes automatiques ne fonctionneront pas silencieusement. Désactivez « Demander où enregistrer chaque fichier » dans chrome://settings/downloads."
+    "message": "Chrome demande où enregistrer les fichiers, donc les sauvegardes automatiques ne fonctionneront pas silencieusement. Désactivez « Demander où enregistrer chaque fichier » dans chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "Prochaine exécution : $time$",
@@ -1140,7 +1140,7 @@
     "message": "Sauvegarde des paramètres"
   },
   "html_backup_settings_desc": {
-    "message": "Exportez tous les paramètres de l'extension dans un fichier JSON — utile comme sauvegarde ou pour transférer votre configuration vers un autre profil de navigateur. L'importation d'un fichier remplace les paramètres actuels."
+    "message": "Exportez tous les paramètres de l'extension dans un fichier JSON, utile comme sauvegarde ou pour transférer votre configuration vers un autre profil de navigateur. L'importation d'un fichier remplace les paramètres actuels."
   },
   "html_backup_local_folder_hint": {
     "message": "Les sauvegardes locales sont placées dans le dossier tms-backups de vos téléchargements."

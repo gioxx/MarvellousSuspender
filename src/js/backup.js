@@ -617,7 +617,7 @@ import  { gsUtils }    from './gsUtils.js';
         const dateStr = new Date(time).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
         const parts   = [gsUtils.getMessage('js_options_backup_last_local', [dateStr])];
         if (filename) parts.push(filename);
-        fileCountEl.textContent = parts.join(' — ');
+        fileCountEl.textContent = parts.join(' · ');
       } else {
         fileCountEl.textContent = '';
       }
