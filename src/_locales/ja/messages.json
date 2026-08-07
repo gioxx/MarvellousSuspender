@@ -3,7 +3,7 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "使用していないタブを一時停止して、コンピューターをスムーズに動作させます"
+    "message": "Free your memory. Suspend the tabs you don't need, right now."
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
@@ -489,22 +489,25 @@
     "message": "（URL内の任意の場所と一致するプレーンテキスト、またはスラッシュで囲んだ/regex/）。"
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "ホワイトリストに登録したい各ページのURLを改行して追加してください。例:"
+    "message": "Add the URL of each page you want to allow on a new line. For example:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "複数のサイトを1行でホワイトリストに登録するには、代わりにURLの一部を指定できます:"
+    "message": "To allow multiple sites in one line you can specify part of the url instead:"
   },
   "html_options_whitelist_tooltip_line3": {
     "message": "テキストをスラッシュで囲むことで正規表現を指定することもできます:"
-  },
-  "html_options_whitelist_test": {
-    "message": "ホワイトリストをテスト"
   },
   "html_options_whitelist_close": {
     "message": "閉じる"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "ホワイトリストのタブを復帰"
+    "message": "Wake matching tabs now"
+  },
+  "html_options_list_test_btn": {
+    "message": "Test list"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspend matching tabs now"
   },
   "html_options_other_enable_context_menu": {
     "message": "右クリックのコンテキストメニューにThe Marvellous Suspenderを追加する"
@@ -576,7 +579,7 @@
     "message": "すべてのタブを再開する"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "ホワイトリストのタブを復帰"
+    "message": "Wake matching tabs now"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "選択したタブを停止する"
@@ -789,10 +792,10 @@
     "message": "停止しない"
   },
   "js_popup_whitelisted": {
-    "message": "サイトはホワイトリストに登録されています。"
+    "message": "Site allowed."
   },
   "js_popup_whitelisted_remove": {
-    "message": "ホワイトリストから削除"
+    "message": "Remove from allowlist"
   },
   "js_popup_audible": {
     "message": "タブは音声を再生中です。"
@@ -896,10 +899,16 @@
     "message": "シークレットモードです。一部の機能は利用できません。"
   },
   "js_options_whitelist_no_matches": {
-    "message": "現在のホワイトリストに一致する開いているタブはありません。"
+    "message": "There are no open tabs that match the current allowlist."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "ホワイトリストに登録されている開いているタブ:"
+    "message": "Allowlisted open tabs:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "There are no open tabs that match the current always-suspend list."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Open tabs matching the always-suspend list:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "他"
@@ -1268,6 +1277,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "このバックアップファイルをドライブから削除しますか? この操作は元に戻せません。"
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Delete all backups for this device?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "This will permanently delete all $count$ backup file(s) for \"$device$\" from Google Drive. This cannot be undone.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancel"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Some backup files could not be deleted. Try again."
   },
   "html_backup_drive_no_files": {
     "message": "ドライブにバックアップファイルが見つかりません。"
