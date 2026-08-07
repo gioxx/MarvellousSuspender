@@ -489,7 +489,7 @@
     "message": "(corrispondenza di testo semplice in qualsiasi punto dell'URL, oppure /regex/ tra slash)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Aggiungi l'indirizzo di ogni pagina che desideri inserire nella lista bianca, uno per riga. Per esempio:"
+    "message": "Aggiungi l'indirizzo di ogni pagina che desideri inserire nell'elenco consentiti, uno per riga. Per esempio:"
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "Per autorizzare più siti in una riga puoi invece specificare una parte dell'indirizzo:"
@@ -501,7 +501,7 @@
     "message": "Chiudi"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Riattiva le schede in lista bianca"
+    "message": "Riattiva le schede nell'elenco consentiti"
   },
   "html_options_list_test_btn": {
     "message": "Verifica il funzionamento della lista"
@@ -579,7 +579,7 @@
     "message": "Riattiva tutte le schede"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Riattiva le schede in lista bianca"
+    "message": "Riattiva le schede nell'elenco consentiti"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Sospendi le schede selezionate"
@@ -792,10 +792,10 @@
     "message": "Non sospendere"
   },
   "js_popup_whitelisted": {
-    "message": "Sito nella lista bianca."
+    "message": "Sito nell'elenco consentiti."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Rimuovi dalla lista bianca"
+    "message": "Rimuovi dall'elenco consentiti"
   },
   "js_popup_audible": {
     "message": "La scheda sta riproducendo audio."
@@ -899,10 +899,10 @@
     "message": "Sei in modalità incognito. Molte impostazioni non saranno disponibili."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Non ci sono schede aperte che corrispondono all'attuale lista bianca."
+    "message": "Non ci sono schede aperte che corrispondono all'attuale elenco consentiti."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Schede aperte nella lista bianca:"
+    "message": "Schede aperte nell'elenco consentiti:"
   },
   "js_options_always_suspend_no_matches": {
     "message": "Non ci sono schede aperte che corrispondono all'attuale lista di sospensione forzata."

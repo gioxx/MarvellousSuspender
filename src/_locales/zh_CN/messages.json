@@ -489,7 +489,7 @@
     "message": "（在网址任意位置匹配纯文本，或使用斜杠包裹的 /regex/）。"
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "在每一行上添加要列入白名单的每个页面的 URL。例如:"
+    "message": "在新的一行中添加要允许的每个页面的网址。例如："
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "要在一行中将多个网站列入白名单，可以指定 URL 的一部分:"
@@ -501,7 +501,7 @@
     "message": "关闭"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "唤醒白名单中的标签页"
+    "message": "唤醒允许列表中的标签页"
   },
   "html_options_list_test_btn": {
     "message": "测试列表"
@@ -579,7 +579,7 @@
     "message": "恢复所有标签页"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "唤醒白名单中的标签页"
+    "message": "唤醒允许列表中的标签页"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "冻结已选择标签页"
@@ -792,10 +792,10 @@
     "message": "暂时不要冻结"
   },
   "js_popup_whitelisted": {
-    "message": "白名单。"
+    "message": "已允许该网站。"
   },
   "js_popup_whitelisted_remove": {
-    "message": "从白名单移除"
+    "message": "从允许列表中移除"
   },
   "js_popup_audible": {
     "message": "标签页正在播放声音。"
@@ -899,10 +899,10 @@
     "message": "您现在处于无痕模式。某些功能将无法使用。"
   },
   "js_options_whitelist_no_matches": {
-    "message": "没有与当前白单匹配的打开标签页。"
+    "message": "没有与当前允许列表匹配的打开标签页。"
   },
   "js_options_whitelist_matches_heading": {
-    "message": "这些打开标签页签符合当前白名单："
+    "message": "允许列表中已打开的标签页："
   },
   "js_options_always_suspend_no_matches": {
     "message": "没有打开的标签页匹配当前的强制挂起列表。"

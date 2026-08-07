@@ -489,7 +489,7 @@
     "message": "（URL内の任意の場所と一致するプレーンテキスト、またはスラッシュで囲んだ/regex/）。"
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "ホワイトリストに登録したい各ページのURLを改行して追加してください。例:"
+    "message": "許可リストに登録したい各ページのURLを改行して追加してください。例:"
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "複数のサイトを1行でホワイトリストに登録するには、代わりにURLの一部を指定できます:"
@@ -501,7 +501,7 @@
     "message": "閉じる"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "ホワイトリストのタブを復帰"
+    "message": "許可リストのタブを復帰"
   },
   "html_options_list_test_btn": {
     "message": "リストをテスト"
@@ -579,7 +579,7 @@
     "message": "すべてのタブを再開する"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "ホワイトリストのタブを復帰"
+    "message": "許可リストのタブを復帰"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "選択したタブを停止する"
@@ -792,10 +792,10 @@
     "message": "停止しない"
   },
   "js_popup_whitelisted": {
-    "message": "サイトはホワイトリストに登録されています。"
+    "message": "サイトは許可リストに登録されています。"
   },
   "js_popup_whitelisted_remove": {
-    "message": "ホワイトリストから削除"
+    "message": "許可リストから削除"
   },
   "js_popup_audible": {
     "message": "タブは音声を再生中です。"
@@ -899,10 +899,10 @@
     "message": "シークレットモードです。一部の機能は利用できません。"
   },
   "js_options_whitelist_no_matches": {
-    "message": "現在のホワイトリストに一致する開いているタブはありません。"
+    "message": "現在の許可リストに一致する開いているタブはありません。"
   },
   "js_options_whitelist_matches_heading": {
-    "message": "ホワイトリストに登録されている開いているタブ:"
+    "message": "許可リストに登録されている開いているタブ:"
   },
   "js_options_always_suspend_no_matches": {
     "message": "現在の常時停止リストに一致する開いているタブはありません。"

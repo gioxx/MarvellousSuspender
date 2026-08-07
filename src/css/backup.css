@@ -214,7 +214,7 @@ input[type='number']:focus {
 }
 
 .driveUserEmail {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   color: var(--muted-foreground);
   font-family: var(--font-mono, monospace);
 }

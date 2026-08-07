@@ -489,7 +489,7 @@
     "message": "(kecocokan teks biasa di mana saja dalam URL, atau /regex/ di antara garis miring)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Tambahkan URL dari setiap halaman yang ingin Anda masukkan ke daftar putih pada baris baru. Misalnya:"
+    "message": "Tambahkan URL dari setiap halaman yang ingin Anda izinkan pada baris baru. Misalnya:"
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "Untuk memberikan daftar putih pada banyak situs dalam satu baris Anda dapat menentukan bagian dari URL sebagai gantinya:"
@@ -501,7 +501,7 @@
     "message": "Tutup"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Bangunkan tab daftar putih"
+    "message": "Bangunkan tab dari daftar yang diizinkan"
   },
   "html_options_list_test_btn": {
     "message": "Uji daftar"
@@ -579,7 +579,7 @@
     "message": "Menangguhkan semua tab"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Bangunkan tab daftar putih"
+    "message": "Bangunkan tab dari daftar yang diizinkan"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Tangguhkan tab yang dipilih"
@@ -792,10 +792,10 @@
     "message": "Jangan ditangguhkan"
   },
   "js_popup_whitelisted": {
-    "message": "Situs telah diberikan daftar putih."
+    "message": "Situs diizinkan."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Hapus dari daftar putih"
+    "message": "Hapus dari daftar yang diizinkan"
   },
   "js_popup_audible": {
     "message": "Tab sedang memainkan audio."
@@ -899,10 +899,10 @@
     "message": "Anda dalam mode penyamaran. Beberapa fitur tidak akan tersedia."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Tidak ada tab terbuka yang cocok dengan daftar putih saat ini."
+    "message": "Tidak ada tab terbuka yang cocok dengan daftar yang diizinkan saat ini."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Tab terbuka yang diberikan daftar putih:"
+    "message": "Tab terbuka dari daftar yang diizinkan:"
   },
   "js_options_always_suspend_no_matches": {
     "message": "Tidak ada tab terbuka yang cocok dengan daftar selalu tangguhkan saat ini."

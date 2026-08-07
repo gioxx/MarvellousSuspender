@@ -489,7 +489,7 @@
     "message": "(correspondência de texto simples em qualquer parte da URL, ou /regex/ entre barras)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Adicione a URL de cada página que você deseja colocar na lista branca em uma nova linha. Por exemplo:"
+    "message": "Adicione a URL de cada página que você deseja permitir em uma nova linha. Por exemplo:"
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "Para colocar na lista branca vários sites em uma linha, você pode especificar parte da URL:"
@@ -792,10 +792,10 @@
     "message": "Não suspender"
   },
   "js_popup_whitelisted": {
-    "message": "Site adicionado à lista branca."
+    "message": "Site adicionado à lista de permissões."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Remover da lista branca"
+    "message": "Remover da lista de permissões"
   },
   "js_popup_audible": {
     "message": "Esta guia está reproduzindo áudio."
@@ -899,10 +899,10 @@
     "message": "Você está no modo de navegação anônima. Alguns recursos não estarão disponíveis."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Não há guias abertas que correspondam à lista branca atual."
+    "message": "Não há guias abertas que correspondam à lista de permissões atual."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Guias permitidas abertas:"
+    "message": "Guias abertas da lista de permissões:"
   },
   "js_options_always_suspend_no_matches": {
     "message": "Não há guias abertas que correspondam à lista de suspensão forçada atual."

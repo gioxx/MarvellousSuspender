@@ -489,10 +489,10 @@
     "message": "match anywhere in the URL, or /regex/ between slashes)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Add the URL of each page you want to whitelist on a new line. For example:"
+    "message": "Add the URL of each page you want to allow on a new line. For example:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "To whitelist multiple sites in one line you can specify part of the url instead:"
+    "message": "To allow multiple sites in one line you can specify part of the url instead:"
   },
   "html_options_whitelist_tooltip_line3": {
     "message": "You can also specify regular expressions by enclosing the text in forward slashes:"
@@ -501,7 +501,7 @@
     "message": "Close"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake whitelisted tabs"
+    "message": "Wake allowlisted tabs"
   },
   "html_options_list_test_btn": {
     "message": "Test list"
@@ -579,7 +579,7 @@
     "message": "Unsuspend all tabs"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake whitelisted tabs"
+    "message": "Wake allowlisted tabs"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Suspend selected tabs"
@@ -792,10 +792,10 @@
     "message": "Don't suspend"
   },
   "js_popup_whitelisted": {
-    "message": "Site whitelisted."
+    "message": "Site allowed."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Remove from whitelist"
+    "message": "Remove from allowlist"
   },
   "js_popup_audible": {
     "message": "Tab is playing audio."
@@ -899,10 +899,10 @@
     "message": "You are in incognito mode. Some features will not be available."
   },
   "js_options_whitelist_no_matches": {
-    "message": "There are no open tabs that match the current whitelist."
+    "message": "There are no open tabs that match the current allowlist."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Whitelisted open tabs:"
+    "message": "Allowlisted open tabs:"
   },
   "js_options_always_suspend_no_matches": {
     "message": "There are no open tabs that match the current always-suspend list."

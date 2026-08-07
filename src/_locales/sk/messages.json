@@ -489,7 +489,7 @@
     "message": "uvedenom zozname (obyčajný text kdekoľvek v URL adrese, alebo /regex/ medzi lomítkami)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Pridajte URL adresu každej stránky, ktorú chcete zaradiť na zoznam výnimiek, na nový riadok. Napríklad:"
+    "message": "Pridajte URL adresu každej stránky, ktorú chcete povoliť, na nový riadok. Napríklad:"
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "Ak chcete na jeden riadok zaradiť viac stránok, môžete namiesto toho zadať časť URL adresy:"

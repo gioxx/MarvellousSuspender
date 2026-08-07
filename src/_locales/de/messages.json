@@ -489,7 +489,7 @@
     "message": "(einfacher Textabgleich an beliebiger Stelle der URL oder /regex/ zwischen Schrägstrichen)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Füge die URL jeder Seite, die zugelassen werden soll in eine eigene Zeile. Zum Beispiel:"
+    "message": "Füge die URL jeder Seite, die du zulassen möchtest, in eine eigene Zeile ein. Zum Beispiel:"
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "Um mehrere Seiten in einer Zeile zuzulassen, kannst du stattdessen einen Teil der URL angeben:"
@@ -899,10 +899,10 @@
     "message": "Du bist im Inkognitomodus. Einige Funktionen sind nicht verfügbar."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Es sind keine offenen Seiten vorhanden, die den aktuell zulässigen Seiten entsprechen."
+    "message": "Es sind keine offenen Tabs vorhanden, die der aktuellen Ausnahmeliste entsprechen."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Erlaubte offene Seiten:"
+    "message": "Offene Tabs auf der Ausnahmeliste:"
   },
   "js_options_always_suspend_no_matches": {
     "message": "Keine offenen Tabs entsprechen der aktuellen Immer-aussetzen-Liste."

@@ -381,7 +381,7 @@
     "message": "(correspondance de texte brut n'importe où dans l'URL, ou /regex/ entre barres obliques)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Ajouter l'URL de chaque page que vous souhaitez ajouter à la liste blanche sur une nouvelle ligne. Par exemple:"
+    "message": "Ajouter l'URL de chaque page que vous souhaitez autoriser sur une nouvelle ligne. Par exemple :"
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "Pour mettre en liste blanche plusieurs sites en une ligne, vous pouvez spécifier une partie de l'url à la place:"
@@ -666,10 +666,10 @@
     "message": "Ne pas suspendre"
   },
   "js_popup_whitelisted": {
-    "message": "Site sur liste blanche."
+    "message": "Site autorisé."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Retirer de la liste blanche"
+    "message": "Retirer de la liste d'autorisation"
   },
   "js_popup_audible": {
     "message": "L'onglet est en cours de lecture audio."
@@ -776,10 +776,10 @@
     "message": "Vous êtes en mode incognito. Certaines fonctionnalités ne seront pas disponibles."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Il n'y a aucun onglet ouvert correspondant à la liste blanche actuelle."
+    "message": "Il n'y a aucun onglet ouvert correspondant à la liste d'autorisation actuelle."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Onglets ouverts sur la liste blanche:"
+    "message": "Onglets ouverts sur la liste d'autorisation :"
   },
   "js_options_always_suspend_no_matches": {
     "message": "Aucun onglet ouvert ne correspond à la liste de suspension forcée actuelle."
@@ -968,7 +968,7 @@
     "message": "Fermer"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Réveiller les onglets de la liste blanche"
+    "message": "Réveiller les onglets de la liste d'autorisation"
   },
   "html_options_list_test_btn": {
     "message": "Tester la liste"
@@ -977,7 +977,7 @@
     "message": "Suspendre maintenant les onglets correspondants"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Réveiller les onglets de la liste blanche"
+    "message": "Réveiller les onglets de la liste d'autorisation"
   },
   "html_popup_backup_now_local": {
     "message": "Sauvegarder la session maintenant (Local)"

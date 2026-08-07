@@ -489,7 +489,7 @@
     "message": "（在網址任意位置比對純文字，或使用斜線包裹的 /regex/）。"
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "在新的一列上新增要列入白名單的每個分頁的 URL。例如："
+    "message": "在新的一列中新增要允許的每個頁面的網址。例如："
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "要在一列中將多個網站列入白名單，可以指定網址的一部分："
@@ -501,7 +501,7 @@
     "message": "關閉"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "喚醒白名單中的分頁"
+    "message": "喚醒允許清單中的分頁"
   },
   "html_options_list_test_btn": {
     "message": "測試清單"
@@ -579,7 +579,7 @@
     "message": "回復所有分頁"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "喚醒白名單中的分頁"
+    "message": "喚醒允許清單中的分頁"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "凍結已選擇分頁"
@@ -792,10 +792,10 @@
     "message": "暫時不要凍結"
   },
   "js_popup_whitelisted": {
-    "message": "例外清單。"
+    "message": "已允許該網站。"
   },
   "js_popup_whitelisted_remove": {
-    "message": "從例外清單移除"
+    "message": "從允許清單中移除"
   },
   "js_popup_audible": {
     "message": "分頁正在播放聲音。"
@@ -899,10 +899,10 @@
     "message": "你目前使用隱私模式。某些功能將無法使用。"
   },
   "js_options_whitelist_no_matches": {
-    "message": "沒有與當前白名單匹配的打開選項卡。"
+    "message": "沒有與目前允許清單相符的已開啟分頁。"
   },
   "js_options_whitelist_matches_heading": {
-    "message": "這些打開的選項卡與當前白名單相匹配："
+    "message": "允許清單中已開啟的分頁："
   },
   "js_options_always_suspend_no_matches": {
     "message": "沒有開啟的分頁符合目前的強制暫停清單。"

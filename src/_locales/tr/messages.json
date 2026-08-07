@@ -489,7 +489,7 @@
     "message": "(URL içinde herhangi bir yerde düz metin eşleşmesi veya eğik çizgiler arasında /regex/)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Beyaz listeye eklemek istediğiniz her sayfanın URL'sini yeni bir satıra ekleyin. Örneğin:"
+    "message": "İzin vermek istediğiniz her sayfanın URL'sini yeni bir satıra ekleyin. Örneğin:"
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "Tek bir satırda birden fazla siteyi beyaz listeye almak için URL’nin bir bölümünü belirleyebilirsiniz:"
@@ -792,10 +792,10 @@
     "message": "Askı Duraklatıldı"
   },
   "js_popup_whitelisted": {
-    "message": "Site beyaz listede."
+    "message": "Siteye izin verildi."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Beyaz listeden kaldır"
+    "message": "İzin listesinden kaldır"
   },
   "js_popup_audible": {
     "message": "Sekme ses çalıyor."
@@ -899,10 +899,10 @@
     "message": "Gizli moddasınız. Bazı özellikler kullanılamayacak."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Mevcut beyaz listeyle eşleşen açık sekme yok."
+    "message": "Mevcut izin listesiyle eşleşen açık sekme yok."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Sekme beyaz listesi:"
+    "message": "İzin listesindeki açık sekmeler:"
   },
   "js_options_always_suspend_no_matches": {
     "message": "Geçerli her zaman askıya al listesiyle eşleşen açık sekme yok."

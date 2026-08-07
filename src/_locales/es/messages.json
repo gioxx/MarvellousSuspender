@@ -489,7 +489,7 @@
     "message": "(coincidencia de texto plano en cualquier parte de la URL, o /regex/ entre barras)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Agregue la URL de cada página que desea incluir en la lista blanca en una nueva línea. Por ejemplo:"
+    "message": "Agregue la URL de cada página que desea permitir en una nueva línea. Por ejemplo:"
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "Para incluir múltiples sitios en una línea, puede especificar parte de la url en su lugar:"
@@ -501,7 +501,7 @@
     "message": "Cerrar"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Despertar pestañas de la lista blanca"
+    "message": "Despertar pestañas de la lista de permitidos"
   },
   "html_options_list_test_btn": {
     "message": "Probar lista"
@@ -579,7 +579,7 @@
     "message": "Anular suspensión de todas las pestañas"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Despertar pestañas de la lista blanca"
+    "message": "Despertar pestañas de la lista de permitidos"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Suspender pestañas seleccionadas"
@@ -792,10 +792,10 @@
     "message": "No suspender"
   },
   "js_popup_whitelisted": {
-    "message": "Sitio incluido en la lista blanca."
+    "message": "Sitio permitido."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Eliminar de la lista blanca"
+    "message": "Eliminar de la lista de permitidos"
   },
   "js_popup_audible": {
     "message": "Tab está reproduciendo audio."
@@ -899,10 +899,10 @@
     "message": "Está en modo incógnito. Algunas características no estarán disponibles."
   },
   "js_options_whitelist_no_matches": {
-    "message": "No hay pestañas abiertas que coincidan con la lista blanca actual."
+    "message": "No hay pestañas abiertas que coincidan con la lista de permitidos actual."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Pestañas abiertas de la lista blanca:"
+    "message": "Pestañas abiertas de la lista de permitidos:"
   },
   "js_options_always_suspend_no_matches": {
     "message": "No hay pestañas abiertas que coincidan con la lista de suspensión forzada actual."

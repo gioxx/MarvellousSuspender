@@ -489,7 +489,7 @@
     "message": "(URL එකේ ඕනෑම තැනක සරල පෙළ ගැළපුම, හෝ ස්ලෑෂ් අතර /regex/)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "ඔබට නව පේළියක සුදු ලැයිස්තු කිරීමට අවශ්‍ය සෑම පිටුවකම URL එක් කරන්න. උදාහරණ වශයෙන්:"
+    "message": "ඔබට ඉඩ දිය යුතු සෑම පිටුවකම URL එක නව පේළියක එක් කරන්න. උදාහරණ වශයෙන්:"
   },
   "html_options_whitelist_tooltip_line2": {
     "message": "එක් පේළියක අඩවි කිහිපයක් සුදු ලැයිස්තු කිරීමට ඔබට ඒ වෙනුවට url හි කොටසක් සඳහන් කළ හැක:"
@@ -501,7 +501,7 @@
     "message": "වසන්න"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "සුදු ලැයිස්තු ටැබ් අවදි කරන්න"
+    "message": "ඉඩ දුන් ලැයිස්තුවේ ටැබ් අවදි කරන්න"
   },
   "html_options_list_test_btn": {
     "message": "ලැයිස්තුව පරීක්ෂා කරන්න"
@@ -579,7 +579,7 @@
     "message": "සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "සුදු ලැයිස්තු ටැබ් අවදි කරන්න"
+    "message": "ඉඩ දුන් ලැයිස්තුවේ ටැබ් අවදි කරන්න"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "තෝරාගත් ටැබ් අත්හිටුවන්න"
@@ -792,10 +792,10 @@
     "message": "අවශ්ය එපා"
   },
   "js_popup_whitelisted": {
-    "message": "වෙබ් අඩවිය සුදු ලැයිස්තුගත කර ඇත."
+    "message": "වෙබ් අඩවියට ඉඩ දී ඇත."
   },
   "js_popup_whitelisted_remove": {
-    "message": "සුදු ලැයිස්තුවෙන් ඉවත් කරන්න"
+    "message": "ඉඩ දුන් ලැයිස්තුවෙන් ඉවත් කරන්න"
   },
   "js_popup_audible": {
     "message": "ටැබ් ඕඩියෝ වාදනය වේ."
@@ -899,10 +899,10 @@
     "message": "ඔබ අප්‍රකට මාදිලියේ සිටී. සමහර විශේෂාංග ලබා ගත නොහැකි වනු ඇත."
   },
   "js_options_whitelist_no_matches": {
-    "message": "වත්මන් සුදු ලැයිස්තුවට ගැලපෙන විවෘත ටැබ් නොමැත."
+    "message": "වත්මන් ඉඩ දුන් ලැයිස්තුවට ගැලපෙන විවෘත ටැබ් නොමැත."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "සුදු ලැයිස්තුගත විවෘත ටැබ්:"
+    "message": "ඉඩ දුන් ලැයිස්තුවේ විවෘත ටැබ්:"
   },
   "js_options_always_suspend_no_matches": {
     "message": "වත්මන් සැමවිට-අත්හිටුවන ලැයිස්තුවට ගැළපෙන විවෘත ටැබ් නොමැත."

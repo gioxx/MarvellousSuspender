@@ -11,6 +11,10 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ## [9.0.2] — 2026-08-06
 
+### Changed
+- **"Whitelist" reworded to "allowlist" in user-facing strings** (all 18 `messages.json` locales): "lista bianca"/"whitelist" wording in tooltips and popup messages replaced with "elenco consentiti"/"allowlist" (and each locale's own equivalent). Internal code (the `WHITELIST` storage key, `checkWhiteList()`, HTML ids like `whitelistLbl`/`testWhitelistBtn`) intentionally left untouched — this was a user-facing copy pass only, not a rename of the underlying feature.
+- **Backup page: smaller font for the Drive account email and connection-method lines** (`backup.css`): `.driveUserEmail` (shared by both, since the connection-method line reuses that class) dropped from `--text-sm` to `--text-xs` — they're secondary detail, not the primary account/folder label.
+
 ### Added
 - **Bulk-delete Drive backups per device** (`backup.html`, `backup.js`): the "Drive backup files" list already groups files by device when a Drive account has backups from more than one machine, but there was no way to clear out one machine's files in one go — only one-by-one. Added a "Delete all" button next to each device's group heading; confirms via a modal (device name + file count) before deleting, same pattern as the existing single-file delete confirmation. Partial failures (some files fail to delete) leave the group in place with an inline error instead of silently succeeding.
 - **Test/force-suspend buttons for the "Always suspend" list** (`options.html`, `options.js`, `tgs.js`, `background.js`), mirroring the whitelist's test/wake pair: "Test list" opens the same kind of modal as the whitelist test (open tabs currently matching the list, click to jump to one), and "Suspend matching tabs now" force-suspends every open tab matching the list immediately, instead of waiting for the normal timeout — the inverse of the whitelist's "Wake whitelisted tabs".
