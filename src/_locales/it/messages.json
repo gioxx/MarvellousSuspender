@@ -3,7 +3,7 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "Fai funzionare il computer senza intoppi sospendendo le schede che non stai usando"
+    "message": "Free your memory. Suspend the tabs you don't need, right now."
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
@@ -489,22 +489,25 @@
     "message": "(corrispondenza di testo semplice in qualsiasi punto dell'URL, oppure /regex/ tra slash)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Aggiungi l'indirizzo di ogni pagina che desideri inserire nella lista bianca, uno per riga. Per esempio:"
+    "message": "Add the URL of each page you want to allow on a new line. For example:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "Per autorizzare più siti in una riga puoi invece specificare una parte dell'indirizzo:"
+    "message": "To allow multiple sites in one line you can specify part of the url instead:"
   },
   "html_options_whitelist_tooltip_line3": {
     "message": "Puoi anche usare le espressioni regolari racchiudendo il testo tra due slash:"
-  },
-  "html_options_whitelist_test": {
-    "message": "Verifica il funzionamento della lista bianca"
   },
   "html_options_whitelist_close": {
     "message": "Chiudi"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Riattiva le schede in lista bianca"
+    "message": "Wake matching tabs now"
+  },
+  "html_options_list_test_btn": {
+    "message": "Test list"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspend matching tabs now"
   },
   "html_options_other_enable_context_menu": {
     "message": "Aggiungi The Marvellous Suspender al menu contestuale del tasto destro del mouse"
@@ -576,7 +579,7 @@
     "message": "Riattiva tutte le schede"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Riattiva le schede in lista bianca"
+    "message": "Wake matching tabs now"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Sospendi le schede selezionate"
@@ -789,10 +792,10 @@
     "message": "Non sospendere"
   },
   "js_popup_whitelisted": {
-    "message": "Sito nella lista bianca."
+    "message": "Site allowed."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Rimuovi dalla lista bianca"
+    "message": "Remove from allowlist"
   },
   "js_popup_audible": {
     "message": "La scheda sta riproducendo audio."
@@ -896,10 +899,16 @@
     "message": "Sei in modalità incognito. Molte impostazioni non saranno disponibili."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Non ci sono schede aperte che corrispondono all'attuale lista bianca."
+    "message": "There are no open tabs that match the current allowlist."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Schede aperte nella lista bianca:"
+    "message": "Allowlisted open tabs:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "There are no open tabs that match the current always-suspend list."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Open tabs matching the always-suspend list:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "e"
@@ -1268,6 +1277,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Eliminare questo file di backup da Drive? L'operazione non è reversibile."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Delete all backups for this device?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "This will permanently delete all $count$ backup file(s) for \"$device$\" from Google Drive. This cannot be undone.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancel"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Some backup files could not be deleted. Try again."
   },
   "html_backup_drive_no_files": {
     "message": "Nessun file di backup trovato su Drive."
