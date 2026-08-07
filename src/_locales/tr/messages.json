@@ -3,7 +3,7 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "Kullanmadığınız sekmeleri askıya alarak bilgisayarınızın sorunsuz çalışmasını sağlayın"
+    "message": "Free your memory. Suspend the tabs you don't need, right now."
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
@@ -489,22 +489,25 @@
     "message": "(URL içinde herhangi bir yerde düz metin eşleşmesi veya eğik çizgiler arasında /regex/)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Beyaz listeye eklemek istediğiniz her sayfanın URL'sini yeni bir satıra ekleyin. Örneğin:"
+    "message": "Add the URL of each page you want to allow on a new line. For example:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "Tek bir satırda birden fazla siteyi beyaz listeye almak için URL’nin bir bölümünü belirleyebilirsiniz:"
+    "message": "To allow multiple sites in one line you can specify part of the url instead:"
   },
   "html_options_whitelist_tooltip_line3": {
     "message": "Ayrıca, slash vb. ekleyerek de düzenli ifadeler belirleyebilirsiniz:"
-  },
-  "html_options_whitelist_test": {
-    "message": "Beyaz liste test"
   },
   "html_options_whitelist_close": {
     "message": "Kapat"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "İzin listesindeki sekmeleri uyandır"
+    "message": "Wake matching tabs now"
+  },
+  "html_options_list_test_btn": {
+    "message": "Test list"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspend matching tabs now"
   },
   "html_options_other_enable_context_menu": {
     "message": "Sağ tuş menüye Marvellous Suspender için menü ekle"
@@ -576,7 +579,7 @@
     "message": "Tüm sekmelerin askısını kaldır"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "İzin listesindeki sekmeleri uyandır"
+    "message": "Wake matching tabs now"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Seçilen sekmeyi askıya al"
@@ -789,10 +792,10 @@
     "message": "Askı Duraklatıldı"
   },
   "js_popup_whitelisted": {
-    "message": "Site beyaz listede."
+    "message": "Site allowed."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Beyaz listeden kaldır"
+    "message": "Remove from allowlist"
   },
   "js_popup_audible": {
     "message": "Sekme ses çalıyor."
@@ -896,10 +899,16 @@
     "message": "Gizli moddasınız. Bazı özellikler kullanılamayacak."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Mevcut beyaz listeyle eşleşen açık sekme yok."
+    "message": "There are no open tabs that match the current allowlist."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Sekme beyaz listesi:"
+    "message": "Allowlisted open tabs:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "There are no open tabs that match the current always-suspend list."
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Open tabs matching the always-suspend list:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "ve"
@@ -1268,6 +1277,32 @@
   },
   "js_backup_drive_delete_confirm": {
     "message": "Bu yedekleme dosyası Drive'dan silinsin mi? Bu işlem geri alınamaz."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Delete all backups for this device?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "This will permanently delete all $count$ backup file(s) for \"$device$\" from Google Drive. This cannot be undone.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Delete all"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancel"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Some backup files could not be deleted. Try again."
   },
   "html_backup_drive_no_files": {
     "message": "Drive'da yedekleme dosyası bulunamadı."
