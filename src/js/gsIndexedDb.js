@@ -136,6 +136,11 @@ export const gsIndexedDb = {
     return null;
   },
 
+  clearFaviconMeta: async function() {
+    const db = await gsIndexedDb.getDb();
+    await db.clear(gsIndexedDb.DB_FAVICON_META);
+  },
+
   updateSession: async function(session) {
     try {
       const db = await gsIndexedDb.getDb();

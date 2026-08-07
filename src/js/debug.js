@@ -2,6 +2,7 @@
 import  { gsBackup }              from './gsBackup.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsFavicon }             from './gsFavicon.js';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsNewsFeed }            from './gsNewsFeed.js';
 import  { gsStorage }             from './gsStorage.js';
@@ -334,6 +335,16 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
+  // ── Favicon cache ─────────────────────────────────────────────────────────────────────────
+
+  async function onClearFaviconCache(e) {
+    e.preventDefault();
+    const link = document.getElementById('clearFaviconCache');
+    await gsIndexedDb.clearFaviconMeta();
+    link.textContent = 'cleared!';
+    setTimeout(() => { link.textContent = 'clear cache'; }, 2000);
+  }
+
   // ── Layout ─────────────────────────────────────────────────────────────────────────────────
 
   function equalizeCardHeights() {
@@ -358,6 +369,7 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('toggleCaptureLogs').addEventListener('click', onToggleCaptureLogs);
     document.getElementById('toggleDiscardInPlaceOfSuspend').addEventListener('click', onToggleDiscard);
     document.getElementById('claimSuspendedTabs').addEventListener('click', onClaimSuspendedTabs);
+    document.getElementById('clearFaviconCache').addEventListener('click', onClearFaviconCache);
     const isStoreInstall = !!chrome.runtime.getManifest().update_url;
     const feedRefreshLink = document.getElementById('forceNewsFeedRefresh');
     const simulateUnreadLink = document.getElementById('simulateUnread');
