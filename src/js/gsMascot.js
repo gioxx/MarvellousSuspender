@@ -11,6 +11,7 @@ export const gsMascot = (() => {
     'img/suspendy-guy-main.webp'         : 'img/legacy/suspendy-guy-main.webp',
     'img/suspendy-guy.webp'              : 'img/legacy/suspendy-guy.webp',
     'img/suspendy-guy-oops.webp'         : 'img/legacy/suspendy-guy-oops.webp',
+    'img/suspendy-guy-success.webp'      : 'img/legacy/suspendy-guy-alt.webp',
     'img/suspendy-guy-uh-oh.webp'        : 'img/legacy/suspendy-guy-uh-oh.webp',
     'img/ic_suspendy_16x16.webp'         : 'img/legacy/ic_suspendy_16x16.webp',
     'img/chromeDefaultFavicon.webp'      : 'img/legacy/chromeDefaultFavicon.webp',
