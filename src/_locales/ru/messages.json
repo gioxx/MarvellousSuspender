@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Отключите, чтобы избежать этого фонового запроса."
   },
+  "html_options_other_legacy_mascot": {
+    "message": "Использовать классическую графику The Great Suspender вместо нового талисмана"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Возвращает значки и иллюстрации к исходному стилю The Great"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "Suspender там, где доступна старая версия изображения."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Изображения без старого варианта используют новую графику."
+  },
   "html_permissions_notice_text": {
     "message": "Начиная с этой версии TMS запрашивает доступ к файловой системе/аккаунту Google только тогда, когда вы действительно включаете локальное резервное копирование или резервное копирование на Google Диск, а не заранее."
   },
