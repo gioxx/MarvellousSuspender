@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Bu arka plan isteğini atlamak için devre dışı bırakın."
   },
+  "html_options_other_legacy_mascot": {
+    "message": "Yeni maskot yerine klasik The Great Suspender grafiklerini kullan"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Görselin eski bir sürümü mevcut olduğunda simgeleri ve"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "çizimleri orijinal The Great Suspender stiline döndürür."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Eski karşılığı olmayan görseller yeni grafiği kullanmaya devam eder."
+  },
   "html_permissions_notice_text": {
     "message": "Bu sürümden itibaren TMS, dosya sistemi/Google hesabı erişimini önceden istemek yerine, yalnızca yerel veya Google Drive yedeklemesini gerçekten açtığınızda ister."
   },
