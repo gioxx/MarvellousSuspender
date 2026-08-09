@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Nonaktifkan untuk melewati permintaan latar belakang ini."
   },
+  "html_options_other_legacy_mascot": {
+    "message": "Gunakan gambar klasik The Great Suspender, bukan maskot baru"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Mengembalikan ikon dan ilustrasi ke gaya asli The Great Suspender,"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "jika versi lama gambar tersebut tersedia."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Gambar tanpa versi lama tetap memakai gambar baru."
+  },
   "html_permissions_notice_text": {
     "message": "Mulai versi ini, TMS hanya meminta akses filesystem/akun Google saat Anda benar-benar mengaktifkan cadangan lokal atau Google Drive, alih-alih memintanya di awal."
   },
