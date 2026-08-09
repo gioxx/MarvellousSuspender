@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "عطّله لتخطي هذا الطلب في الخلفية."
   },
+  "html_options_other_legacy_mascot": {
+    "message": "استخدم رسومات The Great Suspender الكلاسيكية بدلاً من التميمة الجديدة"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "يعيد الأيقونات والرسوم التوضيحية إلى الطراز الأصلي لـ The Great"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "Suspender حيثما تتوفر نسخة قديمة من الصورة."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "الصور التي لا تملك مكافئًا قديمًا تستمر في استخدام الرسوم الجديدة."
+  },
   "html_permissions_notice_text": {
     "message": "ابتداءً من هذا الإصدار، لا يطلب TMS الوصول إلى نظام الملفات/حساب Google إلا عند تفعيلك فعليًا للنسخ الاحتياطي المحلي أو على Google Drive، بدلاً من طلبه مسبقًا."
   },

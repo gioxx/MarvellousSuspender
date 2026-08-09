@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Deaktivieren, um diese Hintergrundanfrage zu überspringen."
   },
+  "html_options_other_legacy_mascot": {
+    "message": "Klassische The-Great-Suspender-Grafik statt des neuen Maskottchens verwenden"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Stellt Symbole und Illustrationen wieder auf den ursprünglichen The-Great-"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "Suspender-Stil um, sofern eine alte Version des Bilds verfügbar ist."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Bilder ohne altes Äquivalent verwenden weiterhin die neue Grafik."
+  },
   "html_permissions_notice_text": {
     "message": "Ab dieser Version fragt TMS nur dann nach Dateisystem-/Google-Konto-Zugriff, wenn du tatsächlich die lokale oder Google-Drive-Sicherung aktivierst, statt ihn im Voraus anzufordern."
   },

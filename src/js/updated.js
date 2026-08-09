@@ -1,13 +1,14 @@
+import  { gsMascot }              from './gsMascot.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsUtils }               from './gsUtils.js';
 
 (function() {
   'use strict';
 
-  function toggleUpdated() {
+  async function toggleUpdated() {
     document.getElementById('updating').style.display = 'none';
     document.getElementById('updated').style.display = 'block';
-    document.getElementById('suspendyGuy').src = 'img/suspendy-guy-success.webp';
+    document.getElementById('suspendyGuy').src = await gsMascot.resolvePath('img/suspendy-guy-success.webp');
   }
 
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(async () => {

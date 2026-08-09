@@ -32,6 +32,7 @@ import  { tgs }                   from './tgs.js';
     startupDone = true;
 
     tgs.resetAutoSuspendTimerForAllTabs();
+    tgs.refreshDefaultIcon();
 
     Promise.resolve()
       .then(gsStorage.initSettingsAsPromised)   // ensure settings have been loaded and synced

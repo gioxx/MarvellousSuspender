@@ -1,6 +1,7 @@
 // @ts-check
 import  { gsChrome }              from './gsChrome.js';
 import  { gsFavicon }             from './gsFavicon.js';
+import  { gsMascot }              from './gsMascot.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
@@ -618,6 +619,7 @@ export const gsUtils = {
     const locale = await gsStorage.getOption(gsStorage.LANGUAGE);
     await gsUtils.loadLocaleMessages(locale);
     gsUtils.localiseHtml(win.document);
+    await gsMascot.applyToDocument(win.document);
 
     const vEl = win.document.getElementById('headerVersion');
     if (vEl) vEl.textContent = 'v' + chrome.runtime.getManifest().version;
@@ -850,6 +852,10 @@ export const gsUtils = {
 
   performPostSaveUpdates(changedSettingKeys, oldValueBySettingKey, newValueBySettingKey) {
     // gsUtils.log('gsUtils', 'performPostSaveUpdates');
+    if (changedSettingKeys.includes(gsStorage.LEGACY_MASCOT)) {
+      tgs.refreshDefaultIcon();
+      tgs.setIconStatusForActiveTab();
+    }
     chrome.tabs.query({}, async (tabs) => {
       for (const tab of tabs) {
         if (gsUtils.isSpecialTab(tab)) {
@@ -864,6 +870,16 @@ export const gsUtils = {
           ) {
             await tgs.unsuspendTab(tab);
             continue;
+          }
+
+          // if the legacy mascot setting has changed then refresh already-suspended tabs
+          const updateMascot = changedSettingKeys.includes(gsStorage.LEGACY_MASCOT);
+          if (updateMascot) {
+            if (await gsChrome.contextGetByTabId(tab.id)) {
+              if (tab.id) {
+                chrome.tabs.sendMessage(tab.id, { action: 'updateMascot' });
+              }
+            }
           }
 
           // if theme or screenshot preferences have changed then refresh suspended tabs

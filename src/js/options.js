@@ -1,4 +1,5 @@
 import  { gsChrome }              from './gsChrome.js';
+import  { gsMascot }              from './gsMascot.js';
 import  { gsNewsFeed }            from './gsNewsFeed.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
@@ -25,6 +26,7 @@ import  { gsUtils }               from './gsUtils.js';
     syncSettings: gsStorage.SYNC_SETTINGS,
     timeToSuspend: gsStorage.SUSPEND_TIME,
     theme: gsStorage.THEME,
+    legacyMascot: gsStorage.LEGACY_MASCOT,
     language: gsStorage.LANGUAGE,
     whitelist: gsStorage.WHITELIST,
     alwaysSuspendList: gsStorage.ALWAYS_SUSPEND_LIST,
@@ -172,6 +174,9 @@ import  { gsUtils }               from './gsUtils.js';
       const [oldValue, newValue] = await saveChange(element);
       if (oldValue !== newValue) {
         const prefKey = elementPrefMap[element.id];
+        if (prefKey === gsStorage.LEGACY_MASCOT) {
+          await gsMascot.applyToDocument(document);
+        }
         gsUtils.performPostSaveUpdates(
           [prefKey],
           { [prefKey]: oldValue },

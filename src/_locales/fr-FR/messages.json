@@ -1355,6 +1355,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Désactivez pour éviter cette requête en arrière-plan."
   },
+  "html_options_other_legacy_mascot": {
+    "message": "Utiliser l'ancien style graphique de The Great Suspender au lieu de la nouvelle mascotte"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Rétablit les icônes et illustrations dans le style original de The Great"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "Suspender, lorsqu'une version ancienne de l'image est disponible."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Les images sans équivalent ancien continuent d'utiliser le nouveau style."
+  },
   "html_permissions_notice_text": {
     "message": "À partir de cette version, TMS ne demande l'accès au système de fichiers/compte Google que lorsque vous activez réellement la sauvegarde locale ou Google Drive, au lieu de le demander à l'avance."
   },

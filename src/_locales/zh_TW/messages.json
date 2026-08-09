@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "停用以略過此背景請求。"
   },
+  "html_options_other_legacy_mascot": {
+    "message": "使用經典的 The Great Suspender 圖案，而非新吉祥物"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "在提供舊版圖片的情況下，將圖示和插圖還原為原始的"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "The Great Suspender 風格。"
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "沒有舊版對應圖片的圖像將繼續使用新圖案。"
+  },
   "html_permissions_notice_text": {
     "message": "自本版本起，TMS 僅在您實際開啟本機或 Google 雲端硬碟備份時才要求檔案系統/Google 帳戶存取權，而非事先要求。"
   },

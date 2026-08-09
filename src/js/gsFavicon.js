@@ -1,5 +1,6 @@
 // @ts-check
 import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsMascot }              from './gsMascot.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 
@@ -45,11 +46,11 @@ export const gsFavicon = (() => {
     const defaultIconUrls = [
       getChromeFavIconUrl('http://chromeDefaultFavicon'),
       getChromeFavIconUrl('chromeDefaultFavicon'),
-      chrome.runtime.getURL('img/ic_suspendy_16x16.webp'),
-      chrome.runtime.getURL('img/chromeDefaultFavicon.webp'),
-      chrome.runtime.getURL('img/chromeDefaultFaviconSml.webp'),
-      chrome.runtime.getURL('img/chromeDevDefaultFavicon.webp'),
-      chrome.runtime.getURL('img/chromeDevDefaultFaviconSml.webp'),
+      await gsMascot.resolveUrl('img/ic_suspendy_16x16.webp'),
+      await gsMascot.resolveUrl('img/chromeDefaultFavicon.webp'),
+      await gsMascot.resolveUrl('img/chromeDefaultFaviconSml.webp'),
+      await gsMascot.resolveUrl('img/chromeDevDefaultFavicon.webp'),
+      await gsMascot.resolveUrl('img/chromeDevDefaultFaviconSml.webp'),
     ];
 
     const faviconPromises = [];
@@ -221,7 +222,7 @@ export const gsFavicon = (() => {
    * @returns { Promise< FavIconMeta | undefined > }
    */
   async function buildFaviconMetaFromTab(favIconUrl) {
-    if (favIconUrl && favIconUrl !== chrome.runtime.getURL('img/ic_suspendy_16x16.webp')) {
+    if (favIconUrl && favIconUrl !== (await gsMascot.resolveUrl('img/ic_suspendy_16x16.webp'))) {
       gsUtils.log('gsFavicon', 'buildFaviconMetaFromTab', favIconUrl);
       try {
         const faviconMeta = await buildFaviconMeta(favIconUrl);

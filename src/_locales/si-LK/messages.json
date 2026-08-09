@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "මෙම පසුබිම් ඉල්ලීම මඟහරින්න අක්‍රීය කරන්න."
   },
+  "html_options_other_legacy_mascot": {
+    "message": "නව රූපය වෙනුවට The Great Suspender හි සම්භාව්‍ය ග්‍රැෆික් භාවිතා කරන්න"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "පැරණි අනුවාදයක් ලද හැකි නම් නිරූපක සහ නිදර්ශන The Great Suspender"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "හි මුල් රටාවට නැවත සකසයි."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "පැරණි අනුවාදයක් නොමැති රූප නව ග්‍රැෆික් එකම දිගටම භාවිතා කරයි."
+  },
   "html_permissions_notice_text": {
     "message": "මෙම අනුවාදයේ සිට, ඔබ ස්ථානීය හෝ Google Drive උපස්ථ ඇත්තටම සක්‍රීය කළ විට පමණක් TMS ගොනු පද්ධතිය/Google ගිණුම් ප්‍රවේශය ඉල්ලයි, කලින් ඉල්ලීමට වඩා."
   },

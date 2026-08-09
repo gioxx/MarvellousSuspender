@@ -1,6 +1,7 @@
 import  { gsChrome }              from './gsChrome.js';
 import  { gsFavicon }             from './gsFavicon.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
+import  { gsMascot }              from './gsMascot.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
@@ -13,12 +14,12 @@ import  { tgs }                   from './tgs.js';
     };
   }
 
-  function showUnsuspendAnimation() {
+  async function showUnsuspendAnimation() {
     if (document.body.classList.contains('img-preview-mode')) {
       document.getElementById('refreshSpinner').classList.add('spinner');
     } else {
       document.body.classList.add('waking');
-      document.getElementById('snoozyImg').src = chrome.runtime.getURL( 'img/snoozy_tab_awake.svg', );
+      document.getElementById('snoozyImg').src = await gsMascot.resolveUrl('img/snoozy_tab_awake.svg');
       document.getElementById('snoozySpinner').classList.add('spinner');
     }
   }
@@ -31,7 +32,7 @@ import  { tgs }                   from './tgs.js';
         chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
       }
       else if (e.which === 1) {
-        showUnsuspendAnimation();
+        await showUnsuspendAnimation();
         await tgs.unsuspendTab(tab);
       }
     };
@@ -379,6 +380,12 @@ import  { tgs }                   from './tgs.js';
       case 'updateTheme' : {
         // { action: 'updateTheme', tab, theme, isLowContrastFavicon }
         setTheme(request.theme, request.isLowContrastFavicon);
+        sendResponse();
+        break;
+      }
+      case 'updateMascot' : {
+        // { action: 'updateMascot' }
+        await gsMascot.applyToDocument(document);
         sendResponse();
         break;
       }

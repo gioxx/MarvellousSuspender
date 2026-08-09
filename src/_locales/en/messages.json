@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Disable to skip this background request."
   },
+  "html_options_other_legacy_mascot": {
+    "message": "Use the classic The Great Suspender artwork instead of the new mascot"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Switches icons and illustrations back to the original The Great"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "Suspender style, where a legacy version of the image is available."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Images with no legacy equivalent keep using the new artwork."
+  },
   "html_permissions_notice_text": {
     "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
   },

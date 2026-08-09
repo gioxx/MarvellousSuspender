@@ -1,5 +1,6 @@
 // @ts-check
 import  { gsChrome }              from './gsChrome.js';
+import  { gsMascot }              from './gsMascot.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
@@ -1193,15 +1194,37 @@ export const tgs = (function() {
   }
 
   //change the icon to either active or inactive
-  function setIconStatus(status, tabId) {
+  async function setIconStatus(status, tabId) {
     // gsUtils.log(tabId, 'Setting icon status', status);
-    var path = ![gsUtils.STATUS_NORMAL, gsUtils.STATUS_ACTIVE].includes(status)
+    var basePath = ![gsUtils.STATUS_NORMAL, gsUtils.STATUS_ACTIVE].includes(status)
       ? ICON_SUSPENSION_PAUSED
       : ICON_SUSPENSION_ACTIVE;
+    var path = {};
+    for (const [size, p] of Object.entries(basePath)) {
+      path[size] = await gsMascot.resolvePath(p);
+    }
     // gsUtils.log(tabId, 'Setting icon status', path);
     chrome.action.setIcon({ path, tabId }, () => {
       if (chrome.runtime.lastError) {
         gsUtils.warning(tabId, 'tgs', 'setIconStatus', chrome.runtime.lastError);
+      }
+    });
+  }
+
+  // Updates the extension-wide default icon (i.e. the icon shown for any tab that
+  // doesn't have its own tab-specific icon set via setIconStatus above). This matters
+  // for TMS's own pages (options, about, etc.): they're "special" tabs that never go
+  // through setIconStatus, and Chrome resets a tab's icon override on navigation, so
+  // without this the toolbar icon falls back to the manifest default (always the new
+  // mascot) whenever you navigate between TMS pages while the legacy setting is on.
+  async function refreshDefaultIcon() {
+    const path = {};
+    for (const [size, p] of Object.entries(ICON_SUSPENSION_ACTIVE)) {
+      path[size] = await gsMascot.resolvePath(p);
+    }
+    chrome.action.setIcon({ path }, () => {
+      if (chrome.runtime.lastError) {
+        gsUtils.warning('tgs', 'refreshDefaultIcon', chrome.runtime.lastError);
       }
     });
   }
@@ -1453,6 +1476,7 @@ export const tgs = (function() {
     calculateTabStatus,
 
     setIconStatus,
+    refreshDefaultIcon,
     getCurrentlyActiveTab,
     openLinkInSuspendedTab,
     toggleSuspendedStateOfHighlightedTab,

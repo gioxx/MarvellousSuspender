@@ -21,6 +21,7 @@ export const gsStorage = {
   SYNC_SETTINGS                 : 'gsSyncSettings',
   NO_NAG                        : 'gsNoNag',
   THEME                         : 'gsTheme',
+  LEGACY_MASCOT                 : 'gsLegacyMascot',
   LANGUAGE                      : 'gsLanguage',
   WHITELIST                     : 'gsWhitelist',
   ALWAYS_SUSPEND_LIST           : 'gsAlwaysSuspendList',
@@ -77,6 +78,7 @@ export const gsStorage = {
     defaults[gsStorage.WHITELIST] = '';
     defaults[gsStorage.ALWAYS_SUSPEND_LIST] = '';
     defaults[gsStorage.THEME] = 'system';
+    defaults[gsStorage.LEGACY_MASCOT] = false;
     defaults[gsStorage.LANGUAGE] = 'auto';
     defaults[gsStorage.UPDATE_AVAILABLE] = false; //Set to true for debug
     defaults[gsStorage.AUTO_BACKUP_ENABLED] = false;

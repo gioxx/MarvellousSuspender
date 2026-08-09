@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Desative para pular essa solicitação em segundo plano."
   },
+  "html_options_other_legacy_mascot": {
+    "message": "Usar a arte clássica do The Great Suspender em vez do novo mascote"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Restaura ícones e ilustrações ao estilo original do The Great"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "Suspender, quando há uma versão legada da imagem disponível."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Imagens sem equivalente legado continuam usando a arte nova."
+  },
   "html_permissions_notice_text": {
     "message": "A partir desta versão, o TMS só solicita acesso ao sistema de arquivos/conta do Google quando você realmente ativa o backup local ou no Google Drive, em vez de solicitá-lo antecipadamente."
   },
