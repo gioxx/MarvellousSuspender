@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Vypnite, ak chcete preskočiť túto požiadavku na pozadí."
   },
+  "html_options_other_legacy_mascot": {
+    "message": "Použiť klasickú grafiku The Great Suspender namiesto nového maskota"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Vráti ikony a ilustrácie do pôvodného štýlu The Great Suspender"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "tam, kde je k dispozícii staršia verzia obrázka."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Obrázky bez staršieho ekvivalentu naďalej používajú novú grafiku."
+  },
   "html_permissions_notice_text": {
     "message": "Od tejto verzie si TMS vyžiada prístup k súborovému systému/účtu Google iba vtedy, keď skutočne zapnete lokálnu zálohu alebo zálohu na Disku Google, namiesto toho, aby si ho vyžiadal vopred."
   },
