@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "無効にすると、このバックグラウンドリクエストをスキップします。"
   },
+  "html_options_other_legacy_mascot": {
+    "message": "新しいマスコットの代わりに The Great Suspender のクラシックな画像を使用"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "アイコンとイラストを元の The Great Suspender のスタイルに戻します"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "(レガシー版の画像がある場合のみ)。"
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "レガシー版がない画像は引き続き新しいデザインを使用します。"
+  },
   "html_permissions_notice_text": {
     "message": "このバージョンから、TMSはローカルまたはGoogleドライブのバックアップを実際に有効にしたときにのみファイルシステム/Googleアカウントへのアクセスを要求するようになりました。事前に要求することはありません。"
   },
