@@ -497,6 +497,14 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "您還可以使用斜線包起來的文字來指定正規表示式："
   },
+  "html_options_changelog_modal_title": {
+    "message": "v$version$ 新增內容",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
   "html_options_whitelist_close": {
     "message": "關閉"
   },

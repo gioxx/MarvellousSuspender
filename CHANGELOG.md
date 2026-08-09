@@ -9,6 +9,9 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ## [Unreleased]
 
+### Added
+- **"What's new" changelog modal on the Settings page** (`gsChangelog.js`, `gsStorage.js`, `options.html`, `options.js`, `style.css`, `Gruntfile.js`, all 18 `messages.json` locales): after an update, opening Settings now shows a one-time modal with just the current version's entries from this file (not the whole history), parsed client-side with a small regex-based markdown-to-DOM renderer (no `innerHTML`, so the source can't inject markup). Shown once per version (`gsLastSeenChangelogVersion` in `chrome.storage.local`), skipped entirely on a brand-new install. `CHANGELOG.md` lives at the repo root as usual; a `src/CHANGELOG.md` symlink keeps it available for local "Load unpacked" testing, and a dedicated Grunt copy step ships a real (dereferenced) copy inside the packaged extension.
+
 ## [9.0.2] — 2026-08-06
 
 ### Added

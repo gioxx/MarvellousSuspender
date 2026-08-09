@@ -497,6 +497,14 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "Vous pouvez également spécifier des expressions régulières en mettant le texte entre des slashs:"
   },
+  "html_options_changelog_modal_title": {
+    "message": "Nouveautés de la version v$version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
   "html_options_whitelist_close": {
     "message": "Fermer"
   },

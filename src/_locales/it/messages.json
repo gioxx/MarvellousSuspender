@@ -497,6 +497,14 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "Puoi anche usare le espressioni regolari racchiudendo il testo tra due slash:"
   },
+  "html_options_changelog_modal_title": {
+    "message": "Novità della versione v$version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
   "html_options_whitelist_close": {
     "message": "Chiudi"
   },

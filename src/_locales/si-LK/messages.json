@@ -497,6 +497,14 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "ඔබට පෙළ ඉදිරියට slashs තුළට ඇතුළත් කිරීමෙන් සාමාන්‍ය ප්‍රකාශන ද නියම කළ හැක:"
   },
+  "html_options_changelog_modal_title": {
+    "message": "v$version$ හි නවතාවයන්",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
   "html_options_whitelist_close": {
     "message": "වසන්න"
   },
