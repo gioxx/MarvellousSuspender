@@ -1030,6 +1030,18 @@
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "禁用以跳过此后台请求。"
   },
+  "html_options_other_legacy_mascot": {
+    "message": "使用经典的 The Great Suspender 图案，而非新吉祥物"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "在提供旧版图片的情况下，将图标和插图恢复为最初的"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "The Great Suspender 风格。"
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "没有旧版对应图片的图像将继续使用新图案。"
+  },
   "html_permissions_notice_text": {
     "message": "从此版本开始，TMS 仅在您实际开启本地或 Google 云端硬盘备份时才请求文件系统/Google 账号访问权限，而不是提前请求。"
   },
