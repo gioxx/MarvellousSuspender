@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Seçilen sekmenin askısını kaldır"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Aktif sekmenin grubundaki tüm sekmeleri askıya al"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Aktif sekmenin grubundaki tüm sekmelerin askısını kaldır"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Aktif pencere dışında tüm sekmeleri askıya al"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Seçilen sekmenin askısını kaldır"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Bu gruptaki tüm sekmeleri askıya al"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Bu gruptaki tüm sekmelerin askısını kaldır"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Bu pencere dışındaki tüm sekmeleri askıya al"

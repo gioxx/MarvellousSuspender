@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "إلغاء تعليق علامات التبويب المحددة"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "تعليق جميع علامات التبويب في مجموعة علامة التبويب النشطة"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "إلغاء تعليق جميع علامات التبويب في مجموعة علامة التبويب النشطة"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "تعليق جميع علامات التبويب الأخرى في النافذة النشطة"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "إلغاء تعليق علامات التبويب المحددة"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "تعليق جميع علامات التبويب في هذه المجموعة"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "إلغاء تعليق جميع علامات التبويب في هذه المجموعة"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "تعليق جميع علامات التبويب الأخرى في النافذة النشطة"

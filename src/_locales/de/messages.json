@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Ausgewählte Tabs aufwachen"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Alle Tabs in der Gruppe des aktiven Tabs aussetzen"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Alle Tabs in der Gruppe des aktiven Tabs aufwachen"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Alle anderen Tabs im aktiven Fenster aussetzen"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Ausgewählte Tabs aufwachen"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Alle Tabs in dieser Gruppe aussetzen"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Alle Tabs in dieser Gruppe aufwachen"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Alle anderen Tabs in diesem Fenster aussetzen"

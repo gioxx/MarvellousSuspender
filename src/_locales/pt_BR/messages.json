@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Recarregar guias selecionadas"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Suspender todas as guias no grupo da guia ativa"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Recarregar todas as guias no grupo da guia ativa"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todas as outras guias na janela ativa"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Recarregar as guias selecionadas"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Suspender todas as guias neste grupo"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Recarregar todas as guias neste grupo"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas as outras guias nessa janela"

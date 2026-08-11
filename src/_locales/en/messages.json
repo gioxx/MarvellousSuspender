@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Unsuspend selected tabs"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Suspend all tabs in the active tab's group"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Unsuspend all tabs in the active tab's group"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspend all other tabs in active window"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Unsuspend selected tabs"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Suspend all tabs in this group"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Unsuspend all tabs in this group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspend all other tabs in this window"
