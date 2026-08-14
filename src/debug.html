@@ -57,65 +57,56 @@
           </p>
         </div>
 
-        <div class="debugOptionCard">
-          <div class="debugOptionCardHeader">
-            <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
-            <span class="debugOptionLabel">claim suspended tabs</span>
+      </div>
+
+      <div class="debugCompactList">
+
+        <div class="debugCompactRow">
+          <svg class="debugCompactIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
+          <span class="debugCompactLabel">claim suspended tabs</span>
+          <span class="debugCompactHint">Re-assigns suspended tabs from another extension ID to this instance.</span>
+          <div class="debugCompactActions">
             <a id='claimSuspendedTabs' href='#' class="debugToggle">run claim</a>
           </div>
-          <p class="debugOptionDesc">
-            Re-assigns suspended tabs that point to a different extension ID to this instance.
-            Use after reinstalling or reloading the unpacked extension if suspended tabs show a broken page.
-          </p>
         </div>
 
-        <div class="debugOptionCard">
-          <div class="debugOptionCardHeader">
-            <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
-            <span class="debugOptionLabel">favicon cache</span>
+        <div class="debugCompactRow">
+          <svg class="debugCompactIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
+          <span class="debugCompactLabel">favicon cache</span>
+          <span class="debugCompactHint">Wipes cached favicons; rebuilt from Chrome's cache on next suspend.</span>
+          <div class="debugCompactActions">
             <a id='clearFaviconCache' href='#' class="debugToggle">clear cache</a>
           </div>
-          <p class="debugOptionDesc">
-            Wipes every cached favicon (<code>gsFaviconMeta</code> in IndexedDB). Favicons are rebuilt from Chrome's own cache the next time each tab is suspended.
-            Use if a suspended tab keeps showing a stale or wrong icon after the site's own favicon has changed.
-          </p>
         </div>
 
-        <div class="debugOptionCard">
-          <div class="debugOptionCardHeader">
-            <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
-            <span class="debugOptionLabel">changelog modal</span>
+        <div class="debugCompactRow">
+          <svg class="debugCompactIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
+          <span class="debugCompactLabel">changelog modal</span>
+          <span class="debugCompactHint">Clears the "already shown" marker so Settings shows it again.</span>
+          <div class="debugCompactActions">
             <a id='resetChangelogSeen' href='#' class="debugToggle">reset "seen" flag</a>
           </div>
-          <p class="debugOptionDesc">
-            Clears the "already shown" marker for the current version's changelog modal on the Settings page.
-            Reopen Settings afterwards to see it again — useful for testing without bumping the manifest version.
-          </p>
         </div>
 
-        <div class="debugOptionCard">
-          <div class="debugOptionCardHeader">
-            <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#rss"/></svg>
-            <span class="debugOptionLabel">news feed</span>
+        <div class="debugCompactRow">
+          <svg class="debugCompactIcon" aria-hidden="true"><use href="img/icons.svg#rss"/></svg>
+          <span class="debugCompactLabel">news feed</span>
+          <span class="debugCompactHint">
+            Last: <strong id="newsFeedLastFetch">-</strong> &middot; unread: <strong id="newsFeedUnread">-</strong> &middot; next: <strong id="newsFeedNextRun">-</strong> &middot; jitter: <strong id="newsFeedJitter">-</strong>
+          </span>
+          <div class="debugCompactActions">
             <a id='forceNewsFeedRefresh' href='#' class="debugToggle">force refresh</a>
             <span class="debugToggleSep reallyHidden" aria-hidden="true">·</span>
             <a id='simulateUnread' href='#' class="debugToggle reallyHidden">simulate unread</a>
           </div>
-          <p class="debugOptionDesc">
-            Forces an immediate RSS fetch, bypassing the 24 h TTL cache.
-            Use to verify that newly published posts are picked up without waiting for the next scheduled refresh.<br>
-            Last fetched: <strong id="newsFeedLastFetch">-</strong> &middot; unread: <strong id="newsFeedUnread">-</strong> &middot; next run: <strong id="newsFeedNextRun">-</strong> &middot; jitter: <strong id="newsFeedJitter">-</strong>
-          </p>
         </div>
 
-        <div class="debugOptionCard">
-          <div class="debugOptionCardHeader">
-            <svg class="debugOptionIcon" aria-hidden="true"><use href="img/icons.svg#shield-check"/></svg>
-            <span class="debugOptionLabel">backup device identity</span>
-          </div>
-          <p class="debugOptionDesc">
-            Device ID: <strong id="backupDeviceId" class="debugMono">-</strong> &middot; name: <strong id="backupDeviceNameDebug">-</strong>
-          </p>
+        <div class="debugCompactRow">
+          <svg class="debugCompactIcon" aria-hidden="true"><use href="img/icons.svg#shield-check"/></svg>
+          <span class="debugCompactLabel">backup device</span>
+          <span class="debugCompactHint">
+            ID: <strong id="backupDeviceId" class="debugMono">-</strong> &middot; name: <strong id="backupDeviceNameDebug">-</strong>
+          </span>
         </div>
 
       </div>

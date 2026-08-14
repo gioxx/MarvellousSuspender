@@ -355,15 +355,6 @@ import  { tgs }                   from './tgs.js';
     setTimeout(() => { link.textContent = 'reset "seen" flag'; }, 2000);
   }
 
-  // ── Layout ─────────────────────────────────────────────────────────────────────────────────
-
-  function equalizeCardHeights() {
-    const cards = document.querySelectorAll('.debugOptionCard');
-    cards.forEach(c => { c.style.height = ''; });
-    const maxH = Math.max(...Array.from(cards).map(c => c.offsetHeight));
-    cards.forEach(c => { c.style.height = maxH + 'px'; });
-  }
-
   // ── Init ───────────────────────────────────────────────────────────────────────────────────
 
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(async function() {
@@ -372,7 +363,6 @@ import  { tgs }                   from './tgs.js';
     await renderDiscardToggle();
     await renderNewsFeedStatus();
     await renderBackupDeviceInfo();
-    equalizeCardHeights();
     await refreshLogs();
     await fetchTabInfo();
 
