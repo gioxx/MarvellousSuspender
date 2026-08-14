@@ -106,7 +106,28 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-string-replace');
   grunt.loadNpmTasks('grunt-crx');
   grunt.loadNpmTasks('grunt-contrib-clean');
+
+  // Guards against shipping a build where the Drive OAuth client secret was never set up
+  // locally (file is gitignored, see src/js/gsOauthSecrets.js) — without this the PKCE
+  // fallback for Brave/Vivaldi (#437) would silently break in the published extension.
+  grunt.registerTask('checkOauthSecrets', function() {
+    const path = 'src/js/gsOauthSecrets.js';
+    if (!grunt.file.exists(path)) {
+      grunt.fail.fatal(
+        `\n\n${path} is missing (it's gitignored, not committed).\n` +
+        'The build would ship without the Drive OAuth client secret and the PKCE fallback ' +
+        '(Brave/Vivaldi, #437) would break at runtime.\n' +
+        `Run: cp src/js/gsOauthSecrets.example.js ${path}  and fill in the real secret ` +
+        'from the "Desktop app" OAuth client in Google Cloud Console.\n',
+      );
+    }
+    if (!/PKCE_CLIENT_SECRET\s*=\s*['"]GOCSPX-/.test(grunt.file.read(path))) {
+      grunt.fail.fatal(`\n\n${path} does not contain a real-looking PKCE_CLIENT_SECRET. Aborting build.\n`);
+    }
+  });
+
   grunt.registerTask('default', [
+    'checkOauthSecrets',
     'copy',
     'string-replace:debugoff',
     'crx:public',
@@ -114,6 +135,7 @@ module.exports = function(grunt) {
     'clean',
   ]);
   grunt.registerTask('tgut', [
+    'checkOauthSecrets',
     'copy',
     'string-replace:debugon',
     'string-replace:localesTgut',

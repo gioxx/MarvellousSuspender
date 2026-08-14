@@ -13,3 +13,4 @@ tmp
 /docs
 /test
 .dev-notes/
+src/js/gsOauthSecrets.js
