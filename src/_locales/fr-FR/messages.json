@@ -964,6 +964,14 @@
   "html_options_suspend_theme_system": {
     "message": "Système"
   },
+  "html_options_changelog_modal_title": {
+    "message": "Nouveautés de la version v$version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
   "html_options_whitelist_close": {
     "message": "Fermer"
   },

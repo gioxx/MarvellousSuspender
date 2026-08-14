@@ -805,6 +805,45 @@ a.btn.btnNeg:hover {
   background-color: var(--accent);
 }
 
+/* ── Changelog modal ─────────────────────────────────────────────────────── */
+
+#changelogModal .modalDialog {
+  max-width: 560px;
+}
+
+#changelogModalBody {
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: var(--space-2);
+}
+
+#changelogModalBody h3 {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+#changelogModalBody h3:first-child {
+  margin-top: 0;
+}
+
+#changelogModalBody ul {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+#changelogModalBody li {
+  margin-bottom: var(--space-2);
+}
+
+#changelogModalBody code {
+  font-size: 0.9em;
+  background: var(--accent);
+  padding: 0 0.3em;
+  border-radius: var(--radius-sm);
+}
+
 .btnDisabled,
 .btnDisabled:hover {
   background-color: var(--muted);

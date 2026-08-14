@@ -497,6 +497,14 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "You can also specify regular expressions by enclosing the text in forward slashes:"
   },
+  "html_options_changelog_modal_title": {
+    "message": "What's new in v$version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
   "html_options_whitelist_close": {
     "message": "Close"
   },
@@ -1066,7 +1074,11 @@
   },
   "js_options_backup_last_local": {
     "message": "Last backup: $date$",
-    "placeholders": { "date": { "content": "$1" } }
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
   },
   "html_options_backup_destination": {
     "message": "Backup destination"
@@ -1177,11 +1189,19 @@
   },
   "js_backup_settings_drive_last_backup": {
     "message": "Last backup: $date$",
-    "placeholders": { "date": { "content": "$1" } }
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
   },
   "js_backup_settings_drive_overwrite_confirm": {
     "message": "Existing settings backup from $date$. Overwrite?",
-    "placeholders": { "date": { "content": "$1" } }
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
   },
   "html_options_settings_export": {
     "message": "Export settings"
@@ -1227,7 +1247,11 @@
   },
   "js_backup_restore_success": {
     "message": "Imported as \"$name$\".",
-    "placeholders": { "name": { "content": "$1" } }
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
   },
   "js_backup_restore_go_sessions": {
     "message": "→ Open Sessions to restore"

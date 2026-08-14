@@ -497,6 +497,14 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "يمكنك أيضا تحديد التعبيرات العادية عن طريق إرفاق النص في الخطوط الأمامية:"
   },
+  "html_options_changelog_modal_title": {
+    "message": "الجديد في الإصدار v$version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
   "html_options_whitelist_close": {
     "message": "إغلاق"
   },

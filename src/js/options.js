@@ -1,3 +1,4 @@
+import  { gsChangelog }           from './gsChangelog.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsMascot }              from './gsMascot.js';
 import  { gsNewsFeed }            from './gsNewsFeed.js';
@@ -62,11 +63,47 @@ import  { gsUtils }               from './gsUtils.js';
       setSyncNoteVisibility(!settings[gsStorage.SYNC_SETTINGS]);
 
       const searchParams = new URL(location.href).searchParams;
-      if (searchParams.has('firstTime')) {
+      const isFirstTime = searchParams.has('firstTime');
+      if (isFirstTime) {
         document
           .querySelector('.welcome-message')
           .classList.remove('reallyHidden');
         document.querySelector('#options-heading').classList.add('reallyHidden');
+      }
+
+      maybeShowChangelogModal(isFirstTime);
+    });
+  }
+
+  // Shows the current version's changelog once per version, in a dismissible modal.
+  // Skipped on a brand-new install (nothing to announce yet).
+  async function maybeShowChangelogModal(isFirstTime) {
+    const curVersion = chrome.runtime.getManifest().version;
+    if (isFirstTime) {
+      gsStorage.setLastSeenChangelogVersion(curVersion);
+      return;
+    }
+
+    const lastSeenVersion = await gsStorage.fetchLastSeenChangelogVersion();
+    if (lastSeenVersion === curVersion) return;
+
+    const modal = document.getElementById('changelogModal');
+    const title = document.getElementById('changelogModalTitle');
+    const body  = document.getElementById('changelogModalBody');
+
+    const found = await gsChangelog.renderVersionChangelog(body, curVersion);
+    gsStorage.setLastSeenChangelogVersion(curVersion);
+    if (!found) return;
+
+    title.textContent = chrome.i18n.getMessage('html_options_changelog_modal_title', [curVersion]);
+    modal.classList.remove('hidden');
+
+    document.getElementById('changelogModalClose').onclick = () => {
+      modal.classList.add('hidden');
+    };
+    modal.addEventListener('click', (event) => {
+      if (event.target.id === 'changelogModal') {
+        modal.classList.add('hidden');
       }
     });
   }

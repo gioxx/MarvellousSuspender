@@ -24,8 +24,9 @@
 
 .debugOptionsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-4);
+  margin-bottom: var(--space-4);
 }
 
 .debugOptionCard {
@@ -87,6 +88,60 @@
   font-family: var(--font-mono);
   align-self: flex-start;
   margin-top: auto;
+}
+
+.debugCompactList {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.debugCompactRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.debugCompactRow:last-child {
+  border-bottom: none;
+}
+
+.debugCompactIcon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: var(--foreground);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.debugCompactLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--foreground);
+  flex-shrink: 0;
+  min-width: 12em;
+}
+
+.debugCompactHint {
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+  flex: 1;
+  min-width: 16em;
+}
+
+.debugCompactActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 /* ── Log buffer ──────────────────────────────────────────────────────────── */

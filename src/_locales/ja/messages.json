@@ -497,6 +497,14 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "テキストをスラッシュで囲むことで正規表現を指定することもできます:"
   },
+  "html_options_changelog_modal_title": {
+    "message": "v$version$ の新機能",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
   "html_options_whitelist_close": {
     "message": "閉じる"
   },

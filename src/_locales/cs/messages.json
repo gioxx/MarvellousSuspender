@@ -497,6 +497,14 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "Můžete také zadat regulární výrazy uzavřením textu do lomítek:"
   },
+  "html_options_changelog_modal_title": {
+    "message": "Novinky ve verzi v$version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
   "html_options_whitelist_close": {
     "message": "Zavřít"
   },

@@ -497,6 +497,14 @@
   "html_options_whitelist_tooltip_line3": {
     "message": "Anda juga dapat menentukan ekspresi reguler dengan melampirkan teks dalam garis miring:"
   },
+  "html_options_changelog_modal_title": {
+    "message": "Yang baru di v$version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
   "html_options_whitelist_close": {
     "message": "Tutup"
   },

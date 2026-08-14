@@ -44,6 +44,7 @@ export const gsStorage = {
   APP_VERSION                   : 'gsVersion',
   LAST_EXTENSION_RECOVERY       : 'gsExtensionRecovery',
   UPDATE_AVAILABLE              : 'gsUpdateAvailable',
+  LAST_SEEN_CHANGELOG_VERSION   : 'gsLastSeenChangelogVersion',
 
   DEFAULT_FAVICON_FINGERPRINTS  : 'gsDefaultFaviconFingerprints',
 
@@ -401,6 +402,26 @@ export const gsStorage = {
         gsUtils.error(
           'gsStorage',
           'failed to save ' + gsStorage.APP_VERSION + ' to local storage',
+          chrome.runtime.lastError
+        );
+      }
+    });
+  },
+
+  fetchLastSeenChangelogVersion: function() {
+    return new Promise((resolve) => {
+      chrome.storage.local.get([gsStorage.LAST_SEEN_CHANGELOG_VERSION], (result) => {
+        resolve(result[gsStorage.LAST_SEEN_CHANGELOG_VERSION] || '');
+      });
+    });
+  },
+
+  setLastSeenChangelogVersion: function(newVersion) {
+    chrome.storage.local.set({ [gsStorage.LAST_SEEN_CHANGELOG_VERSION]: newVersion }, () => {
+      if (chrome.runtime.lastError) {
+        gsUtils.error(
+          'gsStorage',
+          'failed to save ' + gsStorage.LAST_SEEN_CHANGELOG_VERSION + ' to local storage',
           chrome.runtime.lastError
         );
       }

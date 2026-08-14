@@ -345,13 +345,14 @@ import  { tgs }                   from './tgs.js';
     setTimeout(() => { link.textContent = 'clear cache'; }, 2000);
   }
 
-  // ── Layout ─────────────────────────────────────────────────────────────────────────────────
+  // ── Changelog modal ───────────────────────────────────────────────────────────────────────
 
-  function equalizeCardHeights() {
-    const cards = document.querySelectorAll('.debugOptionCard');
-    cards.forEach(c => { c.style.height = ''; });
-    const maxH = Math.max(...Array.from(cards).map(c => c.offsetHeight));
-    cards.forEach(c => { c.style.height = maxH + 'px'; });
+  async function onResetChangelogSeen(e) {
+    e.preventDefault();
+    const link = document.getElementById('resetChangelogSeen');
+    await chrome.storage.local.remove([gsStorage.LAST_SEEN_CHANGELOG_VERSION]);
+    link.textContent = 'reset!';
+    setTimeout(() => { link.textContent = 'reset "seen" flag'; }, 2000);
   }
 
   // ── Init ───────────────────────────────────────────────────────────────────────────────────
@@ -362,7 +363,6 @@ import  { tgs }                   from './tgs.js';
     await renderDiscardToggle();
     await renderNewsFeedStatus();
     await renderBackupDeviceInfo();
-    equalizeCardHeights();
     await refreshLogs();
     await fetchTabInfo();
 
@@ -370,6 +370,7 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('toggleDiscardInPlaceOfSuspend').addEventListener('click', onToggleDiscard);
     document.getElementById('claimSuspendedTabs').addEventListener('click', onClaimSuspendedTabs);
     document.getElementById('clearFaviconCache').addEventListener('click', onClearFaviconCache);
+    document.getElementById('resetChangelogSeen').addEventListener('click', onResetChangelogSeen);
     const isStoreInstall = !!chrome.runtime.getManifest().update_url;
     const feedRefreshLink = document.getElementById('forceNewsFeedRefresh');
     const simulateUnreadLink = document.getElementById('simulateUnread');
