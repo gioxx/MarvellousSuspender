@@ -498,7 +498,7 @@
     "message": "Puoi anche usare le espressioni regolari racchiudendo il testo tra due slash:"
   },
   "html_options_changelog_modal_title": {
-    "message": "Novità della versione v$version$",
+    "message": "What's new in v$version$",
     "placeholders": {
       "version": {
         "content": "$1"
