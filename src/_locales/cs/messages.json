@@ -498,7 +498,7 @@
     "message": "Můžete také zadat regulární výrazy uzavřením textu do lomítek:"
   },
   "html_options_changelog_modal_title": {
-    "message": "Novinky ve verzi v$version$",
+    "message": "What's new in v$version$",
     "placeholders": {
       "version": {
         "content": "$1"
