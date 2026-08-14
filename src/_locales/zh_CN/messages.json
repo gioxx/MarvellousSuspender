@@ -498,7 +498,7 @@
     "message": "您还可以通过正则表达式将 URL 添加白名单:"
   },
   "html_options_changelog_modal_title": {
-    "message": "v$version$ 新增内容",
+    "message": "What's new in v$version$",
     "placeholders": {
       "version": {
         "content": "$1"
