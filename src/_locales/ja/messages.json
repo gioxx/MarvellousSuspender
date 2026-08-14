@@ -498,7 +498,7 @@
     "message": "テキストをスラッシュで囲むことで正規表現を指定することもできます:"
   },
   "html_options_changelog_modal_title": {
-    "message": "v$version$ の新機能",
+    "message": "What's new in v$version$",
     "placeholders": {
       "version": {
         "content": "$1"
