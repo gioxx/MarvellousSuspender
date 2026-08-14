@@ -9,6 +9,9 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ## [Unreleased]
 
+### Fixed
+- **Legacy mascot artwork used the raw original TGS assets instead of TMS's own modified versions** (`img/legacy/`): the "Use the classic The Great Suspender artwork" option (added in 9.0.2) had every `img/legacy/` asset sourced from plain upstream The Great Suspender artwork rather than TMS 8.1.6's own re-branded set (the Marvellous "M" badge on the mascot's chest, TMS's reworked `snoozy_tab`/`snoozy_tab_awake` illustrations, etc.) — most visible on the SVGs, where the wrong ~2.6 KB "_original" TGS file had been used instead of TMS's ~32 KB reworked one. Re-sourced every asset from TMS 8.1.6 (`chromeDefaultFavicon(Sml)`, `chromeDevDefaultFavicon(Sml)`, `ic_suspendy_*`, `suspendy-guy*`, `snoozy_tab*`): toolbar/action PNG icons copied as-is, illustrations re-converted to WebP (`cwebp -q 90 -m 6`), SVGs copied as-is. No code changes — `gsMascot.js`'s mapping was already correct, only the asset content was wrong.
+
 ## [9.0.2] — 2026-08-06
 
 ### Added
