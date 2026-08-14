@@ -498,7 +498,7 @@
     "message": "Anda juga dapat menentukan ekspresi reguler dengan melampirkan teks dalam garis miring:"
   },
   "html_options_changelog_modal_title": {
-    "message": "Yang baru di v$version$",
+    "message": "What's new in v$version$",
     "placeholders": {
       "version": {
         "content": "$1"
