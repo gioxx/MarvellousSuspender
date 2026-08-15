@@ -232,11 +232,19 @@ export const gsBackup = (() => {
   const TOKEN_EXPIRY_SAFETY_MARGIN_MS = 60 * 1000;
   const OAUTH_TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
 
-  // "Desktop app" OAuth client (#437), distinct from both the "Chrome App" client_id in
-  // manifest.json's oauth2 block (getAuthToken()) and the old "Web application" client (#420).
+  // "Web application" OAuth client (#420), reused for the PKCE fallback (#437) — distinct
+  // from the "Chrome App" client_id in manifest.json's oauth2 block (getAuthToken()).
+  // Reused (not a new dedicated client) because it's the only client type where Google lets
+  // you register an arbitrary https redirect URI: a "Desktop app" client was tried first but
+  // rejected chrome.identity.getRedirectURL()'s https://<ext-id>.chromiumapp.org/ redirect
+  // with redirect_uri_mismatch (verified against the live authorize endpoint — Desktop-app
+  // clients only accept loopback/urn:ietf redirects, not arbitrary https domains). Reusing
+  // this client_id only changes which registered app performs the OAuth dance; the grant type
+  // is still authorization_code + PKCE + refresh_token here, never the old implicit
+  // response_type=token flow that caused the original disconnect bug.
   // Registered redirect URI: https://noogafoofpebimajpfpamcfhoaifemoa.chromiumapp.org/
   // Client secret lives in gsOauthSecrets.js (gitignored, see that file for why).
-  const PKCE_CLIENT_ID = '630779328171-mm3csgqkhfgf2ngarfs057o3rgu84blk.apps.googleusercontent.com';
+  const PKCE_CLIENT_ID = '630779328171-mge0g9vebmq4pkihhi6gqs9a2agpu07e.apps.googleusercontent.com';
 
   async function isLikelyBrokenChromeIdentity() {
     // Brave's own chrome.identity.getAuthToken() implementation opens a native,

@@ -118,7 +118,7 @@ module.exports = function(grunt) {
         'The build would ship without the Drive OAuth client secret and the PKCE fallback ' +
         '(Brave/Vivaldi, #437) would break at runtime.\n' +
         `Run: cp src/js/gsOauthSecrets.example.js ${path}  and fill in the real secret ` +
-        'from the "Desktop app" OAuth client in Google Cloud Console.\n',
+        'from the "Web application" OAuth client in Google Cloud Console.\n',
       );
     }
     if (!/PKCE_CLIENT_SECRET\s*=\s*['"]GOCSPX-/.test(grunt.file.read(path))) {
