@@ -1,7 +1,8 @@
-import { gsIndexedDb } from './gsIndexedDb.js';
-import { gsSession }   from './gsSession.js';
-import { gsStorage }   from './gsStorage.js';
-import { gsUtils }     from './gsUtils.js';
+import { gsIndexedDb }      from './gsIndexedDb.js';
+import { gsSession }        from './gsSession.js';
+import { gsStorage }        from './gsStorage.js';
+import { gsUtils }          from './gsUtils.js';
+import { PKCE_CLIENT_SECRET } from './gsOauthSecrets.js';
 
 'use strict';
 
@@ -210,19 +211,40 @@ export const gsBackup = (() => {
   // installs where it already works), and chrome.identity.launchWebAuthFlow() is only
   // used as a fallback, the first time it succeeds for an install it's remembered so
   // future calls skip straight to it instead of re-probing a method already known to fail.
-  // launchWebAuthFlow requires the OAuth client in Google Cloud Console to be of type
-  // "Web application" with https://<extension-id>.chromiumapp.org/ registered as an
-  // authorized redirect URI (the "Chrome App" client type getAuthToken needs does not
-  // support this flow) — a second, separate OAuth client from the one getAuthToken uses.
+  //
+  // The fallback (#437) uses an authorization-code + PKCE exchange, not the implicit
+  // (response_type=token) flow: a plain access token from launchWebAuthFlow only lives
+  // ~1h and renewing it silently means re-running launchWebAuthFlow with prompt=none,
+  // which depends on the browser's ambient Google session for that tab — unreliable on
+  // Brave/Vivaldi and the reported cause of accounts flipping to "disconnected" after
+  // 1-2 backups. PKCE gets a long-lived refresh_token once (interactive, one time only),
+  // stored in chrome.storage.local; every renewal after that is a direct POST to
+  // oauth2.googleapis.com/token — no tab, no cookies, no browser-specific behaviour.
+  // Needs its own OAuth client in Google Cloud Console, type "Desktop app" (installed-app
+  // clients are treated as public per RFC 8252, so embedding the issued secret is expected
+  // and not a confidentiality requirement the way a "Web application" secret would be).
+  // Distinct from both the "Chrome App" client getAuthToken() uses and the old implicit-flow
+  // "Web application" client (#420, now unused, kept registered for rollback only).
 
   const AUTH_METHOD_KEY  = 'gsDriveAuthMethod';
   const AUTH_SESSION_KEY = 'tmsDriveAuthSession';
+  const AUTH_REFRESH_KEY = 'tmsDriveRefreshToken';
   const TOKEN_EXPIRY_SAFETY_MARGIN_MS = 60 * 1000;
+  const OAUTH_TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
 
-  // Separate "Web application" OAuth client (#420), distinct from the "Chrome App"
-  // client_id in manifest.json's oauth2 block (that one stays reserved for getAuthToken()).
+  // "Web application" OAuth client (#420), reused for the PKCE fallback (#437) — distinct
+  // from the "Chrome App" client_id in manifest.json's oauth2 block (getAuthToken()).
+  // Reused (not a new dedicated client) because it's the only client type where Google lets
+  // you register an arbitrary https redirect URI: a "Desktop app" client was tried first but
+  // rejected chrome.identity.getRedirectURL()'s https://<ext-id>.chromiumapp.org/ redirect
+  // with redirect_uri_mismatch (verified against the live authorize endpoint — Desktop-app
+  // clients only accept loopback/urn:ietf redirects, not arbitrary https domains). Reusing
+  // this client_id only changes which registered app performs the OAuth dance; the grant type
+  // is still authorization_code + PKCE + refresh_token here, never the old implicit
+  // response_type=token flow that caused the original disconnect bug.
   // Registered redirect URI: https://noogafoofpebimajpfpamcfhoaifemoa.chromiumapp.org/
-  const WEBAUTHFLOW_CLIENT_ID = '630779328171-mge0g9vebmq4pkihhi6gqs9a2agpu07e.apps.googleusercontent.com';
+  // Client secret lives in gsOauthSecrets.js (gitignored, see that file for why).
+  const PKCE_CLIENT_ID = '630779328171-mge0g9vebmq4pkihhi6gqs9a2agpu07e.apps.googleusercontent.com';
 
   async function isLikelyBrokenChromeIdentity() {
     // Brave's own chrome.identity.getAuthToken() implementation opens a native,
@@ -250,10 +272,6 @@ export const gsBackup = (() => {
 
   async function setAuthMethod(method) {
     await chrome.storage.local.set({ [AUTH_METHOD_KEY]: method });
-  }
-
-  function getOAuthClientId() {
-    return WEBAUTHFLOW_CLIENT_ID;
   }
 
   function getOAuthScope() {
@@ -304,38 +322,116 @@ export const gsBackup = (() => {
     return Promise.race([attempt, timeout]);
   }
 
-  function launchWebAuthFlowAsPromised(interactive) {
-    const redirectUri = chrome.identity.getRedirectURL();
-    const authUrl      = new URL('https://accounts.google.com/o/oauth2/v2/auth');
-    authUrl.searchParams.set('client_id',     getOAuthClientId());
-    authUrl.searchParams.set('response_type', 'token');
-    authUrl.searchParams.set('redirect_uri',  redirectUri);
-    authUrl.searchParams.set('scope',         getOAuthScope());
-    authUrl.searchParams.set('prompt',        interactive ? 'consent' : 'none');
+  function base64UrlEncode(bytes) {
+    let str = '';
+    for (const b of bytes) str += String.fromCharCode(b);
+    return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
 
-    return new Promise((resolve, reject) => {
+  function generateCodeVerifier() {
+    const bytes = new Uint8Array(32);
+    crypto.getRandomValues(bytes);
+    return base64UrlEncode(bytes);
+  }
+
+  async function generateCodeChallenge(verifier) {
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier));
+    return base64UrlEncode(new Uint8Array(digest));
+  }
+
+  async function exchangeTokenEndpoint(params) {
+    const res = await fetch(OAUTH_TOKEN_ENDPOINT, {
+      method : 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body   : new URLSearchParams(params),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      const err = new Error(`OAuth token endpoint error: ${data.error || res.status}`);
+      err.status = res.status;
+      throw err;
+    }
+    const session = {
+      accessToken: data.access_token,
+      expiresAt  : Date.now() + (data.expires_in || 3600) * 1000,
+    };
+    await setCachedAuthSession(session);
+    if (data.refresh_token) {
+      await chrome.storage.local.set({ [AUTH_REFRESH_KEY]: data.refresh_token });
+    }
+    return session.accessToken;
+  }
+
+  // Only ever called interactive:true — this opens a real tab for the user to consent,
+  // then trades the returned code for tokens via a direct server call (exchangeTokenEndpoint).
+  async function authorizeViaPkce() {
+    const redirectUri = chrome.identity.getRedirectURL();
+    const verifier     = generateCodeVerifier();
+    const challenge    = await generateCodeChallenge(verifier);
+
+    const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+    authUrl.searchParams.set('client_id',             PKCE_CLIENT_ID);
+    authUrl.searchParams.set('response_type',         'code');
+    authUrl.searchParams.set('redirect_uri',          redirectUri);
+    authUrl.searchParams.set('scope',                 getOAuthScope());
+    authUrl.searchParams.set('access_type',           'offline');
+    authUrl.searchParams.set('prompt',                'consent');
+    authUrl.searchParams.set('code_challenge',        challenge);
+    authUrl.searchParams.set('code_challenge_method', 'S256');
+
+    const redirectUrl = await new Promise((resolve, reject) => {
       chrome.identity.launchWebAuthFlow(
-        { url: authUrl.href, interactive },
-        (redirectUrl) => {
-          if (chrome.runtime.lastError || !redirectUrl) {
+        { url: authUrl.href, interactive: true },
+        (url) => {
+          if (chrome.runtime.lastError || !url) {
             reject(chrome.runtime.lastError || new Error('No redirect URL returned'));
-            return;
+          } else {
+            resolve(url);
           }
-          const responseParams = new URLSearchParams(new URL(redirectUrl).hash.slice(1));
-          if (responseParams.has('error')) {
-            reject(new Error(`OAuth error: ${ responseParams.get('error') }`));
-            return;
-          }
-          const accessToken = responseParams.get('access_token');
-          const expiresIn   = parseInt(responseParams.get('expires_in'), 10) || 3600;
-          if (!accessToken) {
-            reject(new Error('No access_token in OAuth redirect'));
-            return;
-          }
-          resolve({ accessToken, expiresAt: Date.now() + expiresIn * 1000 });
         },
       );
     });
+
+    const responseParams = new URL(redirectUrl).searchParams;
+    if (responseParams.has('error')) {
+      throw new Error(`OAuth error: ${ responseParams.get('error') }`);
+    }
+    const code = responseParams.get('code');
+    if (!code) throw new Error('No authorization code in OAuth redirect');
+
+    return exchangeTokenEndpoint({
+      client_id    : PKCE_CLIENT_ID,
+      client_secret: PKCE_CLIENT_SECRET,
+      code,
+      code_verifier: verifier,
+      grant_type   : 'authorization_code',
+      redirect_uri : redirectUri,
+    });
+  }
+
+  // No tab, no cookies — a plain POST using the refresh_token minted once by authorizeViaPkce,
+  // so it renews the same way on every browser regardless of ambient Google-session state.
+  async function refreshAccessToken() {
+    const r = await chrome.storage.local.get([AUTH_REFRESH_KEY]);
+    const refreshToken = r[AUTH_REFRESH_KEY];
+    if (!refreshToken) throw new Error('No refresh token stored');
+
+    try {
+      return await exchangeTokenEndpoint({
+        client_id    : PKCE_CLIENT_ID,
+        client_secret: PKCE_CLIENT_SECRET,
+        refresh_token: refreshToken,
+        grant_type   : 'refresh_token',
+      });
+    } catch (e) {
+      // 400/401 here means the refresh_token itself is dead (revoked from the Google account,
+      // expired from inactivity) — drop it so the next call falls through to a fresh
+      // interactive authorization instead of retrying a token that will never work again.
+      if (e.status === 400 || e.status === 401) {
+        await chrome.storage.local.remove([AUTH_REFRESH_KEY]);
+      }
+      throw e;
+    }
   }
 
   async function getAuthTokenViaWebAuthFlow(interactive) {
@@ -344,20 +440,13 @@ export const gsBackup = (() => {
       return cached.accessToken;
     }
 
-    // Try a silent (non-interactive) refresh first, even when the caller asked for an
-    // interactive flow, so an already-consented user isn't prompted again just because
-    // their token expired.
     try {
-      const session = await launchWebAuthFlowAsPromised(false);
-      await setCachedAuthSession(session);
-      return session.accessToken;
-    } catch (silentError) {
-      if (!interactive) throw silentError;
+      return await refreshAccessToken();
+    } catch (refreshError) {
+      if (!interactive) throw refreshError;
     }
 
-    const session = await launchWebAuthFlowAsPromised(true);
-    await setCachedAuthSession(session);
-    return session.accessToken;
+    return authorizeViaPkce();
   }
 
   async function getAuthToken(interactive = false) {
@@ -386,10 +475,12 @@ export const gsBackup = (() => {
     const method = await getAuthMethod();
     try {
       if (method === 'webauthflow') {
+        const r = await chrome.storage.local.get([AUTH_REFRESH_KEY]);
         const cached = await getCachedAuthSession();
-        const token = cached ? cached.accessToken : await getAuthTokenViaWebAuthFlow(false);
-        await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
+        const token = r[AUTH_REFRESH_KEY] || (cached ? cached.accessToken : null);
+        if (token) await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
         await clearCachedAuthSession();
+        await chrome.storage.local.remove([AUTH_REFRESH_KEY]);
       } else {
         const token = await getAuthTokenViaChromeIdentity(false);
         await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
@@ -404,6 +495,7 @@ export const gsBackup = (() => {
     } catch (e) {
       gsUtils.log('gsBackup', 'revokeAuthToken: nothing to revoke or already expired.', e?.message);
       await clearCachedAuthSession();
+      await chrome.storage.local.remove([AUTH_REFRESH_KEY]);
     }
   }
 

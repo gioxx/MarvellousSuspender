@@ -19,6 +19,28 @@ const _LOG_BUFFER_MAX = 500;
 const _logBuffer = [];
 let   _flushTimer = null;
 
+// MV3 kills the service worker after ~30s idle, wiping this in-memory array. Without
+// reloading what was already persisted, the next flush would overwrite storage with
+// only the handful of entries logged since the restart, silently truncating history
+// on every restart instead of actually keeping the last 500 entries.
+let _bufferReadyPromise = null;
+function _ensureBufferLoaded() {
+  if (_bufferReadyPromise) return _bufferReadyPromise;
+  _bufferReadyPromise = (async () => {
+    if (typeof chrome === 'undefined' || !chrome.storage) return;
+    try {
+      const result = await chrome.storage.local.get([_LOG_BUFFER_KEY]);
+      const stored = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
+      _logBuffer.unshift(...stored);
+      if (_logBuffer.length > _LOG_BUFFER_MAX) {
+        _logBuffer.splice(0, _logBuffer.length - _LOG_BUFFER_MAX);
+      }
+    } catch { /* corrupt persisted buffer, start fresh */ }
+  })();
+  return _bufferReadyPromise;
+}
+_ensureBufferLoaded();
+
 // Cheap djb2-style hash so two favicons of similar length still show up as distinct in
 // the log (a bare length like "[data URL, 812 chars]" can't tell "same icon" from
 // "different icon, same size"), without hashing the full multi-KB string char-by-char.
@@ -63,9 +85,14 @@ function _appendEntry(level, src, parts) {
 
 function _flushNow() {
   if (_flushTimer) { clearTimeout(_flushTimer); _flushTimer = null; }
-  if (typeof chrome !== 'undefined' && chrome.storage) {
-    chrome.storage.local.set({ [_LOG_BUFFER_KEY]: JSON.stringify(_logBuffer) });
-  }
+  // Wait for the historical buffer to be merged in first, otherwise a flush that races
+  // ahead of _ensureBufferLoaded() would persist only the entries logged so far this
+  // session and clobber everything from before the restart.
+  _ensureBufferLoaded().then(() => {
+    if (typeof chrome !== 'undefined' && chrome.storage) {
+      chrome.storage.local.set({ [_LOG_BUFFER_KEY]: JSON.stringify(_logBuffer) });
+    }
+  });
 }
 
 function _scheduleFlush() {
@@ -162,9 +189,10 @@ export const gsUtils = {
         gsUtils.getPrintableError(errorMessage, stackTrace, ...args),
       );
     }
-    // Always buffer errors regardless of flags
-    _appendEntry('E', id, [errorMessage, ...args]);
-    _flushNow();
+    if (gsUtils.captureLogs) {
+      _appendEntry('E', id, [errorMessage, ...args]);
+      _flushNow();
+    }
   },
   // Puts all the error args into a single printable string so that all the info is displayed in the error console
   getPrintableError(errorMessage, stackTrace, ...args) {

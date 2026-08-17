@@ -165,7 +165,7 @@ import  { tgs }                   from './tgs.js';
     const counter = document.getElementById('logCount');
     counter.textContent = buffer.length;
     if (buffer.length === 0) {
-      output.innerHTML = '<div class="logEmpty">No entries. Errors are always captured automatically. Enable <strong>captureLogs</strong> above to also capture warnings and verbose logs, then reproduce the issue.</div>';
+      output.innerHTML = '<div class="logEmpty">No entries. Enable <strong>captureLogs</strong> above, then reproduce the issue to capture logs, warnings and errors.</div>';
     } else {
       output.innerHTML = buffer.map(renderLogEntry).join('');
       output.scrollTop = output.scrollHeight;
