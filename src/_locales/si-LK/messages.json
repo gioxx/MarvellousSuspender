@@ -383,6 +383,9 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "ටැබ් එක බලන විට ස්වයංක්‍රීයව අත්හිටුවීම ඉවත් කරන්න"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "නැවත පූරණය කිරීම පසුබිම් ටැබ් වල අත්හිටුවීම ද ඉවත් කරයි (ක්‍රියාකාරී ටැබ් එක පමණක් නොව)"
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "අත්හිටුවීමේදී බ්‍රවුසරයේ අන්තර්ගත මතක ඉතිරි කිරීම යොදන්න"
   },

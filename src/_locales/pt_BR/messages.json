@@ -383,6 +383,9 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "Recarregar automaticamente quando a guia for visualizada"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Recarregar também reativa as guias em segundo plano (não apenas a guia ativa)"
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar a economia de memória integrada do navegador ao suspender"
   },

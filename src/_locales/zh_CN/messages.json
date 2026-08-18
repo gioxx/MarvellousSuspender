@@ -383,6 +383,9 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "当标签页被浏览就自动恢复标签页"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "重新加载也会恢复后台标签页(不仅仅是活动标签页)"
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "挂起时应用浏览器内置的内存节省功能"
   },

@@ -8,6 +8,7 @@ export const gsStorage = {
   SCREEN_CAPTURE_FORCE          : 'screenCaptureForce',
   SUSPEND_IN_PLACE_OF_DISCARD   : 'suspendInPlaceOfDiscard',
   UNSUSPEND_ON_FOCUS            : 'gsUnsuspendOnFocus',
+  RELOAD_UNSUSPEND_BACKGROUND   : 'gsReloadUnsuspendBackground',
   SUSPEND_TIME                  : 'gsTimeToSuspend',
   IGNORE_WHEN_OFFLINE           : 'onlineCheck',
   IGNORE_WHEN_CHARGING          : 'batteryCheck',
@@ -67,6 +68,7 @@ export const gsStorage = {
     defaults[gsStorage.IGNORE_WHEN_CHARGING] = false;
     defaults[gsStorage.CLAIM_BY_DEFAULT] = false;
     defaults[gsStorage.UNSUSPEND_ON_FOCUS] = false;
+    defaults[gsStorage.RELOAD_UNSUSPEND_BACKGROUND] = false;
     defaults[gsStorage.IGNORE_PINNED] = true;
     defaults[gsStorage.IGNORE_FORMS] = true;
     defaults[gsStorage.IGNORE_AUDIO] = true;

@@ -383,6 +383,9 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "當分頁被瀏覽就自動回復分頁"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "重新載入也會恢復背景分頁(不僅僅是使用中的分頁)"
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "暫停時套用瀏覽器內建的省記憶體功能"
   },

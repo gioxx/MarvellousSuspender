@@ -220,7 +220,8 @@ import  { tgs }                   from './tgs.js';
     // if the tab is closed, the reload will never occur
     addEventListener('beforeunload', async (event) => {
       gsUtils.log(tab.id, 'BeforeUnload triggered', tab.url, await tgs.getTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL));
-      if (await tgs.isCurrentFocusedTab(tab)) {
+      const reloadUnsuspendBackground = await gsStorage.getOption(gsStorage.RELOAD_UNSUSPEND_BACKGROUND);
+      if (reloadUnsuspendBackground || await tgs.isCurrentFocusedTab(tab)) {
         await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL, tab.url);
       }
       else {

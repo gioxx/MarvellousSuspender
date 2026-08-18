@@ -383,6 +383,9 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automatiquement annuler la suspension de l'onglet lorsqu'il est vu"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Le rechargement annule aussi la suspension des onglets en arrière-plan (pas seulement l'onglet actif)"
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Appliquer l'économie de mémoire intégrée du navigateur lors de la suspension"
   },

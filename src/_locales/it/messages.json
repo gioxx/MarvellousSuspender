@@ -383,6 +383,9 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "Riattiva automaticamente la scheda quando viene visualizzata"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Il ricaricamento riattiva anche le schede in background (non solo quella attiva)"
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Applica il risparmio di memoria integrato del browser durante la sospensione"
   },

@@ -383,6 +383,9 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "إلغاء تعليق علامة التبويب تلقائياً عند عرضها"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "إعادة التحميل تلغي تعليق علامات التبويب في الخلفية أيضاً (وليس فقط علامة التبويب النشطة)"
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "تطبيق توفير الذاكرة المدمج في المتصفح عند التعليق"
   },
