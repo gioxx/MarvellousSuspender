@@ -289,6 +289,15 @@ import  { tgs }                   from './tgs.js';
     setFaviconMeta(faviconMeta);
 
     if (quickInit) {
+      // quickInit skips the heavy setup below (preview, unsuspend click handlers, etc.)
+      // for tabs about to be discarded anyway, but that also means it never registers
+      // the beforeunload listener the "reload also unsuspends background tabs" option
+      // depends on — a background tab suspended with "Discard after suspend" on always
+      // takes this path, silently defeating that option regardless of its own state.
+      const reloadUnsuspendBackground = await gsStorage.getOption(gsStorage.RELOAD_UNSUSPEND_BACKGROUND);
+      if (reloadUnsuspendBackground) {
+        await setUnloadTabHandler(tab);
+      }
       return;
     }
 
