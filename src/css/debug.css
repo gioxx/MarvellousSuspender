@@ -13,6 +13,13 @@
   margin-bottom: var(--space-6);
 }
 
+.debugPageTitle {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0 0 var(--space-6);
+}
+
 .debugSectionTitle {
   font-size: var(--text-sm);
   font-weight: 700;
