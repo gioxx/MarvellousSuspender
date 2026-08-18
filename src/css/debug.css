@@ -15,10 +15,10 @@
 
 .debugPageTitle {
   font-family: var(--font-mono);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--primary);
   margin: 0 0 var(--space-6);
   display: flex;
