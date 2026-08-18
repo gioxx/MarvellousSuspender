@@ -14,10 +14,25 @@
 }
 
 .debugPageTitle {
-  font-size: var(--text-xl);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
   font-weight: 700;
-  color: var(--foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary);
   margin: 0 0 var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.debugPageTitle::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--primary);
+  flex-shrink: 0;
 }
 
 .debugSectionTitle {
