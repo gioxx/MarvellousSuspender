@@ -405,7 +405,12 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('btnRefreshLogs').addEventListener('click', refreshLogs);
 
     document.getElementById('btnClearLog').addEventListener('click', async () => {
-      await chrome.storage.local.remove([gsStorage.LOG_BUFFER, gsStorage.LOG_BUFFER_FULL]);
+      // Routed through the service worker (rather than clearing chrome.storage
+      // directly from here) so its own in-memory _logBuffer/_logBufferFull get
+      // cleared too — otherwise the next log entry, or an already-pending debounced
+      // flush over there, would write those still-populated arrays back over the
+      // storage this page just cleared.
+      await chrome.runtime.sendMessage({ action: 'clearLogs' }).catch(() => {});
       await refreshLogs();
     });
 
