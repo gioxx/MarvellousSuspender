@@ -146,6 +146,19 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
+  // Report/copy pull from the larger rotating buffer, not the 500-entry one the live
+  // view renders — on a heavy profile (hundreds of tabs), background auto-suspend/
+  // discard noise alone can evict the 500-entry window in a couple of minutes, well
+  // before a reporter gets to actually download it.
+  async function readLogBufferFull() {
+    const result = await chrome.storage.local.get([gsStorage.LOG_BUFFER_FULL]);
+    try {
+      return JSON.parse(result[gsStorage.LOG_BUFFER_FULL] || '[]');
+    } catch {
+      return [];
+    }
+  }
+
   function levelLabel(level) {
     if (level === 'E') return '<span class="logLevel logLevel-E">ERR</span>';
     if (level === 'W') return '<span class="logLevel logLevel-W">WRN</span>';
@@ -160,10 +173,12 @@ import  { tgs }                   from './tgs.js';
   }
 
   async function refreshLogs() {
-    const buffer  = await readLogBuffer();
-    const output  = document.getElementById('logOutput');
-    const counter = document.getElementById('logCount');
+    const [buffer, bufferFull] = await Promise.all([readLogBuffer(), readLogBufferFull()]);
+    const output     = document.getElementById('logOutput');
+    const counter    = document.getElementById('logCount');
+    const counterFull = document.getElementById('logCountFull');
     counter.textContent = buffer.length;
+    counterFull.textContent = bufferFull.length;
     if (buffer.length === 0) {
       output.innerHTML = '<div class="logEmpty">No entries. Enable <strong>captureLogs</strong> above, then reproduce the issue to capture logs, warnings and errors.</div>';
     } else {
@@ -174,9 +189,12 @@ import  { tgs }                   from './tgs.js';
 
   // ── Report generation ───────────────────────────────────────────────────────
 
-  async function buildReport() {
+  // full=true (Download) pulls the large rotating buffer for a complete history;
+  // full=false (Copy) sticks to the 500-entry live buffer — nobody pastes a 10,000-line
+  // clipboard payload anywhere useful, so Copy stays cheap and matches what's on screen.
+  async function buildReport(full) {
     const manifest = chrome.runtime.getManifest();
-    const buffer   = await readLogBuffer();
+    const buffer   = full ? await readLogBufferFull() : await readLogBuffer();
     const tabs     = await gsChrome.tabsQuery();
     const tabGroupsMap = await gsChrome.tabGroupsMap();
 
@@ -387,12 +405,12 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('btnRefreshLogs').addEventListener('click', refreshLogs);
 
     document.getElementById('btnClearLog').addEventListener('click', async () => {
-      await chrome.storage.local.remove([gsStorage.LOG_BUFFER]);
+      await chrome.storage.local.remove([gsStorage.LOG_BUFFER, gsStorage.LOG_BUFFER_FULL]);
       await refreshLogs();
     });
 
     document.getElementById('btnCopyReport').addEventListener('click', async () => {
-      const report = await buildReport();
+      const report = await buildReport(false);
       await navigator.clipboard.writeText(report);
       const btn = document.getElementById('btnCopyReport');
       const prev = btn.textContent;
@@ -401,7 +419,7 @@ import  { tgs }                   from './tgs.js';
     });
 
     document.getElementById('btnDownloadReport').addEventListener('click', async () => {
-      const report = await buildReport();
+      const report = await buildReport(true);
       const blob   = new Blob([report], { type: 'text/plain' });
       const url    = URL.createObjectURL(blob);
       const a      = document.createElement('a');

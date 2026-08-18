@@ -17,23 +17,36 @@ let _localeMessages = null;
 const _LOG_BUFFER_KEY = 'gsLogBuffer';
 const _LOG_BUFFER_MAX = 500;
 const _logBuffer = [];
+// Separate, much larger ring buffer feeding only the downloadable/copyable report.
+// The 500-entry _logBuffer above is what the debug page's live view renders; on a
+// noisy profile (dozens of background tabs auto-suspending/discarding) that window
+// alone is often only a minute or two, evicting whatever a reporter was actually
+// trying to capture before they get to the download button.
+const _LOG_BUFFER_FULL_KEY = 'gsLogBufferFull';
+const _LOG_BUFFER_FULL_MAX = 10000;
+const _logBufferFull = [];
 let   _flushTimer = null;
 
-// MV3 kills the service worker after ~30s idle, wiping this in-memory array. Without
+// MV3 kills the service worker after ~30s idle, wiping these in-memory arrays. Without
 // reloading what was already persisted, the next flush would overwrite storage with
 // only the handful of entries logged since the restart, silently truncating history
-// on every restart instead of actually keeping the last 500 entries.
+// on every restart instead of actually keeping the last N entries.
 let _bufferReadyPromise = null;
 function _ensureBufferLoaded() {
   if (_bufferReadyPromise) return _bufferReadyPromise;
   _bufferReadyPromise = (async () => {
     if (typeof chrome === 'undefined' || !chrome.storage) return;
     try {
-      const result = await chrome.storage.local.get([_LOG_BUFFER_KEY]);
+      const result = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
       const stored = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
       _logBuffer.unshift(...stored);
       if (_logBuffer.length > _LOG_BUFFER_MAX) {
         _logBuffer.splice(0, _logBuffer.length - _LOG_BUFFER_MAX);
+      }
+      const storedFull = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
+      _logBufferFull.unshift(...storedFull);
+      if (_logBufferFull.length > _LOG_BUFFER_FULL_MAX) {
+        _logBufferFull.splice(0, _logBufferFull.length - _LOG_BUFFER_FULL_MAX);
       }
     } catch { /* corrupt persisted buffer, start fresh */ }
   })();
@@ -74,13 +87,16 @@ function _serialize(v) {
 }
 
 function _appendEntry(level, src, parts) {
-  _logBuffer.push({
+  const entry = {
     ts    : new Date().toISOString(),
     level,
     src   : String(src),
     msg   : parts.map(_serialize).join(' '),
-  });
+  };
+  _logBuffer.push(entry);
   if (_logBuffer.length > _LOG_BUFFER_MAX) _logBuffer.shift();
+  _logBufferFull.push(entry);
+  if (_logBufferFull.length > _LOG_BUFFER_FULL_MAX) _logBufferFull.shift();
 }
 
 function _flushNow() {
@@ -90,7 +106,10 @@ function _flushNow() {
   // session and clobber everything from before the restart.
   _ensureBufferLoaded().then(() => {
     if (typeof chrome !== 'undefined' && chrome.storage) {
-      chrome.storage.local.set({ [_LOG_BUFFER_KEY]: JSON.stringify(_logBuffer) });
+      chrome.storage.local.set({
+        [_LOG_BUFFER_KEY]     : JSON.stringify(_logBuffer),
+        [_LOG_BUFFER_FULL_KEY]: JSON.stringify(_logBufferFull),
+      });
     }
   });
 }
@@ -240,10 +259,15 @@ export const gsUtils = {
     return _logBuffer.slice();
   },
 
+  getLogBufferFull() {
+    return _logBufferFull.slice();
+  },
+
   clearLogBuffer() {
     _logBuffer.length = 0;
+    _logBufferFull.length = 0;
     if (typeof chrome !== 'undefined' && chrome.storage) {
-      chrome.storage.local.remove([_LOG_BUFFER_KEY]);
+      chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
     }
   },
 
