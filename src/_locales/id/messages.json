@@ -386,6 +386,21 @@
   "html_options_suspend_reload_unsuspend_background": {
     "message": "Memuat ulang juga membatalkan penangguhan tab di latar belakang (bukan hanya tab aktif)"
   },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Jika diaktifkan, memuat ulang tab yang ditangguhkan (Ctrl+R"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "atau klik kanan > Muat ulang) juga membatalkan penangguhannya"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "meskipun bukan tab yang sedang aktif."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Berguna untuk memuat ulang beberapa tab tertunda sekaligus,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "misalnya setelah memilih beberapa tab lalu menekan Ctrl+R."
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Terapkan penghematan memori bawaan browser saat menangguhkan"
   },

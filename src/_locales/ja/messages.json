@@ -386,6 +386,21 @@
   "html_options_suspend_reload_unsuspend_background": {
     "message": "再読み込みでバックグラウンドのタブも再開します(アクティブなタブだけでなく)"
   },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "有効にすると、サスペンド中のタブを再読み込み(Ctrl+R または"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "右クリック > 再読み込み)すると、現在アクティブなタブで"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "なくても再開します。"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "複数のサスペンド中のタブをまとめて再読み込みする場合に便利です"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "(例: 複数のタブを選択して Ctrl+R を押す)。"
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "停止時にブラウザ内蔵のメモリ節約機能を適用する"
   },

@@ -386,6 +386,21 @@
   "html_options_suspend_reload_unsuspend_background": {
     "message": "重新載入也會恢復背景分頁(不僅僅是使用中的分頁)"
   },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "啟用後,重新載入已暫停的分頁(Ctrl+R 或右鍵"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "選單中的「重新載入」)會將其恢復,即使它不是"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "目前使用中的分頁。"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "適合一次重新載入多個已暫停的分頁,例如選取多個"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "分頁後按下 Ctrl+R。"
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "暫停時套用瀏覽器內建的省記憶體功能"
   },

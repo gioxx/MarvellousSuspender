@@ -386,6 +386,21 @@
   "html_options_suspend_reload_unsuspend_background": {
     "message": "إعادة التحميل تلغي تعليق علامات التبويب في الخلفية أيضاً (وليس فقط علامة التبويب النشطة)"
   },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "عند التفعيل، إعادة تحميل علامة تبويب معلّقة (Ctrl+R أو النقر"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "بزر الفأرة الأيمن ثم إعادة التحميل) تلغي تعليقها حتى لو لم"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "تكن علامة التبويب النشطة حالياً."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "مفيد لإعادة تحميل عدة علامات تبويب معلّقة دفعة واحدة، مثلاً"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "بعد تحديد عدة علامات تبويب والضغط على Ctrl+R."
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "تطبيق توفير الذاكرة المدمج في المتصفح عند التعليق"
   },

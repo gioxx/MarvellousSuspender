@@ -386,6 +386,21 @@
   "html_options_suspend_reload_unsuspend_background": {
     "message": "Obnovení stránky obnoví i karty na pozadí (nejen aktivní kartu)"
   },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Po zapnutí obnovení pozastavené karty (Ctrl+R nebo pravé"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "tlačítko > Obnovit) kartu probudí, i když právě není"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "aktivní."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Užitečné při obnovování více pozastavených karet najednou,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "např. po výběru více karet a stisknutí Ctrl+R."
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Při pozastavení použít vestavěnou úsporu paměti prohlížeče"
   },

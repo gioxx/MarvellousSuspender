@@ -386,6 +386,21 @@
   "html_options_suspend_reload_unsuspend_background": {
     "message": "重新加载也会恢复后台标签页(不仅仅是活动标签页)"
   },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "启用后,重新加载已挂起的标签页(Ctrl+R 或右键"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "菜单中的“重新加载”)会将其恢复,即使它不是"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "当前活动的标签页。"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "适合一次性重新加载多个已挂起的标签页,例如选中"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "多个标签页后按 Ctrl+R。"
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "挂起时应用浏览器内置的内存节省功能"
   },
