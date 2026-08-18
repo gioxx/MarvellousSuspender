@@ -770,13 +770,31 @@ export const tgs = (function() {
     // const tabView = getInternalViewByTabId(tab.id);
     const discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
     const quickInit = discardAfterSuspend && !tab.active;
-    chrome.tabs.sendMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() })
+    const payload = { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() };
+    sendInitTabMessageWithRetry(tab.id, payload)
       .catch((error) => {
         gsUtils.warning(tab.id, 'tgs', 'initialiseSuspendedTab', error);
       })
       .then(() => {
         gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 3000);
       });
+  }
+
+  // This message reaches suspended.html's own page script (not a content script), sent
+  // right after the tab's status turns 'complete' — but that page's module script (and
+  // therefore its chrome.runtime.onMessage listener) can still be a beat behind that
+  // status flip, especially with many suspended tabs loading in the same burst (e.g.
+  // browser startup with dozens of tabs). A single failed send here previously left the
+  // page's initTab() never called at all — no title, no favicon, page never shown —
+  // until gsTabCheckManager's own recovery pass got to it, which could take well over
+  // 10s under load or get lost entirely if a queued check's setTimeout didn't survive
+  // a service worker recycle in between. A few short retries closes that window cheaply.
+  function sendInitTabMessageWithRetry(tabId, payload, retriesLeft = 3, delayMs = 150) {
+    return chrome.tabs.sendMessage(tabId, payload).catch((error) => {
+      if (retriesLeft <= 0) throw error;
+      return new Promise((resolve) => setTimeout(resolve, delayMs))
+        .then(() => sendInitTabMessageWithRetry(tabId, payload, retriesLeft - 1, delayMs));
+    });
   }
 
   async function removeTabIdReferences(tabId) {
