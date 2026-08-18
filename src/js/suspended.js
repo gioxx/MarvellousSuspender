@@ -211,7 +211,20 @@ import  { tgs }                   from './tgs.js';
     setGoToUpdateHandler();
   }
 
+  let _unloadHandlerRegistered = false;
+
   async function setUnloadTabHandler(tab) {
+    // initTab() re-runs (without quickInit) whenever checkQueue reinitialises an
+    // unresponsive suspended tab, which would otherwise call this again and stack a
+    // second beforeunload listener carrying its own captured `tab` snapshot. Both
+    // listeners would then race to write STATE_UNLOADED_URL on the actual unload,
+    // non-deterministically, since each write is an async storage call — whichever
+    // resolves last wins, independent of which snapshot is actually correct. Only
+    // the first registration is needed: the suspended.html URL itself never changes
+    // for the lifetime of a suspended tab, so the first capture stays valid.
+    if (_unloadHandlerRegistered) return;
+    _unloadHandlerRegistered = true;
+
     // beforeunload event will get fired if: the tab is refreshed, the url is changed,
     // the tab is closed, or the tab is frozen by chrome ??
     // when this happens the STATE_UNLOADED_URL gets set with the suspended tab url
