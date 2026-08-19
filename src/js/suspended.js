@@ -420,9 +420,19 @@ import  { tgs }                   from './tgs.js';
     return true;
   }
 
+  // Registered as soon as the DOM is ready, decoupled from the full localisation chain
+  // below (locale storage read, possible locale-file fetch, mascot/theme application) —
+  // that chain has no fixed upper bound, especially with dozens of suspended pages
+  // initialising concurrently (e.g. browser startup), and tgs.js's initTab message can
+  // arrive as soon as this tab's status flips to 'complete'. Registering the listener
+  // early instead of waiting on that whole chain closes the race at the source, rather
+  // than relying on tgs.js retrying a fixed number of times against an unbounded wait.
+  gsUtils.documentReadyAsPromised(window.document).then(() => {
+    chrome.runtime.onMessage.addListener(messageRequestListener);
+  });
+
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(function() {
     gsUtils.log('suspended', 'documentReadyAndLocalisedAsPromised');
-    chrome.runtime.onMessage.addListener(messageRequestListener);
     // initSettings();
   });
 
