@@ -139,6 +139,7 @@ import  { tgs }                   from './tgs.js';
   async function messageRequestListener(request, sender, sendResponse) {
     gsUtils.log('background', 'messageRequestListener', request.action, request, sender);
 
+    let responseData;
     switch (request.action) {
       case 'reportTabState' : {
         const contentScriptStatus = request?.status ?? null;
@@ -228,12 +229,16 @@ import  { tgs }                   from './tgs.js';
         gsUtils.captureLogs = request.value;
         break;
       }
+      case 'repairFavicons' : {
+        responseData = await gsSession.performTabChecks();
+        break;
+      }
       default: {
         gsUtils.warning('background', 'messageRequestListener', `Unknown message action: ${request.action}`);
         break;
       }
     }
-    sendResponse();
+    sendResponse(responseData);
     return false;
   }
 
