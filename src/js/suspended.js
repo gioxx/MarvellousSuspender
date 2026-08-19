@@ -179,6 +179,11 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
+  function updateMascotContrast() {
+    const isDark = document.body.classList.contains('dark');
+    document.querySelector('.snoozyWrapper').classList.toggle('mascotLowContrast', isDark);
+  }
+
   function setTheme(theme, isLowContrastFavicon) {
     gsUtils.setPageTheme(window, theme);
     if (theme === 'dark' && isLowContrastFavicon) {
@@ -186,6 +191,7 @@ import  { tgs }                   from './tgs.js';
     } else {
       document.getElementById('faviconWrap').classList.remove('faviconWrapLowContrast');
     }
+    updateMascotContrast();
   }
 
   function setTitle(title) {
@@ -386,6 +392,7 @@ import  { tgs }                   from './tgs.js';
       case 'updateMascot' : {
         // { action: 'updateMascot' }
         await gsMascot.applyToDocument(document);
+        updateMascotContrast();
         sendResponse();
         break;
       }
