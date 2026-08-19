@@ -865,7 +865,7 @@ export const gsBackup = (() => {
       url            : dataUrl,
       filename,
       saveAs         : false,
-      conflictAction : 'overwrite',
+      conflictAction : 'uniquify',
     });
   }
 
