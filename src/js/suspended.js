@@ -179,20 +179,19 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  async function updateMascotContrast() {
+  function updateMascotContrast() {
     const isDark = document.body.classList.contains('dark');
-    const legacyEnabled = await gsMascot.isLegacyEnabled();
-    document.querySelector('.snoozyWrapper').classList.toggle('mascotLowContrast', isDark && legacyEnabled);
+    document.querySelector('.snoozyWrapper').classList.toggle('mascotLowContrast', isDark);
   }
 
-  async function setTheme(theme, isLowContrastFavicon) {
+  function setTheme(theme, isLowContrastFavicon) {
     gsUtils.setPageTheme(window, theme);
     if (theme === 'dark' && isLowContrastFavicon) {
       document.getElementById('faviconWrap').classList.add('faviconWrapLowContrast');
     } else {
       document.getElementById('faviconWrap').classList.remove('faviconWrapLowContrast');
     }
-    await updateMascotContrast();
+    updateMascotContrast();
   }
 
   function setTitle(title) {
@@ -300,7 +299,7 @@ import  { tgs }                   from './tgs.js';
     // Set theme
     const theme = options[gsStorage.THEME];
     const isLowContrastFavicon = faviconMeta.isDark;
-    await setTheme(theme, isLowContrastFavicon);
+    setTheme(theme, isLowContrastFavicon);
 
     // Set url
     setUrl(originalUrl);
@@ -386,14 +385,14 @@ import  { tgs }                   from './tgs.js';
       }
       case 'updateTheme' : {
         // { action: 'updateTheme', tab, theme, isLowContrastFavicon }
-        await setTheme(request.theme, request.isLowContrastFavicon);
+        setTheme(request.theme, request.isLowContrastFavicon);
         sendResponse();
         break;
       }
       case 'updateMascot' : {
         // { action: 'updateMascot' }
         await gsMascot.applyToDocument(document);
-        await updateMascotContrast();
+        updateMascotContrast();
         sendResponse();
         break;
       }
