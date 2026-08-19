@@ -16,6 +16,11 @@ export const gsTabQueue = (function() {
       const DEFAULT_PROCESSING_DELAY = 500;
       const DEFAULT_REQUEUE_DELAY = 5000;
       const PROCESSING_QUEUE_CHECK_INTERVAL = 50;
+      // Bounds a job that requeues forever (e.g. a tab permanently stuck 'loading',
+      // or one that never gets an internal view) now that each requeue resets the
+      // per-attempt timeout below — without this cap, that per-attempt reset would
+      // remove the queue's only terminal deadline for such a job.
+      const MAX_REQUEUES = 100;
 
       const _queueProperties = {
         concurrentExecutors: DEFAULT_CONCURRENT_EXECUTORS,
@@ -271,13 +276,30 @@ export const gsTabQueue = (function() {
         }
         tabDetails.requeues += 1;
         gsUtils.log(tabDetails.tab.id, _queueId, `Requeueing tab. Requeues: ${tabDetails.requeues}`);
+
+        if (tabDetails.requeues > MAX_REQUEUES) {
+          gsUtils.log(tabDetails.tab.id, _queueId, `Tab exceeded ${MAX_REQUEUES} requeues, treating as timed out.`);
+          clearTimeout(tabDetails.timeoutTimer);
+          delete tabDetails.timeoutTimer;
+          _queueProperties.exceptionFn(
+            tabDetails.tab,
+            tabDetails.executionProps,
+            EXCEPTION_TIMEOUT,
+            r => resolveTabPromise(tabDetails, r),
+            e => rejectTabPromise(tabDetails, e),
+            (delay, props) => requeueTab(tabDetails, delay, props)
+          ); // async. unhandled promise
+          return;
+        }
+
         // A requeue means the job is making legitimate progress (still loading, no
         // context yet, reinitialising, etc), not stuck — so give it a fresh timeout
         // window rather than letting the original attempt's timer (started once in
         // processTab and never touched here) kill it mid-progress. Without this, a
         // job needing several requeues (common under load, e.g. many tabs restored
         // or reinitialised together) can accumulate more elapsed time than jobTimeout
-        // even though no single step ever hung.
+        // even though no single step ever hung. MAX_REQUEUES above still bounds a job
+        // that requeues forever without ever resolving.
         clearTimeout(tabDetails.timeoutTimer);
         delete tabDetails.timeoutTimer;
         // moveTabToEndOfQueue(tabDetails);
