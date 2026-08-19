@@ -35,6 +35,11 @@
   flex-shrink: 0;
 }
 
+.debugWrap > .gsNote {
+  margin-top: 0;
+  margin-bottom: var(--space-6);
+}
+
 .debugSectionTitle {
   font-size: var(--text-sm);
   font-weight: 700;
@@ -208,6 +213,12 @@
   opacity: 0.88;
 }
 
+.debugBtn[aria-pressed="true"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
 .logOutput {
   max-height: 400px;
   overflow-y: auto;
@@ -243,6 +254,8 @@
 .logLevel-E { color: var(--destructive, #dc2626); }
 .logLevel-W { color: #d97706; }
 .logLevel-I { color: var(--muted-foreground); }
+
+.logOutput.warnErrOnly .logLine-I { display: none; }
 
 .logTime {
   flex-shrink: 0;

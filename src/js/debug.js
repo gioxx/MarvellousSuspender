@@ -181,6 +181,8 @@ import  { tgs }                   from './tgs.js';
     counterFull.textContent = bufferFull.length;
     if (buffer.length === 0) {
       output.innerHTML = '<div class="logEmpty">No entries. Enable <strong>captureLogs</strong> above, then reproduce the issue to capture logs, warnings and errors.</div>';
+    } else if (output.classList.contains('warnErrOnly') && !buffer.some(e => e.level === 'W' || e.level === 'E')) {
+      output.innerHTML = '<div class="logEmpty">No warnings or errors in the current buffer.</div>';
     } else {
       output.innerHTML = buffer.map(renderLogEntry).join('');
       output.scrollTop = output.scrollHeight;
@@ -403,6 +405,14 @@ import  { tgs }                   from './tgs.js';
     }
 
     document.getElementById('btnRefreshLogs').addEventListener('click', refreshLogs);
+
+    document.getElementById('btnFilterWarnErr').addEventListener('click', async (e) => {
+      const btn = e.currentTarget;
+      const active = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', String(!active));
+      document.getElementById('logOutput').classList.toggle('warnErrOnly', !active);
+      await refreshLogs();
+    });
 
     document.getElementById('btnClearLog').addEventListener('click', async () => {
       // Routed through the service worker (rather than clearing chrome.storage

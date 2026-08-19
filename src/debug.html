@@ -26,6 +26,10 @@
 
     <p class="debugPageTitle">Diagnostic &amp; Debugger</p>
 
+    <div class="gsNote gsNote--warn">
+      This is a service page for diagnosing issues, not a normal settings screen. Some actions here modify stored data (logs, cached favicons, "seen" flags) and can't be undone. Only use it if you know what you're doing, or if you've been asked to as part of a support request.
+    </div>
+
     <section class="debugSection">
       <h2 class="debugSectionTitle">Controls</h2>
 
@@ -120,6 +124,7 @@
       <div class="debugLogActions">
         <button id="btnRefreshLogs" class="debugBtn">Refresh</button>
         <button id="btnClearLog" class="debugBtn">Clear log</button>
+        <button id="btnFilterWarnErr" class="debugBtn" aria-pressed="false">Warnings &amp; errors only</button>
         <button id="btnCopyReport" class="debugBtn debugBtn-primary">Copy report</button>
         <button id="btnDownloadReport" class="debugBtn debugBtn-primary">Download report</button>
       </div>
