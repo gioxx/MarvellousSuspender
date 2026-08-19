@@ -271,6 +271,15 @@ export const gsTabQueue = (function() {
         }
         tabDetails.requeues += 1;
         gsUtils.log(tabDetails.tab.id, _queueId, `Requeueing tab. Requeues: ${tabDetails.requeues}`);
+        // A requeue means the job is making legitimate progress (still loading, no
+        // context yet, reinitialising, etc), not stuck — so give it a fresh timeout
+        // window rather than letting the original attempt's timer (started once in
+        // processTab and never touched here) kill it mid-progress. Without this, a
+        // job needing several requeues (common under load, e.g. many tabs restored
+        // or reinitialised together) can accumulate more elapsed time than jobTimeout
+        // even though no single step ever hung.
+        clearTimeout(tabDetails.timeoutTimer);
+        delete tabDetails.timeoutTimer;
         // moveTabToEndOfQueue(tabDetails);
         sleepTab(tabDetails, requeueDelay);
         requestProcessQueue(_queueProperties.processingDelay);
