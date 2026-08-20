@@ -70,6 +70,137 @@ import  { historyUtils }          from './historyUtils.js';
       });
   }
 
+  // baselineSession = the previous browser session's final "current session" snapshot
+  // (currentSessions[1] in render() below); currentSession = the live one (currentSessions[0]).
+  // Comparison is by URL presence (Set), not by count or tabId — tab ids never survive a
+  // restart, and a URL open twice in the baseline that's down to one copy now isn't "missing".
+  function computeMissingTabs(baselineSession, currentSession) {
+    if (!baselineSession || !currentSession) {
+      return [];
+    }
+    gsUtils.removeInternalUrlsFromSession(baselineSession);
+    gsUtils.removeInternalUrlsFromSession(currentSession);
+
+    const flattenTabs = (session) => {
+      const tabs = [];
+      for (const win of session.windows || []) {
+        for (const tab of win.tabs || []) {
+          const url = gsUtils.isSuspendedTab(tab) ? gsUtils.getOriginalUrl(tab.url) : tab.url;
+          tabs.push({ url, title: gsUtils.getCleanTabTitle(tab) });
+        }
+      }
+      return tabs;
+    };
+
+    const baselineTabs = flattenTabs(baselineSession);
+    const currentUrls  = new Set(flattenTabs(currentSession).map((tab) => tab.url));
+
+    const seen    = new Set();
+    const missing = [];
+    for (const tab of baselineTabs) {
+      if (!currentUrls.has(tab.url) && !seen.has(tab.url)) {
+        seen.add(tab.url);
+        missing.push(tab);
+      }
+    }
+    return missing;
+  }
+
+  // Reopening in the background (below) means history.html keeps focus, so the
+  // window.onfocus → render() refresh that would normally pick up the change never
+  // fires. Without this, the row stays listed and the badge count stays stale,
+  // letting repeated clicks open duplicate tabs. Update the panel in place instead
+  // of waiting for a refresh that isn't coming.
+  function removeMissingTabRowAndUpdateBadge(row) {
+    const badge     = document.getElementById('missingTabsBadge');
+    const badgeText = document.getElementById('missingTabsBadgeText');
+    const panel     = document.getElementById('missingTabsPanel');
+
+    row.remove();
+
+    const remaining = panel.querySelectorAll('.missingTabsRow').length;
+    if (remaining === 0) {
+      badge.classList.add('reallyHidden');
+      panel.classList.add('reallyHidden');
+      panel.innerHTML = '';
+      return;
+    }
+    badgeText.textContent = gsUtils.getMessage('js_history_missing_tabs_badge', [String(remaining)]);
+  }
+
+  function createMissingTabRow(tab) {
+    const row = document.createElement('div');
+    row.className = 'missingTabsRow';
+
+    const text = document.createElement('span');
+    text.className = 'missingTabsRowText';
+    text.title = tab.url;
+    text.textContent = tab.title && tab.title.length > 1 ? tab.title : tab.url;
+
+    const reopen = document.createElement('a');
+    reopen.href = '#';
+    reopen.className = 'groupLink missingTabsReopen';
+    reopen.textContent = gsUtils.getMessage('js_history_reopen');
+    reopen.onclick = (e) => {
+      e.preventDefault();
+      chrome.tabs.create({ url: tab.url, active: false })
+        .then(() => {
+          removeMissingTabRowAndUpdateBadge(row);
+        })
+        .catch((err) => {
+          gsUtils.error('history', 'Failed to reopen tab', tab.url, err);
+        });
+    };
+
+    row.appendChild(text);
+    row.appendChild(reopen);
+    return row;
+  }
+
+  // Icon swap mirrors the existing sessionIcon convention in toggleSession() above,
+  // for visual consistency with the session expand/collapse control already on this page.
+  function setMissingTabsIcon(iconName) {
+    const icon = document.querySelector('#missingTabsBadge .missingTabsIcon');
+    icon.setAttribute('data-icon', iconName);
+    icon.querySelector('use').setAttribute('href', `img/icons.svg#${iconName}`);
+  }
+
+  function renderMissingTabsPanel(missingTabs) {
+    const badge     = document.getElementById('missingTabsBadge');
+    const badgeText = document.getElementById('missingTabsBadgeText');
+    const panel     = document.getElementById('missingTabsPanel');
+
+    panel.innerHTML = '';
+
+    if (!missingTabs.length) {
+      badge.classList.add('reallyHidden');
+      panel.classList.add('reallyHidden');
+      return;
+    }
+
+    badgeText.textContent = gsUtils.getMessage('js_history_missing_tabs_badge', [String(missingTabs.length)]);
+    badge.classList.remove('reallyHidden');
+    badge.setAttribute('aria-expanded', 'false');
+    setMissingTabsIcon('square-plus');
+    panel.classList.add('reallyHidden');
+
+    const hint = document.createElement('p');
+    hint.className = 'missingTabsHint lesserText';
+    hint.textContent = gsUtils.getMessage('js_history_missing_tabs_hint');
+    panel.appendChild(hint);
+
+    for (const tab of missingTabs) {
+      panel.appendChild(createMissingTabRow(tab));
+    }
+
+    badge.onclick = () => {
+      const expanded = badge.getAttribute('aria-expanded') === 'true';
+      badge.setAttribute('aria-expanded', String(!expanded));
+      setMissingTabsIcon(expanded ? 'square-plus' : 'square-minus');
+      panel.classList.toggle('reallyHidden', expanded);
+    };
+  }
+
   async function toggleSession(element, sessionId) {
     var sessionContentsEl = element.getElementsByClassName(
       'sessionContents',
@@ -250,6 +381,14 @@ import  { historyUtils }          from './historyUtils.js';
         sessionsDiv.appendChild(sessionEl);
       }
     };
+
+    // currentSessions[0] is the live session; currentSessions[1], if present, is the
+    // previous browser session's final snapshot — the right "before this restart"
+    // baseline, already tracked by the existing session history, no new storage needed.
+    const missingTabs = currentSessions.length > 1
+      ? computeMissingTabs(currentSessions[1], currentSessions[0])
+      : [];
+    renderMissingTabsPanel(missingTabs);
 
     const savedSessions = await gsIndexedDb.fetchSavedSessions();
     for (const session of savedSessions) {

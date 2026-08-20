@@ -874,6 +874,20 @@
   "js_history_tabs": {
     "message": "Separadores"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "$count$ separadores em falta da sua última sessão",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_missing_tabs_hint": {
+    "message": "Inclui também os separadores que fechou propositadamente, não só os perdidos inesperadamente."
+  },
+  "js_history_reopen": {
+    "message": "reabrir"
+  },
   "js_history_enter_name_for_session": {
     "message": "Digite um nome para esta sessão"
   },

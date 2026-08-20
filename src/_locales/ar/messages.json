@@ -874,6 +874,20 @@
   "js_history_tabs": {
     "message": "علامات التبويب"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "$count$ علامات تبويب مفقودة من جلستك السابقة",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_missing_tabs_hint": {
+    "message": "يشمل ذلك علامات التبويب التي أغلقتها بنفسك، وليس فقط تلك المفقودة بشكل غير متوقع."
+  },
+  "js_history_reopen": {
+    "message": "إعادة الفتح"
+  },
   "js_history_enter_name_for_session": {
     "message": "أدخل إسم لهذه الجلسة"
   },

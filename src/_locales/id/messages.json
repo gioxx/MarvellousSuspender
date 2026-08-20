@@ -874,6 +874,20 @@
   "js_history_tabs": {
     "message": "Tab"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "$count$ tab hilang dari sesi terakhir Anda",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_missing_tabs_hint": {
+    "message": "Termasuk tab yang Anda tutup sendiri, bukan hanya yang hilang secara tak terduga."
+  },
+  "js_history_reopen": {
+    "message": "buka kembali"
+  },
   "js_history_enter_name_for_session": {
     "message": "Masukkan sebuah nama untuk sesi ini"
   },

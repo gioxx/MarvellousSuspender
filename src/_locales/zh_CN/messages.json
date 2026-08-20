@@ -874,6 +874,20 @@
   "js_history_tabs": {
     "message": "标签页"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "上次会话中有 $count$ 个标签页缺失",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_missing_tabs_hint": {
+    "message": "也包括你自己关闭的标签页,不仅仅是意外丢失的。"
+  },
+  "js_history_reopen": {
+    "message": "重新打开"
+  },
   "js_history_enter_name_for_session": {
     "message": "为此会话命名"
   },

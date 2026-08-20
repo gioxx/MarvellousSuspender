@@ -874,6 +874,20 @@
   "js_history_tabs": {
     "message": "Karty"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "$count$ karet chybí z poslední relace",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_missing_tabs_hint": {
+    "message": "Zahrnuje i karty, které jste sami zavřeli, nejen ty ztracené neočekávaně."
+  },
+  "js_history_reopen": {
+    "message": "znovu otevřít"
+  },
   "js_history_enter_name_for_session": {
     "message": "Zadejte název této relace"
   },

@@ -874,6 +874,20 @@
   "js_history_tabs": {
     "message": "Schede"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "$count$ schede mancanti dalla sessione precedente",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_missing_tabs_hint": {
+    "message": "Include anche le schede chiuse volontariamente da te, non solo quelle perse inaspettatamente."
+  },
+  "js_history_reopen": {
+    "message": "riapri"
+  },
   "js_history_enter_name_for_session": {
     "message": "Inserisci un nome per questa sessione"
   },

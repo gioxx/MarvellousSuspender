@@ -874,6 +874,20 @@
   "js_history_tabs": {
     "message": "Pestañas"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "$count$ pestañas faltan de tu última sesión",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_missing_tabs_hint": {
+    "message": "Incluye también las pestañas que cerraste tú mismo, no solo las perdidas inesperadamente."
+  },
+  "js_history_reopen": {
+    "message": "volver a abrir"
+  },
   "js_history_enter_name_for_session": {
     "message": "Introduzca un nombre para esta sesión"
   },

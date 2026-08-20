@@ -874,6 +874,20 @@
   "js_history_tabs": {
     "message": "個分頁"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "上次工作階段中有 $count$ 個分頁遺失",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_missing_tabs_hint": {
+    "message": "也包含你自己關閉的分頁,不僅僅是意外遺失的。"
+  },
+  "js_history_reopen": {
+    "message": "重新開啟"
+  },
   "js_history_enter_name_for_session": {
     "message": "命名這個記錄"
   },

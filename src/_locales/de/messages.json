@@ -874,6 +874,20 @@
   "js_history_tabs": {
     "message": "Tabs"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "$count$ Tabs fehlen seit der letzten Sitzung",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_missing_tabs_hint": {
+    "message": "Enthält auch Tabs, die Sie selbst geschlossen haben, nicht nur unerwartet verlorene."
+  },
+  "js_history_reopen": {
+    "message": "erneut öffnen"
+  },
   "js_history_enter_name_for_session": {
     "message": "Benenne diese Sitzung"
   },

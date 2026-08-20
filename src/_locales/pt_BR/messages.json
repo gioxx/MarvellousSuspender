@@ -874,6 +874,20 @@
   "js_history_tabs": {
     "message": "Abas"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "$count$ abas ausentes da sua última sessão",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_missing_tabs_hint": {
+    "message": "Inclui também as abas que você mesmo fechou, não apenas as perdidas inesperadamente."
+  },
+  "js_history_reopen": {
+    "message": "reabrir"
+  },
   "js_history_enter_name_for_session": {
     "message": "Digite um nome para esta sessão"
   },

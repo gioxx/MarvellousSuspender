@@ -12,4 +12,6 @@ Thumbs.db
 tmp
 /docs
 /test
+/.superpowers
+/memory
 .dev-notes/
