@@ -73,9 +73,11 @@
         <div class="debugCompactRow">
           <svg class="debugCompactIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
           <span class="debugCompactLabel">favicon cache</span>
-          <span class="debugCompactHint">Wipes cached favicons; rebuilt from Chrome's cache on next suspend.</span>
+          <span class="debugCompactHint">Wipes cached favicons; rebuilt from Chrome's cache on next suspend. Or repair currently open suspended tabs without wiping anything.</span>
           <div class="debugCompactActions">
             <a id='clearFaviconCache' href='#' class="debugToggle">clear cache</a>
+            <span class="debugToggleSep" aria-hidden="true">&middot;</span>
+            <a id='repairFavicons' href='#' class="debugToggle">repair favicons now</a>
           </div>
         </div>
 

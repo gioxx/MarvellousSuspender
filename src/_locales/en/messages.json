@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Unsuspend selected tabs"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Suspend all tabs in the active tab's group"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Unsuspend all tabs in the active tab's group"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspend all other tabs in active window"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Unsuspend selected tabs"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Suspend all tabs in this group"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Unsuspend all tabs in this group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspend all other tabs in this window"
@@ -386,8 +398,41 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Never suspend active tab in each window"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Always reopen suspended tabs scrolled to the top"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "The tab reopens at the top of the page instead of wherever it was"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "scrolled to when suspended."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Applies to both automatic and manual suspension, and overrides"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "links that jump to a #section on load."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automatically unsuspend tab when it is viewed"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "> Reload) also unsuspends it even when it's not the currently"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "focused tab."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Apply your browser's built-in memory-saving when suspending"

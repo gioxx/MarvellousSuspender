@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Obnovit vybrané karty"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Pozastavit všechny karty ve skupině aktivní karty"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Obnovit všechny karty ve skupině aktivní karty"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Pozastavit všechny ostatní karty v aktivním okně"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Obnovit vybrané karty"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Pozastavit všechny karty v této skupině"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Obnovit všechny karty v této skupině"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Pozastavit všechny ostatní karty v tomto okně"
@@ -386,8 +398,41 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Nikdy nepozastavovat aktivní kartu v každém okně"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Vždy znovu otevřít uspané karty od začátku stránky"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "Karta se znovu otevře od začátku stránky místo místa, kde byla"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "při pozastavení."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Platí pro automatické i ruční pozastavení a má přednost před"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "odkazy, které při načtení přejdou na sekci (#)."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automaticky obnovit kartu při jejím zobrazení"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Obnovení stránky obnoví i karty na pozadí (nejen aktivní kartu)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Po zapnutí obnovení pozastavené karty (Ctrl+R nebo pravé"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "tlačítko > Obnovit) kartu probudí, i když právě není"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "aktivní."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Užitečné při obnovování více pozastavených karet najednou,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "např. po výběru více karet a stisknutí Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Při pozastavení použít vestavěnou úsporu paměti prohlížeče"

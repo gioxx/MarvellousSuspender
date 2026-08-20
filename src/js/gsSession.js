@@ -200,6 +200,8 @@ export const gsSession = (function() {
     ${successfulTabChecksCount} / ${totalTabCheckCount} initialised successfully
     ------------------------------------------------
     `);
+
+    return { total: totalTabCheckCount, successful: successfulTabChecksCount };
   }
 
   async function handleNormalStartup(currentSessionTabs, curVersion) {
@@ -760,5 +762,6 @@ export const gsSession = (function() {
     prepareForUpdate,
     getUpdateType,
     unsuspendActiveTabInEachWindow,
+    performTabChecks,
   };
 })();

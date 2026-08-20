@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "තෝරාගත් ටැබ් අත්හිටුවීම ඉවත් කරන්න"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "සක්‍රිය ටැබයේ සමූහයේ ඇති සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "සක්‍රිය ටැබයේ සමූහයේ ඇති සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "සක්‍රිය කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "තෝරාගත් ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "මෙම සමූහයේ ඇති සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "මෙම සමූහයේ ඇති සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "මෙම කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"
@@ -386,8 +398,41 @@
   "html_options_suspend_no_active_tabs": {
     "message": "සෑම කවුළුවකම සක්‍රිය ටැබය කිසිවිටෙක අත්හිටුවන්න එපා"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "අත්හිටුවූ ටැබ් සැමවිටම පිටුවේ මුදුනට නැවත විවෘත කරන්න"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "ටැබය අත්හිටුවූ ස්ථානය වෙනුවට පිටුවේ මුදුනේ සිට"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "නැවත විවෘත වේ."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "මෙය ස්වයංක්‍රීය සහ අතින් අත්හිටුවීම් දෙකටම අදාළ වන අතර,"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "පූරණය අතරතුර #කොටසකට පනින සබැඳි අභිබවා යයි."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "ටැබ් එක බලන විට ස්වයංක්‍රීයව අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "නැවත පූරණය කිරීම පසුබිම් ටැබ් වල අත්හිටුවීම ද ඉවත් කරයි (ක්‍රියාකාරී ටැබ් එක පමණක් නොව)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "සක්‍රීය කළහොත්, අත්හිටුවූ ටැබ් එකක් නැවත පූරණය කිරීම (Ctrl+R"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "හෝ දකුණු-ක්ලික් > නැවත පූරණය) එය දැනට ක්‍රියාකාරී ටැබ් එක"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "නොවුනත් නැවත ක්‍රියාත්මක කරයි."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "එකවර අත්හිටුවූ ටැබ් කිහිපයක් නැවත පූරණය කිරීමට ප්‍රයෝජනවත්,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "උදාහරණයක් ලෙස ටැබ් කිහිපයක් තෝරා Ctrl+R ඔබන විට."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "අත්හිටුවීමේදී බ්‍රවුසරයේ අන්තර්ගත මතක ඉතිරි කිරීම යොදන්න"

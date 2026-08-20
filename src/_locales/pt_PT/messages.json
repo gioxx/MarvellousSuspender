@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Reativar separadores selecionados"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Suspender todos os separadores no grupo do separador ativo"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Reativar todos os separadores no grupo do separador ativo"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todos os outras separadores na janela ativa"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Recarregar as guias selecionadas"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Suspender todos os separadores neste grupo"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Reativar todos os separadores neste grupo"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas as outras guias nessa janela"
@@ -386,8 +398,41 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Nunca suspender a guia ativa em cada janela"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Reabrir sempre os separadores suspensos deslocados até ao topo da página"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "O separador é reaberto no topo da página, em vez do ponto em"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "que estava ao ser suspenso."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Aplica-se tanto à suspensão automática como à manual, e"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "substitui ligações que apontam para uma secção (#) ao carregar."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Recarregar automaticamente quando a guia for visualizada"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Recarregar também reativa as guias em segundo plano (não apenas a guia ativa)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Quando ativado, recarregar uma guia suspensa (Ctrl+R ou"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "clique com o botão direito > Recarregar) também a reativa"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "mesmo que não seja a guia ativa no momento."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Útil para recarregar várias guias suspensas de uma vez, por"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "exemplo após selecionar várias guias e pressionar Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar a poupança de memória nativa do navegador ao suspender"

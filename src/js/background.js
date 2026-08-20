@@ -161,6 +161,7 @@ import  { tgs }                   from './tgs.js';
   async function messageRequestListener(request, sender, sendResponse) {
     gsUtils.log('background', 'messageRequestListener', request.action, request, sender);
 
+    let responseData;
     switch (request.action) {
       case 'reportTabState' : {
         const contentScriptStatus = request?.status ?? null;
@@ -270,12 +271,16 @@ import  { tgs }                   from './tgs.js';
         gsUtils.captureLogs = request.value;
         break;
       }
+      case 'repairFavicons' : {
+        responseData = await gsSession.performTabChecks();
+        break;
+      }
       default: {
         gsUtils.warning('background', 'messageRequestListener', `Unknown message action: ${request.action}`);
         break;
       }
     }
-    sendResponse();
+    sendResponse(responseData);
     return false;
   }
 
@@ -360,6 +365,14 @@ import  { tgs }                   from './tgs.js';
       case 'unsuspend_selected_tabs':
         tgs.unsuspendSelectedTabs();
         break;
+      case 'suspend_tab_group':
+      case 'tab_suspend_group':
+        tgs.suspendTabGroup(tab);
+        break;
+      case 'unsuspend_tab_group':
+      case 'tab_unsuspend_group':
+        tgs.unsuspendTabGroup(tab);
+        break;
       case 'soft_suspend_other_tabs_in_window':
         tgs.suspendAllTabs(false);
         break;
@@ -426,6 +439,20 @@ import  { tgs }                   from './tgs.js';
       case '2b-unsuspend-selected-tabs':
         tgs.unsuspendSelectedTabs();
         break;
+      case '2c-suspend-tab-group': {
+        const tab = await new Promise((r) => {
+          tgs.getCurrentlyActiveTab(r);
+        });
+        tgs.suspendTabGroup(tab);
+        break;
+      }
+      case '2d-unsuspend-tab-group': {
+        const tab = await new Promise((r) => {
+          tgs.getCurrentlyActiveTab(r);
+        });
+        tgs.unsuspendTabGroup(tab);
+        break;
+      }
       case '3-suspend-active-window':
         tgs.suspendAllTabs(false);
         break;
