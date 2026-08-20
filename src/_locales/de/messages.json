@@ -326,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Tabs automatisch aussetzen nach"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Tabs im Akkubetrieb aussetzen nach"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Wie im Netzbetrieb"
+  },
   "html_options_suspend_never": {
     "message": "Nie"
   },

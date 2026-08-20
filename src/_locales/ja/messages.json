@@ -326,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "指定した時間後に自動的にタブを停止する:"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "バッテリー駆動時はタブを次の時間後に停止"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "電源接続時と同じ"
+  },
   "html_options_suspend_never": {
     "message": "しない"
   },

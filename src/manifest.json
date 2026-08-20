@@ -12,7 +12,8 @@
     "alarms",
     "favicon",
     "scripting",
-    "tabGroups"
+    "tabGroups",
+    "offscreen"
   ],
   "optional_permissions": [
     "downloads",

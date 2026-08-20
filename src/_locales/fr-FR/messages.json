@@ -221,6 +221,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Suspendre automatiquement les onglets après"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Suspendre les onglets sur batterie après"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Identique à sur secteur"
+  },
   "html_options_suspend_never": {
     "message": "Jamais"
   },

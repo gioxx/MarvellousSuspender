@@ -326,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Automatically suspend tabs after"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Suspend tabs on battery power after"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Same as when plugged in"
+  },
   "html_options_suspend_never": {
     "message": "Never"
   },

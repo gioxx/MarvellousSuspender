@@ -326,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Automaticky pozastavit karty po"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Pozastavit karty na baterii po"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Stejné jako při napájení"
+  },
   "html_options_suspend_never": {
     "message": "Nikdy"
   },

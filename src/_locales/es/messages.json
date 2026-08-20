@@ -326,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Suspender automáticamente las pestañas después de"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Suspender pestañas con batería después de"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Igual que con corriente"
+  },
   "html_options_suspend_never": {
     "message": "Nunca"
   },

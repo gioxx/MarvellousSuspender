@@ -326,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Otomatik sekmeyi askıya al"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Pil gücündeyken sekmeleri şu süre sonra askıya al"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Prize takılıyken ile aynı"
+  },
   "html_options_suspend_never": {
     "message": "Hiç"
   },

@@ -326,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Sospendi automaticamente le schede dopo"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Sospendi le schede a batteria dopo"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Come quando alimentato"
+  },
   "html_options_suspend_never": {
     "message": "Mai"
   },

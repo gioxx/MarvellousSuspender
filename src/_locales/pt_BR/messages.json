@@ -326,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Suspender automaticamente as guias depois de"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Suspender guias na bateria após"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "O mesmo que na tomada"
+  },
   "html_options_suspend_never": {
     "message": "Nunca"
   },

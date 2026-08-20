@@ -326,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "多久後自動凍結"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "使用電池供電時，多久後凍結分頁"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "與使用電源時相同"
+  },
   "html_options_suspend_never": {
     "message": "永不"
   },
