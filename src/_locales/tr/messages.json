@@ -21,10 +21,10 @@
     "message": "Seçilen sekmenin askısını kaldır"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "Aktif sekmenin grubundaki tüm sekmeleri askıya al"
+    "message": "Suspend all tabs in the active tab's group"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "Aktif sekmenin grubundaki tüm sekmelerin askısını kaldır"
+    "message": "Unsuspend all tabs in the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Aktif pencere dışında tüm sekmeleri askıya al"
@@ -66,10 +66,10 @@
     "message": "Seçilen sekmenin askısını kaldır"
   },
   "js_context_suspend_tab_group": {
-    "message": "Bu gruptaki tüm sekmeleri askıya al"
+    "message": "Suspend all tabs in this group"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "Bu gruptaki tüm sekmelerin askısını kaldır"
+    "message": "Unsuspend all tabs in this group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Bu pencere dışındaki tüm sekmeleri askıya al"
@@ -327,10 +327,10 @@
     "message": "Otomatik sekmeyi askıya al"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "Pil gücündeyken sekmeleri şu süre sonra askıya al"
+    "message": "Suspend tabs on battery power after"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "Prize takılıyken ile aynı"
+    "message": "Same as when plugged in"
   },
   "html_options_suspend_never": {
     "message": "Hiç"
@@ -399,40 +399,40 @@
     "message": "Asla aktif penceredeki sekmeye askıya al yapma"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Askıya alınmış sekmeleri her zaman sayfanın en üstünden yeniden aç"
+    "message": "Always reopen suspended tabs scrolled to the top"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "Sekme, askıya alındığı konum yerine sayfanın en üstünden"
+    "message": "The tab reopens at the top of the page instead of wherever it was"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "yeniden açılır."
+    "message": "scrolled to when suspended."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Hem otomatik hem de manuel askıya almaya uygulanır ve"
+    "message": "Applies to both automatic and manual suspension, and overrides"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "yüklemede bir #bölüme atlayan bağlantıları geçersiz kılar."
+    "message": "links that jump to a #section on load."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Sekme görüntülendiğinde askısını kaldır"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Yeniden yükleme, arka plandaki sekmelerin de askısını kaldırır (yalnızca etkin sekmenin değil)"
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Etkinleştirildiğinde, askıya alınmış bir sekmeyi yeniden yüklemek"
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "(Ctrl+R veya sağ tık > Yeniden Yükle) o sekme etkin sekme"
+    "message": "> Reload) also unsuspends it even when it's not the currently"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "olmasa bile askısını kaldırır."
+    "message": "focused tab."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Birden çok askıya alınmış sekmeyi aynı anda yeniden yüklerken"
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "kullanışlıdır, örn. birden çok sekme seçip Ctrl+R'ye basınca."
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Askıya alırken tarayıcının yerleşik bellek tasarrufunu uygula"
