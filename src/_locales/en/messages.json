@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Never suspend active tab in each window"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Always reopen suspended tabs scrolled to the top"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automatically unsuspend tab when it is viewed"
   },

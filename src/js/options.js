@@ -22,6 +22,7 @@ import  { gsUtils }               from './gsUtils.js';
     dontSuspendForms: gsStorage.IGNORE_FORMS,
     dontSuspendAudio: gsStorage.IGNORE_AUDIO,
     dontSuspendActiveTabs: gsStorage.IGNORE_ACTIVE_TABS,
+    dontRestoreScrollPos: gsStorage.IGNORE_SCROLL_POS,
     ignoreCache: gsStorage.IGNORE_CACHE,
     addContextMenu: gsStorage.ADD_CONTEXT,
     syncSettings: gsStorage.SYNC_SETTINGS,

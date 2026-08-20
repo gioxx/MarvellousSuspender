@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Non sospendere mai la scheda attiva in ogni finestra"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Riapri sempre le schede sospese partendo dall'inizio della pagina"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Riattiva automaticamente la scheda quando viene visualizzata"
   },
