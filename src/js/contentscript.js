@@ -47,7 +47,15 @@
       }
 
       if (request.hasOwnProperty('scrollPos')) {
-        if (request.scrollPos !== '' && request.scrollPos !== '0') {
+        // 'top' is an explicit "force scroll to 0" signal, distinct from '' / '0' which mean
+        // "no saved position, leave the page wherever navigation put it" (e.g. a #fragment
+        // in the URL scrolling to its anchor) — without the distinction, disabling scroll
+        // restore couldn't actually override that native anchor scroll.
+        if (request.scrollPos === 'top') {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+        else if (request.scrollPos !== '' && request.scrollPos !== '0') {
           document.body.scrollTop = request.scrollPos;
           document.documentElement.scrollTop = request.scrollPos;
         }

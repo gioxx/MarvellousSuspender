@@ -517,7 +517,7 @@ export const tgs = (function() {
     if (!gsUtils.isSuspendedTab(tab)) return;
 
     const dontRestoreScrollPos = await gsStorage.getOption(gsStorage.IGNORE_SCROLL_POS);
-    const scrollPosition = dontRestoreScrollPos ? '0' : gsUtils.getSuspendedScrollPosition(tab.url);
+    const scrollPosition = dontRestoreScrollPos ? 'top' : gsUtils.getSuspendedScrollPosition(tab.url);
     await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SCROLL_POS, scrollPosition);
 
     const originalUrl = gsUtils.getOriginalUrl(tab.url);
