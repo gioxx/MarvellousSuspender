@@ -53,6 +53,7 @@ export const gsStorage = {
 
   CAPTURE_LOGS                  : 'gsCaptureVerbose',
   LOG_BUFFER                    : 'gsLogBuffer',
+  LOG_BUFFER_FULL               : 'gsLogBufferFull',
 
   APPEND_URL_TO_TITLE           : 'gsAppendUrlToTitle',
   ADD_YOUTUBE_TIMESTAMP         : 'gsAddYouTubeTimestamp',

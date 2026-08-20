@@ -1,4 +1,6 @@
 // @ts-check
+import  { gsUtils } from './gsUtils.js';
+
 const gsChangelog = (() => {
   'use strict';
 
@@ -85,15 +87,35 @@ const gsChangelog = (() => {
 
   // Fetches CHANGELOG.md and renders only the section for `version` into `container`.
   // Returns false (leaving container untouched) if the fetch or the section lookup fails.
+  // The modal is only ever shown once per version (options.js marks it "seen" right
+  // after calling this, even on failure), so a silent failure here permanently loses
+  // that one chance — every early-return logs why, so a failure is diagnosable via
+  // captureLogs instead of just "the modal never showed and nobody knows why".
   async function renderVersionChangelog(container, version) {
     try {
       const response = await fetch(CHANGELOG_URL);
-      if (!response.ok) return false;
+      if (!response.ok) {
+        gsUtils.warning('gsChangelog', 'renderVersionChangelog', `Fetch failed: ${response.status} ${CHANGELOG_URL}`);
+        return false;
+      }
       const markdown = await response.text();
+      // A real CHANGELOG.md is many KB; this small a response means CHANGELOG_URL
+      // resolved to something else — most likely local "Load unpacked" testing on a
+      // machine where git checked out src/CHANGELOG.md's symlink as a plain text file
+      // containing just its target path (e.g. Windows without symlink support enabled),
+      // instead of a real symlink to the root CHANGELOG.md.
+      if (markdown.length < 500) {
+        gsUtils.warning('gsChangelog', 'renderVersionChangelog', `Suspiciously short response (${markdown.length} bytes) — likely a broken src/CHANGELOG.md symlink on this checkout, not a real changelog. Content: ${markdown}`);
+        return false;
+      }
       const section = parseSection(markdown, version);
-      if (!section) return false;
+      if (!section) {
+        gsUtils.warning('gsChangelog', 'renderVersionChangelog', `No "## [${version}]" section found in CHANGELOG.md`);
+        return false;
+      }
       return renderSection(container, section);
-    } catch (_e) {
+    } catch (e) {
+      gsUtils.warning('gsChangelog', 'renderVersionChangelog', e);
       return false;
     }
   }
