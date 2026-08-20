@@ -1133,6 +1133,15 @@ a.historyLink:hover {
   cursor: pointer;
 }
 
+/* .reallyHidden and .missingTabsBadge both declare `display` with equal
+   (single-class) specificity — whichever rule comes later in the file wins
+   the cascade, which was this rule, keeping the badge visible (icon only,
+   no text) even while still carrying the reallyHidden class. Two classes
+   combined outrank one, so this wins regardless of source order. */
+.missingTabsBadge.reallyHidden {
+  display: none;
+}
+
 .missingTabsBadge:hover {
   background: color-mix(in oklch, var(--destructive) 16%, var(--background));
 }
