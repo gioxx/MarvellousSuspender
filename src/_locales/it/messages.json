@@ -383,6 +383,24 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "Riattiva automaticamente la scheda quando viene visualizzata"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Il ricaricamento riattiva anche le schede in background (non solo quella attiva)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Se attivo, ricaricare una scheda sospesa (Ctrl+R o tasto destro"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "> Ricarica) la riattiva anche se non è la scheda"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "attualmente in primo piano."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Utile per ricaricare più schede sospese insieme, ad esempio"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "selezionandone diverse e premendo Ctrl+R."
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Applica il risparmio di memoria integrato del browser durante la sospensione"
   },

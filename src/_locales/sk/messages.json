@@ -383,6 +383,24 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automaticky obnov práve zobrazený tab"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Obnovenie stránky obnoví aj karty na pozadí (nielen aktívnu kartu)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Po zapnutí obnovenie pozastavenej karty (Ctrl+R alebo pravé"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "tlačidlo > Obnoviť) kartu prebudí, aj keď práve nie je"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "aktívna."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Užitočné pri obnovovaní viacerých pozastavených kariet"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "naraz, napr. po výbere viacerých kariet a stlačení Ctrl+R."
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Pri pozastavení použiť vstavanú úsporu pamäte prehliadača"
   },

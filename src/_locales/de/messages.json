@@ -383,6 +383,24 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "Tab automatisch aufwachen, wenn er aufgerufen wird"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Neuladen aktiviert auch Tabs im Hintergrund (nicht nur den aktiven Tab)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Wenn aktiviert, wird eine pausierte Registerkarte beim Neuladen"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "(Strg+R oder Rechtsklick > Neu laden) auch dann reaktiviert,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "wenn sie nicht die aktive Registerkarte ist."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Nützlich, um mehrere pausierte Tabs auf einmal neu zu laden,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "z. B. nach Auswahl mehrerer Tabs und Drücken von Strg+R."
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Beim Aussetzen die integrierte Speicherersparnis des Browsers anwenden"
   },

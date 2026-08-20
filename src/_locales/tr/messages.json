@@ -383,6 +383,24 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "Sekme görüntülendiğinde askısını kaldır"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Yeniden yükleme, arka plandaki sekmelerin de askısını kaldırır (yalnızca etkin sekmenin değil)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Etkinleştirildiğinde, askıya alınmış bir sekmeyi yeniden yüklemek"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "(Ctrl+R veya sağ tık > Yeniden Yükle) o sekme etkin sekme"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "olmasa bile askısını kaldırır."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Birden çok askıya alınmış sekmeyi aynı anda yeniden yüklerken"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "kullanışlıdır, örn. birden çok sekme seçip Ctrl+R'ye basınca."
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Askıya alırken tarayıcının yerleşik bellek tasarrufunu uygula"
   },

@@ -383,6 +383,24 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automatiquement annuler la suspension de l'onglet lorsqu'il est vu"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Le rechargement annule aussi la suspension des onglets en arrière-plan (pas seulement l'onglet actif)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Une fois activé, recharger un onglet suspendu (Ctrl+R ou clic"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "droit > Recharger) annule aussi sa suspension même si ce"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "n'est pas l'onglet actif."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Utile pour recharger plusieurs onglets suspendus à la fois,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "par exemple après en avoir sélectionné plusieurs et appuyé sur Ctrl+R."
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Appliquer l'économie de mémoire intégrée du navigateur lors de la suspension"
   },

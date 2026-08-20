@@ -217,7 +217,31 @@ import  { tgs }                   from './tgs.js';
     setGoToUpdateHandler();
   }
 
-  async function setUnloadTabHandler(tab) {
+  let _unloadHandlerRegistered = false;
+
+  // reloadUnsuspendBackground is resolved by the caller (at initTab time, no time
+  // pressure there) rather than re-fetched inside the beforeunload handler below.
+  // Chrome gives beforeunload no guarantee that pending async work finishes before
+  // the page is actually torn down — every extra `await` in the handler (a settings
+  // lookup, a diagnostic read, isCurrentFocusedTab()'s own storage reads) is more
+  // time for a multi-tab reload to lose that race. With several tabs reloaded
+  // together, contending for the same chrome.storage IPC, that's exactly what
+  // happened in testing: a random subset of tabs failed to unsuspend each run,
+  // a different subset every time, because whichever write hadn't resolved yet
+  // when the page died simply never landed. Cutting the pre-write hops from ~4
+  // down to 1 (the actual storage write) shrinks that window.
+  async function setUnloadTabHandler(tab, reloadUnsuspendBackground) {
+    // initTab() re-runs (without quickInit) whenever checkQueue reinitialises an
+    // unresponsive suspended tab, which would otherwise call this again and stack a
+    // second beforeunload listener carrying its own captured `tab` snapshot. Both
+    // listeners would then race to write STATE_UNLOADED_URL on the actual unload,
+    // non-deterministically, since each write is an async storage call — whichever
+    // resolves last wins, independent of which snapshot is actually correct. Only
+    // the first registration is needed: the suspended.html URL itself never changes
+    // for the lifetime of a suspended tab, so the first capture stays valid.
+    if (_unloadHandlerRegistered) return;
+    _unloadHandlerRegistered = true;
+
     // beforeunload event will get fired if: the tab is refreshed, the url is changed,
     // the tab is closed, or the tab is frozen by chrome ??
     // when this happens the STATE_UNLOADED_URL gets set with the suspended tab url
@@ -225,9 +249,9 @@ import  { tgs }                   from './tgs.js';
     // if the url is changed then on reload the url will not match
     // if the tab is closed, the reload will never occur
     addEventListener('beforeunload', async (event) => {
-      gsUtils.log(tab.id, 'BeforeUnload triggered', tab.url, await tgs.getTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL));
-      if (await tgs.isCurrentFocusedTab(tab)) {
+      if (reloadUnsuspendBackground || await tgs.isCurrentFocusedTab(tab)) {
         await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL, tab.url);
+        gsUtils.log(tab.id, 'BeforeUnload triggered, marked as reload', tab.url);
       }
       else {
         gsUtils.log( tab.id, 'Ignoring beforeUnload as tab is not currently focused.', );
@@ -281,6 +305,15 @@ import  { tgs }                   from './tgs.js';
     setFaviconMeta(faviconMeta);
 
     if (quickInit) {
+      // quickInit skips the heavy setup below (preview, unsuspend click handlers, etc.)
+      // for tabs about to be discarded anyway, but that also means it never registers
+      // the beforeunload listener the "reload also unsuspends background tabs" option
+      // depends on — a background tab suspended with "Discard after suspend" on always
+      // takes this path, silently defeating that option regardless of its own state.
+      const reloadUnsuspendBackground = await gsStorage.getOption(gsStorage.RELOAD_UNSUSPEND_BACKGROUND);
+      if (reloadUnsuspendBackground) {
+        await setUnloadTabHandler(tab, reloadUnsuspendBackground);
+      }
       return;
     }
 
@@ -288,7 +321,7 @@ import  { tgs }                   from './tgs.js';
     const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
 
     // Add event listeners
-    await setUnloadTabHandler(tab);
+    await setUnloadTabHandler(tab, options[gsStorage.RELOAD_UNSUSPEND_BACKGROUND]);
     await setUnsuspendTabHandlers(tab);
 
     // Set imagePreview

@@ -383,6 +383,24 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "Anular suspensión automáticamente de la pestaña cuando sea vista"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Recargar también reactiva las pestañas en segundo plano (no solo la pestaña activa)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Si está activado, recargar una pestaña suspendida (Ctrl+R o"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "clic derecho > Recargar) también la reactiva aunque no sea"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "la pestaña activa en ese momento."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Útil para recargar varias pestañas suspendidas a la vez, por"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "ejemplo tras seleccionar varias pestañas y pulsar Ctrl+R."
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar el ahorro de memoria integrado del navegador al suspender"
   },

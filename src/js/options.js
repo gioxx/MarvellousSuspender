@@ -14,6 +14,7 @@ import  { gsUtils }               from './gsUtils.js';
     onlineCheck: gsStorage.IGNORE_WHEN_OFFLINE,
     batteryCheck: gsStorage.IGNORE_WHEN_CHARGING,
     unsuspendOnFocus: gsStorage.UNSUSPEND_ON_FOCUS,
+    reloadUnsuspendBackground: gsStorage.RELOAD_UNSUSPEND_BACKGROUND,
     claimByDefault: gsStorage.CLAIM_BY_DEFAULT,
     discardAfterSuspend: gsStorage.DISCARD_AFTER_SUSPEND,
     appendUrlToTitle:    gsStorage.APPEND_URL_TO_TITLE,

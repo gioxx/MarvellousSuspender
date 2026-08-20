@@ -383,6 +383,24 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "ටැබ් එක බලන විට ස්වයංක්‍රීයව අත්හිටුවීම ඉවත් කරන්න"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "නැවත පූරණය කිරීම පසුබිම් ටැබ් වල අත්හිටුවීම ද ඉවත් කරයි (ක්‍රියාකාරී ටැබ් එක පමණක් නොව)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "සක්‍රීය කළහොත්, අත්හිටුවූ ටැබ් එකක් නැවත පූරණය කිරීම (Ctrl+R"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "හෝ දකුණු-ක්ලික් > නැවත පූරණය) එය දැනට ක්‍රියාකාරී ටැබ් එක"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "නොවුනත් නැවත ක්‍රියාත්මක කරයි."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "එකවර අත්හිටුවූ ටැබ් කිහිපයක් නැවත පූරණය කිරීමට ප්‍රයෝජනවත්,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "උදාහරණයක් ලෙස ටැබ් කිහිපයක් තෝරා Ctrl+R ඔබන විට."
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "අත්හිටුවීමේදී බ්‍රවුසරයේ අන්තර්ගත මතක ඉතිරි කිරීම යොදන්න"
   },

@@ -383,6 +383,24 @@
   "html_options_suspend_automatically_unsuspend": {
     "message": "Recarregar automaticamente quando a guia for visualizada"
   },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Recarregar também reativa as guias em segundo plano (não apenas a guia ativa)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Quando ativado, recarregar uma guia suspensa (Ctrl+R ou"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "clique com o botão direito > Recarregar) também a reativa"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "mesmo que não seja a guia ativa no momento."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Útil para recarregar várias guias suspensas de uma vez, por"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "exemplo após selecionar várias guias e pressionar Ctrl+R."
+  },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar a poupança de memória nativa do navegador ao suspender"
   },
