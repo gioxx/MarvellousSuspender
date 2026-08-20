@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Nunca suspender a guia ativa em cada janela"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Reabrir sempre os separadores suspensos deslocados até ao topo da página"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Recarregar automaticamente quando a guia for visualizada"
   },

@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Aktive Tabs in jedem Fenster nicht aussetzen"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Angehaltene Tabs immer ganz oben auf der Seite erneut öffnen"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Tab automatisch aufwachen, wenn er aufgerufen wird"
   },

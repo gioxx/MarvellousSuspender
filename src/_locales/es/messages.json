@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Nunca suspender la pestaña activa en cada ventana"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Reabrir siempre las pestañas suspendidas desplazadas hasta arriba"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Anular suspensión automáticamente de la pestaña cuando sea vista"
   },

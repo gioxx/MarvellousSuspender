@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Nikdy nepozastavovat aktivní kartu v každém okně"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Vždy znovu otevřít uspané karty od začátku stránky"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automaticky obnovit kartu při jejím zobrazení"
   },

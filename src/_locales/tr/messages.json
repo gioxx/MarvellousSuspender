@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Asla aktif penceredeki sekmeye askıya al yapma"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Askıya alınmış sekmeleri her zaman sayfanın en üstünden yeniden aç"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Sekme görüntülendiğinde askısını kaldır"
   },

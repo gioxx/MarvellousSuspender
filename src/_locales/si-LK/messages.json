@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "සෑම කවුළුවකම සක්‍රිය ටැබය කිසිවිටෙක අත්හිටුවන්න එපා"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "අත්හිටුවූ ටැබ් සැමවිටම පිටුවේ මුදුනට නැවත විවෘත කරන්න"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "ටැබ් එක බලන විට ස්වයංක්‍රීයව අත්හිටුවීම ඉවත් කරන්න"
   },

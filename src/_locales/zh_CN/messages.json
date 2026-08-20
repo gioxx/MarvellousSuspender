@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "不要冻结每个窗口中的正在使用中的标签页"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "重新打开已冻结的标签页时始终滚动到页面顶部"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "当标签页被浏览就自动恢复标签页"
   },

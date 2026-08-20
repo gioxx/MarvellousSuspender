@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "不要凍結每個視窗的正在使用中的分頁"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "重新開啟已凍結的分頁時永遠捲動到頁面頂端"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "當分頁被瀏覽就自動回復分頁"
   },

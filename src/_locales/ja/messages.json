@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "各ウィンドウのアクティブなタブは停止しない"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "停止したタブは常にページの先頭を表示した状態で再度開く"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "表示されたときに自動的にタブを再開する"
   },

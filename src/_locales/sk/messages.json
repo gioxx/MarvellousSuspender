@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Nepozastav aktívny tab v každom okne"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Vždy znova otvoriť uspaté karty od začiatku stránky"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automaticky obnov práve zobrazený tab"
   },

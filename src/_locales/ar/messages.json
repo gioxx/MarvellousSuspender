@@ -380,6 +380,9 @@
   "html_options_suspend_no_active_tabs": {
     "message": "عدم تعليق علامة التبويب النشطة أبدا في كل نافذة"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "دائمًا أعد فتح علامات التبويب المعلّقة من أعلى الصفحة"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "إلغاء تعليق علامة التبويب تلقائياً عند عرضها"
   },
