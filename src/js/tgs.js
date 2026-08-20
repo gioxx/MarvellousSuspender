@@ -770,13 +770,43 @@ export const tgs = (function() {
     // const tabView = getInternalViewByTabId(tab.id);
     const discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
     const quickInit = discardAfterSuspend && !tab.active;
-    chrome.tabs.sendMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() })
+    const payload = { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() };
+    sendInitTabMessageWithRetry(tab.id, payload)
       .catch((error) => {
         gsUtils.warning(tab.id, 'tgs', 'initialiseSuspendedTab', error);
       })
       .then(() => {
         gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 3000);
       });
+  }
+
+  // This message reaches suspended.html's own page script (not a content script), sent
+  // right after the tab's status turns 'complete' — but that page's module script (and
+  // therefore its chrome.runtime.onMessage listener) can still be a beat behind that
+  // status flip, especially with many suspended tabs loading in the same burst (e.g.
+  // browser startup or crash recovery with hundreds of tabs). A single failed send here
+  // previously left the page's initTab() never called at all — no title, no favicon,
+  // page never shown — until gsTabCheckManager's own recovery pass got to it, which
+  // could take well over 10s under load or get lost entirely if a queued check's
+  // setTimeout didn't survive a service worker recycle in between.
+  //
+  // The happy path (the overwhelming majority of tabs) resolves on the very first
+  // attempt with zero added delay — retries only fire once a send has actually failed,
+  // and every retry is a background message the user never perceives, not something
+  // that blocks the page (already visible, just waiting to populate) or other tabs.
+  // Under real stress-testing (hundreds of tabs, crash recovery) the previous fixed
+  // 3×150ms=450ms budget still wasn't enough for some tabs; exponential backoff spends
+  // more of that extra budget on the *later*, rarer retries instead of racing them all
+  // at the same short interval, without slowing down anything that only needed 1-2 tries.
+  const INIT_TAB_RETRY_DELAYS_MS = [100, 200, 400, 800, 1500, 3000]; // ~6s total budget
+
+  function sendInitTabMessageWithRetry(tabId, payload, attempt = 0) {
+    return chrome.tabs.sendMessage(tabId, payload).catch((error) => {
+      if (attempt >= INIT_TAB_RETRY_DELAYS_MS.length) throw error;
+      const delayMs = INIT_TAB_RETRY_DELAYS_MS[attempt];
+      return new Promise((resolve) => setTimeout(resolve, delayMs))
+        .then(() => sendInitTabMessageWithRetry(tabId, payload, attempt + 1));
+    });
   }
 
   async function removeTabIdReferences(tabId) {
