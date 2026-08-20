@@ -21,10 +21,10 @@
     "message": "選択したタブをサスペンド解除"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "アクティブなタブのグループ内のすべてのタブをサスペンド"
+    "message": "Suspend all tabs in the active tab's group"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "アクティブなタブのグループ内のすべてのタブをサスペンド解除"
+    "message": "Unsuspend all tabs in the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "アクティブなウィンドウ内の他のすべてのタブをサスペンド"
@@ -66,10 +66,10 @@
     "message": "選択したタブをサスペンド解除"
   },
   "js_context_suspend_tab_group": {
-    "message": "このグループ内のすべてのタブをサスペンド"
+    "message": "Suspend all tabs in this group"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "このグループ内のすべてのタブをサスペンド解除"
+    "message": "Unsuspend all tabs in this group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "このウィンドウ内の他のすべてのタブをサスペンド"
@@ -327,10 +327,10 @@
     "message": "指定した時間後に自動的にタブを停止する:"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "バッテリー駆動時はタブを次の時間後に停止"
+    "message": "Suspend tabs on battery power after"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "電源接続時と同じ"
+    "message": "Same as when plugged in"
   },
   "html_options_suspend_never": {
     "message": "しない"
@@ -399,40 +399,40 @@
     "message": "各ウィンドウのアクティブなタブは停止しない"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "停止したタブは常にページの先頭を表示した状態で再度開く"
+    "message": "Always reopen suspended tabs scrolled to the top"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "タブはサスペンド時の位置ではなく、ページの先頭にスクロールした状態で"
+    "message": "The tab reopens at the top of the page instead of wherever it was"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "再度開きます。"
+    "message": "scrolled to when suspended."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "自動・手動どちらのサスペンドにも適用され、読み込み時に#セクションへ移動する"
+    "message": "Applies to both automatic and manual suspension, and overrides"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "リンクより優先されます。"
+    "message": "links that jump to a #section on load."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "表示されたときに自動的にタブを再開する"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "再読み込みでバックグラウンドのタブも再開します(アクティブなタブだけでなく)"
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "有効にすると、サスペンド中のタブを再読み込み(Ctrl+R または"
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "右クリック > 再読み込み)すると、現在アクティブなタブで"
+    "message": "> Reload) also unsuspends it even when it's not the currently"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "なくても再開します。"
+    "message": "focused tab."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "複数のサスペンド中のタブをまとめて再読み込みする場合に便利です"
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "(例: 複数のタブを選択して Ctrl+R を押す)。"
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "停止時にブラウザ内蔵のメモリ節約機能を適用する"
