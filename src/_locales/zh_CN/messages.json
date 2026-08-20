@@ -21,10 +21,10 @@
     "message": "恢复已选择标签页"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "冻结当前标签页所在组中所有的标签页"
+    "message": "Suspend all tabs in the active tab's group"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "恢复当前标签页所在组中所有的标签页"
+    "message": "Unsuspend all tabs in the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "冻结当前窗口中所有的标签页"
@@ -66,10 +66,10 @@
     "message": "恢复已选择标签页"
   },
   "js_context_suspend_tab_group": {
-    "message": "冻结此组中所有的标签页"
+    "message": "Suspend all tabs in this group"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "恢复此组中所有的标签页"
+    "message": "Unsuspend all tabs in this group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "冻结当前窗口中所有的标签页"
@@ -327,10 +327,10 @@
     "message": "多久后自动冻结标签页"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "使用电池供电时，多久后冻结标签页"
+    "message": "Suspend tabs on battery power after"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "与使用电源时相同"
+    "message": "Same as when plugged in"
   },
   "html_options_suspend_never": {
     "message": "永不"
@@ -399,40 +399,40 @@
     "message": "不要冻结每个窗口中的正在使用中的标签页"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "重新打开已冻结的标签页时始终滚动到页面顶部"
+    "message": "Always reopen suspended tabs scrolled to the top"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "标签页会从页面顶部重新打开，"
+    "message": "The tab reopens at the top of the page instead of wherever it was"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "而不是挂起时所在的位置。"
+    "message": "scrolled to when suspended."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "适用于自动和手动挂起，"
+    "message": "Applies to both automatic and manual suspension, and overrides"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "并会覆盖加载时跳转到 #小节 的链接。"
+    "message": "links that jump to a #section on load."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "当标签页被浏览就自动恢复标签页"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "重新加载也会恢复后台标签页(不仅仅是活动标签页)"
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "启用后,重新加载已挂起的标签页(Ctrl+R 或右键"
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "菜单中的“重新加载”)会将其恢复,即使它不是"
+    "message": "> Reload) also unsuspends it even when it's not the currently"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "当前活动的标签页。"
+    "message": "focused tab."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "适合一次性重新加载多个已挂起的标签页,例如选中"
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "多个标签页后按 Ctrl+R。"
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "挂起时应用浏览器内置的内存节省功能"
