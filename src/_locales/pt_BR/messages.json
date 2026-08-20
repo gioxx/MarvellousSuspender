@@ -21,10 +21,10 @@
     "message": "Recarregar guias selecionadas"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "Suspender todas as guias no grupo da guia ativa"
+    "message": "Suspend all tabs in the active tab's group"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "Recarregar todas as guias no grupo da guia ativa"
+    "message": "Unsuspend all tabs in the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todas as outras guias na janela ativa"
@@ -66,10 +66,10 @@
     "message": "Recarregar as guias selecionadas"
   },
   "js_context_suspend_tab_group": {
-    "message": "Suspender todas as guias neste grupo"
+    "message": "Suspend all tabs in this group"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "Recarregar todas as guias neste grupo"
+    "message": "Unsuspend all tabs in this group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas as outras guias nessa janela"
@@ -327,10 +327,10 @@
     "message": "Suspender automaticamente as guias depois de"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "Suspender guias na bateria após"
+    "message": "Suspend tabs on battery power after"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "O mesmo que na tomada"
+    "message": "Same as when plugged in"
   },
   "html_options_suspend_never": {
     "message": "Nunca"
@@ -399,40 +399,40 @@
     "message": "Nunca suspender a guia ativa em cada janela"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Sempre reabrir as guias suspensas rolando até o topo da página"
+    "message": "Always reopen suspended tabs scrolled to the top"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "A guia é reaberta no topo da página, em vez do ponto em que"
+    "message": "The tab reopens at the top of the page instead of wherever it was"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "estava ao ser suspensa."
+    "message": "scrolled to when suspended."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Aplica-se tanto à suspensão automática quanto à manual, e"
+    "message": "Applies to both automatic and manual suspension, and overrides"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "substitui links que apontam para uma seção (#) ao carregar."
+    "message": "links that jump to a #section on load."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Recarregar automaticamente quando a guia for visualizada"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Recarregar também reativa as guias em segundo plano (não apenas a guia ativa)"
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Quando ativado, recarregar uma guia suspensa (Ctrl+R ou"
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "clique com o botão direito > Recarregar) também a reativa"
+    "message": "> Reload) also unsuspends it even when it's not the currently"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "mesmo que não seja a guia ativa no momento."
+    "message": "focused tab."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Útil para recarregar várias guias suspensas de uma vez, por"
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "exemplo após selecionar várias guias e pressionar Ctrl+R."
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar a economia de memória integrada do navegador ao suspender"
