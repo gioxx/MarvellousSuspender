@@ -314,6 +314,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Sospendi automaticamente le schede dopo"
   },
+  "html_options_suspend_automatically_after_on_battery": {
+    "message": "...oppure dopo, quando alimentato a batteria"
+  },
+  "html_options_suspend_same_as_above": {
+    "message": "Come sopra"
+  },
   "html_options_suspend_never": {
     "message": "Mai"
   },

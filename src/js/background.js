@@ -533,9 +533,12 @@ import  { tgs }                   from './tgs.js';
           tgs.setIconStatusForActiveTab();
           //restart timer on all normal tabs
           //NOTE: some tabs may have been prevented from suspending when computer was charging
+          const hasBatterySpecificTimeout =
+            (await gsStorage.getOption(gsStorage.SUSPEND_TIME_ON_BATTERY)) !== '';
           if (
-            !(await tgs.isCharging()) &&
-              await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING)
+            (!(await tgs.isCharging()) &&
+              await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING)) ||
+            hasBatterySpecificTimeout
           ) {
             tgs.resetAutoSuspendTimerForAllTabs();
           }

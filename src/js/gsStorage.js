@@ -9,6 +9,7 @@ export const gsStorage = {
   SUSPEND_IN_PLACE_OF_DISCARD   : 'suspendInPlaceOfDiscard',
   UNSUSPEND_ON_FOCUS            : 'gsUnsuspendOnFocus',
   SUSPEND_TIME                  : 'gsTimeToSuspend',
+  SUSPEND_TIME_ON_BATTERY       : 'gsTimeToSuspendOnBattery',
   IGNORE_WHEN_OFFLINE           : 'onlineCheck',
   IGNORE_WHEN_CHARGING          : 'batteryCheck',
   CLAIM_BY_DEFAULT              : 'claimByDefault',
@@ -75,6 +76,7 @@ export const gsStorage = {
     defaults[gsStorage.ADD_CONTEXT] = true;
     defaults[gsStorage.SYNC_SETTINGS] = true;
     defaults[gsStorage.SUSPEND_TIME] = '60';
+    defaults[gsStorage.SUSPEND_TIME_ON_BATTERY] = '';
     defaults[gsStorage.NO_NAG] = false;
     defaults[gsStorage.WHITELIST] = '';
     defaults[gsStorage.ALWAYS_SUSPEND_LIST] = '';

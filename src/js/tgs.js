@@ -442,7 +442,16 @@ export const tgs = (function() {
   async function resetAutoSuspendTimerForTab(tab) {
     await clearAutoSuspendTimerForTabId(tab.id);
 
-    const suspendTime = await gsStorage.getOption(gsStorage.SUSPEND_TIME);
+    let suspendTime = await gsStorage.getOption(gsStorage.SUSPEND_TIME);
+    // A battery-specific timeout (#252) only kicks in when one is actually set and
+    // we're currently running unplugged — on AC it falls back to the normal timeout,
+    // same as leaving it unset ('').
+    if (!(await isCharging())) {
+      const suspendTimeOnBattery = await gsStorage.getOption(gsStorage.SUSPEND_TIME_ON_BATTERY);
+      if (suspendTimeOnBattery !== '') {
+        suspendTime = suspendTimeOnBattery;
+      }
+    }
     if (
       (await gsUtils.isProtectedActiveTab(tab)) ||
       isNaN(suspendTime) ||
@@ -1154,7 +1163,14 @@ export const tgs = (function() {
     }
     //check never suspend
     //should come after whitelist check as it causes popup to show the whitelisting option
-    if (await gsStorage.getOption(gsStorage.SUSPEND_TIME) === '0') {
+    let effectiveSuspendTime = await gsStorage.getOption(gsStorage.SUSPEND_TIME);
+    if (!(await isCharging())) {
+      const suspendTimeOnBattery = await gsStorage.getOption(gsStorage.SUSPEND_TIME_ON_BATTERY);
+      if (suspendTimeOnBattery !== '') {
+        effectiveSuspendTime = suspendTimeOnBattery;
+      }
+    }
+    if (effectiveSuspendTime === '0') {
       callback(gsUtils.STATUS_NEVER);
       return;
     }

@@ -26,6 +26,7 @@ import  { gsUtils }               from './gsUtils.js';
     addContextMenu: gsStorage.ADD_CONTEXT,
     syncSettings: gsStorage.SYNC_SETTINGS,
     timeToSuspend: gsStorage.SUSPEND_TIME,
+    timeToSuspendOnBattery: gsStorage.SUSPEND_TIME_ON_BATTERY,
     theme: gsStorage.THEME,
     legacyMascot: gsStorage.LEGACY_MASCOT,
     language: gsStorage.LANGUAGE,
