@@ -384,22 +384,22 @@
     "message": "Riattiva automaticamente la scheda quando viene visualizzata"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Il ricaricamento riattiva anche le schede in background (non solo quella attiva)"
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Se attivo, ricaricare una scheda sospesa (Ctrl+R o tasto destro"
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "> Ricarica) la riattiva anche se non è la scheda"
+    "message": "> Reload) also unsuspends it even when it's not the currently"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "attualmente in primo piano."
+    "message": "focused tab."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Utile per ricaricare più schede sospese insieme, ad esempio"
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "selezionandone diverse e premendo Ctrl+R."
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Applica il risparmio di memoria integrato del browser durante la sospensione"
