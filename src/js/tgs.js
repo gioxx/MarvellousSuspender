@@ -443,10 +443,13 @@ export const tgs = (function() {
     await clearAutoSuspendTimerForTabId(tab.id);
 
     let suspendTime = await gsStorage.getOption(gsStorage.SUSPEND_TIME);
-    // A battery-specific timeout (#252) only kicks in when one is actually set and
-    // we're currently running unplugged — on AC it falls back to the normal timeout,
-    // same as leaving it unset ('').
-    if (!(await isCharging())) {
+    // A battery-specific timeout (#252) only kicks in when one is actually set and we
+    // know for certain we're running unplugged — isCharging() returns undefined (not
+    // false) both when navigator.getBattery is unavailable in this MV3 service worker
+    // and before its initial promise resolves, so an explicit === false check is
+    // required here; treating "unknown" as "unplugged" would apply the override while
+    // still on AC.
+    if ((await isCharging()) === false) {
       const suspendTimeOnBattery = await gsStorage.getOption(gsStorage.SUSPEND_TIME_ON_BATTERY);
       if (suspendTimeOnBattery !== '') {
         suspendTime = suspendTimeOnBattery;
@@ -473,7 +476,17 @@ export const tgs = (function() {
 
   function resetAutoSuspendTimerForAllTabs() {
     gsUtils.log(0, 'tgs', 'resetAutoSuspendTimerForAllTabs');
-    chrome.alarms.clearAll(() => {});
+    // Per-tab suspension alarms are named by tab id (a numeric string, see
+    // alarmListener's `parseInt(alarm.name)` in background.js) — clear only those,
+    // not chrome.alarms.clearAll(), which would also wipe the unrelated named
+    // auto-backup/retry/news-feed alarms that this function has nothing to do with.
+    chrome.alarms.getAll((alarms) => {
+      for (const alarm of alarms) {
+        if (/^\d+$/.test(alarm.name)) {
+          chrome.alarms.clear(alarm.name);
+        }
+      }
+    });
     chrome.tabs.query({}, async (tabs) => {
       for (const tab of tabs) {
         if (gsUtils.isNormalTab(tab)) {
@@ -1164,7 +1177,7 @@ export const tgs = (function() {
     //check never suspend
     //should come after whitelist check as it causes popup to show the whitelisting option
     let effectiveSuspendTime = await gsStorage.getOption(gsStorage.SUSPEND_TIME);
-    if (!(await isCharging())) {
+    if ((await isCharging()) === false) {
       const suspendTimeOnBattery = await gsStorage.getOption(gsStorage.SUSPEND_TIME_ON_BATTERY);
       if (suspendTimeOnBattery !== '') {
         effectiveSuspendTime = suspendTimeOnBattery;

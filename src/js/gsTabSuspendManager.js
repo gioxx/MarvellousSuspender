@@ -325,7 +325,19 @@ export const gsTabSuspendManager = (function() {
       if (await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING) && await tgs.isCharging()) {
         return false;
       }
-      if (await gsStorage.getOption(gsStorage.SUSPEND_TIME) === '0') {
+      // Mirrors the effective-timeout logic in tgs.js's resetAutoSuspendTimerForTab():
+      // a battery-specific timeout (#252) can be "on" (non-'0') while the normal
+      // timeout is "Never" ('0') — the UI hides the normal-timeout-only options in
+      // that state but doesn't clear their stored value, so a stale '0' here must not
+      // reject a suspension that was legitimately scheduled off the battery timeout.
+      let effectiveSuspendTime = await gsStorage.getOption(gsStorage.SUSPEND_TIME);
+      if ((await tgs.isCharging()) === false) {
+        const suspendTimeOnBattery = await gsStorage.getOption(gsStorage.SUSPEND_TIME_ON_BATTERY);
+        if (suspendTimeOnBattery !== '') {
+          effectiveSuspendTime = suspendTimeOnBattery;
+        }
+      }
+      if (effectiveSuspendTime === '0') {
         return false;
       }
     }

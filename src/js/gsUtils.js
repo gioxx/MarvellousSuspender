@@ -939,7 +939,7 @@ export const gsUtils = {
           //update suspend timers
           const updateSuspendTime =
             changedSettingKeys.includes(gsStorage.SUSPEND_TIME) ||
-            (changedSettingKeys.includes(gsStorage.SUSPEND_TIME_ON_BATTERY) && !(await tgs.isCharging())) ||
+            (changedSettingKeys.includes(gsStorage.SUSPEND_TIME_ON_BATTERY) && (await tgs.isCharging()) === false) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && tab.active) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && !settings[gsStorage.IGNORE_PINNED] && tab.pinned) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_AUDIO) && !settings[gsStorage.IGNORE_AUDIO] && tab.audible) ||
