@@ -37,19 +37,25 @@ import  { gsUtils }               from './gsUtils.js';
 
 
   // Shows whether the computer is currently detected as plugged in or running on battery,
-  // next to the battery-specific timeout select — that select only takes effect on battery,
-  // so knowing the current power source at a glance helps explain why it is (or isn't)
-  // active right now. Battery.onchargingchange keeps it live while the page stays open.
+  // as a small icon (plug / battery) next to the battery-specific timeout select — that
+  // select only takes effect on battery, so knowing the current power source at a glance
+  // helps explain why it is (or isn't) active right now. A single icon plus a hover
+  // tooltip (same mechanism as the other option tooltips) keeps it compact instead of
+  // spelling the status out in text. battery.onchargingchange keeps it live while the
+  // page stays open.
   function initPowerSourceStatus() {
     if (!('getBattery' in navigator) || typeof navigator.getBattery !== 'function') return;
     const el = document.getElementById('powerSourceStatus');
+    const iconUse = document.getElementById('powerSourceIconUse');
     navigator.getBattery().then((battery) => {
       const render = () => {
-        el.textContent = chrome.i18n.getMessage(
-          battery.charging
-            ? 'html_options_suspend_power_status_ac'
-            : 'html_options_suspend_power_status_battery',
-        );
+        const messageKey = battery.charging
+          ? 'html_options_suspend_power_status_ac'
+          : 'html_options_suspend_power_status_battery';
+        const label = chrome.i18n.getMessage(messageKey);
+        iconUse.setAttribute('href', `img/icons.svg#${battery.charging ? 'plug' : 'battery'}`);
+        el.setAttribute('data-i18n-tooltip', label);
+        el.setAttribute('aria-label', label);
         el.classList.remove('hidden');
       };
       render();

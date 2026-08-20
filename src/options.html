@@ -204,6 +204,9 @@ __MSG_html_options_other_legacy_mascot_tooltip_line3__">
         <div class="autoSuspendOption">
           <label id="timeToSuspendOnBatteryLbl" class="topLabel" for="timeToSuspendOnBattery"
                  data-i18n="__MSG_html_options_suspend_on_battery_after__:"></label>
+          <span id="powerSourceStatus" class="hidden" role="img" data-i18n-tooltip="">
+            <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use id="powerSourceIconUse" href="img/icons.svg#plug"></use></svg>
+          </span>
           <br />
           <div class="select-wrapper">
             <select id="timeToSuspendOnBattery" class="option">
@@ -230,7 +233,6 @@ __MSG_html_options_other_legacy_mascot_tooltip_line3__">
             <option value="20160" data-i18n="2 __MSG_html_options_suspend_weeks__"></option>
             </select>
           </div>
-          <div id="powerSourceStatus" class="gsNote hidden"></div>
         </div>
       </div>
       <div class="formRow autoSuspendOption">
