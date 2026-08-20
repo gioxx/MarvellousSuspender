@@ -356,7 +356,28 @@ import  { tgs }                   from './tgs.js';
     setScrollPosition(scrollPosition, previewMode);
   }
 
-  async function messageRequestListener(request, sender, sendResponse) {
+  const HANDLED_MESSAGE_ACTIONS = new Set([
+    'initTab', 'getSuspendInfo', 'updateCommand', 'updateTheme',
+    'updateMascot', 'updatePreviewMode', 'showNoConnectivityMessage',
+  ]);
+
+  // chrome.runtime.sendMessage with no tabId broadcasts to every extension page
+  // (this one included), not just its intended recipient (e.g. the service worker).
+  // An async function listener always returns a Promise the instant it's invoked,
+  // regardless of what it returns internally — so a synchronous dispatcher that
+  // checks request.action first is the only reliable way to give Chrome a real,
+  // immediate `false` for actions this page doesn't own, so it doesn't shadow
+  // whichever listener the message was actually meant for.
+  function messageRequestListener(request, sender, sendResponse) {
+    if (!HANDLED_MESSAGE_ACTIONS.has(request.action)) {
+      gsUtils.log('suspended', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
+      return false;
+    }
+    handleMessageRequest(request, sender, sendResponse);
+    return true;
+  }
+
+  async function handleMessageRequest(request, sender, sendResponse) {
     gsUtils.log('suspended', 'messageRequestListener', request.action, request, sender);
 
     switch (request.action) {
@@ -409,15 +430,7 @@ import  { tgs }                   from './tgs.js';
         sendResponse();
         break;
       }
-
-      default: {
-        // NOTE: All messages sent to chrome.runtime will be delivered here too
-        gsUtils.log('suspended', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
-        // sendResponse();
-        break;
-      }
     }
-    return true;
   }
 
   // Registered as soon as the DOM is ready, decoupled from the full localisation chain
