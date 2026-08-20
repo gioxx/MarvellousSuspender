@@ -384,22 +384,22 @@
     "message": "Anular suspensión automáticamente de la pestaña cuando sea vista"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Recargar también reactiva las pestañas en segundo plano (no solo la pestaña activa)"
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Si está activado, recargar una pestaña suspendida (Ctrl+R o"
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "clic derecho > Recargar) también la reactiva aunque no sea"
+    "message": "> Reload) also unsuspends it even when it's not the currently"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "la pestaña activa en ese momento."
+    "message": "focused tab."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Útil para recargar varias pestañas suspendidas a la vez, por"
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "ejemplo tras seleccionar varias pestañas y pulsar Ctrl+R."
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar el ahorro de memoria integrado del navegador al suspender"
