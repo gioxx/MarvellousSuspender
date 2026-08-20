@@ -165,8 +165,20 @@ import  { tgs }                   from './tgs.js';
     return '<span class="logLevel logLevel-I">LOG</span>';
   }
 
+  // entry.ts is stored as UTC (new Date().toISOString() in gsUtils.js) so the raw
+  // history is unambiguous no matter what machine reads it back; render it in the
+  // viewer's own local time here instead, since a debug tester reading the live log
+  // wants "when did this just happen on my clock", not a UTC offset they have to do
+  // math on.
+  function formatLocalTime(iso) {
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '??:??:??';
+    const pad = (n, len = 2) => String(n).padStart(len, '0');
+    return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}.${pad(d.getMilliseconds(), 3)}`;
+  }
+
   function renderLogEntry(entry) {
-    const time = entry.ts ? entry.ts.substring(11, 23) : '??:??:??';
+    const time = entry.ts ? formatLocalTime(entry.ts) : '??:??:??';
     const src  = gsUtils.htmlEncode(String(entry.src || ''));
     const msg  = gsUtils.htmlEncode(String(entry.msg || ''));
     return `<div class="logLine logLine-${entry.level}">${levelLabel(entry.level)}<span class="logTime">${time}</span><span class="logSrc">${src}</span><span class="logMsg">${msg}</span></div>`;
