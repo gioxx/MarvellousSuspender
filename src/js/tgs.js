@@ -784,16 +784,28 @@ export const tgs = (function() {
   // right after the tab's status turns 'complete' — but that page's module script (and
   // therefore its chrome.runtime.onMessage listener) can still be a beat behind that
   // status flip, especially with many suspended tabs loading in the same burst (e.g.
-  // browser startup with dozens of tabs). A single failed send here previously left the
-  // page's initTab() never called at all — no title, no favicon, page never shown —
-  // until gsTabCheckManager's own recovery pass got to it, which could take well over
-  // 10s under load or get lost entirely if a queued check's setTimeout didn't survive
-  // a service worker recycle in between. A few short retries closes that window cheaply.
-  function sendInitTabMessageWithRetry(tabId, payload, retriesLeft = 3, delayMs = 150) {
+  // browser startup or crash recovery with hundreds of tabs). A single failed send here
+  // previously left the page's initTab() never called at all — no title, no favicon,
+  // page never shown — until gsTabCheckManager's own recovery pass got to it, which
+  // could take well over 10s under load or get lost entirely if a queued check's
+  // setTimeout didn't survive a service worker recycle in between.
+  //
+  // The happy path (the overwhelming majority of tabs) resolves on the very first
+  // attempt with zero added delay — retries only fire once a send has actually failed,
+  // and every retry is a background message the user never perceives, not something
+  // that blocks the page (already visible, just waiting to populate) or other tabs.
+  // Under real stress-testing (hundreds of tabs, crash recovery) the previous fixed
+  // 3×150ms=450ms budget still wasn't enough for some tabs; exponential backoff spends
+  // more of that extra budget on the *later*, rarer retries instead of racing them all
+  // at the same short interval, without slowing down anything that only needed 1-2 tries.
+  const INIT_TAB_RETRY_DELAYS_MS = [100, 200, 400, 800, 1500, 3000]; // ~6s total budget
+
+  function sendInitTabMessageWithRetry(tabId, payload, attempt = 0) {
     return chrome.tabs.sendMessage(tabId, payload).catch((error) => {
-      if (retriesLeft <= 0) throw error;
+      if (attempt >= INIT_TAB_RETRY_DELAYS_MS.length) throw error;
+      const delayMs = INIT_TAB_RETRY_DELAYS_MS[attempt];
       return new Promise((resolve) => setTimeout(resolve, delayMs))
-        .then(() => sendInitTabMessageWithRetry(tabId, payload, retriesLeft - 1, delayMs));
+        .then(() => sendInitTabMessageWithRetry(tabId, payload, attempt + 1));
     });
   }
 
