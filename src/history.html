@@ -83,7 +83,14 @@
       </div>
 
       <div class="sub-section" id="section-current">
-        <h2 data-i18n="__MSG_html_history_current_session__"></h2>
+        <div class="sectionHeadingRow">
+          <h2 data-i18n="__MSG_html_history_current_session__"></h2>
+          <button id="missingTabsBadge" type="button" class="missingTabsBadge reallyHidden" aria-expanded="false">
+            <svg class="missingTabsIcon icon" aria-hidden="true" focusable="false" data-icon="square-plus"><use href="img/icons.svg#square-plus"/></svg>
+            <span id="missingTabsBadgeText"></span>
+          </button>
+        </div>
+        <div id="missingTabsPanel" class="missingTabsPanel reallyHidden"></div>
         <div id="currentSessions" class="sessionsContainer"></div>
       </div>
 
