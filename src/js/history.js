@@ -121,7 +121,9 @@ import  { historyUtils }          from './historyUtils.js';
     reopen.textContent = gsUtils.getMessage('js_history_reopen');
     reopen.onclick = (e) => {
       e.preventDefault();
-      chrome.tabs.create({ url: tab.url });
+      chrome.tabs.create({ url: tab.url, active: false }).catch((err) => {
+        gsUtils.error('history', 'Failed to reopen tab', tab.url, err);
+      });
     };
 
     row.appendChild(text);
@@ -155,6 +157,11 @@ import  { historyUtils }          from './historyUtils.js';
     badge.setAttribute('aria-expanded', 'false');
     setMissingTabsIcon('square-plus');
     panel.classList.add('reallyHidden');
+
+    const hint = document.createElement('p');
+    hint.className = 'missingTabsHint lesserText';
+    hint.textContent = gsUtils.getMessage('js_history_missing_tabs_hint');
+    panel.appendChild(hint);
 
     for (const tab of missingTabs) {
       panel.appendChild(createMissingTabRow(tab));

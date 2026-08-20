@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "Inclui também as abas que você mesmo fechou, não apenas as perdidas inesperadamente."
+  },
   "js_history_reopen": {
     "message": "reabrir"
   },

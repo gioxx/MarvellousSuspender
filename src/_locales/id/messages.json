@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "Termasuk tab yang Anda tutup sendiri, bukan hanya yang hilang secara tak terduga."
+  },
   "js_history_reopen": {
     "message": "buka kembali"
   },

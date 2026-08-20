@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "也包括你自己关闭的标签页,不仅仅是意外丢失的。"
+  },
   "js_history_reopen": {
     "message": "重新打开"
   },

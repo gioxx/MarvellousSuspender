@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "Include anche le schede chiuse volontariamente da te, non solo quelle perse inaspettatamente."
+  },
   "js_history_reopen": {
     "message": "riapri"
   },

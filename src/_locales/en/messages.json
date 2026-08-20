@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "Includes tabs you closed yourself, not just ones lost unexpectedly."
+  },
   "js_history_reopen": {
     "message": "reopen"
   },

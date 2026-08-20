@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "予期せず失われたタブだけでなく、自分で閉じたタブも含まれます。"
+  },
   "js_history_reopen": {
     "message": "再度開く"
   },

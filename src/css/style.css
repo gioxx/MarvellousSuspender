@@ -1137,7 +1137,7 @@ a.historyLink:hover {
   background: color-mix(in oklch, var(--destructive) 16%, var(--background));
 }
 
-.missingTabsIcon {
+svg.missingTabsIcon {
   width: 12px;
   height: 12px;
 }
@@ -1148,6 +1148,11 @@ a.historyLink:hover {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   background: var(--card);
+}
+
+.missingTabsHint {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-xs);
 }
 
 .missingTabsRow {

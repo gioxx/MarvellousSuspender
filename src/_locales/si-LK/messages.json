@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "ඔබම වසා දැමූ ටැබ් ද ඇතුළත් වේ, අනපේක්ෂිත ලෙස නැති වූ ඒවා පමණක් නොවේ."
+  },
   "js_history_reopen": {
     "message": "නැවත විවෘත කරන්න"
   },

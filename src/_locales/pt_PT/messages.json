@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "Inclui também os separadores que fechou propositadamente, não só os perdidos inesperadamente."
+  },
   "js_history_reopen": {
     "message": "reabrir"
   },

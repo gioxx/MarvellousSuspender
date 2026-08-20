@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "Zahrnuje i karty, které jste sami zavřeli, nejen ty ztracené neočekávaně."
+  },
   "js_history_reopen": {
     "message": "znovu otevřít"
   },

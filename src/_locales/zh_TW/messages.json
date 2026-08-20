@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "也包含你自己關閉的分頁,不僅僅是意外遺失的。"
+  },
   "js_history_reopen": {
     "message": "重新開啟"
   },

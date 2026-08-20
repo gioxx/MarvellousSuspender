@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "Incluye también las pestañas que cerraste tú mismo, no solo las perdidas inesperadamente."
+  },
   "js_history_reopen": {
     "message": "volver a abrir"
   },

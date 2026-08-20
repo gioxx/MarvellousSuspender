@@ -748,6 +748,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "Inclut aussi les onglets que vous avez fermés vous-même, pas seulement ceux perdus de façon inattendue."
+  },
   "js_history_reopen": {
     "message": "rouvrir"
   },

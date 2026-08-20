@@ -882,6 +882,9 @@
       }
     }
   },
+  "js_history_missing_tabs_hint": {
+    "message": "Beklenmedik şekilde kaybolanlar değil, kendi kapattığınız sekmeler de dahildir."
+  },
   "js_history_reopen": {
     "message": "yeniden aç"
   },
