@@ -204,9 +204,6 @@ __MSG_html_options_other_legacy_mascot_tooltip_line3__">
         <div class="autoSuspendOption">
           <label id="timeToSuspendOnBatteryLbl" class="topLabel" for="timeToSuspendOnBattery"
                  data-i18n="__MSG_html_options_suspend_on_battery_after__:"></label>
-          <span id="powerSourceStatus" class="hidden" role="img" data-i18n-tooltip="">
-            <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use id="powerSourceIconUse" href="img/icons.svg#plug"></use></svg>
-          </span>
           <br />
           <div class="select-wrapper">
             <select id="timeToSuspendOnBattery" class="option">
@@ -234,6 +231,13 @@ __MSG_html_options_other_legacy_mascot_tooltip_line3__">
             </select>
           </div>
         </div>
+      </div>
+      <div class="formRow autoSuspendOption">
+        <label class="topLabel" data-i18n="__MSG_html_options_suspend_power_status_label__:"></label>
+        <br />
+        <span id="powerSourceStatus" class="hidden" role="img" data-i18n-tooltip="">
+          <svg class="icon" aria-hidden="true" focusable="false"><use id="powerSourceIconUse" href="img/icons.svg#plug"></use></svg>
+        </span>
       </div>
       <div class="formRow autoSuspendOption">
         <input type="checkbox" id="dontSuspendPinned" class="option" />

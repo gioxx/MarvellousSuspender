@@ -320,6 +320,9 @@
   "html_options_suspend_same_as_ac": {
     "message": "විදුලි බලය මෙන්ම"
   },
+  "html_options_suspend_power_status_label": {
+    "message": "වත්මන් බල ප්‍රභවය"
+  },
   "html_options_suspend_power_status_ac": {
     "message": "දැනට විදුලි බලයෙන් ක්‍රියාත්මකයි"
   },

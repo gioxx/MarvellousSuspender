@@ -320,6 +320,9 @@
   "html_options_suspend_same_as_ac": {
     "message": "Come quando alimentato"
   },
+  "html_options_suspend_power_status_label": {
+    "message": "Alimentazione attuale"
+  },
   "html_options_suspend_power_status_ac": {
     "message": "Attualmente alimentato a corrente"
   },

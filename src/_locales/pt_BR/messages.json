@@ -320,6 +320,9 @@
   "html_options_suspend_same_as_ac": {
     "message": "O mesmo que na tomada"
   },
+  "html_options_suspend_power_status_label": {
+    "message": "Fonte de energia atual"
+  },
   "html_options_suspend_power_status_ac": {
     "message": "Atualmente conectado à energia"
   },

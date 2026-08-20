@@ -320,6 +320,9 @@
   "html_options_suspend_same_as_ac": {
     "message": "Same as when plugged in"
   },
+  "html_options_suspend_power_status_label": {
+    "message": "Current power source"
+  },
   "html_options_suspend_power_status_ac": {
     "message": "Currently running on AC power"
   },

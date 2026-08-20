@@ -320,6 +320,9 @@
   "html_options_suspend_same_as_ac": {
     "message": "Sama seperti saat dicolokkan"
   },
+  "html_options_suspend_power_status_label": {
+    "message": "Sumber daya saat ini"
+  },
   "html_options_suspend_power_status_ac": {
     "message": "Saat ini menggunakan daya listrik"
   },

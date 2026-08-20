@@ -320,6 +320,9 @@
   "html_options_suspend_same_as_ac": {
     "message": "与使用电源时相同"
   },
+  "html_options_suspend_power_status_label": {
+    "message": "当前电源"
+  },
   "html_options_suspend_power_status_ac": {
     "message": "当前使用电源供电"
   },

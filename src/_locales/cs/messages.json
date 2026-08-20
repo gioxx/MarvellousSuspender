@@ -320,6 +320,9 @@
   "html_options_suspend_same_as_ac": {
     "message": "Stejné jako při napájení"
   },
+  "html_options_suspend_power_status_label": {
+    "message": "Aktuální zdroj napájení"
+  },
   "html_options_suspend_power_status_ac": {
     "message": "Aktuálně napájeno ze sítě"
   },
