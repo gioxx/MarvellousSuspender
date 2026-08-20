@@ -314,6 +314,12 @@
   "html_options_suspend_automatically_after": {
     "message": "多久後自動凍結"
   },
+  "html_options_suspend_automatically_after_on_battery": {
+    "message": "……或在使用電池供電時，多久後"
+  },
+  "html_options_suspend_same_as_above": {
+    "message": "與上面相同"
+  },
   "html_options_suspend_never": {
     "message": "永不"
   },

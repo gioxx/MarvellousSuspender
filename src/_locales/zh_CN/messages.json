@@ -314,6 +314,12 @@
   "html_options_suspend_automatically_after": {
     "message": "多久后自动冻结标签页"
   },
+  "html_options_suspend_automatically_after_on_battery": {
+    "message": "……或在使用电池供电时，多久后"
+  },
+  "html_options_suspend_same_as_above": {
+    "message": "与上面相同"
+  },
   "html_options_suspend_never": {
     "message": "永不"
   },

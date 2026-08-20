@@ -314,6 +314,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Otomatik sekmeyi askıya al"
   },
+  "html_options_suspend_automatically_after_on_battery": {
+    "message": "...veya pil gücüyle çalışırken, sonra"
+  },
+  "html_options_suspend_same_as_above": {
+    "message": "Yukarıdakiyle aynı"
+  },
   "html_options_suspend_never": {
     "message": "Hiç"
   },

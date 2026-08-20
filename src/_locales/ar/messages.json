@@ -314,6 +314,12 @@
   "html_options_suspend_automatically_after": {
     "message": "تعليق علامات التبويب تلقائياً بعد"
   },
+  "html_options_suspend_automatically_after_on_battery": {
+    "message": "...أو بعد، عند التشغيل على طاقة البطارية"
+  },
+  "html_options_suspend_same_as_above": {
+    "message": "نفس ما سبق"
+  },
   "html_options_suspend_never": {
     "message": "أبدا"
   },

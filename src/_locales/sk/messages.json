@@ -314,6 +314,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Automaticky pozastav taby po"
   },
+  "html_options_suspend_automatically_after_on_battery": {
+    "message": "...alebo po, keď beží na batériu"
+  },
+  "html_options_suspend_same_as_above": {
+    "message": "Rovnako ako vyššie"
+  },
   "html_options_suspend_never": {
     "message": "Nikdy"
   },

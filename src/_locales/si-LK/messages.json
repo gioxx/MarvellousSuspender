@@ -314,6 +314,12 @@
   "html_options_suspend_automatically_after": {
     "message": "පසුව ස්වයංක්‍රීයව පටිතින්න"
   },
+  "html_options_suspend_automatically_after_on_battery": {
+    "message": "...නැතහොත් බැටරි බලයෙන් ක්‍රියාත්මක වන විට, ඉන් පසුව"
+  },
+  "html_options_suspend_same_as_above": {
+    "message": "ඉහත මෙනි"
+  },
   "html_options_suspend_never": {
     "message": "කවදාවත්"
   },

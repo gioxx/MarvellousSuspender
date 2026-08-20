@@ -314,6 +314,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Автоматически приостанавливать вкладки после"
   },
+  "html_options_suspend_automatically_after_on_battery": {
+    "message": "...или через, при работе от батареи"
+  },
+  "html_options_suspend_same_as_above": {
+    "message": "Так же, как выше"
+  },
   "html_options_suspend_never": {
     "message": "никогда"
   },

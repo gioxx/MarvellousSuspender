@@ -314,6 +314,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Suspendre automatiquement les onglets après"
   },
+  "html_options_suspend_automatically_after_on_battery": {
+    "message": "...ou après, lorsque l'ordinateur fonctionne sur batterie"
+  },
+  "html_options_suspend_same_as_above": {
+    "message": "Identique à ci-dessus"
+  },
   "html_options_suspend_never": {
     "message": "Jamais"
   },
