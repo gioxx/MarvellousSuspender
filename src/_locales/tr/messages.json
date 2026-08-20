@@ -384,22 +384,22 @@
     "message": "Sekme görüntülendiğinde askısını kaldır"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Yeniden yükleme, arka plandaki sekmelerin de askısını kaldırır (yalnızca etkin sekmenin değil)"
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Etkinleştirildiğinde, askıya alınmış bir sekmeyi yeniden yüklemek"
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "(Ctrl+R veya sağ tık > Yeniden Yükle) o sekme etkin sekme"
+    "message": "> Reload) also unsuspends it even when it's not the currently"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "olmasa bile askısını kaldırır."
+    "message": "focused tab."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Birden çok askıya alınmış sekmeyi aynı anda yeniden yüklerken"
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "kullanışlıdır, örn. birden çok sekme seçip Ctrl+R'ye basınca."
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Askıya alırken tarayıcının yerleşik bellek tasarrufunu uygula"
