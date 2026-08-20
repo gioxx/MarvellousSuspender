@@ -106,6 +106,28 @@ import  { historyUtils }          from './historyUtils.js';
     return missing;
   }
 
+  // Reopening in the background (below) means history.html keeps focus, so the
+  // window.onfocus → render() refresh that would normally pick up the change never
+  // fires. Without this, the row stays listed and the badge count stays stale,
+  // letting repeated clicks open duplicate tabs. Update the panel in place instead
+  // of waiting for a refresh that isn't coming.
+  function removeMissingTabRowAndUpdateBadge(row) {
+    const badge     = document.getElementById('missingTabsBadge');
+    const badgeText = document.getElementById('missingTabsBadgeText');
+    const panel     = document.getElementById('missingTabsPanel');
+
+    row.remove();
+
+    const remaining = panel.querySelectorAll('.missingTabsRow').length;
+    if (remaining === 0) {
+      badge.classList.add('reallyHidden');
+      panel.classList.add('reallyHidden');
+      panel.innerHTML = '';
+      return;
+    }
+    badgeText.textContent = gsUtils.getMessage('js_history_missing_tabs_badge', [String(remaining)]);
+  }
+
   function createMissingTabRow(tab) {
     const row = document.createElement('div');
     row.className = 'missingTabsRow';
@@ -121,9 +143,13 @@ import  { historyUtils }          from './historyUtils.js';
     reopen.textContent = gsUtils.getMessage('js_history_reopen');
     reopen.onclick = (e) => {
       e.preventDefault();
-      chrome.tabs.create({ url: tab.url, active: false }).catch((err) => {
-        gsUtils.error('history', 'Failed to reopen tab', tab.url, err);
-      });
+      chrome.tabs.create({ url: tab.url, active: false })
+        .then(() => {
+          removeMissingTabRowAndUpdateBadge(row);
+        })
+        .catch((err) => {
+          gsUtils.error('history', 'Failed to reopen tab', tab.url, err);
+        });
     };
 
     row.appendChild(text);
