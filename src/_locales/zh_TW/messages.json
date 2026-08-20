@@ -320,15 +320,6 @@
   "html_options_suspend_same_as_ac": {
     "message": "與使用電源時相同"
   },
-  "html_options_suspend_power_status_label": {
-    "message": "目前電源"
-  },
-  "html_options_suspend_power_status_ac": {
-    "message": "目前使用電源供電"
-  },
-  "html_options_suspend_power_status_battery": {
-    "message": "目前使用電池供電"
-  },
   "html_options_suspend_never": {
     "message": "永不"
   },

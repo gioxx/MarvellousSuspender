@@ -320,15 +320,6 @@
   "html_options_suspend_same_as_ac": {
     "message": "Igual a quando ligado à corrente"
   },
-  "html_options_suspend_power_status_label": {
-    "message": "Fonte de alimentação atual"
-  },
-  "html_options_suspend_power_status_ac": {
-    "message": "Atualmente ligado à corrente"
-  },
-  "html_options_suspend_power_status_battery": {
-    "message": "Atualmente a funcionar com bateria"
-  },
   "html_options_suspend_never": {
     "message": "Nunca"
   },

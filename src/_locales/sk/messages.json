@@ -320,15 +320,6 @@
   "html_options_suspend_same_as_ac": {
     "message": "Rovnako ako pri napájaní"
   },
-  "html_options_suspend_power_status_label": {
-    "message": "Aktuálny zdroj napájania"
-  },
-  "html_options_suspend_power_status_ac": {
-    "message": "Aktuálne napájané zo siete"
-  },
-  "html_options_suspend_power_status_battery": {
-    "message": "Aktuálne napájané z batérie"
-  },
   "html_options_suspend_never": {
     "message": "Nikdy"
   },

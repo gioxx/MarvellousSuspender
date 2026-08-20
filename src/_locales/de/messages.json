@@ -320,15 +320,6 @@
   "html_options_suspend_same_as_ac": {
     "message": "Wie im Netzbetrieb"
   },
-  "html_options_suspend_power_status_label": {
-    "message": "Aktuelle Stromquelle"
-  },
-  "html_options_suspend_power_status_ac": {
-    "message": "Derzeit am Stromnetz"
-  },
-  "html_options_suspend_power_status_battery": {
-    "message": "Derzeit im Akkubetrieb"
-  },
   "html_options_suspend_never": {
     "message": "Nie"
   },

@@ -320,15 +320,6 @@
   "html_options_suspend_same_as_ac": {
     "message": "Prize takılıyken ile aynı"
   },
-  "html_options_suspend_power_status_label": {
-    "message": "Mevcut güç kaynağı"
-  },
-  "html_options_suspend_power_status_ac": {
-    "message": "Şu anda elektrik gücüyle çalışıyor"
-  },
-  "html_options_suspend_power_status_battery": {
-    "message": "Şu anda pil gücüyle çalışıyor"
-  },
   "html_options_suspend_never": {
     "message": "Hiç"
   },

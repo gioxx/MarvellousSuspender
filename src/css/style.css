@@ -1561,20 +1561,6 @@ body.dark span.group.edge.orange { background: #df8e64; }
   align-items: flex-start;
 }
 
-/* .formRow > .topLabel forces the label to flex-basis: 100%, which would push
-   the icon onto its own line as a sibling; here the label stays inline-width
-   so the icon sits right after it instead. */
-.formRow:has(#powerSourceStatus) > .topLabel {
-  flex-basis: auto;
-}
-
-#powerSourceStatus {
-  display: inline-flex;
-  vertical-align: middle;
-  margin-left: var(--space-2);
-  color: var(--foreground);
-  font-size: 1.25em;
-}
 
 .welcome-message {
   max-width: none;

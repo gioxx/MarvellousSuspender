@@ -308,6 +308,29 @@ import  { tgs }                   from './tgs.js';
     setTimeout(() => { link.textContent = 'simulate unread'; }, 2000);
   }
 
+  // ── Power source ──────────────────────────────────────────────────────────────────────────
+
+  // Surfaces the same navigator.getBattery() read tgs.js/background.js rely on for the
+  // "never suspend while charging" and battery-specific-timeout options, so it's easy to
+  // confirm what the extension currently sees without guessing from behaviour alone.
+  function initPowerSourceStatus() {
+    const iconEl   = document.getElementById('powerSourceIcon');
+    const statusEl = document.getElementById('powerSourceStatus');
+    if (!iconEl || !statusEl) return;
+    if (!('getBattery' in navigator) || typeof navigator.getBattery !== 'function') {
+      statusEl.textContent = 'unavailable in this context';
+      return;
+    }
+    navigator.getBattery().then((battery) => {
+      const render = () => {
+        iconEl.setAttribute('href', `img/icons.svg#${battery.charging ? 'plug' : 'battery'}`);
+        statusEl.textContent = battery.charging ? 'AC power' : 'on battery';
+      };
+      render();
+      battery.onchargingchange = render;
+    });
+  }
+
   // ── Backup device identity ────────────────────────────────────────────────────────────────
 
   async function renderBackupDeviceInfo() {
@@ -363,6 +386,7 @@ import  { tgs }                   from './tgs.js';
     await renderDiscardToggle();
     await renderNewsFeedStatus();
     await renderBackupDeviceInfo();
+    initPowerSourceStatus();
     await refreshLogs();
     await fetchTabInfo();
 

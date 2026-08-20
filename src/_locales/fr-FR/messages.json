@@ -215,15 +215,6 @@
   "html_options_suspend_same_as_ac": {
     "message": "Identique à sur secteur"
   },
-  "html_options_suspend_power_status_label": {
-    "message": "Source d'alimentation actuelle"
-  },
-  "html_options_suspend_power_status_ac": {
-    "message": "Actuellement sur secteur"
-  },
-  "html_options_suspend_power_status_battery": {
-    "message": "Actuellement sur batterie"
-  },
   "html_options_suspend_never": {
     "message": "Jamais"
   },

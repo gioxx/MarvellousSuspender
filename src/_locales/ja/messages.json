@@ -320,15 +320,6 @@
   "html_options_suspend_same_as_ac": {
     "message": "電源接続時と同じ"
   },
-  "html_options_suspend_power_status_label": {
-    "message": "現在の電源"
-  },
-  "html_options_suspend_power_status_ac": {
-    "message": "現在、電源に接続されています"
-  },
-  "html_options_suspend_power_status_battery": {
-    "message": "現在、バッテリーで動作しています"
-  },
   "html_options_suspend_never": {
     "message": "しない"
   },

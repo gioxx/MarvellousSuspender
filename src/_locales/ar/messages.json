@@ -320,15 +320,6 @@
   "html_options_suspend_same_as_ac": {
     "message": "نفس ما عند الاتصال بمصدر الطاقة"
   },
-  "html_options_suspend_power_status_label": {
-    "message": "مصدر الطاقة الحالي"
-  },
-  "html_options_suspend_power_status_ac": {
-    "message": "متصل حاليًا بمصدر الطاقة"
-  },
-  "html_options_suspend_power_status_battery": {
-    "message": "يعمل حاليًا على البطارية"
-  },
   "html_options_suspend_never": {
     "message": "أبدا"
   },
