@@ -228,6 +228,15 @@ import  { tgs }                   from './tgs.js';
         gsUtils.captureLogs = request.value;
         break;
       }
+      case 'clearLogs' : {
+        // The debug page runs in its own context with its own copy of the gsUtils
+        // module — clearing chrome.storage from there doesn't touch this service
+        // worker's in-memory _logBuffer/_logBufferFull, so the next log entry (or an
+        // already-pending debounced flush) would silently write the old buffers back
+        // over the just-cleared storage. Route the clear through here instead.
+        gsUtils.clearLogBuffer();
+        break;
+      }
       default: {
         gsUtils.warning('background', 'messageRequestListener', `Unknown message action: ${request.action}`);
         break;

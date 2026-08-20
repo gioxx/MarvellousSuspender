@@ -24,7 +24,11 @@
       </div>
     </div>
 
-    <p class="pageTitle">Diagnostic &amp; Debugger</p>
+    <p class="debugPageTitle">Diagnostic &amp; Debugger</p>
+
+    <div class="gsNote gsNote--warn">
+      This is a service page for diagnosing issues, not a normal settings screen. Some actions here modify stored data (logs, cached favicons, "seen" flags) and can't be undone. Only use it if you know what you're doing, or if you've been asked to as part of a support request.
+    </div>
 
     <section class="debugSection">
       <h2 class="debugSectionTitle">Controls</h2>
@@ -71,7 +75,7 @@
         </div>
 
         <div class="debugCompactRow">
-          <svg class="debugCompactIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
+          <svg class="debugCompactIcon" aria-hidden="true"><use href="img/icons.svg#image"/></svg>
           <span class="debugCompactLabel">favicon cache</span>
           <span class="debugCompactHint">Wipes cached favicons; rebuilt from Chrome's cache on next suspend.</span>
           <div class="debugCompactActions">
@@ -80,7 +84,7 @@
         </div>
 
         <div class="debugCompactRow">
-          <svg class="debugCompactIcon" aria-hidden="true"><use href="img/icons.svg#rotate-cw"/></svg>
+          <svg class="debugCompactIcon" aria-hidden="true"><use href="img/icons.svg#history"/></svg>
           <span class="debugCompactLabel">changelog modal</span>
           <span class="debugCompactHint">Clears the "already shown" marker so Settings shows it again.</span>
           <div class="debugCompactActions">
@@ -115,10 +119,12 @@
     <hr />
 
     <section class="debugSection">
-      <h2 class="debugSectionTitle">Log buffer &middot; <span id="logCount">0</span> entries</h2>
+      <h2 class="debugSectionTitle">Log buffer &middot; <span id="logCountFull">0</span> entries</h2>
+      <p class="debugLogHint">Showing only the latest <strong><span id="logCount">0</span></strong> entries below. <strong>Download report</strong> includes the full history above; <strong>Copy report</strong> copies only what's shown below.</p>
       <div class="debugLogActions">
         <button id="btnRefreshLogs" class="debugBtn">Refresh</button>
         <button id="btnClearLog" class="debugBtn">Clear log</button>
+        <button id="btnFilterWarnErr" class="debugBtn" aria-pressed="false">Warnings &amp; errors only</button>
         <button id="btnCopyReport" class="debugBtn debugBtn-primary">Copy report</button>
         <button id="btnDownloadReport" class="debugBtn debugBtn-primary">Download report</button>
       </div>
