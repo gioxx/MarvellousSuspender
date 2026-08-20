@@ -383,6 +383,12 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Selalu buka kembali tab yang ditangguhkan dari bagian atas halaman"
   },
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "Tab dibuka kembali dari bagian atas halaman, bukan dari posisi saat ditangguhkan."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "Berlaku untuk penangguhan otomatis maupun manual, dan mengesampingkan tautan yang mengarah ke bagian (#) saat dimuat."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Secara otomatis batal tangguhkan tab saat dilihat"
   },

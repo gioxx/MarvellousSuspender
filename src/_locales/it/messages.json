@@ -383,6 +383,12 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Riapri sempre le schede sospese partendo dall'inizio della pagina"
   },
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "La scheda si riapre dall'inizio della pagina invece che dal punto in cui era stata sospesa."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "Vale sia per la sospensione automatica che manuale, e prevale sui link che puntano a una sezione (#) della pagina."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Riattiva automaticamente la scheda quando viene visualizzata"
   },

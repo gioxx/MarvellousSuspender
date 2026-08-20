@@ -383,6 +383,12 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Askıya alınmış sekmeleri her zaman sayfanın en üstünden yeniden aç"
   },
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "Sekme, askıya alındığı konum yerine sayfanın en üstünden yeniden açılır."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "Hem otomatik hem de manuel askıya almaya uygulanır ve yüklemede bir #bölüme atlayan bağlantıları geçersiz kılar."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Sekme görüntülendiğinde askısını kaldır"
   },

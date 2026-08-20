@@ -383,6 +383,12 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "අත්හිටුවූ ටැබ් සැමවිටම පිටුවේ මුදුනට නැවත විවෘත කරන්න"
   },
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "ටැබය අත්හිටුවූ ස්ථානය වෙනුවට පිටුවේ මුදුනේ සිට නැවත විවෘත වේ."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "මෙය ස්වයංක්‍රීය සහ අතින් අත්හිටුවීම් දෙකටම අදාළ වන අතර, පූරණය අතරතුර #කොටසකට පනින සබැඳි අභිබවා යයි."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "ටැබ් එක බලන විට ස්වයංක්‍රීයව අත්හිටුවීම ඉවත් කරන්න"
   },

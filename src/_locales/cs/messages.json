@@ -383,6 +383,12 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Vždy znovu otevřít uspané karty od začátku stránky"
   },
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "Karta se znovu otevře od začátku stránky místo místa, kde byla při pozastavení."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "Platí pro automatické i ruční pozastavení a má přednost před odkazy, které při načtení přejdou na sekci (#)."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automaticky obnovit kartu při jejím zobrazení"
   },

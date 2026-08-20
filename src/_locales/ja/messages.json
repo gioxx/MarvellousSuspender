@@ -383,6 +383,12 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "停止したタブは常にページの先頭を表示した状態で再度開く"
   },
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "タブはサスペンド時の位置ではなく、ページの先頭にスクロールした状態で再度開きます。"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "自動・手動どちらのサスペンドにも適用され、読み込み時に#セクションへ移動するリンクより優先されます。"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "表示されたときに自動的にタブを再開する"
   },

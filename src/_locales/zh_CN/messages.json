@@ -383,6 +383,12 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "重新打开已冻结的标签页时始终滚动到页面顶部"
   },
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "标签页会从页面顶部重新打开，而不是挂起时所在的位置。"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "适用于自动和手动挂起，并会覆盖加载时跳转到 #小节 的链接。"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "当标签页被浏览就自动恢复标签页"
   },

@@ -383,6 +383,12 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Toujours rouvrir les onglets suspendus en haut de la page"
   },
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "L'onglet se rouvre en haut de la page au lieu de l'endroit où il était défilé lors de la suspension."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "S'applique à la suspension automatique et manuelle, et prévaut sur les liens qui pointent vers une section (#) au chargement."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automatiquement annuler la suspension de l'onglet lorsqu'il est vu"
   },
