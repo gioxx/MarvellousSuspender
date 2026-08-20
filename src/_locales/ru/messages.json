@@ -21,10 +21,10 @@
     "message": "Возобновить выбранные вкладки"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "Приостановить все вкладки в группе активной вкладки"
+    "message": "Suspend all tabs in the active tab's group"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "Возобновить все вкладки в группе активной вкладки"
+    "message": "Unsuspend all tabs in the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Приостановить все остальные вкладки в активном окне"
@@ -66,10 +66,10 @@
     "message": "Возобновить выбранные вкладки"
   },
   "js_context_suspend_tab_group": {
-    "message": "Приостановить все вкладки в этой группе"
+    "message": "Suspend all tabs in this group"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "Возобновить все вкладки в этой группе"
+    "message": "Unsuspend all tabs in this group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Приостановить все остальные вкладки в этом окне"
@@ -327,10 +327,10 @@
     "message": "Автоматически приостанавливать вкладки после"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "Приостанавливать вкладки от батареи через"
+    "message": "Suspend tabs on battery power after"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "Так же, как при питании от сети"
+    "message": "Same as when plugged in"
   },
   "html_options_suspend_never": {
     "message": "никогда"
@@ -399,40 +399,40 @@
     "message": "Никогда не приостанавливать активную вкладку в каждом окне"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Всегда открывать приостановленные вкладки в самом верху страницы"
+    "message": "Always reopen suspended tabs scrolled to the top"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "Вкладка открывается заново с самого верха страницы, а не с"
+    "message": "The tab reopens at the top of the page instead of wherever it was"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "того места, где была при приостановке."
+    "message": "scrolled to when suspended."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Применяется как к автоматической, так и к ручной приостановке,"
+    "message": "Applies to both automatic and manual suspension, and overrides"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "и имеет приоритет над ссылками, ведущими к разделу (#) при загрузке."
+    "message": "links that jump to a #section on load."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Автоматически возобновлять приостановленную вкладку при переходе на неё"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Перезагрузка также возобновляет вкладки в фоновом режиме (не только активную вкладку)"
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Если включено, перезагрузка приостановленной вкладки (Ctrl+R"
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "или ПКМ > Перезагрузить) возобновляет её, даже если это не"
+    "message": "> Reload) also unsuspends it even when it's not the currently"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "текущая активная вкладка."
+    "message": "focused tab."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Полезно при перезагрузке нескольких приостановленных вкладок"
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "сразу, например после выделения нескольких вкладок и Ctrl+R."
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Применять встроенную экономию памяти браузера при приостановке"
