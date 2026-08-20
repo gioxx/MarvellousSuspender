@@ -21,10 +21,10 @@
     "message": "Ausgewählte Tabs aufwachen"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "Alle Tabs in der Gruppe des aktiven Tabs aussetzen"
+    "message": "Suspend all tabs in the active tab's group"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "Alle Tabs in der Gruppe des aktiven Tabs aufwachen"
+    "message": "Unsuspend all tabs in the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Alle anderen Tabs im aktiven Fenster aussetzen"
@@ -66,10 +66,10 @@
     "message": "Ausgewählte Tabs aufwachen"
   },
   "js_context_suspend_tab_group": {
-    "message": "Alle Tabs in dieser Gruppe aussetzen"
+    "message": "Suspend all tabs in this group"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "Alle Tabs in dieser Gruppe aufwachen"
+    "message": "Unsuspend all tabs in this group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Alle anderen Tabs in diesem Fenster aussetzen"
@@ -327,10 +327,10 @@
     "message": "Tabs automatisch aussetzen nach"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "Tabs im Akkubetrieb aussetzen nach"
+    "message": "Suspend tabs on battery power after"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "Wie im Netzbetrieb"
+    "message": "Same as when plugged in"
   },
   "html_options_suspend_never": {
     "message": "Nie"
@@ -399,40 +399,40 @@
     "message": "Aktive Tabs in jedem Fenster nicht aussetzen"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Angehaltene Tabs immer ganz oben auf der Seite erneut öffnen"
+    "message": "Always reopen suspended tabs scrolled to the top"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "Der Tab öffnet sich oben auf der Seite erneut, statt an der"
+    "message": "The tab reopens at the top of the page instead of wherever it was"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "Stelle, an der er beim Aussetzen stand."
+    "message": "scrolled to when suspended."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Gilt sowohl für automatisches als auch manuelles Aussetzen und"
+    "message": "Applies to both automatic and manual suspension, and overrides"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "überschreibt Links, die beim Laden zu einem #Abschnitt springen."
+    "message": "links that jump to a #section on load."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Tab automatisch aufwachen, wenn er aufgerufen wird"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Neuladen aktiviert auch Tabs im Hintergrund (nicht nur den aktiven Tab)"
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Wenn aktiviert, wird eine pausierte Registerkarte beim Neuladen"
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "(Strg+R oder Rechtsklick > Neu laden) auch dann reaktiviert,"
+    "message": "> Reload) also unsuspends it even when it's not the currently"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "wenn sie nicht die aktive Registerkarte ist."
+    "message": "focused tab."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Nützlich, um mehrere pausierte Tabs auf einmal neu zu laden,"
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "z. B. nach Auswahl mehrerer Tabs und Drücken von Strg+R."
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Beim Aussetzen die integrierte Speicherersparnis des Browsers anwenden"
