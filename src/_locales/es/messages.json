@@ -21,10 +21,10 @@
     "message": "Anular suspensión de las pestañas seleccionadas"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "Suspender todas las pestañas del grupo de la pestaña activa"
+    "message": "Suspend all tabs in the active tab's group"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "Anular suspensión de todas las pestañas del grupo de la pestaña activa"
+    "message": "Unsuspend all tabs in the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todas las demás pestañas en la ventana activa"
@@ -66,10 +66,10 @@
     "message": "Anular suspensión de las pestañas seleccionadas"
   },
   "js_context_suspend_tab_group": {
-    "message": "Suspender todas las pestañas de este grupo"
+    "message": "Suspend all tabs in this group"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "Anular suspensión de todas las pestañas de este grupo"
+    "message": "Unsuspend all tabs in this group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas las demás pestañas en esta ventana"
@@ -327,10 +327,10 @@
     "message": "Suspender automáticamente las pestañas después de"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "Suspender pestañas con batería después de"
+    "message": "Suspend tabs on battery power after"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "Igual que con corriente"
+    "message": "Same as when plugged in"
   },
   "html_options_suspend_never": {
     "message": "Nunca"
@@ -399,40 +399,40 @@
     "message": "Nunca suspender la pestaña activa en cada ventana"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Reabrir siempre las pestañas suspendidas desplazadas hasta arriba"
+    "message": "Always reopen suspended tabs scrolled to the top"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "La pestaña se reabre desde la parte superior de la página en"
+    "message": "The tab reopens at the top of the page instead of wherever it was"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "lugar del punto donde se suspendió."
+    "message": "scrolled to when suspended."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Se aplica tanto a la suspensión automática como a la manual, y"
+    "message": "Applies to both automatic and manual suspension, and overrides"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "anula los enlaces que saltan a una sección (#) al cargar."
+    "message": "links that jump to a #section on load."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Anular suspensión automáticamente de la pestaña cuando sea vista"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Recargar también reactiva las pestañas en segundo plano (no solo la pestaña activa)"
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Si está activado, recargar una pestaña suspendida (Ctrl+R o"
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "clic derecho > Recargar) también la reactiva aunque no sea"
+    "message": "> Reload) also unsuspends it even when it's not the currently"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "la pestaña activa en ese momento."
+    "message": "focused tab."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Útil para recargar varias pestañas suspendidas a la vez, por"
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "ejemplo tras seleccionar varias pestañas y pulsar Ctrl+R."
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar el ahorro de memoria integrado del navegador al suspender"
