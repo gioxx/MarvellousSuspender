@@ -383,11 +383,17 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Vždy znova otvoriť uspaté karty od začiatku stránky"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "Karta sa znova otvorí od začiatku stránky namiesto miesta, kde bola pri pozastavení."
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "Karta sa znova otvorí od začiatku stránky namiesto miesta,"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Platí pre automatické aj manuálne pozastavenie a má prednosť pred odkazmi, ktoré pri načítaní prejdú na sekciu (#)."
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "kde bola pri pozastavení."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Platí pre automatické aj manuálne pozastavenie a má prednosť"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "pred odkazmi, ktoré pri načítaní prejdú na sekciu (#)."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automaticky obnov práve zobrazený tab"

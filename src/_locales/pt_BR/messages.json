@@ -383,11 +383,17 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Sempre reabrir as guias suspensas rolando até o topo da página"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "A guia é reaberta no topo da página, em vez do ponto em que estava ao ser suspensa."
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "A guia é reaberta no topo da página, em vez do ponto em que"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Aplica-se tanto à suspensão automática quanto à manual, e substitui links que apontam para uma seção (#) ao carregar."
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "estava ao ser suspensa."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Aplica-se tanto à suspensão automática quanto à manual, e"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "substitui links que apontam para uma seção (#) ao carregar."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Recarregar automaticamente quando a guia for visualizada"

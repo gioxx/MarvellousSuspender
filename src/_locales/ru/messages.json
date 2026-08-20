@@ -383,11 +383,17 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Всегда открывать приостановленные вкладки в самом верху страницы"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "Вкладка открывается заново с самого верха страницы, а не с того места, где была при приостановке."
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "Вкладка открывается заново с самого верха страницы, а не с"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Применяется как к автоматической, так и к ручной приостановке, и имеет приоритет над ссылками, ведущими к разделу (#) при загрузке."
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "того места, где была при приостановке."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Применяется как к автоматической, так и к ручной приостановке,"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "и имеет приоритет над ссылками, ведущими к разделу (#) при загрузке."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Автоматически возобновлять приостановленную вкладку при переходе на неё"

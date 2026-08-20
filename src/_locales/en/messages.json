@@ -383,11 +383,17 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Always reopen suspended tabs scrolled to the top"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "The tab reopens at the top of the page instead of wherever it was scrolled to when suspended."
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "The tab reopens at the top of the page instead of wherever it was"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Applies to both automatic and manual suspension, and overrides links that jump to a #section on load."
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "scrolled to when suspended."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Applies to both automatic and manual suspension, and overrides"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "links that jump to a #section on load."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automatically unsuspend tab when it is viewed"

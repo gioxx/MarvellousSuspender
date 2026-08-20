@@ -383,11 +383,17 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Reabrir siempre las pestañas suspendidas desplazadas hasta arriba"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "La pestaña se reabre desde la parte superior de la página en lugar del punto donde se suspendió."
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "La pestaña se reabre desde la parte superior de la página en"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Se aplica tanto a la suspensión automática como a la manual, y anula los enlaces que saltan a una sección (#) al cargar."
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "lugar del punto donde se suspendió."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Se aplica tanto a la suspensión automática como a la manual, y"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "anula los enlaces que saltan a una sección (#) al cargar."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Anular suspensión automáticamente de la pestaña cuando sea vista"

@@ -383,11 +383,17 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "دائمًا أعد فتح علامات التبويب المعلّقة من أعلى الصفحة"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "تُعاد فتح علامة التبويب من أعلى الصفحة بدلاً من الموضع الذي كانت عنده عند التعليق."
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "تُعاد فتح علامة التبويب من أعلى الصفحة بدلاً من"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "ينطبق على التعليق التلقائي واليدوي، ويتجاوز الروابط التي تنتقل إلى قسم (#) عند التحميل."
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "الموضع الذي كانت عنده عند التعليق."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "ينطبق على التعليق التلقائي واليدوي، ويتجاوز الروابط"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "التي تنتقل إلى قسم (#) عند التحميل."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "إلغاء تعليق علامة التبويب تلقائياً عند عرضها"
