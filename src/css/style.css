@@ -1563,6 +1563,8 @@ body.dark span.group.edge.orange { background: #df8e64; }
 
 #powerSourceStatus {
   display: inline-flex;
+  vertical-align: middle;
+  margin-left: var(--space-2);
   color: var(--foreground);
   font-size: 1.25em;
 }
