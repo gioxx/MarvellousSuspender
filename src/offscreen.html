@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script type="module" src="js/offscreen.js"></script>
+</head>
+
+<!--
+  Never shown to the user. This document exists only to give the service worker (which has
+  no Window context, and so no navigator.getBattery()) access to the Battery Status API via
+  offscreen.js. See chrome.offscreen.createDocument() in background.js.
+-->
+<body></body>
+
+</html>

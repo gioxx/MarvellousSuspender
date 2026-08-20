@@ -26,6 +26,28 @@ import  { tgs }                   from './tgs.js';
     if (result.gsCaptureVerbose) gsUtils.captureLogs = true;
   });
 
+  // navigator.getBattery() is a Window-only API, unavailable in this service worker — the
+  // offscreen document runs offscreen.js in a real DOM context to read it instead, reporting
+  // charging-state changes back via the 'batteryStatus' message above. The document persists
+  // independently of SW recycling once created, but this runs on every wake (not just
+  // startupOnce, which is once per browser session) to self-heal if it's ever missing —
+  // hasDocument() keeps repeat calls cheap, and a concurrent createDocument() call from
+  // another SW wake is caught and ignored rather than treated as an error.
+  async function ensureOffscreenDocument() {
+    if (!chrome.offscreen) return;
+    if (await chrome.offscreen.hasDocument()) return;
+    try {
+      await chrome.offscreen.createDocument({
+        url: 'offscreen.html',
+        reasons: ['BATTERY_STATUS'],
+        justification: 'Read charging state via navigator.getBattery(), unavailable in the service worker.',
+      });
+    } catch (error) {
+      gsUtils.log('background', 'ensureOffscreenDocument', 'createDocument failed (likely a concurrent call)', error);
+    }
+  }
+  ensureOffscreenDocument();
+
   function startupOnce() {
     gsUtils.log('startupOnce');
     if (startupDone) return;
@@ -165,6 +187,26 @@ import  { tgs }                   from './tgs.js';
       }
       case 'fetchNewsFeed' : {
         gsNewsFeed.fetchAndCacheIfStale();
+        break;
+      }
+
+      // navigator.getBattery() doesn't work in this service worker (Window-only API), so
+      // offscreen.js reads it from an offscreen document and reports changes here instead.
+      case 'batteryStatus' : {
+        await tgs.setCharging(request.charging);
+        gsUtils.log('background', `isCharging: ${await tgs.isCharging()}`);
+        tgs.setIconStatusForActiveTab();
+        // Restart timers on all normal tabs: some may have been prevented from suspending
+        // while charging, or need to switch to/from the battery-specific timeout now.
+        const hasBatterySpecificTimeout =
+          (await gsStorage.getOption(gsStorage.SUSPEND_TIME_ON_BATTERY)) !== '';
+        if (
+          ((await tgs.isCharging()) === false &&
+            await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING)) ||
+          hasBatterySpecificTimeout
+        ) {
+          tgs.resetAutoSuspendTimerForAllTabs();
+        }
         break;
       }
 
@@ -520,32 +562,6 @@ import  { tgs }                   from './tgs.js';
 
   // Listeners must part of the top-level evaluation of the service worker
   function addMiscListeners() {
-    // add listener for battery state changes
-    // @TODO: It appears service workers ( via Manifest V3 ) do not have access to getBattery
-    // gsUtils.log('background', '@TODO addMiscListeners', 'typeof getBattery', typeof navigator.getBattery);
-    if ('getBattery' in navigator && typeof navigator.getBattery === 'function') {
-      navigator.getBattery().then(async (battery) => {
-        await tgs.setCharging(battery.charging);
-
-        battery.onchargingchange = async () => {
-          await tgs.setCharging(battery.charging);
-          gsUtils.log('background', `isCharging: ${await tgs.isCharging()}`);
-          tgs.setIconStatusForActiveTab();
-          //restart timer on all normal tabs
-          //NOTE: some tabs may have been prevented from suspending when computer was charging
-          const hasBatterySpecificTimeout =
-            (await gsStorage.getOption(gsStorage.SUSPEND_TIME_ON_BATTERY)) !== '';
-          if (
-            (!(await tgs.isCharging()) &&
-              await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING)) ||
-            hasBatterySpecificTimeout
-          ) {
-            tgs.resetAutoSuspendTimerForAllTabs();
-          }
-        };
-      });
-    }
-
     // These listeners must be in the main execution path for service workers
     addEventListener('online', async () => {
       gsUtils.log('background', 'Internet is online.');
