@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Anular suspensión de las pestañas seleccionadas"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Suspender todas las pestañas del grupo de la pestaña activa"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Anular suspensión de todas las pestañas del grupo de la pestaña activa"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todas las demás pestañas en la ventana activa"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Anular suspensión de las pestañas seleccionadas"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Suspender todas las pestañas de este grupo"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Anular suspensión de todas las pestañas de este grupo"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas las demás pestañas en esta ventana"
@@ -397,6 +409,24 @@
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Anular suspensión automáticamente de la pestaña cuando sea vista"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Recargar también reactiva las pestañas en segundo plano (no solo la pestaña activa)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Si está activado, recargar una pestaña suspendida (Ctrl+R o"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "clic derecho > Recargar) también la reactiva aunque no sea"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "la pestaña activa en ese momento."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Útil para recargar varias pestañas suspendidas a la vez, por"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "ejemplo tras seleccionar varias pestañas y pulsar Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar el ahorro de memoria integrado del navegador al suspender"

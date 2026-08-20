@@ -81,6 +81,12 @@
     "2b-unsuspend-selected-tabs": {
       "description": "__MSG_ext_cmd_unsuspend_selected_tabs_description__"
     },
+    "2c-suspend-tab-group": {
+      "description": "__MSG_ext_cmd_suspend_tab_group_description__"
+    },
+    "2d-unsuspend-tab-group": {
+      "description": "__MSG_ext_cmd_unsuspend_tab_group_description__"
+    },
     "3-suspend-active-window": {
       "description": "__MSG_ext_cmd_soft_suspend_active_window_description__"
     },

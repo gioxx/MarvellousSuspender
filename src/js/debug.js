@@ -345,6 +345,16 @@ import  { tgs }                   from './tgs.js';
     setTimeout(() => { link.textContent = 'clear cache'; }, 2000);
   }
 
+  async function onRepairFavicons(e) {
+    e.preventDefault();
+    const link = document.getElementById('repairFavicons');
+    const prev = link.textContent;
+    link.textContent = 'repairing...';
+    const result = await chrome.runtime.sendMessage({ action: 'repairFavicons' }).catch(() => null);
+    link.textContent = result ? `repaired ${result.successful}/${result.total}` : 'failed';
+    setTimeout(() => { link.textContent = prev; }, 3000);
+  }
+
   // ── Changelog modal ───────────────────────────────────────────────────────────────────────
 
   async function onResetChangelogSeen(e) {
@@ -370,6 +380,7 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('toggleDiscardInPlaceOfSuspend').addEventListener('click', onToggleDiscard);
     document.getElementById('claimSuspendedTabs').addEventListener('click', onClaimSuspendedTabs);
     document.getElementById('clearFaviconCache').addEventListener('click', onClearFaviconCache);
+    document.getElementById('repairFavicons').addEventListener('click', onRepairFavicons);
     document.getElementById('resetChangelogSeen').addEventListener('click', onResetChangelogSeen);
     const isStoreInstall = !!chrome.runtime.getManifest().update_url;
     const feedRefreshLink = document.getElementById('forceNewsFeedRefresh');

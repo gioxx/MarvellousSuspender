@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "BatalTangguhkan tab yang dipilih"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Tangguhkan semua tab di grup tab aktif"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "BatalTangguhkan semua tab di grup tab aktif"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Tangguhkan semua tab lainnya di jendela aktif"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "BatalTangguhkan tab yang dipilih"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Tangguhkan semua tab di grup ini"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "BatalTangguhkan semua tab di grup ini"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Tangguhkan semua tab lain di jendela ini"
@@ -397,6 +409,24 @@
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Secara otomatis batal tangguhkan tab saat dilihat"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Memuat ulang juga membatalkan penangguhan tab di latar belakang (bukan hanya tab aktif)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Jika diaktifkan, memuat ulang tab yang ditangguhkan (Ctrl+R"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "atau klik kanan > Muat ulang) juga membatalkan penangguhannya"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "meskipun bukan tab yang sedang aktif."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Berguna untuk memuat ulang beberapa tab tertunda sekaligus,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "misalnya setelah memilih beberapa tab lalu menekan Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Terapkan penghematan memori bawaan browser saat menangguhkan"
