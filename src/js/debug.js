@@ -146,26 +146,55 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
+  // Report/copy pull from the larger rotating buffer, not the 500-entry one the live
+  // view renders — on a heavy profile (hundreds of tabs), background auto-suspend/
+  // discard noise alone can evict the 500-entry window in a couple of minutes, well
+  // before a reporter gets to actually download it.
+  async function readLogBufferFull() {
+    const result = await chrome.storage.local.get([gsStorage.LOG_BUFFER_FULL]);
+    try {
+      return JSON.parse(result[gsStorage.LOG_BUFFER_FULL] || '[]');
+    } catch {
+      return [];
+    }
+  }
+
   function levelLabel(level) {
     if (level === 'E') return '<span class="logLevel logLevel-E">ERR</span>';
     if (level === 'W') return '<span class="logLevel logLevel-W">WRN</span>';
     return '<span class="logLevel logLevel-I">LOG</span>';
   }
 
+  // entry.ts is stored as UTC (new Date().toISOString() in gsUtils.js) so the raw
+  // history is unambiguous no matter what machine reads it back; render it in the
+  // viewer's own local time here instead, since a debug tester reading the live log
+  // wants "when did this just happen on my clock", not a UTC offset they have to do
+  // math on.
+  function formatLocalTime(iso) {
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '??:??:??';
+    const pad = (n, len = 2) => String(n).padStart(len, '0');
+    return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}.${pad(d.getMilliseconds(), 3)}`;
+  }
+
   function renderLogEntry(entry) {
-    const time = entry.ts ? entry.ts.substring(11, 23) : '??:??:??';
+    const time = entry.ts ? formatLocalTime(entry.ts) : '??:??:??';
     const src  = gsUtils.htmlEncode(String(entry.src || ''));
     const msg  = gsUtils.htmlEncode(String(entry.msg || ''));
     return `<div class="logLine logLine-${entry.level}">${levelLabel(entry.level)}<span class="logTime">${time}</span><span class="logSrc">${src}</span><span class="logMsg">${msg}</span></div>`;
   }
 
   async function refreshLogs() {
-    const buffer  = await readLogBuffer();
-    const output  = document.getElementById('logOutput');
-    const counter = document.getElementById('logCount');
+    const [buffer, bufferFull] = await Promise.all([readLogBuffer(), readLogBufferFull()]);
+    const output     = document.getElementById('logOutput');
+    const counter    = document.getElementById('logCount');
+    const counterFull = document.getElementById('logCountFull');
     counter.textContent = buffer.length;
+    counterFull.textContent = bufferFull.length;
     if (buffer.length === 0) {
       output.innerHTML = '<div class="logEmpty">No entries. Errors are always captured automatically. Enable <strong>captureLogs</strong> above to also capture warnings and verbose logs, then reproduce the issue.</div>';
+    } else if (output.classList.contains('warnErrOnly') && !buffer.some(e => e.level === 'W' || e.level === 'E')) {
+      output.innerHTML = '<div class="logEmpty">No warnings or errors in the current buffer.</div>';
     } else {
       output.innerHTML = buffer.map(renderLogEntry).join('');
       output.scrollTop = output.scrollHeight;
@@ -174,9 +203,12 @@ import  { tgs }                   from './tgs.js';
 
   // ── Report generation ───────────────────────────────────────────────────────
 
-  async function buildReport() {
+  // full=true (Download) pulls the large rotating buffer for a complete history;
+  // full=false (Copy) sticks to the 500-entry live buffer — nobody pastes a 10,000-line
+  // clipboard payload anywhere useful, so Copy stays cheap and matches what's on screen.
+  async function buildReport(full) {
     const manifest = chrome.runtime.getManifest();
-    const buffer   = await readLogBuffer();
+    const buffer   = full ? await readLogBufferFull() : await readLogBuffer();
     const tabs     = await gsChrome.tabsQuery();
     const tabGroupsMap = await gsChrome.tabGroupsMap();
 
@@ -421,13 +453,26 @@ import  { tgs }                   from './tgs.js';
 
     document.getElementById('btnRefreshLogs').addEventListener('click', refreshLogs);
 
+    document.getElementById('btnFilterWarnErr').addEventListener('click', async (e) => {
+      const btn = e.currentTarget;
+      const active = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', String(!active));
+      document.getElementById('logOutput').classList.toggle('warnErrOnly', !active);
+      await refreshLogs();
+    });
+
     document.getElementById('btnClearLog').addEventListener('click', async () => {
-      await chrome.storage.local.remove([gsStorage.LOG_BUFFER]);
+      // Routed through the service worker (rather than clearing chrome.storage
+      // directly from here) so its own in-memory _logBuffer/_logBufferFull get
+      // cleared too — otherwise the next log entry, or an already-pending debounced
+      // flush over there, would write those still-populated arrays back over the
+      // storage this page just cleared.
+      await chrome.runtime.sendMessage({ action: 'clearLogs' }).catch(() => {});
       await refreshLogs();
     });
 
     document.getElementById('btnCopyReport').addEventListener('click', async () => {
-      const report = await buildReport();
+      const report = await buildReport(false);
       await navigator.clipboard.writeText(report);
       const btn = document.getElementById('btnCopyReport');
       const prev = btn.textContent;
@@ -436,7 +481,7 @@ import  { tgs }                   from './tgs.js';
     });
 
     document.getElementById('btnDownloadReport').addEventListener('click', async () => {
-      const report = await buildReport();
+      const report = await buildReport(true);
       const blob   = new Blob([report], { type: 'text/plain' });
       const url    = URL.createObjectURL(blob);
       const a      = document.createElement('a');
