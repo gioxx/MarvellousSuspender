@@ -314,11 +314,17 @@
   "html_options_suspend_automatically_after": {
     "message": "Secara otomatis menangguhkan tab setelah"
   },
-  "html_options_suspend_automatically_after_on_battery": {
-    "message": "...atau setelah, saat menggunakan daya baterai"
+  "html_options_suspend_on_battery_after": {
+    "message": "Menangguhkan tab saat baterai setelah"
   },
-  "html_options_suspend_same_as_above": {
-    "message": "Sama seperti di atas"
+  "html_options_suspend_same_as_ac": {
+    "message": "Sama seperti saat dicolokkan"
+  },
+  "html_options_suspend_power_status_ac": {
+    "message": "Saat ini menggunakan daya listrik"
+  },
+  "html_options_suspend_power_status_battery": {
+    "message": "Saat ini menggunakan daya baterai"
   },
   "html_options_suspend_never": {
     "message": "Tidak pernah"

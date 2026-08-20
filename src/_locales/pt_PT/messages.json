@@ -314,11 +314,17 @@
   "html_options_suspend_automatically_after": {
     "message": "Suspender automaticamente as guias depois de"
   },
-  "html_options_suspend_automatically_after_on_battery": {
-    "message": "...ou depois de, quando estiver a funcionar com bateria"
+  "html_options_suspend_on_battery_after": {
+    "message": "Suspender separadores com bateria após"
   },
-  "html_options_suspend_same_as_above": {
-    "message": "Igual ao anterior"
+  "html_options_suspend_same_as_ac": {
+    "message": "Igual a quando ligado à corrente"
+  },
+  "html_options_suspend_power_status_ac": {
+    "message": "Atualmente ligado à corrente"
+  },
+  "html_options_suspend_power_status_battery": {
+    "message": "Atualmente a funcionar com bateria"
   },
   "html_options_suspend_never": {
     "message": "Nunca"

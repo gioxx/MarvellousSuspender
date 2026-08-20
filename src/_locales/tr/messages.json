@@ -314,11 +314,17 @@
   "html_options_suspend_automatically_after": {
     "message": "Otomatik sekmeyi askıya al"
   },
-  "html_options_suspend_automatically_after_on_battery": {
-    "message": "...veya pil gücüyle çalışırken, sonra"
+  "html_options_suspend_on_battery_after": {
+    "message": "Pil gücündeyken sekmeleri şu süre sonra askıya al"
   },
-  "html_options_suspend_same_as_above": {
-    "message": "Yukarıdakiyle aynı"
+  "html_options_suspend_same_as_ac": {
+    "message": "Prize takılıyken ile aynı"
+  },
+  "html_options_suspend_power_status_ac": {
+    "message": "Şu anda elektrik gücüyle çalışıyor"
+  },
+  "html_options_suspend_power_status_battery": {
+    "message": "Şu anda pil gücüyle çalışıyor"
   },
   "html_options_suspend_never": {
     "message": "Hiç"

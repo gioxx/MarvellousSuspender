@@ -314,11 +314,17 @@
   "html_options_suspend_automatically_after": {
     "message": "Sospendi automaticamente le schede dopo"
   },
-  "html_options_suspend_automatically_after_on_battery": {
-    "message": "...oppure dopo, quando alimentato a batteria"
+  "html_options_suspend_on_battery_after": {
+    "message": "Sospendi le schede a batteria dopo"
   },
-  "html_options_suspend_same_as_above": {
-    "message": "Come sopra"
+  "html_options_suspend_same_as_ac": {
+    "message": "Come quando alimentato"
+  },
+  "html_options_suspend_power_status_ac": {
+    "message": "Attualmente alimentato a corrente"
+  },
+  "html_options_suspend_power_status_battery": {
+    "message": "Attualmente alimentato a batteria"
   },
   "html_options_suspend_never": {
     "message": "Mai"

@@ -209,11 +209,17 @@
   "html_options_suspend_automatically_after": {
     "message": "Suspendre automatiquement les onglets après"
   },
-  "html_options_suspend_automatically_after_on_battery": {
-    "message": "...ou après, lorsque l'ordinateur fonctionne sur batterie"
+  "html_options_suspend_on_battery_after": {
+    "message": "Suspendre les onglets sur batterie après"
   },
-  "html_options_suspend_same_as_above": {
-    "message": "Identique à ci-dessus"
+  "html_options_suspend_same_as_ac": {
+    "message": "Identique à sur secteur"
+  },
+  "html_options_suspend_power_status_ac": {
+    "message": "Actuellement sur secteur"
+  },
+  "html_options_suspend_power_status_battery": {
+    "message": "Actuellement sur batterie"
   },
   "html_options_suspend_never": {
     "message": "Jamais"

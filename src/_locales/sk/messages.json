@@ -314,11 +314,17 @@
   "html_options_suspend_automatically_after": {
     "message": "Automaticky pozastav taby po"
   },
-  "html_options_suspend_automatically_after_on_battery": {
-    "message": "...alebo po, keď beží na batériu"
+  "html_options_suspend_on_battery_after": {
+    "message": "Pozastaviť karty na batérii po"
   },
-  "html_options_suspend_same_as_above": {
-    "message": "Rovnako ako vyššie"
+  "html_options_suspend_same_as_ac": {
+    "message": "Rovnako ako pri napájaní"
+  },
+  "html_options_suspend_power_status_ac": {
+    "message": "Aktuálne napájané zo siete"
+  },
+  "html_options_suspend_power_status_battery": {
+    "message": "Aktuálne napájané z batérie"
   },
   "html_options_suspend_never": {
     "message": "Nikdy"

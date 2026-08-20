@@ -1561,6 +1561,10 @@ body.dark span.group.edge.orange { background: #df8e64; }
   align-items: flex-start;
 }
 
+#powerSourceStatus {
+  margin-top: var(--space-2);
+}
+
 .welcome-message {
   max-width: none;
   margin-top: var(--space-6);

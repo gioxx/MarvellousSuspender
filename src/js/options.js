@@ -36,6 +36,27 @@ import  { gsUtils }               from './gsUtils.js';
   };
 
 
+  // Shows whether the computer is currently detected as plugged in or running on battery,
+  // next to the battery-specific timeout select — that select only takes effect on battery,
+  // so knowing the current power source at a glance helps explain why it is (or isn't)
+  // active right now. Battery.onchargingchange keeps it live while the page stays open.
+  function initPowerSourceStatus() {
+    if (!('getBattery' in navigator) || typeof navigator.getBattery !== 'function') return;
+    const el = document.getElementById('powerSourceStatus');
+    navigator.getBattery().then((battery) => {
+      const render = () => {
+        el.textContent = chrome.i18n.getMessage(
+          battery.charging
+            ? 'html_options_suspend_power_status_ac'
+            : 'html_options_suspend_power_status_battery',
+        );
+        el.classList.remove('hidden');
+      };
+      render();
+      battery.onchargingchange = render;
+    });
+  }
+
   function selectComboBox(element, key) {
     for (let i = 0; i < element.children.length; i += 1) {
       const child = element.children[i];
@@ -306,6 +327,7 @@ import  { gsUtils }               from './gsUtils.js';
     gsUtils.initSelectArrows(document);
     injectSavedFeedbackSpans();
     initSettings();
+    initPowerSourceStatus();
 
     const optionEls = document.getElementsByClassName('option');
 

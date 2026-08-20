@@ -314,11 +314,17 @@
   "html_options_suspend_automatically_after": {
     "message": "تعليق علامات التبويب تلقائياً بعد"
   },
-  "html_options_suspend_automatically_after_on_battery": {
-    "message": "...أو بعد، عند التشغيل على طاقة البطارية"
+  "html_options_suspend_on_battery_after": {
+    "message": "أوقف تعليق علامات التبويب عند التشغيل على البطارية بعد"
   },
-  "html_options_suspend_same_as_above": {
-    "message": "نفس ما سبق"
+  "html_options_suspend_same_as_ac": {
+    "message": "نفس ما عند الاتصال بمصدر الطاقة"
+  },
+  "html_options_suspend_power_status_ac": {
+    "message": "متصل حاليًا بمصدر الطاقة"
+  },
+  "html_options_suspend_power_status_battery": {
+    "message": "يعمل حاليًا على البطارية"
   },
   "html_options_suspend_never": {
     "message": "أبدا"
