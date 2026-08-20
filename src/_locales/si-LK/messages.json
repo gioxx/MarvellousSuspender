@@ -874,6 +874,17 @@
   "js_history_tabs": {
     "message": "ටැබ්"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "පසුගිය සැසියෙන් ටැබ් $count$ක් අස්ථානගතව ඇත",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_reopen": {
+    "message": "නැවත විවෘත කරන්න"
+  },
   "js_history_enter_name_for_session": {
     "message": "මෙම සැසිය සඳහා නමක් ඇතුළත් කරන්න"
   },

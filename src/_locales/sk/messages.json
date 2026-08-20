@@ -874,6 +874,17 @@
   "js_history_tabs": {
     "message": "Karty"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "$count$ kariet chýba z poslednej relácie",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_reopen": {
+    "message": "znova otvoriť"
+  },
   "js_history_enter_name_for_session": {
     "message": "Zadajte názov tejto relácie"
   },

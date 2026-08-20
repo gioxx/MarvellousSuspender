@@ -874,6 +874,17 @@
   "js_history_tabs": {
     "message": "タブ"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "前回のセッションから$count$個のタブが見つかりません",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_reopen": {
+    "message": "再度開く"
+  },
   "js_history_enter_name_for_session": {
     "message": "このセッションの名前を入力してください"
   },

@@ -740,6 +740,17 @@
   "js_history_tabs": {
     "message": "Onglets"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "$count$ onglets manquants depuis la dernière session",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_reopen": {
+    "message": "rouvrir"
+  },
   "js_history_enter_name_for_session": {
     "message": "Saisissez un nom pour cette session"
   },

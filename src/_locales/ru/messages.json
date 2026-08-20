@@ -874,6 +874,17 @@
   "js_history_tabs": {
     "message": "Вкладки"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "$count$ вкладок отсутствует с последней сессии",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_reopen": {
+    "message": "открыть снова"
+  },
   "js_history_enter_name_for_session": {
     "message": "Введите имя для сессии"
   },

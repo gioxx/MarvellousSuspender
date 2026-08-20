@@ -874,6 +874,17 @@
   "js_history_tabs": {
     "message": "Sekmeler"
   },
+  "js_history_missing_tabs_badge": {
+    "message": "Son oturumunuzdan $count$ sekme eksik",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_history_reopen": {
+    "message": "yeniden aç"
+  },
   "js_history_enter_name_for_session": {
     "message": "Bu oturum için bir isim girin"
   },
