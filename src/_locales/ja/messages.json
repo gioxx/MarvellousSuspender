@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "選択したタブをサスペンド解除"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "アクティブなタブのグループ内のすべてのタブをサスペンド"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "アクティブなタブのグループ内のすべてのタブをサスペンド解除"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "アクティブなウィンドウ内の他のすべてのタブをサスペンド"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "選択したタブをサスペンド解除"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "このグループ内のすべてのタブをサスペンド"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "このグループ内のすべてのタブをサスペンド解除"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "このウィンドウ内の他のすべてのタブをサスペンド"

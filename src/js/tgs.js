@@ -432,6 +432,31 @@ export const tgs = (function() {
     });
   }
 
+  function suspendTabGroup(tab) {
+    if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
+      return;
+    }
+    chrome.tabs.query({ groupId: tab.groupId }, (groupTabs) => {
+      for (const groupTab of groupTabs) {
+        gsTabSuspendManager.queueTabForSuspension(groupTab, 1);
+      }
+    });
+  }
+
+  function unsuspendTabGroup(tab) {
+    if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
+      return;
+    }
+    chrome.tabs.query({ groupId: tab.groupId }, (groupTabs) => {
+      groupTabs.forEach((groupTab) => {
+        gsTabSuspendManager.unqueueTabForSuspension(groupTab);
+        if (gsUtils.isSuspendedTab(groupTab)) {
+          unsuspendTab(groupTab);
+        }
+      });
+    });
+  }
+
   function queueSessionTimer() {
     clearTimeout(_sessionSaveTimer);
     _sessionSaveTimer = setTimeout(() => {
@@ -1368,6 +1393,16 @@ export const tgs = (function() {
         contexts: allContexts,
         // onclick: () => unsuspendSelectedTabs(),
       });
+      chrome.contextMenus.create({
+        id: 'suspend_tab_group',
+        title: gsUtils.getMessage('js_context_suspend_tab_group'),
+        contexts: allContexts,
+      });
+      chrome.contextMenus.create({
+        id: 'unsuspend_tab_group',
+        title: gsUtils.getMessage('js_context_unsuspend_tab_group'),
+        contexts: allContexts,
+      });
 
       chrome.contextMenus.create({
         id: 'separator2',
@@ -1447,6 +1482,16 @@ export const tgs = (function() {
       chrome.contextMenus.create({
         id: 'tab_never_suspend_page',
         title: gsUtils.getMessage('js_context_never_suspend_page'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_suspend_group',
+        title: gsUtils.getMessage('js_context_suspend_tab_group'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_unsuspend_group',
+        title: gsUtils.getMessage('js_context_unsuspend_tab_group'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
@@ -1543,6 +1588,8 @@ export const tgs = (function() {
     unsuspendAllTabs,
     suspendSelectedTabs,
     unsuspendSelectedTabs,
+    suspendTabGroup,
+    unsuspendTabGroup,
     whitelistHighlightedTab,
     unsuspendAllTabsInAllWindows,
     unsuspendWhitelistedTabs,

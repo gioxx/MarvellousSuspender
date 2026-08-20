@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Reativar separadores selecionados"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Suspender todos os separadores no grupo do separador ativo"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Reativar todos os separadores no grupo do separador ativo"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todos os outras separadores na janela ativa"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Recarregar as guias selecionadas"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Suspender todos os separadores neste grupo"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Reativar todos os separadores neste grupo"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas as outras guias nessa janela"

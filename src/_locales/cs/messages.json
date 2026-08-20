@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Obnovit vybrané karty"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Pozastavit všechny karty ve skupině aktivní karty"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Obnovit všechny karty ve skupině aktivní karty"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Pozastavit všechny ostatní karty v aktivním okně"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Obnovit vybrané karty"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Pozastavit všechny karty v této skupině"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Obnovit všechny karty v této skupině"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Pozastavit všechny ostatní karty v tomto okně"
