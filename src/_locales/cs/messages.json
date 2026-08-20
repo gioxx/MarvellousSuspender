@@ -21,10 +21,10 @@
     "message": "Obnovit vybrané karty"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "Pozastavit všechny karty ve skupině aktivní karty"
+    "message": "Suspend all tabs in the active tab's group"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "Obnovit všechny karty ve skupině aktivní karty"
+    "message": "Unsuspend all tabs in the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Pozastavit všechny ostatní karty v aktivním okně"
@@ -66,10 +66,10 @@
     "message": "Obnovit vybrané karty"
   },
   "js_context_suspend_tab_group": {
-    "message": "Pozastavit všechny karty v této skupině"
+    "message": "Suspend all tabs in this group"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "Obnovit všechny karty v této skupině"
+    "message": "Unsuspend all tabs in this group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Pozastavit všechny ostatní karty v tomto okně"
@@ -327,10 +327,10 @@
     "message": "Automaticky pozastavit karty po"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "Pozastavit karty na baterii po"
+    "message": "Suspend tabs on battery power after"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "Stejné jako při napájení"
+    "message": "Same as when plugged in"
   },
   "html_options_suspend_never": {
     "message": "Nikdy"
@@ -399,40 +399,40 @@
     "message": "Nikdy nepozastavovat aktivní kartu v každém okně"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Vždy znovu otevřít uspané karty od začátku stránky"
+    "message": "Always reopen suspended tabs scrolled to the top"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "Karta se znovu otevře od začátku stránky místo místa, kde byla"
+    "message": "The tab reopens at the top of the page instead of wherever it was"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "při pozastavení."
+    "message": "scrolled to when suspended."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Platí pro automatické i ruční pozastavení a má přednost před"
+    "message": "Applies to both automatic and manual suspension, and overrides"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "odkazy, které při načtení přejdou na sekci (#)."
+    "message": "links that jump to a #section on load."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automaticky obnovit kartu při jejím zobrazení"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Obnovení stránky obnoví i karty na pozadí (nejen aktivní kartu)"
+    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Po zapnutí obnovení pozastavené karty (Ctrl+R nebo pravé"
+    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "tlačítko > Obnovit) kartu probudí, i když právě není"
+    "message": "> Reload) also unsuspends it even when it's not the currently"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "aktivní."
+    "message": "focused tab."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Užitečné při obnovování více pozastavených karet najednou,"
+    "message": "Useful for reloading several suspended tabs at once, e.g. after"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "např. po výběru více karet a stisknutí Ctrl+R."
+    "message": "selecting multiple tabs and pressing Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Při pozastavení použít vestavěnou úsporu paměti prohlížeče"
