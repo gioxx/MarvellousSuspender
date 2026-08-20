@@ -392,6 +392,21 @@
   "html_options_suspend_no_active_tabs": {
     "message": "不要凍結每個視窗的正在使用中的分頁"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "重新開啟已凍結的分頁時永遠捲動到頁面頂端"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "分頁會從頁面頂端重新開啟，"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "而不是凍結時所在的位置。"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "適用於自動與手動凍結，"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "並會覆蓋載入時跳轉到 #區段 的連結。"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "當分頁被瀏覽就自動回復分頁"
   },

@@ -392,6 +392,21 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Aktive Tabs in jedem Fenster nicht aussetzen"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Angehaltene Tabs immer ganz oben auf der Seite erneut öffnen"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "Der Tab öffnet sich oben auf der Seite erneut, statt an der"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "Stelle, an der er beim Aussetzen stand."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Gilt sowohl für automatisches als auch manuelles Aussetzen und"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "überschreibt Links, die beim Laden zu einem #Abschnitt springen."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Tab automatisch aufwachen, wenn er aufgerufen wird"
   },

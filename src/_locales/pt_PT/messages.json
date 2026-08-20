@@ -392,6 +392,21 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Nunca suspender a guia ativa em cada janela"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Reabrir sempre os separadores suspensos deslocados até ao topo da página"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "O separador é reaberto no topo da página, em vez do ponto em"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "que estava ao ser suspenso."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Aplica-se tanto à suspensão automática como à manual, e"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "substitui ligações que apontam para uma secção (#) ao carregar."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Recarregar automaticamente quando a guia for visualizada"
   },

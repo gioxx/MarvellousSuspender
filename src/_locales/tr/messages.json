@@ -392,6 +392,21 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Asla aktif penceredeki sekmeye askıya al yapma"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Askıya alınmış sekmeleri her zaman sayfanın en üstünden yeniden aç"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "Sekme, askıya alındığı konum yerine sayfanın en üstünden"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "yeniden açılır."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Hem otomatik hem de manuel askıya almaya uygulanır ve"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "yüklemede bir #bölüme atlayan bağlantıları geçersiz kılar."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Sekme görüntülendiğinde askısını kaldır"
   },

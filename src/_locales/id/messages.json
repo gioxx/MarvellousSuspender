@@ -392,6 +392,21 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Jangan pernah menangguhkan tab aktif di setiap jendela"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Selalu buka kembali tab yang ditangguhkan dari bagian atas halaman"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "Tab dibuka kembali dari bagian atas halaman, bukan dari posisi"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "saat ditangguhkan."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Berlaku untuk penangguhan otomatis maupun manual, dan"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "mengesampingkan tautan yang mengarah ke bagian (#) saat dimuat."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Secara otomatis batal tangguhkan tab saat dilihat"
   },
