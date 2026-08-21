@@ -233,14 +233,43 @@ function _clearPersisted() {
 // logging entirely for anything in it, rather than trying to rate-limit the loop.
 const INTERNAL_MESSAGE_ACTIONS = new Set(['gsAppendLogEntries', 'clearLogs']);
 
+// A single incoming gsAppendLogEntries message costs one full get+parse+stringify+set of
+// the entire shared buffer (up to _LOG_BUFFER_FULL_MAX entries) — necessary since
+// chrome.storage.local has no append primitive, only whole-value writes. A broadcast that
+// every open context reacts to at once (e.g. toggling captureLogs itself, which every
+// suspended tab logs as "ignoring unhandled message") can therefore land dozens of these
+// messages within a few milliseconds of each other; merging each one separately would
+// serialize dozens of full-buffer round trips back to back through _writeQueue, each
+// blocking this single-threaded context's JSON work in turn — exactly the kind of burst
+// that made the whole extension (including unrelated page loads depending on this
+// context responding) sluggish. Coalescing them into one merge per short window turns
+// that burst into a single round trip instead.
+const _INCOMING_COALESCE_MS = 250;
+let _incomingBatch = [];
+let _incomingResponders = [];
+let _incomingTimer = null;
+
+function _flushIncomingBatch() {
+  const batch = _incomingBatch;
+  const responders = _incomingResponders;
+  _incomingBatch = [];
+  _incomingResponders = [];
+  _incomingTimer = null;
+  _mergeAndPersist(batch).then((success) => {
+    responders.forEach((respond) => respond({ success }));
+  });
+}
+
 // Only the service worker listens; every other context reaches it via sendMessage in
 // _flushNow() below. Registered at module top level (not inside an async block) so
 // Chrome can queue the very first message even if it arrives before this line runs.
 if (_isServiceWorker && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (!request || request.action !== 'gsAppendLogEntries') return false;
-    _mergeAndPersist(request.entries || []).then((success) => sendResponse({ success }));
-    return true; // keep the channel open for the async sendResponse above
+    _incomingBatch.push(...(request.entries || []));
+    _incomingResponders.push(sendResponse);
+    if (!_incomingTimer) _incomingTimer = setTimeout(_flushIncomingBatch, _INCOMING_COALESCE_MS);
+    return true; // keep every channel open until the coalesced batch is merged and responded to
   });
 }
 
