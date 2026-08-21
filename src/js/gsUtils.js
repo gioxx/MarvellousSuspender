@@ -14,17 +14,22 @@ import  { tgs }                   from './tgs.js';
 let _localeMessages = null;
 
 // ── Log buffer ────────────────────────────────────────────────────────────────
+// Persisted in chrome.storage.local only — see _mergeAndPersistCore() below. Every page
+// (including suspended.js, in every suspended tab) shares this gsUtils.js module but
+// gets its own separate instance; keeping a live copy of these buffers in every one of
+// them (as an earlier version of this rework did) was pure duplicated memory with no
+// reader, since the debug page's live view and downloadable report both fetch straight
+// from chrome.storage.local instead (debug.js's refreshLogs()/buildReport()). Only
+// _pendingEntries below, the not-yet-flushed delta, needs to live in each context.
 const _LOG_BUFFER_KEY = 'gsLogBuffer';
 const _LOG_BUFFER_MAX = 500;
-const _logBuffer = [];
 // Separate, much larger ring buffer feeding only the downloadable/copyable report.
-// The 500-entry _logBuffer above is what the debug page's live view renders; on a
-// noisy profile (dozens of background tabs auto-suspending/discarding) that window
-// alone is often only a minute or two, evicting whatever a reporter was actually
-// trying to capture before they get to the download button.
+// The 500-entry cap above is what the debug page's live view renders; on a noisy
+// profile (dozens of background tabs auto-suspending/discarding) that window alone is
+// often only a minute or two, evicting whatever a reporter was actually trying to
+// capture before they get to the download button.
 const _LOG_BUFFER_FULL_KEY = 'gsLogBufferFull';
 const _LOG_BUFFER_FULL_MAX = 10000;
-const _logBufferFull = [];
 // A random token stored alongside the buffers, replaced on every write attempt.
 // manifest.json declares "incognito": "split", so a regular and an incognito window
 // each get their own fully independent service worker instance (their own copy of
@@ -54,6 +59,18 @@ let   _flushTimer = null;
 // Entries logged in this context since its last successful flush, not yet confirmed
 // persisted.
 const _pendingEntries = [];
+// Bounds _pendingEntries against unbounded growth: if the service worker (or, in a page
+// context, chrome.runtime itself) stays unreachable while captureLogs is on, every failed
+// flush requeues its batch and every new log call keeps appending more, with nothing else
+// ever shrinking the array — heavy logging in that state can otherwise grow this without
+// limit until Chrome kills the page/worker for memory pressure. Oldest entries are dropped
+// first, since the whole point of captureLogs is capturing what's happening *now*.
+const _PENDING_ENTRIES_MAX = 5000;
+function _capPendingEntries() {
+  if (_pendingEntries.length > _PENDING_ENTRIES_MAX) {
+    _pendingEntries.splice(0, _pendingEntries.length - _PENDING_ENTRIES_MAX);
+  }
+}
 
 // Every page (including suspended.js, in every suspended tab) shares the same
 // gsUtils.js module but gets its own separate instance — if each context wrote to
@@ -260,21 +277,44 @@ function _serialize(v) {
   catch { return String(v); }
 }
 
+// Bounds a single entry's own footprint, independent of _capPendingEntries()'s count cap:
+// that cap only limits how many entries can pile up, not how large any one of them is —
+// a call site that happens to log a huge string or object (not a data: URL, so
+// _redactDataUrls() above doesn't catch it) repeatedly could still push a lot of memory
+// through even a handful of entries. Long messages are truncated rather than dropped, so
+// the log line itself (and its source/level) still shows up in a report.
+const _LOG_MSG_MAX_CHARS = 4000;
+
 function _appendEntry(level, src, parts) {
+  let msg = parts.map(_serialize).join(' ');
+  if (msg.length > _LOG_MSG_MAX_CHARS) {
+    msg = `${msg.slice(0, _LOG_MSG_MAX_CHARS)}… [truncated, ${msg.length} chars total]`;
+  }
   const entry = {
     ts    : new Date().toISOString(),
     level,
     src   : String(src),
-    msg   : parts.map(_serialize).join(' '),
+    msg,
   };
-  _logBuffer.push(entry);
-  if (_logBuffer.length > _LOG_BUFFER_MAX) _logBuffer.shift();
-  _logBufferFull.push(entry);
-  if (_logBufferFull.length > _LOG_BUFFER_FULL_MAX) _logBufferFull.shift();
   _pendingEntries.push(entry);
+  _capPendingEntries();
 }
 
-async function _flushNow() {
+// error() calls _flushNow() immediately, bypassing _scheduleFlush()'s "only one timer
+// pending" guard, so an error-triggered flush can start while a scheduled one is still
+// in flight. Without serializing them, two overlapping flushes' requeue-on-failure steps
+// could complete in either order — a later completion's unshift() always lands at the
+// front regardless of which batch is actually older, so _capPendingEntries() (which
+// assumes the front is the oldest entries) could then trim the wrong, more recent half.
+// Chaining every call through one promise, same pattern as gsUtils.js's own _writeQueue,
+// guarantees each flush's requeue (if any) fully lands before the next one starts.
+let _flushChain = Promise.resolve();
+function _flushNow() {
+  _flushChain = _flushChain.then(_flushNowCore);
+  return _flushChain;
+}
+
+async function _flushNowCore() {
   if (_flushTimer) { clearTimeout(_flushTimer); _flushTimer = null; }
   if (_pendingEntries.length === 0) return;
   // Grab-and-clear rather than read-then-clear, so entries logged while this flush is
@@ -287,6 +327,7 @@ async function _flushNow() {
       // put the batch back at the front (ahead of anything logged meanwhile) and let the
       // next scheduled flush try again, instead of discarding captured diagnostic history.
       _pendingEntries.unshift(...toPersist);
+      _capPendingEntries();
       _scheduleFlush();
     }
     return;
@@ -296,6 +337,7 @@ async function _flushNow() {
     const response = await chrome.runtime.sendMessage({ action: 'gsAppendLogEntries', entries: toPersist });
     if (!response?.success) {
       _pendingEntries.unshift(...toPersist);
+      _capPendingEntries();
       _scheduleFlush();
     }
   }
@@ -304,6 +346,7 @@ async function _flushNow() {
     // next scheduled flush rather than dropping the batch; it's usually back within a
     // beat, and there's no other recipient for these entries in the meantime.
     _pendingEntries.unshift(...toPersist);
+    _capPendingEntries();
     _scheduleFlush();
   }
 }
@@ -449,14 +492,6 @@ export const gsUtils = {
     }
   },
 
-  getLogBuffer() {
-    return _logBuffer.slice();
-  },
-
-  getLogBufferFull() {
-    return _logBufferFull.slice();
-  },
-
   // Only ever called from the service worker (background.js's 'clearLogs' case, itself
   // reached by messaging from the debug page). Chaining the removal through
   // _clearPersisted() orders it correctly against this context's own in-flight or
@@ -465,8 +500,6 @@ export const gsUtils = {
   // _clearPersisted()'s clearedAt timestamp is what stops that batch resurrecting old
   // entries once its merge eventually lands, whichever side of the clear it arrives on.
   async clearLogBuffer() {
-    _logBuffer.length = 0;
-    _logBufferFull.length = 0;
     _pendingEntries.length = 0;
     return _clearPersisted();
   },
