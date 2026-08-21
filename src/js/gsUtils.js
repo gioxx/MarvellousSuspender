@@ -102,10 +102,16 @@ async function _mergeAndPersistCore(entries) {
         // the broad catch below leaves it untouched — an unrecoverable batch that never
         // stops retrying, and no later diagnostics ever get persisted either. Start that
         // one buffer fresh instead, same recovery the old buffer loader already did.
+      // Drops anything that isn't a well-formed log entry rather than just checking the
+      // top-level shape: a malformed *element* (null, a stray primitive, an object with a
+      // non-string ts, however it got in there) would otherwise reach the `e.ts > clearedAt`
+      // comparison below and throw there instead, same wedged-retries-forever failure as an
+      // outright parse failure or a non-array top level, just one layer deeper.
+      const isWellFormedEntry = (e) => e !== null && typeof e === 'object' && typeof e.ts === 'string';
       const parseBuffer = (raw) => {
         try {
           const parsed = JSON.parse(raw || '[]');
-          return Array.isArray(parsed) ? parsed : []; // syntactically valid JSON, but not the array shape expected here
+          return Array.isArray(parsed) ? parsed.filter(isWellFormedEntry) : [];
         }
         catch { return []; }
       };
