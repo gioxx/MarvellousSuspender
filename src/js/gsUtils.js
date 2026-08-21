@@ -468,7 +468,7 @@ export const gsUtils = {
     _logBuffer.length = 0;
     _logBufferFull.length = 0;
     _pendingEntries.length = 0;
-    await _clearPersisted();
+    return _clearPersisted();
   },
 
   isDiscardedTab(tab) {

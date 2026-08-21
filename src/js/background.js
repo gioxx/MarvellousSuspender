@@ -301,7 +301,7 @@ import  { tgs }                   from './tgs.js';
         // worker's in-memory _logBuffer/_logBufferFull, so the next log entry (or an
         // already-pending debounced flush) would silently write the old buffers back
         // over the just-cleared storage. Route the clear through here instead.
-          await gsUtils.clearLogBuffer();
+          responseData = { success: await gsUtils.clearLogBuffer() };
           break;
         }
         default: {

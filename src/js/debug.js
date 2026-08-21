@@ -467,7 +467,16 @@ import  { tgs }                   from './tgs.js';
       // cleared too — otherwise the next log entry, or an already-pending debounced
       // flush over there, would write those still-populated arrays back over the
       // storage this page just cleared.
-      await chrome.runtime.sendMessage({ action: 'clearLogs' }).catch(() => {});
+      const btn = document.getElementById('btnClearLog');
+      const prevText = btn.textContent;
+      const response = await chrome.runtime.sendMessage({ action: 'clearLogs' }).catch(() => null);
+      if (!response || !response.success) {
+        // Refreshing below would otherwise silently show the same old entries with no
+        // indication Clear didn't actually happen (a transient storage error, or the
+        // service worker restarting mid-request).
+        btn.textContent = 'clear failed';
+        setTimeout(() => { btn.textContent = prevText; }, 3000);
+      }
       await refreshLogs();
     });
 
