@@ -25,15 +25,24 @@ const _logBuffer = [];
 const _LOG_BUFFER_FULL_KEY = 'gsLogBufferFull';
 const _LOG_BUFFER_FULL_MAX = 10000;
 const _logBufferFull = [];
-// A small counter stored alongside the buffers, bumped on every successful write.
+// A random token stored alongside the buffers, replaced on every write attempt.
 // manifest.json declares "incognito": "split", so a regular and an incognito window
 // each get their own fully independent service worker instance (their own copy of
 // every module-level variable below, including _writeQueue), while both still share
 // the same chrome.storage.local — two such workers logging around the same time are
-// two genuinely separate single-writers, not one. Comparing this counter right after
-// writing catches that specific case (and any other stray writer) and retries the
-// merge on top of whatever the other one just wrote, instead of silently losing it.
+// two genuinely separate single-writers, not one. An incrementing counter can't tell
+// these apart: two workers racing off the same prior value both compute the same
+// next number, so whichever set() lands last leaves a value both sides consider a
+// match, even though only one of their batches is actually still in the buffers. A
+// per-attempt random token has no such collision — reading back exactly the token
+// this attempt just wrote is proof this exact write (and no one else's) landed.
 const _LOG_BUFFER_VERSION_KEY = 'gsLogBufferVersion';
+
+function _newWriteToken() {
+  return (typeof crypto !== 'undefined' && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : `${Date.now()}-${Math.random()}`;
+}
 let   _flushTimer = null;
 // Entries logged in this context since its last successful flush, not yet confirmed
 // persisted.
@@ -69,10 +78,10 @@ async function _mergeAndPersist(entries) {
     // instead of losing it.
     for (let attempt = 0; attempt < 5; attempt++) {
       try {
-        const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_VERSION_KEY]);
+        const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
         const current       = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
         const currentFull   = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
-        const nextVersion   = (result[_LOG_BUFFER_VERSION_KEY] || 0) + 1;
+        const myToken       = _newWriteToken();
         current.push(...entries);
         if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
         currentFull.push(...entries);
@@ -80,12 +89,13 @@ async function _mergeAndPersist(entries) {
         await chrome.storage.local.set({
           [_LOG_BUFFER_KEY]        : JSON.stringify(current),
           [_LOG_BUFFER_FULL_KEY]   : JSON.stringify(currentFull),
-          [_LOG_BUFFER_VERSION_KEY]: nextVersion,
+          [_LOG_BUFFER_VERSION_KEY]: myToken,
         });
         const verify = await chrome.storage.local.get([_LOG_BUFFER_VERSION_KEY]);
-        if ((verify[_LOG_BUFFER_VERSION_KEY] || 0) === nextVersion) return; // no one raced us
-        // Someone else's write landed between our get() and set() above; retry on
-        // top of whatever's there now instead of leaving this batch unpersisted.
+        if (verify[_LOG_BUFFER_VERSION_KEY] === myToken) return; // no one raced us
+        // Someone else's write landed between our get() and set() above, replacing
+        // our token with theirs — our batch never made it into the state they wrote,
+        // so retry on top of whatever's there now instead of leaving it unpersisted.
       } catch { /* fall through to retry, or give up after the last attempt */ }
     }
   });
