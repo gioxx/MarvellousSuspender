@@ -288,7 +288,21 @@ function _appendEntry(level, src, parts) {
   _capPendingEntries();
 }
 
-async function _flushNow() {
+// error() calls _flushNow() immediately, bypassing _scheduleFlush()'s "only one timer
+// pending" guard, so an error-triggered flush can start while a scheduled one is still
+// in flight. Without serializing them, two overlapping flushes' requeue-on-failure steps
+// could complete in either order — a later completion's unshift() always lands at the
+// front regardless of which batch is actually older, so _capPendingEntries() (which
+// assumes the front is the oldest entries) could then trim the wrong, more recent half.
+// Chaining every call through one promise, same pattern as gsUtils.js's own _writeQueue,
+// guarantees each flush's requeue (if any) fully lands before the next one starts.
+let _flushChain = Promise.resolve();
+function _flushNow() {
+  _flushChain = _flushChain.then(_flushNowCore);
+  return _flushChain;
+}
+
+async function _flushNowCore() {
   if (_flushTimer) { clearTimeout(_flushTimer); _flushTimer = null; }
   if (_pendingEntries.length === 0) return;
   // Grab-and-clear rather than read-then-clear, so entries logged while this flush is
