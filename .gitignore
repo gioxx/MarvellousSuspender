@@ -8,8 +8,10 @@
 /CLAUDE.md
 build
 node_modules
+src/js/gsOauthSecrets.js
 Thumbs.db
 tmp
 /docs
+/memory
 /test
 .dev-notes/
