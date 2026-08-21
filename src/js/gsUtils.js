@@ -261,6 +261,19 @@ const INTERNAL_MESSAGE_ACTIONS = new Set(['gsAppendLogEntries', 'clearLogs']);
 // context responding) sluggish. Coalescing them into one merge per short window turns
 // that burst into a single round trip instead.
 const _INCOMING_COALESCE_MS = 250;
+
+// Shared by every place this module trims a batch to a max size: trimming by arrival/
+// array-position order rather than by ts is wrong whenever entries can arrive out of
+// chronological order, which incoming messages from many independently-flushing contexts
+// routinely can — a context that had been backlogged and reconnects last can otherwise
+// have its (older) entries evict another context's (newer) entries that simply arrived
+// in the batch earlier, permanently losing the newer diagnostics instead of the older
+// ones. Always sort by ts first, then keep the newest `max`.
+function _keepNewestByTs(entries, max) {
+  if (entries.length <= max) return entries;
+  const sorted = entries.slice().sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
+  return sorted.slice(sorted.length - max);
+}
 let _incomingBatch = [];
 let _incomingResponders = [];
 let _incomingTimer = null;
@@ -274,9 +287,7 @@ function _flushIncomingBatch() {
   // Each sender's own _pendingEntries is capped at 5,000, but this window can still
   // aggregate several such contexts' batches into one — no point carrying more of it
   // into the merge than the persisted buffer could ever retain anyway; keep the newest.
-  if (batch.length > _LOG_BUFFER_FULL_MAX) {
-    batch = batch.slice(batch.length - _LOG_BUFFER_FULL_MAX);
-  }
+  batch = _keepNewestByTs(batch, _LOG_BUFFER_FULL_MAX);
   _mergeAndPersist(batch).then((success) => {
     responders.forEach((respond) => respond({ success }));
   });
@@ -294,10 +305,7 @@ if (_isServiceWorker && typeof chrome !== 'undefined' && chrome.runtime && chrom
     // the meantime (even briefly) risks the exact CPU/memory spike this coalescing exists
     // to avoid. concat(), not a spread, since a single sender's own entries array can
     // itself be large enough to hit V8's argument-count limit on a spread.
-    _incomingBatch = _incomingBatch.concat(request.entries || []);
-    if (_incomingBatch.length > _LOG_BUFFER_FULL_MAX) {
-      _incomingBatch = _incomingBatch.slice(_incomingBatch.length - _LOG_BUFFER_FULL_MAX);
-    }
+    _incomingBatch = _keepNewestByTs(_incomingBatch.concat(request.entries || []), _LOG_BUFFER_FULL_MAX);
     _incomingResponders.push(sendResponse);
     if (!_incomingTimer) _incomingTimer = setTimeout(_flushIncomingBatch, _INCOMING_COALESCE_MS);
     return true; // keep every channel open until the coalesced batch is merged and responded to
