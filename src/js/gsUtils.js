@@ -27,13 +27,66 @@ const _LOG_BUFFER_FULL_MAX = 10000;
 const _logBufferFull = [];
 let   _flushTimer = null;
 // Entries logged in this context since its last successful flush, not yet confirmed
-// persisted. Flushing appends only these onto whatever is currently in storage (read
-// fresh each time) instead of overwriting storage with this context's full local
-// snapshot — every page (including suspended.js, in every suspended tab) shares the
-// same gsUtils.js module but gets its own separate instance and in-memory arrays, so
-// an overwrite-on-flush would let one context's flush silently erase log entries
-// another context had already written, losing part of the diagnostic history.
+// persisted.
 const _pendingEntries = [];
+
+// Every page (including suspended.js, in every suspended tab) shares the same
+// gsUtils.js module but gets its own separate instance — if each context wrote to
+// chrome.storage directly, two contexts logging around the same time could each
+// clobber what the other had just persisted, no matter how the read-modify-write is
+// shaped, since chrome.storage has no compare-and-swap. Only the service worker
+// (the one context every other one can always reach via messaging) actually touches
+// these two storage keys; every other context hands its entries to it instead.
+const _isServiceWorker =
+  typeof ServiceWorkerGlobalScope !== 'undefined' &&
+  typeof self !== 'undefined' &&
+  self instanceof ServiceWorkerGlobalScope;
+
+// Chains every write (a merge, or a clear) through one promise, so the service worker
+// itself never has two get()/set() (or remove()) pairs for these keys in flight at
+// once — without this, its own scheduled flush and an incoming message from another
+// context could still interleave their storage round trips the same way multiple
+// direct writers used to.
+let _writeQueue = Promise.resolve();
+
+function _mergeAndPersist(entries) {
+  _writeQueue = _writeQueue.then(async () => {
+    if (typeof chrome === 'undefined' || !chrome.storage || entries.length === 0) return;
+    try {
+      const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
+      const current       = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
+      const currentFull   = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
+      current.push(...entries);
+      if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
+      currentFull.push(...entries);
+      if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
+      await chrome.storage.local.set({
+        [_LOG_BUFFER_KEY]     : JSON.stringify(current),
+        [_LOG_BUFFER_FULL_KEY]: JSON.stringify(currentFull),
+      });
+    } catch { /* best-effort; a dropped batch on a storage error isn't retried */ }
+  });
+  return _writeQueue;
+}
+
+function _clearPersisted() {
+  _writeQueue = _writeQueue.then(async () => {
+    if (typeof chrome === 'undefined' || !chrome.storage) return;
+    await chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
+  });
+  return _writeQueue;
+}
+
+// Only the service worker listens; every other context reaches it via sendMessage in
+// _flushNow() below. Registered at module top level (not inside an async block) so
+// Chrome can queue the very first message even if it arrives before this line runs.
+if (_isServiceWorker && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (!request || request.action !== 'gsAppendLogEntries') return false;
+    _mergeAndPersist(request.entries || []).then(() => sendResponse());
+    return true; // keep the channel open for the async sendResponse above
+  });
+}
 
 // Cheap djb2-style hash so two favicons of similar length still show up as distinct in
 // the log (a bare length like "[data URL, 812 chars]" can't tell "same icon" from
@@ -83,28 +136,20 @@ function _appendEntry(level, src, parts) {
 
 async function _flushNow() {
   if (_flushTimer) { clearTimeout(_flushTimer); _flushTimer = null; }
-  if (typeof chrome === 'undefined' || !chrome.storage) return;
   if (_pendingEntries.length === 0) return;
-  // Grab-and-clear rather than read-then-clear, so entries logged while this flush's
-  // own storage round trip is in flight stay queued for the next one instead of being
-  // dropped.
+  // Grab-and-clear rather than read-then-clear, so entries logged while this flush is
+  // still in flight stay queued for the next one instead of being dropped.
   const toPersist = _pendingEntries.splice(0, _pendingEntries.length);
+  if (_isServiceWorker) {
+    await _mergeAndPersist(toPersist);
+    return;
+  }
+  if (typeof chrome === 'undefined' || !chrome.runtime || !chrome.runtime.sendMessage) return;
   try {
-    const result  = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
-    const current     = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
-    const currentFull = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
-    current.push(...toPersist);
-    if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
-    currentFull.push(...toPersist);
-    if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
-    await chrome.storage.local.set({
-      [_LOG_BUFFER_KEY]     : JSON.stringify(current),
-      [_LOG_BUFFER_FULL_KEY]: JSON.stringify(currentFull),
-    });
+    await chrome.runtime.sendMessage({ action: 'gsAppendLogEntries', entries: toPersist });
   } catch {
-    // Storage round trip failed (or returned corrupt JSON) — put the entries back so
-    // they're retried on the next scheduled flush instead of silently lost.
-    _pendingEntries.unshift(...toPersist);
+    // Service worker unreachable (e.g. mid-reload) — dropped rather than retried, same
+    // best-effort persistence semantics as a local storage error would have had.
   }
 }
 
@@ -256,13 +301,17 @@ export const gsUtils = {
     return _logBufferFull.slice();
   },
 
+  // Only ever called from the service worker (background.js's 'clearLogs' case, itself
+  // reached by messaging from the debug page), so routing the actual removal through
+  // _clearPersisted() is enough to order it correctly against any of that context's own
+  // in-flight or queued merges — including one whose entries were already grabbed from
+  // another context's _pendingEntries before this ran, which would otherwise be able to
+  // write again after the removal below and resurrect them.
   async clearLogBuffer() {
     _logBuffer.length = 0;
     _logBufferFull.length = 0;
     _pendingEntries.length = 0;
-    if (typeof chrome !== 'undefined' && chrome.storage) {
-      await chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
-    }
+    await _clearPersisted();
   },
 
   isDiscardedTab(tab) {
