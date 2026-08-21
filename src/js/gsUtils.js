@@ -104,11 +104,23 @@ async function _mergeAndPersist(entries) {
           [_LOG_BUFFER_FULL_KEY]   : JSON.stringify(currentFull),
           [_LOG_BUFFER_VERSION_KEY]: myToken,
         });
-        const verify = await chrome.storage.local.get([_LOG_BUFFER_VERSION_KEY]);
-        if (verify[_LOG_BUFFER_VERSION_KEY] === myToken) return true; // no one raced us
-        // Someone else's write landed between our get() and set() above, replacing
-        // our token with theirs — our batch never made it into the state they wrote,
-        // so retry on top of whatever's there now instead of leaving it unpersisted.
+        const verify = await chrome.storage.local.get([_LOG_BUFFER_VERSION_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
+        // The token alone only proves no other *merge* wrote after ours — it doesn't
+        // catch a Clear whose set(clearedAt) landed after our get() above but whose
+        // remove() hadn't run yet, since that leaves the pre-clear `current` we just
+        // read still in storage for us to read, append to, and write straight back on
+        // top of the clear, undoing it entirely while still verifying "successfully".
+        // Re-checking clearedAt here catches that: if it moved past what we filtered
+        // against, our write may have resurrected pre-clear state, so treat it as a
+        // race and retry against whatever's actually there now, same as a token miss.
+        if (
+          verify[_LOG_BUFFER_VERSION_KEY] === myToken &&
+          (verify[_LOG_BUFFER_CLEARED_AT_KEY] || '') === clearedAt
+        ) {
+          return true; // no one raced us
+        }
+        // Someone else's write (a merge, or a clear) landed between our get() and set()
+        // above — retry on top of whatever's there now instead of leaving it unpersisted.
       } catch { /* fall through to retry, or give up after the last attempt */ }
     }
     return false; // exhausted retries — caller is responsible for not losing these entries
@@ -118,12 +130,22 @@ async function _mergeAndPersist(entries) {
 
 function _clearPersisted() {
   _writeQueue = _writeQueue.then(async () => {
-    if (typeof chrome === 'undefined' || !chrome.storage) return;
-    // Written before the remove, and never cleaned up itself, so it stays the
-    // authoritative cutoff for _mergeAndPersist() regardless of how a stale batch's
-    // merge and this clear happen to interleave.
-    await chrome.storage.local.set({ [_LOG_BUFFER_CLEARED_AT_KEY]: new Date().toISOString() });
-    await chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_VERSION_KEY]);
+    if (typeof chrome === 'undefined' || !chrome.storage) return false;
+    try {
+      // Written before the remove, and never cleaned up itself, so it stays the
+      // authoritative cutoff for _mergeAndPersist() regardless of how a stale batch's
+      // merge and this clear happen to interleave.
+      await chrome.storage.local.set({ [_LOG_BUFFER_CLEARED_AT_KEY]: new Date().toISOString() });
+      await chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_VERSION_KEY]);
+      return true;
+    } catch {
+      // A rejected .then() callback would leave _writeQueue itself a rejected promise —
+      // every _mergeAndPersist()/_clearPersisted() call chains onto it with .then() and
+      // no rejection handler, so once rejected, every future call's callback would be
+      // skipped forever (silently breaking logging until the worker restarts) instead
+      // of just this one clear failing. Swallowing the error here keeps the queue alive.
+      return false;
+    }
   });
   return _writeQueue;
 }
