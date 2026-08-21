@@ -37,6 +37,13 @@ const _logBufferFull = [];
 // per-attempt random token has no such collision — reading back exactly the token
 // this attempt just wrote is proof this exact write (and no one else's) landed.
 const _LOG_BUFFER_VERSION_KEY = 'gsLogBufferVersion';
+// Persisted high-water mark for the last "Clear log" action, never removed by the clear
+// itself. A page can already have grabbed a batch out of its own _pendingEntries (or be
+// mid-flight sending it) at the exact moment a clear runs elsewhere; without this, that
+// batch merging in afterwards would resurrect entries the user just wiped. Every merge
+// attempt drops entries older than this timestamp before persisting, regardless of
+// whether they arrive before or after the clear physically completes.
+const _LOG_BUFFER_CLEARED_AT_KEY = 'gsLogBufferClearedAt';
 
 function _newWriteToken() {
   return (typeof crypto !== 'undefined' && crypto.randomUUID)
@@ -68,9 +75,12 @@ const _isServiceWorker =
 // _LOG_BUFFER_VERSION_KEY above); the version check is what catches that.
 let _writeQueue = Promise.resolve();
 
+// Returns whether the batch ended up persisted (either written, or correctly dropped for
+// predating the last clear) so callers can requeue on genuine failure instead of losing
+// entries silently.
 async function _mergeAndPersist(entries) {
   _writeQueue = _writeQueue.then(async () => {
-    if (typeof chrome === 'undefined' || !chrome.storage || entries.length === 0) return;
+    if (typeof chrome === 'undefined' || !chrome.storage || entries.length === 0) return true;
     // Bounded retry: read the latest snapshot, apply this batch on top of it, write,
     // then check the version is still exactly what we just wrote. If another worker's
     // write landed in between, our set() above already got silently overwritten by
@@ -78,13 +88,16 @@ async function _mergeAndPersist(entries) {
     // instead of losing it.
     for (let attempt = 0; attempt < 5; attempt++) {
       try {
-        const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
+        const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
+        const clearedAt    = result[_LOG_BUFFER_CLEARED_AT_KEY] || '';
+        const freshEntries = clearedAt ? entries.filter((e) => e.ts > clearedAt) : entries;
+        if (freshEntries.length === 0) return true; // entire batch predates the last clear
         const current       = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
         const currentFull   = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
         const myToken       = _newWriteToken();
-        current.push(...entries);
+        current.push(...freshEntries);
         if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
-        currentFull.push(...entries);
+        currentFull.push(...freshEntries);
         if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
         await chrome.storage.local.set({
           [_LOG_BUFFER_KEY]        : JSON.stringify(current),
@@ -92,12 +105,13 @@ async function _mergeAndPersist(entries) {
           [_LOG_BUFFER_VERSION_KEY]: myToken,
         });
         const verify = await chrome.storage.local.get([_LOG_BUFFER_VERSION_KEY]);
-        if (verify[_LOG_BUFFER_VERSION_KEY] === myToken) return; // no one raced us
+        if (verify[_LOG_BUFFER_VERSION_KEY] === myToken) return true; // no one raced us
         // Someone else's write landed between our get() and set() above, replacing
         // our token with theirs — our batch never made it into the state they wrote,
         // so retry on top of whatever's there now instead of leaving it unpersisted.
       } catch { /* fall through to retry, or give up after the last attempt */ }
     }
+    return false; // exhausted retries — caller is responsible for not losing these entries
   });
   return _writeQueue;
 }
@@ -105,6 +119,10 @@ async function _mergeAndPersist(entries) {
 function _clearPersisted() {
   _writeQueue = _writeQueue.then(async () => {
     if (typeof chrome === 'undefined' || !chrome.storage) return;
+    // Written before the remove, and never cleaned up itself, so it stays the
+    // authoritative cutoff for _mergeAndPersist() regardless of how a stale batch's
+    // merge and this clear happen to interleave.
+    await chrome.storage.local.set({ [_LOG_BUFFER_CLEARED_AT_KEY]: new Date().toISOString() });
     await chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_VERSION_KEY]);
   });
   return _writeQueue;
@@ -128,7 +146,7 @@ const INTERNAL_MESSAGE_ACTIONS = new Set(['gsAppendLogEntries', 'clearLogs']);
 if (_isServiceWorker && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (!request || request.action !== 'gsAppendLogEntries') return false;
-    _mergeAndPersist(request.entries || []).then(() => sendResponse());
+    _mergeAndPersist(request.entries || []).then((success) => sendResponse({ success }));
     return true; // keep the channel open for the async sendResponse above
   });
 }
@@ -186,15 +204,29 @@ async function _flushNow() {
   // still in flight stay queued for the next one instead of being dropped.
   const toPersist = _pendingEntries.splice(0, _pendingEntries.length);
   if (_isServiceWorker) {
-    await _mergeAndPersist(toPersist);
+    const success = await _mergeAndPersist(toPersist);
+    if (!success) {
+      // Storage errors on every retry attempt, or an exhausted version-conflict retry —
+      // put the batch back at the front (ahead of anything logged meanwhile) and let the
+      // next scheduled flush try again, instead of discarding captured diagnostic history.
+      _pendingEntries.unshift(...toPersist);
+      _scheduleFlush();
+    }
     return;
   }
   if (typeof chrome === 'undefined' || !chrome.runtime || !chrome.runtime.sendMessage) return;
   try {
-    await chrome.runtime.sendMessage({ action: 'gsAppendLogEntries', entries: toPersist });
+    const response = await chrome.runtime.sendMessage({ action: 'gsAppendLogEntries', entries: toPersist });
+    if (!response || !response.success) {
+      _pendingEntries.unshift(...toPersist);
+      _scheduleFlush();
+    }
   } catch {
-    // Service worker unreachable (e.g. mid-reload) — dropped rather than retried, same
-    // best-effort persistence semantics as a local storage error would have had.
+    // Service worker unreachable (e.g. mid-reload/recycle) — requeue and retry on the
+    // next scheduled flush rather than dropping the batch; it's usually back within a
+    // beat, and there's no other recipient for these entries in the meantime.
+    _pendingEntries.unshift(...toPersist);
+    _scheduleFlush();
   }
 }
 
@@ -348,11 +380,12 @@ export const gsUtils = {
   },
 
   // Only ever called from the service worker (background.js's 'clearLogs' case, itself
-  // reached by messaging from the debug page), so routing the actual removal through
-  // _clearPersisted() is enough to order it correctly against any of that context's own
-  // in-flight or queued merges — including one whose entries were already grabbed from
-  // another context's _pendingEntries before this ran, which would otherwise be able to
-  // write again after the removal below and resurrect them.
+  // reached by messaging from the debug page). Chaining the removal through
+  // _clearPersisted() orders it correctly against this context's own in-flight or
+  // queued merges, but that alone doesn't cover a batch another page already grabbed
+  // from its own _pendingEntries (or is still mid-flight sending) before this ran —
+  // _clearPersisted()'s clearedAt timestamp is what stops that batch resurrecting old
+  // entries once its merge eventually lands, whichever side of the clear it arrives on.
   async clearLogBuffer() {
     _logBuffer.length = 0;
     _logBufferFull.length = 0;
