@@ -27,10 +27,23 @@ import  { tgs }                   from './tgs.js';
   // startupOnce, which is once per browser session) to self-heal if it's ever missing —
   // hasDocument() keeps repeat calls cheap, and a concurrent createDocument() call from
   // another SW wake is caught and ignored rather than treated as an error.
+  // chrome.offscreen.hasDocument() only exists from Chrome 150+, but manifest.json's
+  // minimum_chrome_version is 110 — on 110-149 calling it would throw and this function
+  // would never get past that line, silently disabling battery status on every supported
+  // version below 150. clients.matchAll() is a standard ServiceWorkerGlobalScope API
+  // available across the whole supported range, so it's used as the existence check there.
+  async function hasOffscreenDocument() {
+    if (typeof chrome.offscreen.hasDocument === 'function') {
+      return chrome.offscreen.hasDocument();
+    }
+    const matchedClients = await self.clients.matchAll();
+    return matchedClients.some((client) => client.url.endsWith('offscreen.html'));
+  }
+
   async function ensureOffscreenDocument() {
     if (!chrome.offscreen) return;
-    if (await chrome.offscreen.hasDocument()) return;
     try {
+      if (await hasOffscreenDocument()) return;
       await chrome.offscreen.createDocument({
         url: 'offscreen.html',
         reasons: ['BATTERY_STATUS'],

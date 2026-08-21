@@ -219,6 +219,28 @@ import  { tgs }                   from './tgs.js';
 
   let _unloadHandlerRegistered = false;
 
+  // Kept as mutable module state rather than a value closed over by the beforeunload
+  // handler below, so that toggling the option in options.js while this suspended page
+  // is already loaded takes effect immediately via the chrome.storage.onChanged listener
+  // further down — without adding a storage read inside the handler itself (see the note
+  // on setUnloadTabHandler for why that read can't happen there).
+  let _reloadUnsuspendBackground = false;
+
+  // gsStorage persists all options as one blob under the 'gsSettings' key (see
+  // gsStorage.saveSettings), not as individual per-option keys, so the change has to be
+  // picked out of that blob's newValue rather than matched by RELOAD_UNSUSPEND_BACKGROUND
+  // directly.
+  if (typeof chrome !== 'undefined' && chrome.storage) {
+    chrome.storage.onChanged.addListener((changes, areaName) => {
+      if (areaName === 'local' && 'gsSettings' in changes) {
+        const newSettings = changes.gsSettings.newValue;
+        if (newSettings && gsStorage.RELOAD_UNSUSPEND_BACKGROUND in newSettings) {
+          _reloadUnsuspendBackground = !!newSettings[gsStorage.RELOAD_UNSUSPEND_BACKGROUND];
+        }
+      }
+    });
+  }
+
   // reloadUnsuspendBackground is resolved by the caller (at initTab time, no time
   // pressure there) rather than re-fetched inside the beforeunload handler below.
   // Chrome gives beforeunload no guarantee that pending async work finishes before
@@ -231,6 +253,8 @@ import  { tgs }                   from './tgs.js';
   // when the page died simply never landed. Cutting the pre-write hops from ~4
   // down to 1 (the actual storage write) shrinks that window.
   async function setUnloadTabHandler(tab, reloadUnsuspendBackground) {
+    _reloadUnsuspendBackground = reloadUnsuspendBackground;
+
     // initTab() re-runs (without quickInit) whenever checkQueue reinitialises an
     // unresponsive suspended tab, which would otherwise call this again and stack a
     // second beforeunload listener carrying its own captured `tab` snapshot. Both
@@ -249,7 +273,7 @@ import  { tgs }                   from './tgs.js';
     // if the url is changed then on reload the url will not match
     // if the tab is closed, the reload will never occur
     addEventListener('beforeunload', async (event) => {
-      if (reloadUnsuspendBackground || await tgs.isCurrentFocusedTab(tab)) {
+      if (_reloadUnsuspendBackground || await tgs.isCurrentFocusedTab(tab)) {
         await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL, tab.url);
         gsUtils.log(tab.id, 'BeforeUnload triggered, marked as reload', tab.url);
       }
@@ -311,9 +335,7 @@ import  { tgs }                   from './tgs.js';
       // depends on — a background tab suspended with "Discard after suspend" on always
       // takes this path, silently defeating that option regardless of its own state.
       const reloadUnsuspendBackground = await gsStorage.getOption(gsStorage.RELOAD_UNSUSPEND_BACKGROUND);
-      if (reloadUnsuspendBackground) {
-        await setUnloadTabHandler(tab, reloadUnsuspendBackground);
-      }
+      await setUnloadTabHandler(tab, reloadUnsuspendBackground);
       return;
     }
 
