@@ -25,34 +25,207 @@ const _logBuffer = [];
 const _LOG_BUFFER_FULL_KEY = 'gsLogBufferFull';
 const _LOG_BUFFER_FULL_MAX = 10000;
 const _logBufferFull = [];
-let   _flushTimer = null;
+// A random token stored alongside the buffers, replaced on every write attempt.
+// manifest.json declares "incognito": "split", so a regular and an incognito window
+// each get their own fully independent service worker instance (their own copy of
+// every module-level variable below, including _writeQueue), while both still share
+// the same chrome.storage.local — two such workers logging around the same time are
+// two genuinely separate single-writers, not one. An incrementing counter can't tell
+// these apart: two workers racing off the same prior value both compute the same
+// next number, so whichever set() lands last leaves a value both sides consider a
+// match, even though only one of their batches is actually still in the buffers. A
+// per-attempt random token has no such collision — reading back exactly the token
+// this attempt just wrote is proof this exact write (and no one else's) landed.
+const _LOG_BUFFER_VERSION_KEY = 'gsLogBufferVersion';
+// Persisted high-water mark for the last "Clear log" action, never removed by the clear
+// itself. A page can already have grabbed a batch out of its own _pendingEntries (or be
+// mid-flight sending it) at the exact moment a clear runs elsewhere; without this, that
+// batch merging in afterwards would resurrect entries the user just wiped. Every merge
+// attempt drops entries older than this timestamp before persisting, regardless of
+// whether they arrive before or after the clear physically completes.
+const _LOG_BUFFER_CLEARED_AT_KEY = 'gsLogBufferClearedAt';
 
-// MV3 kills the service worker after ~30s idle, wiping these in-memory arrays. Without
-// reloading what was already persisted, the next flush would overwrite storage with
-// only the handful of entries logged since the restart, silently truncating history
-// on every restart instead of actually keeping the last N entries.
-let _bufferReadyPromise = null;
-function _ensureBufferLoaded() {
-  if (_bufferReadyPromise) return _bufferReadyPromise;
-  _bufferReadyPromise = (async () => {
-    if (typeof chrome === 'undefined' || !chrome.storage) return;
-    try {
-      const result = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
-      const stored = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
-      _logBuffer.unshift(...stored);
-      if (_logBuffer.length > _LOG_BUFFER_MAX) {
-        _logBuffer.splice(0, _logBuffer.length - _LOG_BUFFER_MAX);
-      }
-      const storedFull = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
-      _logBufferFull.unshift(...storedFull);
-      if (_logBufferFull.length > _LOG_BUFFER_FULL_MAX) {
-        _logBufferFull.splice(0, _logBufferFull.length - _LOG_BUFFER_FULL_MAX);
-      }
-    } catch { /* corrupt persisted buffer, start fresh */ }
-  })();
-  return _bufferReadyPromise;
+function _newWriteToken() {
+  return (typeof crypto !== 'undefined' && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : `${Date.now()}-${Math.random()}`;
 }
-_ensureBufferLoaded();
+let   _flushTimer = null;
+// Entries logged in this context since its last successful flush, not yet confirmed
+// persisted.
+const _pendingEntries = [];
+
+// Every page (including suspended.js, in every suspended tab) shares the same
+// gsUtils.js module but gets its own separate instance — if each context wrote to
+// chrome.storage directly, two contexts logging around the same time could each
+// clobber what the other had just persisted, no matter how the read-modify-write is
+// shaped, since chrome.storage has no compare-and-swap. Only the service worker
+// (the one context every other one can always reach via messaging) actually touches
+// these two storage keys; every other context hands its entries to it instead.
+const _isServiceWorker =
+  typeof ServiceWorkerGlobalScope !== 'undefined' &&
+  typeof self !== 'undefined' &&
+  self instanceof ServiceWorkerGlobalScope;
+
+// Chains every write (a merge, or a clear) through one promise, so this one service
+// worker instance never has two get()/set() (or remove()) pairs for these keys in
+// flight at once — without this, its own scheduled flush and an incoming message from
+// another context could still interleave their storage round trips the same way
+// multiple direct writers used to. Doesn't cover the split-incognito worker (see
+// _LOG_BUFFER_VERSION_KEY above); the version check is what catches that.
+let _writeQueue = Promise.resolve();
+
+// Returns whether the batch ended up persisted (either written, or correctly dropped for
+// predating the last clear) so callers can requeue on genuine failure instead of losing
+// entries silently. Does not chain onto _writeQueue itself — _mergeAndPersist() below
+// does that for a normal merge, and _clearPersisted() calls this directly from within
+// its own already-queued step instead of chaining a second time, since calling the
+// queued wrapper reactively from inside another queued callback (reading whatever
+// _writeQueue happens to hold by the time that callback actually runs, which can already
+// include operations queued after it) risks a circular wait between the two steps.
+async function _mergeAndPersistCore(entries) {
+    // entries is legitimately empty when this is a clear (see _clearPersisted below): the
+    // clearedAt/stale-content filtering further down still needs to run in that case, so
+    // this can only bail out early on missing chrome.storage, not on an empty batch.
+  if (typeof chrome === 'undefined' || !chrome.storage) return true;
+    // Bounded retry: read the latest snapshot, apply this batch on top of it, write,
+    // then check the version is still exactly what we just wrote. If another worker's
+    // write landed in between, our set() above already got silently overwritten by
+    // it (or vice versa) — re-read and reapply the same batch on the newer state
+    // instead of losing it.
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
+      const clearedAt    = result[_LOG_BUFFER_CLEARED_AT_KEY] || '';
+      const freshEntries = clearedAt ? entries.filter((e) => e.ts > clearedAt) : entries;
+        // A corrupt persisted buffer would otherwise throw here on every attempt, and
+        // the broad catch below leaves it untouched — an unrecoverable batch that never
+        // stops retrying, and no later diagnostics ever get persisted either. Start that
+        // one buffer fresh instead, same recovery the old buffer loader already did.
+      // Drops anything that isn't a well-formed log entry rather than just checking the
+      // top-level shape: a malformed *element* (null, a stray primitive, an object with a
+      // non-string ts, however it got in there) would otherwise reach the `e.ts > clearedAt`
+      // comparison below and throw there instead, same wedged-retries-forever failure as an
+      // outright parse failure or a non-array top level, just one layer deeper.
+      const isWellFormedEntry = (e) => e !== null && typeof e === 'object' && typeof e.ts === 'string';
+      const parseBuffer = (raw) => {
+        try {
+          const parsed = JSON.parse(raw || '[]');
+          return Array.isArray(parsed) ? parsed.filter(isWellFormedEntry) : [];
+        }
+        catch { return []; }
+      };
+      let current     = parseBuffer(result[_LOG_BUFFER_KEY]);
+      let currentFull = parseBuffer(result[_LOG_BUFFER_FULL_KEY]);
+        // A previous attempt of ours (or another worker's) can already have written a
+        // stale pre-clear snapshot straight into these keys before either of us noticed
+        // the clear — re-filtering `entries` alone and returning early the moment there's
+        // nothing new to add would leave that already-persisted stale content in place
+        // forever. Re-filter the persisted buffers themselves on every attempt too, and
+        // only skip the write below if neither they nor the incoming batch need it.
+      const beforeCount = current.length + currentFull.length;
+      if (clearedAt) {
+        current     = current.filter((e) => e.ts > clearedAt);
+        currentFull = currentFull.filter((e) => e.ts > clearedAt);
+      }
+      const hadStaleContent = current.length + currentFull.length < beforeCount;
+      if (freshEntries.length === 0 && !hadStaleContent) return true; // truly nothing to do
+      const myToken       = _newWriteToken();
+      current.push(...freshEntries);
+      if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
+      currentFull.push(...freshEntries);
+      if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
+      await chrome.storage.local.set({
+        [_LOG_BUFFER_KEY]        : JSON.stringify(current),
+        [_LOG_BUFFER_FULL_KEY]   : JSON.stringify(currentFull),
+        [_LOG_BUFFER_VERSION_KEY]: myToken,
+      });
+      const verify = await chrome.storage.local.get([_LOG_BUFFER_VERSION_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
+        // The token alone only proves no other *merge* wrote after ours — it doesn't
+        // catch a Clear whose set(clearedAt) landed after our get() above but whose own
+        // purge write hadn't landed yet, since that leaves the pre-clear `current` we
+        // just read still in storage for us to read, append to, and write straight back
+        // on top of the clear, undoing it entirely while still verifying "successfully".
+        // Re-checking clearedAt here catches that: if it moved past what we filtered
+        // against, our write may have resurrected pre-clear state, so treat it as a
+        // race and retry against whatever's actually there now, same as a token miss.
+      if (
+        verify[_LOG_BUFFER_VERSION_KEY] === myToken &&
+          (verify[_LOG_BUFFER_CLEARED_AT_KEY] || '') === clearedAt
+      ) {
+        return true; // no one raced us
+      }
+        // Someone else's write (a merge, or a clear) landed between our get() and set()
+        // above — retry on top of whatever's there now instead of leaving it unpersisted.
+    }
+    catch { /* fall through to retry, or give up after the last attempt */ }
+  }
+  return false; // exhausted retries — caller is responsible for not losing these entries
+}
+
+async function _mergeAndPersist(entries) {
+  _writeQueue = _writeQueue.then(() => _mergeAndPersistCore(entries));
+  return _writeQueue;
+}
+
+function _clearPersisted() {
+  _writeQueue = _writeQueue.then(async () => {
+    if (typeof chrome === 'undefined' || !chrome.storage) return false;
+    let cutoffWritten = false;
+    try {
+      // Written first and never cleaned up itself, so every _mergeAndPersist() attempt —
+      // including the purge below — can use it as the authoritative cutoff regardless of
+      // how a stale or fresh merge happens to interleave with this clear.
+      await chrome.storage.local.set({ [_LOG_BUFFER_CLEARED_AT_KEY]: new Date().toISOString() });
+      cutoffWritten = true;
+    }
+    catch {
+      // A rejected .then() callback would leave _writeQueue itself a rejected promise —
+      // every _mergeAndPersist()/_clearPersisted() call chains onto it with .then() and
+      // no rejection handler, so once rejected, every future call's callback would be
+      // skipped forever (silently breaking logging until the worker restarts) instead
+      // of just this one clear failing. Swallowing the error here keeps the queue alive.
+    }
+    // A failed cutoff write falling through to the purge below would filter against
+    // whatever cutoff is already in storage (unchanged, since our write never landed),
+    // find nothing new to purge, and report success even though nothing was actually
+    // cleared — silently turning a failed Clear into a fake one from the caller's side.
+    if (!cutoffWritten) return false;
+    // Purging old entries goes through the exact same filter/write/verify/retry machinery
+    // a normal merge already uses (called directly, not via _mergeAndPersist(), to stay
+    // inside this one already-queued step rather than chaining a second time), instead of
+    // an unconditional remove(): another worker can have already merged in entries newer
+    // than the cutoff just written above by the time this runs, and an unconditional
+    // remove() can't tell "old" apart from "just landed" — it would delete that
+    // already-verified batch outright. This can, since it filters by timestamp against
+    // the same cutoff rather than wiping everything wholesale.
+    return _mergeAndPersistCore([]);
+  });
+  return _writeQueue;
+}
+
+// Actions meant only for the service worker (or another internal recipient), sent via
+// a bare chrome.runtime.sendMessage() with no tabId — which Chrome delivers to every
+// listening extension page, not just the intended one. Every page's own
+// messageRequestListener already has to tolerate that and ignore what it doesn't own,
+// but doing so by logging "ignoring unhandled message" is itself a log call: for an
+// action this frequent (gsAppendLogEntries, sent on every flush, roughly every 1.5s
+// from any context that's logged something), that log entry becomes new pending
+// history needing its own flush, whose "ignored" broadcast produces another log entry
+// in turn, a self-sustaining loop with no natural end. Pages check this set and skip
+// logging entirely for anything in it, rather than trying to rate-limit the loop.
+const INTERNAL_MESSAGE_ACTIONS = new Set(['gsAppendLogEntries', 'clearLogs']);
+
+// Only the service worker listens; every other context reaches it via sendMessage in
+// _flushNow() below. Registered at module top level (not inside an async block) so
+// Chrome can queue the very first message even if it arrives before this line runs.
+if (_isServiceWorker && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (!request || request.action !== 'gsAppendLogEntries') return false;
+    _mergeAndPersist(request.entries || []).then((success) => sendResponse({ success }));
+    return true; // keep the channel open for the async sendResponse above
+  });
+}
 
 // Cheap djb2-style hash so two favicons of similar length still show up as distinct in
 // the log (a bare length like "[data URL, 812 chars]" can't tell "same icon" from
@@ -83,7 +256,8 @@ function _redactDataUrls(key, value) {
 function _serialize(v) {
   if (v === null || v === undefined) return String(v);
   if (typeof v === 'string') return v;
-  try { return JSON.stringify(v, _redactDataUrls); } catch { return String(v); }
+  try { return JSON.stringify(v, _redactDataUrls); }
+  catch { return String(v); }
 }
 
 function _appendEntry(level, src, parts) {
@@ -97,21 +271,41 @@ function _appendEntry(level, src, parts) {
   if (_logBuffer.length > _LOG_BUFFER_MAX) _logBuffer.shift();
   _logBufferFull.push(entry);
   if (_logBufferFull.length > _LOG_BUFFER_FULL_MAX) _logBufferFull.shift();
+  _pendingEntries.push(entry);
 }
 
-function _flushNow() {
+async function _flushNow() {
   if (_flushTimer) { clearTimeout(_flushTimer); _flushTimer = null; }
-  // Wait for the historical buffer to be merged in first, otherwise a flush that races
-  // ahead of _ensureBufferLoaded() would persist only the entries logged so far this
-  // session and clobber everything from before the restart.
-  _ensureBufferLoaded().then(() => {
-    if (typeof chrome !== 'undefined' && chrome.storage) {
-      chrome.storage.local.set({
-        [_LOG_BUFFER_KEY]     : JSON.stringify(_logBuffer),
-        [_LOG_BUFFER_FULL_KEY]: JSON.stringify(_logBufferFull),
-      });
+  if (_pendingEntries.length === 0) return;
+  // Grab-and-clear rather than read-then-clear, so entries logged while this flush is
+  // still in flight stay queued for the next one instead of being dropped.
+  const toPersist = _pendingEntries.splice(0, _pendingEntries.length);
+  if (_isServiceWorker) {
+    const success = await _mergeAndPersist(toPersist);
+    if (!success) {
+      // Storage errors on every retry attempt, or an exhausted version-conflict retry —
+      // put the batch back at the front (ahead of anything logged meanwhile) and let the
+      // next scheduled flush try again, instead of discarding captured diagnostic history.
+      _pendingEntries.unshift(...toPersist);
+      _scheduleFlush();
     }
-  });
+    return;
+  }
+  if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) return;
+  try {
+    const response = await chrome.runtime.sendMessage({ action: 'gsAppendLogEntries', entries: toPersist });
+    if (!response?.success) {
+      _pendingEntries.unshift(...toPersist);
+      _scheduleFlush();
+    }
+  }
+  catch {
+    // Service worker unreachable (e.g. mid-reload/recycle) — requeue and retry on the
+    // next scheduled flush rather than dropping the batch; it's usually back within a
+    // beat, and there's no other recipient for these entries in the meantime.
+    _pendingEntries.unshift(...toPersist);
+    _scheduleFlush();
+  }
 }
 
 function _scheduleFlush() {
@@ -121,6 +315,7 @@ function _scheduleFlush() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const gsUtils = {
+  INTERNAL_MESSAGE_ACTIONS,
   STATUS_NORMAL         : 'normal',
   STATUS_LOADING        : 'loading',
   STATUS_SPECIAL        : 'special',
@@ -143,7 +338,7 @@ export const gsUtils = {
   captureLogs : false,
 
   contains(array, value) {
-    for (var i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.length; i++) {
       if (array[i] === value) return true;
     }
     return false;
@@ -159,7 +354,7 @@ export const gsUtils = {
     args = args || [];
     if (gsUtils.debugInfo) {
       // eslint-disable-next-line no-console
-      console.log(id, (new Date() + '').split(' ')[4], text, ...args);
+      console.log(id, (`${new Date()  }`).split(' ')[4], text, ...args);
     }
     if (gsUtils.captureLogs) {
       _appendEntry('I', id, [text, ...args]);
@@ -179,7 +374,7 @@ export const gsUtils = {
         .filter((o) => !ignores.find((p) => o.indexOf(p) >= 0))
         .join('\n');
       // eslint-disable-next-line no-console
-      console.warn('WARNING:', id, (new Date() + '').split(' ')[4], text, ...args, `\n${errorLine}`);
+      console.warn('WARNING:', id, (`${new Date()  }`).split(' ')[4], text, ...args, `\n${errorLine}`);
     }
     if (gsUtils.captureLogs || gsUtils.debugError) {
       _appendEntry('W', id, [text, ...args]);
@@ -192,17 +387,17 @@ export const gsUtils = {
       id = '?';
     }
     //NOTE: errorObj may be just a string :/
-    const errorMessage = errorObj && errorObj.hasOwnProperty && errorObj.hasOwnProperty('message')
+    const errorMessage = errorObj?.hasOwnProperty?.('message')
       ? errorObj.message
       : typeof errorObj === 'string'
         ? errorObj
         : JSON.stringify(errorObj, null, 2);
     if (gsUtils.debugError) {
-      const stackTrace = errorObj && errorObj.hasOwnProperty && errorObj.hasOwnProperty('stack')
+      const stackTrace = errorObj?.hasOwnProperty?.('stack')
         ? errorObj.stack
         : gsUtils.getStackTrace();
       // eslint-disable-next-line no-console
-      console.log(id, (new Date() + '').split(' ')[4], 'Error:');
+      console.log(id, (`${new Date()  }`).split(' ')[4], 'Error:');
       // eslint-disable-next-line no-console
       console.error(
         gsUtils.getPrintableError(errorMessage, stackTrace, ...args),
@@ -220,7 +415,7 @@ export const gsUtils = {
     return errorString;
   },
   getStackTrace() {
-    var obj = {};
+    const obj = {};
     if ('captureStackTrace' in Error && typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(obj, gsUtils.getStackTrace);
       return obj.stack;
@@ -262,12 +457,18 @@ export const gsUtils = {
     return _logBufferFull.slice();
   },
 
-  clearLogBuffer() {
+  // Only ever called from the service worker (background.js's 'clearLogs' case, itself
+  // reached by messaging from the debug page). Chaining the removal through
+  // _clearPersisted() orders it correctly against this context's own in-flight or
+  // queued merges, but that alone doesn't cover a batch another page already grabbed
+  // from its own _pendingEntries (or is still mid-flight sending) before this ran —
+  // _clearPersisted()'s clearedAt timestamp is what stops that batch resurrecting old
+  // entries once its merge eventually lands, whichever side of the clear it arrives on.
+  async clearLogBuffer() {
     _logBuffer.length = 0;
     _logBufferFull.length = 0;
-    if (typeof chrome !== 'undefined' && chrome.storage) {
-      chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
-    }
+    _pendingEntries.length = 0;
+    return _clearPersisted();
   },
 
   isDiscardedTab(tab) {
@@ -490,10 +691,10 @@ export const gsUtils = {
         whitelistItems.splice(i, 1);
       }
     }
-    var whitelistString = whitelistItems.join('\n');
+    const whitelistString = whitelistItems.join('\n');
     await gsStorage.setOptionAndSync(gsStorage.WHITELIST, whitelistString);
 
-    var key = gsStorage.WHITELIST;
+    const key = gsStorage.WHITELIST;
     gsUtils.performPostSaveUpdates(
       [key],
       { [key]: oldWhitelistString },
@@ -530,7 +731,7 @@ export const gsUtils = {
 
   saveToWhitelist: async (newString) => {
     const oldWhitelistString = (await gsStorage.getOption(gsStorage.WHITELIST)) || '';
-    let newWhitelistString = oldWhitelistString + '\n' + newString;
+    let newWhitelistString = `${oldWhitelistString  }\n${  newString}`;
     newWhitelistString = gsUtils.cleanupWhitelist(newWhitelistString);
     await gsStorage.setOptionAndSync(gsStorage.WHITELIST, newWhitelistString);
 
@@ -543,7 +744,7 @@ export const gsUtils = {
   },
 
   cleanupWhitelist(whitelist) {
-    var whitelistItems = whitelist ? whitelist.split(/[\s\n]+/).sort() : '',
+    let whitelistItems = whitelist ? whitelist.split(/[\s\n]+/).sort() : '',
       i,
       j;
 
@@ -586,13 +787,14 @@ export const gsUtils = {
       const url = chrome.runtime.getURL(`_locales/${locale}/messages.json`);
       const response = await fetch(url);
       _localeMessages = response.ok ? await response.json() : null;
-    } catch (e) {
+    }
+    catch (e) {
       _localeMessages = null;
     }
   },
 
   initSelectArrows(parentEl) {
-    parentEl.querySelectorAll('.select-wrapper select').forEach(sel => {
+    parentEl.querySelectorAll('.select-wrapper select').forEach((sel) => {
       const wrapper = sel.closest('.select-wrapper');
       sel.addEventListener('focus',     () => wrapper.classList.add('is-open'));
       sel.addEventListener('blur',      () => wrapper.classList.remove('is-open'));
@@ -604,7 +806,7 @@ export const gsUtils = {
   },
 
   getMessage(key, substitutions) {
-    if (_localeMessages && _localeMessages[key]) {
+    if (_localeMessages?.[key]) {
       const entry = _localeMessages[key];
       let msg = entry.message || '';
       if (substitutions !== undefined && entry.placeholders) {
@@ -624,7 +826,7 @@ export const gsUtils = {
   localiseHtml(parentEl) {
     const replaceTagFunc = function(match, p1) {
       if (!p1) return '';
-      if (_localeMessages && _localeMessages[p1]) return _localeMessages[p1].message || '';
+      if (_localeMessages?.[p1]) return _localeMessages[p1].message || '';
       return chrome.i18n.getMessage(p1) || '';
     };
     for (const el of parentEl.getElementsByTagName('*')) {
@@ -673,7 +875,7 @@ export const gsUtils = {
     await gsMascot.applyToDocument(win.document);
 
     const vEl = win.document.getElementById('headerVersion');
-    if (vEl) vEl.textContent = 'v' + chrome.runtime.getManifest().version;
+    if (vEl) vEl.textContent = `v${  chrome.runtime.getManifest().version}`;
 
     if (win.document?.body) {
       const theme = await gsStorage.getOption(gsStorage.THEME);
@@ -687,8 +889,8 @@ export const gsUtils = {
 
   generateSuspendedUrl: (url, title, scrollPos) => {
     const encodedTitle = gsUtils.encodeString(title);
-    var args = `#ttl=${encodedTitle}&pos=${scrollPos || '0'}&uri=${url}`;
-    return chrome.runtime.getURL('suspended.html' + args);
+    const args = `#ttl=${encodedTitle}&pos=${scrollPos || '0'}&uri=${url}`;
+    return chrome.runtime.getURL(`suspended.html${  args}`);
   },
 
   /**
@@ -740,7 +942,7 @@ export const gsUtils = {
     }
     else {
       // remove query string
-      var match = rootUrlStr.match(/\/?[?#]+/);
+      let match = rootUrlStr.match(/\/?[?#]+/);
       if (match) {
         rootUrlStr = rootUrlStr.substring(0, match.index);
       }
@@ -759,7 +961,7 @@ export const gsUtils = {
   },
 
   getHashVariable(key, urlStr) {
-    var valuesByKey = {},
+    let valuesByKey = {},
       keyPairRegEx = /^(.+)=(.+)/,
       hashStr;
 
@@ -782,7 +984,7 @@ export const gsUtils = {
     }
 
     hashStr.split('&').forEach((keyPair) => {
-      if (keyPair && keyPair.match(keyPairRegEx)) {
+      if (keyPair?.match(keyPairRegEx)) {
         valuesByKey[keyPair.replace(keyPairRegEx, '$1')] = keyPair.replace(
           keyPairRegEx,
           '$2',
@@ -883,12 +1085,12 @@ export const gsUtils = {
   },
 
   getChromeVersion() {
-    var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+    const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
     return raw ? parseInt(raw[2], 10) : false;
   },
 
   generateHashCode(text) {
-    var hash = 0,
+    let hash = 0,
       i,
       chr,
       len;
@@ -1053,7 +1255,7 @@ export const gsUtils = {
   },
 
   getWindowFromSession(windowId, session) {
-    var window = false;
+    let window = false;
     session.windows.some((curWindow) => {
       //leave this as a loose matching as sometimes it is comparing strings. other times ints
       if (curWindow.id == windowId) {
@@ -1065,11 +1267,11 @@ export const gsUtils = {
   },
 
   removeInternalUrlsFromSession(session) {
-    if (!session || !session.windows) { return; }
-    for (var i = session.windows.length - 1; i >= 0; i--) {
-      var curWindow = session.windows[i];
-      for (var j = curWindow.tabs.length - 1; j >= 0; j--) {
-        var curTab = curWindow.tabs[j];
+    if (!session?.windows) { return; }
+    for (let i = session.windows.length - 1; i >= 0; i--) {
+      const curWindow = session.windows[i];
+      for (let j = curWindow.tabs.length - 1; j >= 0; j--) {
+        const curTab = curWindow.tabs[j];
         if (gsUtils.isInternalTab(curTab)) {
           curWindow.tabs.splice(j, 1);
         }
@@ -1081,22 +1283,22 @@ export const gsUtils = {
   },
 
   getSimpleDate(date) {
-    var d = new Date(date);
+    const d = new Date(date);
     return (
-      ('0' + d.getDate()).slice(-2) +
-      '-' +
-      ('0' + (d.getMonth() + 1)).slice(-2) +
-      '-' +
-      d.getFullYear() +
-      ' ' +
-      ('0' + d.getHours()).slice(-2) +
-      ':' +
-      ('0' + d.getMinutes()).slice(-2)
+      `${(`0${  d.getDate()}`).slice(-2)
+      }-${
+        (`0${  d.getMonth() + 1}`).slice(-2)
+      }-${
+        d.getFullYear()
+      } ${
+        (`0${  d.getHours()}`).slice(-2)
+      }:${
+        (`0${  d.getMinutes()}`).slice(-2)}`
     );
   },
 
   getHumanDate(date) {
-    var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       d = new Date(date),
       currentDate = d.getDate(),
       currentMonth = d.getMonth(),
@@ -1104,19 +1306,19 @@ export const gsUtils = {
       currentHours = d.getHours(),
       currentMinutes = d.getMinutes();
 
-    var AMPM = currentHours >= 12 ? 'pm' : 'am';
-    var hoursString = currentHours % 12 || 12;
-    var minutesString = ('0' + currentMinutes).slice(-2);
+    const AMPM = currentHours >= 12 ? 'pm' : 'am';
+    const hoursString = currentHours % 12 || 12;
+    const minutesString = (`0${  currentMinutes}`).slice(-2);
 
     return ( `${currentDate} ${monthNames[currentMonth]} ${currentYear} ${hoursString}:${minutesString}${AMPM}`);
   },
 
   debounce(func, wait) {
-    var timeout;
+    let timeout;
     return () => {
-      var context = this,
+      const context = this,
         args = arguments;
-      var later = function() {
+      const later = function() {
         timeout = null;
         func.apply(context, args);
       };
@@ -1149,3 +1351,29 @@ export const gsUtils = {
     return await retryFn(0);
   },
 };
+
+// Every page (and the service worker) gets its own module instance and therefore its own
+// copy of gsUtils.captureLogs — restoring the persisted flag only in background.js (as
+// this used to do) meant every other context's warning()/log() calls never buffered
+// anything even with captureLogs enabled, since each of those contexts' own captureLogs
+// stayed at the hardcoded false default. Restoring it here instead of duplicating this
+// in every page's own script covers all of them, including the service worker itself,
+// with one copy of the logic. Runs on every module load (not just once per browser
+// session), since the service worker's own in-memory flag also resets on every recycle.
+if (typeof chrome !== 'undefined' && chrome.storage) {
+  chrome.storage.local.get(['gsCaptureVerbose'], (result) => {
+    if (result.gsCaptureVerbose) gsUtils.captureLogs = true;
+  });
+  // The above only covers this module instance's state at load time. Toggling captureLogs
+  // on the debug page only messages the service worker directly (background.js's
+  // 'setCaptureLogs' case); it doesn't reach any options/suspended/etc. page already open
+  // at the time, which would otherwise keep whatever value it loaded with until reloaded.
+  // Every context already has a storage listener available for free, so keeping every
+  // instance in sync live is just reading the new value here instead of also having to
+  // route a message to every possible open page.
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName === 'local' && 'gsCaptureVerbose' in changes) {
+      gsUtils.captureLogs = !!changes.gsCaptureVerbose.newValue;
+    }
+  });
+}
