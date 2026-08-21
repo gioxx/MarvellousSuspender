@@ -277,12 +277,24 @@ function _serialize(v) {
   catch { return String(v); }
 }
 
+// Bounds a single entry's own footprint, independent of _capPendingEntries()'s count cap:
+// that cap only limits how many entries can pile up, not how large any one of them is —
+// a call site that happens to log a huge string or object (not a data: URL, so
+// _redactDataUrls() above doesn't catch it) repeatedly could still push a lot of memory
+// through even a handful of entries. Long messages are truncated rather than dropped, so
+// the log line itself (and its source/level) still shows up in a report.
+const _LOG_MSG_MAX_CHARS = 4000;
+
 function _appendEntry(level, src, parts) {
+  let msg = parts.map(_serialize).join(' ');
+  if (msg.length > _LOG_MSG_MAX_CHARS) {
+    msg = `${msg.slice(0, _LOG_MSG_MAX_CHARS)}… [truncated, ${msg.length} chars total]`;
+  }
   const entry = {
     ts    : new Date().toISOString(),
     level,
     src   : String(src),
-    msg   : parts.map(_serialize).join(' '),
+    msg,
   };
   _pendingEntries.push(entry);
   _capPendingEntries();
