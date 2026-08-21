@@ -52,7 +52,13 @@ function _ensureBufferLoaded() {
   })();
   return _bufferReadyPromise;
 }
-_ensureBufferLoaded();
+// Deliberately not called eagerly here. gsUtils.js is imported by every page,
+// including suspended.js for every suspended tab, so an unconditional top-level call
+// would make each one load up to _LOG_BUFFER_FULL_MAX (10,000) entries into memory on
+// import alone, working against the extension's whole purpose. _flushNow() already
+// awaits this lazily right before it needs to merge with persisted history, which is
+// the only time hydration actually matters, and that only happens in a context that
+// has logged something.
 
 // Cheap djb2-style hash so two favicons of similar length still show up as distinct in
 // the log (a bare length like "[data URL, 812 chars]" can't tell "same icon" from
@@ -262,11 +268,18 @@ export const gsUtils = {
     return _logBufferFull.slice();
   },
 
-  clearLogBuffer() {
+  async clearLogBuffer() {
+    // If a hydration read is already in flight (started by an earlier log() call in
+    // this context), it can resolve after the clear below and unshift the old
+    // persisted entries right back into the now-empty arrays, and the next flush
+    // would then write that stale history back to storage, undoing the clear.
+    // Awaiting it first guarantees it has already merged in (harmlessly, since we're
+    // about to wipe it) before we clear, instead of racing it.
+    await _ensureBufferLoaded();
     _logBuffer.length = 0;
     _logBufferFull.length = 0;
     if (typeof chrome !== 'undefined' && chrome.storage) {
-      chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
+      await chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
     }
   },
 
@@ -1149,3 +1162,17 @@ export const gsUtils = {
     return await retryFn(0);
   },
 };
+
+// Every page (and the service worker) gets its own module instance and therefore its own
+// copy of gsUtils.captureLogs — restoring the persisted flag only in background.js (as
+// this used to do) meant every other context's warning()/log() calls never buffered
+// anything even with captureLogs enabled, since each of those contexts' own captureLogs
+// stayed at the hardcoded false default. Restoring it here instead of duplicating this
+// in every page's own script covers all of them, including the service worker itself,
+// with one copy of the logic. Runs on every module load (not just once per browser
+// session), since the service worker's own in-memory flag also resets on every recycle.
+if (typeof chrome !== 'undefined' && chrome.storage) {
+  chrome.storage.local.get(['gsCaptureVerbose'], (result) => {
+    if (result.gsCaptureVerbose) gsUtils.captureLogs = true;
+  });
+}

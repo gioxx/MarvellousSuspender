@@ -16,15 +16,9 @@ import  { tgs }                   from './tgs.js';
 
   let startupDone = false;  // This global is safe because we only use it at startup.  It does not need to survive service worker suspend.
 
-  // Restore persisted capture-logs flag on every SW spawn, not just the first one of the
-  // browser session. gsUtils.captureLogs is an in-memory flag that resets to false whenever
-  // the service worker is recycled (which happens routinely, e.g. after ~30s idle), but
-  // startupOnce() below only runs once per browser session, so the previous version of this
-  // restore call went stale after the SW's first restart and silently dropped captureLogs
-  // for the rest of the session, undermining the exact debugging it's meant to support.
-  chrome.storage.local.get(['gsCaptureVerbose'], (result) => {
-    if (result.gsCaptureVerbose) gsUtils.captureLogs = true;
-  });
+  // Restoring the persisted capture-logs flag on every wake (not just startupOnce, which
+  // runs once per browser session) now lives in gsUtils.js itself, so every context gets
+  // it, not just this service worker.
 
   // navigator.getBattery() is a Window-only API, unavailable in this service worker — the
   // offscreen document runs offscreen.js in a real DOM context to read it instead, reporting
@@ -281,7 +275,7 @@ import  { tgs }                   from './tgs.js';
         // worker's in-memory _logBuffer/_logBufferFull, so the next log entry (or an
         // already-pending debounced flush) would silently write the old buffers back
         // over the just-cleared storage. Route the clear through here instead.
-        gsUtils.clearLogBuffer();
+        await gsUtils.clearLogBuffer();
         break;
       }
       default: {
