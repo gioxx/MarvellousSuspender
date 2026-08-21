@@ -98,7 +98,12 @@ async function _mergeAndPersist(entries) {
         // the broad catch below leaves it untouched — an unrecoverable batch that never
         // stops retrying, and no later diagnostics ever get persisted either. Start that
         // one buffer fresh instead, same recovery the old buffer loader already did.
-        const parseBuffer = (raw) => { try { return JSON.parse(raw || '[]'); } catch { return []; } };
+        const parseBuffer = (raw) => {
+          try {
+            const parsed = JSON.parse(raw || '[]');
+            return Array.isArray(parsed) ? parsed : []; // syntactically valid JSON, but not the array shape expected here
+          } catch { return []; }
+        };
         let current     = parseBuffer(result[_LOG_BUFFER_KEY]);
         let currentFull = parseBuffer(result[_LOG_BUFFER_FULL_KEY]);
         // A previous attempt of ours (or another worker's) can already have written a
