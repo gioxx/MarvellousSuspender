@@ -26,39 +26,14 @@ const _LOG_BUFFER_FULL_KEY = 'gsLogBufferFull';
 const _LOG_BUFFER_FULL_MAX = 10000;
 const _logBufferFull = [];
 let   _flushTimer = null;
-
-// MV3 kills the service worker after ~30s idle, wiping these in-memory arrays. Without
-// reloading what was already persisted, the next flush would overwrite storage with
-// only the handful of entries logged since the restart, silently truncating history
-// on every restart instead of actually keeping the last N entries.
-let _bufferReadyPromise = null;
-function _ensureBufferLoaded() {
-  if (_bufferReadyPromise) return _bufferReadyPromise;
-  _bufferReadyPromise = (async () => {
-    if (typeof chrome === 'undefined' || !chrome.storage) return;
-    try {
-      const result = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
-      const stored = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
-      _logBuffer.unshift(...stored);
-      if (_logBuffer.length > _LOG_BUFFER_MAX) {
-        _logBuffer.splice(0, _logBuffer.length - _LOG_BUFFER_MAX);
-      }
-      const storedFull = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
-      _logBufferFull.unshift(...storedFull);
-      if (_logBufferFull.length > _LOG_BUFFER_FULL_MAX) {
-        _logBufferFull.splice(0, _logBufferFull.length - _LOG_BUFFER_FULL_MAX);
-      }
-    } catch { /* corrupt persisted buffer, start fresh */ }
-  })();
-  return _bufferReadyPromise;
-}
-// Deliberately not called eagerly here. gsUtils.js is imported by every page,
-// including suspended.js for every suspended tab, so an unconditional top-level call
-// would make each one load up to _LOG_BUFFER_FULL_MAX (10,000) entries into memory on
-// import alone, working against the extension's whole purpose. _flushNow() already
-// awaits this lazily right before it needs to merge with persisted history, which is
-// the only time hydration actually matters, and that only happens in a context that
-// has logged something.
+// Entries logged in this context since its last successful flush, not yet confirmed
+// persisted. Flushing appends only these onto whatever is currently in storage (read
+// fresh each time) instead of overwriting storage with this context's full local
+// snapshot — every page (including suspended.js, in every suspended tab) shares the
+// same gsUtils.js module but gets its own separate instance and in-memory arrays, so
+// an overwrite-on-flush would let one context's flush silently erase log entries
+// another context had already written, losing part of the diagnostic history.
+const _pendingEntries = [];
 
 // Cheap djb2-style hash so two favicons of similar length still show up as distinct in
 // the log (a bare length like "[data URL, 812 chars]" can't tell "same icon" from
@@ -103,21 +78,34 @@ function _appendEntry(level, src, parts) {
   if (_logBuffer.length > _LOG_BUFFER_MAX) _logBuffer.shift();
   _logBufferFull.push(entry);
   if (_logBufferFull.length > _LOG_BUFFER_FULL_MAX) _logBufferFull.shift();
+  _pendingEntries.push(entry);
 }
 
-function _flushNow() {
+async function _flushNow() {
   if (_flushTimer) { clearTimeout(_flushTimer); _flushTimer = null; }
-  // Wait for the historical buffer to be merged in first, otherwise a flush that races
-  // ahead of _ensureBufferLoaded() would persist only the entries logged so far this
-  // session and clobber everything from before the restart.
-  _ensureBufferLoaded().then(() => {
-    if (typeof chrome !== 'undefined' && chrome.storage) {
-      chrome.storage.local.set({
-        [_LOG_BUFFER_KEY]     : JSON.stringify(_logBuffer),
-        [_LOG_BUFFER_FULL_KEY]: JSON.stringify(_logBufferFull),
-      });
-    }
-  });
+  if (typeof chrome === 'undefined' || !chrome.storage) return;
+  if (_pendingEntries.length === 0) return;
+  // Grab-and-clear rather than read-then-clear, so entries logged while this flush's
+  // own storage round trip is in flight stay queued for the next one instead of being
+  // dropped.
+  const toPersist = _pendingEntries.splice(0, _pendingEntries.length);
+  try {
+    const result  = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
+    const current     = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
+    const currentFull = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
+    current.push(...toPersist);
+    if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
+    currentFull.push(...toPersist);
+    if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
+    await chrome.storage.local.set({
+      [_LOG_BUFFER_KEY]     : JSON.stringify(current),
+      [_LOG_BUFFER_FULL_KEY]: JSON.stringify(currentFull),
+    });
+  } catch {
+    // Storage round trip failed (or returned corrupt JSON) — put the entries back so
+    // they're retried on the next scheduled flush instead of silently lost.
+    _pendingEntries.unshift(...toPersist);
+  }
 }
 
 function _scheduleFlush() {
@@ -269,15 +257,9 @@ export const gsUtils = {
   },
 
   async clearLogBuffer() {
-    // If a hydration read is already in flight (started by an earlier log() call in
-    // this context), it can resolve after the clear below and unshift the old
-    // persisted entries right back into the now-empty arrays, and the next flush
-    // would then write that stale history back to storage, undoing the clear.
-    // Awaiting it first guarantees it has already merged in (harmlessly, since we're
-    // about to wipe it) before we clear, instead of racing it.
-    await _ensureBufferLoaded();
     _logBuffer.length = 0;
     _logBufferFull.length = 0;
+    _pendingEntries.length = 0;
     if (typeof chrome !== 'undefined' && chrome.storage) {
       await chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
     }
@@ -1174,5 +1156,17 @@ export const gsUtils = {
 if (typeof chrome !== 'undefined' && chrome.storage) {
   chrome.storage.local.get(['gsCaptureVerbose'], (result) => {
     if (result.gsCaptureVerbose) gsUtils.captureLogs = true;
+  });
+  // The above only covers this module instance's state at load time. Toggling captureLogs
+  // on the debug page only messages the service worker directly (background.js's
+  // 'setCaptureLogs' case); it doesn't reach any options/suspended/etc. page already open
+  // at the time, which would otherwise keep whatever value it loaded with until reloaded.
+  // Every context already has a storage listener available for free, so keeping every
+  // instance in sync live is just reading the new value here instead of also having to
+  // route a message to every possible open page.
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName === 'local' && 'gsCaptureVerbose' in changes) {
+      gsUtils.captureLogs = !!changes.gsCaptureVerbose.newValue;
+    }
   });
 }
