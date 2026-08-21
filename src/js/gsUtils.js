@@ -91,9 +91,26 @@ async function _mergeAndPersist(entries) {
         const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
         const clearedAt    = result[_LOG_BUFFER_CLEARED_AT_KEY] || '';
         const freshEntries = clearedAt ? entries.filter((e) => e.ts > clearedAt) : entries;
-        if (freshEntries.length === 0) return true; // entire batch predates the last clear
-        const current       = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
-        const currentFull   = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
+        // A corrupt persisted buffer would otherwise throw here on every attempt, and
+        // the broad catch below leaves it untouched — an unrecoverable batch that never
+        // stops retrying, and no later diagnostics ever get persisted either. Start that
+        // one buffer fresh instead, same recovery the old buffer loader already did.
+        const parseBuffer = (raw) => { try { return JSON.parse(raw || '[]'); } catch { return []; } };
+        let current     = parseBuffer(result[_LOG_BUFFER_KEY]);
+        let currentFull = parseBuffer(result[_LOG_BUFFER_FULL_KEY]);
+        // A previous attempt of ours (or another worker's) can already have written a
+        // stale pre-clear snapshot straight into these keys before either of us noticed
+        // the clear — re-filtering `entries` alone and returning early the moment there's
+        // nothing new to add would leave that already-persisted stale content in place
+        // forever. Re-filter the persisted buffers themselves on every attempt too, and
+        // only skip the write below if neither they nor the incoming batch need it.
+        const beforeCount = current.length + currentFull.length;
+        if (clearedAt) {
+          current     = current.filter((e) => e.ts > clearedAt);
+          currentFull = currentFull.filter((e) => e.ts > clearedAt);
+        }
+        const hadStaleContent = current.length + currentFull.length < beforeCount;
+        if (freshEntries.length === 0 && !hadStaleContent) return true; // truly nothing to do
         const myToken       = _newWriteToken();
         current.push(...freshEntries);
         if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
