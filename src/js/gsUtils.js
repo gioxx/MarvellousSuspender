@@ -80,7 +80,10 @@ let _writeQueue = Promise.resolve();
 // entries silently.
 async function _mergeAndPersist(entries) {
   _writeQueue = _writeQueue.then(async () => {
-    if (typeof chrome === 'undefined' || !chrome.storage || entries.length === 0) return true;
+    // entries is legitimately empty when this is a clear (see _clearPersisted below): the
+    // clearedAt/stale-content filtering further down still needs to run in that case, so
+    // this can only bail out early on missing chrome.storage, not on an empty batch.
+    if (typeof chrome === 'undefined' || !chrome.storage) return true;
     // Bounded retry: read the latest snapshot, apply this batch on top of it, write,
     // then check the version is still exactly what we just wrote. If another worker's
     // write landed in between, our set() above already got silently overwritten by
@@ -123,10 +126,10 @@ async function _mergeAndPersist(entries) {
         });
         const verify = await chrome.storage.local.get([_LOG_BUFFER_VERSION_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
         // The token alone only proves no other *merge* wrote after ours — it doesn't
-        // catch a Clear whose set(clearedAt) landed after our get() above but whose
-        // remove() hadn't run yet, since that leaves the pre-clear `current` we just
-        // read still in storage for us to read, append to, and write straight back on
-        // top of the clear, undoing it entirely while still verifying "successfully".
+        // catch a Clear whose set(clearedAt) landed after our get() above but whose own
+        // purge write hadn't landed yet, since that leaves the pre-clear `current` we
+        // just read still in storage for us to read, append to, and write straight back
+        // on top of the clear, undoing it entirely while still verifying "successfully".
         // Re-checking clearedAt here catches that: if it moved past what we filtered
         // against, our write may have resurrected pre-clear state, so treat it as a
         // race and retry against whatever's actually there now, same as a token miss.
@@ -149,11 +152,10 @@ function _clearPersisted() {
   _writeQueue = _writeQueue.then(async () => {
     if (typeof chrome === 'undefined' || !chrome.storage) return false;
     try {
-      // Written before the remove, and never cleaned up itself, so it stays the
-      // authoritative cutoff for _mergeAndPersist() regardless of how a stale batch's
-      // merge and this clear happen to interleave.
+      // Written first and never cleaned up itself, so every _mergeAndPersist() attempt —
+      // including the purge below — can use it as the authoritative cutoff regardless of
+      // how a stale or fresh merge happens to interleave with this clear.
       await chrome.storage.local.set({ [_LOG_BUFFER_CLEARED_AT_KEY]: new Date().toISOString() });
-      await chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_VERSION_KEY]);
       return true;
     } catch {
       // A rejected .then() callback would leave _writeQueue itself a rejected promise —
@@ -164,7 +166,13 @@ function _clearPersisted() {
       return false;
     }
   });
-  return _writeQueue;
+  // Purging old entries goes through the exact same filter/write/verify/retry machinery
+  // a normal merge already uses, instead of an unconditional remove(): another worker can
+  // have already merged in entries newer than the cutoff just written above by the time
+  // this runs, and an unconditional remove() can't tell "old" apart from "just landed" —
+  // it would delete that already-verified batch outright. _mergeAndPersist() can, since it
+  // filters by timestamp against the same cutoff rather than wiping everything wholesale.
+  return _mergeAndPersist([]);
 }
 
 // Actions meant only for the service worker (or another internal recipient), sent via
