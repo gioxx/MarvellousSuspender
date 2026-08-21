@@ -277,7 +277,16 @@ function _flushIncomingBatch() {
 if (_isServiceWorker && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (!request || request.action !== 'gsAppendLogEntries') return false;
-    _incomingBatch.push(...(request.entries || []));
+    // Capped on every arrival, not just once at flush time below: after an outage, many
+    // contexts can each reconnect and resend up to their own 5,000-entry _pendingEntries
+    // cap within the same coalescing window, and letting the aggregate grow unbounded in
+    // the meantime (even briefly) risks the exact CPU/memory spike this coalescing exists
+    // to avoid. concat(), not a spread, since a single sender's own entries array can
+    // itself be large enough to hit V8's argument-count limit on a spread.
+    _incomingBatch = _incomingBatch.concat(request.entries || []);
+    if (_incomingBatch.length > _LOG_BUFFER_FULL_MAX) {
+      _incomingBatch = _incomingBatch.slice(_incomingBatch.length - _LOG_BUFFER_FULL_MAX);
+    }
     _incomingResponders.push(sendResponse);
     if (!_incomingTimer) _incomingTimer = setTimeout(_flushIncomingBatch, _INCOMING_COALESCE_MS);
     return true; // keep every channel open until the coalesced batch is merged and responded to
