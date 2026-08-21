@@ -438,7 +438,14 @@ export const tgs = (function() {
     }
     chrome.tabs.query({ groupId: tab.groupId }, (groupTabs) => {
       for (const groupTab of groupTabs) {
-        gsTabSuspendManager.queueTabForSuspension(groupTab, 1);
+        // forceLevel 2 for the rest of the group, not 1: this suspends every tab in the
+        // group in one go, not just the one the user acted on, so whitelist/pinned/audible/
+        // active-tab/form-input protections must still apply to the tabs swept up by the
+        // group action. The acted-on tab itself stays at forceLevel 1 (matching the
+        // single-tab/selected-tabs force-suspend actions): level 2 unconditionally rejects
+        // the active tab, so if the user explicitly triggered this on the active tab (e.g.
+        // via the keyboard shortcut), it would otherwise never get suspended at all.
+        gsTabSuspendManager.queueTabForSuspension(groupTab, groupTab.id === tab.id ? 1 : 2);
       }
     });
   }
