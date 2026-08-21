@@ -77,59 +77,64 @@ let _writeQueue = Promise.resolve();
 
 // Returns whether the batch ended up persisted (either written, or correctly dropped for
 // predating the last clear) so callers can requeue on genuine failure instead of losing
-// entries silently.
-async function _mergeAndPersist(entries) {
-  _writeQueue = _writeQueue.then(async () => {
+// entries silently. Does not chain onto _writeQueue itself — _mergeAndPersist() below
+// does that for a normal merge, and _clearPersisted() calls this directly from within
+// its own already-queued step instead of chaining a second time, since calling the
+// queued wrapper reactively from inside another queued callback (reading whatever
+// _writeQueue happens to hold by the time that callback actually runs, which can already
+// include operations queued after it) risks a circular wait between the two steps.
+async function _mergeAndPersistCore(entries) {
     // entries is legitimately empty when this is a clear (see _clearPersisted below): the
     // clearedAt/stale-content filtering further down still needs to run in that case, so
     // this can only bail out early on missing chrome.storage, not on an empty batch.
-    if (typeof chrome === 'undefined' || !chrome.storage) return true;
+  if (typeof chrome === 'undefined' || !chrome.storage) return true;
     // Bounded retry: read the latest snapshot, apply this batch on top of it, write,
     // then check the version is still exactly what we just wrote. If another worker's
     // write landed in between, our set() above already got silently overwritten by
     // it (or vice versa) — re-read and reapply the same batch on the newer state
     // instead of losing it.
-    for (let attempt = 0; attempt < 5; attempt++) {
-      try {
-        const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
-        const clearedAt    = result[_LOG_BUFFER_CLEARED_AT_KEY] || '';
-        const freshEntries = clearedAt ? entries.filter((e) => e.ts > clearedAt) : entries;
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
+      const clearedAt    = result[_LOG_BUFFER_CLEARED_AT_KEY] || '';
+      const freshEntries = clearedAt ? entries.filter((e) => e.ts > clearedAt) : entries;
         // A corrupt persisted buffer would otherwise throw here on every attempt, and
         // the broad catch below leaves it untouched — an unrecoverable batch that never
         // stops retrying, and no later diagnostics ever get persisted either. Start that
         // one buffer fresh instead, same recovery the old buffer loader already did.
-        const parseBuffer = (raw) => {
-          try {
-            const parsed = JSON.parse(raw || '[]');
-            return Array.isArray(parsed) ? parsed : []; // syntactically valid JSON, but not the array shape expected here
-          } catch { return []; }
-        };
-        let current     = parseBuffer(result[_LOG_BUFFER_KEY]);
-        let currentFull = parseBuffer(result[_LOG_BUFFER_FULL_KEY]);
+      const parseBuffer = (raw) => {
+        try {
+          const parsed = JSON.parse(raw || '[]');
+          return Array.isArray(parsed) ? parsed : []; // syntactically valid JSON, but not the array shape expected here
+        }
+        catch { return []; }
+      };
+      let current     = parseBuffer(result[_LOG_BUFFER_KEY]);
+      let currentFull = parseBuffer(result[_LOG_BUFFER_FULL_KEY]);
         // A previous attempt of ours (or another worker's) can already have written a
         // stale pre-clear snapshot straight into these keys before either of us noticed
         // the clear — re-filtering `entries` alone and returning early the moment there's
         // nothing new to add would leave that already-persisted stale content in place
         // forever. Re-filter the persisted buffers themselves on every attempt too, and
         // only skip the write below if neither they nor the incoming batch need it.
-        const beforeCount = current.length + currentFull.length;
-        if (clearedAt) {
-          current     = current.filter((e) => e.ts > clearedAt);
-          currentFull = currentFull.filter((e) => e.ts > clearedAt);
-        }
-        const hadStaleContent = current.length + currentFull.length < beforeCount;
-        if (freshEntries.length === 0 && !hadStaleContent) return true; // truly nothing to do
-        const myToken       = _newWriteToken();
-        current.push(...freshEntries);
-        if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
-        currentFull.push(...freshEntries);
-        if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
-        await chrome.storage.local.set({
-          [_LOG_BUFFER_KEY]        : JSON.stringify(current),
-          [_LOG_BUFFER_FULL_KEY]   : JSON.stringify(currentFull),
-          [_LOG_BUFFER_VERSION_KEY]: myToken,
-        });
-        const verify = await chrome.storage.local.get([_LOG_BUFFER_VERSION_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
+      const beforeCount = current.length + currentFull.length;
+      if (clearedAt) {
+        current     = current.filter((e) => e.ts > clearedAt);
+        currentFull = currentFull.filter((e) => e.ts > clearedAt);
+      }
+      const hadStaleContent = current.length + currentFull.length < beforeCount;
+      if (freshEntries.length === 0 && !hadStaleContent) return true; // truly nothing to do
+      const myToken       = _newWriteToken();
+      current.push(...freshEntries);
+      if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
+      currentFull.push(...freshEntries);
+      if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
+      await chrome.storage.local.set({
+        [_LOG_BUFFER_KEY]        : JSON.stringify(current),
+        [_LOG_BUFFER_FULL_KEY]   : JSON.stringify(currentFull),
+        [_LOG_BUFFER_VERSION_KEY]: myToken,
+      });
+      const verify = await chrome.storage.local.get([_LOG_BUFFER_VERSION_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
         // The token alone only proves no other *merge* wrote after ours — it doesn't
         // catch a Clear whose set(clearedAt) landed after our get() above but whose own
         // purge write hadn't landed yet, since that leaves the pre-clear `current` we
@@ -138,46 +143,59 @@ async function _mergeAndPersist(entries) {
         // Re-checking clearedAt here catches that: if it moved past what we filtered
         // against, our write may have resurrected pre-clear state, so treat it as a
         // race and retry against whatever's actually there now, same as a token miss.
-        if (
-          verify[_LOG_BUFFER_VERSION_KEY] === myToken &&
+      if (
+        verify[_LOG_BUFFER_VERSION_KEY] === myToken &&
           (verify[_LOG_BUFFER_CLEARED_AT_KEY] || '') === clearedAt
-        ) {
-          return true; // no one raced us
-        }
+      ) {
+        return true; // no one raced us
+      }
         // Someone else's write (a merge, or a clear) landed between our get() and set()
         // above — retry on top of whatever's there now instead of leaving it unpersisted.
-      } catch { /* fall through to retry, or give up after the last attempt */ }
     }
-    return false; // exhausted retries — caller is responsible for not losing these entries
-  });
+    catch { /* fall through to retry, or give up after the last attempt */ }
+  }
+  return false; // exhausted retries — caller is responsible for not losing these entries
+}
+
+async function _mergeAndPersist(entries) {
+  _writeQueue = _writeQueue.then(() => _mergeAndPersistCore(entries));
   return _writeQueue;
 }
 
 function _clearPersisted() {
   _writeQueue = _writeQueue.then(async () => {
     if (typeof chrome === 'undefined' || !chrome.storage) return false;
+    let cutoffWritten = false;
     try {
       // Written first and never cleaned up itself, so every _mergeAndPersist() attempt —
       // including the purge below — can use it as the authoritative cutoff regardless of
       // how a stale or fresh merge happens to interleave with this clear.
       await chrome.storage.local.set({ [_LOG_BUFFER_CLEARED_AT_KEY]: new Date().toISOString() });
-      return true;
-    } catch {
+      cutoffWritten = true;
+    }
+    catch {
       // A rejected .then() callback would leave _writeQueue itself a rejected promise —
       // every _mergeAndPersist()/_clearPersisted() call chains onto it with .then() and
       // no rejection handler, so once rejected, every future call's callback would be
       // skipped forever (silently breaking logging until the worker restarts) instead
       // of just this one clear failing. Swallowing the error here keeps the queue alive.
-      return false;
     }
+    // A failed cutoff write falling through to the purge below would filter against
+    // whatever cutoff is already in storage (unchanged, since our write never landed),
+    // find nothing new to purge, and report success even though nothing was actually
+    // cleared — silently turning a failed Clear into a fake one from the caller's side.
+    if (!cutoffWritten) return false;
+    // Purging old entries goes through the exact same filter/write/verify/retry machinery
+    // a normal merge already uses (called directly, not via _mergeAndPersist(), to stay
+    // inside this one already-queued step rather than chaining a second time), instead of
+    // an unconditional remove(): another worker can have already merged in entries newer
+    // than the cutoff just written above by the time this runs, and an unconditional
+    // remove() can't tell "old" apart from "just landed" — it would delete that
+    // already-verified batch outright. This can, since it filters by timestamp against
+    // the same cutoff rather than wiping everything wholesale.
+    return _mergeAndPersistCore([]);
   });
-  // Purging old entries goes through the exact same filter/write/verify/retry machinery
-  // a normal merge already uses, instead of an unconditional remove(): another worker can
-  // have already merged in entries newer than the cutoff just written above by the time
-  // this runs, and an unconditional remove() can't tell "old" apart from "just landed" —
-  // it would delete that already-verified batch outright. _mergeAndPersist() can, since it
-  // filters by timestamp against the same cutoff rather than wiping everything wholesale.
-  return _mergeAndPersist([]);
+  return _writeQueue;
 }
 
 // Actions meant only for the service worker (or another internal recipient), sent via
@@ -232,7 +250,8 @@ function _redactDataUrls(key, value) {
 function _serialize(v) {
   if (v === null || v === undefined) return String(v);
   if (typeof v === 'string') return v;
-  try { return JSON.stringify(v, _redactDataUrls); } catch { return String(v); }
+  try { return JSON.stringify(v, _redactDataUrls); }
+  catch { return String(v); }
 }
 
 function _appendEntry(level, src, parts) {
@@ -266,14 +285,15 @@ async function _flushNow() {
     }
     return;
   }
-  if (typeof chrome === 'undefined' || !chrome.runtime || !chrome.runtime.sendMessage) return;
+  if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) return;
   try {
     const response = await chrome.runtime.sendMessage({ action: 'gsAppendLogEntries', entries: toPersist });
-    if (!response || !response.success) {
+    if (!response?.success) {
       _pendingEntries.unshift(...toPersist);
       _scheduleFlush();
     }
-  } catch {
+  }
+  catch {
     // Service worker unreachable (e.g. mid-reload/recycle) — requeue and retry on the
     // next scheduled flush rather than dropping the batch; it's usually back within a
     // beat, and there's no other recipient for these entries in the meantime.
@@ -312,7 +332,7 @@ export const gsUtils = {
   captureLogs : false,
 
   contains(array, value) {
-    for (var i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.length; i++) {
       if (array[i] === value) return true;
     }
     return false;
@@ -328,7 +348,7 @@ export const gsUtils = {
     args = args || [];
     if (gsUtils.debugInfo) {
       // eslint-disable-next-line no-console
-      console.log(id, (new Date() + '').split(' ')[4], text, ...args);
+      console.log(id, (`${new Date()  }`).split(' ')[4], text, ...args);
     }
     if (gsUtils.captureLogs) {
       _appendEntry('I', id, [text, ...args]);
@@ -348,7 +368,7 @@ export const gsUtils = {
         .filter((o) => !ignores.find((p) => o.indexOf(p) >= 0))
         .join('\n');
       // eslint-disable-next-line no-console
-      console.warn('WARNING:', id, (new Date() + '').split(' ')[4], text, ...args, `\n${errorLine}`);
+      console.warn('WARNING:', id, (`${new Date()  }`).split(' ')[4], text, ...args, `\n${errorLine}`);
     }
     if (gsUtils.captureLogs || gsUtils.debugError) {
       _appendEntry('W', id, [text, ...args]);
@@ -361,17 +381,17 @@ export const gsUtils = {
       id = '?';
     }
     //NOTE: errorObj may be just a string :/
-    const errorMessage = errorObj && errorObj.hasOwnProperty && errorObj.hasOwnProperty('message')
+    const errorMessage = errorObj?.hasOwnProperty?.('message')
       ? errorObj.message
       : typeof errorObj === 'string'
         ? errorObj
         : JSON.stringify(errorObj, null, 2);
     if (gsUtils.debugError) {
-      const stackTrace = errorObj && errorObj.hasOwnProperty && errorObj.hasOwnProperty('stack')
+      const stackTrace = errorObj?.hasOwnProperty?.('stack')
         ? errorObj.stack
         : gsUtils.getStackTrace();
       // eslint-disable-next-line no-console
-      console.log(id, (new Date() + '').split(' ')[4], 'Error:');
+      console.log(id, (`${new Date()  }`).split(' ')[4], 'Error:');
       // eslint-disable-next-line no-console
       console.error(
         gsUtils.getPrintableError(errorMessage, stackTrace, ...args),
@@ -389,7 +409,7 @@ export const gsUtils = {
     return errorString;
   },
   getStackTrace() {
-    var obj = {};
+    const obj = {};
     if ('captureStackTrace' in Error && typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(obj, gsUtils.getStackTrace);
       return obj.stack;
@@ -665,10 +685,10 @@ export const gsUtils = {
         whitelistItems.splice(i, 1);
       }
     }
-    var whitelistString = whitelistItems.join('\n');
+    const whitelistString = whitelistItems.join('\n');
     await gsStorage.setOptionAndSync(gsStorage.WHITELIST, whitelistString);
 
-    var key = gsStorage.WHITELIST;
+    const key = gsStorage.WHITELIST;
     gsUtils.performPostSaveUpdates(
       [key],
       { [key]: oldWhitelistString },
@@ -705,7 +725,7 @@ export const gsUtils = {
 
   saveToWhitelist: async (newString) => {
     const oldWhitelistString = (await gsStorage.getOption(gsStorage.WHITELIST)) || '';
-    let newWhitelistString = oldWhitelistString + '\n' + newString;
+    let newWhitelistString = `${oldWhitelistString  }\n${  newString}`;
     newWhitelistString = gsUtils.cleanupWhitelist(newWhitelistString);
     await gsStorage.setOptionAndSync(gsStorage.WHITELIST, newWhitelistString);
 
@@ -718,7 +738,7 @@ export const gsUtils = {
   },
 
   cleanupWhitelist(whitelist) {
-    var whitelistItems = whitelist ? whitelist.split(/[\s\n]+/).sort() : '',
+    let whitelistItems = whitelist ? whitelist.split(/[\s\n]+/).sort() : '',
       i,
       j;
 
@@ -761,13 +781,14 @@ export const gsUtils = {
       const url = chrome.runtime.getURL(`_locales/${locale}/messages.json`);
       const response = await fetch(url);
       _localeMessages = response.ok ? await response.json() : null;
-    } catch (e) {
+    }
+    catch (e) {
       _localeMessages = null;
     }
   },
 
   initSelectArrows(parentEl) {
-    parentEl.querySelectorAll('.select-wrapper select').forEach(sel => {
+    parentEl.querySelectorAll('.select-wrapper select').forEach((sel) => {
       const wrapper = sel.closest('.select-wrapper');
       sel.addEventListener('focus',     () => wrapper.classList.add('is-open'));
       sel.addEventListener('blur',      () => wrapper.classList.remove('is-open'));
@@ -779,7 +800,7 @@ export const gsUtils = {
   },
 
   getMessage(key, substitutions) {
-    if (_localeMessages && _localeMessages[key]) {
+    if (_localeMessages?.[key]) {
       const entry = _localeMessages[key];
       let msg = entry.message || '';
       if (substitutions !== undefined && entry.placeholders) {
@@ -799,7 +820,7 @@ export const gsUtils = {
   localiseHtml(parentEl) {
     const replaceTagFunc = function(match, p1) {
       if (!p1) return '';
-      if (_localeMessages && _localeMessages[p1]) return _localeMessages[p1].message || '';
+      if (_localeMessages?.[p1]) return _localeMessages[p1].message || '';
       return chrome.i18n.getMessage(p1) || '';
     };
     for (const el of parentEl.getElementsByTagName('*')) {
@@ -848,7 +869,7 @@ export const gsUtils = {
     await gsMascot.applyToDocument(win.document);
 
     const vEl = win.document.getElementById('headerVersion');
-    if (vEl) vEl.textContent = 'v' + chrome.runtime.getManifest().version;
+    if (vEl) vEl.textContent = `v${  chrome.runtime.getManifest().version}`;
 
     if (win.document?.body) {
       const theme = await gsStorage.getOption(gsStorage.THEME);
@@ -862,8 +883,8 @@ export const gsUtils = {
 
   generateSuspendedUrl: (url, title, scrollPos) => {
     const encodedTitle = gsUtils.encodeString(title);
-    var args = `#ttl=${encodedTitle}&pos=${scrollPos || '0'}&uri=${url}`;
-    return chrome.runtime.getURL('suspended.html' + args);
+    const args = `#ttl=${encodedTitle}&pos=${scrollPos || '0'}&uri=${url}`;
+    return chrome.runtime.getURL(`suspended.html${  args}`);
   },
 
   /**
@@ -915,7 +936,7 @@ export const gsUtils = {
     }
     else {
       // remove query string
-      var match = rootUrlStr.match(/\/?[?#]+/);
+      let match = rootUrlStr.match(/\/?[?#]+/);
       if (match) {
         rootUrlStr = rootUrlStr.substring(0, match.index);
       }
@@ -934,7 +955,7 @@ export const gsUtils = {
   },
 
   getHashVariable(key, urlStr) {
-    var valuesByKey = {},
+    let valuesByKey = {},
       keyPairRegEx = /^(.+)=(.+)/,
       hashStr;
 
@@ -957,7 +978,7 @@ export const gsUtils = {
     }
 
     hashStr.split('&').forEach((keyPair) => {
-      if (keyPair && keyPair.match(keyPairRegEx)) {
+      if (keyPair?.match(keyPairRegEx)) {
         valuesByKey[keyPair.replace(keyPairRegEx, '$1')] = keyPair.replace(
           keyPairRegEx,
           '$2',
@@ -1058,12 +1079,12 @@ export const gsUtils = {
   },
 
   getChromeVersion() {
-    var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+    const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
     return raw ? parseInt(raw[2], 10) : false;
   },
 
   generateHashCode(text) {
-    var hash = 0,
+    let hash = 0,
       i,
       chr,
       len;
@@ -1228,7 +1249,7 @@ export const gsUtils = {
   },
 
   getWindowFromSession(windowId, session) {
-    var window = false;
+    let window = false;
     session.windows.some((curWindow) => {
       //leave this as a loose matching as sometimes it is comparing strings. other times ints
       if (curWindow.id == windowId) {
@@ -1240,11 +1261,11 @@ export const gsUtils = {
   },
 
   removeInternalUrlsFromSession(session) {
-    if (!session || !session.windows) { return; }
-    for (var i = session.windows.length - 1; i >= 0; i--) {
-      var curWindow = session.windows[i];
-      for (var j = curWindow.tabs.length - 1; j >= 0; j--) {
-        var curTab = curWindow.tabs[j];
+    if (!session?.windows) { return; }
+    for (let i = session.windows.length - 1; i >= 0; i--) {
+      const curWindow = session.windows[i];
+      for (let j = curWindow.tabs.length - 1; j >= 0; j--) {
+        const curTab = curWindow.tabs[j];
         if (gsUtils.isInternalTab(curTab)) {
           curWindow.tabs.splice(j, 1);
         }
@@ -1256,22 +1277,22 @@ export const gsUtils = {
   },
 
   getSimpleDate(date) {
-    var d = new Date(date);
+    const d = new Date(date);
     return (
-      ('0' + d.getDate()).slice(-2) +
-      '-' +
-      ('0' + (d.getMonth() + 1)).slice(-2) +
-      '-' +
-      d.getFullYear() +
-      ' ' +
-      ('0' + d.getHours()).slice(-2) +
-      ':' +
-      ('0' + d.getMinutes()).slice(-2)
+      `${(`0${  d.getDate()}`).slice(-2)
+      }-${
+        (`0${  d.getMonth() + 1}`).slice(-2)
+      }-${
+        d.getFullYear()
+      } ${
+        (`0${  d.getHours()}`).slice(-2)
+      }:${
+        (`0${  d.getMinutes()}`).slice(-2)}`
     );
   },
 
   getHumanDate(date) {
-    var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       d = new Date(date),
       currentDate = d.getDate(),
       currentMonth = d.getMonth(),
@@ -1279,19 +1300,19 @@ export const gsUtils = {
       currentHours = d.getHours(),
       currentMinutes = d.getMinutes();
 
-    var AMPM = currentHours >= 12 ? 'pm' : 'am';
-    var hoursString = currentHours % 12 || 12;
-    var minutesString = ('0' + currentMinutes).slice(-2);
+    const AMPM = currentHours >= 12 ? 'pm' : 'am';
+    const hoursString = currentHours % 12 || 12;
+    const minutesString = (`0${  currentMinutes}`).slice(-2);
 
     return ( `${currentDate} ${monthNames[currentMonth]} ${currentYear} ${hoursString}:${minutesString}${AMPM}`);
   },
 
   debounce(func, wait) {
-    var timeout;
+    let timeout;
     return () => {
-      var context = this,
+      const context = this,
         args = arguments;
-      var later = function() {
+      const later = function() {
         timeout = null;
         func.apply(context, args);
       };
