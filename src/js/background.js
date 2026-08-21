@@ -153,6 +153,17 @@ import  { tgs }                   from './tgs.js';
 
 
   async function messageRequestListener(request, sender, sendResponse) {
+    // gsAppendLogEntries is handled by gsUtils.js's own dedicated listener (registered
+    // separately, since it's the sole writer of the log-buffer storage keys), not by
+    // the switch below — it still reaches this listener too, since Chrome delivers a
+    // broadcast message to every registered listener independently. Logging it here
+    // (even at the top-level log() call below, let alone as "unknown action" in the
+    // default case) would add a new entry needing its own flush on every flush cycle,
+    // forever. Only this one action is skipped here, unlike the equivalent guard in
+    // options.js/suspended.js/updated.js, since this switch is where 'clearLogs' (the
+    // other entry in INTERNAL_MESSAGE_ACTIONS) is actually meant to be handled.
+    if (request.action === 'gsAppendLogEntries') return false;
+
     gsUtils.log('background', 'messageRequestListener', request.action, request, sender);
 
     let responseData;

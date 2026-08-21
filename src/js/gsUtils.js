@@ -25,6 +25,15 @@ const _logBuffer = [];
 const _LOG_BUFFER_FULL_KEY = 'gsLogBufferFull';
 const _LOG_BUFFER_FULL_MAX = 10000;
 const _logBufferFull = [];
+// A small counter stored alongside the buffers, bumped on every successful write.
+// manifest.json declares "incognito": "split", so a regular and an incognito window
+// each get their own fully independent service worker instance (their own copy of
+// every module-level variable below, including _writeQueue), while both still share
+// the same chrome.storage.local — two such workers logging around the same time are
+// two genuinely separate single-writers, not one. Comparing this counter right after
+// writing catches that specific case (and any other stray writer) and retries the
+// merge on top of whatever the other one just wrote, instead of silently losing it.
+const _LOG_BUFFER_VERSION_KEY = 'gsLogBufferVersion';
 let   _flushTimer = null;
 // Entries logged in this context since its last successful flush, not yet confirmed
 // persisted.
@@ -42,29 +51,43 @@ const _isServiceWorker =
   typeof self !== 'undefined' &&
   self instanceof ServiceWorkerGlobalScope;
 
-// Chains every write (a merge, or a clear) through one promise, so the service worker
-// itself never has two get()/set() (or remove()) pairs for these keys in flight at
-// once — without this, its own scheduled flush and an incoming message from another
-// context could still interleave their storage round trips the same way multiple
-// direct writers used to.
+// Chains every write (a merge, or a clear) through one promise, so this one service
+// worker instance never has two get()/set() (or remove()) pairs for these keys in
+// flight at once — without this, its own scheduled flush and an incoming message from
+// another context could still interleave their storage round trips the same way
+// multiple direct writers used to. Doesn't cover the split-incognito worker (see
+// _LOG_BUFFER_VERSION_KEY above); the version check is what catches that.
 let _writeQueue = Promise.resolve();
 
-function _mergeAndPersist(entries) {
+async function _mergeAndPersist(entries) {
   _writeQueue = _writeQueue.then(async () => {
     if (typeof chrome === 'undefined' || !chrome.storage || entries.length === 0) return;
-    try {
-      const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
-      const current       = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
-      const currentFull   = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
-      current.push(...entries);
-      if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
-      currentFull.push(...entries);
-      if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
-      await chrome.storage.local.set({
-        [_LOG_BUFFER_KEY]     : JSON.stringify(current),
-        [_LOG_BUFFER_FULL_KEY]: JSON.stringify(currentFull),
-      });
-    } catch { /* best-effort; a dropped batch on a storage error isn't retried */ }
+    // Bounded retry: read the latest snapshot, apply this batch on top of it, write,
+    // then check the version is still exactly what we just wrote. If another worker's
+    // write landed in between, our set() above already got silently overwritten by
+    // it (or vice versa) — re-read and reapply the same batch on the newer state
+    // instead of losing it.
+    for (let attempt = 0; attempt < 5; attempt++) {
+      try {
+        const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_VERSION_KEY]);
+        const current       = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
+        const currentFull   = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
+        const nextVersion   = (result[_LOG_BUFFER_VERSION_KEY] || 0) + 1;
+        current.push(...entries);
+        if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
+        currentFull.push(...entries);
+        if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
+        await chrome.storage.local.set({
+          [_LOG_BUFFER_KEY]        : JSON.stringify(current),
+          [_LOG_BUFFER_FULL_KEY]   : JSON.stringify(currentFull),
+          [_LOG_BUFFER_VERSION_KEY]: nextVersion,
+        });
+        const verify = await chrome.storage.local.get([_LOG_BUFFER_VERSION_KEY]);
+        if ((verify[_LOG_BUFFER_VERSION_KEY] || 0) === nextVersion) return; // no one raced us
+        // Someone else's write landed between our get() and set() above; retry on
+        // top of whatever's there now instead of leaving this batch unpersisted.
+      } catch { /* fall through to retry, or give up after the last attempt */ }
+    }
   });
   return _writeQueue;
 }
@@ -72,10 +95,22 @@ function _mergeAndPersist(entries) {
 function _clearPersisted() {
   _writeQueue = _writeQueue.then(async () => {
     if (typeof chrome === 'undefined' || !chrome.storage) return;
-    await chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
+    await chrome.storage.local.remove([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_VERSION_KEY]);
   });
   return _writeQueue;
 }
+
+// Actions meant only for the service worker (or another internal recipient), sent via
+// a bare chrome.runtime.sendMessage() with no tabId — which Chrome delivers to every
+// listening extension page, not just the intended one. Every page's own
+// messageRequestListener already has to tolerate that and ignore what it doesn't own,
+// but doing so by logging "ignoring unhandled message" is itself a log call: for an
+// action this frequent (gsAppendLogEntries, sent on every flush, roughly every 1.5s
+// from any context that's logged something), that log entry becomes new pending
+// history needing its own flush, whose "ignored" broadcast produces another log entry
+// in turn, a self-sustaining loop with no natural end. Pages check this set and skip
+// logging entirely for anything in it, rather than trying to rate-limit the loop.
+const INTERNAL_MESSAGE_ACTIONS = new Set(['gsAppendLogEntries', 'clearLogs']);
 
 // Only the service worker listens; every other context reaches it via sendMessage in
 // _flushNow() below. Registered at module top level (not inside an async block) so
@@ -160,6 +195,7 @@ function _scheduleFlush() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const gsUtils = {
+  INTERNAL_MESSAGE_ACTIONS,
   STATUS_NORMAL         : 'normal',
   STATUS_LOADING        : 'loading',
   STATUS_SPECIAL        : 'special',
