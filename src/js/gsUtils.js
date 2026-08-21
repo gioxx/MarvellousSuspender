@@ -148,9 +148,14 @@ async function _mergeAndPersistCore(entries) {
       const hadStaleContent = current.length + currentFull.length < beforeCount;
       if (freshEntries.length === 0 && !hadStaleContent) return true; // truly nothing to do
       const myToken       = _newWriteToken();
-      current.push(...freshEntries);
+      // Not push(...freshEntries): a spread turns every element into its own function
+      // argument, and V8 throws a RangeError past a few tens of thousands of them —
+      // reachable here once the incoming-message coalescing above can aggregate several
+      // contexts' independently-capped (5,000 each) pending batches into one merge.
+      // concat() has no such limit regardless of array size.
+      current = current.concat(freshEntries);
       if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
-      currentFull.push(...freshEntries);
+      currentFull = currentFull.concat(freshEntries);
       if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
       await chrome.storage.local.set({
         [_LOG_BUFFER_KEY]        : JSON.stringify(current),
@@ -250,11 +255,17 @@ let _incomingResponders = [];
 let _incomingTimer = null;
 
 function _flushIncomingBatch() {
-  const batch = _incomingBatch;
+  let batch = _incomingBatch;
   const responders = _incomingResponders;
   _incomingBatch = [];
   _incomingResponders = [];
   _incomingTimer = null;
+  // Each sender's own _pendingEntries is capped at 5,000, but this window can still
+  // aggregate several such contexts' batches into one — no point carrying more of it
+  // into the merge than the persisted buffer could ever retain anyway; keep the newest.
+  if (batch.length > _LOG_BUFFER_FULL_MAX) {
+    batch = batch.slice(batch.length - _LOG_BUFFER_FULL_MAX);
+  }
   _mergeAndPersist(batch).then((success) => {
     responders.forEach((respond) => respond({ success }));
   });
