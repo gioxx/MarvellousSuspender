@@ -154,8 +154,19 @@ async function _mergeAndPersistCore(entries) {
       // contexts' independently-capped (5,000 each) pending batches into one merge.
       // concat() has no such limit regardless of array size.
       current = current.concat(freshEntries);
+      // The service worker's own logging (error() in particular, which flushes
+      // immediately, bypassing the incoming-message coalescing above entirely) merges
+      // through this same function via a separate call path from a page's coalesced
+      // batch — both end up serialized by _writeQueue in whichever order they happened
+      // to be *called*, not the order their entries were actually logged in. Without
+      // re-sorting by ts here, the front-trim below (which assumes the front holds the
+      // oldest entries) could evict a genuinely newer entry that simply lost the race to
+      // get merged first. Sorting is O(N log N) against at most _LOG_BUFFER_FULL_MAX
+      // entries, cheap next to the JSON work this function already does per merge.
+      current.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
       if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
       currentFull = currentFull.concat(freshEntries);
+      currentFull.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
       if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
       await chrome.storage.local.set({
         [_LOG_BUFFER_KEY]        : JSON.stringify(current),
