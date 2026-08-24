@@ -92,6 +92,33 @@ import  { tgs }                   from './tgs.js';
     return results;
   }
 
+  // Bounds how many checkTabResponsiveness messages are in flight to the service worker at
+  // once — the actually expensive/bursty part of getDebugInfo() below, unlike the cheap
+  // local chrome.tabs.get()/chrome.alarms.get() calls next to it. Gating it here (inside
+  // getDebugInfo() itself), rather than by wrapping the whole getDebugInfo() call at each
+  // caller the way an earlier version did, keeps fetchTabInfo()'s own per-tab render
+  // timeout meaningful regardless of how many other tabs are currently queued for their
+  // real check: a caller can still race this promise against a short deadline and render
+  // a fallback promptly, while this limiter keeps holding the slot underneath until the
+  // real message settles, capping true concurrent dispatch independently of rendering.
+  const CHECK_RESPONSIVENESS_CONCURRENCY = 20;
+  let _checkResponsivenessActive = 0;
+  const _checkResponsivenessQueue = [];
+  function withResponsivenessLimit(fn) {
+    return new Promise((resolve, reject) => {
+      const run = () => {
+        _checkResponsivenessActive++;
+        fn().then(resolve, reject).finally(() => {
+          _checkResponsivenessActive--;
+          const next = _checkResponsivenessQueue.shift();
+          if (next) next();
+        });
+      };
+      if (_checkResponsivenessActive < CHECK_RESPONSIVENESS_CONCURRENCY) run();
+      else _checkResponsivenessQueue.push(run);
+    });
+  }
+
   async function getDebugInfo(tabId, callback) {
 
     let alarm;
@@ -141,8 +168,10 @@ import  { tgs }                   from './tgs.js';
       // is exactly the "old key listeners remain active" scenario gsTabCheckManager.js's
       // own comments warn about. calculateTabStatus() below no longer needs to probe the
       // content script a second time itself, since it's given the already-resolved status.
-      chrome.runtime.sendMessage({ action: 'checkTabResponsiveness', tab })
-        .catch(() => null) // service worker unreachable (e.g. mid-reload/recycle)
+      withResponsivenessLimit(() =>
+        chrome.runtime.sendMessage({ action: 'checkTabResponsiveness', tab })
+          .catch(() => null) // service worker unreachable (e.g. mid-reload/recycle)
+      )
         .then((response) => {
           gsUtils.highlight(tab.id, 'getDebugInfo callback', tab.url);
           tgs.calculateTabStatus(tab, response?.status, (status) => {
@@ -197,14 +226,12 @@ import  { tgs }                   from './tgs.js';
         const generation = ++_fetchTabInfoGeneration;
         const tabs = await gsChrome.tabsQuery();
         const tabGroupsMap = await gsChrome.tabGroupsMap();
-        // Indexed alongside `tabs`, kept fresh independently of mapWithConcurrency()'s own
-        // return value: with concurrency-limited batches, a tab's real result can now land
-        // in the gap between "no row exists yet" (final render hasn't happened) and "the
-        // final render already ran" — a live per-row patch is a no-op in the first case,
-        // so without also updating this array in place, the eventual render below would
-        // still bake in that tab's stale timeout fallback despite already knowing better.
+        // Indexed by tab position, populated both by the raced fallback below and (later,
+        // in place) by the real result once it resolves — a tab needing content-script
+        // reinjection (see getDebugInfo() above) can easily take longer than the 500ms
+        // deadline below, so the real result isn't dropped, just not ready in time.
         const debugInfos = new Array(tabs.length);
-        await mapWithConcurrency(tabs, FETCH_TAB_INFO_CONCURRENCY, async (curTab, i) => {
+        await Promise.all(tabs.map(async (curTab, i) => {
           const infoPromise = new Promise((resolve) =>
             getDebugInfo(curTab.id, (info) => {
               info.tab   = curTab;
@@ -212,26 +239,19 @@ import  { tgs }                   from './tgs.js';
               resolve(info);
             })
           );
-          // A tab needing content-script reinjection (see getDebugInfo() above) can
-          // easily take longer than the 500ms deadline below to resolve — the real
-          // result isn't dropped, just not ready in time. Once it does resolve, record
-          // it here and, if the table already has this row, patch it in place instead
-          // of leaving it stuck on the timeout fallback until some later refresh.
+          // Deliberately not awaited before this pass finishes: withResponsivenessLimit()
+          // inside getDebugInfo() already bounds how many real checkTabResponsiveness
+          // messages are in flight at once, independent of this render pass, so this
+          // pass's own overall duration only ever depends on the 500ms race below — not on
+          // how many other tabs are currently queued for their real check. Once this
+          // eventually resolves, record it here and, if the table already has this row,
+          // patch it in place instead of leaving it stuck on the timeout fallback.
           infoPromise.then((info) => {
             if (generation !== _fetchTabInfoGeneration) return; // a newer pass has since started
             debugInfos[i] = info;
             const row = document.querySelector(`tr[data-tab-id="${info.tabId}"]`);
             if (row) row.outerHTML = generateTabInfo(info);
           });
-          // Bounds only what gets rendered in this pass — a slow tab still shows the
-          // timeout fallback if it isn't done in time. The worker itself keeps holding
-          // its mapWithConcurrency() slot until the real check settles (below), rather
-          // than releasing it early: with hundreds of tabs, releasing on this 500ms
-          // timeout let mapWithConcurrency() race ahead into the next batch while the
-          // slow tab's real checkTabResponsiveness message stayed in flight against the
-          // service worker's own queue (only 3 concurrent executors) — batch after batch
-          // piling up hundreds of in-flight messages and open response channels, exactly
-          // the burst this concurrency cap exists to prevent.
           const raced = await promiseWithTimeout(infoPromise, 500, {
             windowId  : curTab.windowId,
             tabId     : curTab.id,
@@ -240,8 +260,7 @@ import  { tgs }                   from './tgs.js';
             tab       : curTab,
           });
           if (debugInfos[i] === undefined) debugInfos[i] = raced;
-          await infoPromise;
-        });
+        }));
 
         document.getElementById('gsProfilerBody').innerHTML =
           debugInfos.map(generateTabInfo).join('\n');
