@@ -623,11 +623,24 @@ import  { tgs }                   from './tgs.js';
       }
     };
 
+    // chrome.tabs.onUpdated fires for every kind of tab-state change this extension
+    // cares about ('status', 'url', 'discarded', 'audible', 'pinned' — see the checks
+    // below and in tgs.js's handleSuspendedTabStateChanged()/
+    // handleUnsuspendedTabStateChanged()), but also for ones it never acts on, chiefly
+    // 'frozen'. Live testing found Chrome flips 'frozen' on/off on background/suspended
+    // tabs constantly — over 4000 occurrences in a 43-minute session, with dense
+    // clusters of dozens within a few seconds — and every single one used to still
+    // reach this far, logging (a real cost with captureLogs on: buffering, coalescing,
+    // periodic storage flushes) and dispatching into both handler functions before
+    // either of them discovered there was nothing to do.
+    const RELEVANT_TAB_UPDATE_KEYS = ['status', 'url', 'discarded', 'audible', 'pinned'];
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+      if (!changeInfo || !RELEVANT_TAB_UPDATE_KEYS.some((key) => changeInfo.hasOwnProperty(key))) {
+        return;
+      }
       gsUtils.log(tabId, 'tab onUpdated', changeInfo, tab.url);
-      if (!changeInfo) return;
 
-      if (await gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT) && changeInfo.status === 'complete') {
+      if (changeInfo.status === 'complete' && await gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT)) {
         await claimTab(tabId);
       }
 
