@@ -1176,9 +1176,6 @@
   "js_options_backup_drive_auth_error": {
     "message": "Could not connect to Google. Please try again."
   },
-  "js_options_backup_drive_disconnect_error": {
-    "message": "Could not disconnect from Google. Please try again."
-  },
   "html_options_settings_backup": {
     "message": "Settings backup"
   },

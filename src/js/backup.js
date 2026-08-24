@@ -1002,7 +1002,10 @@ import  { gsUtils }    from './gsUtils.js';
         // still-active server-side grant with no way to retry — so the UI must reflect
         // that this attempt genuinely didn't complete.
         gsUtils.error('backup', 'Drive disconnect failed:', e);
-        statusEl.textContent = gsUtils.getMessage('js_options_backup_drive_disconnect_error');
+        // Reuses the existing connect-error string (already translated in all 18 locales
+        // via Crowdin) rather than a new dedicated key, which would only exist in en/it
+        // until the next sync and silently render as an empty string everywhere else.
+        statusEl.textContent = gsUtils.getMessage('js_options_backup_drive_auth_error');
         setTimeout(() => { statusEl.textContent = ''; }, 8000);
       }
       await updateDriveAuthUI();

@@ -1180,9 +1180,6 @@
   "js_options_backup_drive_auth_error": {
     "message": "Impossibile connettersi a Google. Riprova."
   },
-  "js_options_backup_drive_disconnect_error": {
-    "message": "Impossibile disconnettersi da Google. Riprova."
-  },
   "html_options_settings_backup": {
     "message": "Backup impostazioni"
   },
