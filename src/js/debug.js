@@ -108,31 +108,50 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  async function fetchTabInfo() {
-    const tabs = await gsChrome.tabsQuery();
-    const tabGroupsMap = await gsChrome.tabGroupsMap();
-    const debugInfos = await Promise.all(
-      tabs.map((curTab) =>
-        promiseWithTimeout(
-          new Promise((resolve) =>
-            getDebugInfo(curTab.id, (info) => {
-              info.tab   = curTab;
-              info.group = tabGroupsMap[info.groupId];
-              resolve(info);
-            })
-          ), 500, {
-            windowId  : curTab.windowId,
-            tabId     : curTab.id,
-            groupId   : curTab.groupId,
-            status    : gsUtils.STATUS_UNKNOWN,
-            tab       : curTab,
-          }
-        )
-      )
-    );
+  // window's 'focus' listener below has no debounce, and Chrome/the OS can genuinely fire
+  // several 'focus' events on this page in quick succession (multi-monitor setups, rapid
+  // alt-tabbing, etc.) — without this guard, each one kicks off its own full fetchTabInfo()
+  // run, and every one of those calls getDebugInfo() (and, for every "normal" tab among
+  // them, a real getRequestInfoToContentScript() round trip) for every currently open tab
+  // again, all overlapping. Confirmed via a live debug report: a burst of duplicate
+  // "getDebugInfo"/"getDebugInfo callback" log lines for the same tab within the same
+  // millisecond, repeated roughly once per stray focus event. A later call arriving while
+  // one is already in flight is redundant anyway, since the in-flight call will finish and
+  // reflect a reasonably fresh state regardless.
+  let _fetchingTabInfo = false;
 
-    document.getElementById('gsProfilerBody').innerHTML =
-      debugInfos.map(generateTabInfo).join('\n');
+  async function fetchTabInfo() {
+    if (_fetchingTabInfo) return;
+    _fetchingTabInfo = true;
+    try {
+      const tabs = await gsChrome.tabsQuery();
+      const tabGroupsMap = await gsChrome.tabGroupsMap();
+      const debugInfos = await Promise.all(
+        tabs.map((curTab) =>
+          promiseWithTimeout(
+            new Promise((resolve) =>
+              getDebugInfo(curTab.id, (info) => {
+                info.tab   = curTab;
+                info.group = tabGroupsMap[info.groupId];
+                resolve(info);
+              })
+            ), 500, {
+              windowId  : curTab.windowId,
+              tabId     : curTab.id,
+              groupId   : curTab.groupId,
+              status    : gsUtils.STATUS_UNKNOWN,
+              tab       : curTab,
+            }
+          )
+        )
+      );
+
+      document.getElementById('gsProfilerBody').innerHTML =
+        debugInfos.map(generateTabInfo).join('\n');
+    }
+    finally {
+      _fetchingTabInfo = false;
+    }
   }
 
   // ── Log buffer ──────────────────────────────────────────────────────────────
