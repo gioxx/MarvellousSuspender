@@ -312,33 +312,6 @@ if (_isServiceWorker && typeof chrome !== 'undefined' && chrome.runtime && chrom
   });
 }
 
-// MV3 kills the service worker after ~30s idle, wiping these in-memory arrays. Without
-// reloading what was already persisted, the next flush would overwrite storage with
-// only the handful of entries logged since the restart, silently truncating history
-// on every restart instead of actually keeping the last N entries.
-let _bufferReadyPromise = null;
-function _ensureBufferLoaded() {
-  if (_bufferReadyPromise) return _bufferReadyPromise;
-  _bufferReadyPromise = (async () => {
-    if (typeof chrome === 'undefined' || !chrome.storage) return;
-    try {
-      const result = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY]);
-      const stored = JSON.parse(result[_LOG_BUFFER_KEY] || '[]');
-      _logBuffer.unshift(...stored);
-      if (_logBuffer.length > _LOG_BUFFER_MAX) {
-        _logBuffer.splice(0, _logBuffer.length - _LOG_BUFFER_MAX);
-      }
-      const storedFull = JSON.parse(result[_LOG_BUFFER_FULL_KEY] || '[]');
-      _logBufferFull.unshift(...storedFull);
-      if (_logBufferFull.length > _LOG_BUFFER_FULL_MAX) {
-        _logBufferFull.splice(0, _logBufferFull.length - _LOG_BUFFER_FULL_MAX);
-      }
-    } catch { /* corrupt persisted buffer, start fresh */ }
-  })();
-  return _bufferReadyPromise;
-}
-_ensureBufferLoaded();
-
 // Cheap djb2-style hash so two favicons of similar length still show up as distinct in
 // the log (a bare length like "[data URL, 812 chars]" can't tell "same icon" from
 // "different icon, same size"), without hashing the full multi-KB string char-by-char.
@@ -541,10 +514,9 @@ export const gsUtils = {
         gsUtils.getPrintableError(errorMessage, stackTrace, ...args),
       );
     }
-    if (gsUtils.captureLogs) {
-      _appendEntry('E', id, [errorMessage, ...args]);
-      _flushNow();
-    }
+    // Always buffer errors regardless of flags
+    _appendEntry('E', id, [errorMessage, ...args]);
+    _flushNow();
   },
   // Puts all the error args into a single printable string so that all the info is displayed in the error console
   getPrintableError(errorMessage, stackTrace, ...args) {

@@ -1,7 +1,8 @@
-import { gsIndexedDb }      from './gsIndexedDb.js';
-import { gsSession }        from './gsSession.js';
-import { gsStorage }        from './gsStorage.js';
-import { gsUtils }          from './gsUtils.js';
+import { gsIndexedDb }        from './gsIndexedDb.js';
+import { gsSession }          from './gsSession.js';
+import { gsStorage }          from './gsStorage.js';
+import { gsUtils }            from './gsUtils.js';
+import { PKCE_CLIENT_SECRET } from './gsOauthSecrets.js';
 
 'use strict';
 
@@ -242,31 +243,29 @@ export const gsBackup = (() => {
   // is still authorization_code + PKCE + refresh_token here, never the old implicit
   // response_type=token flow that caused the original disconnect bug.
   // Registered redirect URI: https://noogafoofpebimajpfpamcfhoaifemoa.chromiumapp.org/
-  // Client secret lives in gsOauthSecrets.js (gitignored, see that file for why).
+  // KNOWN, ACCEPTED RISK: this client secret ships inside the packaged extension (the
+  // CRX/ZIP is trivially unzippable), and — unlike the exempted "Chrome app"/"Desktop
+  // app"/mobile client types Google explicitly documents as not needing real secret
+  // confidentiality — a "Web application" client's secret has no such carve-out; Google's
+  // installed-app guidance for that exemption applies only to those other types. It can't
+  // be swapped for one of those instead: "Chrome app" clients only support
+  // chrome.identity.getAuthToken() (the very API failing on Brave/Vivaldi this PR exists
+  // to fix), and "Desktop app" clients reject launchWebAuthFlow()'s chromiumapp.org
+  // redirect (verified live, see above). Accepted deliberately rather than standing up a
+  // separate backend just to broker this exchange: a leaked secret only lets a third
+  // party register something that authenticates to Google as "this app" (e.g. for a
+  // phishing consent screen impersonating it) — it does not expose any existing TMS
+  // user's Drive data or tokens, since each user's own refresh_token/access_token never
+  // leaves their own browser's storage.
+  // gsOauthSecrets.js is a committed placeholder ('REPLACE_ME') so this static import
+  // never fails — a dynamic import() here would silently break in this MV3 service
+  // worker context specifically (background.js's non-interactive token-refresh path),
+  // unlike interactive calls from backup.html's page context, which would keep working
+  // and mask the break until the cached access token next expired. Grunt's build
+  // pipeline substitutes the real secret (kept in the gitignored gsOauthSecrets.local.js)
+  // into the packaged build's own copy of this file — see Gruntfile.js's
+  // 'string-replace:oauthSecret' task and 'checkOauthSecrets' guard.
   const PKCE_CLIENT_ID = '630779328171-mge0g9vebmq4pkihhi6gqs9a2agpu07e.apps.googleusercontent.com';
-
-  // Loaded lazily (not a static top-level import) so a checkout without gsOauthSecrets.js
-  // set up locally — a fresh clone, a source archive, or "Load unpacked" straight from
-  // src/ without running the documented `cp gsOauthSecrets.example.js gsOauthSecrets.js`
-  // step first — doesn't fail this whole module's static import, which would otherwise
-  // break background.js's unconditional import of gsBackup.js and stop the service worker
-  // from registering at all, for every user regardless of whether they ever touch Drive
-  // backup. Only PKCE-specific calls (authorizeViaPkce/refreshAccessToken) need the real
-  // value, and only when a user actually exercises the Drive PKCE fallback.
-  let _pkceClientSecretPromise = null;
-  function getPkceClientSecret() {
-    if (!_pkceClientSecretPromise) {
-      _pkceClientSecretPromise = import('./gsOauthSecrets.js')
-        .then((m) => m.PKCE_CLIENT_SECRET)
-        .catch((e) => {
-          gsUtils.error('gsBackup', 'getPkceClientSecret: gsOauthSecrets.js missing or invalid — ' +
-            'run `cp src/js/gsOauthSecrets.example.js src/js/gsOauthSecrets.js` and fill in the ' +
-            'real secret to use the Drive PKCE fallback.', e);
-          throw new Error('TMS_DRIVE_AUTH_MISSING');
-        });
-    }
-    return _pkceClientSecretPromise;
-  }
 
   async function isLikelyBrokenChromeIdentity() {
     // Brave's own chrome.identity.getAuthToken() implementation opens a native,
@@ -423,7 +422,7 @@ export const gsBackup = (() => {
 
     return exchangeTokenEndpoint({
       client_id    : PKCE_CLIENT_ID,
-      client_secret: await getPkceClientSecret(),
+      client_secret: PKCE_CLIENT_SECRET,
       code,
       code_verifier: verifier,
       grant_type   : 'authorization_code',
@@ -441,7 +440,7 @@ export const gsBackup = (() => {
     try {
       return await exchangeTokenEndpoint({
         client_id    : PKCE_CLIENT_ID,
-        client_secret: await getPkceClientSecret(),
+        client_secret: PKCE_CLIENT_SECRET,
         refresh_token: refreshToken,
         grant_type   : 'refresh_token',
       });

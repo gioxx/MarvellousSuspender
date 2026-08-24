@@ -77,6 +77,24 @@ module.exports = function(grunt) {
           ],
         },
       },
+      // Patches the real PKCE client secret (read from the gitignored
+      // gsOauthSecrets.local.js by checkOauthSecrets below) into the *packaged build's*
+      // copy of gsOauthSecrets.js, which starts as the committed 'REPLACE_ME' placeholder.
+      // The tracked src/js/gsOauthSecrets.js is never touched.
+      oauthSecret: {
+        files: {
+          '<%= config.tempDir %>src/js/':
+            '<%= config.tempDir %>src/js/gsOauthSecrets.js',
+        },
+        options: {
+          replacements: [
+            {
+              pattern: /REPLACE_ME/,
+              replacement: () => grunt.config('oauthSecretValue'),
+            },
+          ],
+        },
+      },
     },
     crx: {
       public: {
@@ -108,10 +126,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
 
   // Guards against shipping a build where the Drive OAuth client secret was never set up
-  // locally (file is gitignored, see src/js/gsOauthSecrets.js) — without this the PKCE
-  // fallback for Brave/Vivaldi (#437) would silently break in the published extension.
+  // locally (file is gitignored, see src/js/gsOauthSecrets.local.js) — without this the
+  // PKCE fallback for Brave/Vivaldi (#437) would silently break in the published
+  // extension. src/js/gsOauthSecrets.js itself stays a committed 'REPLACE_ME' placeholder
+  // (so gsBackup.js's static import never fails a plain unpacked-from-src/ load); the real
+  // value read here is stashed on the grunt config for 'string-replace:oauthSecret' to
+  // patch into the packaged build's own copy of that file, further down the task list.
   grunt.registerTask('checkOauthSecrets', function() {
-    const path = 'src/js/gsOauthSecrets.js';
+    const path = 'src/js/gsOauthSecrets.local.js';
     if (!grunt.file.exists(path)) {
       grunt.fail.fatal(
         `\n\n${path} is missing (it's gitignored, not committed).\n` +
@@ -121,15 +143,19 @@ module.exports = function(grunt) {
         'from the "Web application" OAuth client in Google Cloud Console.\n',
       );
     }
-    if (!/PKCE_CLIENT_SECRET\s*=\s*['"]GOCSPX-/.test(grunt.file.read(path))) {
+    const contents = grunt.file.read(path);
+    const match = /PKCE_CLIENT_SECRET\s*=\s*['"](GOCSPX-[^'"]+)['"]/.exec(contents);
+    if (!match) {
       grunt.fail.fatal(`\n\n${path} does not contain a real-looking PKCE_CLIENT_SECRET. Aborting build.\n`);
     }
+    grunt.config('oauthSecretValue', match[1]);
   });
 
   grunt.registerTask('default', [
     'checkOauthSecrets',
     'copy',
     'string-replace:debugoff',
+    'string-replace:oauthSecret',
     'crx:public',
     'crx:private',
     'clean',
@@ -139,6 +165,7 @@ module.exports = function(grunt) {
     'copy',
     'string-replace:debugon',
     'string-replace:localesTgut',
+    'string-replace:oauthSecret',
     'crx:public',
     'crx:private',
     'clean',
