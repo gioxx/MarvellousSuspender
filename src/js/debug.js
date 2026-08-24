@@ -115,39 +115,52 @@ import  { tgs }                   from './tgs.js';
   // them, a real getRequestInfoToContentScript() round trip) for every currently open tab
   // again, all overlapping. Confirmed via a live debug report: a burst of duplicate
   // "getDebugInfo"/"getDebugInfo callback" log lines for the same tab within the same
-  // millisecond, repeated roughly once per stray focus event. A later call arriving while
-  // one is already in flight is redundant anyway, since the in-flight call will finish and
-  // reflect a reasonably fresh state regardless.
+  // millisecond, repeated roughly once per stray focus event.
+  //
+  // A later call arriving while one is already in flight isn't simply dropped, though: the
+  // in-flight run's tabsQuery() snapshot was taken before that later call arrived, so if the
+  // user left and came back (opened/closed/changed a tab) inside that window, the in-flight
+  // run's result is already stale by the time it renders. One follow-up run is queued to
+  // pick up the fresh state afterwards — further calls arriving while that follow-up is
+  // already queued are still coalesced into it, so a rapid burst still only ever produces at
+  // most one extra run, not one per stray event.
   let _fetchingTabInfo = false;
+  let _fetchTabInfoPending = false;
 
   async function fetchTabInfo() {
-    if (_fetchingTabInfo) return;
+    if (_fetchingTabInfo) {
+      _fetchTabInfoPending = true;
+      return;
+    }
     _fetchingTabInfo = true;
     try {
-      const tabs = await gsChrome.tabsQuery();
-      const tabGroupsMap = await gsChrome.tabGroupsMap();
-      const debugInfos = await Promise.all(
-        tabs.map((curTab) =>
-          promiseWithTimeout(
-            new Promise((resolve) =>
-              getDebugInfo(curTab.id, (info) => {
-                info.tab   = curTab;
-                info.group = tabGroupsMap[info.groupId];
-                resolve(info);
-              })
-            ), 500, {
-              windowId  : curTab.windowId,
-              tabId     : curTab.id,
-              groupId   : curTab.groupId,
-              status    : gsUtils.STATUS_UNKNOWN,
-              tab       : curTab,
-            }
+      do {
+        _fetchTabInfoPending = false;
+        const tabs = await gsChrome.tabsQuery();
+        const tabGroupsMap = await gsChrome.tabGroupsMap();
+        const debugInfos = await Promise.all(
+          tabs.map((curTab) =>
+            promiseWithTimeout(
+              new Promise((resolve) =>
+                getDebugInfo(curTab.id, (info) => {
+                  info.tab   = curTab;
+                  info.group = tabGroupsMap[info.groupId];
+                  resolve(info);
+                })
+              ), 500, {
+                windowId  : curTab.windowId,
+                tabId     : curTab.id,
+                groupId   : curTab.groupId,
+                status    : gsUtils.STATUS_UNKNOWN,
+                tab       : curTab,
+              }
+            )
           )
-        )
-      );
+        );
 
-      document.getElementById('gsProfilerBody').innerHTML =
-        debugInfos.map(generateTabInfo).join('\n');
+        document.getElementById('gsProfilerBody').innerHTML =
+          debugInfos.map(generateTabInfo).join('\n');
+      } while (_fetchTabInfoPending);
     }
     finally {
       _fetchingTabInfo = false;
