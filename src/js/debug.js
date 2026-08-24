@@ -183,7 +183,14 @@ import  { tgs }                   from './tgs.js';
         const generation = ++_fetchTabInfoGeneration;
         const tabs = await gsChrome.tabsQuery();
         const tabGroupsMap = await gsChrome.tabGroupsMap();
-        const debugInfos = await mapWithConcurrency(tabs, FETCH_TAB_INFO_CONCURRENCY, (curTab) => {
+        // Indexed alongside `tabs`, kept fresh independently of mapWithConcurrency()'s own
+        // return value: with concurrency-limited batches, a tab's real result can now land
+        // in the gap between "no row exists yet" (final render hasn't happened) and "the
+        // final render already ran" — a live per-row patch is a no-op in the first case,
+        // so without also updating this array in place, the eventual render below would
+        // still bake in that tab's stale timeout fallback despite already knowing better.
+        const debugInfos = new Array(tabs.length);
+        await mapWithConcurrency(tabs, FETCH_TAB_INFO_CONCURRENCY, async (curTab, i) => {
           const infoPromise = new Promise((resolve) =>
             getDebugInfo(curTab.id, (info) => {
               info.tab   = curTab;
@@ -192,22 +199,27 @@ import  { tgs }                   from './tgs.js';
             })
           );
           // A tab needing content-script reinjection (see getDebugInfo() above) can
-          // easily take longer than the 500ms render deadline below to resolve — the
-          // real result isn't dropped, just not ready in time for this render. Once it
-          // does resolve, patch that one row in place instead of leaving it stuck on
-          // the timeout fallback until whatever next triggers a full refresh.
+          // easily take longer than the 500ms deadline below to resolve — the real
+          // result isn't dropped, just not ready in time. Once it does resolve, record
+          // it here and, if the table already has this row, patch it in place instead
+          // of leaving it stuck on the timeout fallback until some later refresh.
           infoPromise.then((info) => {
             if (generation !== _fetchTabInfoGeneration) return; // a newer pass has since started
+            debugInfos[i] = info;
             const row = document.querySelector(`tr[data-tab-id="${info.tabId}"]`);
             if (row) row.outerHTML = generateTabInfo(info);
           });
-          return promiseWithTimeout(infoPromise, 500, {
+          // Bounded so a slow tab can't hold up mapWithConcurrency()'s concurrency slot
+          // for other tabs — but never overwrite a real result that already landed via
+          // the unraced infoPromise.then() above while this was waiting.
+          const raced = await promiseWithTimeout(infoPromise, 500, {
             windowId  : curTab.windowId,
             tabId     : curTab.id,
             groupId   : curTab.groupId,
             status    : gsUtils.STATUS_UNKNOWN,
             tab       : curTab,
           });
+          if (debugInfos[i] === undefined) debugInfos[i] = raced;
         });
 
         document.getElementById('gsProfilerBody').innerHTML =
@@ -300,21 +312,22 @@ import  { tgs }                   from './tgs.js';
     // chrome.tabs.get()/chrome.alarms.get() (and, per "normal" tab, one
     // checkTabResponsiveness message) per tab all at once — a profile with hundreds of
     // tabs open shouldn't turn "Copy report"/"Download report" into that big a spike.
+    // No per-tab timeout here, unlike fetchTabInfo() above: the service worker's own
+    // gsTabCheckManager queue has only 3 concurrent executors, so with more than a
+    // handful of "normal" tabs, most checks are still genuinely waiting their turn in
+    // that queue well past any short deadline — a report has no live-update path to
+    // correct a wrong "unknown" afterwards the way the profiler table does, so a report
+    // freezes whatever it captures permanently. Report generation is a deliberate,
+    // one-off action (unlike the live table, which needs to feel responsive on every
+    // refresh), so it's fine for it to take longer in exchange for actually being
+    // correct; the queue's own job timeout (60s) is still the real upper bound.
     const debugInfos = await mapWithConcurrency(tabs, FETCH_TAB_INFO_CONCURRENCY, (curTab) =>
-      promiseWithTimeout(
-        new Promise((resolve) =>
-          getDebugInfo(curTab.id, (info) => {
-            info.tab   = curTab;
-            info.group = tabGroupsMap[info.groupId];
-            resolve(info);
-          })
-        ), 500, {
-          windowId  : curTab.windowId,
-          tabId     : curTab.id,
-          groupId   : curTab.groupId,
-          status    : gsUtils.STATUS_UNKNOWN,
-          tab       : curTab,
-        }
+      new Promise((resolve) =>
+        getDebugInfo(curTab.id, (info) => {
+          info.tab   = curTab;
+          info.group = tabGroupsMap[info.groupId];
+          resolve(info);
+        })
       )
     );
 
