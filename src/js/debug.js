@@ -223,9 +223,15 @@ import  { tgs }                   from './tgs.js';
             const row = document.querySelector(`tr[data-tab-id="${info.tabId}"]`);
             if (row) row.outerHTML = generateTabInfo(info);
           });
-          // Bounded so a slow tab can't hold up mapWithConcurrency()'s concurrency slot
-          // for other tabs — but never overwrite a real result that already landed via
-          // the unraced infoPromise.then() above while this was waiting.
+          // Bounds only what gets rendered in this pass — a slow tab still shows the
+          // timeout fallback if it isn't done in time. The worker itself keeps holding
+          // its mapWithConcurrency() slot until the real check settles (below), rather
+          // than releasing it early: with hundreds of tabs, releasing on this 500ms
+          // timeout let mapWithConcurrency() race ahead into the next batch while the
+          // slow tab's real checkTabResponsiveness message stayed in flight against the
+          // service worker's own queue (only 3 concurrent executors) — batch after batch
+          // piling up hundreds of in-flight messages and open response channels, exactly
+          // the burst this concurrency cap exists to prevent.
           const raced = await promiseWithTimeout(infoPromise, 500, {
             windowId  : curTab.windowId,
             tabId     : curTab.id,
@@ -234,6 +240,7 @@ import  { tgs }                   from './tgs.js';
             tab       : curTab,
           });
           if (debugInfos[i] === undefined) debugInfos[i] = raced;
+          await infoPromise;
         });
 
         document.getElementById('gsProfilerBody').innerHTML =
