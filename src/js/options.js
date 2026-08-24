@@ -280,7 +280,12 @@ import  { gsUtils }               from './gsUtils.js';
   }
 
 
-  async function messageRequestListener(request, sender, sendResponse) {
+  function messageRequestListener(request, sender, sendResponse) {
+    // Declared synchronous (not async) so this decline is a real, immediate `false`
+    // return rather than a resolved Promise: an async function's `return false` is
+    // still a Promise, and Chrome/Firefox treat a returned Promise as this listener's
+    // eventual response, letting its trivial resolved value race the service worker's
+    // real, slower response for actions like 'checkTabResponsiveness'.
     // These are meant only for the service worker, delivered here too because Chrome
     // broadcasts any chrome.runtime.sendMessage() with no tabId to every extension page.
     // Not logging them (not even as "ignoring") matters specifically for

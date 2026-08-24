@@ -43,7 +43,9 @@ import  { tgs }                   from './tgs.js';
     const groupSpan  = groupName ? `<span class="group ${browser} ${groupColor}">${groupName}</span>` : '';
 
     let favicon = info && info.tab ? info.tab.favIconUrl : '';
-    favicon = favicon && favicon.indexOf('data') === 0 ? favicon : gsFavicon.getChromeFavIconUrl(info.tab.url);
+    favicon = favicon && favicon.indexOf('data') === 0
+      ? favicon
+      : (info && info.tab ? gsFavicon.getChromeFavIconUrl(info.tab.url) : '');
 
     return `<tr data-tab-id="${tabId}">
       <td>${windowId}</td>
@@ -92,8 +94,20 @@ import  { tgs }                   from './tgs.js';
 
   async function getDebugInfo(tabId, callback) {
 
-    const alarm = await chrome.alarms.get(String(tabId));
-    const tab   = await chrome.tabs.get(tabId);
+    let alarm;
+    let tab;
+    try {
+      alarm = await chrome.alarms.get(String(tabId));
+      tab   = await chrome.tabs.get(tabId);
+    }
+    catch (e) {
+      // Tab closed between tabsQuery() and this lookup. Without this catch, the
+      // rejection propagates out of this async function and this callback is never
+      // called, leaving its caller's manually constructed Promise pending forever —
+      // now that buildReport()'s per-tab timeout is gone, that stalls the whole report.
+      callback({ tabId, status: gsUtils.STATUS_UNKNOWN });
+      return;
+    }
 
     const info  = {
       windowId  : tab.windowId,
