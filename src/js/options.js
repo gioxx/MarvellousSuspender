@@ -300,25 +300,27 @@ import  { gsUtils }               from './gsUtils.js';
       // { action: 'initSettings', tab: focusedTab }
       case 'initSettings': {
         initSettings();
-        break;
+        // This function is synchronous, so no longer returns a Promise Chrome could use
+        // as the response (that's the whole point of the sync-decline fix above) —
+        // sendResponse() must be called explicitly here, or a sender awaiting a response
+        // (e.g. tgs.js's handleNewStationaryTabFocus() awaiting 'initSettings' before
+        // resetting the previous tab's suspend timer) would hang until the message
+        // channel itself eventually tears down.
+        sendResponse();
+        return true;
       }
 
       default: {
-        // NOTE: All messages sent to chrome.runtime will be delivered here too
+        // NOTE: All messages sent to chrome.runtime will be delivered here too. A real
+        // `false` decline (not a response) matters here too: another extension page's
+        // own action (e.g. debug.js's 'repairFavicons', handled only in background.js)
+        // must be free to have its real, slower response win, not get shadowed by this
+        // page unconditionally answering with `undefined` for an action it doesn't own.
         gsUtils.log('options', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
-        break;
+        return false;
       }
 
     }
-    // Every case above is fully synchronous, so the response is already available by
-    // this point. sendResponse() must still be called explicitly: this function no
-    // longer returns a Promise Chrome could use as the response (that's the whole
-    // point of the sync-decline fix above), so without this, a sender awaiting a
-    // response — e.g. tgs.js's handleNewStationaryTabFocus() awaiting 'initSettings'
-    // before resetting the previous tab's suspend timer — would hang until the
-    // message channel itself eventually tears down.
-    sendResponse();
-    return true;
   }
 
 
