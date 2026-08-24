@@ -148,9 +148,25 @@ async function _mergeAndPersistCore(entries) {
       const hadStaleContent = current.length + currentFull.length < beforeCount;
       if (freshEntries.length === 0 && !hadStaleContent) return true; // truly nothing to do
       const myToken       = _newWriteToken();
-      current.push(...freshEntries);
+      // Not push(...freshEntries): a spread turns every element into its own function
+      // argument, and V8 throws a RangeError past a few tens of thousands of them —
+      // reachable here once the incoming-message coalescing above can aggregate several
+      // contexts' independently-capped (5,000 each) pending batches into one merge.
+      // concat() has no such limit regardless of array size.
+      current = current.concat(freshEntries);
+      // The service worker's own logging (error() in particular, which flushes
+      // immediately, bypassing the incoming-message coalescing above entirely) merges
+      // through this same function via a separate call path from a page's coalesced
+      // batch — both end up serialized by _writeQueue in whichever order they happened
+      // to be *called*, not the order their entries were actually logged in. Without
+      // re-sorting by ts here, the front-trim below (which assumes the front holds the
+      // oldest entries) could evict a genuinely newer entry that simply lost the race to
+      // get merged first. Sorting is O(N log N) against at most _LOG_BUFFER_FULL_MAX
+      // entries, cheap next to the JSON work this function already does per merge.
+      current.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
       if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
-      currentFull.push(...freshEntries);
+      currentFull = currentFull.concat(freshEntries);
+      currentFull.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
       if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
       await chrome.storage.local.set({
         [_LOG_BUFFER_KEY]        : JSON.stringify(current),
@@ -233,14 +249,66 @@ function _clearPersisted() {
 // logging entirely for anything in it, rather than trying to rate-limit the loop.
 const INTERNAL_MESSAGE_ACTIONS = new Set(['gsAppendLogEntries', 'clearLogs']);
 
+// A single incoming gsAppendLogEntries message costs one full get+parse+stringify+set of
+// the entire shared buffer (up to _LOG_BUFFER_FULL_MAX entries) — necessary since
+// chrome.storage.local has no append primitive, only whole-value writes. A broadcast that
+// every open context reacts to at once (e.g. toggling captureLogs itself, which every
+// suspended tab logs as "ignoring unhandled message") can therefore land dozens of these
+// messages within a few milliseconds of each other; merging each one separately would
+// serialize dozens of full-buffer round trips back to back through _writeQueue, each
+// blocking this single-threaded context's JSON work in turn — exactly the kind of burst
+// that made the whole extension (including unrelated page loads depending on this
+// context responding) sluggish. Coalescing them into one merge per short window turns
+// that burst into a single round trip instead.
+const _INCOMING_COALESCE_MS = 250;
+
+// Shared by every place this module trims a batch to a max size: trimming by arrival/
+// array-position order rather than by ts is wrong whenever entries can arrive out of
+// chronological order, which incoming messages from many independently-flushing contexts
+// routinely can — a context that had been backlogged and reconnects last can otherwise
+// have its (older) entries evict another context's (newer) entries that simply arrived
+// in the batch earlier, permanently losing the newer diagnostics instead of the older
+// ones. Always sort by ts first, then keep the newest `max`.
+function _keepNewestByTs(entries, max) {
+  if (entries.length <= max) return entries;
+  const sorted = entries.slice().sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
+  return sorted.slice(sorted.length - max);
+}
+let _incomingBatch = [];
+let _incomingResponders = [];
+let _incomingTimer = null;
+
+function _flushIncomingBatch() {
+  let batch = _incomingBatch;
+  const responders = _incomingResponders;
+  _incomingBatch = [];
+  _incomingResponders = [];
+  _incomingTimer = null;
+  // Each sender's own _pendingEntries is capped at 5,000, but this window can still
+  // aggregate several such contexts' batches into one — no point carrying more of it
+  // into the merge than the persisted buffer could ever retain anyway; keep the newest.
+  batch = _keepNewestByTs(batch, _LOG_BUFFER_FULL_MAX);
+  _mergeAndPersist(batch).then((success) => {
+    responders.forEach((respond) => respond({ success }));
+  });
+}
+
 // Only the service worker listens; every other context reaches it via sendMessage in
 // _flushNow() below. Registered at module top level (not inside an async block) so
 // Chrome can queue the very first message even if it arrives before this line runs.
 if (_isServiceWorker && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (!request || request.action !== 'gsAppendLogEntries') return false;
-    _mergeAndPersist(request.entries || []).then((success) => sendResponse({ success }));
-    return true; // keep the channel open for the async sendResponse above
+    // Capped on every arrival, not just once at flush time below: after an outage, many
+    // contexts can each reconnect and resend up to their own 5,000-entry _pendingEntries
+    // cap within the same coalescing window, and letting the aggregate grow unbounded in
+    // the meantime (even briefly) risks the exact CPU/memory spike this coalescing exists
+    // to avoid. concat(), not a spread, since a single sender's own entries array can
+    // itself be large enough to hit V8's argument-count limit on a spread.
+    _incomingBatch = _keepNewestByTs(_incomingBatch.concat(request.entries || []), _LOG_BUFFER_FULL_MAX);
+    _incomingResponders.push(sendResponse);
+    if (!_incomingTimer) _incomingTimer = setTimeout(_flushIncomingBatch, _INCOMING_COALESCE_MS);
+    return true; // keep every channel open until the coalesced batch is merged and responded to
   });
 }
 
