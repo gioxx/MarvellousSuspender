@@ -227,24 +227,42 @@ export const gsTabQueue = (function() {
         if (!tabDetails.hasOwnProperty('timeoutTimer')) {
           tabDetails.timeoutTimer = setTimeout(() => {
             gsUtils.log(tabDetails.tab.id, _queueId, 'Tab job timed out');
-            _queueProperties.exceptionFn(
-              tabDetails.tab,
-              tabDetails.executionProps,
-              EXCEPTION_TIMEOUT,
-              _resolveTabPromise,
-              _rejectTabPromise,
-              _requeueTab
-            ); // async. unhandled promise
+            Promise.resolve()
+              .then(() => _queueProperties.exceptionFn(
+                tabDetails.tab,
+                tabDetails.executionProps,
+                EXCEPTION_TIMEOUT,
+                _resolveTabPromise,
+                _rejectTabPromise,
+                _requeueTab
+              ))
+              .catch((error) => {
+                gsUtils.log(tabDetails.tab.id, _queueId, 'exceptionFn threw unexpectedly', error);
+                _rejectTabPromise(error);
+              });
           }, _queueProperties.jobTimeout);
         }
 
-        _queueProperties.executorFn(
-          tabDetails.tab,
-          tabDetails.executionProps,
-          _resolveTabPromise,
-          _rejectTabPromise,
-          _requeueTab
-        ); // async. unhandled promise
+        // executorFn is expected to settle this job itself via resolve/reject/requeue —
+        // without this catch, a thrown/rejected executorFn (e.g. a tab responding with an
+        // unexpected shape, previously observed live as an uncaught "Cannot read
+        // properties of undefined" a few layers up) left this slot stuck in
+        // STATUS_IN_PROGRESS with nothing to release it until the full jobTimeout elapsed
+        // (up to 60s) — this queue only has a handful of concurrent slots to begin with,
+        // so repeated occurrences could meaningfully choke its throughput. Reject it
+        // immediately instead, freeing the slot right away.
+        Promise.resolve()
+          .then(() => _queueProperties.executorFn(
+            tabDetails.tab,
+            tabDetails.executionProps,
+            _resolveTabPromise,
+            _rejectTabPromise,
+            _requeueTab
+          ))
+          .catch((error) => {
+            gsUtils.log(tabDetails.tab.id, _queueId, 'executorFn threw unexpectedly', error);
+            _rejectTabPromise(error);
+          });
       }
 
       function resolveTabPromise(tabDetails, result) {
