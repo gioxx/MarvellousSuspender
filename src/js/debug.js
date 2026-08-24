@@ -180,7 +180,16 @@ import  { tgs }                   from './tgs.js';
   let _fetchTabInfoDebounceTimer = null;
 
   function scheduleFetchTabInfo() {
-    if (_fetchTabInfoDebounceTimer) return;
+    // Genuinely trailing: every call resets the timer, so a rapid sequence of focus
+    // events only actually triggers fetchTabInfo() once, after they've stopped for the
+    // full debounce interval. Without the reset, a focus event arriving while the timer
+    // from an earlier one was already armed left that earlier timer untouched — if a
+    // run happened to still be in flight when it fired (easily over 1s once a check
+    // needs content-script reinjection, itself up to several seconds), fetchTabInfo()'s
+    // own pending-flag would queue an immediate follow-up the moment that run finished,
+    // and continued focus events could keep that same back-to-back cycle going
+    // indefinitely — never actually settling into the throttled cadence this exists for.
+    clearTimeout(_fetchTabInfoDebounceTimer);
     _fetchTabInfoDebounceTimer = setTimeout(() => {
       _fetchTabInfoDebounceTimer = null;
       fetchTabInfo();
