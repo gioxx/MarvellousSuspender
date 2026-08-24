@@ -14,6 +14,7 @@ import  { gsUtils }               from './gsUtils.js';
     onlineCheck: gsStorage.IGNORE_WHEN_OFFLINE,
     batteryCheck: gsStorage.IGNORE_WHEN_CHARGING,
     unsuspendOnFocus: gsStorage.UNSUSPEND_ON_FOCUS,
+    reloadUnsuspendBackground: gsStorage.RELOAD_UNSUSPEND_BACKGROUND,
     claimByDefault: gsStorage.CLAIM_BY_DEFAULT,
     discardAfterSuspend: gsStorage.DISCARD_AFTER_SUSPEND,
     appendUrlToTitle:    gsStorage.APPEND_URL_TO_TITLE,
@@ -22,10 +23,12 @@ import  { gsUtils }               from './gsUtils.js';
     dontSuspendForms: gsStorage.IGNORE_FORMS,
     dontSuspendAudio: gsStorage.IGNORE_AUDIO,
     dontSuspendActiveTabs: gsStorage.IGNORE_ACTIVE_TABS,
+    dontRestoreScrollPos: gsStorage.IGNORE_SCROLL_POS,
     ignoreCache: gsStorage.IGNORE_CACHE,
     addContextMenu: gsStorage.ADD_CONTEXT,
     syncSettings: gsStorage.SYNC_SETTINGS,
     timeToSuspend: gsStorage.SUSPEND_TIME,
+    timeToSuspendOnBattery: gsStorage.SUSPEND_TIME_ON_BATTERY,
     theme: gsStorage.THEME,
     legacyMascot: gsStorage.LEGACY_MASCOT,
     language: gsStorage.LANGUAGE,
@@ -278,6 +281,13 @@ import  { gsUtils }               from './gsUtils.js';
 
 
   async function messageRequestListener(request, sender, sendResponse) {
+    // These are meant only for the service worker, delivered here too because Chrome
+    // broadcasts any chrome.runtime.sendMessage() with no tabId to every extension page.
+    // Not logging them (not even as "ignoring") matters specifically for
+    // gsAppendLogEntries: logging it would itself be a log entry needing its own flush,
+    // whose "ignored" broadcast produces another one, forever.
+    if (gsUtils.INTERNAL_MESSAGE_ACTIONS.has(request.action)) return false;
+
     gsUtils.log('options', 'messageRequestListener', request.action, request, sender);
 
     switch (request.action) {

@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Ausgewählte Tabs aufwachen"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Alle Tabs in der Gruppe des aktiven Tabs aussetzen"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Alle Tabs in der Gruppe des aktiven Tabs aufwachen"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Alle anderen Tabs im aktiven Fenster aussetzen"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Ausgewählte Tabs aufwachen"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Alle Tabs in dieser Gruppe aussetzen"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Alle Tabs in dieser Gruppe aufwachen"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Alle anderen Tabs in diesem Fenster aussetzen"
@@ -314,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Tabs automatisch aussetzen nach"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Tabs im Akkubetrieb aussetzen nach"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Wie im Netzbetrieb"
+  },
   "html_options_suspend_never": {
     "message": "Nie"
   },
@@ -380,8 +398,41 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Aktive Tabs in jedem Fenster nicht aussetzen"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Angehaltene Tabs immer ganz oben auf der Seite erneut öffnen"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "Der Tab öffnet sich oben auf der Seite erneut, statt an der"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "Stelle, an der er beim Aussetzen stand."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Gilt sowohl für automatisches als auch manuelles Aussetzen und"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "überschreibt Links, die beim Laden zu einem #Abschnitt springen."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Tab automatisch aufwachen, wenn er aufgerufen wird"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Neuladen aktiviert auch Tabs im Hintergrund (nicht nur den aktiven Tab)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Wenn aktiviert, wird eine pausierte Registerkarte beim Neuladen"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "(Strg+R oder Rechtsklick > Neu laden) auch dann reaktiviert,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "wenn sie nicht die aktive Registerkarte ist."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Nützlich, um mehrere pausierte Tabs auf einmal neu zu laden,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "z. B. nach Auswahl mehrerer Tabs und Drücken von Strg+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Beim Aussetzen die integrierte Speicherersparnis des Browsers anwenden"

@@ -432,6 +432,38 @@ export const tgs = (function() {
     });
   }
 
+  function suspendTabGroup(tab) {
+    if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
+      return;
+    }
+    chrome.tabs.query({ groupId: tab.groupId }, (groupTabs) => {
+      for (const groupTab of groupTabs) {
+        // forceLevel 2 for the rest of the group, not 1: this suspends every tab in the
+        // group in one go, not just the one the user acted on, so whitelist/pinned/audible/
+        // active-tab/form-input protections must still apply to the tabs swept up by the
+        // group action. The acted-on tab itself stays at forceLevel 1 (matching the
+        // single-tab/selected-tabs force-suspend actions): level 2 unconditionally rejects
+        // the active tab, so if the user explicitly triggered this on the active tab (e.g.
+        // via the keyboard shortcut), it would otherwise never get suspended at all.
+        gsTabSuspendManager.queueTabForSuspension(groupTab, groupTab.id === tab.id ? 1 : 2);
+      }
+    });
+  }
+
+  function unsuspendTabGroup(tab) {
+    if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
+      return;
+    }
+    chrome.tabs.query({ groupId: tab.groupId }, (groupTabs) => {
+      groupTabs.forEach((groupTab) => {
+        gsTabSuspendManager.unqueueTabForSuspension(groupTab);
+        if (gsUtils.isSuspendedTab(groupTab)) {
+          unsuspendTab(groupTab);
+        }
+      });
+    });
+  }
+
   function queueSessionTimer() {
     clearTimeout(_sessionSaveTimer);
     _sessionSaveTimer = setTimeout(() => {
@@ -442,7 +474,19 @@ export const tgs = (function() {
   async function resetAutoSuspendTimerForTab(tab) {
     await clearAutoSuspendTimerForTabId(tab.id);
 
-    const suspendTime = await gsStorage.getOption(gsStorage.SUSPEND_TIME);
+    let suspendTime = await gsStorage.getOption(gsStorage.SUSPEND_TIME);
+    // A battery-specific timeout (#252) only kicks in when one is actually set and we
+    // know for certain we're running unplugged — isCharging() returns undefined (not
+    // false) both when navigator.getBattery is unavailable in this MV3 service worker
+    // and before its initial promise resolves, so an explicit === false check is
+    // required here; treating "unknown" as "unplugged" would apply the override while
+    // still on AC.
+    if ((await isCharging()) === false) {
+      const suspendTimeOnBattery = await gsStorage.getOption(gsStorage.SUSPEND_TIME_ON_BATTERY);
+      if (suspendTimeOnBattery !== '') {
+        suspendTime = suspendTimeOnBattery;
+      }
+    }
     if (
       (await gsUtils.isProtectedActiveTab(tab)) ||
       isNaN(suspendTime) ||
@@ -464,7 +508,17 @@ export const tgs = (function() {
 
   function resetAutoSuspendTimerForAllTabs() {
     gsUtils.log(0, 'tgs', 'resetAutoSuspendTimerForAllTabs');
-    chrome.alarms.clearAll(() => {});
+    // Per-tab suspension alarms are named by tab id (a numeric string, see
+    // alarmListener's `parseInt(alarm.name)` in background.js) — clear only those,
+    // not chrome.alarms.clearAll(), which would also wipe the unrelated named
+    // auto-backup/retry/news-feed alarms that this function has nothing to do with.
+    chrome.alarms.getAll((alarms) => {
+      for (const alarm of alarms) {
+        if (/^\d+$/.test(alarm.name)) {
+          chrome.alarms.clear(alarm.name);
+        }
+      }
+    });
     chrome.tabs.query({}, async (tabs) => {
       for (const tab of tabs) {
         if (gsUtils.isNormalTab(tab)) {
@@ -516,7 +570,8 @@ export const tgs = (function() {
     gsUtils.log(tab.id, 'unsuspendTab', tab.url);
     if (!gsUtils.isSuspendedTab(tab)) return;
 
-    const scrollPosition = gsUtils.getSuspendedScrollPosition(tab.url);
+    const dontRestoreScrollPos = await gsStorage.getOption(gsStorage.IGNORE_SCROLL_POS);
+    const scrollPosition = dontRestoreScrollPos ? 'top' : gsUtils.getSuspendedScrollPosition(tab.url);
     await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_SCROLL_POS, scrollPosition);
 
     const originalUrl = gsUtils.getOriginalUrl(tab.url);
@@ -770,13 +825,43 @@ export const tgs = (function() {
     // const tabView = getInternalViewByTabId(tab.id);
     const discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
     const quickInit = discardAfterSuspend && !tab.active;
-    chrome.tabs.sendMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() })
+    const payload = { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() };
+    sendInitTabMessageWithRetry(tab.id, payload)
       .catch((error) => {
         gsUtils.warning(tab.id, 'tgs', 'initialiseSuspendedTab', error);
       })
       .then(() => {
         gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 3000);
       });
+  }
+
+  // This message reaches suspended.html's own page script (not a content script), sent
+  // right after the tab's status turns 'complete' — but that page's module script (and
+  // therefore its chrome.runtime.onMessage listener) can still be a beat behind that
+  // status flip, especially with many suspended tabs loading in the same burst (e.g.
+  // browser startup or crash recovery with hundreds of tabs). A single failed send here
+  // previously left the page's initTab() never called at all — no title, no favicon,
+  // page never shown — until gsTabCheckManager's own recovery pass got to it, which
+  // could take well over 10s under load or get lost entirely if a queued check's
+  // setTimeout didn't survive a service worker recycle in between.
+  //
+  // The happy path (the overwhelming majority of tabs) resolves on the very first
+  // attempt with zero added delay — retries only fire once a send has actually failed,
+  // and every retry is a background message the user never perceives, not something
+  // that blocks the page (already visible, just waiting to populate) or other tabs.
+  // Under real stress-testing (hundreds of tabs, crash recovery) the previous fixed
+  // 3×150ms=450ms budget still wasn't enough for some tabs; exponential backoff spends
+  // more of that extra budget on the *later*, rarer retries instead of racing them all
+  // at the same short interval, without slowing down anything that only needed 1-2 tries.
+  const INIT_TAB_RETRY_DELAYS_MS = [100, 200, 400, 800, 1500, 3000]; // ~6s total budget
+
+  function sendInitTabMessageWithRetry(tabId, payload, attempt = 0) {
+    return chrome.tabs.sendMessage(tabId, payload).catch((error) => {
+      if (attempt >= INIT_TAB_RETRY_DELAYS_MS.length) throw error;
+      const delayMs = INIT_TAB_RETRY_DELAYS_MS[attempt];
+      return new Promise((resolve) => setTimeout(resolve, delayMs))
+        .then(() => sendInitTabMessageWithRetry(tabId, payload, attempt + 1));
+    });
   }
 
   async function removeTabIdReferences(tabId) {
@@ -1136,7 +1221,14 @@ export const tgs = (function() {
     }
     //check never suspend
     //should come after whitelist check as it causes popup to show the whitelisting option
-    if (await gsStorage.getOption(gsStorage.SUSPEND_TIME) === '0') {
+    let effectiveSuspendTime = await gsStorage.getOption(gsStorage.SUSPEND_TIME);
+    if ((await isCharging()) === false) {
+      const suspendTimeOnBattery = await gsStorage.getOption(gsStorage.SUSPEND_TIME_ON_BATTERY);
+      if (suspendTimeOnBattery !== '') {
+        effectiveSuspendTime = suspendTimeOnBattery;
+      }
+    }
+    if (effectiveSuspendTime === '0') {
       callback(gsUtils.STATUS_NEVER);
       return;
     }
@@ -1338,6 +1430,16 @@ export const tgs = (function() {
         contexts: allContexts,
         // onclick: () => unsuspendSelectedTabs(),
       });
+      chrome.contextMenus.create({
+        id: 'suspend_tab_group',
+        title: gsUtils.getMessage('js_context_suspend_tab_group'),
+        contexts: allContexts,
+      });
+      chrome.contextMenus.create({
+        id: 'unsuspend_tab_group',
+        title: gsUtils.getMessage('js_context_unsuspend_tab_group'),
+        contexts: allContexts,
+      });
 
       chrome.contextMenus.create({
         id: 'separator2',
@@ -1417,6 +1519,16 @@ export const tgs = (function() {
       chrome.contextMenus.create({
         id: 'tab_never_suspend_page',
         title: gsUtils.getMessage('js_context_never_suspend_page'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_suspend_group',
+        title: gsUtils.getMessage('js_context_suspend_tab_group'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_unsuspend_group',
+        title: gsUtils.getMessage('js_context_unsuspend_tab_group'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
@@ -1513,6 +1625,8 @@ export const tgs = (function() {
     unsuspendAllTabs,
     suspendSelectedTabs,
     unsuspendSelectedTabs,
+    suspendTabGroup,
+    unsuspendTabGroup,
     whitelistHighlightedTab,
     unsuspendAllTabsInAllWindows,
     unsuspendWhitelistedTabs,

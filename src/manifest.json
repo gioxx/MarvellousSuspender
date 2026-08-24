@@ -1,7 +1,7 @@
 {
   "name": "__MSG_ext_extension_name__",
   "description": "__MSG_ext_extension_description__",
-  "version": "9.0.2",
+  "version": "9.0.3",
   "default_locale": "en",
   "permissions": [
     "tabs",
@@ -12,7 +12,8 @@
     "alarms",
     "favicon",
     "scripting",
-    "tabGroups"
+    "tabGroups",
+    "offscreen"
   ],
   "optional_permissions": [
     "downloads",
@@ -80,6 +81,12 @@
     },
     "2b-unsuspend-selected-tabs": {
       "description": "__MSG_ext_cmd_unsuspend_selected_tabs_description__"
+    },
+    "2c-suspend-tab-group": {
+      "description": "__MSG_ext_cmd_suspend_tab_group_description__"
+    },
+    "2d-unsuspend-tab-group": {
+      "description": "__MSG_ext_cmd_unsuspend_tab_group_description__"
     },
     "3-suspend-active-window": {
       "description": "__MSG_ext_cmd_soft_suspend_active_window_description__"

@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "回復已選擇分頁"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "凍結目前分頁所屬群組中所有的分頁"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "回復目前分頁所屬群組中所有的分頁"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "凍結目前視窗中所有的分頁"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "回復已選擇分頁"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "凍結此群組中所有的分頁"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "回復此群組中所有的分頁"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "凍結目前視窗中所有的分頁"
@@ -314,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "多久後自動凍結"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "使用電池供電時，多久後凍結分頁"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "與使用電源時相同"
+  },
   "html_options_suspend_never": {
     "message": "永不"
   },
@@ -380,8 +398,41 @@
   "html_options_suspend_no_active_tabs": {
     "message": "不要凍結每個視窗的正在使用中的分頁"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "重新開啟已凍結的分頁時永遠捲動到頁面頂端"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "分頁會從頁面頂端重新開啟，"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "而不是凍結時所在的位置。"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "適用於自動與手動凍結，"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "並會覆蓋載入時跳轉到 #區段 的連結。"
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "當分頁被瀏覽就自動回復分頁"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "重新載入也會恢復背景分頁(不僅僅是使用中的分頁)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "啟用後,重新載入已暫停的分頁(Ctrl+R 或右鍵"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "選單中的「重新載入」)會將其恢復,即使它不是"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "目前使用中的分頁。"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "適合一次重新載入多個已暫停的分頁,例如選取多個"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "分頁後按下 Ctrl+R。"
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "暫停時套用瀏覽器內建的省記憶體功能"

@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Obnov vybrané taby"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Pozastav všetky taby v skupine aktívneho tabu"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Obnov všetky taby v skupine aktívneho tabu"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Pozastav ostatné taby v aktívnom okne"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Obnov vybrané taby"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Pozastav všetky taby v tejto skupine"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Obnov všetky taby v tejto skupine"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Pozastav ostatné taby v tomto okne"
@@ -314,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Automaticky pozastav taby po"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Pozastaviť karty na batérii po"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Rovnako ako pri napájaní"
+  },
   "html_options_suspend_never": {
     "message": "Nikdy"
   },
@@ -380,8 +398,41 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Nepozastav aktívny tab v každom okne"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Vždy znova otvoriť uspaté karty od začiatku stránky"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "Karta sa znova otvorí od začiatku stránky namiesto miesta,"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "kde bola pri pozastavení."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Platí pre automatické aj manuálne pozastavenie a má prednosť"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "pred odkazmi, ktoré pri načítaní prejdú na sekciu (#)."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automaticky obnov práve zobrazený tab"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Obnovenie stránky obnoví aj karty na pozadí (nielen aktívnu kartu)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Po zapnutí obnovenie pozastavenej karty (Ctrl+R alebo pravé"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "tlačidlo > Obnoviť) kartu prebudí, aj keď práve nie je"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "aktívna."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Užitočné pri obnovovaní viacerých pozastavených kariet"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "naraz, napr. po výbere viacerých kariet a stlačení Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Pri pozastavení použiť vstavanú úsporu pamäte prehliadača"

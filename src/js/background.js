@@ -16,15 +16,45 @@ import  { tgs }                   from './tgs.js';
 
   let startupDone = false;  // This global is safe because we only use it at startup.  It does not need to survive service worker suspend.
 
-  // Restore persisted capture-logs flag on every SW spawn, not just the first one of the
-  // browser session. gsUtils.captureLogs is an in-memory flag that resets to false whenever
-  // the service worker is recycled (which happens routinely, e.g. after ~30s idle), but
-  // startupOnce() below only runs once per browser session, so the previous version of this
-  // restore call went stale after the SW's first restart and silently dropped captureLogs
-  // for the rest of the session, undermining the exact debugging it's meant to support.
-  chrome.storage.local.get(['gsCaptureVerbose'], (result) => {
-    if (result.gsCaptureVerbose) gsUtils.captureLogs = true;
-  });
+  // Restoring the persisted capture-logs flag on every wake (not just startupOnce, which
+  // runs once per browser session) now lives in gsUtils.js itself, so every context gets
+  // it, not just this service worker.
+
+  // navigator.getBattery() is a Window-only API, unavailable in this service worker — the
+  // offscreen document runs offscreen.js in a real DOM context to read it instead, reporting
+  // charging-state changes back via the 'batteryStatus' message above. The document persists
+  // independently of SW recycling once created, but this runs on every wake (not just
+  // startupOnce, which is once per browser session) to self-heal if it's ever missing —
+  // hasDocument() keeps repeat calls cheap, and a concurrent createDocument() call from
+  // another SW wake is caught and ignored rather than treated as an error.
+  // chrome.offscreen.hasDocument() only exists from Chrome 150+, but manifest.json's
+  // minimum_chrome_version is 110 — on 110-149 calling it would throw and this function
+  // would never get past that line, silently disabling battery status on every supported
+  // version below 150. clients.matchAll() is a standard ServiceWorkerGlobalScope API
+  // available across the whole supported range, so it's used as the existence check there.
+  async function hasOffscreenDocument() {
+    if (typeof chrome.offscreen.hasDocument === 'function') {
+      return chrome.offscreen.hasDocument();
+    }
+    const matchedClients = await self.clients.matchAll();
+    return matchedClients.some((client) => client.url.endsWith('offscreen.html'));
+  }
+
+  async function ensureOffscreenDocument() {
+    if (!chrome.offscreen) return;
+    try {
+      if (await hasOffscreenDocument()) return;
+      await chrome.offscreen.createDocument({
+        url: 'offscreen.html',
+        reasons: ['BATTERY_STATUS'],
+        justification: 'Read charging state via navigator.getBattery(), unavailable in the service worker.',
+      });
+    }
+    catch (error) {
+      gsUtils.log('background', 'ensureOffscreenDocument', 'createDocument failed (likely a concurrent call)', error);
+    }
+  }
+  ensureOffscreenDocument();
 
   function startupOnce() {
     gsUtils.log('startupOnce');
@@ -136,114 +166,176 @@ import  { tgs }                   from './tgs.js';
   // }
 
 
-  async function messageRequestListener(request, sender, sendResponse) {
+  function messageRequestListener(request, sender, sendResponse) {
+    // gsAppendLogEntries is handled by gsUtils.js's own dedicated listener (registered
+    // separately, since it's the sole writer of the log-buffer storage keys), not by
+    // the switch below — it still reaches this listener too, since Chrome delivers a
+    // broadcast message to every registered listener independently. Logging it here
+    // (even at the top-level log() call below, let alone as "unknown action" in the
+    // default case) would add a new entry needing its own flush on every flush cycle,
+    // forever. Only this one action is skipped here, unlike the equivalent guard in
+    // options.js/suspended.js/updated.js, since this switch is where 'clearLogs' (the
+    // other entry in INTERNAL_MESSAGE_ACTIONS) is actually meant to be handled.
+    //
+    // This check has to run before this function does anything async — declaring the
+    // whole function `async` (as it used to be) meant even this early `return false`
+    // was wrapped in a Promise rather than being the literal `false` Chrome needs to
+    // decline the message synchronously. On Chrome versions that treat a returned
+    // Promise as an async response, that Promise could resolve (as `false`) before
+    // gsUtils.js's own dedicated listener finished its real, slower `{ success: true }`
+    // response, and the sender only keeps whichever response arrives first — so
+    // _flushNow() would see `false`, requeue an already-persisted batch, and resend
+    // (and re-persist) it every 1.5s indefinitely.
+    if (request.action === 'gsAppendLogEntries') return false;
+
     gsUtils.log('background', 'messageRequestListener', request.action, request, sender);
 
-    switch (request.action) {
-      case 'reportTabState' : {
-        const contentScriptStatus = request?.status ?? null;
-        if (
-          contentScriptStatus === 'formInput' ||
+    // The rest of this listener still needs to run async work before responding, so it
+    // returns `true` synchronously (see above) and does that work in this IIFE instead.
+    (async () => {
+      let responseData;
+      try {
+        switch (request.action) {
+          case 'reportTabState' : {
+            const contentScriptStatus = request?.status ?? null;
+            if (
+              contentScriptStatus === 'formInput' ||
           contentScriptStatus === 'tempWhitelist'
-        ) {
-          await chrome.tabs.update(sender.tab.id, { autoDiscardable: false });
-        }
-        else if (!sender.tab.autoDiscardable) {
-          await chrome.tabs.update(sender.tab.id, { autoDiscardable: true });
-        }
+            ) {
+              await chrome.tabs.update(sender.tab.id, { autoDiscardable: false });
+            }
+            else if (!sender.tab.autoDiscardable) {
+              await chrome.tabs.update(sender.tab.id, { autoDiscardable: true });
+            }
         // If tab is currently visible then update popup icon
-        if (sender.tab && await tgs.isCurrentFocusedTab(sender.tab)) {
-          await tgs.calculateTabStatus(sender.tab, contentScriptStatus, (status) => {
-            tgs.setIconStatus(status, sender.tab.id);
-          });
-        }
-        break;
-      }
-      case 'savePreviewData' : {
-        await gsTabSuspendManager.handlePreviewImageResponse(sender.tab, request.previewUrl, request.errorMsg); // async. unhandled promise
-        break;
-      }
-      case 'fetchNewsFeed' : {
-        gsNewsFeed.fetchAndCacheIfStale();
-        break;
-      }
+            if (sender.tab && await tgs.isCurrentFocusedTab(sender.tab)) {
+              await tgs.calculateTabStatus(sender.tab, contentScriptStatus, (status) => {
+                tgs.setIconStatus(status, sender.tab.id);
+              });
+            }
+            break;
+          }
+          case 'savePreviewData' : {
+            await gsTabSuspendManager.handlePreviewImageResponse(sender.tab, request.previewUrl, request.errorMsg); // async. unhandled promise
+            break;
+          }
+          case 'fetchNewsFeed' : {
+            gsNewsFeed.fetchAndCacheIfStale();
+            break;
+          }
 
-      case 'suspendOne' : {
-        tgs.suspendHighlightedTab();
-        break;
-      }
-      case 'unsuspendOne' : {
-        tgs.unsuspendHighlightedTab();
-        break;
-      }
-      case 'suspendAll' : {
-        tgs.suspendAllTabs(false);
-        break;
-      }
-      case 'unsuspendAll' : {
-        tgs.unsuspendAllTabs();
-        break;
-      }
-      case 'unsuspendWhitelisted' : {
-        tgs.unsuspendWhitelistedTabs();
-        break;
-      }
-      case 'forceSuspendAlwaysList' : {
-        tgs.forceSuspendAlwaysListedTabs();
-        break;
-      }
-      case 'suspendSelected' : {
-        tgs.suspendSelectedTabs();
-        break;
-      }
-      case 'unsuspendSelected' : {
-        tgs.unsuspendSelectedTabs();
-        break;
-      }
-      case 'whitelistDomain' : {
-        tgs.whitelistHighlightedTab(false);
-        break;
-      }
-      case 'whitelistPage' : {
-        tgs.whitelistHighlightedTab(true);
-        break;
-      }
-      case 'sessionManagerLink': {
-        await chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
-        break;
-      }
-      case 'settingsLink' : {
-        await chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
-        break;
-      }
-      case 'backupNow' : {
-        try {
-          await gsBackup.performManualBackup();
-        } catch (e) {
-          if (e?.message !== 'TMS_BACKUP_COOLDOWN') throw e;
-        }
-        break;
-      }
-      case 'setCaptureLogs' : {
-        gsUtils.captureLogs = request.value;
-        break;
-      }
-      case 'clearLogs' : {
+      // navigator.getBattery() doesn't work in this service worker (Window-only API), so
+      // offscreen.js reads it from an offscreen document and reports changes here instead.
+          case 'batteryStatus' : {
+            await tgs.setCharging(request.charging);
+            gsUtils.log('background', `isCharging: ${await tgs.isCharging()}`);
+            tgs.setIconStatusForActiveTab();
+        // Restart timers on all normal tabs: some may have been prevented from suspending
+        // while charging, or need to switch to/from the battery-specific timeout now.
+            const hasBatterySpecificTimeout =
+          (await gsStorage.getOption(gsStorage.SUSPEND_TIME_ON_BATTERY)) !== '';
+            if (
+              ((await tgs.isCharging()) === false &&
+            await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING)) ||
+          hasBatterySpecificTimeout
+            ) {
+              tgs.resetAutoSuspendTimerForAllTabs();
+            }
+            break;
+          }
+
+          case 'suspendOne' : {
+            tgs.suspendHighlightedTab();
+            break;
+          }
+          case 'unsuspendOne' : {
+            tgs.unsuspendHighlightedTab();
+            break;
+          }
+          case 'suspendAll' : {
+            tgs.suspendAllTabs(false);
+            break;
+          }
+          case 'unsuspendAll' : {
+            tgs.unsuspendAllTabs();
+            break;
+          }
+          case 'unsuspendWhitelisted' : {
+            tgs.unsuspendWhitelistedTabs();
+            break;
+          }
+          case 'forceSuspendAlwaysList' : {
+            tgs.forceSuspendAlwaysListedTabs();
+            break;
+          }
+          case 'suspendSelected' : {
+            tgs.suspendSelectedTabs();
+            break;
+          }
+          case 'unsuspendSelected' : {
+            tgs.unsuspendSelectedTabs();
+            break;
+          }
+          case 'whitelistDomain' : {
+            tgs.whitelistHighlightedTab(false);
+            break;
+          }
+          case 'whitelistPage' : {
+            tgs.whitelistHighlightedTab(true);
+            break;
+          }
+          case 'sessionManagerLink': {
+            await chrome.tabs.create({ url: chrome.runtime.getURL('history.html') });
+            break;
+          }
+          case 'settingsLink' : {
+            await chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
+            break;
+          }
+          case 'backupNow' : {
+            try {
+              await gsBackup.performManualBackup();
+            }
+            catch (e) {
+              if (e?.message !== 'TMS_BACKUP_COOLDOWN') throw e;
+            }
+            break;
+          }
+          case 'setCaptureLogs' : {
+            gsUtils.captureLogs = request.value;
+            break;
+          }
+          case 'repairFavicons' : {
+            responseData = await gsSession.performTabChecks();
+            break;
+          }
+          case 'clearLogs' : {
         // The debug page runs in its own context with its own copy of the gsUtils
         // module — clearing chrome.storage from there doesn't touch this service
         // worker's in-memory _logBuffer/_logBufferFull, so the next log entry (or an
         // already-pending debounced flush) would silently write the old buffers back
         // over the just-cleared storage. Route the clear through here instead.
-        gsUtils.clearLogBuffer();
-        break;
+            responseData = { success: await gsUtils.clearLogBuffer() };
+            break;
+          }
+          default: {
+            gsUtils.warning('background', 'messageRequestListener', `Unknown message action: ${request.action}`);
+            break;
+          }
+        }
       }
-      default: {
-        gsUtils.warning('background', 'messageRequestListener', `Unknown message action: ${request.action}`);
-        break;
+      catch (error) {
+        // Without this, an awaited call throwing (performTabChecks(), a manual-backup
+        // failure, etc.) would reject this detached IIFE with nothing ever catching it —
+        // sendResponse() below never runs, and since the outer listener already returned
+        // `true` to keep the channel open, the sender is left waiting until the message
+        // port itself eventually tears down instead of promptly seeing the failure.
+        gsUtils.error(`messageRequestListener error for action ${request.action}: `, error);
+        responseData = undefined;
       }
-    }
-    sendResponse();
-    return false;
+      sendResponse(responseData);
+    })();
+    return true;
   }
 
   async function externalMessageRequestListener(request, sender, sendResponse) {
@@ -327,6 +419,14 @@ import  { tgs }                   from './tgs.js';
       case 'unsuspend_selected_tabs':
         tgs.unsuspendSelectedTabs();
         break;
+      case 'suspend_tab_group':
+      case 'tab_suspend_group':
+        tgs.suspendTabGroup(tab);
+        break;
+      case 'unsuspend_tab_group':
+      case 'tab_unsuspend_group':
+        tgs.unsuspendTabGroup(tab);
+        break;
       case 'soft_suspend_other_tabs_in_window':
         tgs.suspendAllTabs(false);
         break;
@@ -393,6 +493,20 @@ import  { tgs }                   from './tgs.js';
       case '2b-unsuspend-selected-tabs':
         tgs.unsuspendSelectedTabs();
         break;
+      case '2c-suspend-tab-group': {
+        const tab = await new Promise((r) => {
+          tgs.getCurrentlyActiveTab(r);
+        });
+        tgs.suspendTabGroup(tab);
+        break;
+      }
+      case '2d-unsuspend-tab-group': {
+        const tab = await new Promise((r) => {
+          tgs.getCurrentlyActiveTab(r);
+        });
+        tgs.unsuspendTabGroup(tab);
+        break;
+      }
       case '3-suspend-active-window':
         tgs.suspendAllTabs(false);
         break;
@@ -529,29 +643,6 @@ import  { tgs }                   from './tgs.js';
 
   // Listeners must part of the top-level evaluation of the service worker
   function addMiscListeners() {
-    // add listener for battery state changes
-    // @TODO: It appears service workers ( via Manifest V3 ) do not have access to getBattery
-    // gsUtils.log('background', '@TODO addMiscListeners', 'typeof getBattery', typeof navigator.getBattery);
-    if ('getBattery' in navigator && typeof navigator.getBattery === 'function') {
-      navigator.getBattery().then(async (battery) => {
-        await tgs.setCharging(battery.charging);
-
-        battery.onchargingchange = async () => {
-          await tgs.setCharging(battery.charging);
-          gsUtils.log('background', `isCharging: ${await tgs.isCharging()}`);
-          tgs.setIconStatusForActiveTab();
-          //restart timer on all normal tabs
-          //NOTE: some tabs may have been prevented from suspending when computer was charging
-          if (
-            !(await tgs.isCharging()) &&
-              await gsStorage.getOption(gsStorage.IGNORE_WHEN_CHARGING)
-          ) {
-            tgs.resetAutoSuspendTimerForAllTabs();
-          }
-        };
-      });
-    }
-
     // These listeners must be in the main execution path for service workers
     addEventListener('online', async () => {
       gsUtils.log('background', 'Internet is online.');

@@ -108,31 +108,92 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  async function fetchTabInfo() {
-    const tabs = await gsChrome.tabsQuery();
-    const tabGroupsMap = await gsChrome.tabGroupsMap();
-    const debugInfos = await Promise.all(
-      tabs.map((curTab) =>
-        promiseWithTimeout(
-          new Promise((resolve) =>
-            getDebugInfo(curTab.id, (info) => {
-              info.tab   = curTab;
-              info.group = tabGroupsMap[info.groupId];
-              resolve(info);
-            })
-          ), 500, {
-            windowId  : curTab.windowId,
-            tabId     : curTab.id,
-            groupId   : curTab.groupId,
-            status    : gsUtils.STATUS_UNKNOWN,
-            tab       : curTab,
-          }
-        )
-      )
-    );
+  // Chrome/the OS can genuinely fire several 'focus' events on this page in quick
+  // succession (multi-monitor setups, rapid alt-tabbing, etc.) — without the guards
+  // below, each one kicks off its own full fetchTabInfo() run, and every one of those
+  // calls getDebugInfo() (and, for every "normal" tab among them, a real
+  // getRequestInfoToContentScript() round trip) for every currently open tab again, all
+  // overlapping. Confirmed via a live debug report: a burst of duplicate
+  // "getDebugInfo"/"getDebugInfo callback" log lines for the same tab within the same
+  // millisecond, repeated roughly once per stray focus event.
+  //
+  // A later call arriving while one is already in flight isn't simply dropped, though: the
+  // in-flight run's tabsQuery() snapshot was taken before that later call arrived, so if the
+  // user left and came back (opened/closed/changed a tab) inside that window, the in-flight
+  // run's result is already stale by the time it renders. One follow-up run is queued to
+  // pick up the fresh state afterwards — further calls arriving while that follow-up is
+  // already queued are still coalesced into it, so a rapid burst still only ever produces at
+  // most one extra run, not one per stray event.
+  let _fetchingTabInfo = false;
+  let _fetchTabInfoPending = false;
 
-    document.getElementById('gsProfilerBody').innerHTML =
-      debugInfos.map(generateTabInfo).join('\n');
+  async function fetchTabInfo() {
+    if (_fetchingTabInfo) {
+      _fetchTabInfoPending = true;
+      return;
+    }
+    _fetchingTabInfo = true;
+    try {
+      do {
+        _fetchTabInfoPending = false;
+        const tabs = await gsChrome.tabsQuery();
+        const tabGroupsMap = await gsChrome.tabGroupsMap();
+        const debugInfos = await Promise.all(
+          tabs.map((curTab) =>
+            promiseWithTimeout(
+              new Promise((resolve) =>
+                getDebugInfo(curTab.id, (info) => {
+                  info.tab   = curTab;
+                  info.group = tabGroupsMap[info.groupId];
+                  resolve(info);
+                })
+              ), 500, {
+                windowId  : curTab.windowId,
+                tabId     : curTab.id,
+                groupId   : curTab.groupId,
+                status    : gsUtils.STATUS_UNKNOWN,
+                tab       : curTab,
+              }
+            )
+          )
+        );
+
+        document.getElementById('gsProfilerBody').innerHTML =
+          debugInfos.map(generateTabInfo).join('\n');
+      } while (_fetchTabInfoPending);
+    }
+    finally {
+      _fetchingTabInfo = false;
+    }
+  }
+
+  // The in-flight/pending guards above stop concurrent runs from ever overlapping, but on
+  // their own they don't stop a genuinely rapid sequence of separate focus events (real
+  // ones, e.g. someone alt-tabbing repeatedly while stress-testing) from each still
+  // triggering its own full, serialized run — confirmed via a live debug report showing
+  // ~one fetchTabInfo() run roughly every 3-4 seconds sustained over a 13-minute session.
+  // Every run is still real per-tab work (a tabsQuery() over every open tab, plus a message
+  // round trip for each "normal" one), so debouncing rapid focus events down to at most one
+  // real run per window here cuts sustained cost during exactly that kind of stress test,
+  // independent of whatever's triggering the focus events in the first place.
+  const _FETCH_TAB_INFO_DEBOUNCE_MS = 1000;
+  let _fetchTabInfoDebounceTimer = null;
+
+  function scheduleFetchTabInfo() {
+    // Genuinely trailing: every call resets the timer, so a rapid sequence of focus
+    // events only actually triggers fetchTabInfo() once, after they've stopped for the
+    // full debounce interval. Without the reset, a focus event arriving while the timer
+    // from an earlier one was already armed left that earlier timer untouched — if a
+    // run happened to still be in flight when it fired (easily over 1s once a check
+    // needs content-script reinjection, itself up to several seconds), fetchTabInfo()'s
+    // own pending-flag would queue an immediate follow-up the moment that run finished,
+    // and continued focus events could keep that same back-to-back cycle going
+    // indefinitely — never actually settling into the throttled cadence this exists for.
+    clearTimeout(_fetchTabInfoDebounceTimer);
+    _fetchTabInfoDebounceTimer = setTimeout(() => {
+      _fetchTabInfoDebounceTimer = null;
+      fetchTabInfo();
+    }, _FETCH_TAB_INFO_DEBOUNCE_MS);
   }
 
   // ── Log buffer ──────────────────────────────────────────────────────────────
@@ -192,7 +253,7 @@ import  { tgs }                   from './tgs.js';
     counter.textContent = buffer.length;
     counterFull.textContent = bufferFull.length;
     if (buffer.length === 0) {
-      output.innerHTML = '<div class="logEmpty">No entries. Enable <strong>captureLogs</strong> above, then reproduce the issue to capture logs, warnings and errors.</div>';
+      output.innerHTML = '<div class="logEmpty">No entries. Errors are always captured automatically. Enable <strong>captureLogs</strong> above to also capture warnings and verbose logs, then reproduce the issue.</div>';
     } else if (output.classList.contains('warnErrOnly') && !buffer.some(e => e.level === 'W' || e.level === 'E')) {
       output.innerHTML = '<div class="logEmpty">No warnings or errors in the current buffer.</div>';
     } else {
@@ -340,6 +401,29 @@ import  { tgs }                   from './tgs.js';
     setTimeout(() => { link.textContent = 'simulate unread'; }, 2000);
   }
 
+  // ── Power source ──────────────────────────────────────────────────────────────────────────
+
+  // Surfaces the same navigator.getBattery() read tgs.js/background.js rely on for the
+  // "never suspend while charging" and battery-specific-timeout options, so it's easy to
+  // confirm what the extension currently sees without guessing from behaviour alone.
+  function initPowerSourceStatus() {
+    const iconEl   = document.getElementById('powerSourceIcon');
+    const statusEl = document.getElementById('powerSourceStatus');
+    if (!iconEl || !statusEl) return;
+    if (!('getBattery' in navigator) || typeof navigator.getBattery !== 'function') {
+      statusEl.textContent = 'unavailable in this context';
+      return;
+    }
+    navigator.getBattery().then((battery) => {
+      const render = () => {
+        iconEl.setAttribute('href', `img/icons.svg#${battery.charging ? 'plug' : 'battery'}`);
+        statusEl.textContent = battery.charging ? 'AC power' : 'on battery';
+      };
+      render();
+      battery.onchargingchange = render;
+    });
+  }
+
   // ── Backup device identity ────────────────────────────────────────────────────────────────
 
   async function renderBackupDeviceInfo() {
@@ -377,6 +461,16 @@ import  { tgs }                   from './tgs.js';
     setTimeout(() => { link.textContent = 'clear cache'; }, 2000);
   }
 
+  async function onRepairFavicons(e) {
+    e.preventDefault();
+    const link = document.getElementById('repairFavicons');
+    const prev = link.textContent;
+    link.textContent = 'repairing...';
+    const result = await chrome.runtime.sendMessage({ action: 'repairFavicons' }).catch(() => null);
+    link.textContent = result ? `repaired ${result.successful}/${result.total}` : 'failed';
+    setTimeout(() => { link.textContent = prev; }, 3000);
+  }
+
   // ── Changelog modal ───────────────────────────────────────────────────────────────────────
 
   async function onResetChangelogSeen(e) {
@@ -395,6 +489,7 @@ import  { tgs }                   from './tgs.js';
     await renderDiscardToggle();
     await renderNewsFeedStatus();
     await renderBackupDeviceInfo();
+    initPowerSourceStatus();
     await refreshLogs();
     await fetchTabInfo();
 
@@ -402,6 +497,7 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('toggleDiscardInPlaceOfSuspend').addEventListener('click', onToggleDiscard);
     document.getElementById('claimSuspendedTabs').addEventListener('click', onClaimSuspendedTabs);
     document.getElementById('clearFaviconCache').addEventListener('click', onClearFaviconCache);
+    document.getElementById('repairFavicons').addEventListener('click', onRepairFavicons);
     document.getElementById('resetChangelogSeen').addEventListener('click', onResetChangelogSeen);
     const isStoreInstall = !!chrome.runtime.getManifest().update_url;
     const feedRefreshLink = document.getElementById('forceNewsFeedRefresh');
@@ -427,12 +523,18 @@ import  { tgs }                   from './tgs.js';
     });
 
     document.getElementById('btnClearLog').addEventListener('click', async () => {
-      // Routed through the service worker (rather than clearing chrome.storage
-      // directly from here) so its own in-memory _logBuffer/_logBufferFull get
-      // cleared too — otherwise the next log entry, or an already-pending debounced
-      // flush over there, would write those still-populated arrays back over the
-      // storage this page just cleared.
-      await chrome.runtime.sendMessage({ action: 'clearLogs' }).catch(() => {});
+      // Routed through the service worker (the only writer of the persisted log-buffer
+      // keys) rather than clearing chrome.storage directly from here.
+      const btn = document.getElementById('btnClearLog');
+      const prevText = btn.textContent;
+      const response = await chrome.runtime.sendMessage({ action: 'clearLogs' }).catch(() => null);
+      if (!response || !response.success) {
+        // Refreshing below would otherwise silently show the same old entries with no
+        // indication Clear didn't actually happen (a transient storage error, or the
+        // service worker restarting mid-request).
+        btn.textContent = 'clear failed';
+        setTimeout(() => { btn.textContent = prevText; }, 3000);
+      }
       await refreshLogs();
     });
 
@@ -457,7 +559,7 @@ import  { tgs }                   from './tgs.js';
     });
 
     window.addEventListener('focus', () => {
-      fetchTabInfo();
+      scheduleFetchTabInfo();
       refreshLogs();
     });
 

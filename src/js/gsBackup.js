@@ -955,9 +955,9 @@ export const gsBackup = (() => {
     const dataUrl = `data:application/json;base64,${base64}`;
     await chrome.downloads.download({
       url            : dataUrl,
-      filename       : `${BACKUP_SUBDIR}/${filename}`,
+      filename,
       saveAs         : false,
-      conflictAction : 'overwrite',
+      conflictAction : 'uniquify',
     });
   }
 

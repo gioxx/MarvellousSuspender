@@ -54,6 +54,9 @@ body.suspended-page:not(.img-preview-mode) {
 .dark .faviconWrapLowContrast {
     filter: invert(1) grayscale(1);
 }
+.dark .snoozyWrapper.mascotLowContrast {
+    filter: brightness(0.7);
+}
 .gsTopBarImg {
     height: 16px;
     width: 16px;
@@ -67,6 +70,10 @@ body.suspended-page:not(.img-preview-mode) {
     color: inherit;
     cursor: pointer;
     padding: 0 20px;
+}
+.dark .gsTopBarTitle,
+.dark .gsTopBarUrl {
+    color: var(--muted-foreground);
 }
 .gsTopBarUrl,
 .gsTopBarTitleWrap {

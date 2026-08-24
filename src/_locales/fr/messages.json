@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Annule la suspension des onglets sélectionnés"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Suspend tous les onglets du groupe de l'onglet actif"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Annule la suspension de tous les onglets du groupe de l'onglet actif"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspend tous les autres onglets de la fenêtre active"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Annuler la suspension des onglets sélectionnés"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Suspendre tous les onglets de ce groupe"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Annuler la suspension de tous les onglets de ce groupe"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspendre tous les autres onglets de cette fenêtre"
@@ -314,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Suspendre automatiquement les onglets après"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Suspendre les onglets sur batterie après"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Identique à sur secteur"
+  },
   "html_options_suspend_never": {
     "message": "Jamais"
   },
@@ -380,8 +398,41 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Ne jamais suspendre les onglets actifs dans chaque fenêtre"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Toujours rouvrir les onglets suspendus en haut de la page"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "L'onglet se rouvre en haut de la page au lieu de l'endroit où il"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "était défilé lors de la suspension."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "S'applique à la suspension automatique et manuelle, et prévaut"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "sur les liens qui pointent vers une section (#) au chargement."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automatiquement annuler la suspension de l'onglet lorsqu'il est vu"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Le rechargement annule aussi la suspension des onglets en arrière-plan (pas seulement l'onglet actif)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Une fois activé, recharger un onglet suspendu (Ctrl+R ou clic"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "droit > Recharger) annule aussi sa suspension même si ce"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "n'est pas l'onglet actif."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Utile pour recharger plusieurs onglets suspendus à la fois,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "par exemple après en avoir sélectionné plusieurs et appuyé sur Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Appliquer l'économie de mémoire intégrée du navigateur lors de la suspension"

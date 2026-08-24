@@ -20,6 +20,12 @@
   "ext_cmd_unsuspend_selected_tabs_description": {
     "message": "Seçilen sekmenin askısını kaldır"
   },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Aktif sekmenin grubundaki tüm sekmeleri askıya al"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Aktif sekmenin grubundaki tüm sekmelerin askısını kaldır"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Aktif pencere dışında tüm sekmeleri askıya al"
   },
@@ -58,6 +64,12 @@
   },
   "js_context_unsuspend_selected_tabs": {
     "message": "Seçilen sekmenin askısını kaldır"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Bu gruptaki tüm sekmeleri askıya al"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Bu gruptaki tüm sekmelerin askısını kaldır"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Bu pencere dışındaki tüm sekmeleri askıya al"
@@ -314,6 +326,12 @@
   "html_options_suspend_automatically_after": {
     "message": "Otomatik sekmeyi askıya al"
   },
+  "html_options_suspend_on_battery_after": {
+    "message": "Pil gücündeyken sekmeleri şu süre sonra askıya al"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Prize takılıyken ile aynı"
+  },
   "html_options_suspend_never": {
     "message": "Hiç"
   },
@@ -380,8 +398,41 @@
   "html_options_suspend_no_active_tabs": {
     "message": "Asla aktif penceredeki sekmeye askıya al yapma"
   },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Askıya alınmış sekmeleri her zaman sayfanın en üstünden yeniden aç"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "Sekme, askıya alındığı konum yerine sayfanın en üstünden"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "yeniden açılır."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Hem otomatik hem de manuel askıya almaya uygulanır ve"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "yüklemede bir #bölüme atlayan bağlantıları geçersiz kılar."
+  },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Sekme görüntülendiğinde askısını kaldır"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Yeniden yükleme, arka plandaki sekmelerin de askısını kaldırır (yalnızca etkin sekmenin değil)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Etkinleştirildiğinde, askıya alınmış bir sekmeyi yeniden yüklemek"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "(Ctrl+R veya sağ tık > Yeniden Yükle) o sekme etkin sekme"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "olmasa bile askısını kaldırır."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Birden çok askıya alınmış sekmeyi aynı anda yeniden yüklerken"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "kullanışlıdır, örn. birden çok sekme seçip Ctrl+R'ye basınca."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Askıya alırken tarayıcının yerleşik bellek tasarrufunu uygula"

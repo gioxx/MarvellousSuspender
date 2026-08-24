@@ -179,6 +179,11 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
+  function updateMascotContrast() {
+    const isDark = document.body.classList.contains('dark');
+    document.querySelector('.snoozyWrapper').classList.toggle('mascotLowContrast', isDark);
+  }
+
   function setTheme(theme, isLowContrastFavicon) {
     gsUtils.setPageTheme(window, theme);
     if (theme === 'dark' && isLowContrastFavicon) {
@@ -186,6 +191,7 @@ import  { tgs }                   from './tgs.js';
     } else {
       document.getElementById('faviconWrap').classList.remove('faviconWrapLowContrast');
     }
+    updateMascotContrast();
   }
 
   function setTitle(title) {
@@ -211,7 +217,55 @@ import  { tgs }                   from './tgs.js';
     setGoToUpdateHandler();
   }
 
-  async function setUnloadTabHandler(tab) {
+  let _unloadHandlerRegistered = false;
+
+  // Kept as mutable module state rather than a value closed over by the beforeunload
+  // handler below, so that toggling the option in options.js while this suspended page
+  // is already loaded takes effect immediately via the chrome.storage.onChanged listener
+  // further down — without adding a storage read inside the handler itself (see the note
+  // on setUnloadTabHandler for why that read can't happen there).
+  let _reloadUnsuspendBackground = false;
+
+  // gsStorage persists all options as one blob under the 'gsSettings' key (see
+  // gsStorage.saveSettings), not as individual per-option keys, so the change has to be
+  // picked out of that blob's newValue rather than matched by RELOAD_UNSUSPEND_BACKGROUND
+  // directly.
+  if (typeof chrome !== 'undefined' && chrome.storage) {
+    chrome.storage.onChanged.addListener((changes, areaName) => {
+      if (areaName === 'local' && 'gsSettings' in changes) {
+        const newSettings = changes.gsSettings.newValue;
+        if (newSettings && gsStorage.RELOAD_UNSUSPEND_BACKGROUND in newSettings) {
+          _reloadUnsuspendBackground = !!newSettings[gsStorage.RELOAD_UNSUSPEND_BACKGROUND];
+        }
+      }
+    });
+  }
+
+  // reloadUnsuspendBackground is resolved by the caller (at initTab time, no time
+  // pressure there) rather than re-fetched inside the beforeunload handler below.
+  // Chrome gives beforeunload no guarantee that pending async work finishes before
+  // the page is actually torn down — every extra `await` in the handler (a settings
+  // lookup, a diagnostic read, isCurrentFocusedTab()'s own storage reads) is more
+  // time for a multi-tab reload to lose that race. With several tabs reloaded
+  // together, contending for the same chrome.storage IPC, that's exactly what
+  // happened in testing: a random subset of tabs failed to unsuspend each run,
+  // a different subset every time, because whichever write hadn't resolved yet
+  // when the page died simply never landed. Cutting the pre-write hops from ~4
+  // down to 1 (the actual storage write) shrinks that window.
+  async function setUnloadTabHandler(tab, reloadUnsuspendBackground) {
+    _reloadUnsuspendBackground = reloadUnsuspendBackground;
+
+    // initTab() re-runs (without quickInit) whenever checkQueue reinitialises an
+    // unresponsive suspended tab, which would otherwise call this again and stack a
+    // second beforeunload listener carrying its own captured `tab` snapshot. Both
+    // listeners would then race to write STATE_UNLOADED_URL on the actual unload,
+    // non-deterministically, since each write is an async storage call — whichever
+    // resolves last wins, independent of which snapshot is actually correct. Only
+    // the first registration is needed: the suspended.html URL itself never changes
+    // for the lifetime of a suspended tab, so the first capture stays valid.
+    if (_unloadHandlerRegistered) return;
+    _unloadHandlerRegistered = true;
+
     // beforeunload event will get fired if: the tab is refreshed, the url is changed,
     // the tab is closed, or the tab is frozen by chrome ??
     // when this happens the STATE_UNLOADED_URL gets set with the suspended tab url
@@ -219,9 +273,9 @@ import  { tgs }                   from './tgs.js';
     // if the url is changed then on reload the url will not match
     // if the tab is closed, the reload will never occur
     addEventListener('beforeunload', async (event) => {
-      gsUtils.log(tab.id, 'BeforeUnload triggered', tab.url, await tgs.getTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL));
-      if (await tgs.isCurrentFocusedTab(tab)) {
+      if (_reloadUnsuspendBackground || await tgs.isCurrentFocusedTab(tab)) {
         await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL, tab.url);
+        gsUtils.log(tab.id, 'BeforeUnload triggered, marked as reload', tab.url);
       }
       else {
         gsUtils.log( tab.id, 'Ignoring beforeUnload as tab is not currently focused.', );
@@ -275,6 +329,13 @@ import  { tgs }                   from './tgs.js';
     setFaviconMeta(faviconMeta);
 
     if (quickInit) {
+      // quickInit skips the heavy setup below (preview, unsuspend click handlers, etc.)
+      // for tabs about to be discarded anyway, but that also means it never registers
+      // the beforeunload listener the "reload also unsuspends background tabs" option
+      // depends on — a background tab suspended with "Discard after suspend" on always
+      // takes this path, silently defeating that option regardless of its own state.
+      const reloadUnsuspendBackground = await gsStorage.getOption(gsStorage.RELOAD_UNSUSPEND_BACKGROUND);
+      await setUnloadTabHandler(tab, reloadUnsuspendBackground);
       return;
     }
 
@@ -282,7 +343,7 @@ import  { tgs }                   from './tgs.js';
     const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
 
     // Add event listeners
-    await setUnloadTabHandler(tab);
+    await setUnloadTabHandler(tab, options[gsStorage.RELOAD_UNSUSPEND_BACKGROUND]);
     await setUnsuspendTabHandlers(tab);
 
     // Set imagePreview
@@ -350,7 +411,34 @@ import  { tgs }                   from './tgs.js';
     setScrollPosition(scrollPosition, previewMode);
   }
 
-  async function messageRequestListener(request, sender, sendResponse) {
+  const HANDLED_MESSAGE_ACTIONS = new Set([
+    'initTab', 'getSuspendInfo', 'updateCommand', 'updateTheme',
+    'updateMascot', 'updatePreviewMode', 'showNoConnectivityMessage',
+  ]);
+
+  // chrome.runtime.sendMessage with no tabId broadcasts to every extension page
+  // (this one included), not just its intended recipient (e.g. the service worker).
+  // An async function listener always returns a Promise the instant it's invoked,
+  // regardless of what it returns internally — so a synchronous dispatcher that
+  // checks request.action first is the only reliable way to give Chrome a real,
+  // immediate `false` for actions this page doesn't own, so it doesn't shadow
+  // whichever listener the message was actually meant for.
+  function messageRequestListener(request, sender, sendResponse) {
+    if (!HANDLED_MESSAGE_ACTIONS.has(request.action)) {
+      // gsAppendLogEntries especially must stay unlogged here: logging it would be a
+      // log entry needing its own flush, whose "ignored" broadcast produces another
+      // one in turn, in every open suspended tab, forever. See the matching guard in
+      // options.js/updated.js.
+      if (!gsUtils.INTERNAL_MESSAGE_ACTIONS.has(request.action)) {
+        gsUtils.log('suspended', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
+      }
+      return false;
+    }
+    handleMessageRequest(request, sender, sendResponse);
+    return true;
+  }
+
+  async function handleMessageRequest(request, sender, sendResponse) {
     gsUtils.log('suspended', 'messageRequestListener', request.action, request, sender);
 
     switch (request.action) {
@@ -386,6 +474,7 @@ import  { tgs }                   from './tgs.js';
       case 'updateMascot' : {
         // { action: 'updateMascot' }
         await gsMascot.applyToDocument(document);
+        updateMascotContrast();
         sendResponse();
         break;
       }
@@ -402,20 +491,22 @@ import  { tgs }                   from './tgs.js';
         sendResponse();
         break;
       }
-
-      default: {
-        // NOTE: All messages sent to chrome.runtime will be delivered here too
-        gsUtils.log('suspended', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
-        // sendResponse();
-        break;
-      }
     }
-    return true;
   }
+
+  // Registered as soon as the DOM is ready, decoupled from the full localisation chain
+  // below (locale storage read, possible locale-file fetch, mascot/theme application) —
+  // that chain has no fixed upper bound, especially with dozens of suspended pages
+  // initialising concurrently (e.g. browser startup), and tgs.js's initTab message can
+  // arrive as soon as this tab's status flips to 'complete'. Registering the listener
+  // early instead of waiting on that whole chain closes the race at the source, rather
+  // than relying on tgs.js retrying a fixed number of times against an unbounded wait.
+  gsUtils.documentReadyAsPromised(window.document).then(() => {
+    chrome.runtime.onMessage.addListener(messageRequestListener);
+  });
 
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(function() {
     gsUtils.log('suspended', 'documentReadyAndLocalisedAsPromised');
-    chrome.runtime.onMessage.addListener(messageRequestListener);
     // initSettings();
   });
 
