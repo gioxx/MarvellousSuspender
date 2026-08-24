@@ -46,7 +46,7 @@ import  { tgs }                   from './tgs.js';
     let favicon = info && info.tab ? info.tab.favIconUrl : '';
     favicon = favicon && favicon.indexOf('data') === 0 ? favicon : gsFavicon.getChromeFavIconUrl(info.tab.url);
 
-    return `<tr>
+    return `<tr data-tab-id="${tabId}">
       <td>${windowId}</td>
       <td>${tabId}</td>
       <td>${tabIndex}</td>
@@ -152,23 +152,31 @@ import  { tgs }                   from './tgs.js';
         const tabs = await gsChrome.tabsQuery();
         const tabGroupsMap = await gsChrome.tabGroupsMap();
         const debugInfos = await Promise.all(
-          tabs.map((curTab) =>
-            promiseWithTimeout(
-              new Promise((resolve) =>
-                getDebugInfo(curTab.id, (info) => {
-                  info.tab   = curTab;
-                  info.group = tabGroupsMap[info.groupId];
-                  resolve(info);
-                })
-              ), 500, {
-                windowId  : curTab.windowId,
-                tabId     : curTab.id,
-                groupId   : curTab.groupId,
-                status    : gsUtils.STATUS_UNKNOWN,
-                tab       : curTab,
-              }
-            )
-          )
+          tabs.map((curTab) => {
+            const infoPromise = new Promise((resolve) =>
+              getDebugInfo(curTab.id, (info) => {
+                info.tab   = curTab;
+                info.group = tabGroupsMap[info.groupId];
+                resolve(info);
+              })
+            );
+            // A tab needing content-script reinjection (see getDebugInfo() above) can
+            // easily take longer than the 500ms render deadline below to resolve — the
+            // real result isn't dropped, just not ready in time for this render. Once it
+            // does resolve, patch that one row in place instead of leaving it stuck on
+            // the timeout fallback until whatever next triggers a full refresh.
+            infoPromise.then((info) => {
+              const row = document.querySelector(`tr[data-tab-id="${info.tabId}"]`);
+              if (row) row.outerHTML = generateTabInfo(info);
+            });
+            return promiseWithTimeout(infoPromise, 500, {
+              windowId  : curTab.windowId,
+              tabId     : curTab.id,
+              groupId   : curTab.groupId,
+              status    : gsUtils.STATUS_UNKNOWN,
+              tab       : curTab,
+            });
+          })
         );
 
         document.getElementById('gsProfilerBody').innerHTML =
