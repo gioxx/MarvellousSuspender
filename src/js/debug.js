@@ -108,12 +108,12 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  // window's 'focus' listener below has no debounce, and Chrome/the OS can genuinely fire
-  // several 'focus' events on this page in quick succession (multi-monitor setups, rapid
-  // alt-tabbing, etc.) — without this guard, each one kicks off its own full fetchTabInfo()
-  // run, and every one of those calls getDebugInfo() (and, for every "normal" tab among
-  // them, a real getRequestInfoToContentScript() round trip) for every currently open tab
-  // again, all overlapping. Confirmed via a live debug report: a burst of duplicate
+  // Chrome/the OS can genuinely fire several 'focus' events on this page in quick
+  // succession (multi-monitor setups, rapid alt-tabbing, etc.) — without the guards
+  // below, each one kicks off its own full fetchTabInfo() run, and every one of those
+  // calls getDebugInfo() (and, for every "normal" tab among them, a real
+  // getRequestInfoToContentScript() round trip) for every currently open tab again, all
+  // overlapping. Confirmed via a live debug report: a burst of duplicate
   // "getDebugInfo"/"getDebugInfo callback" log lines for the same tab within the same
   // millisecond, repeated roughly once per stray focus event.
   //
@@ -165,6 +165,26 @@ import  { tgs }                   from './tgs.js';
     finally {
       _fetchingTabInfo = false;
     }
+  }
+
+  // The in-flight/pending guards above stop concurrent runs from ever overlapping, but on
+  // their own they don't stop a genuinely rapid sequence of separate focus events (real
+  // ones, e.g. someone alt-tabbing repeatedly while stress-testing) from each still
+  // triggering its own full, serialized run — confirmed via a live debug report showing
+  // ~one fetchTabInfo() run roughly every 3-4 seconds sustained over a 13-minute session.
+  // Every run is still real per-tab work (a tabsQuery() over every open tab, plus a message
+  // round trip for each "normal" one), so debouncing rapid focus events down to at most one
+  // real run per window here cuts sustained cost during exactly that kind of stress test,
+  // independent of whatever's triggering the focus events in the first place.
+  const _FETCH_TAB_INFO_DEBOUNCE_MS = 1000;
+  let _fetchTabInfoDebounceTimer = null;
+
+  function scheduleFetchTabInfo() {
+    if (_fetchTabInfoDebounceTimer) return;
+    _fetchTabInfoDebounceTimer = setTimeout(() => {
+      _fetchTabInfoDebounceTimer = null;
+      fetchTabInfo();
+    }, _FETCH_TAB_INFO_DEBOUNCE_MS);
   }
 
   // ── Log buffer ──────────────────────────────────────────────────────────────
@@ -533,7 +553,7 @@ import  { tgs }                   from './tgs.js';
     });
 
     window.addEventListener('focus', () => {
-      fetchTabInfo();
+      scheduleFetchTabInfo();
       refreshLogs();
     });
 
