@@ -223,23 +223,39 @@ export const gsTabQueue = (function() {
           requeueTab(tabDetails, requeueDelay, executionProps);
         };
 
+        // Routes an unexpected failure through the queue's own configured exceptionFn
+        // (the same one the timeout path below already uses), rather than rejecting the
+        // job directly. Some callers (e.g. gsTabCheckManager's
+        // performInitialisationTabChecks() at startup) aggregate many of these jobs'
+        // promises via Promise.all() — a caller-side rejection there aborts the whole
+        // aggregate immediately, skipping that caller's own post-await cleanup (removing
+        // its temporary listener, restoring queue properties) and can leave startup
+        // permanently stuck in "initialising" state. exceptionFn's own contract already
+        // resolves(false) rather than rejecting (see handleTabCheckException), so routing
+        // through it here keeps that same caller-safe behaviour for this failure path too.
+        const _runExceptionFn = (exceptionType) => {
+          Promise.resolve()
+            .then(() => _queueProperties.exceptionFn(
+              tabDetails.tab,
+              tabDetails.executionProps,
+              exceptionType,
+              _resolveTabPromise,
+              _rejectTabPromise,
+              _requeueTab
+            ))
+            .catch((error) => {
+              // exceptionFn itself failed — resolve(false) directly as a last resort
+              // rather than rejecting, for the same Promise.all()-safety reason above.
+              gsUtils.log(tabDetails.tab.id, _queueId, 'exceptionFn threw unexpectedly', error);
+              _resolveTabPromise(false);
+            });
+        };
+
         // If timeout timer has not yet been initiated, then start it now
         if (!tabDetails.hasOwnProperty('timeoutTimer')) {
           tabDetails.timeoutTimer = setTimeout(() => {
             gsUtils.log(tabDetails.tab.id, _queueId, 'Tab job timed out');
-            Promise.resolve()
-              .then(() => _queueProperties.exceptionFn(
-                tabDetails.tab,
-                tabDetails.executionProps,
-                EXCEPTION_TIMEOUT,
-                _resolveTabPromise,
-                _rejectTabPromise,
-                _requeueTab
-              ))
-              .catch((error) => {
-                gsUtils.log(tabDetails.tab.id, _queueId, 'exceptionFn threw unexpectedly', error);
-                _rejectTabPromise(error);
-              });
+            _runExceptionFn(EXCEPTION_TIMEOUT);
           }, _queueProperties.jobTimeout);
         }
 
@@ -249,8 +265,8 @@ export const gsTabQueue = (function() {
         // properties of undefined" a few layers up) left this slot stuck in
         // STATUS_IN_PROGRESS with nothing to release it until the full jobTimeout elapsed
         // (up to 60s) — this queue only has a handful of concurrent slots to begin with,
-        // so repeated occurrences could meaningfully choke its throughput. Reject it
-        // immediately instead, freeing the slot right away.
+        // so repeated occurrences could meaningfully choke its throughput. Routed through
+        // the same exceptionFn the timeout path uses, freeing the slot right away.
         Promise.resolve()
           .then(() => _queueProperties.executorFn(
             tabDetails.tab,
@@ -261,7 +277,7 @@ export const gsTabQueue = (function() {
           ))
           .catch((error) => {
             gsUtils.log(tabDetails.tab.id, _queueId, 'executorFn threw unexpectedly', error);
-            _rejectTabPromise(error);
+            _runExceptionFn(error);
           });
       }
 

@@ -830,15 +830,31 @@ export const tgs = (function() {
   const INIT_SUSPENDED_TAB_BATCH_SIZE = 5;
   const INIT_SUSPENDED_TAB_BATCH_INTERVAL_MS = 300;
   const _initSuspendedTabQueue = [];
-  let   _initSuspendedTabTimer = null;
+  // Tracks how many have been dispatched within the *current* window, independent of
+  // whether the queue is momentarily empty — a first version of this used "queue is
+  // non-empty" as the signal for whether a cooldown window was still needed, but every
+  // arrival immediately drained the queue back to empty before the next one arrived
+  // (a burst from separate chrome.tabs.onUpdated events, not one synchronous batch), so
+  // the cooldown timer never actually armed and every call slipped through unthrottled.
+  // Live testing confirmed the crash this was meant to prevent still occurred with that
+  // version in place. This window counter persists across pump() calls regardless of
+  // queue state, so arrivals spread out one-at-a-time still get capped correctly.
+  let   _initSuspendedTabDispatchedInWindow = 0;
+  let   _initSuspendedTabWindowTimer = null;
   function _pumpInitSuspendedTabQueue() {
-    if (_initSuspendedTabTimer) return;
-    const batch = _initSuspendedTabQueue.splice(0, INIT_SUSPENDED_TAB_BATCH_SIZE);
-    batch.forEach((run) => run());
-    if (_initSuspendedTabQueue.length) {
-      _initSuspendedTabTimer = setTimeout(() => {
-        _initSuspendedTabTimer = null;
-        _pumpInitSuspendedTabQueue();
+    while (
+      _initSuspendedTabDispatchedInWindow < INIT_SUSPENDED_TAB_BATCH_SIZE &&
+      _initSuspendedTabQueue.length
+    ) {
+      const run = _initSuspendedTabQueue.shift();
+      _initSuspendedTabDispatchedInWindow++;
+      run();
+    }
+    if (!_initSuspendedTabWindowTimer) {
+      _initSuspendedTabWindowTimer = setTimeout(() => {
+        _initSuspendedTabWindowTimer = null;
+        _initSuspendedTabDispatchedInWindow = 0;
+        if (_initSuspendedTabQueue.length) _pumpInitSuspendedTabQueue();
       }, INIT_SUSPENDED_TAB_BATCH_INTERVAL_MS);
     }
   }
