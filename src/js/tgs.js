@@ -805,6 +805,35 @@ export const tgs = (function() {
     }
   }
 
+  // chrome.tabs.onUpdated fires this listener independently per tab, with no throttling
+  // of its own — when Chrome un-discards/reloads several suspended tabs at once (e.g. a
+  // window regaining focus after being idle long enough for memory pressure to discard
+  // them), every one of those tabs fires 'complete' within the same short window, and
+  // each call below immediately did its own storage reads, a chrome.tabs.sendMessage
+  // (with up to ~6s of retries) to its content script, and a checkQueue enqueue, all in
+  // the same instant. Live testing found a repeatable crash tied to exactly this pattern
+  // (a burst of 15-20 tabs completing within ~130ms of each other on focus regain, not
+  // tied to session restore itself, which already goes through this same function but
+  // arrives staggered rather than in one instant). This caps how many of these bursts
+  // actually do that work concurrently, spreading it out instead.
+  const INIT_SUSPENDED_TAB_CONCURRENCY = 5;
+  let _initSuspendedTabActive = 0;
+  const _initSuspendedTabQueue = [];
+  function _runInitSuspendedTabLimited(fn) {
+    return new Promise((resolve, reject) => {
+      const run = () => {
+        _initSuspendedTabActive++;
+        fn().then(resolve, reject).finally(() => {
+          _initSuspendedTabActive--;
+          const next = _initSuspendedTabQueue.shift();
+          if (next) next();
+        });
+      };
+      if (_initSuspendedTabActive < INIT_SUSPENDED_TAB_CONCURRENCY) run();
+      else _initSuspendedTabQueue.push(run);
+    });
+  }
+
   async function initialiseSuspendedTab(tab) {
     gsUtils.log( tab.id, 'tgs', 'initialiseSuspendedTab' );
     const unloadedUrl = await getTabStatePropForTabId(tab.id, STATE_UNLOADED_URL);
@@ -818,21 +847,23 @@ export const tgs = (function() {
     //if a suspended tab is marked for unsuspendOnReload then unsuspend tab and return early
     const suspendedTabRefreshed = unloadedUrl === tab.url;
     if (suspendedTabRefreshed && !disableUnsuspendOnReload) {
+      // Deliberately not throttled: this is an explicit user action (reload to unsuspend),
+      // which should feel instant regardless of how many other tabs are mid-burst.
       await unsuspendTab(tab);
       return;
     }
 
-    // const tabView = getInternalViewByTabId(tab.id);
-    const discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
-    const quickInit = discardAfterSuspend && !tab.active;
-    const payload = { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() };
-    sendInitTabMessageWithRetry(tab.id, payload)
-      .catch((error) => {
-        gsUtils.warning(tab.id, 'tgs', 'initialiseSuspendedTab', error);
-      })
-      .then(() => {
-        gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 3000);
-      });
+    await _runInitSuspendedTabLimited(async () => {
+      // const tabView = getInternalViewByTabId(tab.id);
+      const discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
+      const quickInit = discardAfterSuspend && !tab.active;
+      const payload = { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() };
+      await sendInitTabMessageWithRetry(tab.id, payload)
+        .catch((error) => {
+          gsUtils.warning(tab.id, 'tgs', 'initialiseSuspendedTab', error);
+        });
+      gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 3000);
+    });
   }
 
   // This message reaches suspended.html's own page script (not a content script), sent
