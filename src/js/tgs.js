@@ -825,20 +825,34 @@ export const tgs = (function() {
   // once, self-throttling harder the heavier the real work turns out to be.
   const INIT_SUSPENDED_TAB_CONCURRENCY = 5;
   let   _initSuspendedTabActive = 0;
-  const _initSuspendedTabQueue = [];
-  function _runInitSuspendedTabLimited(fn) {
+  const _initSuspendedTabQueue = []; // { tabId, run, resolve }
+  function _runInitSuspendedTabLimited(tabId, fn) {
     return new Promise((resolve, reject) => {
       const run = () => {
         _initSuspendedTabActive++;
         fn().then(resolve, reject).finally(() => {
           _initSuspendedTabActive--;
           const next = _initSuspendedTabQueue.shift();
-          if (next) next();
+          if (next) next.run();
         });
       };
       if (_initSuspendedTabActive < INIT_SUSPENDED_TAB_CONCURRENCY) run();
-      else _initSuspendedTabQueue.push(run);
+      else _initSuspendedTabQueue.push({ tabId, run, resolve });
     });
+  }
+  // Called from removeTabIdReferences() (itself invoked from chrome.tabs.onRemoved) so a
+  // tab closed or navigated away while still waiting for a limiter slot doesn't consume
+  // one only to fail immediately after burning sendInitTabMessageWithRetry()'s ~6s retry
+  // budget against a tab that no longer exists — in a large restore/wake burst, enough
+  // stale entries queued ahead of still-open tabs could otherwise delay them for minutes,
+  // or leave them uninitialised entirely if the service worker recycles in the meantime.
+  function _cancelQueuedInitSuspendedTab(tabId) {
+    for (let i = _initSuspendedTabQueue.length - 1; i >= 0; i--) {
+      if (_initSuspendedTabQueue[i].tabId === tabId) {
+        const [entry] = _initSuspendedTabQueue.splice(i, 1);
+        entry.resolve(); // never started — nothing to await, resolve so the caller doesn't hang
+      }
+    }
   }
 
   async function initialiseSuspendedTab(tab) {
@@ -860,7 +874,7 @@ export const tgs = (function() {
       return;
     }
 
-    await _runInitSuspendedTabLimited(async () => {
+    await _runInitSuspendedTabLimited(tab.id, async () => {
       // const tabView = getInternalViewByTabId(tab.id);
       const discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
       const quickInit = discardAfterSuspend && !tab.active;
@@ -904,6 +918,8 @@ export const tgs = (function() {
 
   async function removeTabIdReferences(tabId) {
     gsUtils.log(tabId, 'removing tabId references to', tabId);
+
+    _cancelQueuedInitSuspendedTab(tabId);
 
     const focusedTabByWindow = await getCurrentFocusedTabIdByWindowId();
     for (const windowId of Object.keys(focusedTabByWindow)) {
