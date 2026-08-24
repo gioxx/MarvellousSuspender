@@ -132,6 +132,17 @@ module.exports = function(grunt) {
   // (so gsBackup.js's static import never fails a plain unpacked-from-src/ load); the real
   // value read here is stashed on the grunt config for 'string-replace:oauthSecret' to
   // patch into the packaged build's own copy of that file, further down the task list.
+  //
+  // KNOWN, ACCEPTED TRADEOFF: this makes `grunt`/`npm run build` fail hard for anyone
+  // without the maintainer's private secret, even a contributor who only wants a local
+  // zip/crx build unrelated to Drive. Deliberately left this way rather than downgrading
+  // to a warning, since the crx:private task a few steps later already has the exact same
+  // shape of requirement — a gitignored `key.pem` signing key, also maintainer-only — so
+  // this task doesn't introduce a new class of "can't `npm run build` without a project
+  // secret" problem, only a second instance of an existing, accepted one. It does not
+  // affect testing the PKCE flow itself: "Load unpacked" straight from src/ never invokes
+  // Grunt at all, and a contributor can still create their own gsOauthSecrets.local.js
+  // locally (see gsOauthSecrets.example.js) to test that path without ever running this.
   grunt.registerTask('checkOauthSecrets', function() {
     const path = 'src/js/gsOauthSecrets.local.js';
     if (!grunt.file.exists(path)) {
