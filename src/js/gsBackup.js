@@ -2,7 +2,6 @@ import { gsIndexedDb }      from './gsIndexedDb.js';
 import { gsSession }        from './gsSession.js';
 import { gsStorage }        from './gsStorage.js';
 import { gsUtils }          from './gsUtils.js';
-import { PKCE_CLIENT_SECRET } from './gsOauthSecrets.js';
 
 'use strict';
 
@@ -246,6 +245,29 @@ export const gsBackup = (() => {
   // Client secret lives in gsOauthSecrets.js (gitignored, see that file for why).
   const PKCE_CLIENT_ID = '630779328171-mge0g9vebmq4pkihhi6gqs9a2agpu07e.apps.googleusercontent.com';
 
+  // Loaded lazily (not a static top-level import) so a checkout without gsOauthSecrets.js
+  // set up locally — a fresh clone, a source archive, or "Load unpacked" straight from
+  // src/ without running the documented `cp gsOauthSecrets.example.js gsOauthSecrets.js`
+  // step first — doesn't fail this whole module's static import, which would otherwise
+  // break background.js's unconditional import of gsBackup.js and stop the service worker
+  // from registering at all, for every user regardless of whether they ever touch Drive
+  // backup. Only PKCE-specific calls (authorizeViaPkce/refreshAccessToken) need the real
+  // value, and only when a user actually exercises the Drive PKCE fallback.
+  let _pkceClientSecretPromise = null;
+  function getPkceClientSecret() {
+    if (!_pkceClientSecretPromise) {
+      _pkceClientSecretPromise = import('./gsOauthSecrets.js')
+        .then((m) => m.PKCE_CLIENT_SECRET)
+        .catch((e) => {
+          gsUtils.error('gsBackup', 'getPkceClientSecret: gsOauthSecrets.js missing or invalid — ' +
+            'run `cp src/js/gsOauthSecrets.example.js src/js/gsOauthSecrets.js` and fill in the ' +
+            'real secret to use the Drive PKCE fallback.', e);
+          throw new Error('TMS_DRIVE_AUTH_MISSING');
+        });
+    }
+    return _pkceClientSecretPromise;
+  }
+
   async function isLikelyBrokenChromeIdentity() {
     // Brave's own chrome.identity.getAuthToken() implementation opens a native,
     // browser-controlled tab that hits Google's servers and visibly shows the raw
@@ -401,7 +423,7 @@ export const gsBackup = (() => {
 
     return exchangeTokenEndpoint({
       client_id    : PKCE_CLIENT_ID,
-      client_secret: PKCE_CLIENT_SECRET,
+      client_secret: await getPkceClientSecret(),
       code,
       code_verifier: verifier,
       grant_type   : 'authorization_code',
@@ -419,7 +441,7 @@ export const gsBackup = (() => {
     try {
       return await exchangeTokenEndpoint({
         client_id    : PKCE_CLIENT_ID,
-        client_secret: PKCE_CLIENT_SECRET,
+        client_secret: await getPkceClientSecret(),
         refresh_token: refreshToken,
         grant_type   : 'refresh_token',
       });
