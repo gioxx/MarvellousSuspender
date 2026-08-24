@@ -309,6 +309,20 @@ import  { tgs }                   from './tgs.js';
             responseData = await gsSession.performTabChecks();
             break;
           }
+          case 'checkTabResponsiveness' : {
+            // Routed through here rather than debug.js calling gsTabCheckManager
+            // directly: every page (including debug.html) gets its own separate
+            // gsTabCheckManager module instance, and that instance's per-tab
+            // deduplication has no visibility into a recovery this service worker's own
+            // queue might already be running for the same tab (e.g. tgs.js's own
+            // handleTabFocusChanged() reinjecting it). Two independent queues could
+            // otherwise both decide to reinject the same tab's content script at once —
+            // each execution registers its own runtime listeners, and reinjection is
+            // already documented (gsTabCheckManager.js) as leaving old ones active.
+            // This service worker's own queue is the single one everything else uses.
+            responseData = { status: await gsTabCheckManager.queueTabCheckAsPromise(request.tab) };
+            break;
+          }
           case 'clearLogs' : {
         // The debug page runs in its own context with its own copy of the gsUtils
         // module — clearing chrome.storage from there doesn't touch this service

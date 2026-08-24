@@ -280,7 +280,12 @@ import  { gsUtils }               from './gsUtils.js';
   }
 
 
-  async function messageRequestListener(request, sender, sendResponse) {
+  function messageRequestListener(request, sender, sendResponse) {
+    // Declared synchronous (not async) so this decline is a real, immediate `false`
+    // return rather than a resolved Promise: an async function's `return false` is
+    // still a Promise, and Chrome/Firefox treat a returned Promise as this listener's
+    // eventual response, letting its trivial resolved value race the service worker's
+    // real, slower response for actions like 'checkTabResponsiveness'.
     // These are meant only for the service worker, delivered here too because Chrome
     // broadcasts any chrome.runtime.sendMessage() with no tabId to every extension page.
     // Not logging them (not even as "ignoring") matters specifically for
@@ -295,18 +300,27 @@ import  { gsUtils }               from './gsUtils.js';
       // { action: 'initSettings', tab: focusedTab }
       case 'initSettings': {
         initSettings();
-        break;
+        // This function is synchronous, so no longer returns a Promise Chrome could use
+        // as the response (that's the whole point of the sync-decline fix above) —
+        // sendResponse() must be called explicitly here, or a sender awaiting a response
+        // (e.g. tgs.js's handleNewStationaryTabFocus() awaiting 'initSettings' before
+        // resetting the previous tab's suspend timer) would hang until the message
+        // channel itself eventually tears down.
+        sendResponse();
+        return true;
       }
 
       default: {
-        // NOTE: All messages sent to chrome.runtime will be delivered here too
+        // NOTE: All messages sent to chrome.runtime will be delivered here too. A real
+        // `false` decline (not a response) matters here too: another extension page's
+        // own action (e.g. debug.js's 'repairFavicons', handled only in background.js)
+        // must be free to have its real, slower response win, not get shadowed by this
+        // page unconditionally answering with `undefined` for an action it doesn't own.
         gsUtils.log('options', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
-        // sendResponse();
-        break;
+        return false;
       }
 
     }
-    return true;
   }
 
 

@@ -247,7 +247,13 @@ function _clearPersisted() {
 // history needing its own flush, whose "ignored" broadcast produces another log entry
 // in turn, a self-sustaining loop with no natural end. Pages check this set and skip
 // logging entirely for anything in it, rather than trying to rate-limit the loop.
-const INTERNAL_MESSAGE_ACTIONS = new Set(['gsAppendLogEntries', 'clearLogs']);
+//
+// checkTabResponsiveness (debug.js's tab-check, routed through the service worker's own
+// gsTabCheckManager queue) doesn't share that specific logging-loop risk, but does share
+// the underlying problem this set exists for: an unrelated page's listener resolving
+// first with an unhandled-action response races the service worker's real, slower one,
+// and the sender only ever keeps whichever response arrives first.
+const INTERNAL_MESSAGE_ACTIONS = new Set(['gsAppendLogEntries', 'clearLogs', 'checkTabResponsiveness']);
 
 // A single incoming gsAppendLogEntries message costs one full get+parse+stringify+set of
 // the entire shared buffer (up to _LOG_BUFFER_FULL_MAX entries) — necessary since

@@ -38,7 +38,11 @@ import  { gsUtils }               from './gsUtils.js';
     }
   });
 
-  async function messageRequestListener(request, sender, sendResponse) {
+  function messageRequestListener(request, sender, sendResponse) {
+    // Declared synchronous (not async): an async function's `return false` is still a
+    // resolved Promise, and Chrome/Firefox treat a returned Promise as this listener's
+    // eventual response, letting its trivial resolved value race the service worker's
+    // real, slower response for actions like 'checkTabResponsiveness'.
     // See the matching guard in options.js: these are service-worker-only actions that
     // Chrome still broadcasts here, and gsAppendLogEntries specifically must not be
     // logged or its own "ignored" log entry would need flushing via another one, forever.
