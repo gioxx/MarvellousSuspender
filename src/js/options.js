@@ -306,11 +306,18 @@ import  { gsUtils }               from './gsUtils.js';
       default: {
         // NOTE: All messages sent to chrome.runtime will be delivered here too
         gsUtils.log('options', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
-        // sendResponse();
         break;
       }
 
     }
+    // Every case above is fully synchronous, so the response is already available by
+    // this point. sendResponse() must still be called explicitly: this function no
+    // longer returns a Promise Chrome could use as the response (that's the whole
+    // point of the sync-decline fix above), so without this, a sender awaiting a
+    // response — e.g. tgs.js's handleNewStationaryTabFocus() awaiting 'initSettings'
+    // before resetting the previous tab's suspend timer — would hang until the
+    // message channel itself eventually tears down.
+    sendResponse();
     return true;
   }
 
