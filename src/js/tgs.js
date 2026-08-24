@@ -808,60 +808,36 @@ export const tgs = (function() {
   // chrome.tabs.onUpdated fires this listener independently per tab, with no throttling
   // of its own — when Chrome un-discards/reloads several suspended tabs at once (e.g. a
   // window regaining focus after being idle long enough for memory pressure to discard
-  // them), every one of those tabs fires 'complete' within the same short window.
+  // them), every one of those tabs fires 'complete' within the same short window, and
+  // each one immediately triggers real, memory-heavy work: suspended.js's own 'initTab'
+  // handler awaits its full favicon/title/theme setup (IndexedDB reads included) before
+  // ever calling sendResponse(), so chrome.tabs.sendMessage() here genuinely blocks on
+  // that real work finishing, not just a quick acknowledgement — confirmed by reading
+  // suspended.js's handleMessageRequest() directly, not inferred from timing alone,
+  // after an earlier version of this fix wrongly assumed sends resolved almost
+  // instantly and used a fixed-interval batch release instead of a real concurrency
+  // bound, which review caught as still allowing unbounded concurrent in-flight work
+  // whenever any single tab's response took longer than the batch interval.
   //
-  // A first version of this fix capped how many of these ran *concurrently* in this
-  // service worker. Live testing under a genuine, reproducible Out-of-Memory crash (46
-  // tabs completing within ~12s) showed that cap did essentially nothing: the actual
-  // memory- and IndexedDB-heavy work (favicon lookup, title/theme setup) happens inside
-  // *each suspended tab's own separate page context*, driven by the 'initTab' message
-  // this function sends — chrome.tabs.sendMessage() resolves as soon as that page's own
-  // listener acknowledges it (a handful of ms), long before that page's own async work
-  // actually finishes. A concurrency cap on the *sender* side barely delays anything,
-  // since each send-and-await-ack cycle here is already fast regardless of how heavy the
-  // receiving page's own work turns out to be — capping "how many are in flight" doesn't
-  // meaningfully change "how many separate tab contexts are doing real work at once".
-  //
-  // What actually matters is *when* each tab is told to start, not how long telling it
-  // takes. This rate-limits dispatch itself: at most this many tabs are sent their
-  // 'initTab' message per interval, regardless of how fast those sends resolve, so a
-  // 46-tab burst gets spread over several seconds of real wall-clock time instead of
-  // being dispatched almost all at once.
-  const INIT_SUSPENDED_TAB_BATCH_SIZE = 5;
-  const INIT_SUSPENDED_TAB_BATCH_INTERVAL_MS = 300;
+  // This holds a job's slot for its *actual* duration — released only once the real
+  // work (message round trip + checkQueue enqueue) resolves, not on a fixed timer — so
+  // a burst of many tabs is capped at this many genuinely concurrent in-flight jobs at
+  // once, self-throttling harder the heavier the real work turns out to be.
+  const INIT_SUSPENDED_TAB_CONCURRENCY = 5;
+  let   _initSuspendedTabActive = 0;
   const _initSuspendedTabQueue = [];
-  // Tracks how many have been dispatched within the *current* window, independent of
-  // whether the queue is momentarily empty — a first version of this used "queue is
-  // non-empty" as the signal for whether a cooldown window was still needed, but every
-  // arrival immediately drained the queue back to empty before the next one arrived
-  // (a burst from separate chrome.tabs.onUpdated events, not one synchronous batch), so
-  // the cooldown timer never actually armed and every call slipped through unthrottled.
-  // Live testing confirmed the crash this was meant to prevent still occurred with that
-  // version in place. This window counter persists across pump() calls regardless of
-  // queue state, so arrivals spread out one-at-a-time still get capped correctly.
-  let   _initSuspendedTabDispatchedInWindow = 0;
-  let   _initSuspendedTabWindowTimer = null;
-  function _pumpInitSuspendedTabQueue() {
-    while (
-      _initSuspendedTabDispatchedInWindow < INIT_SUSPENDED_TAB_BATCH_SIZE &&
-      _initSuspendedTabQueue.length
-    ) {
-      const run = _initSuspendedTabQueue.shift();
-      _initSuspendedTabDispatchedInWindow++;
-      run();
-    }
-    if (!_initSuspendedTabWindowTimer) {
-      _initSuspendedTabWindowTimer = setTimeout(() => {
-        _initSuspendedTabWindowTimer = null;
-        _initSuspendedTabDispatchedInWindow = 0;
-        if (_initSuspendedTabQueue.length) _pumpInitSuspendedTabQueue();
-      }, INIT_SUSPENDED_TAB_BATCH_INTERVAL_MS);
-    }
-  }
   function _runInitSuspendedTabLimited(fn) {
     return new Promise((resolve, reject) => {
-      _initSuspendedTabQueue.push(() => { fn().then(resolve, reject); });
-      _pumpInitSuspendedTabQueue();
+      const run = () => {
+        _initSuspendedTabActive++;
+        fn().then(resolve, reject).finally(() => {
+          _initSuspendedTabActive--;
+          const next = _initSuspendedTabQueue.shift();
+          if (next) next();
+        });
+      };
+      if (_initSuspendedTabActive < INIT_SUSPENDED_TAB_CONCURRENCY) run();
+      else _initSuspendedTabQueue.push(run);
     });
   }
 
