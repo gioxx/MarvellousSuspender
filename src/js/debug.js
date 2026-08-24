@@ -5,7 +5,6 @@ import  { gsFavicon }             from './gsFavicon.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsNewsFeed }            from './gsNewsFeed.js';
 import  { gsStorage }             from './gsStorage.js';
-import  { gsTabCheckManager }     from './gsTabCheckManager.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
 
@@ -92,26 +91,31 @@ import  { tgs }                   from './tgs.js';
 
     if (gsUtils.isNormalTab(tab, true)) {
       gsUtils.highlight(tab.id, 'getDebugInfo', tab.url);
-      // Routed through the same responsiveness-check queue tgs.js's own periodic checks
-      // use (gsTabCheckManager), rather than a one-shot sendRequestInfoToContentScript
-      // here: a tab whose content script has genuinely died (page still alive, script
+      // Routed through the service worker's own responsiveness-check queue (via message,
+      // handled in background.js's 'checkTabResponsiveness' case) rather than a one-shot
+      // sendRequestInfoToContentScript here, or this page's own separate gsTabCheckManager
+      // instance: a tab whose content script has genuinely died (page still alive, script
       // just stopped responding — distinct from a discarded tab) previously had no way to
-      // recover via this page, since only checkQueue's own scheduled runs ever attempt
+      // recover via this page, since only checkQueue's own scheduled runs ever attempted
       // reinjection, and this call didn't feed into that queue at all. Live testing showed
       // the same handful of tabs stuck reporting "unknown" for many minutes, surviving
       // repeated manual page reloads, because nothing here ever gave them a real second
-      // chance. queueTabCheckAsPromise() does (deduping against an already-queued check
-      // for the same tab, so calling it on every profiler refresh doesn't pile up
-      // duplicate work) — and also means calculateTabStatus() below no longer needs to
-      // probe the content script a second time itself, since it skips its own attempt
-      // once given a known status.
-      gsTabCheckManager.queueTabCheckAsPromise(tab).then((contentScriptStatus) => {
-        gsUtils.highlight(tab.id, 'getDebugInfo callback', tab.url);
-        tgs.calculateTabStatus(tab, contentScriptStatus, (status) => {
-          info.status = status;
-          callback(info);
+      // chance. Deliberately not this page's own gsTabCheckManager instance (every page
+      // gets its own, separate from the service worker's): that instance's dedup can't see
+      // a recovery the service worker's own queue might already be running for the same
+      // tab, and two independent queues reinjecting the same tab's content script at once
+      // is exactly the "old key listeners remain active" scenario gsTabCheckManager.js's
+      // own comments warn about. calculateTabStatus() below no longer needs to probe the
+      // content script a second time itself, since it's given the already-resolved status.
+      chrome.runtime.sendMessage({ action: 'checkTabResponsiveness', tab })
+        .catch(() => null) // service worker unreachable (e.g. mid-reload/recycle)
+        .then((response) => {
+          gsUtils.highlight(tab.id, 'getDebugInfo callback', tab.url);
+          tgs.calculateTabStatus(tab, response?.status, (status) => {
+            info.status = status;
+            callback(info);
+          });
         });
-      });
     }
     else {
       tgs.calculateTabStatus(tab, null, (status) => {
@@ -139,6 +143,13 @@ import  { tgs }                   from './tgs.js';
   // most one extra run, not one per stray event.
   let _fetchingTabInfo = false;
   let _fetchTabInfoPending = false;
+  // Bumped at the start of every pass (including a queued follow-up one, not just a fresh
+  // top-level call) — a late per-tab update below is only allowed to patch a row if its own
+  // pass is still the newest one. Without this, a pass that timed out on some tab and a
+  // later pass that already rendered fresh info for that same tab (its status having
+  // genuinely changed in between, e.g. it became pinned) could race: the older pass's late
+  // arrival would overwrite the newer pass's already-correct row with stale data.
+  let _fetchTabInfoGeneration = 0;
 
   async function fetchTabInfo() {
     if (_fetchingTabInfo) {
@@ -149,6 +160,7 @@ import  { tgs }                   from './tgs.js';
     try {
       do {
         _fetchTabInfoPending = false;
+        const generation = ++_fetchTabInfoGeneration;
         const tabs = await gsChrome.tabsQuery();
         const tabGroupsMap = await gsChrome.tabGroupsMap();
         const debugInfos = await Promise.all(
@@ -166,6 +178,7 @@ import  { tgs }                   from './tgs.js';
             // does resolve, patch that one row in place instead of leaving it stuck on
             // the timeout fallback until whatever next triggers a full refresh.
             infoPromise.then((info) => {
+              if (generation !== _fetchTabInfoGeneration) return; // a newer pass has since started
               const row = document.querySelector(`tr[data-tab-id="${info.tabId}"]`);
               if (row) row.outerHTML = generateTabInfo(info);
             });
@@ -476,13 +489,6 @@ import  { tgs }                   from './tgs.js';
   // ── Init ───────────────────────────────────────────────────────────────────────────────────
 
   gsUtils.documentReadyAndLocalisedAsPromised(window).then(async function() {
-
-    // This page's own gsTabCheckManager module instance (every page gets its own, separate
-    // from the service worker's) needs its own queue initialised before getDebugInfo()'s
-    // queueTabCheckAsPromise() calls can do anything — without this, that call falls
-    // through the "queue not initialized" guard and just resolves STATUS_UNKNOWN
-    // immediately, silently skipping the reinjection attempt it's there for.
-    await gsTabCheckManager.initAsPromised();
 
     await renderCaptureToggle();
     await renderDiscardToggle();
