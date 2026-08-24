@@ -1,4 +1,5 @@
 .dccache
+.dev-notes/
 .DS_Store
 .vscode/bookmarks.json
 *.pem
@@ -6,12 +7,11 @@
 /.claude
 /.tokensave
 /CLAUDE.md
-build
-node_modules
-src/js/gsOauthSecrets.js
-Thumbs.db
-tmp
 /docs
 /memory
 /test
-.dev-notes/
+build
+node_modules
+src/js/gsOauthSecrets.local.js
+Thumbs.db
+tmp

@@ -630,11 +630,8 @@ import  { tgs }                   from './tgs.js';
     });
 
     document.getElementById('btnClearLog').addEventListener('click', async () => {
-      // Routed through the service worker (rather than clearing chrome.storage
-      // directly from here) so its own in-memory _logBuffer/_logBufferFull get
-      // cleared too — otherwise the next log entry, or an already-pending debounced
-      // flush over there, would write those still-populated arrays back over the
-      // storage this page just cleared.
+      // Routed through the service worker (the only writer of the persisted log-buffer
+      // keys) rather than clearing chrome.storage directly from here.
       const btn = document.getElementById('btnClearLog');
       const prevText = btn.textContent;
       const response = await chrome.runtime.sendMessage({ action: 'clearLogs' }).catch(() => null);
