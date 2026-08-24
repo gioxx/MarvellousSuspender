@@ -370,6 +370,7 @@ export const gsBackup = (() => {
     if (!res.ok) {
       const err = new Error(`OAuth token endpoint error: ${data.error || res.status}`);
       err.status = res.status;
+      err.error  = data.error; // e.g. 'invalid_grant' vs 'invalid_client' — see refreshAccessToken()
       throw err;
     }
     const session = {
@@ -445,10 +446,15 @@ export const gsBackup = (() => {
         grant_type   : 'refresh_token',
       });
     } catch (e) {
-      // 400/401 here means the refresh_token itself is dead (revoked from the Google account,
-      // expired from inactivity) — drop it so the next call falls through to a fresh
-      // interactive authorization instead of retrying a token that will never work again.
-      if (e.status === 400 || e.status === 401) {
+      // Only 'invalid_grant' means the refresh_token itself is actually dead (revoked from
+      // the Google account, expired from inactivity) — drop it so the next call falls
+      // through to a fresh interactive authorization instead of retrying a token that will
+      // never work again. A 400/401 can also mean a client-level failure (e.g.
+      // 'invalid_client' while the OAuth secret is mid-rotation) that has nothing to do
+      // with this specific token's validity; discarding it there would force every
+      // affected user through a fresh consent screen once the client itself is fixed,
+      // for a token that was never actually the problem.
+      if (e.error === 'invalid_grant') {
         await chrome.storage.local.remove([AUTH_REFRESH_KEY]);
       }
       throw e;
@@ -494,29 +500,49 @@ export const gsBackup = (() => {
 
   async function revokeAuthToken() {
     const method = await getAuthMethod();
-    try {
-      if (method === 'webauthflow') {
-        const r = await chrome.storage.local.get([AUTH_REFRESH_KEY]);
-        const cached = await getCachedAuthSession();
-        const token = r[AUTH_REFRESH_KEY] || (cached ? cached.accessToken : null);
-        if (token) await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
-        await clearCachedAuthSession();
-        await chrome.storage.local.remove([AUTH_REFRESH_KEY]);
-      } else {
-        const token = await getAuthTokenViaChromeIdentity(false);
-        await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
-        await new Promise((resolve, reject) => {
-          chrome.identity.removeCachedAuthToken({ token }, () => {
-            if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
-            else resolve();
-          });
-        });
+
+    if (method === 'webauthflow') {
+      const r = await chrome.storage.local.get([AUTH_REFRESH_KEY]);
+      const cached = await getCachedAuthSession();
+      const token = r[AUTH_REFRESH_KEY] || (cached ? cached.accessToken : null);
+      if (token) {
+        let revoked;
+        try {
+          const res = await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
+          // Google returns 400 for a token that's already invalid/expired/revoked —
+          // nothing left to revoke server-side, safe to treat as done either way.
+          revoked = res.ok || res.status === 400;
+        } catch (e) {
+          revoked = false; // network failure — the grant may well still be live server-side
+        }
+        if (!revoked) {
+          // Unlike the short-lived chrome-identity access token below, this refresh_token
+          // is long-lived: clearing it here regardless of outcome would silently orphan a
+          // still-active server-side grant with no local token left to retry revoking —
+          // more consequential than a short-lived access token expiring on its own.
+          throw new Error('TMS_DRIVE_REVOKE_FAILED');
+        }
       }
+      await clearCachedAuthSession();
+      await chrome.storage.local.remove([AUTH_REFRESH_KEY]);
+      gsUtils.log('gsBackup', 'Drive token revoked.');
+      return;
+    }
+
+    // 'chrome' method: nothing of ours to preserve — chrome.identity owns this token's
+    // cache, not a refresh_token we're independently responsible for retrying.
+    try {
+      const token = await getAuthTokenViaChromeIdentity(false);
+      await fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`);
+      await new Promise((resolve, reject) => {
+        chrome.identity.removeCachedAuthToken({ token }, () => {
+          if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
+          else resolve();
+        });
+      });
       gsUtils.log('gsBackup', 'Drive token revoked.');
     } catch (e) {
       gsUtils.log('gsBackup', 'revokeAuthToken: nothing to revoke or already expired.', e?.message);
-      await clearCachedAuthSession();
-      await chrome.storage.local.remove([AUTH_REFRESH_KEY]);
     }
   }
 

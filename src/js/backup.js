@@ -993,7 +993,18 @@ import  { gsUtils }    from './gsUtils.js';
 
     // Drive: disconnect button
     document.getElementById('driveDisconnectBtn').addEventListener('click', async () => {
-      await gsBackup.revokeAuthToken();
+      const statusEl = document.getElementById('driveAuthStatus');
+      try {
+        await gsBackup.revokeAuthToken();
+      } catch (e) {
+        // revokeAuthToken() now deliberately keeps the local refresh_token when the
+        // revoke call itself fails, rather than clearing it and silently orphaning a
+        // still-active server-side grant with no way to retry — so the UI must reflect
+        // that this attempt genuinely didn't complete.
+        gsUtils.error('backup', 'Drive disconnect failed:', e);
+        statusEl.textContent = gsUtils.getMessage('js_options_backup_drive_disconnect_error');
+        setTimeout(() => { statusEl.textContent = ''; }, 8000);
+      }
       await updateDriveAuthUI();
     });
 
