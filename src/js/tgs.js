@@ -808,29 +808,44 @@ export const tgs = (function() {
   // chrome.tabs.onUpdated fires this listener independently per tab, with no throttling
   // of its own — when Chrome un-discards/reloads several suspended tabs at once (e.g. a
   // window regaining focus after being idle long enough for memory pressure to discard
-  // them), every one of those tabs fires 'complete' within the same short window, and
-  // each call below immediately did its own storage reads, a chrome.tabs.sendMessage
-  // (with up to ~6s of retries) to its content script, and a checkQueue enqueue, all in
-  // the same instant. Live testing found a repeatable crash tied to exactly this pattern
-  // (a burst of 15-20 tabs completing within ~130ms of each other on focus regain, not
-  // tied to session restore itself, which already goes through this same function but
-  // arrives staggered rather than in one instant). This caps how many of these bursts
-  // actually do that work concurrently, spreading it out instead.
-  const INIT_SUSPENDED_TAB_CONCURRENCY = 5;
-  let _initSuspendedTabActive = 0;
+  // them), every one of those tabs fires 'complete' within the same short window.
+  //
+  // A first version of this fix capped how many of these ran *concurrently* in this
+  // service worker. Live testing under a genuine, reproducible Out-of-Memory crash (46
+  // tabs completing within ~12s) showed that cap did essentially nothing: the actual
+  // memory- and IndexedDB-heavy work (favicon lookup, title/theme setup) happens inside
+  // *each suspended tab's own separate page context*, driven by the 'initTab' message
+  // this function sends — chrome.tabs.sendMessage() resolves as soon as that page's own
+  // listener acknowledges it (a handful of ms), long before that page's own async work
+  // actually finishes. A concurrency cap on the *sender* side barely delays anything,
+  // since each send-and-await-ack cycle here is already fast regardless of how heavy the
+  // receiving page's own work turns out to be — capping "how many are in flight" doesn't
+  // meaningfully change "how many separate tab contexts are doing real work at once".
+  //
+  // What actually matters is *when* each tab is told to start, not how long telling it
+  // takes. This rate-limits dispatch itself: at most this many tabs are sent their
+  // 'initTab' message per interval, regardless of how fast those sends resolve, so a
+  // 46-tab burst gets spread over several seconds of real wall-clock time instead of
+  // being dispatched almost all at once.
+  const INIT_SUSPENDED_TAB_BATCH_SIZE = 5;
+  const INIT_SUSPENDED_TAB_BATCH_INTERVAL_MS = 300;
   const _initSuspendedTabQueue = [];
+  let   _initSuspendedTabTimer = null;
+  function _pumpInitSuspendedTabQueue() {
+    if (_initSuspendedTabTimer) return;
+    const batch = _initSuspendedTabQueue.splice(0, INIT_SUSPENDED_TAB_BATCH_SIZE);
+    batch.forEach((run) => run());
+    if (_initSuspendedTabQueue.length) {
+      _initSuspendedTabTimer = setTimeout(() => {
+        _initSuspendedTabTimer = null;
+        _pumpInitSuspendedTabQueue();
+      }, INIT_SUSPENDED_TAB_BATCH_INTERVAL_MS);
+    }
+  }
   function _runInitSuspendedTabLimited(fn) {
     return new Promise((resolve, reject) => {
-      const run = () => {
-        _initSuspendedTabActive++;
-        fn().then(resolve, reject).finally(() => {
-          _initSuspendedTabActive--;
-          const next = _initSuspendedTabQueue.shift();
-          if (next) next();
-        });
-      };
-      if (_initSuspendedTabActive < INIT_SUSPENDED_TAB_CONCURRENCY) run();
-      else _initSuspendedTabQueue.push(run);
+      _initSuspendedTabQueue.push(() => { fn().then(resolve, reject); });
+      _pumpInitSuspendedTabQueue();
     });
   }
 
