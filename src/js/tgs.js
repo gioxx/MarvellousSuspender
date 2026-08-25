@@ -827,6 +827,14 @@ export const tgs = (function() {
   let   _initSuspendedTabActive = 0;
   const _initSuspendedTabQueue = []; // { tabId, run, resolve }
   function _runInitSuspendedTabLimited(tabId, fn) {
+    // A queued-but-not-yet-started entry for the same tabId means this tab is being
+    // re-initialised before its previous entry ever ran — e.g. an in-place navigation
+    // (unsuspend command, address-bar entry) that doesn't fire onRemoved/onReplaced, so
+    // removeTabIdReferences() never gets a chance to cancel it. Left in place, that stale
+    // entry would eventually send its old 'initTab' payload to the new page (no receiver
+    // for it) and burn a concurrency slot for the full retry budget. Drop it in favour of
+    // this fresh call, which reflects the tab's current state.
+    _cancelQueuedInitSuspendedTab(tabId);
     return new Promise((resolve, reject) => {
       const run = () => {
         _initSuspendedTabActive++;
@@ -840,12 +848,12 @@ export const tgs = (function() {
       else _initSuspendedTabQueue.push({ tabId, run, resolve });
     });
   }
-  // Called from removeTabIdReferences() (itself invoked from chrome.tabs.onRemoved) so a
-  // tab closed or navigated away while still waiting for a limiter slot doesn't consume
-  // one only to fail immediately after burning sendInitTabMessageWithRetry()'s ~6s retry
-  // budget against a tab that no longer exists — in a large restore/wake burst, enough
-  // stale entries queued ahead of still-open tabs could otherwise delay them for minutes,
-  // or leave them uninitialised entirely if the service worker recycles in the meantime.
+  // Also called from removeTabIdReferences() (itself invoked from chrome.tabs.onRemoved) so
+  // a tab closed while still waiting for a limiter slot doesn't consume one only to fail
+  // immediately after burning sendInitTabMessageWithRetry()'s ~6s retry budget against a tab
+  // that no longer exists — in a large restore/wake burst, enough stale entries queued ahead
+  // of still-open tabs could otherwise delay them for minutes, or leave them uninitialised
+  // entirely if the service worker recycles in the meantime.
   function _cancelQueuedInitSuspendedTab(tabId) {
     for (let i = _initSuspendedTabQueue.length - 1; i >= 0; i--) {
       if (_initSuspendedTabQueue[i].tabId === tabId) {
