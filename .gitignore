@@ -12,6 +12,5 @@
 /test
 build
 node_modules
-src/js/gsOauthSecrets.local.js
 Thumbs.db
 tmp

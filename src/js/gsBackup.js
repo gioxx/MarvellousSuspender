@@ -2,7 +2,6 @@ import { gsIndexedDb }        from './gsIndexedDb.js';
 import { gsSession }          from './gsSession.js';
 import { gsStorage }          from './gsStorage.js';
 import { gsUtils }            from './gsUtils.js';
-import { PKCE_CLIENT_SECRET } from './gsOauthSecrets.js';
 
 'use strict';
 
@@ -218,8 +217,8 @@ export const gsBackup = (() => {
   // which depends on the browser's ambient Google session for that tab — unreliable on
   // Brave/Vivaldi and the reported cause of accounts flipping to "disconnected" after
   // 1-2 backups. PKCE gets a long-lived refresh_token once (interactive, one time only),
-  // stored in chrome.storage.local; every renewal after that is a direct POST to
-  // oauth2.googleapis.com/token — no tab, no cookies, no browser-specific behaviour.
+  // stored in chrome.storage.local; every renewal after that is a direct POST through
+  // tms-oauth-proxy (below) — no tab, no cookies, no browser-specific behaviour.
   // Needs its own OAuth client in Google Cloud Console, type "Desktop app" (installed-app
   // clients are treated as public per RFC 8252, so embedding the issued secret is expected
   // and not a confidentiality requirement the way a "Web application" secret would be).
@@ -230,7 +229,6 @@ export const gsBackup = (() => {
   const AUTH_SESSION_KEY = 'tmsDriveAuthSession';
   const AUTH_REFRESH_KEY = 'tmsDriveRefreshToken';
   const TOKEN_EXPIRY_SAFETY_MARGIN_MS = 60 * 1000;
-  const OAUTH_TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
 
   // "Web application" OAuth client (#420), reused for the PKCE fallback (#437) — distinct
   // from the "Chrome App" client_id in manifest.json's oauth2 block (getAuthToken()).
@@ -243,29 +241,16 @@ export const gsBackup = (() => {
   // is still authorization_code + PKCE + refresh_token here, never the old implicit
   // response_type=token flow that caused the original disconnect bug.
   // Registered redirect URI: https://noogafoofpebimajpfpamcfhoaifemoa.chromiumapp.org/
-  // KNOWN, ACCEPTED RISK: this client secret ships inside the packaged extension (the
-  // CRX/ZIP is trivially unzippable), and — unlike the exempted "Chrome app"/"Desktop
-  // app"/mobile client types Google explicitly documents as not needing real secret
-  // confidentiality — a "Web application" client's secret has no such carve-out; Google's
-  // installed-app guidance for that exemption applies only to those other types. It can't
-  // be swapped for one of those instead: "Chrome app" clients only support
-  // chrome.identity.getAuthToken() (the very API failing on Brave/Vivaldi this PR exists
-  // to fix), and "Desktop app" clients reject launchWebAuthFlow()'s chromiumapp.org
-  // redirect (verified live, see above). Accepted deliberately rather than standing up a
-  // separate backend just to broker this exchange: a leaked secret only lets a third
-  // party register something that authenticates to Google as "this app" (e.g. for a
-  // phishing consent screen impersonating it) — it does not expose any existing TMS
-  // user's Drive data or tokens, since each user's own refresh_token/access_token never
-  // leaves their own browser's storage.
-  // gsOauthSecrets.js is a committed placeholder ('REPLACE_ME') so this static import
-  // never fails — a dynamic import() here would silently break in this MV3 service
-  // worker context specifically (background.js's non-interactive token-refresh path),
-  // unlike interactive calls from backup.html's page context, which would keep working
-  // and mask the break until the cached access token next expired. Grunt's build
-  // pipeline substitutes the real secret (kept in the gitignored gsOauthSecrets.local.js)
-  // into the packaged build's own copy of this file — see Gruntfile.js's
-  // 'string-replace:oauthSecret' task and 'checkOauthSecrets' guard.
+  // The client_id is public and safe to embed, but a "Web application" client's secret is
+  // not (Google's installed-app confidentiality exemption only covers "Chrome app"/"Desktop
+  // app"/mobile client types, neither of which works here — see the redirect-URI note
+  // above and the getAuthToken() limitation this fallback exists to work around). So the
+  // secret itself never ships in the package: the token exchange (both the initial
+  // authorization_code grant and every refresh_token renewal) goes through
+  // tms-oauth-proxy, a small Cloudflare Worker that holds the secret server-side and
+  // forwards to Google's token endpoint. See TOKEN_PROXY_ENDPOINT below.
   const PKCE_CLIENT_ID = '630779328171-mge0g9vebmq4pkihhi6gqs9a2agpu07e.apps.googleusercontent.com';
+  const TOKEN_PROXY_ENDPOINT = 'https://tms-oauth-proxy.gioxx.workers.dev/token';
 
   async function isLikelyBrokenChromeIdentity() {
     // Brave's own chrome.identity.getAuthToken() implementation opens a native,
@@ -361,10 +346,10 @@ export const gsBackup = (() => {
   }
 
   async function exchangeTokenEndpoint(params) {
-    const res = await fetch(OAUTH_TOKEN_ENDPOINT, {
+    const res = await fetch(TOKEN_PROXY_ENDPOINT, {
       method : 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body   : new URLSearchParams(params),
+      headers: { 'Content-Type': 'application/json' },
+      body   : JSON.stringify(params),
     });
     const data = await res.json();
     if (!res.ok) {
@@ -385,7 +370,7 @@ export const gsBackup = (() => {
   }
 
   // Only ever called interactive:true — this opens a real tab for the user to consent,
-  // then trades the returned code for tokens via a direct server call (exchangeTokenEndpoint).
+  // then trades the returned code for tokens via tms-oauth-proxy (exchangeTokenEndpoint).
   async function authorizeViaPkce() {
     const redirectUri = chrome.identity.getRedirectURL();
     const verifier     = generateCodeVerifier();
@@ -422,8 +407,6 @@ export const gsBackup = (() => {
     if (!code) throw new Error('No authorization code in OAuth redirect');
 
     return exchangeTokenEndpoint({
-      client_id    : PKCE_CLIENT_ID,
-      client_secret: PKCE_CLIENT_SECRET,
       code,
       code_verifier: verifier,
       grant_type   : 'authorization_code',
@@ -431,8 +414,9 @@ export const gsBackup = (() => {
     });
   }
 
-  // No tab, no cookies — a plain POST using the refresh_token minted once by authorizeViaPkce,
-  // so it renews the same way on every browser regardless of ambient Google-session state.
+  // No tab, no cookies — a plain POST (via tms-oauth-proxy) using the refresh_token minted
+  // once by authorizeViaPkce, so it renews the same way on every browser regardless of
+  // ambient Google-session state.
   async function refreshAccessToken() {
     const r = await chrome.storage.local.get([AUTH_REFRESH_KEY]);
     const refreshToken = r[AUTH_REFRESH_KEY];
@@ -440,8 +424,6 @@ export const gsBackup = (() => {
 
     try {
       return await exchangeTokenEndpoint({
-        client_id    : PKCE_CLIENT_ID,
-        client_secret: PKCE_CLIENT_SECRET,
         refresh_token: refreshToken,
         grant_type   : 'refresh_token',
       });
