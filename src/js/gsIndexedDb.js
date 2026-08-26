@@ -20,19 +20,35 @@ export const gsIndexedDb = {
   getDb: async function() {
     if (!gsIndexedDb._db) {
       gsIndexedDb._db = await openDB(gsIndexedDb.DB_SERVER, gsIndexedDb.DB_VERSION, {
-        upgrade(db) {
+        // transaction (the versionchange transaction idb.js's own upgrade() wrapper
+        // already passes as its 4th argument) is what lets an *existing* store pick up a
+        // newly-added index below — db.createObjectStore() only works for a store being
+        // created in this same upgrade pass; an already-existing store's own object
+        // needs transaction.objectStore(name) instead. Without this, a store shipped
+        // once without a given index (e.g. DB_LOG_ENTRIES's 'ts' index, added after that
+        // store's own DB_VERSION bump) could never pick it up for anyone who'd already
+        // opened that version, even after a later version bump added the index here.
+        upgrade(db, oldVersion, newVersion, transaction) {
           const stores = [
             { name: gsIndexedDb.DB_PREVIEWS,          indexes: ['url'] },
             { name: gsIndexedDb.DB_SUSPENDED_TABINFO, indexes: ['url'] },
             { name: gsIndexedDb.DB_FAVICON_META,      indexes: ['url'] },
             { name: gsIndexedDb.DB_CURRENT_SESSIONS,  indexes: ['sessionId'] },
             { name: gsIndexedDb.DB_SAVED_SESSIONS,    indexes: ['sessionId'] },
-            { name: gsIndexedDb.DB_LOG_ENTRIES,       indexes: [] },
+            // ts: insertion order (the autoIncrement 'id') doesn't match chronological
+            // order once multiple contexts flush independently — a throttled context can
+            // persist an older-ts batch after another context has already persisted
+            // newer entries. fetchLogEntries()/trimLogEntries() below order and trim by
+            // this index instead of by 'id', so "most recent" and "oldest to evict"
+            // both mean what they say regardless of which context wrote what when.
+            { name: gsIndexedDb.DB_LOG_ENTRIES,       indexes: ['ts'] },
           ];
           for (const { name, indexes } of stores) {
-            if (!db.objectStoreNames.contains(name)) {
-              const store = db.createObjectStore(name, { keyPath: 'id', autoIncrement: true });
-              for (const idx of indexes) store.createIndex(idx, idx);
+            const store = db.objectStoreNames.contains(name)
+              ? transaction.objectStore(name)
+              : db.createObjectStore(name, { keyPath: 'id', autoIncrement: true });
+            for (const idx of indexes) {
+              if (!store.indexNames.contains(idx)) store.createIndex(idx, idx);
             }
           }
         },
@@ -158,28 +174,36 @@ export const gsIndexedDb = {
   // every one of dozens of suspended tabs sharing one renderer process, each one a side
   // effect of Chrome constructing that broadcast payload for a context that never asked
   // for it.
+  // Deliberately does not catch-and-report like every other method in this file: a
+  // failure logged via gsUtils.error() would itself append a new pending log entry and
+  // immediately trigger another flush attempt (error() calls _flushNow() unconditionally)
+  // — if the underlying failure persists (IndexedDB genuinely unavailable, a quota error),
+  // that new entry fails to persist too, logs its own error, and triggers yet another
+  // flush, a tight loop with no natural end. Letting this reject instead lets
+  // gsUtils.js's own _flushNowCore() catch it, requeue the batch, and retry on its normal
+  // 1.5s schedule, without ever routing the failure back through the pipe that just failed.
   addLogEntries: async function(entries) {
     if (!entries || entries.length === 0) return;
-    try {
-      const db = await gsIndexedDb.getDb();
-      for (const entry of entries) {
-        await db.add(gsIndexedDb.DB_LOG_ENTRIES, entry);
-      }
-    } catch (e) {
-      gsUtils.error('gsIndexedDb', e);
+    const db = await gsIndexedDb.getDb();
+    for (const entry of entries) {
+      await db.add(gsIndexedDb.DB_LOG_ENTRIES, entry);
     }
   },
 
-  // Most-recent `limit` entries, oldest first — a cursor walking backward from the end
-  // (autoIncrement ids are inserted in chronological order) rather than getAll() + slice(),
-  // so this doesn't have to read the entire store just to keep the live debug view's most
-  // recent window.
+  // Most-recent `limit` entries, oldest first — a cursor walking the 'ts' index backward
+  // from the end, not getAll() + slice(), so this doesn't have to read the entire store
+  // just to keep the live debug view's most recent window. Ordered by 'ts', not by
+  // insertion order (the autoIncrement primary key): multiple contexts flush
+  // independently, so a throttled context's older-ts batch can land (and get higher
+  // primary keys) after another context's newer entries — walking by primary key order
+  // would then show those stale entries as the "most recent" instead of what actually
+  // happened last.
   fetchLogEntries: async function(limit) {
     const results = [];
     try {
       const db = await gsIndexedDb.getDb();
       const tx = db.transaction(gsIndexedDb.DB_LOG_ENTRIES, 'readonly');
-      let cursor = await tx.store.openCursor(null, 'prev');
+      let cursor = await tx.store.index('ts').openCursor(null, 'prev');
       while (cursor && results.length < limit) {
         results.push(cursor.value);
         cursor = await cursor.continue();
@@ -202,11 +226,12 @@ export const gsIndexedDb = {
     }
   },
 
-  // Every entry, oldest first (insertion order), for the downloadable/copyable report.
+  // Every entry, oldest first by 'ts' (not insertion order — see fetchLogEntries() above
+  // for why those can differ), for the downloadable/copyable report.
   fetchAllLogEntries: async function() {
     try {
       const db = await gsIndexedDb.getDb();
-      return await db.getAll(gsIndexedDb.DB_LOG_ENTRIES);
+      return await db.getAllFromIndex(gsIndexedDb.DB_LOG_ENTRIES, 'ts');
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
       return [];
@@ -214,11 +239,14 @@ export const gsIndexedDb = {
   },
 
   // Same shape as trimDbItems() below for the other stores — deletes the oldest entries
-  // once the store grows past maxCount, keeping only the most recent window.
+  // once the store grows past maxCount, keeping only the most recent window. Oldest by
+  // 'ts', not by primary key: getAllKeysFromIndex() returns primary keys ordered by the
+  // *index's* key order, so this deletes what's actually chronologically oldest instead
+  // of risking evicting a newer entry that simply landed with a lower autoIncrement id.
   trimLogEntries: async function(maxCount) {
     try {
       const db = await gsIndexedDb.getDb();
-      const keys = await db.getAllKeys(gsIndexedDb.DB_LOG_ENTRIES);
+      const keys = await db.getAllKeysFromIndex(gsIndexedDb.DB_LOG_ENTRIES, 'ts');
       if (keys.length > maxCount) {
         for (const key of keys.slice(0, keys.length - maxCount)) {
           await db.delete(gsIndexedDb.DB_LOG_ENTRIES, key);
