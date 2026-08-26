@@ -945,7 +945,16 @@ export const tgs = (function() {
       // Using a freshly-fetched tab here, not the one this closure captured, also avoids
       // sending a newly-navigated suspended page the previous URL's stale title/favicon.
       const freshTab = await chrome.tabs.get(tab.id).catch(() => null);
-      if (!freshTab || !gsUtils.isSuspendedTab(freshTab) || freshTab.url !== tab.url) return;
+      // A tab Chrome discards while still on its suspended URL stays isSuspendedTab() ===
+      // true (the URL never changes), so background.js keeps routing its onUpdated events
+      // through the suspended branch — cancelInitSuspendedTab() (only called from the
+      // non-suspended branch, re-entry, and removeTabIdReferences()) never sees it. Left
+      // unchecked here, this would still send 'initTab' to a page with no live receiver
+      // for the full retry budget. Bailing out here is enough on its own: discarding a
+      // suspended tab doesn't unload its placeholder content permanently — the tab gets
+      // its own fresh 'loading'/'complete' cycle (and therefore its own fresh call to this
+      // function) whenever it's next reloaded, so nothing needs to be rescheduled from here.
+      if (!freshTab || !gsUtils.isSuspendedTab(freshTab) || freshTab.url !== tab.url || freshTab.discarded) return;
       const quickInit = discardAfterSuspend && !freshTab.active;
       const payload = { action: 'initTab', tab: freshTab, quickInit, sessionId };
       await sendInitTabMessageWithRetry(freshTab.id, payload, token)
