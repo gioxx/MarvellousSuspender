@@ -422,13 +422,13 @@ export const tgs = (function() {
   }
 
   function unsuspendSelectedTabs() {
-    chrome.tabs.query({ highlighted: true, lastFocusedWindow: true }, async (selectedTabs) => {
-      for (const tab of selectedTabs) {
+    chrome.tabs.query({ highlighted: true, lastFocusedWindow: true }, (selectedTabs) => {
+      selectedTabs.forEach((tab) => {
         gsTabSuspendManager.unqueueTabForSuspension(tab);
         if (gsUtils.isSuspendedTab(tab)) {
-          await unsuspendTab(tab);
+          unsuspendTab(tab);
         }
-      }
+      });
     });
   }
 
