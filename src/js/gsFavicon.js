@@ -12,8 +12,19 @@ export const gsFavicon = (() => {
    * isDark              : boolean,
    * normalisedDataUrl   : string,
    * transparentDataUrl  : string,
+   * v?                  : number,
    * } } FavIconMeta
    */
+
+  // Bumped whenever buildFaviconMeta()'s output format/cost characteristics change in a
+  // way that makes a previously-cached entry (persisted in IndexedDB, potentially long
+  // before this version shipped) worth rebuilding rather than reusing as-is — e.g. the
+  // MAX_FAVICON_DIMENSION cap below. isFaviconMetaValid() treats a missing/older version
+  // as invalid, so getFaviconMetaFromCache() falls through to the normal cache-miss path
+  // and rebuilds (and re-saves) it with the current logic, self-healing existing profiles
+  // over time as suspended tabs are naturally revisited, without needing to decode and
+  // measure every cached data URL just to detect an oversized one.
+  const FAVICON_META_VERSION = 2;
 
   // const GOOGLE_S2_URL = 'https://www.google.com/s2/favicons?domain_url=';
   /** @type { FavIconMeta } */
@@ -275,7 +286,12 @@ export const gsFavicon = (() => {
     if (
       !faviconMeta ||
       faviconMeta.normalisedDataUrl === 'data:,' ||
-      faviconMeta.transparentDataUrl === 'data:,'
+      faviconMeta.transparentDataUrl === 'data:,' ||
+      // A cached entry from before FAVICON_META_VERSION existed (or from an older version
+      // of it) may have been built without the MAX_FAVICON_DIMENSION cap in
+      // buildFaviconMeta() — treating it as invalid here sends every caller down the
+      // normal cache-miss path, which rebuilds (and re-saves) it with the current logic.
+      faviconMeta.v !== FAVICON_META_VERSION
     ) {
       return false;
     }
@@ -451,6 +467,7 @@ export const gsFavicon = (() => {
             isDark,
             normalisedDataUrl,
             transparentDataUrl,
+            v: FAVICON_META_VERSION,
           };
           resolve(faviconMeta);
         }
