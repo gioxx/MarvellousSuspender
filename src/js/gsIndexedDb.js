@@ -6,7 +6,17 @@ import { gsUtils }   from './gsUtils.js';
 
 export const gsIndexedDb = {
   DB_SERVER:   'tgs',
-  DB_VERSION:  4,
+  // Bumped to 5 specifically to force upgrade() to actually run again for anyone who'd
+  // already opened DB_VERSION 4 before the 'ts' index below existed on DB_LOG_ENTRIES —
+  // IndexedDB only ever fires onupgradeneeded when the *requested* version is higher than
+  // the database's current stored one, never merely different. Adding the index while
+  // leaving DB_VERSION unchanged (the original assumption behind this upgrade()'s
+  // transaction.objectStore() handling for already-existing stores) silently meant that
+  // handling could never run for anyone already at 4: their on-disk database kept no 'ts'
+  // index at all, and fetchLogEntries()'s index('ts') call failed outright, caught by its
+  // own try/catch and returning an empty array — the live view showing "No entries" while
+  // countLogEntries() (a plain store-level count, no index needed) kept climbing normally.
+  DB_VERSION:  5,
   DB_PREVIEWS:             'gsPreviews',
   DB_SUSPENDED_TABINFO:    'gsSuspendedTabInfo',
   DB_FAVICON_META:         'gsFaviconMeta',
