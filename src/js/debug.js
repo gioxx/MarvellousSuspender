@@ -666,24 +666,53 @@ import  { tgs }                   from './tgs.js';
       await refreshLogs();
     });
 
+    // buildReport() does a real, potentially slow pass: a concurrency-capped sweep of
+    // getDebugInfo() over every open tab, plus (for the "full" download variant) reading
+    // and sorting the entire log-entries store, which can be several thousand records on
+    // a long captureLogs session. With neither button disabled while that's in flight, a
+    // few impatient extra clicks — reasonable given nothing else on the page indicates
+    // it's working — each started their own full, overlapping buildReport() pass, and for
+    // "Download report" specifically, each one triggers its own file save: N clicks
+    // silently became N downloaded files with no indication anything had gone wrong.
+    // Disabling the clicked button for the duration (with visible "Working…" text so the
+    // wait itself is expected) makes a slow report obviously in-progress instead of
+    // silently doing nothing, and makes a second click physically impossible until the
+    // first finishes either way.
     document.getElementById('btnCopyReport').addEventListener('click', async () => {
-      const report = await buildReport(false);
-      await navigator.clipboard.writeText(report);
       const btn = document.getElementById('btnCopyReport');
       const prev = btn.textContent;
-      btn.textContent = 'Copied!';
-      setTimeout(() => { btn.textContent = prev; }, 1500);
+      btn.disabled = true;
+      btn.textContent = 'Working…';
+      try {
+        const report = await buildReport(false);
+        await navigator.clipboard.writeText(report);
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = prev; }, 1500);
+      }
+      finally {
+        btn.disabled = false;
+      }
     });
 
     document.getElementById('btnDownloadReport').addEventListener('click', async () => {
-      const report = await buildReport(true);
-      const blob   = new Blob([report], { type: 'text/plain' });
-      const url    = URL.createObjectURL(blob);
-      const a      = document.createElement('a');
-      a.href     = url;
-      a.download = `tms-debug-${new Date().toISOString().substring(0, 19).replace(/:/g, '-')}.txt`;
-      a.click();
-      URL.revokeObjectURL(url);
+      const btn = document.getElementById('btnDownloadReport');
+      const prev = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Working…';
+      try {
+        const report = await buildReport(true);
+        const blob   = new Blob([report], { type: 'text/plain' });
+        const url    = URL.createObjectURL(blob);
+        const a      = document.createElement('a');
+        a.href     = url;
+        a.download = `tms-debug-${new Date().toISOString().substring(0, 19).replace(/:/g, '-')}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      finally {
+        btn.disabled = false;
+        btn.textContent = prev;
+      }
     });
 
     window.addEventListener('focus', () => {
