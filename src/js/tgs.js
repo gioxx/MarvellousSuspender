@@ -909,13 +909,22 @@ export const tgs = (function() {
     await _runInitSuspendedTabLimited(tab.id, async () => {
       // const tabView = getInternalViewByTabId(tab.id);
       const discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
-      const quickInit = discardAfterSuspend && !tab.active;
-      const payload = { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() };
-      await sendInitTabMessageWithRetry(tab.id, payload)
+      // Re-checked yet again here, immediately before the actual send: _runInitSuspendedTabLimited()'s
+      // own revalidation only covers the window up to the moment this closure starts running —
+      // the two awaits just above it (gsStorage.getOption(), and gsSession.getSessionId() below)
+      // are their own race window the tab can navigate away in, with nothing left able to cancel
+      // this job (it's already active, past the queue). Using a freshly-fetched tab here, not the
+      // one this closure captured, also avoids sending a newly-navigated suspended page the
+      // previous URL's title/favicon were it to somehow still read as suspended.
+      const freshTab = await chrome.tabs.get(tab.id).catch(() => null);
+      if (!freshTab || !gsUtils.isSuspendedTab(freshTab) || freshTab.url !== tab.url) return;
+      const quickInit = discardAfterSuspend && !freshTab.active;
+      const payload = { action: 'initTab', tab: freshTab, quickInit, sessionId: await gsSession.getSessionId() };
+      await sendInitTabMessageWithRetry(freshTab.id, payload)
         .catch((error) => {
-          gsUtils.warning(tab.id, 'tgs', 'initialiseSuspendedTab', error);
+          gsUtils.warning(freshTab.id, 'tgs', 'initialiseSuspendedTab', error);
         });
-      gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 3000);
+      gsTabCheckManager.queueTabCheck(freshTab, { refetchTab: true }, 3000);
     });
   }
 
