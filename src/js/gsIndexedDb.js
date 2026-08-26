@@ -298,11 +298,24 @@ export const gsIndexedDb = {
   // independently decide "trim needed" on their own first flush after a restore burst,
   // producing dozens of concurrent 10,000-key scans and delete transactions — a real
   // CPU/IndexedDB-contention burst in the exact path meant to prevent one. A single
-  // periodic alarm (idempotent create — a second call with the same name just replaces
-  // the existing schedule, so calling this on every service worker start is safe)
-  // decouples trimming entirely from how often, or from where, entries get logged.
+  // periodic alarm decouples trimming entirely from how often, or from where, entries
+  // get logged.
+  //
+  // chrome.alarms.create() with only periodInMinutes (no when/delayInMinutes) fires its
+  // *first* time periodInMinutes after the call, not immediately — and calling create()
+  // again with the same name doesn't merely no-op, it replaces the alarm outright,
+  // restarting that countdown from scratch. MV3 service workers restart routinely (an
+  // idle timeout well under 5 minutes, any new event), and this function runs on every
+  // one of those restarts — confirmed live via a report showing 12,721 stored entries,
+  // well past the 10,000 cap, meaning the alarm had in practice never once fired.
+  // chrome.alarms themselves persist independently of the service worker's own lifetime
+  // once actually created, so checking for an existing alarm first (rather than always
+  // recreating) is enough: the schedule set on first creation keeps firing on its own
+  // regardless of how often the service worker restarts afterward.
   syncLogTrimAlarm: async function() {
     if (typeof chrome === 'undefined' || !chrome.alarms) return;
+    const existing = await chrome.alarms.get(gsIndexedDb.LOG_TRIM_ALARM_NAME);
+    if (existing) return;
     chrome.alarms.create(gsIndexedDb.LOG_TRIM_ALARM_NAME, { periodInMinutes: 5 });
   },
 
