@@ -908,18 +908,22 @@ export const tgs = (function() {
 
     await _runInitSuspendedTabLimited(tab.id, async () => {
       // const tabView = getInternalViewByTabId(tab.id);
-      const discardAfterSuspend = await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND);
-      // Re-checked yet again here, immediately before the actual send: _runInitSuspendedTabLimited()'s
-      // own revalidation only covers the window up to the moment this closure starts running —
-      // the two awaits just above it (gsStorage.getOption(), and gsSession.getSessionId() below)
-      // are their own race window the tab can navigate away in, with nothing left able to cancel
-      // this job (it's already active, past the queue). Using a freshly-fetched tab here, not the
-      // one this closure captured, also avoids sending a newly-navigated suspended page the
-      // previous URL's title/favicon were it to somehow still read as suspended.
+      // Every prior attempt at revalidating this job right before it sends its payload still
+      // left some async prep step (a storage read, a session-id lookup) *after* the check,
+      // its own race window the tab could navigate away in with nothing left able to cancel
+      // an already-active job. Both are fetched up front here instead, so the freshTab check
+      // below is genuinely the last thing that can go stale before sendInitTabMessageWithRetry()
+      // is called immediately after it, with no intervening await.
+      const [discardAfterSuspend, sessionId] = await Promise.all([
+        gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND),
+        gsSession.getSessionId(),
+      ]);
+      // Using a freshly-fetched tab here, not the one this closure captured, also avoids
+      // sending a newly-navigated suspended page the previous URL's stale title/favicon.
       const freshTab = await chrome.tabs.get(tab.id).catch(() => null);
       if (!freshTab || !gsUtils.isSuspendedTab(freshTab) || freshTab.url !== tab.url) return;
       const quickInit = discardAfterSuspend && !freshTab.active;
-      const payload = { action: 'initTab', tab: freshTab, quickInit, sessionId: await gsSession.getSessionId() };
+      const payload = { action: 'initTab', tab: freshTab, quickInit, sessionId };
       await sendInitTabMessageWithRetry(freshTab.id, payload)
         .catch((error) => {
           gsUtils.warning(freshTab.id, 'tgs', 'initialiseSuspendedTab', error);
