@@ -4,14 +4,11 @@ import  { gsUtils } from './gsUtils.js';
 const gsChangelog = (() => {
   'use strict';
 
-  // CHANGELOG_USER.md is a real file inside src/, not a symlink to the repo-root
-  // CHANGELOG.md (unlike that one, which stays a symlink purely so local "Load unpacked"
-  // testing can see it) — deliberately separate from the full technical changelog, wiped
-  // and rewritten from scratch at every release with only the handful of changes an
-  // actual user of the extension, not a developer reading pull request history, cares
-  // about. Points here instead of CHANGELOG.md so this modal doesn't have to render
-  // multi-paragraph technical write-ups (crash dumps, review rounds, V8 internals) at
-  // someone who just wants to know what's new.
+  // CHANGELOG_USER.md is a real file inside src/ — deliberately separate from the
+  // repo-root CHANGELOG.md, which has become a detailed technical log (crash dumps,
+  // review rounds, internals) not meant for someone who just wants to know what's new.
+  // Wiped and rewritten from scratch at every release with only the handful of changes
+  // an actual user of the extension cares about.
   const CHANGELOG_URL = chrome.runtime.getURL('CHANGELOG_USER.md');
 
   // Extracts the body of a single "## [version] — date" section, up to the next "## [" heading.
@@ -107,10 +104,8 @@ const gsChangelog = (() => {
         return false;
       }
       const markdown = await response.text();
-      // CHANGELOG_USER.md is a real file inside src/ (not a symlink like the old
-      // CHANGELOG.md target), so there's no broken-symlink failure mode to guard
-      // against here — this is just a basic empty-response sanity check, e.g. a build
-      // step that somehow shipped a zero-byte file.
+      // Basic empty-response sanity check — e.g. a build step that somehow shipped a
+      // zero-byte file, or this release's file getting wiped without being refilled.
       if (markdown.length < 20) {
         gsUtils.warning('gsChangelog', 'renderVersionChangelog', `Suspiciously short response (${markdown.length} bytes) from ${CHANGELOG_URL}. Content: ${markdown}`);
         return false;

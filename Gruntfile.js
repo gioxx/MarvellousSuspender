@@ -14,16 +14,8 @@ module.exports = function(grunt) {
     copy: {
       main: {
         expand: true,
-        // src/CHANGELOG.md is a symlink to the root CHANGELOG.md (kept for local
-        // "Load unpacked" testing); grunt.file.copy preserves symlinks structurally
-        // rather than dereferencing them, which would ship a broken link pointing
-        // outside the package, so it's excluded here and copied for real below.
-        src: ['src/**', '!src/tests.html', '!src/js/tests/**', '!src/img/*.xcf', '!src/CHANGELOG.md'],
+        src: ['src/**', '!src/tests.html', '!src/js/tests/**', '!src/img/*.xcf'],
         dest: '<%= config.tempDir %>',
-      },
-      changelog: {
-        src: 'CHANGELOG.md',
-        dest: '<%= config.tempDir %>src/CHANGELOG.md',
       },
     },
     'string-replace': {
