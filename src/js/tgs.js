@@ -778,6 +778,19 @@ export const tgs = (function() {
 
     gsUtils.log( tab.id, 'tgs', 'handleSuspendedTabStateChanged', changeInfo );
 
+    // A tab discarded while its own initialiseSuspendedTab() job is queued or already
+    // retrying stays isSuspendedTab() === true (the URL never changes on discard), so
+    // background.js keeps routing its onUpdated events through this suspended branch
+    // instead of the one that already cancels on a non-suspended transition. Without this,
+    // a discard landing *after* that job's own one-time freshTab.discarded check (e.g.
+    // during one of sendInitTabMessageWithRetry()'s own retry delays) had nothing left able
+    // to stop it short of the full ~6s budget, occupying a limiter slot against a page with
+    // no live receiver the whole time. Cancelling here reaches the same shared token that
+    // retry loop already checks on every attempt, regardless of which one it's currently in.
+    if (changeInfo.discarded) {
+      _cancelInitSuspendedTab(tab.id);
+    }
+
     // Manifest V3:  This function runs async, and the blank suspended pages load fast enough
     // where the state transitions from 'loading' to 'complete' before we have a chance to
     // write the tab state to session storage.  Instead of delaying or queuing the 'complete'
