@@ -302,26 +302,18 @@ import  { tgs }                   from './tgs.js';
 
   // ── Log buffer ──────────────────────────────────────────────────────────────
 
+  // Most recent 500 entries, oldest first — the live view's own window, independent of
+  // gsUtils.js's larger _LOG_BUFFER_FULL_MAX cap on the store as a whole.
   async function readLogBuffer() {
-    const result = await chrome.storage.local.get([gsStorage.LOG_BUFFER]);
-    try {
-      return JSON.parse(result[gsStorage.LOG_BUFFER] || '[]');
-    } catch {
-      return [];
-    }
+    return gsIndexedDb.fetchLogEntries(500);
   }
 
-  // Report/copy pull from the larger rotating buffer, not the 500-entry one the live
-  // view renders — on a heavy profile (hundreds of tabs), background auto-suspend/
-  // discard noise alone can evict the 500-entry window in a couple of minutes, well
-  // before a reporter gets to actually download it.
+  // Report/copy pull from the full rotating store, not the 500-entry window the live view
+  // renders — on a heavy profile (hundreds of tabs), background auto-suspend/discard noise
+  // alone can evict that window in a couple of minutes, well before a reporter gets to
+  // actually download it.
   async function readLogBufferFull() {
-    const result = await chrome.storage.local.get([gsStorage.LOG_BUFFER_FULL]);
-    try {
-      return JSON.parse(result[gsStorage.LOG_BUFFER_FULL] || '[]');
-    } catch {
-      return [];
-    }
+    return gsIndexedDb.fetchAllLogEntries();
   }
 
   function levelLabel(level) {
@@ -351,17 +343,17 @@ import  { tgs }                   from './tgs.js';
 
   // Same overlap problem fetchTabInfo() above already had to guard against, and the same
   // fix: refreshLogs() runs on every window 'focus' event (multi-monitor setups, rapid
-  // alt-tabbing) with no debounce of its own, and each run does a full
-  // chrome.storage.local.get() + JSON.parse() of *both* the 500-entry live buffer and the
-  // up to 10,000-entry full buffer — the latter fetched on every single call just to
-  // display a count. A live crash dump (Crashpad's v8-oom-lo-space-size, V8's large-object
-  // space, at ~3.8GB of a ~4.2GB cap) tied to nothing more than "using debug.html a bit"
-  // pointed here: a burst of focus events firing overlapping full-buffer parses faster than
-  // GC could reclaim them, independent of how many suspended tabs happened to be open at
-  // the time — unlike the earlier favicon-size theory, this doesn't scale with tab count,
-  // matching a crash reproduced with as few as 28 tabs open. Coalescing concurrent calls
-  // into at most one in-flight run plus one queued follow-up (same shape as fetchTabInfo()'s
-  // own guard) bounds how many of these parses can ever be in memory at once, regardless of
+  // alt-tabbing) with no debounce of its own. This originally also read the *entire*
+  // chrome.storage.local-backed full buffer (up to 10,000 entries, JSON-parsed from one
+  // big string) on every single call just to display a count — a real cost in its own
+  // right, compounded by the underlying chrome.storage.local design's cross-context
+  // broadcast problem (see gsUtils.js's log-buffer section for the actual live-crash
+  // evidence that mechanism produced). The buffer is IndexedDB-backed now
+  // (gsIndexedDb.js's DB_LOG_ENTRIES store, no such broadcast) and the full-buffer count
+  // below uses a cheap countLogEntries() instead of fetching every entry, but the overlap
+  // guard stays: a burst of focus events still shouldn't fire a pile of concurrent reads
+  // for no reason. Coalescing concurrent calls into at most one in-flight run plus one
+  // queued follow-up (same shape as fetchTabInfo()'s own guard) bounds that regardless of
   // how many focus events arrive in a burst.
   let _refreshingLogs = false;
   let _refreshLogsPending = false;
@@ -374,12 +366,12 @@ import  { tgs }                   from './tgs.js';
     try {
       do {
         _refreshLogsPending = false;
-        const [buffer, bufferFull] = await Promise.all([readLogBuffer(), readLogBufferFull()]);
+        const [buffer, fullCount] = await Promise.all([readLogBuffer(), gsIndexedDb.countLogEntries()]);
         const output     = document.getElementById('logOutput');
         const counter    = document.getElementById('logCount');
         const counterFull = document.getElementById('logCountFull');
         counter.textContent = buffer.length;
-        counterFull.textContent = bufferFull.length;
+        counterFull.textContent = fullCount;
         if (buffer.length === 0) {
           output.innerHTML = '<div class="logEmpty">No entries. Errors are always captured automatically. Enable <strong>captureLogs</strong> above to also capture warnings and verbose logs, then reproduce the issue.</div>';
         } else if (output.classList.contains('warnErrOnly') && !buffer.some(e => e.level === 'W' || e.level === 'E')) {

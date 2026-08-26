@@ -288,9 +288,6 @@ import  { gsUtils }               from './gsUtils.js';
     // real, slower response for actions like 'checkTabResponsiveness'.
     // These are meant only for the service worker, delivered here too because Chrome
     // broadcasts any chrome.runtime.sendMessage() with no tabId to every extension page.
-    // Not logging them (not even as "ignoring") matters specifically for
-    // gsAppendLogEntries: logging it would itself be a log entry needing its own flush,
-    // whose "ignored" broadcast produces another one, forever.
     if (gsUtils.INTERNAL_MESSAGE_ACTIONS.has(request.action)) return false;
 
     gsUtils.log('options', 'messageRequestListener', request.action, request, sender);

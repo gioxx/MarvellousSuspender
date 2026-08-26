@@ -167,27 +167,6 @@ import  { tgs }                   from './tgs.js';
 
 
   function messageRequestListener(request, sender, sendResponse) {
-    // gsAppendLogEntries is handled by gsUtils.js's own dedicated listener (registered
-    // separately, since it's the sole writer of the log-buffer storage keys), not by
-    // the switch below — it still reaches this listener too, since Chrome delivers a
-    // broadcast message to every registered listener independently. Logging it here
-    // (even at the top-level log() call below, let alone as "unknown action" in the
-    // default case) would add a new entry needing its own flush on every flush cycle,
-    // forever. Only this one action is skipped here, unlike the equivalent guard in
-    // options.js/suspended.js/updated.js, since this switch is where 'clearLogs' (the
-    // other entry in INTERNAL_MESSAGE_ACTIONS) is actually meant to be handled.
-    //
-    // This check has to run before this function does anything async — declaring the
-    // whole function `async` (as it used to be) meant even this early `return false`
-    // was wrapped in a Promise rather than being the literal `false` Chrome needs to
-    // decline the message synchronously. On Chrome versions that treat a returned
-    // Promise as an async response, that Promise could resolve (as `false`) before
-    // gsUtils.js's own dedicated listener finished its real, slower `{ success: true }`
-    // response, and the sender only keeps whichever response arrives first — so
-    // _flushNow() would see `false`, requeue an already-persisted batch, and resend
-    // (and re-persist) it every 1.5s indefinitely.
-    if (request.action === 'gsAppendLogEntries') return false;
-
     gsUtils.log('background', 'messageRequestListener', request.action, request, sender);
 
     // The rest of this listener still needs to run async work before responding, so it
@@ -325,10 +304,10 @@ import  { tgs }                   from './tgs.js';
           }
           case 'clearLogs' : {
         // The debug page runs in its own context with its own copy of the gsUtils
-        // module — clearing chrome.storage from there doesn't touch this service
-        // worker's in-memory _logBuffer/_logBufferFull, so the next log entry (or an
-        // already-pending debounced flush) would silently write the old buffers back
-        // over the just-cleared storage. Route the clear through here instead.
+        // module — clearing gsIndexedDb's log-entries store from there wouldn't drop
+        // this service worker's own not-yet-flushed _pendingEntries, which would
+        // otherwise land straight back into the just-cleared store on its next
+        // scheduled flush. Route the clear through here instead.
             responseData = { success: await gsUtils.clearLogBuffer() };
             break;
           }

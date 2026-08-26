@@ -425,10 +425,8 @@ import  { tgs }                   from './tgs.js';
   // whichever listener the message was actually meant for.
   function messageRequestListener(request, sender, sendResponse) {
     if (!HANDLED_MESSAGE_ACTIONS.has(request.action)) {
-      // gsAppendLogEntries especially must stay unlogged here: logging it would be a
-      // log entry needing its own flush, whose "ignored" broadcast produces another
-      // one in turn, in every open suspended tab, forever. See the matching guard in
-      // options.js/updated.js.
+      // Actions in INTERNAL_MESSAGE_ACTIONS are meant only for the service worker; see
+      // the matching guard in options.js/updated.js.
       if (!gsUtils.INTERNAL_MESSAGE_ACTIONS.has(request.action)) {
         gsUtils.log('suspended', 'messageRequestListener', `Ignoring unhandled message: ${request.action}`);
       }

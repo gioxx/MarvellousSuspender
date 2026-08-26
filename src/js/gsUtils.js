@@ -1,6 +1,7 @@
 // @ts-check
 import  { gsChrome }              from './gsChrome.js';
 import  { gsFavicon }             from './gsFavicon.js';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMascot }              from './gsMascot.js';
 import  { gsMessages }            from './gsMessages.js';
 import  { gsSession }             from './gsSession.js';
@@ -14,57 +15,44 @@ import  { tgs }                   from './tgs.js';
 let _localeMessages = null;
 
 // ── Log buffer ────────────────────────────────────────────────────────────────
-// Persisted in chrome.storage.local only — see _mergeAndPersistCore() below. Every page
-// (including suspended.js, in every suspended tab) shares this gsUtils.js module but
-// gets its own separate instance; keeping a live copy of these buffers in every one of
-// them (as an earlier version of this rework did) was pure duplicated memory with no
-// reader, since the debug page's live view and downloadable report both fetch straight
-// from chrome.storage.local instead (debug.js's refreshLogs()/buildReport()). Only
-// _pendingEntries below, the not-yet-flushed delta, needs to live in each context.
-const _LOG_BUFFER_KEY = 'gsLogBuffer';
-const _LOG_BUFFER_MAX = 500;
-// Separate, much larger ring buffer feeding only the downloadable/copyable report.
-// The 500-entry cap above is what the debug page's live view renders; on a noisy
-// profile (dozens of background tabs auto-suspending/discarding) that window alone is
-// often only a minute or two, evicting whatever a reporter was actually trying to
-// capture before they get to the download button.
-const _LOG_BUFFER_FULL_KEY = 'gsLogBufferFull';
+// Persisted in IndexedDB (gsIndexedDb.js's DB_LOG_ENTRIES store), one record per entry,
+// not one shared chrome.storage.local blob. Every context (every suspended tab included)
+// flushes its own pending entries directly there instead of funneling through the service
+// worker as the sole writer — IndexedDB gives each entry its own record, so concurrent
+// writers from different contexts never race the way two overlapping reads of one shared
+// blob could, and unlike chrome.storage.local, a write here never fires
+// chrome.storage.onChanged in every other context that happens to have any listener
+// registered for that storage area.
+//
+// That broadcast was the actual mechanism behind a live, reproducible OOM crash under the
+// previous chrome.storage.local design: Crashpad's local minidump (v8-oom-lo-space-size,
+// V8's large-object space, not external/malloc memory) showed dozens of near-duplicate
+// multi-MB JSON-stringified copies of the old buffer alive at once in a single renderer
+// process, one per suspended tab sharing it (Chrome puts every same-origin extension page
+// in one process) — each copy a side effect of Chrome delivering the full oldValue/newValue
+// of every chrome.storage.local.set() touching those keys to every context with an
+// onChanged listener registered for that area (e.g. suspended.js's, present in every
+// suspended tab, for an entirely unrelated setting), regardless of whether that listener's
+// own callback body cared about the keys that changed. The crash recurred at the same
+// ~3.7-4GB ceiling independent of how many suspended tabs happened to be open (28 in one
+// crash, 48-49 in two others), ruling out a simple "N tabs × one favicon each" explanation
+// and pointing at something whose cost scales with how often the buffer is *written*, not
+// with tab count directly. IndexedDB writes have no equivalent cross-context broadcast.
+// The live debug-page view only ever asks gsIndexedDb.fetchLogEntries() for its own
+// smaller window directly (see debug.js's readLogBuffer()); this is the store-wide cap
+// backing the downloadable/copyable report and everything else.
 const _LOG_BUFFER_FULL_MAX = 10000;
-// A random token stored alongside the buffers, replaced on every write attempt.
-// manifest.json declares "incognito": "split", so a regular and an incognito window
-// each get their own fully independent service worker instance (their own copy of
-// every module-level variable below, including _writeQueue), while both still share
-// the same chrome.storage.local — two such workers logging around the same time are
-// two genuinely separate single-writers, not one. An incrementing counter can't tell
-// these apart: two workers racing off the same prior value both compute the same
-// next number, so whichever set() lands last leaves a value both sides consider a
-// match, even though only one of their batches is actually still in the buffers. A
-// per-attempt random token has no such collision — reading back exactly the token
-// this attempt just wrote is proof this exact write (and no one else's) landed.
-const _LOG_BUFFER_VERSION_KEY = 'gsLogBufferVersion';
-// Persisted high-water mark for the last "Clear log" action, never removed by the clear
-// itself. A page can already have grabbed a batch out of its own _pendingEntries (or be
-// mid-flight sending it) at the exact moment a clear runs elsewhere; without this, that
-// batch merging in afterwards would resurrect entries the user just wiped. Every merge
-// attempt drops entries older than this timestamp before persisting, regardless of
-// whether they arrive before or after the clear physically completes.
-const _LOG_BUFFER_CLEARED_AT_KEY = 'gsLogBufferClearedAt';
 
-function _newWriteToken() {
-  return (typeof crypto !== 'undefined' && crypto.randomUUID)
-    ? crypto.randomUUID()
-    : `${Date.now()}-${Math.random()}`;
-}
 let   _flushTimer = null;
 // Entries logged in this context since its last successful flush, not yet confirmed
 // persisted.
 const _pendingEntries = [];
-// Bounds _pendingEntries against unbounded growth: if the service worker (or, in a page
-// context, chrome.runtime itself) stays unreachable while captureLogs is on, every failed
-// flush requeues its batch and every new log call keeps appending more, with nothing else
-// ever shrinking the array — heavy logging in that state can otherwise grow this without
-// limit until Chrome kills the page/worker for memory pressure. Oldest entries are dropped
-// first, since the whole point of captureLogs is capturing what's happening *now*.
+// Bounds _pendingEntries against unbounded growth: if IndexedDB stays unavailable while
+// captureLogs is on, every failed flush requeues its batch and every new log call keeps
+// appending more, with nothing else ever shrinking the array — heavy logging in that state
+// can otherwise grow this without limit until Chrome kills the page/worker for memory
+// pressure. Oldest entries are dropped first, since the whole point of captureLogs is
+// capturing what's happening *now*.
 const _PENDING_ENTRIES_MAX = 5000;
 function _capPendingEntries() {
   if (_pendingEntries.length > _PENDING_ENTRIES_MAX) {
@@ -72,264 +60,13 @@ function _capPendingEntries() {
   }
 }
 
-// Every page (including suspended.js, in every suspended tab) shares the same
-// gsUtils.js module but gets its own separate instance — if each context wrote to
-// chrome.storage directly, two contexts logging around the same time could each
-// clobber what the other had just persisted, no matter how the read-modify-write is
-// shaped, since chrome.storage has no compare-and-swap. Only the service worker
-// (the one context every other one can always reach via messaging) actually touches
-// these two storage keys; every other context hands its entries to it instead.
-const _isServiceWorker =
-  typeof ServiceWorkerGlobalScope !== 'undefined' &&
-  typeof self !== 'undefined' &&
-  self instanceof ServiceWorkerGlobalScope;
-
-// Chains every write (a merge, or a clear) through one promise, so this one service
-// worker instance never has two get()/set() (or remove()) pairs for these keys in
-// flight at once — without this, its own scheduled flush and an incoming message from
-// another context could still interleave their storage round trips the same way
-// multiple direct writers used to. Doesn't cover the split-incognito worker (see
-// _LOG_BUFFER_VERSION_KEY above); the version check is what catches that.
-let _writeQueue = Promise.resolve();
-
-// Returns whether the batch ended up persisted (either written, or correctly dropped for
-// predating the last clear) so callers can requeue on genuine failure instead of losing
-// entries silently. Does not chain onto _writeQueue itself — _mergeAndPersist() below
-// does that for a normal merge, and _clearPersisted() calls this directly from within
-// its own already-queued step instead of chaining a second time, since calling the
-// queued wrapper reactively from inside another queued callback (reading whatever
-// _writeQueue happens to hold by the time that callback actually runs, which can already
-// include operations queued after it) risks a circular wait between the two steps.
-async function _mergeAndPersistCore(entries) {
-    // entries is legitimately empty when this is a clear (see _clearPersisted below): the
-    // clearedAt/stale-content filtering further down still needs to run in that case, so
-    // this can only bail out early on missing chrome.storage, not on an empty batch.
-  if (typeof chrome === 'undefined' || !chrome.storage) return true;
-    // Bounded retry: read the latest snapshot, apply this batch on top of it, write,
-    // then check the version is still exactly what we just wrote. If another worker's
-    // write landed in between, our set() above already got silently overwritten by
-    // it (or vice versa) — re-read and reapply the same batch on the newer state
-    // instead of losing it.
-  for (let attempt = 0; attempt < 5; attempt++) {
-    try {
-      const result       = await chrome.storage.local.get([_LOG_BUFFER_KEY, _LOG_BUFFER_FULL_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
-      const clearedAt    = result[_LOG_BUFFER_CLEARED_AT_KEY] || '';
-      const freshEntries = clearedAt ? entries.filter((e) => e.ts > clearedAt) : entries;
-        // A corrupt persisted buffer would otherwise throw here on every attempt, and
-        // the broad catch below leaves it untouched — an unrecoverable batch that never
-        // stops retrying, and no later diagnostics ever get persisted either. Start that
-        // one buffer fresh instead, same recovery the old buffer loader already did.
-      // Drops anything that isn't a well-formed log entry rather than just checking the
-      // top-level shape: a malformed *element* (null, a stray primitive, an object with a
-      // non-string ts, however it got in there) would otherwise reach the `e.ts > clearedAt`
-      // comparison below and throw there instead, same wedged-retries-forever failure as an
-      // outright parse failure or a non-array top level, just one layer deeper.
-      const isWellFormedEntry = (e) => e !== null && typeof e === 'object' && typeof e.ts === 'string';
-      const parseBuffer = (raw) => {
-        try {
-          const parsed = JSON.parse(raw || '[]');
-          return Array.isArray(parsed) ? parsed.filter(isWellFormedEntry) : [];
-        }
-        catch { return []; }
-      };
-      let current     = parseBuffer(result[_LOG_BUFFER_KEY]);
-      let currentFull = parseBuffer(result[_LOG_BUFFER_FULL_KEY]);
-        // A previous attempt of ours (or another worker's) can already have written a
-        // stale pre-clear snapshot straight into these keys before either of us noticed
-        // the clear — re-filtering `entries` alone and returning early the moment there's
-        // nothing new to add would leave that already-persisted stale content in place
-        // forever. Re-filter the persisted buffers themselves on every attempt too, and
-        // only skip the write below if neither they nor the incoming batch need it.
-      const beforeCount = current.length + currentFull.length;
-      if (clearedAt) {
-        current     = current.filter((e) => e.ts > clearedAt);
-        currentFull = currentFull.filter((e) => e.ts > clearedAt);
-      }
-      const hadStaleContent = current.length + currentFull.length < beforeCount;
-      if (freshEntries.length === 0 && !hadStaleContent) return true; // truly nothing to do
-      const myToken       = _newWriteToken();
-      // The service worker's own logging (error() in particular, which flushes
-      // immediately, bypassing the incoming-message coalescing above entirely) merges
-      // through this same function via a separate call path from a page's coalesced
-      // batch — both end up serialized by _writeQueue in whichever order they happened
-      // to be *called*, not the order their entries were actually logged in. _appendSorted()
-      // keeps the result correctly ordered either way, without re-sorting the full
-      // (up to _LOG_BUFFER_FULL_MAX) array on every merge in the common in-order case.
-      current = _appendSorted(current, freshEntries);
-      if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
-      currentFull = _appendSorted(currentFull, freshEntries);
-      if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
-      await chrome.storage.local.set({
-        [_LOG_BUFFER_KEY]        : JSON.stringify(current),
-        [_LOG_BUFFER_FULL_KEY]   : JSON.stringify(currentFull),
-        [_LOG_BUFFER_VERSION_KEY]: myToken,
-      });
-      const verify = await chrome.storage.local.get([_LOG_BUFFER_VERSION_KEY, _LOG_BUFFER_CLEARED_AT_KEY]);
-        // The token alone only proves no other *merge* wrote after ours — it doesn't
-        // catch a Clear whose set(clearedAt) landed after our get() above but whose own
-        // purge write hadn't landed yet, since that leaves the pre-clear `current` we
-        // just read still in storage for us to read, append to, and write straight back
-        // on top of the clear, undoing it entirely while still verifying "successfully".
-        // Re-checking clearedAt here catches that: if it moved past what we filtered
-        // against, our write may have resurrected pre-clear state, so treat it as a
-        // race and retry against whatever's actually there now, same as a token miss.
-      if (
-        verify[_LOG_BUFFER_VERSION_KEY] === myToken &&
-          (verify[_LOG_BUFFER_CLEARED_AT_KEY] || '') === clearedAt
-      ) {
-        return true; // no one raced us
-      }
-        // Someone else's write (a merge, or a clear) landed between our get() and set()
-        // above — retry on top of whatever's there now instead of leaving it unpersisted.
-    }
-    catch { /* fall through to retry, or give up after the last attempt */ }
-  }
-  return false; // exhausted retries — caller is responsible for not losing these entries
-}
-
-async function _mergeAndPersist(entries) {
-  _writeQueue = _writeQueue.then(() => _mergeAndPersistCore(entries));
-  return _writeQueue;
-}
-
-function _clearPersisted() {
-  _writeQueue = _writeQueue.then(async () => {
-    if (typeof chrome === 'undefined' || !chrome.storage) return false;
-    let cutoffWritten = false;
-    try {
-      // Written first and never cleaned up itself, so every _mergeAndPersist() attempt —
-      // including the purge below — can use it as the authoritative cutoff regardless of
-      // how a stale or fresh merge happens to interleave with this clear.
-      await chrome.storage.local.set({ [_LOG_BUFFER_CLEARED_AT_KEY]: new Date().toISOString() });
-      cutoffWritten = true;
-    }
-    catch {
-      // A rejected .then() callback would leave _writeQueue itself a rejected promise —
-      // every _mergeAndPersist()/_clearPersisted() call chains onto it with .then() and
-      // no rejection handler, so once rejected, every future call's callback would be
-      // skipped forever (silently breaking logging until the worker restarts) instead
-      // of just this one clear failing. Swallowing the error here keeps the queue alive.
-    }
-    // A failed cutoff write falling through to the purge below would filter against
-    // whatever cutoff is already in storage (unchanged, since our write never landed),
-    // find nothing new to purge, and report success even though nothing was actually
-    // cleared — silently turning a failed Clear into a fake one from the caller's side.
-    if (!cutoffWritten) return false;
-    // Purging old entries goes through the exact same filter/write/verify/retry machinery
-    // a normal merge already uses (called directly, not via _mergeAndPersist(), to stay
-    // inside this one already-queued step rather than chaining a second time), instead of
-    // an unconditional remove(): another worker can have already merged in entries newer
-    // than the cutoff just written above by the time this runs, and an unconditional
-    // remove() can't tell "old" apart from "just landed" — it would delete that
-    // already-verified batch outright. This can, since it filters by timestamp against
-    // the same cutoff rather than wiping everything wholesale.
-    return _mergeAndPersistCore([]);
-  });
-  return _writeQueue;
-}
-
 // Actions meant only for the service worker (or another internal recipient), sent via
 // a bare chrome.runtime.sendMessage() with no tabId — which Chrome delivers to every
 // listening extension page, not just the intended one. Every page's own
-// messageRequestListener already has to tolerate that and ignore what it doesn't own,
-// but doing so by logging "ignoring unhandled message" is itself a log call: for an
-// action this frequent (gsAppendLogEntries, sent on every flush, roughly every 1.5s
-// from any context that's logged something), that log entry becomes new pending
-// history needing its own flush, whose "ignored" broadcast produces another log entry
-// in turn, a self-sustaining loop with no natural end. Pages check this set and skip
-// logging entirely for anything in it, rather than trying to rate-limit the loop.
-//
-// checkTabResponsiveness (debug.js's tab-check, routed through the service worker's own
-// gsTabCheckManager queue) doesn't share that specific logging-loop risk, but does share
-// the underlying problem this set exists for: an unrelated page's listener resolving
-// first with an unhandled-action response races the service worker's real, slower one,
-// and the sender only ever keeps whichever response arrives first.
-const INTERNAL_MESSAGE_ACTIONS = new Set(['gsAppendLogEntries', 'clearLogs', 'checkTabResponsiveness']);
-
-// A single incoming gsAppendLogEntries message costs one full get+parse+stringify+set of
-// the entire shared buffer (up to _LOG_BUFFER_FULL_MAX entries) — necessary since
-// chrome.storage.local has no append primitive, only whole-value writes. A broadcast that
-// every open context reacts to at once (e.g. toggling captureLogs itself, which every
-// suspended tab logs as "ignoring unhandled message") can therefore land dozens of these
-// messages within a few milliseconds of each other; merging each one separately would
-// serialize dozens of full-buffer round trips back to back through _writeQueue, each
-// blocking this single-threaded context's JSON work in turn — exactly the kind of burst
-// that made the whole extension (including unrelated page loads depending on this
-// context responding) sluggish. Coalescing them into one merge per short window turns
-// that burst into a single round trip instead.
-const _INCOMING_COALESCE_MS = 250;
-
-// Shared by every place this module trims a batch to a max size: trimming by arrival/
-// array-position order rather than by ts is wrong whenever entries can arrive out of
-// chronological order, which incoming messages from many independently-flushing contexts
-// routinely can — a context that had been backlogged and reconnects last can otherwise
-// have its (older) entries evict another context's (newer) entries that simply arrived
-// in the batch earlier, permanently losing the newer diagnostics instead of the older
-// ones. Always sort by ts first, then keep the newest `max`.
-// current is already sorted by ts (every previous call here maintains that invariant).
-// The overwhelmingly common case is entries arriving in roughly chronological order —
-// freshEntries' timestamps land at or after current's last one — in which case a plain
-// concat already produces a sorted result and the O(N log N) full-array sort below is
-// pure waste against a buffer that can hold up to _LOG_BUFFER_FULL_MAX (10,000) entries,
-// repeated on every single merge. Only fall back to a full sort (still correct, just
-// slower) on the rare out-of-order case — e.g. two contexts' batches racing through
-// _writeQueue in a different order than their entries were actually logged in.
-function _appendSorted(current, freshEntries) {
-  if (freshEntries.length === 0) return current;
-  const sortedFresh = freshEntries.length > 1
-    ? freshEntries.slice().sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0))
-    : freshEntries;
-  const lastCurrentTs = current.length ? current[current.length - 1].ts : '';
-  if (!lastCurrentTs || lastCurrentTs <= sortedFresh[0].ts) {
-    return current.concat(sortedFresh);
-  }
-  const merged = current.concat(sortedFresh);
-  merged.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
-  return merged;
-}
-
-function _keepNewestByTs(entries, max) {
-  if (entries.length <= max) return entries;
-  const sorted = entries.slice().sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
-  return sorted.slice(sorted.length - max);
-}
-let _incomingBatch = [];
-let _incomingResponders = [];
-let _incomingTimer = null;
-
-function _flushIncomingBatch() {
-  let batch = _incomingBatch;
-  const responders = _incomingResponders;
-  _incomingBatch = [];
-  _incomingResponders = [];
-  _incomingTimer = null;
-  // Each sender's own _pendingEntries is capped at 5,000, but this window can still
-  // aggregate several such contexts' batches into one — no point carrying more of it
-  // into the merge than the persisted buffer could ever retain anyway; keep the newest.
-  batch = _keepNewestByTs(batch, _LOG_BUFFER_FULL_MAX);
-  _mergeAndPersist(batch).then((success) => {
-    responders.forEach((respond) => respond({ success }));
-  });
-}
-
-// Only the service worker listens; every other context reaches it via sendMessage in
-// _flushNow() below. Registered at module top level (not inside an async block) so
-// Chrome can queue the very first message even if it arrives before this line runs.
-if (_isServiceWorker && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
-  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (!request || request.action !== 'gsAppendLogEntries') return false;
-    // Capped on every arrival, not just once at flush time below: after an outage, many
-    // contexts can each reconnect and resend up to their own 5,000-entry _pendingEntries
-    // cap within the same coalescing window, and letting the aggregate grow unbounded in
-    // the meantime (even briefly) risks the exact CPU/memory spike this coalescing exists
-    // to avoid. concat(), not a spread, since a single sender's own entries array can
-    // itself be large enough to hit V8's argument-count limit on a spread.
-    _incomingBatch = _keepNewestByTs(_incomingBatch.concat(request.entries || []), _LOG_BUFFER_FULL_MAX);
-    _incomingResponders.push(sendResponse);
-    if (!_incomingTimer) _incomingTimer = setTimeout(_flushIncomingBatch, _INCOMING_COALESCE_MS);
-    return true; // keep every channel open until the coalesced batch is merged and responded to
-  });
-}
+// messageRequestListener already has to tolerate that and ignore what it doesn't own;
+// checking this set lets a page skip logging entirely for anything in it, rather than
+// logging "ignoring unhandled message" (itself a log call) for a high-frequency action.
+const INTERNAL_MESSAGE_ACTIONS = new Set(['clearLogs', 'checkTabResponsiveness']);
 
 // Cheap djb2-style hash so two favicons of similar length still show up as distinct in
 // the log (a bare length like "[data URL, 812 chars]" can't tell "same icon" from
@@ -393,13 +130,21 @@ function _appendEntry(level, src, parts) {
 // could complete in either order — a later completion's unshift() always lands at the
 // front regardless of which batch is actually older, so _capPendingEntries() (which
 // assumes the front is the oldest entries) could then trim the wrong, more recent half.
-// Chaining every call through one promise, same pattern as gsUtils.js's own _writeQueue,
-// guarantees each flush's requeue (if any) fully lands before the next one starts.
+// Chaining every call through one promise guarantees each flush's requeue (if any) fully
+// lands before the next one starts.
 let _flushChain = Promise.resolve();
 function _flushNow() {
   _flushChain = _flushChain.then(_flushNowCore);
   return _flushChain;
 }
+
+// Trimming the store back down to _LOG_BUFFER_FULL_MAX needs an IndexedDB getAllKeys()
+// scan, cheap on its own but wasteful to repeat on every single flush from every one of
+// potentially dozens of contexts (each flushing roughly every 1.5s). Throttled per context
+// instead: at most once a minute, independent of how many flushes happen in between —
+// still keeps the store well within any single session regardless of how long it runs.
+let _lastLogTrimAt = 0;
+const _LOG_TRIM_INTERVAL_MS = 60000;
 
 async function _flushNowCore() {
   if (_flushTimer) { clearTimeout(_flushTimer); _flushTimer = null; }
@@ -407,31 +152,18 @@ async function _flushNowCore() {
   // Grab-and-clear rather than read-then-clear, so entries logged while this flush is
   // still in flight stay queued for the next one instead of being dropped.
   const toPersist = _pendingEntries.splice(0, _pendingEntries.length);
-  if (_isServiceWorker) {
-    const success = await _mergeAndPersist(toPersist);
-    if (!success) {
-      // Storage errors on every retry attempt, or an exhausted version-conflict retry —
-      // put the batch back at the front (ahead of anything logged meanwhile) and let the
-      // next scheduled flush try again, instead of discarding captured diagnostic history.
-      _pendingEntries.unshift(...toPersist);
-      _capPendingEntries();
-      _scheduleFlush();
-    }
-    return;
-  }
-  if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) return;
+  if (typeof chrome === 'undefined' || !chrome.storage) return; // no persistence surface here
   try {
-    const response = await chrome.runtime.sendMessage({ action: 'gsAppendLogEntries', entries: toPersist });
-    if (!response?.success) {
-      _pendingEntries.unshift(...toPersist);
-      _capPendingEntries();
-      _scheduleFlush();
+    await gsIndexedDb.addLogEntries(toPersist);
+    const now = Date.now();
+    if (now - _lastLogTrimAt > _LOG_TRIM_INTERVAL_MS) {
+      _lastLogTrimAt = now;
+      gsIndexedDb.trimLogEntries(_LOG_BUFFER_FULL_MAX); // fire-and-forget, not on this flush's critical path
     }
   }
   catch {
-    // Service worker unreachable (e.g. mid-reload/recycle) — requeue and retry on the
-    // next scheduled flush rather than dropping the batch; it's usually back within a
-    // beat, and there's no other recipient for these entries in the meantime.
+    // IndexedDB unavailable or a transaction failure — requeue and retry on the next
+    // scheduled flush rather than discarding captured diagnostic history.
     _pendingEntries.unshift(...toPersist);
     _capPendingEntries();
     _scheduleFlush();
@@ -579,16 +311,20 @@ export const gsUtils = {
     }
   },
 
-  // Only ever called from the service worker (background.js's 'clearLogs' case, itself
-  // reached by messaging from the debug page). Chaining the removal through
-  // _clearPersisted() orders it correctly against this context's own in-flight or
-  // queued merges, but that alone doesn't cover a batch another page already grabbed
-  // from its own _pendingEntries (or is still mid-flight sending) before this ran —
-  // _clearPersisted()'s clearedAt timestamp is what stops that batch resurrecting old
-  // entries once its merge eventually lands, whichever side of the clear it arrives on.
+  // Called from background.js's 'clearLogs' case (reached by messaging from the debug
+  // page) — kept as a message rather than debug.js calling gsIndexedDb directly, so the
+  // service worker's own not-yet-flushed _pendingEntries get dropped too, not just this
+  // context's. Any context could safely write to gsIndexedDb directly now (unlike the old
+  // chrome.storage.local design, IndexedDB needs no single designated writer), but another
+  // context's own _pendingEntries captured just before the clear and not yet flushed can
+  // still land afterward — a handful of straggler entries reappearing post-clear, not the
+  // wholesale resurrection the old clearedAt-cutoff design specifically guarded against
+  // (each entry is its own IndexedDB record now, so there's no shared blob for a stale
+  // write to overwrite the clear with).
   async clearLogBuffer() {
     _pendingEntries.length = 0;
-    return _clearPersisted();
+    await gsIndexedDb.clearLogEntries();
+    return true;
   },
 
   isDiscardedTab(tab) {
@@ -1484,6 +1220,11 @@ if (typeof chrome !== 'undefined' && chrome.storage) {
   chrome.storage.local.get(['gsCaptureVerbose'], (result) => {
     if (result.gsCaptureVerbose) gsUtils.captureLogs = true;
   });
+  // One-off cleanup of the keys the old chrome.storage.local-backed log buffer used
+  // before it moved to IndexedDB (see this file's log-buffer section above) — nothing
+  // writes these any more, so they'd otherwise sit here orphaned indefinitely. A no-op
+  // once actually removed, however many contexts happen to run this on module load.
+  chrome.storage.local.remove(['gsLogBuffer', 'gsLogBufferFull', 'gsLogBufferVersion', 'gsLogBufferClearedAt']);
   // The above only covers this module instance's state at load time. Toggling captureLogs
   // on the debug page only messages the service worker directly (background.js's
   // 'setCaptureLogs' case); it doesn't reach any options/suspended/etc. page already open

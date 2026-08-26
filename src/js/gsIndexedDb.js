@@ -6,12 +6,13 @@ import { gsUtils }   from './gsUtils.js';
 
 export const gsIndexedDb = {
   DB_SERVER:   'tgs',
-  DB_VERSION:  3,
+  DB_VERSION:  4,
   DB_PREVIEWS:             'gsPreviews',
   DB_SUSPENDED_TABINFO:    'gsSuspendedTabInfo',
   DB_FAVICON_META:         'gsFaviconMeta',
   DB_CURRENT_SESSIONS:     'gsCurrentSessions',
   DB_SAVED_SESSIONS:       'gsSavedSessions',
+  DB_LOG_ENTRIES:          'gsLogEntries',
   DB_SESSION_PRE_UPGRADE_KEY: 'preUpgradeVersion',
 
   _db: null,
@@ -26,6 +27,7 @@ export const gsIndexedDb = {
             { name: gsIndexedDb.DB_FAVICON_META,      indexes: ['url'] },
             { name: gsIndexedDb.DB_CURRENT_SESSIONS,  indexes: ['sessionId'] },
             { name: gsIndexedDb.DB_SAVED_SESSIONS,    indexes: ['sessionId'] },
+            { name: gsIndexedDb.DB_LOG_ENTRIES,       indexes: [] },
           ];
           for (const { name, indexes } of stores) {
             if (!db.objectStoreNames.contains(name)) {
@@ -139,6 +141,101 @@ export const gsIndexedDb = {
   clearFaviconMeta: async function() {
     const db = await gsIndexedDb.getDb();
     await db.clear(gsIndexedDb.DB_FAVICON_META);
+  },
+
+  // Every context (every suspended tab included) writes its own logged entries directly
+  // here — unlike the chrome.storage.local-backed buffer this replaced, which had to funnel
+  // every write through the service worker as the sole writer of one shared JSON blob per
+  // key. IndexedDB gives each entry its own record (this store's usual keyPath/autoIncrement
+  // pattern) rather than one big read-modify-write blob, so concurrent writers from
+  // different contexts never race each other the way two overlapping reads of the same
+  // blob could. Critically, an IndexedDB write here also never reaches chrome.storage's own
+  // onChanged listeners — those fire in *every* context with any listener registered
+  // (e.g. suspended.js's, present in every suspended tab), delivering a full copy of
+  // whatever changed regardless of whether that context's callback cares. A live crash
+  // dump confirmed this was the actual OOM mechanism: dozens of near-duplicate multi-MB
+  // JSON-stringified copies of the old chrome.storage.local-backed buffer, retained across
+  // every one of dozens of suspended tabs sharing one renderer process, each one a side
+  // effect of Chrome constructing that broadcast payload for a context that never asked
+  // for it.
+  addLogEntries: async function(entries) {
+    if (!entries || entries.length === 0) return;
+    try {
+      const db = await gsIndexedDb.getDb();
+      for (const entry of entries) {
+        await db.add(gsIndexedDb.DB_LOG_ENTRIES, entry);
+      }
+    } catch (e) {
+      gsUtils.error('gsIndexedDb', e);
+    }
+  },
+
+  // Most-recent `limit` entries, oldest first — a cursor walking backward from the end
+  // (autoIncrement ids are inserted in chronological order) rather than getAll() + slice(),
+  // so this doesn't have to read the entire store just to keep the live debug view's most
+  // recent window.
+  fetchLogEntries: async function(limit) {
+    const results = [];
+    try {
+      const db = await gsIndexedDb.getDb();
+      const tx = db.transaction(gsIndexedDb.DB_LOG_ENTRIES, 'readonly');
+      let cursor = await tx.store.openCursor(null, 'prev');
+      while (cursor && results.length < limit) {
+        results.push(cursor.value);
+        cursor = await cursor.continue();
+      }
+      await tx.done;
+    } catch (e) {
+      gsUtils.error('gsIndexedDb', e);
+    }
+    return results.reverse();
+  },
+
+  // Cheap total count, e.g. for a UI counter that doesn't need the actual entries.
+  countLogEntries: async function() {
+    try {
+      const db = await gsIndexedDb.getDb();
+      return await db.count(gsIndexedDb.DB_LOG_ENTRIES);
+    } catch (e) {
+      gsUtils.error('gsIndexedDb', e);
+      return 0;
+    }
+  },
+
+  // Every entry, oldest first (insertion order), for the downloadable/copyable report.
+  fetchAllLogEntries: async function() {
+    try {
+      const db = await gsIndexedDb.getDb();
+      return await db.getAll(gsIndexedDb.DB_LOG_ENTRIES);
+    } catch (e) {
+      gsUtils.error('gsIndexedDb', e);
+      return [];
+    }
+  },
+
+  // Same shape as trimDbItems() below for the other stores — deletes the oldest entries
+  // once the store grows past maxCount, keeping only the most recent window.
+  trimLogEntries: async function(maxCount) {
+    try {
+      const db = await gsIndexedDb.getDb();
+      const keys = await db.getAllKeys(gsIndexedDb.DB_LOG_ENTRIES);
+      if (keys.length > maxCount) {
+        for (const key of keys.slice(0, keys.length - maxCount)) {
+          await db.delete(gsIndexedDb.DB_LOG_ENTRIES, key);
+        }
+      }
+    } catch (e) {
+      gsUtils.error('gsIndexedDb', e);
+    }
+  },
+
+  clearLogEntries: async function() {
+    try {
+      const db = await gsIndexedDb.getDb();
+      await db.clear(gsIndexedDb.DB_LOG_ENTRIES);
+    } catch (e) {
+      gsUtils.error('gsIndexedDb', e);
+    }
   },
 
   updateSession: async function(session) {
