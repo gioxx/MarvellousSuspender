@@ -349,20 +349,49 @@ import  { tgs }                   from './tgs.js';
     return `<div class="logLine logLine-${entry.level}">${levelLabel(entry.level)}<span class="logTime">${time}</span><span class="logSrc">${src}</span><span class="logMsg">${msg}</span></div>`;
   }
 
+  // Same overlap problem fetchTabInfo() above already had to guard against, and the same
+  // fix: refreshLogs() runs on every window 'focus' event (multi-monitor setups, rapid
+  // alt-tabbing) with no debounce of its own, and each run does a full
+  // chrome.storage.local.get() + JSON.parse() of *both* the 500-entry live buffer and the
+  // up to 10,000-entry full buffer — the latter fetched on every single call just to
+  // display a count. A live crash dump (Crashpad's v8-oom-lo-space-size, V8's large-object
+  // space, at ~3.8GB of a ~4.2GB cap) tied to nothing more than "using debug.html a bit"
+  // pointed here: a burst of focus events firing overlapping full-buffer parses faster than
+  // GC could reclaim them, independent of how many suspended tabs happened to be open at
+  // the time — unlike the earlier favicon-size theory, this doesn't scale with tab count,
+  // matching a crash reproduced with as few as 28 tabs open. Coalescing concurrent calls
+  // into at most one in-flight run plus one queued follow-up (same shape as fetchTabInfo()'s
+  // own guard) bounds how many of these parses can ever be in memory at once, regardless of
+  // how many focus events arrive in a burst.
+  let _refreshingLogs = false;
+  let _refreshLogsPending = false;
   async function refreshLogs() {
-    const [buffer, bufferFull] = await Promise.all([readLogBuffer(), readLogBufferFull()]);
-    const output     = document.getElementById('logOutput');
-    const counter    = document.getElementById('logCount');
-    const counterFull = document.getElementById('logCountFull');
-    counter.textContent = buffer.length;
-    counterFull.textContent = bufferFull.length;
-    if (buffer.length === 0) {
-      output.innerHTML = '<div class="logEmpty">No entries. Errors are always captured automatically. Enable <strong>captureLogs</strong> above to also capture warnings and verbose logs, then reproduce the issue.</div>';
-    } else if (output.classList.contains('warnErrOnly') && !buffer.some(e => e.level === 'W' || e.level === 'E')) {
-      output.innerHTML = '<div class="logEmpty">No warnings or errors in the current buffer.</div>';
-    } else {
-      output.innerHTML = buffer.map(renderLogEntry).join('');
-      output.scrollTop = output.scrollHeight;
+    if (_refreshingLogs) {
+      _refreshLogsPending = true;
+      return;
+    }
+    _refreshingLogs = true;
+    try {
+      do {
+        _refreshLogsPending = false;
+        const [buffer, bufferFull] = await Promise.all([readLogBuffer(), readLogBufferFull()]);
+        const output     = document.getElementById('logOutput');
+        const counter    = document.getElementById('logCount');
+        const counterFull = document.getElementById('logCountFull');
+        counter.textContent = buffer.length;
+        counterFull.textContent = bufferFull.length;
+        if (buffer.length === 0) {
+          output.innerHTML = '<div class="logEmpty">No entries. Errors are always captured automatically. Enable <strong>captureLogs</strong> above to also capture warnings and verbose logs, then reproduce the issue.</div>';
+        } else if (output.classList.contains('warnErrOnly') && !buffer.some(e => e.level === 'W' || e.level === 'E')) {
+          output.innerHTML = '<div class="logEmpty">No warnings or errors in the current buffer.</div>';
+        } else {
+          output.innerHTML = buffer.map(renderLogEntry).join('');
+          output.scrollTop = output.scrollHeight;
+        }
+      } while (_refreshLogsPending);
+    }
+    finally {
+      _refreshingLogs = false;
     }
   }
 
