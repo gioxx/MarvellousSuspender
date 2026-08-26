@@ -886,14 +886,30 @@ export const tgs = (function() {
   // own retry loop — sees the cancellation regardless of which specific await it's
   // currently sitting in.
   function _cancelInitSuspendedTab(tabId) {
+    let hadQueuedEntry = false;
     for (let i = _initSuspendedTabQueue.length - 1; i >= 0; i--) {
       if (_initSuspendedTabQueue[i].tabId === tabId) {
         const [entry] = _initSuspendedTabQueue.splice(i, 1);
         entry.resolve(); // never started — nothing to await, resolve so the caller doesn't hang
+        hadQueuedEntry = true;
       }
     }
     const token = _initSuspendedTabTokenByTabId.get(tabId);
-    if (token) token.cancelled = true;
+    if (token) {
+      token.cancelled = true;
+      // A still-queued (never run()) job's token is never reached by release() inside
+      // _runInitSuspendedTabLimited() — that only runs for a job that actually started —
+      // so it would otherwise sit in this map for the rest of the service worker's
+      // lifetime, one entry per cancelled-while-queued tab across repeated restore/
+      // navigation bursts. _runInitSuspendedTabLimited() always calls this function
+      // before creating a new token for the same tabId, so a queued entry and an active
+      // job's token are never both current for the same tabId at once — finding a queued
+      // entry here means this token belongs to that not-yet-started job specifically,
+      // safe to delete immediately. An active job's token must stay, though: its own
+      // release() still needs to find it there to confirm it's deleting its own, not a
+      // newer one.
+      if (hadQueuedEntry) _initSuspendedTabTokenByTabId.delete(tabId);
+    }
   }
 
   async function initialiseSuspendedTab(tab) {
