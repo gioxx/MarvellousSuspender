@@ -974,6 +974,13 @@ export const tgs = (function() {
         .catch((error) => {
           gsUtils.warning(freshTab.id, 'tgs', 'initialiseSuspendedTab', error);
         });
+      // token.cancelled here means sendInitTabMessageWithRetry() above stopped early
+      // (e.g. the tab got discarded mid-retry) rather than actually delivering 'initTab' —
+      // queueTabCheck() below is a *responsiveness* check for a page that was expected to
+      // already be running by now. Reaching it anyway resolves the still-discarded tab as
+      // unresponsive after its own delay and reloads (wakes) it via resuspendSuspendedTab(),
+      // undoing the very discard this job just deferred to.
+      if (token.cancelled) return;
       gsTabCheckManager.queueTabCheck(freshTab, { refetchTab: true }, 3000);
     });
   }
