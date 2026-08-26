@@ -359,13 +359,28 @@ export const gsFavicon = (() => {
       img.onload = () => {
         imageLoaded = true;
 
+        // faviconMeta.normalisedDataUrl/transparentDataUrl only ever end up as a tab-bar
+        // <img>/<link rel="icon"> in suspended.js (setFaviconMeta()) — never rendered above
+        // a few dozen px regardless of source resolution. Some sites serve a much larger
+        // "favicon" (e.g. a 512×512 apple-touch-icon reused as-is), and this used to size the
+        // canvas to the image's native dimensions: getImageData() on that plus two
+        // Uint8ClampedArray copies and two toDataURL() PNG encodes below scale with pixel
+        // count, not with what's actually displayed. Confirmed via a live OOM crash dump
+        // (Crashpad's v8-oom-* annotations) showing ~4GB of V8 external/allocator memory in
+        // a single renderer process hosting 49 same-origin suspended.html views — Chrome
+        // shares one process per extension origin, so this per-tab cost multiplies across
+        // every suspended tab sharing it. Capping the working canvas to a small max
+        // dimension (generous for a favicon, tiny next to a full-resolution source image)
+        // bounds that cost regardless of how large the source turns out to be.
+        const MAX_FAVICON_DIMENSION = 128;
+        const scale = Math.min(1, MAX_FAVICON_DIMENSION / Math.max(img.width, img.height));
         const canvas  = document.createElement('canvas');
-        canvas.width  = img.width;
-        canvas.height = img.height;
+        canvas.width  = Math.max(1, Math.round(img.width  * scale));
+        canvas.height = Math.max(1, Math.round(img.height * scale));
         const context = canvas.getContext('2d');
 
         if (context) {
-          context.drawImage(img, 0, 0);
+          context.drawImage(img, 0, 0, canvas.width, canvas.height);
 
           let imageData;
           try {

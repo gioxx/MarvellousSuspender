@@ -148,25 +148,16 @@ async function _mergeAndPersistCore(entries) {
       const hadStaleContent = current.length + currentFull.length < beforeCount;
       if (freshEntries.length === 0 && !hadStaleContent) return true; // truly nothing to do
       const myToken       = _newWriteToken();
-      // Not push(...freshEntries): a spread turns every element into its own function
-      // argument, and V8 throws a RangeError past a few tens of thousands of them —
-      // reachable here once the incoming-message coalescing above can aggregate several
-      // contexts' independently-capped (5,000 each) pending batches into one merge.
-      // concat() has no such limit regardless of array size.
-      current = current.concat(freshEntries);
       // The service worker's own logging (error() in particular, which flushes
       // immediately, bypassing the incoming-message coalescing above entirely) merges
       // through this same function via a separate call path from a page's coalesced
       // batch — both end up serialized by _writeQueue in whichever order they happened
-      // to be *called*, not the order their entries were actually logged in. Without
-      // re-sorting by ts here, the front-trim below (which assumes the front holds the
-      // oldest entries) could evict a genuinely newer entry that simply lost the race to
-      // get merged first. Sorting is O(N log N) against at most _LOG_BUFFER_FULL_MAX
-      // entries, cheap next to the JSON work this function already does per merge.
-      current.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
+      // to be *called*, not the order their entries were actually logged in. _appendSorted()
+      // keeps the result correctly ordered either way, without re-sorting the full
+      // (up to _LOG_BUFFER_FULL_MAX) array on every merge in the common in-order case.
+      current = _appendSorted(current, freshEntries);
       if (current.length > _LOG_BUFFER_MAX) current.splice(0, current.length - _LOG_BUFFER_MAX);
-      currentFull = currentFull.concat(freshEntries);
-      currentFull.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
+      currentFull = _appendSorted(currentFull, freshEntries);
       if (currentFull.length > _LOG_BUFFER_FULL_MAX) currentFull.splice(0, currentFull.length - _LOG_BUFFER_FULL_MAX);
       await chrome.storage.local.set({
         [_LOG_BUFFER_KEY]        : JSON.stringify(current),
@@ -275,6 +266,28 @@ const _INCOMING_COALESCE_MS = 250;
 // have its (older) entries evict another context's (newer) entries that simply arrived
 // in the batch earlier, permanently losing the newer diagnostics instead of the older
 // ones. Always sort by ts first, then keep the newest `max`.
+// current is already sorted by ts (every previous call here maintains that invariant).
+// The overwhelmingly common case is entries arriving in roughly chronological order —
+// freshEntries' timestamps land at or after current's last one — in which case a plain
+// concat already produces a sorted result and the O(N log N) full-array sort below is
+// pure waste against a buffer that can hold up to _LOG_BUFFER_FULL_MAX (10,000) entries,
+// repeated on every single merge. Only fall back to a full sort (still correct, just
+// slower) on the rare out-of-order case — e.g. two contexts' batches racing through
+// _writeQueue in a different order than their entries were actually logged in.
+function _appendSorted(current, freshEntries) {
+  if (freshEntries.length === 0) return current;
+  const sortedFresh = freshEntries.length > 1
+    ? freshEntries.slice().sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0))
+    : freshEntries;
+  const lastCurrentTs = current.length ? current[current.length - 1].ts : '';
+  if (!lastCurrentTs || lastCurrentTs <= sortedFresh[0].ts) {
+    return current.concat(sortedFresh);
+  }
+  const merged = current.concat(sortedFresh);
+  merged.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
+  return merged;
+}
+
 function _keepNewestByTs(entries, max) {
   if (entries.length <= max) return entries;
   const sorted = entries.slice().sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
