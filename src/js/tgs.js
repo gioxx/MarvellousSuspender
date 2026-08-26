@@ -838,10 +838,29 @@ export const tgs = (function() {
     return new Promise((resolve, reject) => {
       const run = () => {
         _initSuspendedTabActive++;
-        fn().then(resolve, reject).finally(() => {
+        const release = () => {
           _initSuspendedTabActive--;
           const next = _initSuspendedTabQueue.shift();
           if (next) next.run();
+        };
+        // Re-checked here, right before the real work starts, not just at enqueue time
+        // above: the tab can navigate away during initialiseSuspendedTab()'s own awaits
+        // (session-storage reads) that happen *before* this function is even called, or
+        // during however long this entry spent waiting for a concurrency slot — neither
+        // window is covered by cancelQueuedInitSuspendedTab(), which only removes an
+        // entry already sitting in the queue at the moment a transition fires. Without
+        // this, a stale entry could still start against a page that's no longer
+        // suspended, running the full sendInitTabMessageWithRetry() budget for nothing.
+        chrome.tabs.get(tabId).then((tab) => {
+          if (!tab || !gsUtils.isSuspendedTab(tab)) {
+            release();
+            resolve();
+            return;
+          }
+          fn().then(resolve, reject).finally(release);
+        }).catch(() => {
+          release(); // tab no longer exists
+          resolve();
         });
       };
       if (_initSuspendedTabActive < INIT_SUSPENDED_TAB_CONCURRENCY) run();
