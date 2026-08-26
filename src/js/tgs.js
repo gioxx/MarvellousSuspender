@@ -826,65 +826,74 @@ export const tgs = (function() {
   const INIT_SUSPENDED_TAB_CONCURRENCY = 5;
   let   _initSuspendedTabActive = 0;
   const _initSuspendedTabQueue = []; // { tabId, run, resolve }
+  // Six successive review rounds each found a *new* place a queued-or-running job could go
+  // stale (re-entry, unsuspending, navigating to a "special" URL, the awaits inside
+  // initialiseSuspendedTab() before enqueueing, the awaits inside its closure before
+  // sending, and finally the recursive retry delays inside sendInitTabMessageWithRetry()
+  // itself) — because every fix so far re-checked freshness at one specific checkpoint,
+  // and the job kept running past it into its next await regardless. A checkpoint-based
+  // check can never close this off completely: there's always one more await downstream.
+  //
+  // A cancellation token closes the whole class at once instead: every place that already
+  // detects "this tab is no longer suspended" (re-entry, background.js's dispatch,
+  // removeTabIdReferences()) flips one shared, mutable token for that tab's current job —
+  // queued *or* already running — and every checkpoint along the job's entire lifetime,
+  // including inside the retry loop, consults the same token rather than re-deriving
+  // freshness locally. One cancellation source of truth per job, checked everywhere that
+  // job does anything, instead of a growing pile of point checks that can only ever cover
+  // the specific await gaps someone happened to find.
+  const _initSuspendedTabTokenByTabId = new Map(); // tabId -> { cancelled: boolean }
   function _runInitSuspendedTabLimited(tabId, fn) {
-    // A queued-but-not-yet-started entry for the same tabId means this tab is being
-    // re-initialised before its previous entry ever ran — e.g. an in-place navigation
-    // (unsuspend command, address-bar entry) that doesn't fire onRemoved/onReplaced, so
-    // removeTabIdReferences() never gets a chance to cancel it. Left in place, that stale
-    // entry would eventually send its old 'initTab' payload to the new page (no receiver
-    // for it) and burn a concurrency slot for the full retry budget. Drop it in favour of
-    // this fresh call, which reflects the tab's current state.
-    _cancelQueuedInitSuspendedTab(tabId);
+    // A queued-but-not-yet-started (or still-running) entry for the same tabId means this
+    // tab is being re-initialised before its previous entry finished — e.g. an in-place
+    // navigation (unsuspend command, address-bar entry) that doesn't fire onRemoved/
+    // onReplaced, so removeTabIdReferences() never gets a chance to cancel it. Drop it in
+    // favour of this fresh call, which reflects the tab's current state.
+    _cancelInitSuspendedTab(tabId);
+    const token = { cancelled: false };
+    _initSuspendedTabTokenByTabId.set(tabId, token);
     return new Promise((resolve, reject) => {
       const run = () => {
         _initSuspendedTabActive++;
         const release = () => {
           _initSuspendedTabActive--;
+          // Only this job's own token, not a newer one a fresh call above already
+          // replaced it with for the same tabId.
+          if (_initSuspendedTabTokenByTabId.get(tabId) === token) {
+            _initSuspendedTabTokenByTabId.delete(tabId);
+          }
           const next = _initSuspendedTabQueue.shift();
           if (next) next.run();
         };
-        // Re-checked here, right before the real work starts, not just at enqueue time
-        // above: the tab can navigate away during initialiseSuspendedTab()'s own awaits
-        // (session-storage reads) that happen *before* this function is even called, or
-        // during however long this entry spent waiting for a concurrency slot — neither
-        // window is covered by cancelQueuedInitSuspendedTab(), which only removes an
-        // entry already sitting in the queue at the moment a transition fires. Without
-        // this, a stale entry could still start against a page that's no longer
-        // suspended, running the full sendInitTabMessageWithRetry() budget for nothing.
-        chrome.tabs.get(tabId).then((tab) => {
-          if (!tab || !gsUtils.isSuspendedTab(tab)) {
-            release();
-            resolve();
-            return;
-          }
-          fn().then(resolve, reject).finally(release);
-        }).catch(() => {
-          release(); // tab no longer exists
+        if (token.cancelled) {
+          release();
           resolve();
-        });
+          return;
+        }
+        fn(token).then(resolve, reject).finally(release);
       };
       if (_initSuspendedTabActive < INIT_SUSPENDED_TAB_CONCURRENCY) run();
       else _initSuspendedTabQueue.push({ tabId, run, resolve });
     });
   }
-  // Also called from removeTabIdReferences() (itself invoked from chrome.tabs.onRemoved) so
-  // a tab closed while still waiting for a limiter slot doesn't consume one only to fail
-  // immediately after burning sendInitTabMessageWithRetry()'s ~6s retry budget against a tab
-  // that no longer exists — in a large restore/wake burst, enough stale entries queued ahead
-  // of still-open tabs could otherwise delay them for minutes, or leave them uninitialised
-  // entirely if the service worker recycles in the meantime. Also exported and called
-  // directly from background.js's chrome.tabs.onUpdated dispatch, unconditionally whenever
-  // gsUtils.isSuspendedTab(tab) reads false — the same staleness applies to a queued tab
-  // that unsuspends, navigates away, or navigates to a "special" URL isNormalTab() excludes
-  // (which previously fell through both handler branches there and skipped cancellation
-  // entirely).
-  function _cancelQueuedInitSuspendedTab(tabId) {
+  // Called on re-entry above, from removeTabIdReferences() (itself invoked from
+  // chrome.tabs.onRemoved), and directly from background.js's chrome.tabs.onUpdated
+  // dispatch whenever gsUtils.isSuspendedTab(tab) reads false — covering removal,
+  // unsuspending, navigating away, and navigating to a "special" URL isNormalTab()
+  // excludes alike. Cancels a queued entry outright (nothing to await, so its promise
+  // just resolves), and flips the shared token for an already-running one so every
+  // checkpoint it passes through from here on — including sendInitTabMessageWithRetry()'s
+  // own retry loop — sees the cancellation regardless of which specific await it's
+  // currently sitting in.
+  function _cancelInitSuspendedTab(tabId) {
     for (let i = _initSuspendedTabQueue.length - 1; i >= 0; i--) {
       if (_initSuspendedTabQueue[i].tabId === tabId) {
         const [entry] = _initSuspendedTabQueue.splice(i, 1);
         entry.resolve(); // never started — nothing to await, resolve so the caller doesn't hang
       }
     }
+    const token = _initSuspendedTabTokenByTabId.get(tabId);
+    if (token) token.cancelled = true;
   }
 
   async function initialiseSuspendedTab(tab) {
@@ -906,25 +915,24 @@ export const tgs = (function() {
       return;
     }
 
-    await _runInitSuspendedTabLimited(tab.id, async () => {
+    await _runInitSuspendedTabLimited(tab.id, async (token) => {
       // const tabView = getInternalViewByTabId(tab.id);
-      // Every prior attempt at revalidating this job right before it sends its payload still
-      // left some async prep step (a storage read, a session-id lookup) *after* the check,
-      // its own race window the tab could navigate away in with nothing left able to cancel
-      // an already-active job. Both are fetched up front here instead, so the freshTab check
-      // below is genuinely the last thing that can go stale before sendInitTabMessageWithRetry()
-      // is called immediately after it, with no intervening await.
       const [discardAfterSuspend, sessionId] = await Promise.all([
         gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND),
         gsSession.getSessionId(),
       ]);
+      // token.cancelled is flipped by _cancelInitSuspendedTab() the instant this tab is
+      // detected as no longer suspended, from wherever that happens to be caught — no
+      // longer just at this one checkpoint, since sendInitTabMessageWithRetry() below
+      // keeps checking the same token through its own retry loop.
+      if (token.cancelled) return;
       // Using a freshly-fetched tab here, not the one this closure captured, also avoids
       // sending a newly-navigated suspended page the previous URL's stale title/favicon.
       const freshTab = await chrome.tabs.get(tab.id).catch(() => null);
       if (!freshTab || !gsUtils.isSuspendedTab(freshTab) || freshTab.url !== tab.url) return;
       const quickInit = discardAfterSuspend && !freshTab.active;
       const payload = { action: 'initTab', tab: freshTab, quickInit, sessionId };
-      await sendInitTabMessageWithRetry(freshTab.id, payload)
+      await sendInitTabMessageWithRetry(freshTab.id, payload, token)
         .catch((error) => {
           gsUtils.warning(freshTab.id, 'tgs', 'initialiseSuspendedTab', error);
         });
@@ -952,19 +960,25 @@ export const tgs = (function() {
   // at the same short interval, without slowing down anything that only needed 1-2 tries.
   const INIT_TAB_RETRY_DELAYS_MS = [100, 200, 400, 800, 1500, 3000]; // ~6s total budget
 
-  function sendInitTabMessageWithRetry(tabId, payload, attempt = 0) {
+  // token (optional, see _runInitSuspendedTabLimited() above) is re-checked before every
+  // attempt, including the very first: a tab navigating away during one of this function's
+  // own retry delays previously had nothing able to stop the recursion short of the full
+  // ~6s budget, since cancellation only ever reached the queue or the job's setup, never
+  // this loop itself.
+  function sendInitTabMessageWithRetry(tabId, payload, token, attempt = 0) {
+    if (token?.cancelled) return Promise.resolve();
     return chrome.tabs.sendMessage(tabId, payload).catch((error) => {
-      if (attempt >= INIT_TAB_RETRY_DELAYS_MS.length) throw error;
+      if (attempt >= INIT_TAB_RETRY_DELAYS_MS.length || token?.cancelled) throw error;
       const delayMs = INIT_TAB_RETRY_DELAYS_MS[attempt];
       return new Promise((resolve) => setTimeout(resolve, delayMs))
-        .then(() => sendInitTabMessageWithRetry(tabId, payload, attempt + 1));
+        .then(() => sendInitTabMessageWithRetry(tabId, payload, token, attempt + 1));
     });
   }
 
   async function removeTabIdReferences(tabId) {
     gsUtils.log(tabId, 'removing tabId references to', tabId);
 
-    _cancelQueuedInitSuspendedTab(tabId);
+    _cancelInitSuspendedTab(tabId);
 
     const focusedTabByWindow = await getCurrentFocusedTabIdByWindowId();
     for (const windowId of Object.keys(focusedTabByWindow)) {
@@ -1699,7 +1713,7 @@ export const tgs = (function() {
     checkForTriggerUrls,
     handleSuspendedTabStateChanged,
     handleUnsuspendedTabStateChanged,
-    cancelQueuedInitSuspendedTab: _cancelQueuedInitSuspendedTab,
+    cancelInitSuspendedTab: _cancelInitSuspendedTab,
     setIconStatusForActiveTab,
     getCurrentStationaryTabIdByWindowId,
     getCurrentFocusedTabIdByWindowId,
