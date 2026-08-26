@@ -1,6 +1,7 @@
 // @ts-check
 import  { gsBackup }              from './gsBackup.js';
 import  { gsChrome }              from './gsChrome.js';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsNewsFeed }            from './gsNewsFeed.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
@@ -540,6 +541,10 @@ import  { tgs }                   from './tgs.js';
       await gsNewsFeed.fetchAndCache();
       return;
     }
+    if (alarm.name === gsIndexedDb.LOG_TRIM_ALARM_NAME) {
+      await gsIndexedDb.trimLogEntries(gsIndexedDb.LOG_ENTRIES_MAX);
+      return;
+    }
 
     const tabId = parseInt(alarm.name);
     const tab = await gsChrome.tabsGet(tabId);
@@ -755,6 +760,10 @@ import  { tgs }                   from './tgs.js';
     .then(() => gsNewsFeed.fetchAndCacheIfStale())
     .catch((error) => {
       gsUtils.error('background news feed init error: ', error);
+    })
+    .then(() => gsIndexedDb.syncLogTrimAlarm())
+    .catch((error) => {
+      gsUtils.error('background log-trim alarm sync error: ', error);
     });
 
 

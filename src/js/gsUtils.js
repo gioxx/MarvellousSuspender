@@ -52,11 +52,6 @@ let _localeMessages = null;
 // worked around; if incognito log visibility genuinely matters for a specific report,
 // the debug page needs to be opened from an incognito window to read that partition's own
 // entries.
-// The live debug-page view only ever asks gsIndexedDb.fetchLogEntries() for its own
-// smaller window directly (see debug.js's readLogBuffer()); this is the store-wide cap
-// backing the downloadable/copyable report and everything else.
-const _LOG_BUFFER_FULL_MAX = 10000;
-
 let   _flushTimer = null;
 // Entries logged in this context since its last successful flush, not yet confirmed
 // persisted.
@@ -152,14 +147,6 @@ function _flushNow() {
   return _flushChain;
 }
 
-// Trimming the store back down to _LOG_BUFFER_FULL_MAX needs an IndexedDB getAllKeys()
-// scan, cheap on its own but wasteful to repeat on every single flush from every one of
-// potentially dozens of contexts (each flushing roughly every 1.5s). Throttled per context
-// instead: at most once a minute, independent of how many flushes happen in between —
-// still keeps the store well within any single session regardless of how long it runs.
-let _lastLogTrimAt = 0;
-const _LOG_TRIM_INTERVAL_MS = 60000;
-
 async function _flushNowCore() {
   if (_flushTimer) { clearTimeout(_flushTimer); _flushTimer = null; }
   if (_pendingEntries.length === 0) return;
@@ -168,12 +155,15 @@ async function _flushNowCore() {
   const toPersist = _pendingEntries.splice(0, _pendingEntries.length);
   if (typeof chrome === 'undefined' || !chrome.storage) return; // no persistence surface here
   try {
+    // Trimming the store back down to its cap is deliberately not triggered from here —
+    // every context (every suspended tab included) flushing to this store has its own
+    // module instance of this file, so a per-context throttle still meant dozens of pages
+    // could each independently decide "trim needed" on their own first flush after a
+    // restore burst, producing dozens of concurrent 10,000-key scans and delete
+    // transactions of its own. gsIndexedDb.js's syncLogTrimAlarm() (called once from
+    // background.js's own init) runs it on a single periodic chrome.alarms schedule
+    // instead, decoupled entirely from how often, or from where, entries get logged.
     await gsIndexedDb.addLogEntries(toPersist);
-    const now = Date.now();
-    if (now - _lastLogTrimAt > _LOG_TRIM_INTERVAL_MS) {
-      _lastLogTrimAt = now;
-      gsIndexedDb.trimLogEntries(_LOG_BUFFER_FULL_MAX); // fire-and-forget, not on this flush's critical path
-    }
   }
   catch {
     // IndexedDB unavailable or a transaction failure — requeue and retry on the next
