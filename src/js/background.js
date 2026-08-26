@@ -763,6 +763,14 @@ import  { tgs }                   from './tgs.js';
       gsUtils.error('background news feed init error: ', error);
     })
     .then(() => gsIndexedDb.syncLogTrimAlarm())
+    // The alarm itself only fires every 5 minutes at the soonest — fine for keeping the
+    // store bounded during a long session, but a profile that grew past the cap before
+    // this alarm mechanism even existed (or during whatever gap it takes this fix to
+    // reach a given install) would otherwise sit oversized for up to that same 5 minutes
+    // after every single service worker restart in the meantime. One immediate trim here,
+    // from the same single place (service worker init) the alarm itself already runs
+    // from, catches it up right away instead of waiting on the first periodic tick.
+    .then(() => gsIndexedDb.trimLogEntries(gsIndexedDb.LOG_ENTRIES_MAX))
     .catch((error) => {
       gsUtils.error('background log-trim alarm sync error: ', error);
     });
