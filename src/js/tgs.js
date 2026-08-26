@@ -631,6 +631,17 @@ export const tgs = (function() {
     }
     gsUtils.log( tab.id, 'unsuspended tab state changed, changeInfo', changeInfo );
 
+    // background.js only routes here once gsUtils.isSuspendedTab(tab) reads false for
+    // this event — including the moment a tab that was still queued for
+    // _runInitSuspendedTabLimited() (waiting for a concurrency slot) unsuspends or
+    // navigates away in place. Neither chrome.tabs.onRemoved nor onReplaced fires for
+    // that transition, so removeTabIdReferences() never gets a chance to cancel the
+    // stale entry, which would otherwise eventually send its old 'initTab' payload to
+    // this now-normal page (no receiver for it) and burn a concurrency slot for the
+    // full retry budget. Reaching this handler at all is itself proof the tab is no
+    // longer suspended, so cancelling unconditionally here is always correct.
+    _cancelQueuedInitSuspendedTab(tab.id);
+
     // Ensure we clear the STATE_UNLOADED_URL flag during load in case the
     // tab is suspended again before loading can finish (in which case on
     // suspended tab complete, the tab will reload again)
