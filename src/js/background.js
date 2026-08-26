@@ -684,6 +684,22 @@ import  { tgs }                   from './tgs.js';
     return new Promise(async (resolve) => {
       gsUtils.log('background', 'PERFORMING BACKGROUND INIT...');
 
+      // One-off cleanup of the keys the old chrome.storage.local-backed log buffer used
+      // before it moved to IndexedDB (see gsUtils.js's log-buffer section) — nothing
+      // writes these any more, so they'd otherwise sit here orphaned indefinitely. Only
+      // ever called from here, the service worker's own init — not from gsUtils.js's
+      // module-load code, which runs in every context (every suspended tab included): a
+      // profile that had already accumulated a multi-MB gsLogBufferFull under the old
+      // design would have its removal here itself be a chrome.storage.local mutation,
+      // and Chrome delivers a removed key's full oldValue to every onChanged listener in
+      // every context just like any other change — running this from every context on
+      // first load after upgrading would have re-created, once, the exact broadcast-fanout
+      // problem this whole migration exists to eliminate. Bounded to running from at most
+      // the (at most two, given "incognito": "split" in the manifest) service worker
+      // instances instead. A no-op once the keys are actually gone — chrome.storage.onChanged
+      // only fires on an actual change, so removing already-removed keys is silent.
+      chrome.storage.local.remove(['gsLogBuffer', 'gsLogBufferFull', 'gsLogBufferVersion', 'gsLogBufferClearedAt']);
+
       //initialise currentStationary and currentFocused vars
       const activeTabs = await gsChrome.tabsQuery({ active: true });
       const currentWindow = await gsChrome.windowsGetLastFocused();

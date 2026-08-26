@@ -38,6 +38,20 @@ let _localeMessages = null;
 // crash, 48-49 in two others), ruling out a simple "N tabs × one favicon each" explanation
 // and pointing at something whose cost scales with how often the buffer is *written*, not
 // with tab count directly. IndexedDB writes have no equivalent cross-context broadcast.
+//
+// Known, accepted limitation — incognito and regular-profile logs no longer share one
+// view: manifest.json declares "incognito": "split", so a regular window and an
+// incognito one run fully separate extension instances, each with their own service
+// worker. chrome.storage.local is *not* partitioned by that split (both instances read
+// and wrote the same buffer under the old design), but IndexedDB is — each partition gets
+// its own separate on-disk database, invisible to the other. A regular debug.html session
+// can no longer see what happened in an incognito window (and clearing one buffer doesn't
+// touch the other's), a real behaviour change from before. Bridging the two isn't
+// practical without reintroducing some form of cross-context broadcast — the exact
+// mechanism this migration exists to eliminate — so this is accepted as-is rather than
+// worked around; if incognito log visibility genuinely matters for a specific report,
+// the debug page needs to be opened from an incognito window to read that partition's own
+// entries.
 // The live debug-page view only ever asks gsIndexedDb.fetchLogEntries() for its own
 // smaller window directly (see debug.js's readLogBuffer()); this is the store-wide cap
 // backing the downloadable/copyable report and everything else.
@@ -1219,11 +1233,6 @@ if (typeof chrome !== 'undefined' && chrome.storage) {
   chrome.storage.local.get(['gsCaptureVerbose'], (result) => {
     if (result.gsCaptureVerbose) gsUtils.captureLogs = true;
   });
-  // One-off cleanup of the keys the old chrome.storage.local-backed log buffer used
-  // before it moved to IndexedDB (see this file's log-buffer section above) — nothing
-  // writes these any more, so they'd otherwise sit here orphaned indefinitely. A no-op
-  // once actually removed, however many contexts happen to run this on module load.
-  chrome.storage.local.remove(['gsLogBuffer', 'gsLogBufferFull', 'gsLogBufferVersion', 'gsLogBufferClearedAt']);
   // The above only covers this module instance's state at load time. Toggling captureLogs
   // on the debug page only messages the service worker directly (background.js's
   // 'setCaptureLogs' case); it doesn't reach any options/suspended/etc. page already open
