@@ -970,17 +970,26 @@ export const tgs = (function() {
       if (!freshTab || !gsUtils.isSuspendedTab(freshTab) || freshTab.url !== tab.url || freshTab.discarded) return;
       const quickInit = discardAfterSuspend && !freshTab.active;
       const payload = { action: 'initTab', tab: freshTab, quickInit, sessionId };
+      let sendFailed = false;
       await sendInitTabMessageWithRetry(freshTab.id, payload, token)
         .catch((error) => {
+          sendFailed = true;
           gsUtils.warning(freshTab.id, 'tgs', 'initialiseSuspendedTab', error);
         });
-      // token.cancelled here means sendInitTabMessageWithRetry() above stopped early
-      // (e.g. the tab got discarded mid-retry) rather than actually delivering 'initTab' —
+      // token.cancelled means sendInitTabMessageWithRetry() above stopped early (e.g. the
+      // tab got discarded mid-retry) rather than actually delivering 'initTab' —
       // queueTabCheck() below is a *responsiveness* check for a page that was expected to
-      // already be running by now. Reaching it anyway resolves the still-discarded tab as
-      // unresponsive after its own delay and reloads (wakes) it via resuspendSuspendedTab(),
-      // undoing the very discard this job just deferred to.
-      if (token.cancelled) return;
+      // already be running by now, and reaching it anyway for a discarded tab resolves it
+      // as unresponsive after its own delay and reloads (wakes) it, undoing the discard
+      // this job just deferred to. sendFailed covers the other terminal case: a message
+      // timeout (now treated as terminal, not retried, above) is caught here and only
+      // logged, not surfaced any other way — the real send may still genuinely be
+      // in-flight in the receiving page (its own execution isn't cancelled just because
+      // this side gave up waiting). Reaching queueTabCheck() regardless would have
+      // checkSuspendedTab() see an incomplete tab a few seconds later and dispatch a
+      // second, fully duplicate 'initTab', exactly the concurrent-work multiplication
+      // treating the timeout as terminal was meant to prevent in the first place.
+      if (token.cancelled || sendFailed) return;
       gsTabCheckManager.queueTabCheck(freshTab, { refetchTab: true }, 3000);
     });
   }
