@@ -654,8 +654,21 @@ import  { tgs }                   from './tgs.js';
       if (gsUtils.isSuspendedTab(tab)) {
         await tgs.handleSuspendedTabStateChanged(tab, changeInfo);
       }
-      else if (gsUtils.isNormalTab(tab)) {
-        await tgs.handleUnsuspendedTabStateChanged(tab, changeInfo);
+      else {
+        // Reaching here at all (isSuspendedTab() read false above) is proof this tab is
+        // no longer suspended, regardless of whether isNormalTab() below also accepts it
+        // — a queued-but-not-yet-started _runInitSuspendedTabLimited() entry for this tab
+        // is stale either way. A tab navigating to a chrome://, another extension's, or
+        // otherwise "special" URL (isNormalTab() excludes those) previously fell through
+        // both branches entirely, so tgs.js's own cancellation call (only reachable from
+        // inside handleUnsuspendedTabStateChanged(), gated on isNormalTab() below) never
+        // ran for that case — the stale entry would eventually retry 'initTab' against a
+        // page that can't receive it, burning a concurrency slot for the full retry
+        // budget. Cancelling unconditionally here covers every non-suspended case.
+        tgs.cancelQueuedInitSuspendedTab(tabId);
+        if (gsUtils.isNormalTab(tab)) {
+          await tgs.handleUnsuspendedTabStateChanged(tab, changeInfo);
+        }
       }
     });
     chrome.windows.onCreated.addListener(async (window) => {
