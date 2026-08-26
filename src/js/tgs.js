@@ -1005,6 +1005,28 @@ export const tgs = (function() {
   // at the same short interval, without slowing down anything that only needed 1-2 tries.
   const INIT_TAB_RETRY_DELAYS_MS = [100, 200, 400, 800, 1500, 3000]; // ~6s total budget
 
+  // suspended.js's own message listener is responsible for always calling sendResponse()
+  // eventually, including on failure (see messageRequestListener() there) — but that only
+  // covers a JS exception; it can't help if the receiving page's own thread is genuinely
+  // hung/frozen and never gets to run that code at all. chrome.tabs.sendMessage() has no
+  // timeout of its own in that case: the returned promise simply never settles. Left
+  // unbounded, that single stuck attempt would hold one of tgs.js's five
+  // initSuspendedTab concurrency slots forever — enough hung tabs and every future
+  // suspended tab stays queued indefinitely. Generous enough not to false-positive on a
+  // legitimately slow (but working) initTab() — favicon build, IndexedDB reads — well
+  // above what even a loaded page needs.
+  const INIT_TAB_MESSAGE_TIMEOUT_MS = 10000;
+
+  function _withTimeout(promise, ms) {
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error(`Timed out after ${ms}ms`)), ms);
+      promise.then(
+        (value) => { clearTimeout(timer); resolve(value); },
+        (error) => { clearTimeout(timer); reject(error); }
+      );
+    });
+  }
+
   // token (optional, see _runInitSuspendedTabLimited() above) is re-checked before every
   // attempt, including the very first: a tab navigating away during one of this function's
   // own retry delays previously had nothing able to stop the recursion short of the full
@@ -1012,7 +1034,7 @@ export const tgs = (function() {
   // this loop itself.
   function sendInitTabMessageWithRetry(tabId, payload, token, attempt = 0) {
     if (token?.cancelled) return Promise.resolve();
-    return chrome.tabs.sendMessage(tabId, payload).catch((error) => {
+    return _withTimeout(chrome.tabs.sendMessage(tabId, payload), INIT_TAB_MESSAGE_TIMEOUT_MS).catch((error) => {
       if (attempt >= INIT_TAB_RETRY_DELAYS_MS.length || token?.cancelled) throw error;
       const delayMs = INIT_TAB_RETRY_DELAYS_MS[attempt];
       return new Promise((resolve) => setTimeout(resolve, delayMs))

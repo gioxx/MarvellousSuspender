@@ -432,7 +432,19 @@ import  { tgs }                   from './tgs.js';
       }
       return false;
     }
-    handleMessageRequest(request, sender, sendResponse);
+    // handleMessageRequest() is async, called here without an await (this listener has
+    // to return synchronously — see the comment above) — an unhandled rejection inside it
+    // (e.g. initTab()'s own awaited calls failing) previously meant sendResponse() was
+    // simply never reached for that message. Chrome's messaging channel has no timeout of
+    // its own: the sender's chrome.tabs.sendMessage() promise then hangs forever, not
+    // just failing that one job but, for 'initTab' specifically, permanently occupying one
+    // of tgs.js's five initSuspendedTab concurrency slots — enough of these and every
+    // future suspended tab stays queued indefinitely. Calling sendResponse() from the
+    // catch guarantees the sender's promise always eventually settles one way or another.
+    handleMessageRequest(request, sender, sendResponse).catch((error) => {
+      gsUtils.warning('suspended', 'messageRequestListener', request.action, error);
+      sendResponse();
+    });
     return true;
   }
 
