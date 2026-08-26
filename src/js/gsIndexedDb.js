@@ -252,11 +252,20 @@ export const gsIndexedDb = {
   },
 
   // Every entry, oldest first by 'ts' (not insertion order — see fetchLogEntries() above
-  // for why those can differ), for the downloadable/copyable report.
+  // for why those can differ), for the downloadable/copyable report. A plain getAll() on
+  // the primary store plus an in-memory sort, not getAllFromIndex('ts') — reading the
+  // *whole* store (up to LOG_ENTRIES_MAX, 10,000 entries) through the secondary 'ts'
+  // index meant walking that index's own B-tree one entry at a time, real, noticeably
+  // slower than before (confirmed live: "Download report" taking far longer than it used
+  // to) compared to a single bulk primary-store read. Sorting the already-in-memory
+  // result by 'ts' in JS afterward is comparatively cheap — a few thousand small objects
+  // is a fast sort — and gives the exact same ordering guarantee.
   fetchAllLogEntries: async function() {
     try {
       const db = await gsIndexedDb.getDb();
-      return await db.getAllFromIndex(gsIndexedDb.DB_LOG_ENTRIES, 'ts');
+      const entries = await db.getAll(gsIndexedDb.DB_LOG_ENTRIES);
+      entries.sort((a, b) => (a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : 0));
+      return entries;
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
       return [];
