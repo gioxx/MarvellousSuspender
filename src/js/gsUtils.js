@@ -323,8 +323,7 @@ export const gsUtils = {
   // write to overwrite the clear with).
   async clearLogBuffer() {
     _pendingEntries.length = 0;
-    await gsIndexedDb.clearLogEntries();
-    return true;
+    return gsIndexedDb.clearLogEntries();
   },
 
   isDiscardedTab(tab) {

@@ -21,6 +21,13 @@ export const gsTabQueue = (function() {
       // per-attempt timeout below — without this cap, that per-attempt reset would
       // remove the queue's only terminal deadline for such a job.
       const MAX_REQUEUES = 100;
+      // A second, complementary bound on wall-clock time, not requeue count: a job
+      // legitimately requeuing (see requeueTab()'s per-attempt reset below) well short of
+      // MAX_REQUEUES can still run for far longer than a single jobTimeout was ever meant
+      // to represent. 5x is deliberately more generous than one attempt — the whole point
+      // of the per-attempt reset is not punishing real progress — while still keeping an
+      // actual ceiling instead of none at all.
+      const OVERALL_TIMEOUT_MULTIPLIER = 5;
 
       const _queueProperties = {
         concurrentExecutors: DEFAULT_CONCURRENT_EXECUTORS,
@@ -251,6 +258,14 @@ export const gsTabQueue = (function() {
             });
         };
 
+        // Set once, the very first time this job is ever processed — never touched by
+        // requeueTab()'s per-attempt timer reset, so it's what requeueTab() checks
+        // against as this job's real overall ceiling regardless of how many requeues it
+        // took to get there.
+        if (!tabDetails.hasOwnProperty('deadlineAt')) {
+          tabDetails.deadlineAt = Date.now() + OVERALL_TIMEOUT_MULTIPLIER * _queueProperties.jobTimeout;
+        }
+
         // If timeout timer has not yet been initiated, then start it now
         if (!tabDetails.hasOwnProperty('timeoutTimer')) {
           tabDetails.timeoutTimer = setTimeout(() => {
@@ -311,8 +326,15 @@ export const gsTabQueue = (function() {
         tabDetails.requeues += 1;
         gsUtils.log(tabDetails.tab.id, _queueId, `Requeueing tab. Requeues: ${tabDetails.requeues}`);
 
-        if (tabDetails.requeues > MAX_REQUEUES) {
-          gsUtils.log(tabDetails.tab.id, _queueId, `Tab exceeded ${MAX_REQUEUES} requeues, treating as timed out.`);
+        // MAX_REQUEUES alone bounds a job that requeues forever, but not one that requeues
+        // a normal, finite number of times while still taking far longer in wall-clock time
+        // than jobTimeout was ever meant to allow — each requeue below resets the timer to
+        // a fresh full jobTimeout, so 100 requeues at even the default 5s delay could run
+        // for the better part of a couple of hours. deadlineAt (set once, the first time
+        // this job is ever processed — see processTab()) is untouched by that per-attempt
+        // reset, so this catches it regardless of how many requeues it took to get there.
+        if (tabDetails.requeues > MAX_REQUEUES || Date.now() >= tabDetails.deadlineAt) {
+          gsUtils.log(tabDetails.tab.id, _queueId, `Tab exceeded ${MAX_REQUEUES} requeues or its overall deadline, treating as timed out.`);
           clearTimeout(tabDetails.timeoutTimer);
           delete tabDetails.timeoutTimer;
           _queueProperties.exceptionFn(

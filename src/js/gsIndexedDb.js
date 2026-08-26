@@ -182,12 +182,22 @@ export const gsIndexedDb = {
   // flush, a tight loop with no natural end. Letting this reject instead lets
   // gsUtils.js's own _flushNowCore() catch it, requeue the batch, and retry on its normal
   // 1.5s schedule, without ever routing the failure back through the pipe that just failed.
+  // One readwrite transaction for the whole batch, not a sequential db.add() per entry:
+  // if a later entry in a large batch fails (e.g. approaching a storage quota), the
+  // per-entry version would still have already committed every earlier one in its own
+  // separate transaction — the batch as a whole still reads as failed to the caller
+  // (addLogEntries() rejects either way), which requeues the *entire* batch, so those
+  // already-committed entries would get duplicated on retry, compounding whatever made
+  // the batch fail in the first place instead of ever letting it succeed. One shared
+  // transaction rolls every add() in this call back together on any single failure.
   addLogEntries: async function(entries) {
     if (!entries || entries.length === 0) return;
     const db = await gsIndexedDb.getDb();
-    for (const entry of entries) {
-      await db.add(gsIndexedDb.DB_LOG_ENTRIES, entry);
-    }
+    const tx = db.transaction(gsIndexedDb.DB_LOG_ENTRIES, 'readwrite');
+    await Promise.all([
+      ...entries.map((entry) => tx.store.add(entry)),
+      tx.done,
+    ]);
   },
 
   // Most-recent `limit` entries, oldest first — a cursor walking the 'ts' index backward
@@ -257,12 +267,17 @@ export const gsIndexedDb = {
     }
   },
 
+  // Returns whether the clear actually succeeded — debug.js's "Clear log" button checks
+  // this via gsUtils.clearLogBuffer()'s own return value to show "clear failed" rather
+  // than silently reporting success while every persisted record is still there.
   clearLogEntries: async function() {
     try {
       const db = await gsIndexedDb.getDb();
       await db.clear(gsIndexedDb.DB_LOG_ENTRIES);
+      return true;
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
+      return false;
     }
   },
 
