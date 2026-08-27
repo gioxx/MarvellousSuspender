@@ -56,6 +56,16 @@ let   _flushTimer = null;
 // Entries logged in this context since its last successful flush, not yet confirmed
 // persisted.
 const _pendingEntries = [];
+
+// Guards against the exact race clearLogBuffer()'s own comment describes: another
+// context's _pendingEntries, captured just before a Clear but not yet flushed, landing
+// in IndexedDB right after db.clear() runs and making pre-clear entries reappear. Every
+// flush re-reads this cutoff (small, single-key chrome.storage.local write — not the
+// large shared blob whose broadcast caused the OOM crash documented above; a tiny
+// timestamp fired to every context's onChanged listener is negligible) and drops any
+// entry whose own ts predates it, so a straggler batch from before the clear can never
+// commit after it regardless of flush timing across contexts.
+const CLEARED_AT_KEY = 'gsLogClearedAt';
 // Bounds _pendingEntries against unbounded growth: if IndexedDB stays unavailable while
 // captureLogs is on, every failed flush requeues its batch and every new log call keeps
 // appending more, with nothing else ever shrinking the array — heavy logging in that state
@@ -155,6 +165,17 @@ async function _flushNowCore() {
   const toPersist = _pendingEntries.splice(0, _pendingEntries.length);
   if (typeof chrome === 'undefined' || !chrome.storage) return; // no persistence surface here
   try {
+    // Re-read on every flush rather than caching: this context's own last clear (or
+    // another context's, since the key is shared) may have happened after this batch's
+    // entries were logged but before this flush ran.
+    let clearedAt = 0;
+    try {
+      const stored = await chrome.storage.local.get(CLEARED_AT_KEY);
+      clearedAt = stored[CLEARED_AT_KEY] || 0;
+    } catch { /* treat as no clear on record */ }
+    const filtered = clearedAt
+      ? toPersist.filter(entry => new Date(entry.ts).getTime() > clearedAt)
+      : toPersist;
     // Trimming the store back down to its cap is deliberately not triggered from here —
     // every context (every suspended tab included) flushing to this store has its own
     // module instance of this file, so a per-context throttle still meant dozens of pages
@@ -163,7 +184,7 @@ async function _flushNowCore() {
     // transactions of its own. gsIndexedDb.js's syncLogTrimAlarm() (called once from
     // background.js's own init) runs it on a single periodic chrome.alarms schedule
     // instead, decoupled entirely from how often, or from where, entries get logged.
-    await gsIndexedDb.addLogEntries(toPersist);
+    await gsIndexedDb.addLogEntries(filtered);
   }
   catch {
     // IndexedDB unavailable or a transaction failure — requeue and retry on the next
@@ -320,13 +341,18 @@ export const gsUtils = {
   // service worker's own not-yet-flushed _pendingEntries get dropped too, not just this
   // context's. Any context could safely write to gsIndexedDb directly now (unlike the old
   // chrome.storage.local design, IndexedDB needs no single designated writer), but another
-  // context's own _pendingEntries captured just before the clear and not yet flushed can
-  // still land afterward — a handful of straggler entries reappearing post-clear, not the
-  // wholesale resurrection the old clearedAt-cutoff design specifically guarded against
-  // (each entry is its own IndexedDB record now, so there's no shared blob for a stale
-  // write to overwrite the clear with).
+  // context's own _pendingEntries — captured just before the clear and not yet flushed —
+  // could still land afterward without the cutoff written here: CLEARED_AT_KEY is set
+  // first, so every flush from here on (this context's and every other's) drops any
+  // entry timestamped before it, closing the race rather than just shrinking it.
   async clearLogBuffer() {
+    const clearedAt = Date.now();
     _pendingEntries.length = 0;
+    if (typeof chrome !== 'undefined' && chrome.storage) {
+      try {
+        await chrome.storage.local.set({ [CLEARED_AT_KEY]: clearedAt });
+      } catch { /* best-effort — a failed write here just leaves the race open */ }
+    }
     return gsIndexedDb.clearLogEntries();
   },
 
