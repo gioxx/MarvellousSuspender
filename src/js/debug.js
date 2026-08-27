@@ -326,12 +326,22 @@ import  { tgs }                   from './tgs.js';
   // history is unambiguous no matter what machine reads it back; render it in the
   // viewer's own local time here instead, since a debug tester reading the live log
   // wants "when did this just happen on my clock", not a UTC offset they have to do
-  // math on.
+  // math on. The store rotates rather than clearing on its own (only the "Clear log"
+  // button empties it), so entries from a previous day routinely sit alongside today's
+  // — a bare HH:MM:SS then reads as "just now" regardless of which day it actually was.
+  // Prefixing the local date whenever an entry isn't from today keeps the common case
+  // (today's own session) uncluttered while still disambiguating older ones.
   function formatLocalTime(iso) {
     const d = new Date(iso);
     if (isNaN(d.getTime())) return '??:??:??';
     const pad = (n, len = 2) => String(n).padStart(len, '0');
-    return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}.${pad(d.getMilliseconds(), 3)}`;
+    const time = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}.${pad(d.getMilliseconds(), 3)}`;
+    const now = new Date();
+    const isToday = d.getFullYear() === now.getFullYear()
+      && d.getMonth() === now.getMonth()
+      && d.getDate() === now.getDate();
+    if (isToday) return time;
+    return `${pad(d.getFullYear(), 4)}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${time}`;
   }
 
   function renderLogEntry(entry) {
