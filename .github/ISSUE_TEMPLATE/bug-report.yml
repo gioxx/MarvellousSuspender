@@ -1,0 +1,135 @@
+name: Bug report
+description: Something in The Marvellous Suspender is not working the way it should.
+title: "[Bug]: "
+labels: ["to be investigated"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening a bug, please:
+
+        - Search the [open **and** closed issues](https://github.com/gioxx/MarvellousSuspender/issues?q=is%3Aissue) for the same problem.
+        - Check the [Troubleshooting & Knowledge Base](https://kb.marvellouscode.works/docs/TMS/troubleshooting/).
+
+        The more concrete detail you give here, the faster this can be looked into.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Before you start
+      options:
+        - label: I searched the open and closed issues and did not find a duplicate.
+          required: true
+        - label: I am on the latest version available from the Chrome Web Store (or a build newer than that).
+          required: true
+
+  - type: input
+    id: tms-version
+    attributes:
+      label: TMS version
+      description: Shown on the extension's About page (Options → About).
+      placeholder: "9.0.2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Chrome
+        - Edge
+        - Brave
+        - Vivaldi
+        - Opera
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: browser-version
+    attributes:
+      label: Browser version
+      placeholder: "140.0.7259.5"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - ChromeOS
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: install-source
+    attributes:
+      label: How did you install TMS?
+      options:
+        - Chrome Web Store
+        - Local unpacked build
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you see? Include any error messages or console output.
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-expected
+    attributes:
+      label: What you expected
+      description: What should have happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps that reliably trigger the problem, starting from a known state.
+      placeholder: |
+        1. Open a few tabs and let them suspend
+        2. Restart the browser
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: settings
+    attributes:
+      label: Relevant settings
+      description: Any non-default settings that might matter.
+      placeholder: "e.g. discard in place of suspend, screen capture mode, never-suspend list entries, local/Drive backup enabled"
+    validations:
+      required: false
+
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostic report
+      description: >
+        Strongly recommended. Paste a debug.html captureLogs report and/or a Tab Health report.
+        See [how to get one](https://kb.marvellouscode.works/docs/TMS/pages/diagnostic-page).
+        For intermittent or long-idle bugs this is often the only way to find the cause.
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots / extra context
+    validations:
+      required: false
