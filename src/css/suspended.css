@@ -143,6 +143,31 @@ body.suspended-page.preview-scrollable {
 .hotkeyCommand {
     word-spacing: -1px;
 }
+/* Reported by a user via email, with a screenshot: the reload hotkey link inherited
+   style.css's generic `a { color: var(--primary) }` — the same saturated accent blue used
+   for real, actionable hyperlinks elsewhere in the extension UI (buttons, options, dialogs).
+   Here it's sitting on a deliberately quiet, Chrome-native-styled "sleeping" page, where
+   that same blue reads as far more conspicuous than intended, instead of the muted hint
+   text a suspended-page reload prompt is meant to be. Toned down to a subdued gray,
+   matching the rest of this page's low-key palette, with the accent colour kept only on
+   :hover/:focus so the link is still discoverable as clickable.
+
+   Not var(--muted-foreground) directly (a Codex review round caught this): that token is
+   --foreground at 50%/55% opacity, composited it clears ~4.8:1 against the dark-theme
+   background but only ~3.6:1 against the light-theme one — under the 4.5:1 text-contrast
+   threshold, and this is normal 14px body text, the only link shown when no reload
+   shortcut is configured. oklch(0.42 0 0) is an opaque middle-gray tuned to clear 4.5:1 on
+   light; the dark theme's own --muted-foreground already passes, so it's kept there. */
+.hotkeyWrapper a {
+    color: oklch(0.42 0 0);
+}
+.dark .hotkeyWrapper a {
+    color: var(--muted-foreground);
+}
+.hotkeyWrapper a:hover,
+.hotkeyWrapper a:focus {
+    color: var(--primary);
+}
 .reasonMsg {
     font-size: var(--text-base);
     margin-bottom: var(--space-6);
