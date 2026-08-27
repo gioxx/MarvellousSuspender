@@ -473,7 +473,7 @@ import  { gsUtils }    from './gsUtils.js';
       if (authMethodEl) {
         const method = await gsBackup.getDriveAuthMethod();
         authMethodEl.textContent = method === 'webauthflow'
-          ? 'OAuth fallback (launchWebAuthFlow, Brave/Vivaldi)'
+          ? 'PKCE via tms-oauth-proxy (Brave/Vivaldi fallback)'
           : 'Chrome Identity API (getAuthToken)';
       }
 
