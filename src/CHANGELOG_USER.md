@@ -22,7 +22,7 @@ For the full technical changelog (every fix, every review round, every detail), 
 - **The battery-specific timeout not reacting** when you unplugged your computer, requiring a manual trigger to take effect.
 - **A bright white flash switching between suspended tabs**, especially noticeable in dark mode/low light — reported as far back as v7.1.6.2, finally tracked down and fixed.
 - **The reload link on suspended tabs was too bright/conspicuous in dark mode** — toned down to match the rest of that page's quiet look.
-- Various smaller fixes to tab reload/unsuspend behaviour, the debug page's tab list, and the auto-backup flow.
+- Various smaller fixes to tab reload/unsuspend behaviour, the debug page's tab list, a spacing glitch in Options, and the auto-backup flow.
 
 ### Curious for more detail?
 
