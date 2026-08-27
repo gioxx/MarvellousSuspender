@@ -1468,6 +1468,11 @@ export const tgs = (function() {
           callback(gsUtils.STATUS_AUDIBLE);
           return;
         }
+        //check app-mode window tab (#154)
+        if (await gsUtils.isProtectedAppWindowTab(tab)) {
+          callback(gsUtils.STATUS_APP_WINDOW);
+          return;
+        }
         //check active
         if (await gsUtils.isProtectedActiveTab(tab)) {
           callback(gsUtils.STATUS_ACTIVE);

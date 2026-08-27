@@ -215,6 +215,7 @@ export const gsUtils = {
   STATUS_ACTIVE         : 'active',
   STATUS_TEMPWHITELIST  : 'tempWhitelist',
   STATUS_PINNED         : 'pinned',
+  STATUS_APP_WINDOW     : 'appWindow',
   STATUS_WHITELISTED    : 'whitelisted',
   STATUS_CHARGING       : 'charging',
   STATUS_NOCONNECTIVITY : 'noConnectivity',
