@@ -1,0 +1,60 @@
+name: Feature request
+description: Suggest a new capability or an improvement to an existing one.
+title: "[Feature]: "
+labels: ["enhancement", "to be evaluated"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search the [open **and** closed issues](https://github.com/gioxx/MarvellousSuspender/issues?q=is%3Aissue) first,
+        many ideas are already tracked or have been considered before.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Before you start
+      options:
+        - label: I searched the open and closed issues and did not find the same request.
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / use case
+      description: What are you trying to do, and what stops you today? Describe the situation, not just the solution.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: What would you like TMS to do?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds you already tried, or other ways this could be solved.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: audience
+    attributes:
+      label: Who does this help
+      options:
+        - Just me
+        - Probably other users too
+        - Not sure
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Extra context / mockups
+    validations:
+      required: false

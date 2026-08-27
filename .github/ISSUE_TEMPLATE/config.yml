@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Troubleshooting & Knowledge Base
+    url: https://kb.marvellouscode.works/docs/TMS/troubleshooting/
+    about: Check the KB first, a lot of common problems already have a documented fix.
+  - name: 🩺 How to get a diagnostic report
+    url: https://kb.marvellouscode.works/docs/TMS/pages/diagnostic-page
+    about: How to capture a debug.html log and a Tab Health report to attach to a bug.
+  - name: 💬 Questions & help
+    url: https://github.com/gioxx/MarvellousSuspender/discussions
+    about: For usage questions or anything that is not a confirmed bug or a concrete feature request.
