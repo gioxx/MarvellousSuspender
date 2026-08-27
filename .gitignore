@@ -10,6 +10,7 @@
 /docs
 /memory
 /test
+src/js/gsOauthSecrets.local.js
 build
 node_modules
 Thumbs.db
