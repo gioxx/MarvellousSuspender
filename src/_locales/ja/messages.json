@@ -366,7 +366,7 @@
     "message": "ピン留めされたタブは停止しない"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "アプリウィンドウで開いたタブは停止しない"
+    "message": "Never suspend tabs opened in app windows"
   },
   "html_options_suspend_no_forms": {
     "message": "未保存のフォーム入力があるタブは停止しない"
@@ -872,7 +872,7 @@
     "message": "タブはピン留めされました"
   },
   "js_popup_app_window": {
-    "message": "タブはアプリウィンドウで開いています"
+    "message": "Tab is open in an app window"
   },
   "js_popup_temp_whitelist": {
     "message": "タブの停止は一時停止中です。"
