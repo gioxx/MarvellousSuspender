@@ -18,7 +18,15 @@
        loads and parses before either of the two below, setting that background from the
        OS's own color-scheme preference immediately. Same oklch values as tokens.css's
        --background token, so there's nothing to visibly hand off once the real
-       stylesheets take over. -->
+       stylesheets take over.
+
+       A pure OS-preference guess is wrong whenever gsTheme is an explicit override
+       rather than 'system', though (a Codex review round caught this) -- so this
+       classic, render-blocking script runs first and applies a cached explicit theme
+       (written by gsUtils.js's setPageTheme() on every previous load) to html before
+       critical.css below ever gets evaluated. See criticalTheme.js for the full
+       reasoning. -->
+  <script src='js/criticalTheme.js'></script>
   <link rel='stylesheet' type='text/css' href='css/critical.css'>
   <link rel='stylesheet' type='text/css' href='css/suspended.css'>
   <link rel='stylesheet' type='text/css' href='css/style.css'>

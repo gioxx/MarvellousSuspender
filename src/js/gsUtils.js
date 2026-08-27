@@ -758,6 +758,14 @@ export const gsUtils = {
       }
       win.document.body.classList.remove('dark', 'light');
       win.document.body.classList.add(theme);
+      // Mirrors the now-resolved theme ('system' already expanded above) into
+      // localStorage, the one synchronous, pre-paint storage API a suspended page has —
+      // criticalTheme.js reads this cache before critical.css's background rules are
+      // ever evaluated, so an explicit dark/light override still paints correctly on
+      // first paint instead of only correcting itself after this async call runs.
+      try {
+        win.localStorage.setItem('gsCachedTheme', theme);
+      } catch { /* localStorage unavailable — criticalTheme.js falls back to OS preference */ }
     }
   },
 
