@@ -1050,6 +1050,15 @@ export const gsUtils = {
           }
 
           // if theme or screenshot preferences have changed then refresh suspended tabs
+          // Known, accepted limitation (Codex review round, PR #477): the 'updateTheme'
+          // message below only reaches a tab whose suspended.html context is currently
+          // alive (contextGetByTabId() below), which is also the only way anything can
+          // write to setPageTheme()'s localStorage pre-paint cache — MV3 service workers
+          // (this code) have no localStorage of their own to refresh it directly. A
+          // synced theme change landing while a given suspended tab isn't currently
+          // loaded leaves that tab's cache stale until it's next reactivated, one
+          // self-correcting flash at that point via the normal async setTheme() call,
+          // same as this cache's baseline behaviour before it existed at all.
           const updateTheme = changedSettingKeys.includes(gsStorage.THEME);
           const updatePreviewMode = changedSettingKeys.includes(gsStorage.SCREEN_CAPTURE);
           if (updateTheme || updatePreviewMode) {
