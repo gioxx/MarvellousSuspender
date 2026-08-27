@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "ඇමුණූ පටිතින්න එපා"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "යෙදුම් කවුළුවල විවෘත ටැබ් නවත්වන්න එපා"
+  },
   "html_options_suspend_no_forms": {
     "message": "නොසුරකින ලද ආකෘති ආදාන අඩංගු ටැබ් කිසිවිටෙක අත්හිටුවන්න එපා"
   },
@@ -867,6 +870,9 @@
   },
   "js_popup_pinned": {
     "message": "පටිත්ත අමුණා ඇත"
+  },
+  "js_popup_app_window": {
+    "message": "ටැබය යෙදුම් කවුළුවක විවෘතව ඇත"
   },
   "js_popup_temp_whitelist": {
     "message": "ටැබ් අත්හිටුවීම විරාම කරන ලදී."

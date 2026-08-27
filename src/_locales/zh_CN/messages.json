@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "不要冻结已固定的标签页"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "不要冻结应用窗口中打开的标签页"
+  },
   "html_options_suspend_no_forms": {
     "message": "不要冻结输入框有文字且尚未储存的标签页"
   },
@@ -867,6 +870,9 @@
   },
   "js_popup_pinned": {
     "message": "标签页已经被固定"
+  },
+  "js_popup_app_window": {
+    "message": "标签页已在应用窗口中打开"
   },
   "js_popup_temp_whitelist": {
     "message": "页面冻结暂停。"

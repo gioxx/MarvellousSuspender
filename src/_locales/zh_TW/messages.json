@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "不要凍結已固定的分頁"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "不要凍結在應用程式視窗中開啟的分頁"
+  },
   "html_options_suspend_no_forms": {
     "message": "不要凍結輸入框有文字且尚未儲存的分頁"
   },
@@ -867,6 +870,9 @@
   },
   "js_popup_pinned": {
     "message": "分頁已經被固定"
+  },
+  "js_popup_app_window": {
+    "message": "分頁已在應用程式視窗中開啟"
   },
   "js_popup_temp_whitelist": {
     "message": "分頁凍結暫停。"

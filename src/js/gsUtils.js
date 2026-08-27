@@ -215,6 +215,7 @@ export const gsUtils = {
   STATUS_ACTIVE         : 'active',
   STATUS_TEMPWHITELIST  : 'tempWhitelist',
   STATUS_PINNED         : 'pinned',
+  STATUS_APP_WINDOW     : 'appWindow',
   STATUS_WHITELISTED    : 'whitelisted',
   STATUS_CHARGING       : 'charging',
   STATUS_NOCONNECTIVITY : 'noConnectivity',
@@ -470,6 +471,36 @@ export const gsUtils = {
   isProtectedActiveTab: async (tab) => {
     const ignoreActiveTabs = await gsStorage.getOption(gsStorage.IGNORE_ACTIVE_TABS);
     return ( await tgs.isCurrentFocusedTab(tab) || (ignoreActiveTabs && tab.active) );
+  },
+
+  // #154: covers both "Create Shortcut → Open as window" and an installed PWA
+  // ("Install <site>" from the address bar) — both open in a chrome.windows window of
+  // type 'app', not 'normal'. Deliberately not extended to 'popup': that also catches a
+  // site's own transient window.open() popups, which aren't the "app-like tool I keep
+  // open" case this option exists for. tab itself carries no window-type property, so
+  // this needs its own chrome.windows.get() rather than reading straight off tab like
+  // the sibling isProtectedXxxTab() checks above.
+  //
+  // Kept separate from isProtectedAppWindowTab() below (which also gates on the setting
+  // being on) so performPostSaveUpdates()'s timer-reset predicate can ask "is this tab in
+  // an app window" on its own — the setting there has *already* flipped to its new value
+  // by the time that predicate runs, so re-checking through isProtectedAppWindowTab()
+  // would just re-read the same already-off setting and always report false, the same
+  // gap a Codex review round caught: disabling this option never re-armed a timer that
+  // had already fired and been rejected while the tab was still protected.
+  isTabInAppWindow: async (tab) => {
+    try {
+      const win = await chrome.windows.get(tab.windowId);
+      return win.type === 'app';
+    } catch (e) {
+      // Window already closed/gone by the time this ran — not a real app window to protect.
+      return false;
+    }
+  },
+
+  isProtectedAppWindowTab: async (tab) => {
+    const ignoreAppWindows = await gsStorage.getOption(gsStorage.IGNORE_APP_WINDOWS);
+    return ignoreAppWindows && await gsUtils.isTabInAppWindow(tab);
   },
 
   // Note: Normal tabs may be in a discarded state
@@ -1030,10 +1061,11 @@ export const gsUtils = {
         }
 
         if (gsUtils.isSuspendedTab(tab)) {
-          //If toggling IGNORE_PINNED or IGNORE_ACTIVE_TABS to TRUE, then unsuspend any suspended pinned/active tabs
+          //If toggling IGNORE_PINNED, IGNORE_ACTIVE_TABS or IGNORE_APP_WINDOWS to TRUE, then unsuspend any suspended pinned/active/app-window tabs
           if (
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && (await gsUtils.isProtectedPinnedTab(tab))) ||
-            (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab)))
+            (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab))) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && (await gsUtils.isProtectedAppWindowTab(tab)))
           ) {
             await tgs.unsuspendTab(tab);
             continue;
@@ -1119,6 +1151,7 @@ export const gsUtils = {
             (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && tab.active) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && !settings[gsStorage.IGNORE_PINNED] && tab.pinned) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_AUDIO) && !settings[gsStorage.IGNORE_AUDIO] && tab.audible) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && !settings[gsStorage.IGNORE_APP_WINDOWS] && await gsUtils.isTabInAppWindow(tab)) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_OFFLINE) && !settings[gsStorage.IGNORE_WHEN_OFFLINE] && !navigator.onLine) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_CHARGING) && !settings[gsStorage.IGNORE_WHEN_CHARGING] && await tgs.isCharging()) ||
             (changedSettingKeys.includes(gsStorage.WHITELIST) &&

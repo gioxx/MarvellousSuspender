@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "Nunca suspender pestañas fijadas"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "Nunca suspender pestañas abiertas en ventanas de aplicaciones"
+  },
   "html_options_suspend_no_forms": {
     "message": "Nunca suspender pestañas que contengan entradas de formulario no guardadas"
   },
@@ -867,6 +870,9 @@
   },
   "js_popup_pinned": {
     "message": "Se ha fijado la pestaña"
+  },
+  "js_popup_app_window": {
+    "message": "La pestaña está abierta en una ventana de aplicación"
   },
   "js_popup_temp_whitelist": {
     "message": "Suspensión de pestaña pausa."

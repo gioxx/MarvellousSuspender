@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "Nikdy nepozastavovat připnuté karty"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "Nikdy nepozastavovat karty otevřené v oknech aplikací"
+  },
   "html_options_suspend_no_forms": {
     "message": "Nikdy nepozastavovat karty s neuloženými údaji ve formulářích"
   },
@@ -867,6 +870,9 @@
   },
   "js_popup_pinned": {
     "message": "Karta byla připnuta"
+  },
+  "js_popup_app_window": {
+    "message": "Karta je otevřena v okně aplikace"
   },
   "js_popup_temp_whitelist": {
     "message": "Pozastavování karty pozastaveno."

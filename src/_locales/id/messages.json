@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "Jangan pernah menangguhkan tab yang disematkan"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "Jangan pernah menangguhkan tab yang dibuka di jendela aplikasi"
+  },
   "html_options_suspend_no_forms": {
     "message": "Jangan pernah menangguhkan tab yang berisi input formulir yang belum disimpan"
   },
@@ -867,6 +870,9 @@
   },
   "js_popup_pinned": {
     "message": "Tab telah disematkan"
+  },
+  "js_popup_app_window": {
+    "message": "Tab terbuka di jendela aplikasi"
   },
   "js_popup_temp_whitelist": {
     "message": "Penangguhan tab dijeda."

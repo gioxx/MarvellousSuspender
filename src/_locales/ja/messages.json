@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "ピン留めされたタブは停止しない"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "アプリウィンドウで開いたタブは停止しない"
+  },
   "html_options_suspend_no_forms": {
     "message": "未保存のフォーム入力があるタブは停止しない"
   },
@@ -867,6 +870,9 @@
   },
   "js_popup_pinned": {
     "message": "タブはピン留めされました"
+  },
+  "js_popup_app_window": {
+    "message": "タブはアプリウィンドウで開いています"
   },
   "js_popup_temp_whitelist": {
     "message": "タブの停止は一時停止中です。"

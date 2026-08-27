@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "Никогда не приостанавливать закреплённые вкладки"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "Никогда не приостанавливать вкладки, открытые в окнах приложений"
+  },
   "html_options_suspend_no_forms": {
     "message": "Никогда не приостанавливать вкладки с несохранёнными полями ввода"
   },
@@ -867,6 +870,9 @@
   },
   "js_popup_pinned": {
     "message": "Вкладка закреплена"
+  },
+  "js_popup_app_window": {
+    "message": "Вкладка открыта в окне приложения"
   },
   "js_popup_temp_whitelist": {
     "message": "Приостановка вкладки поставлена на паузу."

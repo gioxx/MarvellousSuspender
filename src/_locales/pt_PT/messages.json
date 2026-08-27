@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "Nunca suspender as guias fixadas"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "Nunca suspender guias abertas em janelas de aplicação"
+  },
   "html_options_suspend_no_forms": {
     "message": "Nunca suspender as guias que contenham entradas de formulário não salvas"
   },
@@ -867,6 +870,9 @@
   },
   "js_popup_pinned": {
     "message": "A guia foi fixada"
+  },
+  "js_popup_app_window": {
+    "message": "O separador está aberto numa janela de aplicação"
   },
   "js_popup_temp_whitelist": {
     "message": "Suspensão de guias pausada."

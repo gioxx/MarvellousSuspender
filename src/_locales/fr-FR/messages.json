@@ -260,6 +260,9 @@
   "html_options_suspend_no_pinned": {
     "message": "Ne jamais suspendre les onglets épinglés"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "Ne jamais suspendre les onglets ouverts dans une fenêtre d'application"
+  },
   "html_options_suspend_no_forms": {
     "message": "Ne jamais suspendre les onglets contenant des entrées de formulaire non enregistrées"
   },
@@ -733,6 +736,9 @@
   },
   "js_popup_pinned": {
     "message": "L'onglet est épinglé"
+  },
+  "js_popup_app_window": {
+    "message": "L'onglet est ouvert dans une fenêtre d'application"
   },
   "js_popup_temp_whitelist": {
     "message": "La suspension de l'onglet a été interrompue."

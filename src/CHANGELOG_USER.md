@@ -12,6 +12,7 @@ For the full technical changelog (every fix, every review round, every detail), 
 - **"Always reopen suspended tabs scrolled to the top"**: a new option if you'd rather suspended tabs always reopen at the top of the page instead of wherever you left them.
 - **Reload also unsuspends background tabs**: reloading a suspended tab you're not currently looking at (e.g. via a multi-tab selection) can now unsuspend it too, if you turn this on.
 - **Suspend/unsuspend all tabs in a tab group**: new right-click and keyboard-shortcut options.
+- **"Never suspend app windows"**: a new option (on by default) keeps tabs open in an app-mode window — installed web apps, or a site you've opened via "Create Shortcut → Open as window" — from being auto-suspended.
 - **"What's new" screen**: this very screen! Shown once after an update, so you don't have to go digging for what changed.
 
 ### Fixed
@@ -21,7 +22,7 @@ For the full technical changelog (every fix, every review round, every detail), 
 - **The battery-specific timeout not reacting** when you unplugged your computer, requiring a manual trigger to take effect.
 - **A bright white flash switching between suspended tabs**, especially noticeable in dark mode/low light — reported as far back as v7.1.6.2, finally tracked down and fixed.
 - **The reload link on suspended tabs was too bright/conspicuous in dark mode** — toned down to match the rest of that page's quiet look.
-- Various smaller fixes to tab reload/unsuspend behaviour, the debug page's tab list, and the auto-backup flow.
+- Various smaller fixes to tab reload/unsuspend behaviour, the debug page's tab list, a spacing glitch in Options, and the auto-backup flow.
 
 ### Curious for more detail?
 

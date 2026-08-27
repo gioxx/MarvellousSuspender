@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "لا تعلق أبداً علامات التبويب الثابتة"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "لا تعلق أبداً علامات التبويب المفتوحة في نوافذ التطبيقات"
+  },
   "html_options_suspend_no_forms": {
     "message": "لا تعلق أبداً علامات التبويب التي تحتوي على مدخلات نموذج غير محفوظة"
   },
@@ -867,6 +870,9 @@
   },
   "js_popup_pinned": {
     "message": "تم تثبيت علامة التبويب"
+  },
+  "js_popup_app_window": {
+    "message": "علامة التبويب مفتوحة في نافذة تطبيق"
   },
   "js_popup_temp_whitelist": {
     "message": "تعليق علامة التبويب مؤقتاً."

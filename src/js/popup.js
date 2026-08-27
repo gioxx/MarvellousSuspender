@@ -156,6 +156,8 @@ import  { tgs }                   from './tgs.js';
       //    statusIconClass = 'fa fa-edit';
     } else if (status === gsUtils.STATUS_PINNED) {
       statusDetail = gsUtils.getMessage('js_popup_pinned'); //  statusIconClass = 'fa fa-thumb-tack';
+    } else if (status === gsUtils.STATUS_APP_WINDOW) {
+      statusDetail = gsUtils.getMessage('js_popup_app_window');
     } else if (status === gsUtils.STATUS_TEMPWHITELIST) {
       statusDetail =
         gsUtils.getMessage('js_popup_temp_whitelist') +

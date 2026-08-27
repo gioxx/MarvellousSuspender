@@ -18,6 +18,7 @@ export const gsStorage = {
   IGNORE_FORMS                  : 'gsDontSuspendForms',
   IGNORE_AUDIO                  : 'gsDontSuspendAudio',
   IGNORE_ACTIVE_TABS            : 'gsDontSuspendActiveTabs',
+  IGNORE_APP_WINDOWS            : 'gsDontSuspendAppWindows',
   IGNORE_SCROLL_POS             : 'gsDontRestoreScrollPos',
   IGNORE_CACHE                  : 'gsIgnoreCache',
   ADD_CONTEXT                   : 'gsAddContextMenu',
@@ -74,6 +75,7 @@ export const gsStorage = {
     defaults[gsStorage.IGNORE_FORMS] = true;
     defaults[gsStorage.IGNORE_AUDIO] = true;
     defaults[gsStorage.IGNORE_ACTIVE_TABS] = true;
+    defaults[gsStorage.IGNORE_APP_WINDOWS] = true;
     defaults[gsStorage.IGNORE_SCROLL_POS] = false;
     defaults[gsStorage.IGNORE_CACHE] = false;
     defaults[gsStorage.ADD_CONTEXT] = true;
