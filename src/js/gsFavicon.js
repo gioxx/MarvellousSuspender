@@ -12,8 +12,19 @@ export const gsFavicon = (() => {
    * isDark              : boolean,
    * normalisedDataUrl   : string,
    * transparentDataUrl  : string,
+   * v?                  : number,
    * } } FavIconMeta
    */
+
+  // Bumped whenever buildFaviconMeta()'s output format/cost characteristics change in a
+  // way that makes a previously-cached entry (persisted in IndexedDB, potentially long
+  // before this version shipped) worth rebuilding rather than reusing as-is — e.g. the
+  // MAX_FAVICON_DIMENSION cap below. isFaviconMetaValid() treats a missing/older version
+  // as invalid, so getFaviconMetaFromCache() falls through to the normal cache-miss path
+  // and rebuilds (and re-saves) it with the current logic, self-healing existing profiles
+  // over time as suspended tabs are naturally revisited, without needing to decode and
+  // measure every cached data URL just to detect an oversized one.
+  const FAVICON_META_VERSION = 2;
 
   // const GOOGLE_S2_URL = 'https://www.google.com/s2/favicons?domain_url=';
   /** @type { FavIconMeta } */
@@ -275,7 +286,12 @@ export const gsFavicon = (() => {
     if (
       !faviconMeta ||
       faviconMeta.normalisedDataUrl === 'data:,' ||
-      faviconMeta.transparentDataUrl === 'data:,'
+      faviconMeta.transparentDataUrl === 'data:,' ||
+      // A cached entry from before FAVICON_META_VERSION existed (or from an older version
+      // of it) may have been built without the MAX_FAVICON_DIMENSION cap in
+      // buildFaviconMeta() — treating it as invalid here sends every caller down the
+      // normal cache-miss path, which rebuilds (and re-saves) it with the current logic.
+      faviconMeta.v !== FAVICON_META_VERSION
     ) {
       return false;
     }
@@ -359,13 +375,28 @@ export const gsFavicon = (() => {
       img.onload = () => {
         imageLoaded = true;
 
+        // faviconMeta.normalisedDataUrl/transparentDataUrl only ever end up as a tab-bar
+        // <img>/<link rel="icon"> in suspended.js (setFaviconMeta()) — never rendered above
+        // a few dozen px regardless of source resolution. Some sites serve a much larger
+        // "favicon" (e.g. a 512×512 apple-touch-icon reused as-is), and this used to size the
+        // canvas to the image's native dimensions: getImageData() on that plus two
+        // Uint8ClampedArray copies and two toDataURL() PNG encodes below scale with pixel
+        // count, not with what's actually displayed. Confirmed via a live OOM crash dump
+        // (Crashpad's v8-oom-* annotations) showing ~4GB of V8 external/allocator memory in
+        // a single renderer process hosting 49 same-origin suspended.html views — Chrome
+        // shares one process per extension origin, so this per-tab cost multiplies across
+        // every suspended tab sharing it. Capping the working canvas to a small max
+        // dimension (generous for a favicon, tiny next to a full-resolution source image)
+        // bounds that cost regardless of how large the source turns out to be.
+        const MAX_FAVICON_DIMENSION = 128;
+        const scale = Math.min(1, MAX_FAVICON_DIMENSION / Math.max(img.width, img.height));
         const canvas  = document.createElement('canvas');
-        canvas.width  = img.width;
-        canvas.height = img.height;
+        canvas.width  = Math.max(1, Math.round(img.width  * scale));
+        canvas.height = Math.max(1, Math.round(img.height * scale));
         const context = canvas.getContext('2d');
 
         if (context) {
-          context.drawImage(img, 0, 0);
+          context.drawImage(img, 0, 0, canvas.width, canvas.height);
 
           let imageData;
           try {
@@ -436,6 +467,7 @@ export const gsFavicon = (() => {
             isDark,
             normalisedDataUrl,
             transparentDataUrl,
+            v: FAVICON_META_VERSION,
           };
           resolve(faviconMeta);
         }
