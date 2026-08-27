@@ -4,7 +4,12 @@ import  { gsUtils } from './gsUtils.js';
 const gsChangelog = (() => {
   'use strict';
 
-  const CHANGELOG_URL = chrome.runtime.getURL('CHANGELOG.md');
+  // CHANGELOG_USER.md is a real file inside src/ — deliberately separate from the
+  // repo-root CHANGELOG.md, which has become a detailed technical log (crash dumps,
+  // review rounds, internals) not meant for someone who just wants to know what's new.
+  // Wiped and rewritten from scratch at every release with only the handful of changes
+  // an actual user of the extension cares about.
+  const CHANGELOG_URL = chrome.runtime.getURL('CHANGELOG_USER.md');
 
   // Extracts the body of a single "## [version] — date" section, up to the next "## [" heading.
   // Slices by heading index rather than a lookahead regex: with the 'm' flag, `$` matches at
@@ -99,18 +104,15 @@ const gsChangelog = (() => {
         return false;
       }
       const markdown = await response.text();
-      // A real CHANGELOG.md is many KB; this small a response means CHANGELOG_URL
-      // resolved to something else — most likely local "Load unpacked" testing on a
-      // machine where git checked out src/CHANGELOG.md's symlink as a plain text file
-      // containing just its target path (e.g. Windows without symlink support enabled),
-      // instead of a real symlink to the root CHANGELOG.md.
-      if (markdown.length < 500) {
-        gsUtils.warning('gsChangelog', 'renderVersionChangelog', `Suspiciously short response (${markdown.length} bytes) — likely a broken src/CHANGELOG.md symlink on this checkout, not a real changelog. Content: ${markdown}`);
+      // Basic empty-response sanity check — e.g. a build step that somehow shipped a
+      // zero-byte file, or this release's file getting wiped without being refilled.
+      if (markdown.length < 20) {
+        gsUtils.warning('gsChangelog', 'renderVersionChangelog', `Suspiciously short response (${markdown.length} bytes) from ${CHANGELOG_URL}. Content: ${markdown}`);
         return false;
       }
       const section = parseSection(markdown, version);
       if (!section) {
-        gsUtils.warning('gsChangelog', 'renderVersionChangelog', `No "## [${version}]" section found in CHANGELOG.md`);
+        gsUtils.warning('gsChangelog', 'renderVersionChangelog', `No "## [${version}]" section found in CHANGELOG_USER.md — did this release forget to update it?`);
         return false;
       }
       return renderSection(container, section);
