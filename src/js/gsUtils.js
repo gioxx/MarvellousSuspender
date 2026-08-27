@@ -752,19 +752,31 @@ export const gsUtils = {
   setPageTheme(win, theme) {
     if (win.document?.body) {
       // Set theme
+      const isExplicit = theme !== 'system';
       if (theme === 'system') {
         const isDark = win.matchMedia('(prefers-color-scheme: dark)').matches;
         theme = isDark ? 'dark' : 'light';
       }
       win.document.body.classList.remove('dark', 'light');
       win.document.body.classList.add(theme);
-      // Mirrors the now-resolved theme ('system' already expanded above) into
-      // localStorage, the one synchronous, pre-paint storage API a suspended page has —
-      // criticalTheme.js reads this cache before critical.css's background rules are
-      // ever evaluated, so an explicit dark/light override still paints correctly on
-      // first paint instead of only correcting itself after this async call runs.
+      // Mirrors an *explicit* dark/light override into localStorage, the one
+      // synchronous, pre-paint storage API a suspended page has — criticalTheme.js
+      // reads this cache before critical.css's background rules are ever evaluated, so
+      // the override still paints correctly on first paint instead of only correcting
+      // itself after this async call runs. Deliberately not cached for 'system' (a
+      // Codex review round caught this): that resolves through the OS's live
+      // prefers-color-scheme, which can change on its own (e.g. a scheduled night
+      // theme) — caching its *current* resolution would go stale the next time the OS
+      // flips, and this same higher-specificity cache class would then override the
+      // now-correct, always-live media query in critical.css. Any stale cache from a
+      // previous explicit override is cleared here too, so switching the setting back
+      // to 'system' hands paint back to the media query immediately.
       try {
-        win.localStorage.setItem('gsCachedTheme', theme);
+        if (isExplicit) {
+          win.localStorage.setItem('gsCachedTheme', theme);
+        } else {
+          win.localStorage.removeItem('gsCachedTheme');
+        }
       } catch { /* localStorage unavailable — criticalTheme.js falls back to OS preference */ }
     }
   },
