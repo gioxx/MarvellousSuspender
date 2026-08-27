@@ -366,7 +366,7 @@
     "message": "不要冻结已固定的标签页"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "不要冻结应用窗口中打开的标签页"
   },
   "html_options_suspend_no_forms": {
     "message": "不要冻结输入框有文字且尚未储存的标签页"

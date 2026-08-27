@@ -366,7 +366,7 @@
     "message": "Gepinnte Tabs nicht aussetzen"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "In App-Fenstern geöffnete Tabs nicht aussetzen"
   },
   "html_options_suspend_no_forms": {
     "message": "Tabs mit ungespeicherten Formularen nicht aussetzen"

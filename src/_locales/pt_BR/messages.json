@@ -366,7 +366,7 @@
     "message": "Nunca suspender as guias fixadas"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "Nunca suspender guias abertas em janelas de aplicativo"
   },
   "html_options_suspend_no_forms": {
     "message": "Nunca suspender as guias que contenham entradas de formulário não salvas"

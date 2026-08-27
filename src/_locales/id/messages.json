@@ -366,7 +366,7 @@
     "message": "Jangan pernah menangguhkan tab yang disematkan"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "Jangan pernah menangguhkan tab yang dibuka di jendela aplikasi"
   },
   "html_options_suspend_no_forms": {
     "message": "Jangan pernah menangguhkan tab yang berisi input formulir yang belum disimpan"

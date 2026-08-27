@@ -366,7 +366,7 @@
     "message": "Sabitlenmiş sekmeleri asla askıya al yapma"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "Uygulama pencerelerinde açık sekmeleri asla askıya alma"
   },
   "html_options_suspend_no_forms": {
     "message": "Asla kaydedilmemiş form girişleri içeren sekmeleri askıya al yapma"

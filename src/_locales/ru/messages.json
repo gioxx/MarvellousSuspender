@@ -366,7 +366,7 @@
     "message": "Никогда не приостанавливать закреплённые вкладки"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "Никогда не приостанавливать вкладки, открытые в окнах приложений"
   },
   "html_options_suspend_no_forms": {
     "message": "Никогда не приостанавливать вкладки с несохранёнными полями ввода"

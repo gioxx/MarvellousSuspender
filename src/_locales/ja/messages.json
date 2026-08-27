@@ -366,7 +366,7 @@
     "message": "ピン留めされたタブは停止しない"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "アプリウィンドウで開いたタブは停止しない"
   },
   "html_options_suspend_no_forms": {
     "message": "未保存のフォーム入力があるタブは停止しない"

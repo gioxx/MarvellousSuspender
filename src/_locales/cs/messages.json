@@ -366,7 +366,7 @@
     "message": "Nikdy nepozastavovat připnuté karty"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "Nikdy nepozastavovat karty otevřené v oknech aplikací"
   },
   "html_options_suspend_no_forms": {
     "message": "Nikdy nepozastavovat karty s neuloženými údaji ve formulářích"

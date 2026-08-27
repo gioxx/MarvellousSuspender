@@ -366,7 +366,7 @@
     "message": "不要凍結已固定的分頁"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "不要凍結在應用程式視窗中開啟的分頁"
   },
   "html_options_suspend_no_forms": {
     "message": "不要凍結輸入框有文字且尚未儲存的分頁"

@@ -366,7 +366,7 @@
     "message": "Nunca suspender pestañas fijadas"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "Nunca suspender pestañas abiertas en ventanas de aplicaciones"
   },
   "html_options_suspend_no_forms": {
     "message": "Nunca suspender pestañas que contengan entradas de formulario no guardadas"
