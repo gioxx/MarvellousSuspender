@@ -366,7 +366,7 @@
     "message": "Non sospendere mai le schede fissate"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Non sospendere mai le schede aperte in finestre app"
+    "message": "Never suspend tabs opened in app windows"
   },
   "html_options_suspend_no_forms": {
     "message": "Non sospendere mai le schede che contengono moduli compilati non salvati"
@@ -872,7 +872,7 @@
     "message": "La scheda è stata fissata"
   },
   "js_popup_app_window": {
-    "message": "La scheda è aperta in una finestra app"
+    "message": "Tab is open in an app window"
   },
   "js_popup_temp_whitelist": {
     "message": "Sospensione della scheda disattivata."
