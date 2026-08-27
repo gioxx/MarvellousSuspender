@@ -6,6 +6,28 @@
   <!--should use the same as the default extension favicon-->
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link id='gsFavicon' rel='icon' href='img/ic_suspendy_16x16.webp' />
+  <!-- Issue #168: html has no background of its own until suspended.css finishes loading
+       (itself @import-ing tokens.css, a second sequential request) — the browser paints
+       its default white in that gap, a bright flash switching tabs in a dark room even
+       though body.suspended-page ends up on the right color once the real stylesheets
+       land. body's own "visibility: hidden until JS applies theme" trick (style.css)
+       can't help here: it only hides content already painted onto an html background
+       that's already wrong. An inline <style> block would normally be the fix, but the
+       manifest's style-src 'self' CSP blocks those same as a style="" attribute — so
+       this is instead a tiny standalone stylesheet (no @import chain of its own) that
+       loads and parses before either of the two below, setting that background from the
+       OS's own color-scheme preference immediately. Same oklch values as tokens.css's
+       --background token, so there's nothing to visibly hand off once the real
+       stylesheets take over.
+
+       A pure OS-preference guess is wrong whenever gsTheme is an explicit override
+       rather than 'system', though (a Codex review round caught this) -- so this
+       classic, render-blocking script runs first and applies a cached explicit theme
+       (written by gsUtils.js's setPageTheme() on every previous load) to html before
+       critical.css below ever gets evaluated. See criticalTheme.js for the full
+       reasoning. -->
+  <script src='js/criticalTheme.js'></script>
+  <link rel='stylesheet' type='text/css' href='css/critical.css'>
   <link rel='stylesheet' type='text/css' href='css/suspended.css'>
   <link rel='stylesheet' type='text/css' href='css/style.css'>
   <script type='module' src='js/suspended.js'></script>

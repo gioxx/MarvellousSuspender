@@ -1,0 +1,30 @@
+/* critical.css — issue #168 (blinking white background switching tabs)
+ *
+ * Loaded before suspended.css/style.css in suspended.html's <head>, deliberately with
+ * no @import of its own (unlike those two, which both @import tokens.css — a second
+ * sequential request each). Its only job is painting html's background the instant this
+ * file parses, closing the gap where the browser's own default white would otherwise
+ * show for however long the two real, @import-chained stylesheets take to finish loading.
+ *
+ * Values match tokens.css's --background token exactly (light default here, dark
+ * override below) so there's nothing to visibly hand off once those stylesheets land —
+ * these rules keep applying afterward too, just redundantly.
+ */
+html { background: oklch(0.98 0 0); }
+
+@media (prefers-color-scheme: dark) {
+  html { background: oklch(0.14 0 0); }
+}
+
+/* A pure OS-preference guess above is only correct when gsTheme is 'system' — an
+ * explicit dark/light override (set in Options, independent of the OS) needs its own
+ * background regardless of what the OS prefers, or the flash this file exists to prevent
+ * just changes which case it happens in (Codex review round caught both directions: an
+ * explicit dark theme on a light OS, and an explicit light theme on a dark OS).
+ * criticalTheme.js runs synchronously before this file is evaluated and applies one of
+ * these two classes to html from a cache gsUtils.js's setPageTheme() maintains in
+ * localStorage — both selectors have higher specificity than the plain `html` rules
+ * above (class + element vs. element alone), so they win unconditionally once present,
+ * with no ordering dependency on the @media block. */
+html.gsTheme-dark  { background: oklch(0.14 0 0); }
+html.gsTheme-light { background: oklch(0.98 0 0); }
