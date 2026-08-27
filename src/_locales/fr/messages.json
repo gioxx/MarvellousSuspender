@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "Ne jamais suspendre les onglets épinglés"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "Never suspend tabs opened in app windows"
+  },
   "html_options_suspend_no_forms": {
     "message": "Ne jamais suspendre les onglets contenant des entrées de formulaire non enregistrées"
   },

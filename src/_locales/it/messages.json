@@ -365,6 +365,9 @@
   "html_options_suspend_no_pinned": {
     "message": "Non sospendere mai le schede fissate"
   },
+  "html_options_suspend_no_app_windows": {
+    "message": "Non sospendere mai le schede aperte in finestre app"
+  },
   "html_options_suspend_no_forms": {
     "message": "Non sospendere mai le schede che contengono moduli compilati non salvati"
   },

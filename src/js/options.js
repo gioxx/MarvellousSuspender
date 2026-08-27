@@ -20,6 +20,7 @@ import  { gsUtils }               from './gsUtils.js';
     appendUrlToTitle:    gsStorage.APPEND_URL_TO_TITLE,
     addYouTubeTimestamp: gsStorage.ADD_YOUTUBE_TIMESTAMP,
     dontSuspendPinned: gsStorage.IGNORE_PINNED,
+    dontSuspendAppWindows: gsStorage.IGNORE_APP_WINDOWS,
     dontSuspendForms: gsStorage.IGNORE_FORMS,
     dontSuspendAudio: gsStorage.IGNORE_AUDIO,
     dontSuspendActiveTabs: gsStorage.IGNORE_ACTIVE_TABS,

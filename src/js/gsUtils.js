@@ -472,6 +472,27 @@ export const gsUtils = {
     return ( await tgs.isCurrentFocusedTab(tab) || (ignoreActiveTabs && tab.active) );
   },
 
+  // #154: covers both "Create Shortcut → Open as window" and an installed PWA
+  // ("Install <site>" from the address bar) — both open in a chrome.windows window of
+  // type 'app', not 'normal'. Deliberately not extended to 'popup': that also catches a
+  // site's own transient window.open() popups, which aren't the "app-like tool I keep
+  // open" case this option exists for. tab itself carries no window-type property, so
+  // this needs its own chrome.windows.get() rather than reading straight off tab like
+  // the sibling isProtectedXxxTab() checks above.
+  isProtectedAppWindowTab: async (tab) => {
+    const ignoreAppWindows = await gsStorage.getOption(gsStorage.IGNORE_APP_WINDOWS);
+    if (!ignoreAppWindows) {
+      return false;
+    }
+    try {
+      const win = await chrome.windows.get(tab.windowId);
+      return win.type === 'app';
+    } catch (e) {
+      // Window already closed/gone by the time this ran — not a real app window to protect.
+      return false;
+    }
+  },
+
   // Note: Normal tabs may be in a discarded state
   isNormalTab(tab, excludeDiscarded) {
     excludeDiscarded = excludeDiscarded || false;
@@ -1030,10 +1051,11 @@ export const gsUtils = {
         }
 
         if (gsUtils.isSuspendedTab(tab)) {
-          //If toggling IGNORE_PINNED or IGNORE_ACTIVE_TABS to TRUE, then unsuspend any suspended pinned/active tabs
+          //If toggling IGNORE_PINNED, IGNORE_ACTIVE_TABS or IGNORE_APP_WINDOWS to TRUE, then unsuspend any suspended pinned/active/app-window tabs
           if (
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && (await gsUtils.isProtectedPinnedTab(tab))) ||
-            (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab)))
+            (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab))) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && (await gsUtils.isProtectedAppWindowTab(tab)))
           ) {
             await tgs.unsuspendTab(tab);
             continue;

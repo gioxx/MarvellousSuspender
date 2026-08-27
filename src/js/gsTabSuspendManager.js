@@ -312,7 +312,8 @@ export const gsTabSuspendManager = (function() {
         if (
           (await gsUtils.checkWhiteList(tab.url)) ||
           (await gsUtils.isProtectedPinnedTab(tab)) ||
-          (await gsUtils.isProtectedAudibleTab(tab))
+          (await gsUtils.isProtectedAudibleTab(tab)) ||
+          (await gsUtils.isProtectedAppWindowTab(tab))
         ) {
           return false;
         }
