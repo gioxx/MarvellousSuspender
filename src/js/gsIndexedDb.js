@@ -280,6 +280,14 @@ export const gsIndexedDb = {
   trimLogEntries: async function(maxCount) {
     try {
       const db = await gsIndexedDb.getDb();
+      // background.js calls this on every service worker init, not just from the
+      // periodic alarm — a cheap count() first means every one of those routine
+      // restarts pays only for that (an index-backed count, not a materialized key
+      // list) once the store is already within its cap, instead of always paying for
+      // the full getAllKeysFromIndex() scan below regardless of whether anything
+      // actually needs trimming.
+      const count = await db.count(gsIndexedDb.DB_LOG_ENTRIES);
+      if (count <= maxCount) return;
       const keys = await db.getAllKeysFromIndex(gsIndexedDb.DB_LOG_ENTRIES, 'ts');
       if (keys.length > maxCount) {
         for (const key of keys.slice(0, keys.length - maxCount)) {

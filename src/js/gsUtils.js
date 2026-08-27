@@ -345,14 +345,23 @@ export const gsUtils = {
   // could still land afterward without the cutoff written here: CLEARED_AT_KEY is set
   // first, so every flush from here on (this context's and every other's) drops any
   // entry timestamped before it, closing the race rather than just shrinking it.
+  //
+  // The cutoff write is a prerequisite, not best-effort: proceeding to clear IndexedDB
+  // without it landing leaves every other context's pre-clear stragglers free to
+  // repopulate the store on their next flush, silently reopening the exact race this
+  // exists to close. debug.js's "Clear log" button already surfaces a false return value
+  // as "clear failed" rather than assuming success, so failing here (without touching
+  // IndexedDB at all) is the accurate outcome, not a regression.
   async clearLogBuffer() {
     const clearedAt = Date.now();
-    _pendingEntries.length = 0;
-    if (typeof chrome !== 'undefined' && chrome.storage) {
-      try {
-        await chrome.storage.local.set({ [CLEARED_AT_KEY]: clearedAt });
-      } catch { /* best-effort — a failed write here just leaves the race open */ }
+    if (typeof chrome === 'undefined' || !chrome.storage) return false;
+    try {
+      await chrome.storage.local.set({ [CLEARED_AT_KEY]: clearedAt });
+    } catch (e) {
+      gsUtils.error('gsUtils', 'clearLogBuffer: failed to persist clearedAt cutoff', e);
+      return false;
     }
+    _pendingEntries.length = 0;
     return gsIndexedDb.clearLogEntries();
   },
 
