@@ -871,6 +871,9 @@
   "js_popup_pinned": {
     "message": "标签页已经被固定"
   },
+  "js_popup_app_window": {
+    "message": "标签页已在应用窗口中打开"
+  },
   "js_popup_temp_whitelist": {
     "message": "页面冻结暂停。"
   },

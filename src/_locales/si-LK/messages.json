@@ -871,6 +871,9 @@
   "js_popup_pinned": {
     "message": "පටිත්ත අමුණා ඇත"
   },
+  "js_popup_app_window": {
+    "message": "ටැබය යෙදුම් කවුළුවක විවෘතව ඇත"
+  },
   "js_popup_temp_whitelist": {
     "message": "ටැබ් අත්හිටුවීම විරාම කරන ලදී."
   },

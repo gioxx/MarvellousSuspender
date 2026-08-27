@@ -871,6 +871,9 @@
   "js_popup_pinned": {
     "message": "タブはピン留めされました"
   },
+  "js_popup_app_window": {
+    "message": "タブはアプリウィンドウで開いています"
+  },
   "js_popup_temp_whitelist": {
     "message": "タブの停止は一時停止中です。"
   },

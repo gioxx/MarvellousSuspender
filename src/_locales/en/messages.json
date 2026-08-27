@@ -871,6 +871,9 @@
   "js_popup_pinned": {
     "message": "Tab has been pinned"
   },
+  "js_popup_app_window": {
+    "message": "Tab is open in an app window"
+  },
   "js_popup_temp_whitelist": {
     "message": "Tab suspension paused."
   },

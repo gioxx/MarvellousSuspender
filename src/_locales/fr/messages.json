@@ -871,6 +871,9 @@
   "js_popup_pinned": {
     "message": "L'onglet est épinglé"
   },
+  "js_popup_app_window": {
+    "message": "L'onglet est ouvert dans une fenêtre d'application"
+  },
   "js_popup_temp_whitelist": {
     "message": "La suspension de l'onglet a été interrompue."
   },

@@ -871,6 +871,9 @@
   "js_popup_pinned": {
     "message": "Tab telah disematkan"
   },
+  "js_popup_app_window": {
+    "message": "Tab terbuka di jendela aplikasi"
+  },
   "js_popup_temp_whitelist": {
     "message": "Penangguhan tab dijeda."
   },

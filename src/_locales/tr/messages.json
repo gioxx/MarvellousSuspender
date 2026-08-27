@@ -871,6 +871,9 @@
   "js_popup_pinned": {
     "message": "Sekme sabit"
   },
+  "js_popup_app_window": {
+    "message": "Sekme bir uygulama penceresinde açık"
+  },
   "js_popup_temp_whitelist": {
     "message": "Sekme askı durumu duraklatıldı."
   },

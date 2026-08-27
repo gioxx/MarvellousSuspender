@@ -871,6 +871,9 @@
   "js_popup_pinned": {
     "message": "Karta bola pripnutá"
   },
+  "js_popup_app_window": {
+    "message": "Karta je otvorená v okne aplikácie"
+  },
   "js_popup_temp_whitelist": {
     "message": "Pozastavovanie karty pozastavené."
   },

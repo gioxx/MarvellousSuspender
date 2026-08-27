@@ -871,6 +871,9 @@
   "js_popup_pinned": {
     "message": "分頁已經被固定"
   },
+  "js_popup_app_window": {
+    "message": "分頁已在應用程式視窗中開啟"
+  },
   "js_popup_temp_whitelist": {
     "message": "分頁凍結暫停。"
   },

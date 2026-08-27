@@ -871,6 +871,9 @@
   "js_popup_pinned": {
     "message": "A guia foi fixada"
   },
+  "js_popup_app_window": {
+    "message": "O separador está aberto numa janela de aplicação"
+  },
   "js_popup_temp_whitelist": {
     "message": "Suspensão de guias pausada."
   },

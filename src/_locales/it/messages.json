@@ -871,6 +871,9 @@
   "js_popup_pinned": {
     "message": "La scheda è stata fissata"
   },
+  "js_popup_app_window": {
+    "message": "La scheda è aperta in una finestra app"
+  },
   "js_popup_temp_whitelist": {
     "message": "Sospensione della scheda disattivata."
   },
