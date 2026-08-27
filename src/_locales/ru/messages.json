@@ -366,7 +366,7 @@
     "message": "Никогда не приостанавливать закреплённые вкладки"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Никогда не приостанавливать вкладки, открытые в окнах приложений"
+    "message": "Never suspend tabs opened in app windows"
   },
   "html_options_suspend_no_forms": {
     "message": "Никогда не приостанавливать вкладки с несохранёнными полями ввода"
@@ -872,7 +872,7 @@
     "message": "Вкладка закреплена"
   },
   "js_popup_app_window": {
-    "message": "Вкладка открыта в окне приложения"
+    "message": "Tab is open in an app window"
   },
   "js_popup_temp_whitelist": {
     "message": "Приостановка вкладки поставлена на паузу."
