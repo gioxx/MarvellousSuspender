@@ -309,6 +309,19 @@ export const gsTabCheckManager = (function() {
       requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
       return;
     }
+    // chrome.tabs.sendMessage() can resolve with undefined instead of rejecting — e.g. if
+    // the tab navigates/reloads in the narrow window between the message arriving and
+    // sendResponse() being called — so a successful resolution isn't a guarantee of a
+    // well-formed payload. Live testing found this reaching suspendInfo.sessionId below
+    // as an uncaught "Cannot read properties of undefined", and since nothing in
+    // gsTabQueue.js's processTab() caught it, the failure had been silently stranding
+    // this job's queue slot for the full jobTimeout (up to 60s) instead of retrying
+    // promptly like the caught-rejection case just above already does.
+    if (!suspendInfo) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Got an empty suspendInfo from tab. Will requeue with refetching.');
+      requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
+      return;
+    }
     const tabSessionOk = suspendInfo.sessionId === (await gsSession.getSessionId());
     const tabBasicsOk = ensureSuspendedTabTitleAndFaviconSet(tab);
     const tabVisibleOk = attemptDiscarding || suspendInfo.isVisible;

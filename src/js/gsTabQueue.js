@@ -21,6 +21,13 @@ export const gsTabQueue = (function() {
       // per-attempt timeout below — without this cap, that per-attempt reset would
       // remove the queue's only terminal deadline for such a job.
       const MAX_REQUEUES = 100;
+      // A second, complementary bound on wall-clock time, not requeue count: a job
+      // legitimately requeuing (see requeueTab()'s per-attempt reset below) well short of
+      // MAX_REQUEUES can still run for far longer than a single jobTimeout was ever meant
+      // to represent. 5x is deliberately more generous than one attempt — the whole point
+      // of the per-attempt reset is not punishing real progress — while still keeping an
+      // actual ceiling instead of none at all.
+      const OVERALL_TIMEOUT_MULTIPLIER = 5;
 
       const _queueProperties = {
         concurrentExecutors: DEFAULT_CONCURRENT_EXECUTORS,
@@ -223,28 +230,70 @@ export const gsTabQueue = (function() {
           requeueTab(tabDetails, requeueDelay, executionProps);
         };
 
+        // Routes an unexpected failure through the queue's own configured exceptionFn
+        // (the same one the timeout path below already uses), rather than rejecting the
+        // job directly. Some callers (e.g. gsTabCheckManager's
+        // performInitialisationTabChecks() at startup) aggregate many of these jobs'
+        // promises via Promise.all() — a caller-side rejection there aborts the whole
+        // aggregate immediately, skipping that caller's own post-await cleanup (removing
+        // its temporary listener, restoring queue properties) and can leave startup
+        // permanently stuck in "initialising" state. exceptionFn's own contract already
+        // resolves(false) rather than rejecting (see handleTabCheckException), so routing
+        // through it here keeps that same caller-safe behaviour for this failure path too.
+        const _runExceptionFn = (exceptionType) => {
+          Promise.resolve()
+            .then(() => _queueProperties.exceptionFn(
+              tabDetails.tab,
+              tabDetails.executionProps,
+              exceptionType,
+              _resolveTabPromise,
+              _rejectTabPromise,
+              _requeueTab
+            ))
+            .catch((error) => {
+              // exceptionFn itself failed — resolve(false) directly as a last resort
+              // rather than rejecting, for the same Promise.all()-safety reason above.
+              gsUtils.log(tabDetails.tab.id, _queueId, 'exceptionFn threw unexpectedly', error);
+              _resolveTabPromise(false);
+            });
+        };
+
+        // Set once, the very first time this job is ever processed — never touched by
+        // requeueTab()'s per-attempt timer reset, so it's what requeueTab() checks
+        // against as this job's real overall ceiling regardless of how many requeues it
+        // took to get there.
+        if (!tabDetails.hasOwnProperty('deadlineAt')) {
+          tabDetails.deadlineAt = Date.now() + OVERALL_TIMEOUT_MULTIPLIER * _queueProperties.jobTimeout;
+        }
+
         // If timeout timer has not yet been initiated, then start it now
         if (!tabDetails.hasOwnProperty('timeoutTimer')) {
           tabDetails.timeoutTimer = setTimeout(() => {
             gsUtils.log(tabDetails.tab.id, _queueId, 'Tab job timed out');
-            _queueProperties.exceptionFn(
-              tabDetails.tab,
-              tabDetails.executionProps,
-              EXCEPTION_TIMEOUT,
-              _resolveTabPromise,
-              _rejectTabPromise,
-              _requeueTab
-            ); // async. unhandled promise
+            _runExceptionFn(EXCEPTION_TIMEOUT);
           }, _queueProperties.jobTimeout);
         }
 
-        _queueProperties.executorFn(
-          tabDetails.tab,
-          tabDetails.executionProps,
-          _resolveTabPromise,
-          _rejectTabPromise,
-          _requeueTab
-        ); // async. unhandled promise
+        // executorFn is expected to settle this job itself via resolve/reject/requeue —
+        // without this catch, a thrown/rejected executorFn (e.g. a tab responding with an
+        // unexpected shape, previously observed live as an uncaught "Cannot read
+        // properties of undefined" a few layers up) left this slot stuck in
+        // STATUS_IN_PROGRESS with nothing to release it until the full jobTimeout elapsed
+        // (up to 60s) — this queue only has a handful of concurrent slots to begin with,
+        // so repeated occurrences could meaningfully choke its throughput. Routed through
+        // the same exceptionFn the timeout path uses, freeing the slot right away.
+        Promise.resolve()
+          .then(() => _queueProperties.executorFn(
+            tabDetails.tab,
+            tabDetails.executionProps,
+            _resolveTabPromise,
+            _rejectTabPromise,
+            _requeueTab
+          ))
+          .catch((error) => {
+            gsUtils.log(tabDetails.tab.id, _queueId, 'executorFn threw unexpectedly', error);
+            _runExceptionFn(error);
+          });
       }
 
       function resolveTabPromise(tabDetails, result) {
@@ -277,8 +326,15 @@ export const gsTabQueue = (function() {
         tabDetails.requeues += 1;
         gsUtils.log(tabDetails.tab.id, _queueId, `Requeueing tab. Requeues: ${tabDetails.requeues}`);
 
-        if (tabDetails.requeues > MAX_REQUEUES) {
-          gsUtils.log(tabDetails.tab.id, _queueId, `Tab exceeded ${MAX_REQUEUES} requeues, treating as timed out.`);
+        // MAX_REQUEUES alone bounds a job that requeues forever, but not one that requeues
+        // a normal, finite number of times while still taking far longer in wall-clock time
+        // than jobTimeout was ever meant to allow — each requeue below resets the timer to
+        // a fresh full jobTimeout, so 100 requeues at even the default 5s delay could run
+        // for the better part of a couple of hours. deadlineAt (set once, the first time
+        // this job is ever processed — see processTab()) is untouched by that per-attempt
+        // reset, so this catches it regardless of how many requeues it took to get there.
+        if (tabDetails.requeues > MAX_REQUEUES || Date.now() >= tabDetails.deadlineAt) {
+          gsUtils.log(tabDetails.tab.id, _queueId, `Tab exceeded ${MAX_REQUEUES} requeues or its overall deadline, treating as timed out.`);
           clearTimeout(tabDetails.timeoutTimer);
           delete tabDetails.timeoutTimer;
           _queueProperties.exceptionFn(

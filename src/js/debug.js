@@ -302,26 +302,18 @@ import  { tgs }                   from './tgs.js';
 
   // ── Log buffer ──────────────────────────────────────────────────────────────
 
+  // Most recent 500 entries, oldest first — the live view's own window, independent of
+  // gsUtils.js's larger _LOG_BUFFER_FULL_MAX cap on the store as a whole.
   async function readLogBuffer() {
-    const result = await chrome.storage.local.get([gsStorage.LOG_BUFFER]);
-    try {
-      return JSON.parse(result[gsStorage.LOG_BUFFER] || '[]');
-    } catch {
-      return [];
-    }
+    return gsIndexedDb.fetchLogEntries(500);
   }
 
-  // Report/copy pull from the larger rotating buffer, not the 500-entry one the live
-  // view renders — on a heavy profile (hundreds of tabs), background auto-suspend/
-  // discard noise alone can evict the 500-entry window in a couple of minutes, well
-  // before a reporter gets to actually download it.
+  // Report/copy pull from the full rotating store, not the 500-entry window the live view
+  // renders — on a heavy profile (hundreds of tabs), background auto-suspend/discard noise
+  // alone can evict that window in a couple of minutes, well before a reporter gets to
+  // actually download it.
   async function readLogBufferFull() {
-    const result = await chrome.storage.local.get([gsStorage.LOG_BUFFER_FULL]);
-    try {
-      return JSON.parse(result[gsStorage.LOG_BUFFER_FULL] || '[]');
-    } catch {
-      return [];
-    }
+    return gsIndexedDb.fetchAllLogEntries();
   }
 
   function levelLabel(level) {
@@ -349,20 +341,49 @@ import  { tgs }                   from './tgs.js';
     return `<div class="logLine logLine-${entry.level}">${levelLabel(entry.level)}<span class="logTime">${time}</span><span class="logSrc">${src}</span><span class="logMsg">${msg}</span></div>`;
   }
 
+  // Same overlap problem fetchTabInfo() above already had to guard against, and the same
+  // fix: refreshLogs() runs on every window 'focus' event (multi-monitor setups, rapid
+  // alt-tabbing) with no debounce of its own. This originally also read the *entire*
+  // chrome.storage.local-backed full buffer (up to 10,000 entries, JSON-parsed from one
+  // big string) on every single call just to display a count — a real cost in its own
+  // right, compounded by the underlying chrome.storage.local design's cross-context
+  // broadcast problem (see gsUtils.js's log-buffer section for the actual live-crash
+  // evidence that mechanism produced). The buffer is IndexedDB-backed now
+  // (gsIndexedDb.js's DB_LOG_ENTRIES store, no such broadcast) and the full-buffer count
+  // below uses a cheap countLogEntries() instead of fetching every entry, but the overlap
+  // guard stays: a burst of focus events still shouldn't fire a pile of concurrent reads
+  // for no reason. Coalescing concurrent calls into at most one in-flight run plus one
+  // queued follow-up (same shape as fetchTabInfo()'s own guard) bounds that regardless of
+  // how many focus events arrive in a burst.
+  let _refreshingLogs = false;
+  let _refreshLogsPending = false;
   async function refreshLogs() {
-    const [buffer, bufferFull] = await Promise.all([readLogBuffer(), readLogBufferFull()]);
-    const output     = document.getElementById('logOutput');
-    const counter    = document.getElementById('logCount');
-    const counterFull = document.getElementById('logCountFull');
-    counter.textContent = buffer.length;
-    counterFull.textContent = bufferFull.length;
-    if (buffer.length === 0) {
-      output.innerHTML = '<div class="logEmpty">No entries. Errors are always captured automatically. Enable <strong>captureLogs</strong> above to also capture warnings and verbose logs, then reproduce the issue.</div>';
-    } else if (output.classList.contains('warnErrOnly') && !buffer.some(e => e.level === 'W' || e.level === 'E')) {
-      output.innerHTML = '<div class="logEmpty">No warnings or errors in the current buffer.</div>';
-    } else {
-      output.innerHTML = buffer.map(renderLogEntry).join('');
-      output.scrollTop = output.scrollHeight;
+    if (_refreshingLogs) {
+      _refreshLogsPending = true;
+      return;
+    }
+    _refreshingLogs = true;
+    try {
+      do {
+        _refreshLogsPending = false;
+        const [buffer, fullCount] = await Promise.all([readLogBuffer(), gsIndexedDb.countLogEntries()]);
+        const output     = document.getElementById('logOutput');
+        const counter    = document.getElementById('logCount');
+        const counterFull = document.getElementById('logCountFull');
+        counter.textContent = buffer.length;
+        counterFull.textContent = fullCount;
+        if (buffer.length === 0) {
+          output.innerHTML = '<div class="logEmpty">No entries. Errors are always captured automatically. Enable <strong>captureLogs</strong> above to also capture warnings and verbose logs, then reproduce the issue.</div>';
+        } else if (output.classList.contains('warnErrOnly') && !buffer.some(e => e.level === 'W' || e.level === 'E')) {
+          output.innerHTML = '<div class="logEmpty">No warnings or errors in the current buffer.</div>';
+        } else {
+          output.innerHTML = buffer.map(renderLogEntry).join('');
+          output.scrollTop = output.scrollHeight;
+        }
+      } while (_refreshLogsPending);
+    }
+    finally {
+      _refreshingLogs = false;
     }
   }
 
@@ -645,24 +666,53 @@ import  { tgs }                   from './tgs.js';
       await refreshLogs();
     });
 
+    // buildReport() does a real, potentially slow pass: a concurrency-capped sweep of
+    // getDebugInfo() over every open tab, plus (for the "full" download variant) reading
+    // and sorting the entire log-entries store, which can be several thousand records on
+    // a long captureLogs session. With neither button disabled while that's in flight, a
+    // few impatient extra clicks — reasonable given nothing else on the page indicates
+    // it's working — each started their own full, overlapping buildReport() pass, and for
+    // "Download report" specifically, each one triggers its own file save: N clicks
+    // silently became N downloaded files with no indication anything had gone wrong.
+    // Disabling the clicked button for the duration (with visible "Working…" text so the
+    // wait itself is expected) makes a slow report obviously in-progress instead of
+    // silently doing nothing, and makes a second click physically impossible until the
+    // first finishes either way.
     document.getElementById('btnCopyReport').addEventListener('click', async () => {
-      const report = await buildReport(false);
-      await navigator.clipboard.writeText(report);
       const btn = document.getElementById('btnCopyReport');
       const prev = btn.textContent;
-      btn.textContent = 'Copied!';
-      setTimeout(() => { btn.textContent = prev; }, 1500);
+      btn.disabled = true;
+      btn.textContent = 'Working…';
+      try {
+        const report = await buildReport(false);
+        await navigator.clipboard.writeText(report);
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = prev; }, 1500);
+      }
+      finally {
+        btn.disabled = false;
+      }
     });
 
     document.getElementById('btnDownloadReport').addEventListener('click', async () => {
-      const report = await buildReport(true);
-      const blob   = new Blob([report], { type: 'text/plain' });
-      const url    = URL.createObjectURL(blob);
-      const a      = document.createElement('a');
-      a.href     = url;
-      a.download = `tms-debug-${new Date().toISOString().substring(0, 19).replace(/:/g, '-')}.txt`;
-      a.click();
-      URL.revokeObjectURL(url);
+      const btn = document.getElementById('btnDownloadReport');
+      const prev = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Working…';
+      try {
+        const report = await buildReport(true);
+        const blob   = new Blob([report], { type: 'text/plain' });
+        const url    = URL.createObjectURL(blob);
+        const a      = document.createElement('a');
+        a.href     = url;
+        a.download = `tms-debug-${new Date().toISOString().substring(0, 19).replace(/:/g, '-')}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      finally {
+        btn.disabled = false;
+        btn.textContent = prev;
+      }
     });
 
     window.addEventListener('focus', () => {

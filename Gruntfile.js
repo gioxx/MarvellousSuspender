@@ -14,21 +14,13 @@ module.exports = function(grunt) {
     copy: {
       main: {
         expand: true,
-        // src/CHANGELOG.md is a symlink to the root CHANGELOG.md (kept for local
-        // "Load unpacked" testing); grunt.file.copy preserves symlinks structurally
-        // rather than dereferencing them, which would ship a broken link pointing
-        // outside the package, so it's excluded here and copied for real below.
         // src/js/gsOauthSecrets.local.js is a maintainer-local override file, never
         // tracked by git, that predates the OAuth proxy migration. Untracked files
         // survive git operations untouched, so removing it from .gitignore alone
         // doesn't stop a maintainer's leftover copy (potentially still holding the
         // old embedded client secret) from being packaged — exclude it here too.
-        src: ['src/**', '!src/tests.html', '!src/js/tests/**', '!src/img/*.xcf', '!src/CHANGELOG.md', '!src/js/gsOauthSecrets.local.js'],
+        src: ['src/**', '!src/tests.html', '!src/js/tests/**', '!src/img/*.xcf', '!src/js/gsOauthSecrets.local.js'],
         dest: '<%= config.tempDir %>',
-      },
-      changelog: {
-        src: 'CHANGELOG.md',
-        dest: '<%= config.tempDir %>src/CHANGELOG.md',
       },
     },
     'string-replace': {

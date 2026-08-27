@@ -1,6 +1,7 @@
 // @ts-check
 import  { gsBackup }              from './gsBackup.js';
 import  { gsChrome }              from './gsChrome.js';
+import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsNewsFeed }            from './gsNewsFeed.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
@@ -167,27 +168,6 @@ import  { tgs }                   from './tgs.js';
 
 
   function messageRequestListener(request, sender, sendResponse) {
-    // gsAppendLogEntries is handled by gsUtils.js's own dedicated listener (registered
-    // separately, since it's the sole writer of the log-buffer storage keys), not by
-    // the switch below — it still reaches this listener too, since Chrome delivers a
-    // broadcast message to every registered listener independently. Logging it here
-    // (even at the top-level log() call below, let alone as "unknown action" in the
-    // default case) would add a new entry needing its own flush on every flush cycle,
-    // forever. Only this one action is skipped here, unlike the equivalent guard in
-    // options.js/suspended.js/updated.js, since this switch is where 'clearLogs' (the
-    // other entry in INTERNAL_MESSAGE_ACTIONS) is actually meant to be handled.
-    //
-    // This check has to run before this function does anything async — declaring the
-    // whole function `async` (as it used to be) meant even this early `return false`
-    // was wrapped in a Promise rather than being the literal `false` Chrome needs to
-    // decline the message synchronously. On Chrome versions that treat a returned
-    // Promise as an async response, that Promise could resolve (as `false`) before
-    // gsUtils.js's own dedicated listener finished its real, slower `{ success: true }`
-    // response, and the sender only keeps whichever response arrives first — so
-    // _flushNow() would see `false`, requeue an already-persisted batch, and resend
-    // (and re-persist) it every 1.5s indefinitely.
-    if (request.action === 'gsAppendLogEntries') return false;
-
     gsUtils.log('background', 'messageRequestListener', request.action, request, sender);
 
     // The rest of this listener still needs to run async work before responding, so it
@@ -325,10 +305,10 @@ import  { tgs }                   from './tgs.js';
           }
           case 'clearLogs' : {
         // The debug page runs in its own context with its own copy of the gsUtils
-        // module — clearing chrome.storage from there doesn't touch this service
-        // worker's in-memory _logBuffer/_logBufferFull, so the next log entry (or an
-        // already-pending debounced flush) would silently write the old buffers back
-        // over the just-cleared storage. Route the clear through here instead.
+        // module — clearing gsIndexedDb's log-entries store from there wouldn't drop
+        // this service worker's own not-yet-flushed _pendingEntries, which would
+        // otherwise land straight back into the just-cleared store on its next
+        // scheduled flush. Route the clear through here instead.
             responseData = { success: await gsUtils.clearLogBuffer() };
             break;
           }
@@ -561,6 +541,10 @@ import  { tgs }                   from './tgs.js';
       await gsNewsFeed.fetchAndCache();
       return;
     }
+    if (alarm.name === gsIndexedDb.LOG_TRIM_ALARM_NAME) {
+      await gsIndexedDb.trimLogEntries(gsIndexedDb.LOG_ENTRIES_MAX);
+      return;
+    }
 
     const tabId = parseInt(alarm.name);
     const tab = await gsChrome.tabsGet(tabId);
@@ -623,11 +607,24 @@ import  { tgs }                   from './tgs.js';
       }
     };
 
+    // chrome.tabs.onUpdated fires for every kind of tab-state change this extension
+    // cares about ('status', 'url', 'discarded', 'audible', 'pinned' — see the checks
+    // below and in tgs.js's handleSuspendedTabStateChanged()/
+    // handleUnsuspendedTabStateChanged()), but also for ones it never acts on, chiefly
+    // 'frozen'. Live testing found Chrome flips 'frozen' on/off on background/suspended
+    // tabs constantly — over 4000 occurrences in a 43-minute session, with dense
+    // clusters of dozens within a few seconds — and every single one used to still
+    // reach this far, logging (a real cost with captureLogs on: buffering, coalescing,
+    // periodic storage flushes) and dispatching into both handler functions before
+    // either of them discovered there was nothing to do.
+    const RELEVANT_TAB_UPDATE_KEYS = ['status', 'url', 'discarded', 'audible', 'pinned'];
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+      if (!changeInfo || !RELEVANT_TAB_UPDATE_KEYS.some((key) => changeInfo.hasOwnProperty(key))) {
+        return;
+      }
       gsUtils.log(tabId, 'tab onUpdated', changeInfo, tab.url);
-      if (!changeInfo) return;
 
-      if (await gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT) && changeInfo.status === 'complete') {
+      if (changeInfo.status === 'complete' && await gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT)) {
         await claimTab(tabId);
       }
 
@@ -641,8 +638,21 @@ import  { tgs }                   from './tgs.js';
       if (gsUtils.isSuspendedTab(tab)) {
         await tgs.handleSuspendedTabStateChanged(tab, changeInfo);
       }
-      else if (gsUtils.isNormalTab(tab)) {
-        await tgs.handleUnsuspendedTabStateChanged(tab, changeInfo);
+      else {
+        // Reaching here at all (isSuspendedTab() read false above) is proof this tab is
+        // no longer suspended, regardless of whether isNormalTab() below also accepts it
+        // — a queued or already-running _runInitSuspendedTabLimited() job for this tab is
+        // stale either way. A tab navigating to a chrome://, another extension's, or
+        // otherwise "special" URL (isNormalTab() excludes those) previously fell through
+        // both branches entirely, so tgs.js's own cancellation call (only reachable from
+        // inside handleUnsuspendedTabStateChanged(), gated on isNormalTab() below) never
+        // ran for that case. Cancelling unconditionally here covers every non-suspended
+        // case; tgs.js's shared cancellation token (see _runInitSuspendedTabLimited()) then
+        // takes care of stopping a job that's already running, not just one still queued.
+        tgs.cancelInitSuspendedTab(tabId);
+        if (gsUtils.isNormalTab(tab)) {
+          await tgs.handleUnsuspendedTabStateChanged(tab, changeInfo);
+        }
       }
     });
     chrome.windows.onCreated.addListener(async (window) => {
@@ -678,6 +688,23 @@ import  { tgs }                   from './tgs.js';
   function initAsPromised() {
     return new Promise(async (resolve) => {
       gsUtils.log('background', 'PERFORMING BACKGROUND INIT...');
+
+      // Deliberately NOT cleaning up the old chrome.storage.local-backed log buffer's keys
+      // (gsLogBuffer, gsLogBufferFull, gsLogBufferVersion, gsLogBufferClearedAt) here or
+      // anywhere else. An earlier version of this code did exactly that from this same
+      // service-worker init, on the theory that bounding *who* calls remove() (at most the
+      // two service worker instances "incognito": "split" creates, rather than every open
+      // context) was enough to avoid the broadcast-fanout problem this whole migration
+      // exists to eliminate. It wasn't: chrome.storage.local.remove() broadcasts the
+      // removed key's full oldValue to *every* context with an onChanged listener
+      // regardless of which context called remove() — a profile that had already
+      // accumulated a multi-MB gsLogBufferFull under the old design would still deliver
+      // that same multi-MB payload to every suspended tab on the one call that actually
+      // succeeds, no matter how few contexts attempt it. These keys are genuinely orphaned
+      // (nothing reads them any more) and harmless left in place — a few MB of dead data
+      // sitting in chrome.storage.local forever is a far better trade than risking that
+      // broadcast during exactly the many-suspended-tabs scenario that caused the original
+      // crash.
 
       //initialise currentStationary and currentFocused vars
       const activeTabs = await gsChrome.tabsQuery({ active: true });
@@ -734,6 +761,18 @@ import  { tgs }                   from './tgs.js';
     .then(() => gsNewsFeed.fetchAndCacheIfStale())
     .catch((error) => {
       gsUtils.error('background news feed init error: ', error);
+    })
+    .then(() => gsIndexedDb.syncLogTrimAlarm())
+    // The alarm itself only fires every 5 minutes at the soonest — fine for keeping the
+    // store bounded during a long session, but a profile that grew past the cap before
+    // this alarm mechanism even existed (or during whatever gap it takes this fix to
+    // reach a given install) would otherwise sit oversized for up to that same 5 minutes
+    // after every single service worker restart in the meantime. One immediate trim here,
+    // from the same single place (service worker init) the alarm itself already runs
+    // from, catches it up right away instead of waiting on the first periodic tick.
+    .then(() => gsIndexedDb.trimLogEntries(gsIndexedDb.LOG_ENTRIES_MAX))
+    .catch((error) => {
+      gsUtils.error('background log-trim alarm sync error: ', error);
     });
 
 
