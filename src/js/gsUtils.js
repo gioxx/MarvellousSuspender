@@ -479,11 +479,15 @@ export const gsUtils = {
   // open" case this option exists for. tab itself carries no window-type property, so
   // this needs its own chrome.windows.get() rather than reading straight off tab like
   // the sibling isProtectedXxxTab() checks above.
-  isProtectedAppWindowTab: async (tab) => {
-    const ignoreAppWindows = await gsStorage.getOption(gsStorage.IGNORE_APP_WINDOWS);
-    if (!ignoreAppWindows) {
-      return false;
-    }
+  //
+  // Kept separate from isProtectedAppWindowTab() below (which also gates on the setting
+  // being on) so performPostSaveUpdates()'s timer-reset predicate can ask "is this tab in
+  // an app window" on its own — the setting there has *already* flipped to its new value
+  // by the time that predicate runs, so re-checking through isProtectedAppWindowTab()
+  // would just re-read the same already-off setting and always report false, the same
+  // gap a Codex review round caught: disabling this option never re-armed a timer that
+  // had already fired and been rejected while the tab was still protected.
+  isTabInAppWindow: async (tab) => {
     try {
       const win = await chrome.windows.get(tab.windowId);
       return win.type === 'app';
@@ -491,6 +495,11 @@ export const gsUtils = {
       // Window already closed/gone by the time this ran — not a real app window to protect.
       return false;
     }
+  },
+
+  isProtectedAppWindowTab: async (tab) => {
+    const ignoreAppWindows = await gsStorage.getOption(gsStorage.IGNORE_APP_WINDOWS);
+    return ignoreAppWindows && await gsUtils.isTabInAppWindow(tab);
   },
 
   // Note: Normal tabs may be in a discarded state
@@ -1141,6 +1150,7 @@ export const gsUtils = {
             (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && tab.active) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && !settings[gsStorage.IGNORE_PINNED] && tab.pinned) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_AUDIO) && !settings[gsStorage.IGNORE_AUDIO] && tab.audible) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && !settings[gsStorage.IGNORE_APP_WINDOWS] && await gsUtils.isTabInAppWindow(tab)) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_OFFLINE) && !settings[gsStorage.IGNORE_WHEN_OFFLINE] && !navigator.onLine) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_CHARGING) && !settings[gsStorage.IGNORE_WHEN_CHARGING] && await tgs.isCharging()) ||
             (changedSettingKeys.includes(gsStorage.WHITELIST) &&
