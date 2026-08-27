@@ -366,7 +366,7 @@
     "message": "Nikdy nepozastav pripnuté taby"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Nikdy nepozastav taby otvorené v oknách aplikácií"
+    "message": "Never suspend tabs opened in app windows"
   },
   "html_options_suspend_no_forms": {
     "message": "Nikdy nepozastav taby s neuloženými vstupmi"
@@ -872,7 +872,7 @@
     "message": "Karta bola pripnutá"
   },
   "js_popup_app_window": {
-    "message": "Karta je otvorená v okne aplikácie"
+    "message": "Tab is open in an app window"
   },
   "js_popup_temp_whitelist": {
     "message": "Pozastavovanie karty pozastavené."
