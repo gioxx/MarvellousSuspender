@@ -76,7 +76,12 @@ import  { gsUtils }               from './gsUtils.js';
       const li      = document.createElement('li');
       const swatch  = document.createElement('span');
       swatch.className = 'tabGroupSwatch';
-      swatch.style.backgroundColor = TAB_GROUP_COLORS[group.color] ?? TAB_GROUP_COLORS.grey;
+      // hasOwn, not a plain lookup: a corrupt stored colour of 'constructor' or '__proto__'
+      // resolves to an inherited property, which is truthy enough to defeat a ?? fallback and
+      // leaves the swatch unpainted.
+      swatch.style.backgroundColor = Object.hasOwn(TAB_GROUP_COLORS, group.color)
+        ? TAB_GROUP_COLORS[group.color]
+        : TAB_GROUP_COLORS.grey;
       li.appendChild(swatch);
 
       const title = document.createElement('span');

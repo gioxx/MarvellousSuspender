@@ -624,7 +624,13 @@ export const gsUtils = {
   // group is remembered as "<color>:<title>" instead. Colors come from Chrome's own fixed
   // enum and never contain a colon, titles can, hence the split on the first one only.
   getTabGroupKey(group) {
-    return `${group.color}:${group.title ?? ''}`;
+    // Normalised here, at the single producer, so the live key can never disagree with the
+    // stored form. The list is one entry per line and each line is trimmed on the way in, so
+    // a title with trailing whitespace (Chrome keeps it) or a newline in it (another
+    // extension can set one through tabGroups.update) would otherwise produce a key no
+    // stored entry can ever equal: toggling would appear to work and the group would just
+    // never be protected.
+    return `${group.color}:${group.title ?? ''}`.replace(/[\r\n]+/g, ' ').trim();
   },
 
   parseTabGroupKey(groupKey) {
