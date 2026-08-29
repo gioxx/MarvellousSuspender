@@ -421,6 +421,14 @@ import  { tgs }                   from './tgs.js';
       case 'tab_unsuspend_group':
         tgs.unsuspendTabGroup(tab);
         break;
+      case 'suspend_ungrouped_tabs':
+      case 'tab_suspend_ungrouped':
+        tgs.suspendUngroupedTabs(tab);
+        break;
+      case 'unsuspend_ungrouped_tabs':
+      case 'tab_unsuspend_ungrouped':
+        tgs.unsuspendUngroupedTabs(tab);
+        break;
       case 'soft_suspend_other_tabs_in_window':
         tgs.suspendAllTabs(false);
         break;
@@ -499,6 +507,20 @@ import  { tgs }                   from './tgs.js';
           tgs.getCurrentlyActiveTab(r);
         });
         tgs.unsuspendTabGroup(tab);
+        break;
+      }
+      case '2e-suspend-ungrouped-tabs': {
+        const tab = await new Promise((r) => {
+          tgs.getCurrentlyActiveTab(r);
+        });
+        tgs.suspendUngroupedTabs(tab);
+        break;
+      }
+      case '2f-unsuspend-ungrouped-tabs': {
+        const tab = await new Promise((r) => {
+          tgs.getCurrentlyActiveTab(r);
+        });
+        tgs.unsuspendUngroupedTabs(tab);
         break;
       }
       case '3-suspend-active-window':

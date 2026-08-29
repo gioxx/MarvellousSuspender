@@ -88,6 +88,12 @@
     "2d-unsuspend-tab-group": {
       "description": "__MSG_ext_cmd_unsuspend_tab_group_description__"
     },
+    "2e-suspend-ungrouped-tabs": {
+      "description": "__MSG_ext_cmd_suspend_ungrouped_tabs_description__"
+    },
+    "2f-unsuspend-ungrouped-tabs": {
+      "description": "__MSG_ext_cmd_unsuspend_ungrouped_tabs_description__"
+    },
     "3-suspend-active-window": {
       "description": "__MSG_ext_cmd_soft_suspend_active_window_description__"
     },
