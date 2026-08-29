@@ -840,6 +840,13 @@ a.btn.btnNeg:hover {
   border-radius: 50%;
 }
 
+.tabGroupMatches {
+  flex: none;
+  margin-right: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+}
+
 .tabGroupTitle {
   flex: 1 1 auto;
   overflow: hidden;

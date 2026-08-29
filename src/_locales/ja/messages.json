@@ -1002,6 +1002,14 @@
   "js_options_never_suspend_groups_unnamed": {
     "message": "(名前のないグループ)"
   },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "一致する開いているグループ: $count$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "js_options_always_suspend_matches_heading": {
     "message": "常時停止リストに一致する開いているタブ:"
   },

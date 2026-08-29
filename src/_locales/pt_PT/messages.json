@@ -1002,6 +1002,14 @@
   "js_options_never_suspend_groups_unnamed": {
     "message": "(grupo sem nome)"
   },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "corresponde a $count$ grupo(s) aberto(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "js_options_always_suspend_matches_heading": {
     "message": "Separadores abertos correspondentes à lista de suspensão forçada:"
   },

@@ -1002,6 +1002,14 @@
   "js_options_never_suspend_groups_unnamed": {
     "message": "(grupo sin nombre)"
   },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "coincide con $count$ grupo(s) abierto(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "js_options_always_suspend_matches_heading": {
     "message": "Pestañas abiertas que coinciden con la lista de suspensión forzada:"
   },

@@ -63,6 +63,12 @@ import  { gsUtils }               from './gsUtils.js';
       await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS),
     );
     const groupKeys     = storedList ? storedList.split('\n') : [];
+    // How many groups each stored key matches right now. A key is a colour and a title, so
+    // one entry can cover several groups at once, and an untitled group's key is just its
+    // colour. Showing the count makes that breadth visible instead of leaving the user to
+    // discover it, and makes a leftover entry from a rename obvious rather than invisible.
+    const openGroups = await chrome.tabGroups.query({});
+    const matchesFor = (key) => openGroups.filter((g) => gsUtils.getTabGroupKey(g) === key).length;
 
     listEl.innerHTML = '';
     emptyEl.classList.toggle('reallyHidden', groupKeys.length > 0);
@@ -93,6 +99,13 @@ import  { gsUtils }               from './gsUtils.js';
         ? gsUtils.getMessage('js_options_never_suspend_groups_unnamed')
         : group.title;
       li.appendChild(title);
+
+      const matches = document.createElement('span');
+      matches.className = 'tabGroupMatches';
+      matches.textContent = gsUtils.getMessage(
+        'js_options_never_suspend_groups_open_count', [String(matchesFor(groupKey))],
+      );
+      li.appendChild(matches);
 
       const removeEl = document.createElement('a');
       removeEl.href = '#neverSuspendGroupsLbl';

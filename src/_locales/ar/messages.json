@@ -1002,6 +1002,14 @@
   "js_options_never_suspend_groups_unnamed": {
     "message": "(مجموعة بلا اسم)"
   },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "يطابق $count$ من المجموعات المفتوحة",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "js_options_always_suspend_matches_heading": {
     "message": "علامات التبويب المفتوحة المطابقة لقائمة التعليق الدائم:"
   },

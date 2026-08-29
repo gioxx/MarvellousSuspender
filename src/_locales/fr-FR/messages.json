@@ -853,6 +853,14 @@
   "js_options_never_suspend_groups_unnamed": {
     "message": "(groupe sans nom)"
   },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "correspond à $count$ groupe(s) ouvert(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "js_options_always_suspend_matches_heading": {
     "message": "Onglets ouverts correspondant à la liste de suspension forcée :"
   },

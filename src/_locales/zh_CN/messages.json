@@ -1002,6 +1002,14 @@
   "js_options_never_suspend_groups_unnamed": {
     "message": "（未命名的组）"
   },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "匹配 $count$ 个打开的标签页组",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "js_options_always_suspend_matches_heading": {
     "message": "匹配强制挂起列表的已打开标签页："
   },

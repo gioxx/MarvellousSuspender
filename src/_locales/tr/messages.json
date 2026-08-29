@@ -1002,6 +1002,14 @@
   "js_options_never_suspend_groups_unnamed": {
     "message": "(adsız grup)"
   },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "$count$ açık grupla eşleşiyor",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "js_options_always_suspend_matches_heading": {
     "message": "Her zaman askıya al listesiyle eşleşen açık sekmeler:"
   },

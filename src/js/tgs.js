@@ -470,7 +470,20 @@ export const tgs = (function() {
   // chrome.storage.session (which outlives service worker dormancy but not the browser
   // session) purely so handleTabGroupUpdated() can tell what the key used to be: the
   // onUpdated event itself only reports the group's new state.
-  const TAB_GROUP_KEYS_BY_ID = 'gsTabGroupKeysById';
+  // chrome.storage.session is SHARED by the two service workers that "incognito": "split"
+  // creates, so this is namespaced per context. Without that, the incognito worker's seeding
+  // pass rebuilds the map from its own (context-scoped) tabGroups.query() and writes it over
+  // the normal context's entries, which strands every open exemption there.
+  const TAB_GROUP_KEYS_BY_ID = (() => {
+    try {
+      return chrome.extension?.inIncognitoContext
+        ? 'gsTabGroupKeysByIdIncognito'
+        : 'gsTabGroupKeysById';
+    }
+    catch (e) {
+      return 'gsTabGroupKeysById';
+    }
+  })();
 
   // Chrome does not await an async event listener, so two chrome.tabGroups.onUpdated events
   // run as overlapping chains, and renaming a group produces several in quick succession (a
@@ -478,9 +491,12 @@ export const tgs = (function() {
   // list and the cache below are read-modify-write over storage with awaits in between, so
   // two interleaved chains can drop an entry outright rather than merely leave a stale one:
   // one chain's write lands between another's read and write and is then overwritten by the
-  // older snapshot. Serialising every mutation closes that. A worker-local chain is enough
-  // because MV3 runs a single service worker instance and nothing outside it writes either
-  // store, the Options page removes through a runtime message rather than directly.
+  // older snapshot. Serialising every mutation closes that within a context, which is what
+  // the Options page needs too (it removes through a runtime message rather than writing
+  // directly). It does NOT serialise across contexts: "incognito": "split" runs a second
+  // service worker with its own chain over the same settings object. Losing that race can
+  // now only drop an addition, which the next onUpdated re-adds, because nothing below
+  // removes an entry on the extension's own initiative any more.
   //
   // Functions prefixed with an underscore below are the unserialised bodies and must only be
   // called from inside withTabGroupLock(); the public wrappers take the lock exactly once,
@@ -510,16 +526,17 @@ export const tgs = (function() {
     return withTabGroupLock(async () => {
       const groups = await gsChrome.tabGroupsGetAll();
       const cache = await _getTabGroupKeyCache();
-      const refreshedCache = {};
+      // Merge, never replace. An already-cached key wins over the group's current one,
+      // because this runs on every service worker restart including the restart an onUpdated
+      // event itself triggers, and overwriting would discard the pre-rename key that
+      // handleTabGroupUpdated() exists to read. Entries for groups this context cannot see
+      // are kept rather than pruned: tabGroups.query() is context-scoped, so "not in this
+      // list" does not mean "gone". onRemoved does the pruning, per context, when it fires.
+      const refreshedCache = Object.assign({}, cache);
       for (const group of groups) {
-        // An already-cached key wins over the group's current one. This runs on every service
-        // worker restart, including the restart an onUpdated event itself triggers, and
-        // overwriting here would discard the pre-rename key that handleTabGroupUpdated()
-        // exists to read. Ids that no longer exist are dropped instead of carried over,
-        // which is what keeps this bounded.
-        refreshedCache[group.id] = cache[group.id] !== undefined
-          ? cache[group.id]
-          : gsUtils.getTabGroupKey(group);
+        if (refreshedCache[group.id] === undefined) {
+          refreshedCache[group.id] = gsUtils.getTabGroupKey(group);
+        }
       }
       await chrome.storage.session.set({ [TAB_GROUP_KEYS_BY_ID]: refreshedCache });
     });
@@ -529,17 +546,33 @@ export const tgs = (function() {
     return withTabGroupLock(() => _rememberTabGroupKey(group.id, gsUtils.getTabGroupKey(group)));
   }
 
+  // A rename commits progressively, so one edit arrives as a burst of onUpdated events.
+  // That mattered less when a rename added the new key and removed the old one; now that
+  // nothing is ever removed, acting on each event would leave one stale key per keystroke.
+  // Waiting for the group to settle contributes one key per rename instead. The timer lives
+  // in the worker, so a worker teardown mid-rename drops it and the rename is simply not
+  // followed, which lands on the stale-entry side rather than the unprotected side.
+  const TAB_GROUP_SETTLE_MS = 700;
+  const _pendingTabGroupUpdates = new Map();
+
   function handleTabGroupUpdated(group) {
+    const pending = _pendingTabGroupUpdates.get(group.id);
+    if (pending) {
+      clearTimeout(pending);
+    }
+    _pendingTabGroupUpdates.set(group.id, setTimeout(() => {
+      _pendingTabGroupUpdates.delete(group.id);
+      _applySettledTabGroupUpdate(group.id); //async. unhandled promise
+    }, TAB_GROUP_SETTLE_MS));
+  }
+
+  function _applySettledTabGroupUpdate(groupId) {
     return withTabGroupLock(async () => {
       const cache = await _getTabGroupKeyCache();
-      const oldGroupKey = cache[group.id];
-      // Resolve the group's current state rather than trusting the event's payload. Events
-      // queue behind the lock, and a payload can be behind reality by the time its turn
-      // comes, which is how a rename burst used to leave an intermediate key stranded on the
-      // list as a ghost entry. Reading live collapses the burst instead: the first handler
-      // goes straight from the cached key to the final one in a single add/remove pair, and
-      // every later handler in the burst finds nothing left to do.
-      const liveGroup = await gsChrome.tabGroupsGet(group.id);
+      const oldGroupKey = cache[groupId];
+      // Resolve the group's current state rather than trusting the event's payload, which
+      // can be behind reality by the time its turn at the lock comes.
+      const liveGroup = await gsChrome.tabGroupsGet(groupId);
       if (!liveGroup) {
         // Dissolved before this ran. onRemoved prunes the cache; the list entry stays, which
         // is the same as any exemption for a group that is simply not open right now.
@@ -550,31 +583,27 @@ export const tgs = (function() {
         // Collapsing and expanding a group also lands here, and leaves the key untouched.
         return;
       }
-      await _rememberTabGroupKey(group.id, newGroupKey);
+      await _rememberTabGroupKey(groupId, newGroupKey);
       if (oldGroupKey === undefined) {
         // Cold cache (the group predates this browser session's seeding). Nothing to rename
-        // from, so the old entry simply stays on the list and stays visible in Options,
-        // which is the safe direction to fail in.
+        // from, so the old entry simply stays on the list, which is the safe direction.
         return;
       }
       const neverSuspendGroups = await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS);
       if (!gsUtils.checkSpecificNeverSuspendGroups(oldGroupKey, neverSuspendGroups)) {
         return;
       }
-      // A key identifies a title+color pair, not a group, so another group may still carry
-      // the old one. Dropping the entry then would silently un-exempt that group and re-arm
-      // its tabs' timers, which is most likely with unnamed groups: two of the same color
-      // share one key, and naming just one of them is an ordinary thing to do.
-      const groups = await gsChrome.tabGroupsGetAll();
-      const oldKeyStillInUse = groups.some(
-        (otherGroup) => otherGroup.id !== group.id && gsUtils.getTabGroupKey(otherGroup) === oldGroupKey,
-      );
-      gsUtils.log('tgs', 'tab group renamed, following exemption', oldGroupKey, '->', newGroupKey);
-      // Add before removing, so the group is never momentarily unprotected.
+      gsUtils.log('tgs', 'tab group renamed, adding exemption for', newGroupKey, 'from', oldGroupKey);
+      // Add the new key and deliberately leave the old one alone. Deciding whether the old
+      // key is still wanted means asking "is any other group still using it", and that
+      // question cannot be answered here: tabGroups.query() returns only groups open in this
+      // context, so it cannot see a group that is merely closed (Chrome auto-saves groups, so
+      // closed ones live on in the bookmarks bar) nor one open in the other context under
+      // "incognito": "split". Answering it wrong silently un-exempts a group the user marked,
+      // and a protection that quietly detaches is worse than none. Leaving the key behind
+      // over-protects instead, which costs some memory, shows up in Options with a count of
+      // how many open groups it currently matches, and is removable there.
       await _setTabGroupNeverSuspend(newGroupKey, true);
-      if (!oldKeyStillInUse) {
-        await _setTabGroupNeverSuspend(oldGroupKey, false);
-      }
     });
   }
 

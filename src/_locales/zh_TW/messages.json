@@ -1002,6 +1002,14 @@
   "js_options_never_suspend_groups_unnamed": {
     "message": "（未命名的群組）"
   },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "符合 $count$ 個開啟的分頁群組",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "js_options_always_suspend_matches_heading": {
     "message": "符合強制暫停清單的已開啟分頁："
   },

@@ -680,8 +680,8 @@ import  { tgs }                   from './tgs.js';
     chrome.tabGroups.onCreated.addListener(async (group) => {
       await tgs.handleTabGroupCreated(group);
     });
-    chrome.tabGroups.onUpdated.addListener(async (group) => {
-      await tgs.handleTabGroupUpdated(group);
+    chrome.tabGroups.onUpdated.addListener((group) => {
+      tgs.handleTabGroupUpdated(group);
     });
     chrome.tabGroups.onRemoved.addListener(async (group) => {
       await tgs.handleTabGroupRemoved(group);

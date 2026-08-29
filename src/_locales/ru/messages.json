@@ -1002,6 +1002,14 @@
   "js_options_never_suspend_groups_unnamed": {
     "message": "(группа без названия)"
   },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "совпадений среди открытых групп: $count$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "js_options_always_suspend_matches_heading": {
     "message": "Открытые вкладки, соответствующие списку принудительного приостановления:"
   },
