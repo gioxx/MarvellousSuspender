@@ -26,6 +26,12 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "Возобновить все вкладки в группе активной вкладки"
   },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Приостановить все вкладки вне групп в активном окне"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Возобновить все вкладки вне групп в активном окне"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Приостановить все остальные вкладки в активном окне"
   },
@@ -70,6 +76,12 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "Возобновить все вкладки в этой группе"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Приостановить все вкладки вне групп"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Возобновить все вкладки вне групп"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Приостановить все остальные вкладки в этом окне"
