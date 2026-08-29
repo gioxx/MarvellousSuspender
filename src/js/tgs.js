@@ -464,6 +464,136 @@ export const tgs = (function() {
     });
   }
 
+  // A group marked "never suspend" (#133) is remembered by its title and color, since
+  // Chrome's numeric group ids are not stable across restarts. That key changes whenever
+  // the group is renamed or recolored, so the id -> key mapping below is kept in
+  // chrome.storage.session (which outlives service worker dormancy but not the browser
+  // session) purely so handleTabGroupUpdated() can tell what the key used to be: the
+  // onUpdated event itself only reports the group's new state.
+  const TAB_GROUP_KEYS_BY_ID = 'gsTabGroupKeysById';
+
+  async function getTabGroupKeyCache() {
+    const result = await chrome.storage.session.get([TAB_GROUP_KEYS_BY_ID]);
+    return result[TAB_GROUP_KEYS_BY_ID] ?? {};
+  }
+
+  async function rememberTabGroupKey(groupId, groupKey) {
+    const cache = await getTabGroupKeyCache();
+    cache[groupId] = groupKey;
+    await chrome.storage.session.set({ [TAB_GROUP_KEYS_BY_ID]: cache });
+  }
+
+  // Seeds the mapping for groups that already existed, so an extension reload mid-session
+  // does not lose them.
+  async function initTabGroupKeyCache() {
+    const groups = await gsChrome.tabGroupsGetAll();
+    const cache = await getTabGroupKeyCache();
+    const refreshedCache = {};
+    for (const group of groups) {
+      // An already-cached key wins over the group's current one. This runs on every service
+      // worker restart, including the restart an onUpdated event itself triggers, and that
+      // event races this: overwriting here would discard the pre-rename key that
+      // handleTabGroupUpdated() exists to read. Ids that no longer exist are dropped
+      // instead of carried over, which is what keeps this bounded.
+      refreshedCache[group.id] = cache[group.id] !== undefined
+        ? cache[group.id]
+        : gsUtils.getTabGroupKey(group);
+    }
+    await chrome.storage.session.set({ [TAB_GROUP_KEYS_BY_ID]: refreshedCache });
+  }
+
+  async function handleTabGroupCreated(group) {
+    await rememberTabGroupKey(group.id, gsUtils.getTabGroupKey(group));
+  }
+
+  async function handleTabGroupUpdated(group) {
+    const cache = await getTabGroupKeyCache();
+    const oldGroupKey = cache[group.id];
+    const newGroupKey = gsUtils.getTabGroupKey(group);
+    if (oldGroupKey === newGroupKey) {
+      // Collapsing and expanding a group also lands here, and leaves the key untouched.
+      return;
+    }
+    await rememberTabGroupKey(group.id, newGroupKey);
+    if (oldGroupKey === undefined) {
+      // Cold cache (the group predates this browser session's seeding). Nothing to rename
+      // from, so the old entry simply stays on the list and stays visible in Options,
+      // which is the safe direction to fail in.
+      return;
+    }
+    const neverSuspendGroups = await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS);
+    if (!gsUtils.checkSpecificNeverSuspendGroups(oldGroupKey, neverSuspendGroups)) {
+      return;
+    }
+    gsUtils.log('tgs', 'tab group renamed, following exemption', oldGroupKey, '->', newGroupKey);
+    // Add before removing, so the group is never momentarily unprotected. Removing the old
+    // key afterwards also no longer matches any live group, so it only rewrites the list
+    // and leaves the group's suspend timers alone, which is exactly what a rename wants.
+    await setTabGroupNeverSuspend(newGroupKey, true);
+    await setTabGroupNeverSuspend(oldGroupKey, false);
+  }
+
+  async function handleTabGroupRemoved(group) {
+    const cache = await getTabGroupKeyCache();
+    if (cache[group.id] === undefined) {
+      return;
+    }
+    delete cache[group.id];
+    await chrome.storage.session.set({ [TAB_GROUP_KEYS_BY_ID]: cache });
+  }
+
+  // The single place the exemption list is mutated, shared by the context menu, the
+  // keyboard command and the Options page's remove links.
+  async function setTabGroupNeverSuspend(groupKey, exempt) {
+    const oldList = (await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS)) ?? '';
+    if (gsUtils.checkSpecificNeverSuspendGroups(groupKey, oldList) === exempt) {
+      return;
+    }
+    const newList = exempt
+      ? gsUtils.cleanupTabGroupList(`${oldList}\n${groupKey}`)
+      : gsUtils.cleanupTabGroupList(
+        oldList.split('\n').filter((item) => item.trim() !== groupKey).join('\n'),
+      );
+    await gsStorage.setOptionAndSync(gsStorage.NEVER_SUSPEND_GROUPS, newList);
+
+    // Bring the tabs that are already open back in line with the list, because nothing
+    // else will: exempting a group otherwise leaves its suspended tabs sitting on
+    // suspended.html indefinitely, and un-exempting one leaves timers that already fired
+    // and were rejected while the group was protected without anything to re-arm them.
+    const groups = await gsChrome.tabGroupsGetAll();
+    for (const group of groups) {
+      if (gsUtils.getTabGroupKey(group) !== groupKey) {
+        continue;
+      }
+      const groupTabs = await gsChrome.tabsQuery({ groupId: group.id });
+      for (const groupTab of groupTabs) {
+        if (exempt) {
+          gsTabSuspendManager.unqueueTabForSuspension(groupTab);
+          if (gsUtils.isSuspendedTab(groupTab)) {
+            await unsuspendTab(groupTab);
+          }
+        }
+        else if (gsUtils.isNormalTab(groupTab, true)) {
+          await resetAutoSuspendTimerForTab(groupTab);
+        }
+      }
+    }
+    setIconStatusForActiveTab();
+  }
+
+  async function toggleNeverSuspendTabGroup(tab) {
+    const groupKey = await gsUtils.getTabGroupKeyForTab(tab);
+    if (groupKey === null) {
+      return;
+    }
+    // Record the key while the group id is still in hand, so a later rename can be
+    // followed even if the cache was cold when the exemption was added.
+    await rememberTabGroupKey(tab.groupId, groupKey);
+    const neverSuspendGroups = await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS);
+    const isExempt = gsUtils.checkSpecificNeverSuspendGroups(groupKey, neverSuspendGroups);
+    await setTabGroupNeverSuspend(groupKey, !isExempt);
+  }
+
   function queueSessionTimer() {
     clearTimeout(_sessionSaveTimer);
     _sessionSaveTimer = setTimeout(() => {
@@ -1473,6 +1603,11 @@ export const tgs = (function() {
           callback(gsUtils.STATUS_APP_WINDOW);
           return;
         }
+        //check never-suspend tab group (#133)
+        if (await gsUtils.isProtectedTabGroupTab(tab)) {
+          callback(gsUtils.STATUS_TAB_GROUP);
+          return;
+        }
         //check active
         if (await gsUtils.isProtectedActiveTab(tab)) {
           callback(gsUtils.STATUS_ACTIVE);
@@ -1656,6 +1791,12 @@ export const tgs = (function() {
       });
 
       chrome.contextMenus.create({
+        id: 'toggle_never_suspend_group',
+        title: gsUtils.getMessage('js_context_toggle_never_suspend_group'),
+        contexts: allContexts,
+      });
+
+      chrome.contextMenus.create({
         id: 'separator2',
         type: 'separator',
         contexts: allContexts,
@@ -1743,6 +1884,11 @@ export const tgs = (function() {
       chrome.contextMenus.create({
         id: 'tab_unsuspend_group',
         title: gsUtils.getMessage('js_context_unsuspend_tab_group'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_toggle_never_suspend_group',
+        title: gsUtils.getMessage('js_context_toggle_never_suspend_group'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
@@ -1842,6 +1988,12 @@ export const tgs = (function() {
     unsuspendSelectedTabs,
     suspendTabGroup,
     unsuspendTabGroup,
+    toggleNeverSuspendTabGroup,
+    setTabGroupNeverSuspend,
+    initTabGroupKeyCache,
+    handleTabGroupCreated,
+    handleTabGroupUpdated,
+    handleTabGroupRemoved,
     whitelistHighlightedTab,
     unsuspendAllTabsInAllWindows,
     unsuspendWhitelistedTabs,

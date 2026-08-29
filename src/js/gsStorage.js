@@ -29,6 +29,7 @@ export const gsStorage = {
   LANGUAGE                      : 'gsLanguage',
   WHITELIST                     : 'gsWhitelist',
   ALWAYS_SUSPEND_LIST           : 'gsAlwaysSuspendList',
+  NEVER_SUSPEND_GROUPS          : 'gsNeverSuspendGroups',
 
   DISCARD_AFTER_SUSPEND         : 'discardAfterSuspend',
   DISCARD_IN_PLACE_OF_SUSPEND   : 'discardInPlaceOfSuspend',
@@ -85,6 +86,7 @@ export const gsStorage = {
     defaults[gsStorage.NO_NAG] = false;
     defaults[gsStorage.WHITELIST] = '';
     defaults[gsStorage.ALWAYS_SUSPEND_LIST] = '';
+    defaults[gsStorage.NEVER_SUSPEND_GROUPS] = '';
     defaults[gsStorage.THEME] = 'system';
     defaults[gsStorage.LEGACY_MASCOT] = false;
     defaults[gsStorage.LANGUAGE] = 'auto';

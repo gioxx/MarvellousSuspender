@@ -248,6 +248,14 @@ import  { tgs }                   from './tgs.js';
             tgs.forceSuspendAlwaysListedTabs();
             break;
           }
+          // Options page only ever removes: groups are added from the context menu, where
+          // the group being acted on is unambiguous.
+          case 'removeNeverSuspendGroup' : {
+            if (typeof request.groupKey === 'string' && request.groupKey) {
+              await tgs.setTabGroupNeverSuspend(request.groupKey, false);
+            }
+            break;
+          }
           case 'suspendSelected' : {
             tgs.suspendSelectedTabs();
             break;
@@ -421,6 +429,10 @@ import  { tgs }                   from './tgs.js';
       case 'tab_unsuspend_group':
         tgs.unsuspendTabGroup(tab);
         break;
+      case 'toggle_never_suspend_group':
+      case 'tab_toggle_never_suspend_group':
+        await tgs.toggleNeverSuspendTabGroup(tab);
+        break;
       case 'soft_suspend_other_tabs_in_window':
         tgs.suspendAllTabs(false);
         break;
@@ -499,6 +511,13 @@ import  { tgs }                   from './tgs.js';
           tgs.getCurrentlyActiveTab(r);
         });
         tgs.unsuspendTabGroup(tab);
+        break;
+      }
+      case '2g-toggle-never-suspend-group': {
+        const tab = await new Promise((r) => {
+          tgs.getCurrentlyActiveTab(r);
+        });
+        await tgs.toggleNeverSuspendTabGroup(tab);
         break;
       }
       case '3-suspend-active-window':
@@ -655,6 +674,18 @@ import  { tgs }                   from './tgs.js';
         }
       }
     });
+    // A never-suspend group (#133) is matched by title and color, so both of those have to
+    // be tracked as they change. onUpdated also fires on collapse/expand, which leaves the
+    // key alone and is discarded by the handler.
+    chrome.tabGroups.onCreated.addListener(async (group) => {
+      await tgs.handleTabGroupCreated(group);
+    });
+    chrome.tabGroups.onUpdated.addListener(async (group) => {
+      await tgs.handleTabGroupUpdated(group);
+    });
+    chrome.tabGroups.onRemoved.addListener(async (group) => {
+      await tgs.handleTabGroupRemoved(group);
+    });
     chrome.windows.onCreated.addListener(async (window) => {
       gsUtils.log(window.id, 'background', 'window created.');
       tgs.queueSessionTimer();
@@ -717,6 +748,8 @@ import  { tgs }                   from './tgs.js';
           await tgs.setCurrentFocusedWindowId(activeTab.windowId);
         }
       }
+      await tgs.initTabGroupKeyCache();
+
       gsUtils.log('background', 'init successful');
       resolve();
     });

@@ -39,6 +39,72 @@ import  { gsUtils }               from './gsUtils.js';
   };
 
 
+  // Chrome's own tab group palette, keyed by chrome.tabGroups.Color. That enum is fixed, so
+  // a stored key can never name a colour that is missing from here, and the swatch means the
+  // nine colour names never need translating.
+  const TAB_GROUP_COLORS = {
+    grey   : '#5f6368',
+    blue   : '#1a73e8',
+    red    : '#d93025',
+    yellow : '#f9ab00',
+    green  : '#1e8e3e',
+    pink   : '#d01884',
+    purple : '#9334e6',
+    cyan   : '#007b83',
+    orange : '#fa903e',
+  };
+
+  // Groups are added from the context menu, where the group being acted on is unambiguous.
+  // This list is for reviewing and removing them (#133).
+  async function renderNeverSuspendGroups() {
+    const listEl        = document.getElementById('neverSuspendGroupsList');
+    const emptyEl       = document.getElementById('neverSuspendGroupsEmpty');
+    const storedList    = gsUtils.cleanupTabGroupList(
+      await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS),
+    );
+    const groupKeys     = storedList ? storedList.split('\n') : [];
+
+    listEl.innerHTML = '';
+    emptyEl.classList.toggle('reallyHidden', groupKeys.length > 0);
+
+    for (const groupKey of groupKeys) {
+      const group = gsUtils.parseTabGroupKey(groupKey);
+      if (!group) {
+        continue;
+      }
+
+      const li      = document.createElement('li');
+      const swatch  = document.createElement('span');
+      swatch.className = 'tabGroupSwatch';
+      swatch.style.backgroundColor = TAB_GROUP_COLORS[group.color] ?? TAB_GROUP_COLORS.grey;
+      li.appendChild(swatch);
+
+      const title = document.createElement('span');
+      title.className = 'tabGroupTitle';
+      // textContent, never innerHTML: a tab group title is free text the user typed. An
+      // unnamed group carries an empty one, which is a real value rather than a missing
+      // one, hence the explicit comparison.
+      title.textContent = group.title === ''
+        ? gsUtils.getMessage('js_options_never_suspend_groups_unnamed')
+        : group.title;
+      li.appendChild(title);
+
+      const removeEl = document.createElement('a');
+      removeEl.href = '#neverSuspendGroupsLbl';
+      removeEl.textContent = gsUtils.getMessage('html_options_never_suspend_groups_remove');
+      removeEl.addEventListener('click', async (event) => {
+        event.preventDefault();
+        // The service worker owns the list, so that removing a group also re-arms the
+        // suspend timers of the tabs still in it.
+        await chrome.runtime.sendMessage({ action: 'removeNeverSuspendGroup', groupKey });
+        await renderNeverSuspendGroups();
+      });
+      li.appendChild(removeEl);
+
+      listEl.appendChild(li);
+    }
+  }
+
   function selectComboBox(element, key) {
     for (let i = 0; i < element.children.length; i += 1) {
       const child = element.children[i];
@@ -61,6 +127,7 @@ import  { gsUtils }               from './gsUtils.js';
       }
 
       addClickHandlers();
+      renderNeverSuspendGroups();
 
       setForceScreenCaptureVisibility(settings[gsStorage.SCREEN_CAPTURE] !== '0');
       setAutoSuspendOptionsVisibility(parseFloat(settings[gsStorage.SUSPEND_TIME]) > 0);
