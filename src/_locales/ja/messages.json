@@ -26,6 +26,9 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "アクティブなタブのグループ内のすべてのタブをサスペンド解除"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "アクティブなタブのグループのサスペンドしない設定を切り替える"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "アクティブなウィンドウ内の他のすべてのタブをサスペンド"
   },
@@ -70,6 +73,9 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "このグループ内のすべてのタブをサスペンド解除"
+  },
+  "js_context_toggle_never_suspend_group": {
+    "message": "このグループをサスペンドしない/サスペンドを許可"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "このウィンドウ内の他のすべてのタブをサスペンド"
@@ -571,6 +577,24 @@
   "html_options_always_suspend_force": {
     "message": "一致するタブを今すぐ停止"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "次のタブグループ内のタブはサスペンドしない:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "これらのグループのタブは自動的にサスペンドされず、一括サスペンド操作でもスキップされます。"
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "右クリックメニューの「このグループをサスペンドしない」からグループを追加できます。"
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "グループは名前と色で照合され、ブラウザーが開いている間は名前の変更に追従します。"
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "タブグループはまだ追加されていません。"
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "削除"
+  },
   "html_options_other_enable_context_menu": {
     "message": "右クリックのコンテキストメニューにThe Marvellous Suspenderを追加する"
   },
@@ -874,6 +898,9 @@
   "js_popup_app_window": {
     "message": "タブはアプリウィンドウで開いています"
   },
+  "js_popup_tab_group": {
+    "message": "タブはサスペンドされないグループに含まれています"
+  },
   "js_popup_temp_whitelist": {
     "message": "タブの停止は一時停止中です。"
   },
@@ -971,6 +998,9 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "現在の常時停止リストに一致する開いているタブはありません。"
+  },
+  "js_options_never_suspend_groups_unnamed": {
+    "message": "(名前のないグループ)"
   },
   "js_options_always_suspend_matches_heading": {
     "message": "常時停止リストに一致する開いているタブ:"

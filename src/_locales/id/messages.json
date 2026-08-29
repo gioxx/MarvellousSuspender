@@ -26,6 +26,9 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "BatalTangguhkan semua tab di grup tab aktif"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Alihkan jangan pernah menangguhkan untuk grup tab aktif"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Tangguhkan semua tab lainnya di jendela aktif"
   },
@@ -70,6 +73,9 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "BatalTangguhkan semua tab di grup ini"
+  },
+  "js_context_toggle_never_suspend_group": {
+    "message": "Jangan pernah menangguhkan/Izinkan menangguhkan grup ini"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Tangguhkan semua tab lain di jendela ini"
@@ -571,6 +577,24 @@
   "html_options_always_suspend_force": {
     "message": "Tangguhkan tab yang cocok sekarang"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "Jangan pernah menangguhkan tab di grup berikut:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Tab di grup ini tidak pernah ditangguhkan secara otomatis dan dilewati oleh tindakan penangguhan massal."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Tambahkan grup dengan \"Jangan pernah menangguhkan grup ini\" di menu klik kanan."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Grup dicocokkan berdasarkan nama dan warna, dan mengikuti penggantian nama selama peramban tetap terbuka."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Belum ada grup tab yang ditambahkan."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Hapus"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Tambahkan The Marvellous Suspender ke menu konteks klik-kanan"
   },
@@ -874,6 +898,9 @@
   "js_popup_app_window": {
     "message": "Tab terbuka di jendela aplikasi"
   },
+  "js_popup_tab_group": {
+    "message": "Tab berada di grup yang tidak pernah ditangguhkan"
+  },
   "js_popup_temp_whitelist": {
     "message": "Penangguhan tab dijeda."
   },
@@ -971,6 +998,9 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Tidak ada tab terbuka yang cocok dengan daftar selalu tangguhkan saat ini."
+  },
+  "js_options_never_suspend_groups_unnamed": {
+    "message": "(grup tanpa nama)"
   },
   "js_options_always_suspend_matches_heading": {
     "message": "Tab terbuka yang cocok dengan daftar selalu tangguhkan:"

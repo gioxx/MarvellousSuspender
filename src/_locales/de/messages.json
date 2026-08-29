@@ -26,6 +26,9 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "Alle Tabs in der Gruppe des aktiven Tabs aufwachen"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Nicht aussetzen für die Gruppe des aktiven Tabs umschalten"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Alle anderen Tabs im aktiven Fenster aussetzen"
   },
@@ -70,6 +73,9 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "Alle Tabs in dieser Gruppe aufwachen"
+  },
+  "js_context_toggle_never_suspend_group": {
+    "message": "Diese Gruppe nicht aussetzen/Aussetzen erlauben"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Alle anderen Tabs in diesem Fenster aussetzen"
@@ -571,6 +577,24 @@
   "html_options_always_suspend_force": {
     "message": "Passende Tabs jetzt aussetzen"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "Tabs in den folgenden Tab-Gruppen nicht aussetzen:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Tabs in diesen Gruppen werden nie automatisch ausgesetzt und von den Sammelaktionen übersprungen."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Eine Gruppe fügen Sie über „Diese Gruppe nicht aussetzen“ im Kontextmenü hinzu."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Gruppen werden anhand von Name und Farbe erkannt und folgen Umbenennungen, solange der Browser geöffnet bleibt."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Noch keine Tab-Gruppen hinzugefügt."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Entfernen"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Füge The Marvellous Suspender zum Rechtsklick-Kontextmenü hinzu"
   },
@@ -874,6 +898,9 @@
   "js_popup_app_window": {
     "message": "Tab ist in einem App-Fenster geöffnet"
   },
+  "js_popup_tab_group": {
+    "message": "Tab ist in einer Gruppe, die nie ausgesetzt wird"
+  },
   "js_popup_temp_whitelist": {
     "message": "Aussetzen pausiert."
   },
@@ -971,6 +998,9 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Keine offenen Tabs entsprechen der aktuellen Immer-aussetzen-Liste."
+  },
+  "js_options_never_suspend_groups_unnamed": {
+    "message": "(unbenannte Gruppe)"
   },
   "js_options_always_suspend_matches_heading": {
     "message": "Offene Tabs, die der Immer-aussetzen-Liste entsprechen:"

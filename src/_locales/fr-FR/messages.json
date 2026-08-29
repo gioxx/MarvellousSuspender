@@ -26,6 +26,9 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "Annule la suspension de tous les onglets du groupe de l'onglet actif"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Basculer « ne jamais suspendre » pour le groupe de l'onglet actif"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspend tous les autres onglets de la fenêtre active"
   },
@@ -70,6 +73,9 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "Annuler la suspension de tous les onglets de ce groupe"
+  },
+  "js_context_toggle_never_suspend_group": {
+    "message": "Ne jamais suspendre/Autoriser la suspension de ce groupe"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspendre tous les autres onglets de cette fenêtre"
@@ -740,6 +746,9 @@
   "js_popup_app_window": {
     "message": "L'onglet est ouvert dans une fenêtre d'application"
   },
+  "js_popup_tab_group": {
+    "message": "L'onglet est dans un groupe qui n'est jamais suspendu"
+  },
   "js_popup_temp_whitelist": {
     "message": "La suspension de l'onglet a été interrompue."
   },
@@ -840,6 +849,9 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Aucun onglet ouvert ne correspond à la liste de suspension forcée actuelle."
+  },
+  "js_options_never_suspend_groups_unnamed": {
+    "message": "(groupe sans nom)"
   },
   "js_options_always_suspend_matches_heading": {
     "message": "Onglets ouverts correspondant à la liste de suspension forcée :"
@@ -1040,6 +1052,24 @@
   },
   "html_options_always_suspend_force": {
     "message": "Suspendre maintenant les onglets correspondants"
+  },
+  "html_options_never_suspend_groups_title": {
+    "message": "Ne jamais suspendre les onglets des groupes suivants :"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Les onglets de ces groupes ne sont jamais suspendus automatiquement et sont ignorés par les actions de suspension groupée."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Ajoutez un groupe avec « Ne jamais suspendre ce groupe » dans le menu contextuel."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Les groupes sont identifiés par leur nom et leur couleur, et suivent les renommages tant que le navigateur reste ouvert."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Aucun groupe d'onglets ajouté pour l'instant."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Retirer"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
     "message": "Réveiller maintenant les onglets correspondants"
