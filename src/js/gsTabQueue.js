@@ -101,10 +101,16 @@ export const gsTabQueue = (function() {
             // An executor is already running this tab. sleepTab() would flip it
             // IN_PROGRESS -> SLEEPING -> QUEUED after `delay`, and processQueue() would
             // then start a second executor for it alongside the first (double
-            // init/discard of the same tab). Leave the running executor to finish; the
-            // merged executionProps above ride along, and its own requeue path (or the
-            // caller's next scan) covers any follow-up.
-            gsUtils.log(tab.id, _queueId, 'Tab already in progress; not re-sleeping.');
+            // init/discard of the same tab). Instead, record the follow-up so it runs as
+            // a fresh job once the current one finishes (see resolveTabPromise /
+            // rejectTabPromise) — some follow-ups matter, e.g. tgs.js re-queuing a
+            // now-inactive tab specifically so it gets discarded.
+            const prev = tabDetails.pendingRerun;
+            tabDetails.pendingRerun = {
+              executionProps: Object.assign({}, prev && prev.executionProps, executionProps),
+              delay: Math.max(delay, (prev && prev.delay) || 0),
+            };
+            gsUtils.log(tab.id, _queueId, 'Tab already in progress; follow-up run queued for after it completes.');
           }
           else {
             gsUtils.log(tab.id, _queueId, `Sleeping tab for ${delay}ms`);
@@ -315,7 +321,26 @@ export const gsTabQueue = (function() {
         clearTimeout(tabDetails.timeoutTimer);
         removeTabFromQueue(tabDetails);
         tabDetails.deferredPromise.resolve(result);
+        scheduleAnyPendingRerun(tabDetails);
         requestProcessQueue(_queueProperties.processingDelay);
+      }
+
+      // A follow-up check requested via queueTabAsPromise() while this tab's check was
+      // STATUS_IN_PROGRESS is held on tabDetails.pendingRerun rather than started
+      // concurrently; run it now as a fresh job.
+      function scheduleAnyPendingRerun(tabDetails) {
+        const rerun = tabDetails.pendingRerun;
+        if (!rerun) {
+          return;
+        }
+        delete tabDetails.pendingRerun;
+        gsUtils.log(tabDetails.tab.id, _queueId, 'Starting the follow-up queued while the previous check was in progress.');
+        const p = queueTabAsPromise(tabDetails.tab, rerun.executionProps, rerun.delay);
+        // The original requester (e.g. tgs.js's fire-and-forget queueTabCheck) kept no
+        // handle on this rerun, so absorb a rejection here rather than leave it unhandled.
+        if (p && typeof p.catch === 'function') {
+          p.catch(() => {});
+        }
       }
 
       function rejectTabPromise(tabDetails, error) {
@@ -326,6 +351,7 @@ export const gsTabQueue = (function() {
         clearTimeout(tabDetails.timeoutTimer);
         removeTabFromQueue(tabDetails);
         tabDetails.deferredPromise.reject(error);
+        scheduleAnyPendingRerun(tabDetails);
         requestProcessQueue(_queueProperties.processingDelay);
       }
 
