@@ -23,11 +23,26 @@ export const gsSession = (function() {
   // unreliable, or lost to a service-worker recycle mid-run; background.js's
   // gsStartupOnceRun sentinel only records that startup was *attempted*. These keys track
   // the favicon pass specifically so an independent alarm/event backstop can retry it.
-  const FAVICON_REPAIR_ALARM_NAME   = 'tms-favicon-repair-backstop';
-  const FAVICON_REPAIR_DONE_KEY     = 'gsFaviconRepairDone';     // chrome.storage.session
-  const FAVICON_REPAIR_ATTEMPTS_KEY = 'gsFaviconRepairAttempts'; // chrome.storage.session
-  const FAVICON_REPAIR_MAX_ATTEMPTS = 3;
-  let _faviconRepairInFlight = false; // per-service-worker-instance re-entry guard only
+  const FAVICON_REPAIR_ALARM_NAME        = 'tms-favicon-repair-backstop';
+  const FAVICON_REPAIR_DONE_KEY          = 'gsFaviconRepairDone';           // chrome.storage.session
+  const FAVICON_REPAIR_FAILED_KEY        = 'gsFaviconRepairFailedAttempts'; // chrome.storage.session
+  const FAVICON_REPAIR_CLEAN_STREAK_KEY  = 'gsFaviconRepairCleanStreak';    // chrome.storage.session
+  // Passes that ended with tabs still broken before the backstop gives up (leaving the
+  // #449 manual action as the escape hatch).
+  const FAVICON_REPAIR_MAX_FAILED        = 3;
+  // Consecutive clean passes required to finalise. >1 so a clean result from an early
+  // snapshot — before Chrome has restored a long "continue where you left off" tab set —
+  // doesn't mark the whole session repaired and disarm the backstop.
+  const FAVICON_REPAIR_CLEAN_CONFIRMATIONS = 2;
+  const FAVICON_REPAIR_ALARM_DELAY_MINUTES = 0.5;
+  // Minimum gap between cycles: onActivated fires on every tab switch, and without this a
+  // full performTabChecks() would run on each one in the window between a cycle finishing
+  // and the next alarm. Shorter than the alarm delay, so the alarm is never throttled.
+  const FAVICON_REPAIR_MIN_GAP_MS = 15000;
+  // The pass+verify promise currently running in this service-worker instance, or null.
+  // Concurrent callers await the same one instead of starting a second performTabChecks().
+  let _faviconRepairPromise = null;
+  let _faviconRepairLastFinishedAt = 0; // Date.now() of the last completed cycle, for the gap above
 
   async function initAsPromised() {
     // Set fileUrlsAccessAllowed to determine if extension can work on file:// URLs
@@ -172,39 +187,28 @@ export const gsSession = (function() {
       await handleUpdate(currentSessionTabs, curVersion, gsStartupLastVersion);
     }
 
-    // performTabChecks() here doubles as this browser session's first favicon-repair pass.
-    // Hold the shared _faviconRepairInFlight guard across it and the verify below so a
-    // ~30s backstop alarm or an onActivated firing mid-startup can't launch a second,
-    // concurrent performTabChecks() (gsTabQueue would let that start another executor for
-    // a tab already in progress). If a backstop trigger got here first, its pass already
-    // covers startup's responsiveness check and records the favicon outcome, so skip both.
-    const ranStartupFaviconPass = !_faviconRepairInFlight;
-    if (ranStartupFaviconPass) _faviconRepairInFlight = true;
-    try {
-      if (ranStartupFaviconPass) {
-        await performTabChecks();
-      }
-
-      // Ensure currently focused tab is initialised correctly if suspended
-      const currentWindowActiveTabs = await gsChrome.tabsQuery({ active: true, currentWindow: true, });
-      if (currentWindowActiveTabs.length > 0) {
-        gsTabCheckManager.queueTabCheck(currentWindowActiveTabs[0]);
-      }
-
-      updateCurrentSession(); //async
-      await gsStorage.saveStorage('session', 'gsInitialisationMode', false);
-
-      // Record whether the pass cleared the repairable favicons, so the backstop
-      // (background.js) stands down on installs where onStartup already works. After
-      // gsInitialisationMode is cleared: this only reads favicons and writes session
-      // flags, and its settle delay shouldn't extend initialisation mode.
-      if (ranStartupFaviconPass && !(await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY))) {
-        await recordFaviconRepairAttemptAndVerify('startupChecks');
-      }
+    // performTabChecks() here is also this browser session's first favicon-repair cycle,
+    // run through the shared serialisation so a ~30s backstop alarm or an onActivated
+    // firing mid-startup can't launch a second, concurrent performTabChecks() (gsTabQueue
+    // would let that start another executor for a tab already in progress). If a backstop
+    // trigger got here first, await ITS cycle before continuing: its performTabChecks()
+    // covers startup's responsiveness check, and gsInitialisationMode must stay true until
+    // those checks finish (gsTabCheckManager.getUpdatedTab()'s discarded-tab recovery is
+    // gated on isInitialising()).
+    if (isFaviconRepairInFlight()) {
+      await _faviconRepairPromise;
+    } else {
+      await runFaviconRepairCycle('startupChecks', { runPass: true });
     }
-    finally {
-      if (ranStartupFaviconPass) _faviconRepairInFlight = false;
+
+    // Ensure currently focused tab is initialised correctly if suspended
+    const currentWindowActiveTabs = await gsChrome.tabsQuery({ active: true, currentWindow: true, });
+    if (currentWindowActiveTabs.length > 0) {
+      gsTabCheckManager.queueTabCheck(currentWindowActiveTabs[0]);
     }
+
+    updateCurrentSession(); //async
+    await gsStorage.saveStorage('session', 'gsInitialisationMode', false);
   }
 
 
@@ -258,76 +262,91 @@ export const gsSession = (function() {
     return broken;
   }
 
-  // Shared tail for every favicon-repair trigger: give Chrome a moment to surface the
-  // refreshed favIconUrls, then decide whether the session is repaired, should retry, or
-  // has exhausted its retries. Does NOT run performTabChecks() itself.
-  async function verifyAndRecordFaviconRepair(reason) {
-    await gsUtils.setTimeout(1500);
-    const brokenCount = await countTabsWithBrokenSuspendedFavicon();
-    const attempts = Number(await gsStorage.getStorage('session', FAVICON_REPAIR_ATTEMPTS_KEY)) || 0;
-
-    if (brokenCount === 0) {
-      await gsStorage.saveStorage('session', FAVICON_REPAIR_DONE_KEY, true);
-      chrome.alarms.clear(FAVICON_REPAIR_ALARM_NAME);
-      gsUtils.log('gsSession', `favicon repair (${reason}): all suspended-tab favicons OK`);
-    }
-    else if (attempts >= FAVICON_REPAIR_MAX_ATTEMPTS) {
-      // Stop auto-retrying; the #449 "Repair favicons now" debug action stays available.
-      await gsStorage.saveStorage('session', FAVICON_REPAIR_DONE_KEY, true);
-      chrome.alarms.clear(FAVICON_REPAIR_ALARM_NAME);
-      gsUtils.warning('gsSession', `favicon repair (${reason}): ${brokenCount} tab(s) still broken after ${attempts} attempts; stopping auto-retry`);
-    }
-    else {
-      gsUtils.log('gsSession', `favicon repair (${reason}): ${brokenCount} tab(s) still broken, backstop will retry`);
-      // FAVICON_REPAIR_DONE_KEY left unset -> next service-worker spawn re-arms the alarm.
-    }
+  function isFaviconRepairInFlight() {
+    return _faviconRepairPromise !== null;
   }
 
-  // Cap-check, attempt bookkeeping, optional repair pass, then verify. Assumes the caller
-  // already holds _faviconRepairInFlight and has confirmed FAVICON_REPAIR_DONE_KEY is
-  // unset. `runPass` false is for runStartupChecks(), which has just run performTabChecks()
-  // itself under the same guard and only needs the verify-and-record tail.
-  async function recordFaviconRepairAttemptAndVerify(reason, { runPass = false } = {}) {
-    const priorAttempts = Number(await gsStorage.getStorage('session', FAVICON_REPAIR_ATTEMPTS_KEY)) || 0;
-    // Hard cap at entry, not just inside verifyAndRecordFaviconRepair(): if a prior run
-    // persisted its attempt count but never reached verification (service-worker recycled
-    // mid-pass, or performTabChecks() threw), nothing set the done flag, and without this
-    // check every later spawn would launch another full scan indefinitely.
-    if (priorAttempts >= FAVICON_REPAIR_MAX_ATTEMPTS) {
-      await gsStorage.saveStorage('session', FAVICON_REPAIR_DONE_KEY, true);
-      chrome.alarms.clear(FAVICON_REPAIR_ALARM_NAME);
-      gsUtils.warning('gsSession', `favicon repair (${reason}): ${priorAttempts} attempts already spent this session, standing down (use "Repair favicons now")`);
-      return;
-    }
-
-    const attempts = priorAttempts + 1;
-    await gsStorage.saveStorage('session', FAVICON_REPAIR_ATTEMPTS_KEY, attempts);
-    gsUtils.log('gsSession', `favicon repair: reason=${reason}, attempt ${attempts}${runPass ? '' : ' (verify only)'}`);
-    if (runPass) await performTabChecks();
-    await verifyAndRecordFaviconRepair(reason);
+  function armFaviconRepairAlarm() {
+    chrome.alarms.create(FAVICON_REPAIR_ALARM_NAME, { delayInMinutes: FAVICON_REPAIR_ALARM_DELAY_MINUTES });
   }
 
-  // onStartup-independent backstop for the favicon pass, for the alarm and onActivated
-  // triggers. Idempotent and cheap: a no-op once FAVICON_REPAIR_DONE_KEY is set (so
-  // installs where onStartup works see no extra work), serialised against
-  // runStartupChecks() and against each other by _faviconRepairInFlight, and bounded by
-  // FAVICON_REPAIR_MAX_ATTEMPTS.
+  async function finaliseFaviconRepair(logLine) {
+    await gsStorage.saveStorage('session', FAVICON_REPAIR_DONE_KEY, true);
+    chrome.alarms.clear(FAVICON_REPAIR_ALARM_NAME);
+    gsUtils.log('gsSession', `favicon repair: ${logLine}`);
+  }
+
+  // One favicon-repair cycle: (optionally) a performTabChecks() pass, a settle delay,
+  // then a broken-favicon count and the bookkeeping that decides finalise / retry / give
+  // up. Serialised per service-worker instance: a caller arriving while a cycle is
+  // running gets that same promise back rather than starting a second performTabChecks()
+  // (gsTabQueue would otherwise let a second executor start for a tab already in flight).
+  //   - broken > 0, under the failure cap  -> bump the failure count, re-arm the alarm
+  //     (don't rely on an unguaranteed future service-worker spawn), leave the flag unset
+  //   - broken > 0, at the failure cap     -> finalise; the #449 manual action remains
+  //   - broken === 0                       -> bump the clean streak; finalise only once
+  //     FAVICON_REPAIR_CLEAN_CONFIRMATIONS consecutive clean passes have happened, so a
+  //     clean snapshot taken before a long session's tabs have all restored doesn't
+  //     disarm the backstop prematurely; otherwise re-arm and re-check
+  function runFaviconRepairCycle(reason, { runPass }) {
+    if (_faviconRepairPromise) return _faviconRepairPromise;
+    if (Date.now() - _faviconRepairLastFinishedAt < FAVICON_REPAIR_MIN_GAP_MS) {
+      // Too soon after the last cycle (e.g. rapid tab switching); defer to the alarm
+      // rather than running another full pass now. Only arm one if none is pending —
+      // re-arming on every tab switch would keep pushing the alarm out of reach.
+      return chrome.alarms.get(FAVICON_REPAIR_ALARM_NAME).then((existing) => {
+        if (!existing) armFaviconRepairAlarm();
+      });
+    }
+    _faviconRepairPromise = (async () => {
+      try {
+        if (await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY)) return;
+
+        const failedAttempts = Number(await gsStorage.getStorage('session', FAVICON_REPAIR_FAILED_KEY)) || 0;
+        if (failedAttempts >= FAVICON_REPAIR_MAX_FAILED) {
+          await finaliseFaviconRepair(`${reason}: ${failedAttempts} failed attempts this session, standing down (use "Repair favicons now")`);
+          return;
+        }
+
+        if (runPass) await performTabChecks();
+        await gsUtils.setTimeout(1500); // let Chrome surface the refreshed favIconUrls
+        const brokenCount = await countTabsWithBrokenSuspendedFavicon();
+
+        if (brokenCount > 0) {
+          await gsStorage.saveStorage('session', FAVICON_REPAIR_FAILED_KEY, failedAttempts + 1);
+          await gsStorage.saveStorage('session', FAVICON_REPAIR_CLEAN_STREAK_KEY, 0);
+          armFaviconRepairAlarm();
+          gsUtils.log('gsSession', `favicon repair (${reason}): ${brokenCount} tab(s) still broken (failed attempt ${failedAttempts + 1}/${FAVICON_REPAIR_MAX_FAILED}), retry armed`);
+          return;
+        }
+
+        const cleanStreak = (Number(await gsStorage.getStorage('session', FAVICON_REPAIR_CLEAN_STREAK_KEY)) || 0) + 1;
+        await gsStorage.saveStorage('session', FAVICON_REPAIR_CLEAN_STREAK_KEY, cleanStreak);
+        if (cleanStreak >= FAVICON_REPAIR_CLEAN_CONFIRMATIONS) {
+          await finaliseFaviconRepair(`${reason}: ${cleanStreak} consecutive clean passes, all suspended-tab favicons OK`);
+        } else {
+          armFaviconRepairAlarm();
+          gsUtils.log('gsSession', `favicon repair (${reason}): clean ${cleanStreak}/${FAVICON_REPAIR_CLEAN_CONFIRMATIONS}, re-checking after restores settle`);
+        }
+      }
+      catch (error) {
+        gsUtils.error('gsSession', `favicon repair (${reason}) cycle failed`, error);
+        armFaviconRepairAlarm(); // a thrown pass must not strand the backstop
+      }
+      finally {
+        _faviconRepairLastFinishedAt = Date.now();
+        _faviconRepairPromise = null;
+      }
+    })();
+    return _faviconRepairPromise;
+  }
+
+  // onStartup-independent backstop entry point for the alarm and onActivated triggers.
+  // A no-op once FAVICON_REPAIR_DONE_KEY is set (so installs where onStartup works see no
+  // extra work once the backstop has confirmed clean).
   async function ensureFaviconRepairForSession(reason) {
-    // Claim the guard synchronously, before the first await: two triggers arriving close
-    // together (e.g. the alarm and an onActivated) would otherwise both see it false,
-    // both suspend on the storage read, and both resume into a full pass.
-    if (_faviconRepairInFlight) return;
-    _faviconRepairInFlight = true;
-    try {
-      if (await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY)) return;
-      await recordFaviconRepairAttemptAndVerify(reason, { runPass: true });
-    }
-    catch (error) {
-      gsUtils.error('gsSession', 'ensureFaviconRepairForSession failed', error);
-    }
-    finally {
-      _faviconRepairInFlight = false;
-    }
+    if (await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY)) return;
+    await runFaviconRepairCycle(reason, { runPass: true });
   }
 
   async function handleNormalStartup(currentSessionTabs, curVersion) {
