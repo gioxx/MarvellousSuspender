@@ -145,13 +145,18 @@ import  { tgs }                   from './tgs.js';
   // one extra wake. Only create the alarm when none is pending — an unconditional
   // create() replaces the pending one and restarts its ~30s delay, so rapid worker
   // recycling (exactly the environment this targets) could otherwise postpone it forever.
-  gsStorage.getStorage('session', 'gsFaviconRepairDone').then(async (done) => {
-    if (done) return;
-    const existing = await chrome.alarms.get(gsSession.FAVICON_REPAIR_ALARM_NAME);
-    if (!existing) {
-      chrome.alarms.create(gsSession.FAVICON_REPAIR_ALARM_NAME, { delayInMinutes: 0.5 });
-    }
-  });
+  // Skipped in the split-incognito worker: it shares chrome.storage.session with the
+  // regular profile but chrome.tabs.query() sees only incognito tabs, so the regular
+  // worker owns this backstop (see gsSession).
+  if (!chrome.extension.inIncognitoContext) {
+    gsStorage.getStorage('session', 'gsFaviconRepairDone').then(async (done) => {
+      if (done) return;
+      const existing = await chrome.alarms.get(gsSession.FAVICON_REPAIR_ALARM_NAME);
+      if (!existing) {
+        chrome.alarms.create(gsSession.FAVICON_REPAIR_ALARM_NAME, { delayInMinutes: 0.5 });
+      }
+    });
+  }
 
   chrome.runtime.onSuspend.addListener(() => {
     gsUtils.log('5 runtime.onSuspend');

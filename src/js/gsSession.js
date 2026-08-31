@@ -313,7 +313,14 @@ export const gsSession = (function() {
                                     // distinguishes a pass failure (rethrow if mandatory)
                                     // from a later favicon-only failure (always swallow)
       try {
-        finalised = Boolean(await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY));
+        // In the split-incognito service worker, chrome.tabs.query() sees only incognito
+        // tabs but chrome.storage.session is shared with the regular profile's worker —
+        // so its clean (often empty) snapshots must not touch the shared attempt / streak
+        // / done state, or they'd finalise the backstop out from under the regular worker.
+        // The pass itself still runs (it is also startup's responsiveness check); all
+        // bookkeeping below is skipped, same as the already-finalised case.
+        finalised = chrome.extension.inIncognitoContext
+          || Boolean(await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY));
         if (finalised && !mandatory) return;
 
         if (!finalised) {
@@ -374,8 +381,11 @@ export const gsSession = (function() {
 
   // onStartup-independent backstop entry point for the alarm and onActivated triggers.
   // A no-op once FAVICON_REPAIR_DONE_KEY is set (so installs where onStartup works see no
-  // extra work once the backstop has confirmed clean).
+  // extra work once the backstop has confirmed clean), and in the split-incognito worker
+  // (it shares chrome.storage.session with the regular profile but sees only incognito
+  // tabs — the regular worker owns the backstop).
   async function ensureFaviconRepairForSession(reason) {
+    if (chrome.extension.inIncognitoContext) return;
     if (await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY)) return;
     await runFaviconRepairCycle(reason, { runPass: true });
   }
