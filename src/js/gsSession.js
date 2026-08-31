@@ -279,11 +279,27 @@ export const gsSession = (function() {
   // routing it through here too means its bookkeeping shares the _faviconRepairInFlight
   // guard with the alarm/onActivated triggers instead of racing a concurrent one.
   async function ensureFaviconRepairForSession(reason, { skipPass = false } = {}) {
+    // Claim the guard synchronously, before the first await: two triggers arriving close
+    // together (e.g. the alarm and an onActivated) would otherwise both see it false,
+    // both suspend on a storage read, and both resume into a full pass.
     if (_faviconRepairInFlight) return;
-    if (await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY)) return;
     _faviconRepairInFlight = true;
     try {
-      const attempts = (Number(await gsStorage.getStorage('session', FAVICON_REPAIR_ATTEMPTS_KEY)) || 0) + 1;
+      if (await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY)) return;
+
+      const priorAttempts = Number(await gsStorage.getStorage('session', FAVICON_REPAIR_ATTEMPTS_KEY)) || 0;
+      // Hard cap at entry, not just inside verifyAndRecordFaviconRepair(): if a prior run
+      // persisted its attempt count but never reached verification (service-worker
+      // recycled mid-pass, or performTabChecks() threw), nothing set the done flag, and
+      // without this check every later spawn would launch another full scan indefinitely.
+      if (priorAttempts >= FAVICON_REPAIR_MAX_ATTEMPTS) {
+        await gsStorage.saveStorage('session', FAVICON_REPAIR_DONE_KEY, true);
+        chrome.alarms.clear(FAVICON_REPAIR_ALARM_NAME);
+        gsUtils.warning('gsSession', `favicon repair (${reason}): ${priorAttempts} attempts already spent this session, standing down (use "Repair favicons now")`);
+        return;
+      }
+
+      const attempts = priorAttempts + 1;
       await gsStorage.saveStorage('session', FAVICON_REPAIR_ATTEMPTS_KEY, attempts);
       gsUtils.log('gsSession', `ensureFaviconRepairForSession: reason=${reason}, attempt ${attempts}${skipPass ? ' (verify only)' : ''}`);
       if (!skipPass) await performTabChecks();
