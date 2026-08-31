@@ -134,6 +134,21 @@ import  { tgs }                   from './tgs.js';
     }
   });
 
+  // Favicon-repair backstop (#474). The startup favicon pass (gsSession.runStartupChecks
+  // -> performTabChecks) can be skipped or cut short on Chromium forks whose onStartup is
+  // unreliable, or lost to a service-worker recycle mid-run — and gsStartupOnceRun above
+  // only records that startup was *attempted*, not that the favicon pass finished. This
+  // independent session flag (set by gsSession only once the pass confirms every
+  // repairable suspended-tab favicon is good) tracks the favicon pass specifically. While
+  // it is unset, every service-worker spawn re-arms a one-shot alarm that retries the
+  // pass; once set, nothing re-arms, so installs where onStartup already works see at most
+  // one extra no-op wake (and even that is cancelled when the fast path wins the race).
+  gsStorage.getStorage('session', 'gsFaviconRepairDone').then((done) => {
+    if (!done) {
+      chrome.alarms.create(gsSession.FAVICON_REPAIR_ALARM_NAME, { delayInMinutes: 0.5 });
+    }
+  });
+
   chrome.runtime.onSuspend.addListener(() => {
     gsUtils.log('5 runtime.onSuspend');
     gsBackup.performEmergencyBackup(); // fire-and-forget: the service worker may be killed before this resolves
@@ -545,6 +560,10 @@ import  { tgs }                   from './tgs.js';
       await gsIndexedDb.trimLogEntries(gsIndexedDb.LOG_ENTRIES_MAX);
       return;
     }
+    if (alarm.name === gsSession.FAVICON_REPAIR_ALARM_NAME) {
+      await gsSession.ensureFaviconRepairForSession('alarm');
+      return;
+    }
 
     const tabId = parseInt(alarm.name);
     const tab = await gsChrome.tabsGet(tabId);
@@ -564,6 +583,18 @@ import  { tgs }                   from './tgs.js';
     chrome.tabs.onActivated.addListener(async (activeInfo) => {
       gsUtils.log(activeInfo.tabId, 'tab onActivated');
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
+
+      // Opportunistic favicon-repair backstop (#474): if the session flag shows the
+      // startup favicon pass never confirmed success, repair now that the user is
+      // actually looking at a suspended tab — no waiting for the alarm above.
+      // ensureFaviconRepairForSession() is a no-op once the flag is set, so this costs
+      // one chrome.storage.session read per activation until then and nothing afterwards.
+      if (!(await gsStorage.getStorage('session', 'gsFaviconRepairDone'))) {
+        const activatedTab = await gsChrome.tabsGet(activeInfo.tabId);
+        if (activatedTab && gsUtils.isSuspendedTab(activatedTab)) {
+          await gsSession.ensureFaviconRepairForSession('tabActivated');
+        }
+      }
     });
     chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
       gsUtils.log(removedTabId, 'tab onReplaced', addedTabId, removedTabId);
