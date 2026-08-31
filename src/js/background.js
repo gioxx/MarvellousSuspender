@@ -301,7 +301,10 @@ import  { tgs }                   from './tgs.js';
             break;
           }
           case 'repairFavicons' : {
-            responseData = await gsSession.performTabChecks();
+            // Through repairFaviconsNow(), not performTabChecks() directly, so a manual
+            // repair can't run concurrently with an in-flight favicon-repair backstop
+            // cycle (gsTabQueue would double-run a tab).
+            responseData = await gsSession.repairFaviconsNow();
             break;
           }
           case 'checkTabResponsiveness' : {
