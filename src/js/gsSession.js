@@ -184,10 +184,12 @@ export const gsSession = (function() {
 
     // Record whether the favicon pass above actually cleared the repairable favicons, so
     // the onStartup-independent backstop (background.js) stands down on installs where
-    // onStartup already works. Deliberately after gsInitialisationMode is cleared: this
-    // only reads tab favicons and writes session flags, and its settle delay shouldn't
-    // extend initialisation mode.
-    await verifyAndRecordFaviconRepair('startupChecks');
+    // onStartup already works. Routed through ensureFaviconRepairForSession() (skipPass:
+    // the pass already ran) so it shares the in-flight guard with the alarm/onActivated
+    // triggers rather than running a concurrent verify. Deliberately after
+    // gsInitialisationMode is cleared: it only reads favicons and writes session flags,
+    // and its settle delay shouldn't extend initialisation mode.
+    await ensureFaviconRepairForSession('startupChecks', { skipPass: true });
   }
 
 
@@ -272,16 +274,19 @@ export const gsSession = (function() {
   // onStartup-independent backstop for the favicon pass. Idempotent and cheap: a no-op
   // once FAVICON_REPAIR_DONE_KEY is set (so installs where onStartup works see no extra
   // work), guarded against concurrent runs within one service-worker instance, and
-  // bounded by FAVICON_REPAIR_MAX_ATTEMPTS.
-  async function ensureFaviconRepairForSession(reason) {
+  // bounded by FAVICON_REPAIR_MAX_ATTEMPTS. `skipPass` is for runStartupChecks(), which
+  // has just run performTabChecks() itself and only needs the verify-and-record tail —
+  // routing it through here too means its bookkeeping shares the _faviconRepairInFlight
+  // guard with the alarm/onActivated triggers instead of racing a concurrent one.
+  async function ensureFaviconRepairForSession(reason, { skipPass = false } = {}) {
     if (_faviconRepairInFlight) return;
     if (await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY)) return;
     _faviconRepairInFlight = true;
     try {
       const attempts = (Number(await gsStorage.getStorage('session', FAVICON_REPAIR_ATTEMPTS_KEY)) || 0) + 1;
       await gsStorage.saveStorage('session', FAVICON_REPAIR_ATTEMPTS_KEY, attempts);
-      gsUtils.log('gsSession', `ensureFaviconRepairForSession: reason=${reason}, attempt ${attempts}`);
-      await performTabChecks();
+      gsUtils.log('gsSession', `ensureFaviconRepairForSession: reason=${reason}, attempt ${attempts}${skipPass ? ' (verify only)' : ''}`);
+      if (!skipPass) await performTabChecks();
       await verifyAndRecordFaviconRepair(reason);
     }
     catch (error) {
