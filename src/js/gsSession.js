@@ -363,6 +363,11 @@ export const gsSession = (function() {
             armFaviconRepairAlarm();
           }
         }
+        // A mandatory (startup) pass that threw must propagate: runStartupChecks() would
+        // otherwise carry on and clear gsInitialisationMode without its responsiveness /
+        // discarded-tab recovery having run. Non-mandatory cycles swallow the error (the
+        // alarm retry above covers them).
+        if (mandatory) throw error;
       }
       finally {
         _faviconRepairLastFinishedAt = Date.now();
@@ -386,8 +391,10 @@ export const gsSession = (function() {
   // / done bookkeeping — it's a user-forced repair, wanted even after the backstop has
   // stood down. Returns performTabChecks()'s { total, successful } for debug.html.
   async function repairFaviconsNow() {
+    // Wait out any in-flight cycle. Swallow its rejection — a mandatory startup cycle
+    // rethrows, and that failure is runStartupChecks()'s to surface, not this action's.
     while (_faviconRepairPromise) {
-      await _faviconRepairPromise;
+      await _faviconRepairPromise.catch(() => {});
     }
     _faviconRepairPromise = (async () => {
       try {

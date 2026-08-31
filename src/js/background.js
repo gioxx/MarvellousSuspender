@@ -140,11 +140,15 @@ import  { tgs }                   from './tgs.js';
   // only records that startup was *attempted*, not that the favicon pass finished. This
   // independent session flag (set by gsSession only once the pass confirms every
   // repairable suspended-tab favicon is good) tracks the favicon pass specifically. While
-  // it is unset, every service-worker spawn re-arms a one-shot alarm that retries the
+  // it is unset, each service-worker spawn ensures a one-shot alarm exists to retry the
   // pass; once set, nothing re-arms, so installs where onStartup already works see at most
-  // one extra no-op wake (and even that is cancelled when the fast path wins the race).
-  gsStorage.getStorage('session', 'gsFaviconRepairDone').then((done) => {
-    if (!done) {
+  // one extra wake. Only create the alarm when none is pending — an unconditional
+  // create() replaces the pending one and restarts its ~30s delay, so rapid worker
+  // recycling (exactly the environment this targets) could otherwise postpone it forever.
+  gsStorage.getStorage('session', 'gsFaviconRepairDone').then(async (done) => {
+    if (done) return;
+    const existing = await chrome.alarms.get(gsSession.FAVICON_REPAIR_ALARM_NAME);
+    if (!existing) {
       chrome.alarms.create(gsSession.FAVICON_REPAIR_ALARM_NAME, { delayInMinutes: 0.5 });
     }
   });
