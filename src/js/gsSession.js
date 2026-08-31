@@ -225,15 +225,21 @@ export const gsSession = (function() {
   // Count open suspended tabs whose favicon is one performTabChecks() can actually fix:
   // missing (favEmpty) or the TMS extension icon (favExtension, the #474 symptom). A
   // valid-but-generic data: favicon (favDefault) is a separate known limitation handled
-  // by Tab Health, so it is deliberately not counted here.
+  // by Tab Health, so it is deliberately not counted here. Both the current and the
+  // legacy-mascot extension-icon URLs are matched regardless of the gsLegacyMascot
+  // setting: a tab can still carry the other variant after the option was toggled, and
+  // either one is equally "not the real site favicon".
   async function countTabsWithBrokenSuspendedFavicon() {
-    const extensionFaviconUrl = chrome.runtime.getURL('img/ic_suspendy_16x16.webp');
+    const extensionFaviconUrls = [
+      chrome.runtime.getURL('img/ic_suspendy_16x16.webp'),
+      chrome.runtime.getURL('img/legacy/ic_suspendy_16x16.webp'),
+    ];
     const tabs = await gsChrome.tabsQuery();
     let broken = 0;
     for (const tab of tabs) {
       if (!gsUtils.isSuspendedTab(tab)) continue;
       const fav = tab.favIconUrl;
-      if (!fav || fav === extensionFaviconUrl) broken++;
+      if (!fav || extensionFaviconUrls.includes(fav)) broken++;
     }
     return broken;
   }
