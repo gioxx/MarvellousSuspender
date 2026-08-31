@@ -324,7 +324,11 @@ export const gsTabQueue = (function() {
       }
 
       function resolveTabPromise(tabDetails, result) {
-        if (!_tabDetailsByTabId[tabDetails.tab.id]) {
+        // Identity, not just presence: a timed-out job whose pendingRerun has already
+        // been scheduled has a *fresh* tabDetails under this same id. A late callback
+        // from the old executor must not remove that replacement (which would strand its
+        // deferred forever).
+        if (_tabDetailsByTabId[tabDetails.tab.id] !== tabDetails) {
           return;
         }
         gsUtils.log(tabDetails.tab.id, _queueId, 'Queued tab resolved. Result: ', result);
@@ -355,7 +359,11 @@ export const gsTabQueue = (function() {
       }
 
       function rejectTabPromise(tabDetails, error) {
-        if (!_tabDetailsByTabId[tabDetails.tab.id]) {
+        // Identity, not just presence: a timed-out job whose pendingRerun has already
+        // been scheduled has a *fresh* tabDetails under this same id. A late callback
+        // from the old executor must not remove that replacement (which would strand its
+        // deferred forever).
+        if (_tabDetailsByTabId[tabDetails.tab.id] !== tabDetails) {
           return;
         }
         gsUtils.log(tabDetails.tab.id, _queueId, 'Queued tab rejected. Error: ', error);
