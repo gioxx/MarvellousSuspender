@@ -362,9 +362,14 @@ export const gsSession = (function() {
       }
       catch (error) {
         gsUtils.error('gsSession', `favicon repair (${reason}) cycle failed`, error);
-        // The attempt was already persisted before the pass, so a persistent failure
-        // still walks toward the cap. Just keep a retry scheduled.
-        if (!finalised) armFaviconRepairAlarm();
+        if (!finalised) {
+          // A failed cycle leaves the tab set uncertain — reset the clean streak so a
+          // single clean cycle after it can't be counted as the second confirmation.
+          // The attempt was already persisted before the pass, so a persistent failure
+          // still walks toward the cap. Just keep a retry scheduled.
+          await gsStorage.saveStorage('session', FAVICON_REPAIR_CLEAN_STREAK_KEY, 0);
+          armFaviconRepairAlarm();
+        }
         // Only a failure of the mandatory pass itself is the caller's to see — it must
         // stop runStartupChecks() from clearing gsInitialisationMode before its
         // responsiveness / discarded-tab recovery has run. A later favicon-only failure
