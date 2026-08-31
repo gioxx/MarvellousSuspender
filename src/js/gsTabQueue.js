@@ -97,8 +97,19 @@ export const gsTabQueue = (function() {
         }
 
         if (delay && isValidInteger(delay, 1)) {
-          gsUtils.log(tab.id, _queueId, `Sleeping tab for ${delay}ms`);
-          sleepTab(tabDetails, delay);
+          if (tabDetails.status === STATUS_IN_PROGRESS) {
+            // An executor is already running this tab. sleepTab() would flip it
+            // IN_PROGRESS -> SLEEPING -> QUEUED after `delay`, and processQueue() would
+            // then start a second executor for it alongside the first (double
+            // init/discard of the same tab). Leave the running executor to finish; the
+            // merged executionProps above ride along, and its own requeue path (or the
+            // caller's next scan) covers any follow-up.
+            gsUtils.log(tab.id, _queueId, 'Tab already in progress; not re-sleeping.');
+          }
+          else {
+            gsUtils.log(tab.id, _queueId, `Sleeping tab for ${delay}ms`);
+            sleepTab(tabDetails, delay);
+          }
         }
         else {
           // If tab is already marked as sleeping then wake it up
