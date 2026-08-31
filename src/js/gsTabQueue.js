@@ -104,13 +104,23 @@ export const gsTabQueue = (function() {
             // init/discard of the same tab). Instead, record the follow-up so it runs as
             // a fresh job once the current one finishes (see resolveTabPromise /
             // rejectTabPromise) — some follow-ups matter, e.g. tgs.js re-queuing a
-            // now-inactive tab specifically so it gets discarded.
+            // now-inactive tab specifically so it gets discarded, or
+            // performInitialisationTabChecks()'s delayed { resuspend: true } check.
             const prev = tabDetails.pendingRerun;
+            // Its own deferred promise, resolved from the rerun job (not the current one),
+            // so a caller awaiting this — e.g. performInitialisationTabChecks()'s
+            // Promise.all() — doesn't see completion until the follow-up has actually run.
+            const deferred = (prev && prev.deferred) || createDeferredPromise();
+            if (!prev) {
+              deferred.catch(() => {}); // fire-and-forget callers keep no handle
+            }
             tabDetails.pendingRerun = {
               executionProps: Object.assign({}, prev && prev.executionProps, executionProps),
               delay: Math.max(delay, (prev && prev.delay) || 0),
+              deferred,
             };
             gsUtils.log(tab.id, _queueId, 'Tab already in progress; follow-up run queued for after it completes.');
+            return deferred;
           }
           else {
             gsUtils.log(tab.id, _queueId, `Sleeping tab for ${delay}ms`);
@@ -336,11 +346,12 @@ export const gsTabQueue = (function() {
         delete tabDetails.pendingRerun;
         gsUtils.log(tabDetails.tab.id, _queueId, 'Starting the follow-up queued while the previous check was in progress.');
         const p = queueTabAsPromise(tabDetails.tab, rerun.executionProps, rerun.delay);
-        // The original requester (e.g. tgs.js's fire-and-forget queueTabCheck) kept no
-        // handle on this rerun, so absorb a rejection here rather than leave it unhandled.
-        if (p && typeof p.catch === 'function') {
-          p.catch(() => {});
-        }
+        // Settle the promise handed to the follow-up's requester from the fresh job's
+        // outcome, not from the job that just finished.
+        Promise.resolve(p).then(
+          (result) => rerun.deferred.resolve(result),
+          (error) => rerun.deferred.reject(error),
+        );
       }
 
       function rejectTabPromise(tabDetails, error) {
