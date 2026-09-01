@@ -26,6 +26,12 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "Anular suspensión de todas las pestañas del grupo de la pestaña activa"
   },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Suspender todas las pestañas que no están en un grupo en la ventana activa"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Anular suspensión de todas las pestañas que no están en un grupo en la ventana activa"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todas las demás pestañas en la ventana activa"
   },
@@ -70,6 +76,12 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "Anular suspensión de todas las pestañas de este grupo"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Suspender todas las pestañas que no están en un grupo"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Anular suspensión de todas las pestañas que no están en un grupo"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas las demás pestañas en esta ventana"
