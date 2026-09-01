@@ -393,6 +393,15 @@ export const gsSession = (function() {
     if (chrome.extension.inIncognitoContext) return;
     if (await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY)) return;
     await runFaviconRepairCycle(reason, { runPass: true });
+    // This runs off the consumed one-shot alarm (or an onActivated). If the cycle above
+    // coalesced into an in-flight manual repairFaviconsNow() — which does no bookkeeping
+    // and no re-arm — or otherwise left the backstop unfinalised with nothing scheduled,
+    // make sure a retry is still queued. Idempotent: a normal non-finalising cycle has
+    // already armed one, a finalising cycle set the done flag.
+    if (!(await gsStorage.getStorage('session', FAVICON_REPAIR_DONE_KEY))) {
+      const existing = await chrome.alarms.get(FAVICON_REPAIR_ALARM_NAME);
+      if (!existing) armFaviconRepairAlarm();
+    }
   }
 
   // Manual "Repair favicons now" (#449 debug action). Serialised against the backstop's
