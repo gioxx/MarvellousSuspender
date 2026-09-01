@@ -1,6 +1,7 @@
 // @ts-check
 import  { gsChrome }              from './gsChrome.js';
 import  { gsFavicon }             from './gsFavicon.js';
+import  { gsMascot }              from './gsMascot.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
@@ -11,6 +12,11 @@ import  { gsSession }             from './gsSession.js';
 (() => {
 
   const PACING  = 100;
+
+  // Both the current and legacy-mascot extension-favicon URLs (see gsMascot). A suspended
+  // tab showing either one has the TMS icon, not the real site favicon — true even for a
+  // tab left carrying the opposite variant after gsLegacyMascot was toggled.
+  const EXTENSION_FAVICON_URLS = gsMascot.resolveBothUrls('img/ic_suspendy_16x16.webp');
 
   /**
    * @param   { string }      id
@@ -289,7 +295,7 @@ import  { gsSession }             from './gsSession.js';
 
         if (tab.favIconUrl) {
           const faviconMeta = await gsFavicon.buildFaviconMeta(tab.favIconUrl);
-          const isExtension = (tab.favIconUrl === chrome.runtime.getURL('img/ic_suspendy_16x16.webp'));
+          const isExtension = EXTENSION_FAVICON_URLS.includes(tab.favIconUrl);
           const isValid     = await gsFavicon.isFaviconMetaValid(faviconMeta);
 
           if (isExtension) {

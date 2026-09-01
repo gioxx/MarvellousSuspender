@@ -61,6 +61,28 @@ export const gsMascot = (() => {
   }
 
   /**
+   * Both the default and (if it has one) the legacy `chrome.runtime.getURL()` for an
+   * asset, regardless of the current gsLegacyMascot setting. Synchronous, no setting
+   * read. Use this when the question is "is this URL one of our mascot/icon assets"
+   * (either variant) rather than "which variant should I render now" — e.g. deciding a
+   * suspended tab's favicon is still the extension icon and not the real site favicon,
+   * which must hold true even for a tab left carrying the opposite variant after the
+   * option was toggled.
+   * @param { string } defaultPath  e.g. 'img/ic_suspendy_16x16.webp'
+   * @returns { string[] }
+   */
+  function resolveBothUrls(defaultPath) {
+    const hasLeadingSlash = defaultPath[0] === '/';
+    const key = hasLeadingSlash ? defaultPath.slice(1) : defaultPath;
+    const urls = [chrome.runtime.getURL(defaultPath)];
+    const mapped = LEGACY_MAP[key];
+    if (mapped) {
+      urls.push(chrome.runtime.getURL(hasLeadingSlash ? `/${mapped}` : mapped));
+    }
+    return urls;
+  }
+
+  /**
    * Rewrites all <img src> and <link rel="icon" href> in the given document
    * to match the current legacy mascot setting (in either direction, so this
    * is also safe to call again after the option has just been toggled).
@@ -83,6 +105,7 @@ export const gsMascot = (() => {
     isLegacyEnabled,
     resolvePath,
     resolveUrl,
+    resolveBothUrls,
     applyToDocument,
   };
 
