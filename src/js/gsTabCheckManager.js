@@ -271,23 +271,23 @@ export const gsTabCheckManager = (function() {
     // A tab Chrome has frozen (MV3 tab freezing — common for background suspended tabs
     // during a busy cold start) can't answer the getSuspendInfo/initTab messages below:
     // the sendMessage just hangs until the 60s job timeout, which then logs a
-    // "Failed to initialise tab … timeout" warning and gives up. But a frozen tab is
-    // not necessarily a fully initialised one — Chrome can freeze a status:complete page
-    // while its initialiseSuspendedTab() work is still queued behind the concurrency
-    // limiter — so only accept it here when the visible invariants (title + data: favicon)
-    // are already in place. If they are, there is nothing useful left to verify by
-    // message; if they are not, requeue for a later pass rather than reporting a
-    // half-initialised tab as a success (it will be re-checked when it thaws, or when a
-    // later pass finds it initialised; a genuinely stuck frozen-and-blank tab still ends
-    // in the normal requeue-cap failure path).
+    // "Failed to initialise tab … timeout" warning and gives up. Resolve it here instead
+    // of stalling a queue slot on that timeout.
+    //
+    // A frozen tab isn't necessarily a fully initialised one — Chrome can freeze a
+    // status:complete page before its initialiseSuspendedTab() work (title/favicon) has
+    // run. But a frozen page can't establish those invariants until it thaws, and
+    // requeuing until then would just hold performInitialisationTabChecks()'s Promise.all
+    // pending (gsInitialisationMode stuck on) until the queue's ~5-minute requeue cap,
+    // ending in the same timeout warning and failed tally this avoids. So resolve
+    // STATUS_SUSPENDED either way — a still-blank frozen tab is repaired when it is next
+    // focused (its own responsiveness check) or, for the favicon, by the #474 backstop.
     if (tab.frozen) {
-      if (ensureSuspendedTabTitleAndFaviconSet(tab)) {
-        gsUtils.log(tab.id, QUEUE_ID, 'Tab is frozen but title and favicon are already set. Accepting without a responsiveness check.');
-        resolve(gsUtils.STATUS_SUSPENDED);
-        return;
-      }
-      gsUtils.log(tab.id, QUEUE_ID, 'Tab is frozen and not yet initialised. Requeuing for a later pass.');
-      requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
+      const logLine = ensureSuspendedTabTitleAndFaviconSet(tab)
+        ? 'Tab is frozen but already initialised. Accepting without a responsiveness check.'
+        : 'Tab is frozen before initialisation completed. Accepting; will be re-checked on focus / by the favicon backstop.';
+      gsUtils.log(tab.id, QUEUE_ID, logLine);
+      resolve(gsUtils.STATUS_SUSPENDED);
       return;
     }
 
