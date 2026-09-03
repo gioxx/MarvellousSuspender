@@ -249,6 +249,20 @@ export const gsTabCheckManager = (function() {
       }
     }
 
+    // A tab Chrome has frozen (MV3 tab freezing — common for background suspended tabs
+    // during a busy cold start) can't answer the getSuspendInfo/initTab messages below:
+    // the sendMessage just hangs until the 60s job timeout, which then logs a
+    // "Failed to initialise tab … timeout" warning and gives up. Chrome only freezes a
+    // tab that already finished loading, so its title and favicon were applied before it
+    // froze, and it thaws on the next focus/interaction — which fires its own
+    // onUpdated-driven check. Nothing useful can happen here now, so accept it as a valid
+    // suspended tab rather than stalling a queue slot and emitting a spurious warning.
+    if (tab.frozen) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab is frozen. Skipping responsiveness check; Chrome will re-trigger one when it thaws.');
+      resolve(gsUtils.STATUS_SUSPENDED);
+      return;
+    }
+
     // Make sure tab is registered as a 'view' of the extension
     if (!(await gsChrome.contextGetByTabId(tab.id))) {
       gsUtils.log(tab.id, QUEUE_ID, 'Could not find an internal view for suspended tab.', tab);

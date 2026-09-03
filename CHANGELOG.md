@@ -7,6 +7,11 @@ The project adheres (pragmatically) to [Semantic Versioning](https://semver.org/
 
 Entries under "Unreleased" live on a feature branch until merged into `master`.
 
+## [Unreleased]
+
+### Fixed
+- **Frozen suspended tabs logged a spurious "Failed to initialise tab … timeout" and were counted as init failures during a busy cold start** (`gsTabCheckManager.js`): when Chrome freezes a backgrounded suspended tab (MV3 tab freezing, common while dozens of tabs restore at once), `checkSuspendedTab()`'s `getSuspendInfo`/`initTab` `chrome.tabs.sendMessage()` calls get no answer and hang until the queue's 60s job timeout, which then emits a `[W] Failed to initialise tab … timeout` and resolves the check as failed — dragging the startup tally down (e.g. `40 / 46 initialised successfully`) even though every such tab is a perfectly valid suspended placeholder whose title and favicon were already applied before it froze. Chrome only freezes a fully-loaded tab and thaws it on the next focus/interaction, which fires its own `onUpdated`-driven check, so `checkSuspendedTab()` now short-circuits on `tab.frozen`: it logs an informational line and resolves `STATUS_SUSPENDED` immediately instead of stalling a queue slot for 60s and logging a warning that looks like a real problem. The unsuspended-tab path (`checkNormalTab()`) is deliberately left unchanged.
+
 ## [9.0.3] — 2026-09-01
 
 ### Added
