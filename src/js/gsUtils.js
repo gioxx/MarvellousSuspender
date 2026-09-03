@@ -250,7 +250,11 @@ export const gsUtils = {
     }
   },
   highlight(text, ...args) {
-    gsUtils.log('highlight: %s %c%s', 'color:red', text, ...args);
+    // The console.log path in log() is gated behind gsUtils.debugInfo, which nothing ever
+    // enables — the only live sink is the captured log buffer, which does no printf-style
+    // %s/%c substitution. Passing a console format string here just leaked a literal
+    // "highlight: %s %c%s" + "color:red" into every buffered line for no benefit.
+    gsUtils.log('highlight', text, ...args);
   },
   warning(id, text, ...args) {
     args = args || [];
