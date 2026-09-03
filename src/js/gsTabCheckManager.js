@@ -219,8 +219,12 @@ export const gsTabCheckManager = (function() {
     gsUtils.log(tab.id, QUEUE_ID, 'checkSuspendedTab', tab.url);
     if (executionProps.resuspend && !executionProps.resuspended) {
       await gsUtils.resuspendSuspendedTab(tab);
+      // refetchTab so the next pass re-reads the tab after the resuspend reload rather
+      // than trusting this now-stale snapshot (status, frozen, groupId can all have
+      // changed). Matches the resuspend requeue in the missing-view branch below.
       requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, {
         resuspended: true,
+        refetchTab: true,
       });
       return;
     }
