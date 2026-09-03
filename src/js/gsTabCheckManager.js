@@ -253,6 +253,21 @@ export const gsTabCheckManager = (function() {
       }
     }
 
+    // If tab is a file:// tab and file is blocked then unsuspend tab. Handled before the
+    // frozen-tab shortcut below because this only navigates the tab (no message to the
+    // page), so it must still run for a frozen blocked-file tab rather than being
+    // pre-empted by that shortcut reporting it as a healthy suspended tab.
+    if (!gsSession.isFileUrlsAccessAllowed()) {
+      const url = tab.url || tab.pendingUrl;
+      const originalUrl = gsUtils.getOriginalUrl(url);
+      if (originalUrl && originalUrl.indexOf('file') === 0) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Unsuspending blocked local file tab.');
+        await gsChrome.tabsUpdate(tab.id, { url: originalUrl });
+        requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
+        return;
+      }
+    }
+
     // A tab Chrome has frozen (MV3 tab freezing — common for background suspended tabs
     // during a busy cold start) can't answer the getSuspendInfo/initTab messages below:
     // the sendMessage just hangs until the 60s job timeout, which then logs a
@@ -310,18 +325,6 @@ export const gsTabCheckManager = (function() {
       // Queue a refresh as tab may no longer exist
       requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
       return;
-    }
-
-    // If tab is a file:// tab and file is blocked then unsuspend tab
-    if (!gsSession.isFileUrlsAccessAllowed()) {
-      const url = tab.url || tab.pendingUrl;
-      const originalUrl = gsUtils.getOriginalUrl(url);
-      if (originalUrl && originalUrl.indexOf('file') === 0) {
-        gsUtils.log(tab.id, QUEUE_ID, 'Unsuspending blocked local file tab.');
-        await gsChrome.tabsUpdate(tab.id, { url: originalUrl });
-        requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
-        return;
-      }
     }
 
     const attemptDiscarding =
