@@ -256,14 +256,23 @@ export const gsTabCheckManager = (function() {
     // A tab Chrome has frozen (MV3 tab freezing — common for background suspended tabs
     // during a busy cold start) can't answer the getSuspendInfo/initTab messages below:
     // the sendMessage just hangs until the 60s job timeout, which then logs a
-    // "Failed to initialise tab … timeout" warning and gives up. Chrome only freezes a
-    // tab that already finished loading, so its title and favicon were applied before it
-    // froze, and it thaws on the next focus/interaction — which fires its own
-    // onUpdated-driven check. Nothing useful can happen here now, so accept it as a valid
-    // suspended tab rather than stalling a queue slot and emitting a spurious warning.
+    // "Failed to initialise tab … timeout" warning and gives up. But a frozen tab is
+    // not necessarily a fully initialised one — Chrome can freeze a status:complete page
+    // while its initialiseSuspendedTab() work is still queued behind the concurrency
+    // limiter — so only accept it here when the visible invariants (title + data: favicon)
+    // are already in place. If they are, there is nothing useful left to verify by
+    // message; if they are not, requeue for a later pass rather than reporting a
+    // half-initialised tab as a success (it will be re-checked when it thaws, or when a
+    // later pass finds it initialised; a genuinely stuck frozen-and-blank tab still ends
+    // in the normal requeue-cap failure path).
     if (tab.frozen) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Tab is frozen. Skipping responsiveness check; Chrome will re-trigger one when it thaws.');
-      resolve(gsUtils.STATUS_SUSPENDED);
+      if (ensureSuspendedTabTitleAndFaviconSet(tab)) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Tab is frozen but title and favicon are already set. Accepting without a responsiveness check.');
+        resolve(gsUtils.STATUS_SUSPENDED);
+        return;
+      }
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab is frozen and not yet initialised. Requeuing for a later pass.');
+      requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
       return;
     }
 
