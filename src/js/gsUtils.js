@@ -216,6 +216,7 @@ export const gsUtils = {
   STATUS_TEMPWHITELIST  : 'tempWhitelist',
   STATUS_PINNED         : 'pinned',
   STATUS_APP_WINDOW     : 'appWindow',
+  STATUS_GROUPED_TAB    : 'groupedTab',
   STATUS_WHITELISTED    : 'whitelisted',
   STATUS_CHARGING       : 'charging',
   STATUS_NOCONNECTIVITY : 'noConnectivity',
@@ -505,6 +506,26 @@ export const gsUtils = {
   isProtectedAppWindowTab: async (tab) => {
     const ignoreAppWindows = await gsStorage.getOption(gsStorage.IGNORE_APP_WINDOWS);
     return ignoreAppWindows && await gsUtils.isTabInAppWindow(tab);
+  },
+
+  // #133: unlike the app-window check above, this needs no chrome API call at all —
+  // tab.groupId is already on every tab object the suspension checks are handed, and an
+  // ungrouped tab reports chrome.tabGroups.TAB_GROUP_ID_NONE. Guard style (and the
+  // typeof check, for tab objects deserialised from a saved session that predate the
+  // property) matches tgs.js's suspendTabGroup()/unsuspendTabGroup().
+  //
+  // Kept separate from isProtectedGroupedTab() below for the same reason isTabInAppWindow()
+  // is split out from isProtectedAppWindowTab(): performPostSaveUpdates()'s timer-reset
+  // predicate runs *after* the setting has already flipped to its new value, so asking
+  // through the setting-gated version would re-read the already-off setting and always
+  // report false, never re-arming the timer of a tab that was protected until a moment ago.
+  isTabInGroup: (tab) => {
+    return !!tab && typeof tab.groupId === 'number' && tab.groupId !== chrome.tabGroups.TAB_GROUP_ID_NONE;
+  },
+
+  isProtectedGroupedTab: async (tab) => {
+    const ignoreGroupedTabs = await gsStorage.getOption(gsStorage.IGNORE_GROUPED_TABS);
+    return ignoreGroupedTabs && gsUtils.isTabInGroup(tab);
   },
 
   // Note: Normal tabs may be in a discarded state
@@ -1065,11 +1086,12 @@ export const gsUtils = {
         }
 
         if (gsUtils.isSuspendedTab(tab)) {
-          //If toggling IGNORE_PINNED, IGNORE_ACTIVE_TABS or IGNORE_APP_WINDOWS to TRUE, then unsuspend any suspended pinned/active/app-window tabs
+          //If toggling IGNORE_PINNED, IGNORE_ACTIVE_TABS, IGNORE_APP_WINDOWS or IGNORE_GROUPED_TABS to TRUE, then unsuspend any suspended pinned/active/app-window/grouped tabs
           if (
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && (await gsUtils.isProtectedPinnedTab(tab))) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab))) ||
-            (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && (await gsUtils.isProtectedAppWindowTab(tab)))
+            (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && (await gsUtils.isProtectedAppWindowTab(tab))) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_GROUPED_TABS) && (await gsUtils.isProtectedGroupedTab(tab)))
           ) {
             await tgs.unsuspendTab(tab);
             continue;
@@ -1156,6 +1178,7 @@ export const gsUtils = {
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && !settings[gsStorage.IGNORE_PINNED] && tab.pinned) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_AUDIO) && !settings[gsStorage.IGNORE_AUDIO] && tab.audible) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && !settings[gsStorage.IGNORE_APP_WINDOWS] && await gsUtils.isTabInAppWindow(tab)) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_GROUPED_TABS) && !settings[gsStorage.IGNORE_GROUPED_TABS] && gsUtils.isTabInGroup(tab)) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_OFFLINE) && !settings[gsStorage.IGNORE_WHEN_OFFLINE] && !navigator.onLine) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_CHARGING) && !settings[gsStorage.IGNORE_WHEN_CHARGING] && await tgs.isCharging()) ||
             (changedSettingKeys.includes(gsStorage.WHITELIST) &&
