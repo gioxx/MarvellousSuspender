@@ -4,6 +4,7 @@ import  { gsMascot }              from './gsMascot.js';
 import  { gsNewsFeed }            from './gsNewsFeed.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
+import  { tgs }                   from './tgs.js';
 
 (() => {
 
@@ -54,8 +55,8 @@ import  { gsUtils }               from './gsUtils.js';
     orange : '#fa903e',
   };
 
-  // Groups are added from the context menu, where the group being acted on is unambiguous.
-  // This list is for reviewing and removing them (#133).
+  // Groups are added from the context menu, where the group being acted on is unambiguous and
+  // has to be a named one. This list is for reviewing and removing them (#133).
   async function renderNeverSuspendGroups() {
     const listEl        = document.getElementById('neverSuspendGroupsList');
     const emptyEl       = document.getElementById('neverSuspendGroupsEmpty');
@@ -63,12 +64,31 @@ import  { gsUtils }               from './gsUtils.js';
       await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS),
     );
     const groupKeys     = storedList ? storedList.split('\n') : [];
-    // How many groups each stored key matches right now. A key is a colour and a title, so
-    // one entry can cover several groups at once, and an untitled group's key is just its
-    // colour. Showing the count makes that breadth visible instead of leaving the user to
-    // discover it, and makes a leftover entry from a rename obvious rather than invisible.
-    const openGroups = await chrome.tabGroups.query({});
-    const matchesFor = (key) => openGroups.filter((g) => gsUtils.getTabGroupKey(g) === key).length;
+    // How many open groups each stored key matches right now. A key is a name and a colour,
+    // not a group, so one entry still covers two groups the user named the same thing, and an
+    // entry left behind by a rename matches nothing at all: a rename adds the new key and
+    // never retires the old one, so "matches 0 open groups" is the signal that a line is a
+    // leftover and safe to remove. Resolved the same way the service worker matches a tab,
+    // which for a group whose title the user has cleared is the last name it wore, so an
+    // entry still doing its job does not read as a leftover.
+    const openGroups     = await chrome.tabGroups.query({});
+    const openGroupKeys  = await Promise.all(openGroups.map(async (group) => {
+      const liveKey = gsUtils.getTabGroupKey(group);
+      if (liveKey !== null) {
+        return liveKey;
+      }
+      try {
+        // chrome.storage.session, which this reads through, is open to extension pages at the
+        // default access level. Guarded anyway: the count is a hint, and an untitled group
+        // going uncounted is a far better outcome than the whole list failing to render.
+        return (await tgs.getRememberedTabGroupKeys(group.id)).at(-1) ?? null;
+      }
+      catch (e) {
+        gsUtils.warning('options', 'renderNeverSuspendGroups', 'could not read the tab group key cache', e);
+        return null;
+      }
+    }));
+    const matchesFor = (key) => openGroupKeys.filter((openKey) => openKey === key).length;
 
     listEl.innerHTML = '';
     emptyEl.classList.toggle('reallyHidden', groupKeys.length > 0);
@@ -76,6 +96,8 @@ import  { gsUtils }               from './gsUtils.js';
     for (const groupKey of groupKeys) {
       const group = gsUtils.parseTabGroupKey(groupKey);
       if (!group) {
+        // Not a colour plus a real title. cleanupTabGroupList() above already drops those, so
+        // this is belt and braces against a key shape this build cannot produce.
         continue;
       }
 
@@ -92,12 +114,8 @@ import  { gsUtils }               from './gsUtils.js';
 
       const title = document.createElement('span');
       title.className = 'tabGroupTitle';
-      // textContent, never innerHTML: a tab group title is free text the user typed. An
-      // unnamed group carries an empty one, which is a real value rather than a missing
-      // one, hence the explicit comparison.
-      title.textContent = group.title === ''
-        ? gsUtils.getMessage('js_options_never_suspend_groups_unnamed')
-        : group.title;
+      // textContent, never innerHTML: a tab group title is free text the user typed.
+      title.textContent = group.title;
       li.appendChild(title);
 
       const matches = document.createElement('span');

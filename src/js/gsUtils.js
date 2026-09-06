@@ -513,7 +513,7 @@ export const gsUtils = {
     if (!neverSuspendGroups) {
       return false;
     }
-    const groupKey = await gsUtils.getTabGroupKeyForTab(tab);
+    const groupKey = await gsUtils.getMatchableTabGroupKeyForTab(tab);
     return groupKey !== null && gsUtils.checkSpecificNeverSuspendGroups(groupKey, neverSuspendGroups);
   },
 
@@ -623,33 +623,74 @@ export const gsUtils = {
   // Chrome's numeric tab group ids are not stable across restarts (#133), so an exempt
   // group is remembered as "<color>:<title>" instead. Colors come from Chrome's own fixed
   // enum and never contain a colon, titles can, hence the split on the first one only.
+  // Returns null for a group with no title: only named groups can be exempted. A colour on
+  // its own is not an identifier, it is a category that matches every untitled group of that
+  // colour, including ones the user creates later and has no reason to go and inspect.
   getTabGroupKey(group) {
     // Normalised here, at the single producer, so the live key can never disagree with the
     // stored form. The list is one entry per line and each line is trimmed on the way in, so
     // a title with trailing whitespace (Chrome keeps it) or a newline in it (another
     // extension can set one through tabGroups.update) would otherwise produce a key no
     // stored entry can ever equal: toggling would appear to work and the group would just
-    // never be protected.
-    return `${group.color}:${group.title ?? ''}`.replace(/[\r\n]+/g, ' ').trim();
+    // never be protected. The named-group test runs on the normalised title, not the raw
+    // one, or a title of nothing but spaces would slip through and produce the bare colour
+    // key that the whole rule exists to prevent.
+    const title = (group?.title ?? '').replace(/[\r\n]+/g, ' ').trim();
+    if (!title) {
+      return null;
+    }
+    return `${group.color}:${title}`;
   },
 
+  // Null for anything that is not a colour and a real title, which also makes it the test
+  // for "is this a key this build could have produced".
   parseTabGroupKey(groupKey) {
     const separatorIndex = (groupKey ?? '').indexOf(':');
     if (separatorIndex === -1) {
       return null;
     }
+    const title = groupKey.substring(separatorIndex + 1);
+    if (!title.trim()) {
+      return null;
+    }
     return {
       color : groupKey.substring(0, separatorIndex),
-      title : groupKey.substring(separatorIndex + 1),
+      title,
     };
   },
 
+  // The key a tab's group can be EXEMPTED under: strictly the live group's own key, so an
+  // untitled group is null however it got that way. Used by the toggle and by the context
+  // menu items' enabled state.
   getTabGroupKeyForTab: async (tab) => {
     if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
       return null;
     }
     const group = await gsChrome.tabGroupsGet(tab.groupId);
     return group ? gsUtils.getTabGroupKey(group) : null;
+  },
+
+  // The key a tab's group is MATCHED by, which is not the same question. It is the group's
+  // own key while it has a title, and otherwise the last named key that group id wore this
+  // browser session (tgs.js keeps them). Clearing the title off an exempted group would
+  // otherwise unprotect it on the spot and say nothing, which is the failure this feature is
+  // designed against; a group with its name rubbed out is still the group the user marked.
+  // Across a browser restart that memory is gone and so is the protection, but by then so is
+  // every other way of telling which group it was: the id is new and the title is empty.
+  getMatchableTabGroupKeyForTab: async (tab) => {
+    if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
+      return null;
+    }
+    const group = await gsChrome.tabGroupsGet(tab.groupId);
+    if (!group) {
+      return null;
+    }
+    const groupKey = gsUtils.getTabGroupKey(group);
+    if (groupKey !== null) {
+      return groupKey;
+    }
+    const wornKeys = await tgs.getRememberedTabGroupKeys(tab.groupId);
+    return wornKeys.at(-1) ?? null;
   },
 
   checkSpecificNeverSuspendGroups(groupKey, listString) {
@@ -661,7 +702,7 @@ export const gsUtils = {
   // reconciles its own tabs directly (tgs.setTabGroupNeverSuspend), and the re-save of the
   // value it just wrote leaves this key out of changedSettingKeys entirely.
   tabGroupLeftNeverSuspendList: async (tab, oldList, newList) => {
-    const groupKey = await gsUtils.getTabGroupKeyForTab(tab);
+    const groupKey = await gsUtils.getMatchableTabGroupKeyForTab(tab);
     return groupKey !== null
       && gsUtils.checkSpecificNeverSuspendGroups(groupKey, oldList)
       && !gsUtils.checkSpecificNeverSuspendGroups(groupKey, newList);
@@ -669,11 +710,17 @@ export const gsUtils = {
 
   // Deliberately not cleanupWhitelist(): that splits on /[\s\n]+/, which would tear any
   // group title containing a space into separate, meaningless entries.
+  // Lines that are not a colour plus a real title are dropped rather than kept, which is not
+  // the extension retiring someone's exemption: a title-less key cannot be produced by
+  // getTabGroupKey() and so can never match any group again, whether it arrived from a
+  // pre-named-groups build of this feature over sync or from a hand-edited settings backup.
+  // Keeping it would mean a line that protects nothing, is not rendered in Options, and
+  // therefore cannot be removed there either.
   cleanupTabGroupList(listString) {
     const listItems = new Set();
     for (const line of (listString ?? '').split('\n')) {
       const item = line.trim();
-      if (item) {
+      if (item && gsUtils.parseTabGroupKey(item)) {
         listItems.add(item);
       }
     }
