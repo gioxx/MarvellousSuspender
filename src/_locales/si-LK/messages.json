@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා/අත්හිටුවීමට ඉඩ දෙන්න"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා (නම් කළ සමූහ පමණි)"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "මෙම කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"
   },
@@ -584,7 +587,7 @@
     "message": "මෙම සමූහවල ඇති ටැබ් කිසිවිටෙක ස්වයංක්‍රීයව අත්හිටුවන්නේ නැත, තොග අත්හිටුවීම් ක්‍රියාවලදීද මඟහරිනු ලැබේ."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "දකුණු-ක්ලික් මෙනුවේ ඇති \"මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා\" මගින් සමූහයක් එක් කරන්න."
+    "message": "දකුණු-ක්ලික් මෙනුවේ ඇති \"මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා\" මගින් සමූහයක් එක් කරන්න. නමක් ඇති සමූහ පමණක් එක් කළ හැකිය."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "සමූහ නම සහ වර්ණය අනුව ගැළපේ, බ්‍රවුසරය විවෘතව පවතින තෙක් නම් වෙනස් කිරීම් අනුගමනය කරයි."
@@ -998,9 +1001,6 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "වත්මන් සැමවිට-අත්හිටුවන ලැයිස්තුවට ගැළපෙන විවෘත ටැබ් නොමැත."
-  },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "(නම් නොකළ සමූහය)"
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "ගැළපෙන විවෘත සමූහ ගණන: $count$",

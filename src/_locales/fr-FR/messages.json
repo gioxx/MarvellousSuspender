@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "Ne jamais suspendre/Autoriser la suspension de ce groupe"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "Ne jamais suspendre ce groupe (groupes nommés uniquement)"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspendre tous les autres onglets de cette fenêtre"
   },
@@ -850,9 +853,6 @@
   "js_options_always_suspend_no_matches": {
     "message": "Aucun onglet ouvert ne correspond à la liste de suspension forcée actuelle."
   },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "(groupe sans nom)"
-  },
   "js_options_never_suspend_groups_open_count": {
     "message": "correspond à $count$ groupe(s) ouvert(s)",
     "placeholders": {
@@ -1068,7 +1068,7 @@
     "message": "Les onglets de ces groupes ne sont jamais suspendus automatiquement et sont ignorés par les actions de suspension groupée."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Ajoutez un groupe avec « Ne jamais suspendre ce groupe » dans le menu contextuel."
+    "message": "Ajoutez un groupe avec « Ne jamais suspendre ce groupe » dans le menu contextuel. Seuls les groupes portant un nom peuvent être ajoutés."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "Les groupes sont identifiés par leur nom et leur couleur, et suivent les renommages tant que le navigateur reste ouvert."

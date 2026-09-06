@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "永遠不凍結/允許凍結此群組"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "永遠不凍結此群組（僅限已命名的群組）"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "凍結目前視窗中所有的分頁"
   },
@@ -584,7 +587,7 @@
     "message": "這些群組中的分頁永遠不會自動凍結，批次凍結操作也會略過它們。"
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "透過右鍵選單中的「永遠不凍結此群組」新增群組。"
+    "message": "透過右鍵選單中的「永遠不凍結此群組」新增群組。只能新增已命名的群組。"
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "群組依名稱與顏色比對，只要瀏覽器保持開啟，重新命名後仍會跟隨。"
@@ -998,9 +1001,6 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "沒有開啟的分頁符合目前的強制暫停清單。"
-  },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "（未命名的群組）"
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "符合 $count$ 個開啟的分頁群組",

@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "Nunca suspender/Permitir suspender este grupo"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "Nunca suspender este grupo (apenas grupos com nome)"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas as outras guias nessa janela"
   },
@@ -584,7 +587,7 @@
     "message": "Os separadores destes grupos nunca são suspensos automaticamente e são ignorados pelas ações de suspensão em massa."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Adicione um grupo com \"Nunca suspender este grupo\" no menu de contexto."
+    "message": "Adicione um grupo com \"Nunca suspender este grupo\" no menu de contexto. Só podem ser adicionados grupos que tenham nome."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "Os grupos são identificados por nome e cor e acompanham mudanças de nome enquanto o navegador se mantiver aberto."
@@ -998,9 +1001,6 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Não existem separadores abertos que correspondam à lista de suspensão forçada atual."
-  },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "(grupo sem nome)"
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "corresponde a $count$ grupo(s) aberto(s)",

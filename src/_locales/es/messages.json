@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "Nunca suspender/Permitir suspender este grupo"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "Nunca suspender este grupo (solo grupos con nombre)"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas las demás pestañas en esta ventana"
   },
@@ -584,7 +587,7 @@
     "message": "Las pestañas de estos grupos nunca se suspenden automáticamente y las acciones de suspensión masiva las omiten."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Añada un grupo con «Nunca suspender este grupo» en el menú contextual."
+    "message": "Añada un grupo con «Nunca suspender este grupo» en el menú contextual. Solo se pueden añadir grupos que tengan nombre."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "Los grupos se identifican por nombre y color, y siguen los cambios de nombre mientras el navegador siga abierto."
@@ -998,9 +1001,6 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "No hay pestañas abiertas que coincidan con la lista de suspensión forzada actual."
-  },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "(grupo sin nombre)"
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "coincide con $count$ grupo(s) abierto(s)",

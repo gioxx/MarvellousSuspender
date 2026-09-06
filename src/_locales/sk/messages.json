@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "Nikdy nepozastavuj/Povoľ pozastavenie tejto skupiny"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "Nikdy nepozastavuj túto skupinu (len pomenované skupiny)"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Pozastav ostatné taby v tomto okne"
   },
@@ -584,7 +587,7 @@
     "message": "Karty v týchto skupinách sa nikdy nepozastavujú automaticky a hromadné akcie pozastavenia ich preskakujú."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Skupinu pridáte pomocou „Nikdy nepozastavuj túto skupinu“ v kontextovej ponuke."
+    "message": "Skupinu pridáte pomocou „Nikdy nepozastavuj túto skupinu“ v kontextovej ponuke. Pridať možno len skupiny, ktoré majú názov."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "Skupiny sa rozpoznávajú podľa názvu a farby a sledujú premenovanie, kým zostane prehliadač otvorený."
@@ -998,9 +1001,6 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Žiadne otvorené karty nezodpovedajú aktuálnemu zoznamu vždy pozastaviť."
-  },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "(skupina bez názvu)"
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "zodpovedá otvoreným skupinám: $count$",

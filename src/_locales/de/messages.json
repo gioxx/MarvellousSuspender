@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "Diese Gruppe nicht aussetzen/Aussetzen erlauben"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "Diese Gruppe nicht aussetzen (nur benannte Gruppen)"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Alle anderen Tabs in diesem Fenster aussetzen"
   },
@@ -584,7 +587,7 @@
     "message": "Tabs in diesen Gruppen werden nie automatisch ausgesetzt und von den Sammelaktionen übersprungen."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Eine Gruppe fügen Sie über „Diese Gruppe nicht aussetzen“ im Kontextmenü hinzu."
+    "message": "Eine Gruppe fügen Sie über „Diese Gruppe nicht aussetzen“ im Kontextmenü hinzu. Hinzugefügt werden können nur Gruppen mit einem Namen."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "Gruppen werden anhand von Name und Farbe erkannt und folgen Umbenennungen, solange der Browser geöffnet bleibt."
@@ -998,9 +1001,6 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Keine offenen Tabs entsprechen der aktuellen Immer-aussetzen-Liste."
-  },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "(unbenannte Gruppe)"
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "passt auf $count$ offene Gruppe(n)",

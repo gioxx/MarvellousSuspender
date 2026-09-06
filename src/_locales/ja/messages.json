@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "このグループをサスペンドしない/サスペンドを許可"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "このグループをサスペンドしない（名前付きグループのみ）"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "このウィンドウ内の他のすべてのタブをサスペンド"
   },
@@ -584,7 +587,7 @@
     "message": "これらのグループのタブは自動的にサスペンドされず、一括サスペンド操作でもスキップされます。"
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "右クリックメニューの「このグループをサスペンドしない」からグループを追加できます。"
+    "message": "右クリックメニューの「このグループをサスペンドしない」からグループを追加できます。名前が付いたグループのみ追加できます。"
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "グループは名前と色で照合され、ブラウザーが開いている間は名前の変更に追従します。"
@@ -998,9 +1001,6 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "現在の常時停止リストに一致する開いているタブはありません。"
-  },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "(名前のないグループ)"
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "一致する開いているグループ: $count$",

@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "Non sospendere mai/Consenti la sospensione di questo gruppo"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "Non sospendere mai questo gruppo (solo gruppi con nome)"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Sospendi tutte le altre schede in questa finestra"
   },
@@ -584,7 +587,7 @@
     "message": "Le schede in questi gruppi non vengono mai sospese automaticamente e sono ignorate dalle azioni di sospensione di gruppo."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Aggiungi un gruppo con «Non sospendere mai questo gruppo» nel menu contestuale."
+    "message": "Aggiungi un gruppo con «Non sospendere mai questo gruppo» nel menu contestuale. Si possono aggiungere solo gruppi che hanno un nome."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "I gruppi sono identificati da nome e colore e seguono le rinomine finché il browser resta aperto."
@@ -998,9 +1001,6 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Non ci sono schede aperte che corrispondono all'attuale lista di sospensione forzata."
-  },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "(gruppo senza nome)"
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "corrisponde a $count$ gruppo/i aperto/i",

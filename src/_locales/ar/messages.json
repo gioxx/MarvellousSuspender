@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "عدم تعليق هذه المجموعة مطلقاً/السماح بتعليقها"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "عدم تعليق هذه المجموعة مطلقاً (المجموعات المسماة فقط)"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "تعليق جميع علامات التبويب الأخرى في النافذة النشطة"
   },
@@ -584,7 +587,7 @@
     "message": "لا يتم تعليق علامات التبويب في هذه المجموعات تلقائياً، ويتم تخطيها في إجراءات التعليق الجماعي."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "أضف مجموعة باستخدام \"عدم تعليق هذه المجموعة مطلقاً\" في قائمة النقر بزر الفأرة الأيمن."
+    "message": "أضف مجموعة باستخدام \"عدم تعليق هذه المجموعة مطلقاً\" في قائمة النقر بزر الفأرة الأيمن. لا يمكن إضافة سوى المجموعات التي لها اسم."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "تتم مطابقة المجموعات بالاسم واللون، وتتبع إعادة التسمية طالما بقي المتصفح مفتوحاً."
@@ -998,9 +1001,6 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "لا توجد علامات تبويب مفتوحة تطابق قائمة التعليق الدائم الحالية."
-  },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "(مجموعة بلا اسم)"
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "يطابق $count$ من المجموعات المفتوحة",

@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "Bu grubu hiçbir zaman askıya alma/Askıya almaya izin ver"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "Bu grubu hiçbir zaman askıya alma (yalnızca adlandırılmış gruplar)"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Bu pencere dışındaki tüm sekmeleri askıya al"
   },
@@ -584,7 +587,7 @@
     "message": "Bu gruplardaki sekmeler hiçbir zaman otomatik olarak askıya alınmaz ve toplu askıya alma işlemlerinde atlanır."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Sağ tık menüsündeki \"Bu grubu hiçbir zaman askıya alma\" ile bir grup ekleyin."
+    "message": "Sağ tık menüsündeki \"Bu grubu hiçbir zaman askıya alma\" ile bir grup ekleyin. Yalnızca adı olan gruplar eklenebilir."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "Gruplar ad ve renge göre eşleştirilir ve tarayıcı açık kaldığı sürece yeniden adlandırmaları izler."
@@ -998,9 +1001,6 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Geçerli her zaman askıya al listesiyle eşleşen açık sekme yok."
-  },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "(adsız grup)"
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "$count$ açık grupla eşleşiyor",

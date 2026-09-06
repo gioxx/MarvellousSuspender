@@ -77,6 +77,9 @@
   "js_context_toggle_never_suspend_group": {
     "message": "Never suspend/Allow suspending this group"
   },
+  "js_context_toggle_never_suspend_group_unnamed": {
+    "message": "Never suspend this group (named groups only)"
+  },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspend all other tabs in this window"
   },
@@ -584,7 +587,7 @@
     "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Add a group with \"Never suspend this group\" in the right-click menu."
+    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
     "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
@@ -998,9 +1001,6 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "There are no open tabs that match the current always-suspend list."
-  },
-  "js_options_never_suspend_groups_unnamed": {
-    "message": "(unnamed group)"
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "matches $count$ open group(s)",
