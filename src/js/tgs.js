@@ -1473,6 +1473,11 @@ export const tgs = (function() {
           callback(gsUtils.STATUS_APP_WINDOW);
           return;
         }
+        //check tab in a tab group (#133)
+        if (await gsUtils.isProtectedGroupedTab(tab)) {
+          callback(gsUtils.STATUS_GROUPED_TAB);
+          return;
+        }
         //check active
         if (await gsUtils.isProtectedActiveTab(tab)) {
           callback(gsUtils.STATUS_ACTIVE);
