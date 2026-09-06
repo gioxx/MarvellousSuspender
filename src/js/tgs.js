@@ -663,6 +663,7 @@ export const tgs = (function() {
       !changeInfo.hasOwnProperty('status') &&
       !changeInfo.hasOwnProperty('audible') &&
       !changeInfo.hasOwnProperty('pinned') &&
+      !changeInfo.hasOwnProperty('groupId') &&
       !changeInfo.hasOwnProperty('discarded')
     ) {
       return;
@@ -722,6 +723,28 @@ export const tgs = (function() {
       const ignorePinned = await gsStorage.getOption(gsStorage.IGNORE_PINNED);
       //reset tab timer if tab has become unpinned
       if (!changeInfo.pinned && ignorePinned) {
+        await resetAutoSuspendTimerForTab(tab);
+      }
+      hasTabStatusChanged = true;
+    }
+
+    // #133: chrome.tabs.onUpdated reports a group membership change as changeInfo.groupId,
+    // carrying the tab's new group (or chrome.tabGroups.TAB_GROUP_ID_NONE when it has left
+    // one). Same reasoning as the unpin/audio-stopped branches above: an auto-suspend alarm
+    // that already fired and was rejected while the tab was protected is gone for good,
+    // nothing re-creates it, so a tab dragged back out of its group would otherwise sit
+    // unsuspended until a reload, an unrelated settings change or a browser restart.
+    //
+    // Read off tab, not changeInfo: the event hands us the tab as it is now, so a tab moved
+    // straight from one group into another (which fires this twice) is correctly still seen
+    // as protected. The reverse direction, joining a group, needs no timer work at all, just
+    // the icon refresh below: an armed timer that fires while the tab is protected is simply
+    // rejected by checkTabEligibilityForSuspension(), exactly as it is for a tab that has
+    // just been pinned.
+    if (changeInfo.hasOwnProperty('groupId')) {
+      const ignoreGroupedTabs = await gsStorage.getOption(gsStorage.IGNORE_GROUPED_TABS);
+      //reset tab timer if tab has just left its group
+      if (!gsUtils.isTabInGroup(tab) && ignoreGroupedTabs) {
         await resetAutoSuspendTimerForTab(tab);
       }
       hasTabStatusChanged = true;

@@ -673,7 +673,7 @@ import  { tgs }                   from './tgs.js';
     };
 
     // chrome.tabs.onUpdated fires for every kind of tab-state change this extension
-    // cares about ('status', 'url', 'discarded', 'audible', 'pinned' — see the checks
+    // cares about ('status', 'url', 'discarded', 'audible', 'pinned', 'groupId' — see the checks
     // below and in tgs.js's handleSuspendedTabStateChanged()/
     // handleUnsuspendedTabStateChanged()), but also for ones it never acts on, chiefly
     // 'frozen'. Live testing found Chrome flips 'frozen' on/off on background/suspended
@@ -682,7 +682,11 @@ import  { tgs }                   from './tgs.js';
     // reach this far, logging (a real cost with captureLogs on: buffering, coalescing,
     // periodic storage flushes) and dispatching into both handler functions before
     // either of them discovered there was nothing to do.
-    const RELEVANT_TAB_UPDATE_KEYS = ['status', 'url', 'discarded', 'audible', 'pinned'];
+    // 'groupId' (#133) is deliberately on this list even though the filter exists to keep
+    // cost down: unlike 'frozen' it fires once per deliberate user gesture (drag a tab into
+    // or out of a group), not thousands of times an hour, and handleUnsuspendedTabStateChanged()
+    // has to see it to re-arm the auto-suspend timer of a tab that has just left its group.
+    const RELEVANT_TAB_UPDATE_KEYS = ['status', 'url', 'discarded', 'audible', 'pinned', 'groupId'];
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       if (!changeInfo || !RELEVANT_TAB_UPDATE_KEYS.some((key) => changeInfo.hasOwnProperty(key))) {
         return;
