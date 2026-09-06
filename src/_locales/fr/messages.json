@@ -368,6 +368,9 @@
   "html_options_suspend_no_app_windows": {
     "message": "Ne jamais suspendre les onglets ouverts dans une fenêtre d'application"
   },
+  "html_options_suspend_no_grouped_tabs": {
+    "message": "Ne jamais suspendre les onglets d'un groupe d'onglets"
+  },
   "html_options_suspend_no_forms": {
     "message": "Ne jamais suspendre les onglets contenant des entrées de formulaire non enregistrées"
   },
@@ -873,6 +876,9 @@
   },
   "js_popup_app_window": {
     "message": "L'onglet est ouvert dans une fenêtre d'application"
+  },
+  "js_popup_grouped_tab": {
+    "message": "L'onglet est dans un groupe d'onglets"
   },
   "js_popup_temp_whitelist": {
     "message": "La suspension de l'onglet a été interrompue."
