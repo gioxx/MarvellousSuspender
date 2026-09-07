@@ -1194,7 +1194,13 @@ export const gsUtils = {
           if (
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && (await gsUtils.isProtectedPinnedTab(tab))) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab))) ||
-            (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && (await gsUtils.isProtectedAppWindowTab(tab)))
+            (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && (await gsUtils.isProtectedAppWindowTab(tab))) ||
+            // Same as the three above, for a group exempted on another device (#133). The
+            // local toggle unsuspends the group's sleeping tabs itself (tgs.js's
+            // _reconcileTabGroupTabs), so without this the same setting arriving over sync
+            // would half-apply: the group would be protected from here on, while the tabs that
+            // were already asleep when it arrived stayed asleep with nothing to wake them.
+            (changedSettingKeys.includes(gsStorage.NEVER_SUSPEND_GROUPS) && (await gsUtils.isProtectedTabGroupTab(tab)))
           ) {
             await tgs.unsuspendTab(tab);
             continue;
