@@ -13,7 +13,7 @@ For the full technical changelog (every fix, every review round, every detail), 
 - **Reload also unsuspends background tabs**: reloading a suspended tab you're not currently looking at (e.g. via a multi-tab selection) can now unsuspend it too, if you turn this on.
 - **Suspend/unsuspend all tabs in a tab group**: new right-click and keyboard-shortcut options.
 - **"Never suspend app windows"**: a new option (on by default) keeps tabs open in an app-mode window — installed web apps, or a site you've opened via "Create Shortcut → Open as window" — from being auto-suspended.
-- **"Never suspend tabs in a tab group"**: a new option (off by default) that keeps any tab belonging to a Chrome tab group out of automatic suspension, without you having to whitelist each site in it. One thing to know while it is on: the right-click "Suspend all tabs in this group" action still works, but it only suspends the tab you clicked on.
+- **"Never suspend tabs in a tab group"**: a new option (off by default) that keeps any tab belonging to a Chrome tab group out of automatic suspension, without you having to whitelist each site in it. While it is on, the right-click "Suspend all tabs in this group" action skips that group entirely (sites on your whitelist are skipped the same way), so suspend a tab on its own if you want to override it.
 - **"What's new" screen**: this very screen! Shown once after an update, so you don't have to go digging for what changed.
 
 ### Fixed

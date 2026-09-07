@@ -432,8 +432,32 @@ export const tgs = (function() {
     });
   }
 
-  function suspendTabGroup(tab) {
+  async function suspendTabGroup(tab) {
     if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
+      return;
+    }
+    // #133: past the guard above this tab is by definition in a group, so if the user has
+    // asked for grouped tabs never to be suspended, the whole action is a no-op. This is a
+    // bulk action, and the settled rule here is that a standing protection beats a bulk
+    // action while an explicit per-tab suspend is the escape hatch: that is exactly how the
+    // whitelist, itself a standing blanket preference, already behaves against the sweep
+    // below.
+    //
+    // Without this guard the action suspends exactly one tab, the one it was invoked on,
+    // and leaves its group-mates open. That 1-of-N shape is not a leak in the force-level
+    // split below: it is what two deliberate rules compose to, and master already ships it.
+    // A group of entirely pinned tabs, with "never suspend pinned tabs" on, behaves exactly
+    // that way today; nobody has reported it because a fully-pinned group is rare. What
+    // this option changes is frequency, not shape, since it makes every group coextensive
+    // with a protection, so a composition that was an exotic edge case would start firing
+    // universally. Hence a guard scoped to this option alone: the pinned-coextensive case
+    // is pre-existing maintainer semantics and is deliberately left exactly as it is.
+    //
+    // Deliberately not a silent no-op: this logs, and the toolbar popup already reports the
+    // tab as protected, so the reason the action did nothing is discoverable both ways.
+    // unsuspendTabGroup() is untouched, since unsuspending is always safe.
+    if (await gsStorage.getOption(gsStorage.IGNORE_GROUPED_TABS)) {
+      gsUtils.log(tab.id, 'tgs', 'suspendTabGroup', 'Skipping group suspend: "never suspend tabs in a tab group" is enabled');
       return;
     }
     chrome.tabs.query({ groupId: tab.groupId }, (groupTabs) => {
