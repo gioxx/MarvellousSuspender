@@ -676,7 +676,15 @@ export const gsUtils = {
   // otherwise unprotect it on the spot and say nothing, which is the failure this feature is
   // designed against; a group with its name rubbed out is still the group the user marked.
   // Across a browser restart that memory is gone and so is the protection, but by then so is
-  // every other way of telling which group it was: the id is new and the title is empty.
+  // every other way of telling which group it was: the id is new and the title is empty. The
+  // same goes for a group in an incognito window, whose keys that worker never records: the
+  // fallback has nothing to read, so an incognito group that loses its title loses its
+  // protection where a normal one would keep it. That falls straight out of the incognito
+  // worker writing nothing, which is deliberate and worth more than this corner.
+  //
+  // Null once the key is suppressed for this group id, which is how an off switch reaches the
+  // group's older keys without taking them off a list other groups share (see tgs.js's
+  // toggleNeverSuspendTabGroup).
   getMatchableTabGroupKeyForTab: async (tab) => {
     if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
       return null;
@@ -685,12 +693,12 @@ export const gsUtils = {
     if (!group) {
       return null;
     }
-    const groupKey = gsUtils.getTabGroupKey(group);
-    if (groupKey !== null) {
-      return groupKey;
+    const state = await tgs.getTabGroupKeyState(tab.groupId);
+    const groupKey = gsUtils.getTabGroupKey(group) ?? state.keys.at(-1) ?? null;
+    if (groupKey === null || state.suppressed.includes(groupKey)) {
+      return null;
     }
-    const wornKeys = await tgs.getRememberedTabGroupKeys(tab.groupId);
-    return wornKeys.at(-1) ?? null;
+    return groupKey;
   },
 
   checkSpecificNeverSuspendGroups(groupKey, listString) {

@@ -74,19 +74,21 @@ import  { tgs }                   from './tgs.js';
     const openGroups     = await chrome.tabGroups.query({});
     const openGroupKeys  = await Promise.all(openGroups.map(async (group) => {
       const liveKey = gsUtils.getTabGroupKey(group);
-      if (liveKey !== null) {
-        return liveKey;
-      }
+      let state;
       try {
         // chrome.storage.session, which this reads through, is open to extension pages at the
-        // default access level. Guarded anyway: the count is a hint, and an untitled group
-        // going uncounted is a far better outcome than the whole list failing to render.
-        return (await tgs.getRememberedTabGroupKeys(group.id)).at(-1) ?? null;
+        // default access level. Guarded anyway: the count is a hint, and falling back to the
+        // group's own key is a far better outcome than the whole list failing to render.
+        state = await tgs.getTabGroupKeyState(group.id);
       }
       catch (e) {
         gsUtils.warning('options', 'renderNeverSuspendGroups', 'could not read the tab group key cache', e);
-        return null;
+        return liveKey;
       }
+      // A group the user has switched off is no longer matched by a key it still wears, so it
+      // is not counted under that key either.
+      const groupKey = liveKey ?? state.keys.at(-1) ?? null;
+      return groupKey !== null && !state.suppressed.includes(groupKey) ? groupKey : null;
     }));
     const matchesFor = (key) => openGroupKeys.filter((openKey) => openKey === key).length;
 
