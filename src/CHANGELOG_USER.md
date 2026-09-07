@@ -14,7 +14,7 @@ For the full technical changelog (every fix, every review round, every detail), 
 - **Suspend/unsuspend all tabs in a tab group**: new right-click and keyboard-shortcut options.
 - **Suspend/unsuspend all tabs not in a group**: the same, for the loose tabs outside your tab groups in the current window.
 - **"Never suspend app windows"**: a new option (on by default) keeps tabs open in an app-mode window — installed web apps, or a site you've opened via "Create Shortcut → Open as window" — from being auto-suspended.
-- **"Never suspend tabs in a tab group"**: a new option (off by default) that keeps any tab belonging to a Chrome tab group out of automatic suspension, without you having to whitelist each site in it. While it is on, the right-click "Suspend all tabs in this group" action skips that group entirely (sites on your whitelist are skipped the same way), so suspend a tab on its own if you want to override it.
+- **"Never suspend tabs in a tab group"**: a new option (off by default) that keeps any tab belonging to a Chrome tab group out of automatic suspension. While it is on, the right-click "Suspend all tabs in all windows" or "Suspend all other tabs in this window" action skips groups entirely, so suspend a tab on its own if you want to override it.
 - **"What's new" screen**: this very screen! Shown once after an update, so you don't have to go digging for what changed.
 
 ### Fixed
