@@ -660,9 +660,7 @@ import  { tgs }                   from './tgs.js';
     // reach this far, logging (a real cost with captureLogs on: buffering, coalescing,
     // periodic storage flushes) and dispatching into both handler functions before
     // either of them discovered there was nothing to do.
-    // 'groupId' (#133) earns its place: unlike 'frozen' it fires once per deliberate gesture,
-    // and handleUnsuspendedTabStateChanged() needs it to re-arm the timer of a tab that has
-    // just left its group.
+    // 'groupId' (#133) lets handleUnsuspendedTabStateChanged() re-arm a tab that left its group.
     const RELEVANT_TAB_UPDATE_KEYS = ['status', 'url', 'discarded', 'audible', 'pinned', 'groupId'];
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       if (!changeInfo || !RELEVANT_TAB_UPDATE_KEYS.some((key) => changeInfo.hasOwnProperty(key))) {

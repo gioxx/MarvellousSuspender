@@ -504,11 +504,8 @@ export const gsUtils = {
     return ignoreAppWindows && await gsUtils.isTabInAppWindow(tab);
   },
 
-  // #133: no chrome API call needed, tab.groupId is already on every tab object these
-  // checks are handed. Guard style matches tgs.js's suspendTabGroup(). Kept separate from
-  // isProtectedGroupedTab() for the same reason isTabInAppWindow() is split out:
-  // performPostSaveUpdates()'s timer-reset predicate runs after the setting has flipped, so
-  // the gated version would always report false there.
+  // #133: split from isProtectedGroupedTab() so performPostSaveUpdates() can ask without the
+  // setting gate, which has already flipped by the time it runs. Same as isTabInAppWindow().
   isTabInGroup: (tab) => {
     return !!tab && typeof tab.groupId === 'number' && tab.groupId !== chrome.tabGroups.TAB_GROUP_ID_NONE;
   },
