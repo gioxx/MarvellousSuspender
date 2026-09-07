@@ -436,10 +436,7 @@ export const tgs = (function() {
     if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
       return;
     }
-    // #133: a standing protection beats a bulk action, same as the whitelist does against
-    // the sweep below; an explicit per-tab suspend is still the escape hatch. Without this
-    // the action would suspend only the tab it was invoked on, since that one goes in at
-    // forceLevel 1. unsuspendTabGroup() is untouched: unsuspending is always safe.
+    // #133: bulk action, so a standing protection wins; a per-tab suspend still overrides.
     if (await gsStorage.getOption(gsStorage.IGNORE_GROUPED_TABS)) {
       gsUtils.log(tab.id, 'tgs', 'suspendTabGroup', 'skipped, grouped tabs are never suspended');
       return;
