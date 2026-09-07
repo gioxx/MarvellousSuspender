@@ -508,21 +508,11 @@ export const gsUtils = {
     return ignoreAppWindows && await gsUtils.isTabInAppWindow(tab);
   },
 
-  // #133: unlike the app-window check above, this needs no chrome API call at all —
-  // tab.groupId is already on every tab object the suspension checks are handed, and an
-  // ungrouped tab reports chrome.tabGroups.TAB_GROUP_ID_NONE. Guard style, typeof check
-  // included, matches tgs.js's suspendTabGroup()/unsuspendTabGroup(). That typeof clause is
-  // parity with those two and nothing more: every call site here is handed a live
-  // chrome.tabs object (a query result, an event tab, a sender.tab), and with
-  // minimum_chrome_version 110 groupId is always numeric on one of those, so it is not
-  // reachable in practice. Restored sessions do not sneak past it either, they re-enter the
-  // pipeline as fresh live tabs rather than as the stored objects.
-  //
-  // Kept separate from isProtectedGroupedTab() below for the same reason isTabInAppWindow()
-  // is split out from isProtectedAppWindowTab(): performPostSaveUpdates()'s timer-reset
-  // predicate runs *after* the setting has already flipped to its new value, so asking
-  // through the setting-gated version would re-read the already-off setting and always
-  // report false, never re-arming the timer of a tab that was protected until a moment ago.
+  // #133: no chrome API call needed, tab.groupId is already on every tab object these
+  // checks are handed. Guard style matches tgs.js's suspendTabGroup(). Kept separate from
+  // isProtectedGroupedTab() for the same reason isTabInAppWindow() is split out:
+  // performPostSaveUpdates()'s timer-reset predicate runs after the setting has flipped, so
+  // the gated version would always report false there.
   isTabInGroup: (tab) => {
     return !!tab && typeof tab.groupId === 'number' && tab.groupId !== chrome.tabGroups.TAB_GROUP_ID_NONE;
   },

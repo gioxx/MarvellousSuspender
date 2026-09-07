@@ -436,28 +436,12 @@ export const tgs = (function() {
     if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
       return;
     }
-    // #133: past the guard above this tab is by definition in a group, so if the user has
-    // asked for grouped tabs never to be suspended, the whole action is a no-op. This is a
-    // bulk action, and the settled rule here is that a standing protection beats a bulk
-    // action while an explicit per-tab suspend is the escape hatch: that is exactly how the
-    // whitelist, itself a standing blanket preference, already behaves against the sweep
-    // below.
-    //
-    // Without this guard the action suspends exactly one tab, the one it was invoked on,
-    // and leaves its group-mates open. That 1-of-N shape is not a leak in the force-level
-    // split below: it is what two deliberate rules compose to, and master already ships it.
-    // A group of entirely pinned tabs, with "never suspend pinned tabs" on, behaves exactly
-    // that way today; nobody has reported it because a fully-pinned group is rare. What
-    // this option changes is frequency, not shape, since it makes every group coextensive
-    // with a protection, so a composition that was an exotic edge case would start firing
-    // universally. Hence a guard scoped to this option alone: the pinned-coextensive case
-    // is pre-existing maintainer semantics and is deliberately left exactly as it is.
-    //
-    // Deliberately not a silent no-op: this logs, and the toolbar popup already reports the
-    // tab as protected, so the reason the action did nothing is discoverable both ways.
-    // unsuspendTabGroup() is untouched, since unsuspending is always safe.
+    // #133: a standing protection beats a bulk action, same as the whitelist does against
+    // the sweep below; an explicit per-tab suspend is still the escape hatch. Without this
+    // the action would suspend only the tab it was invoked on, since that one goes in at
+    // forceLevel 1. unsuspendTabGroup() is untouched: unsuspending is always safe.
     if (await gsStorage.getOption(gsStorage.IGNORE_GROUPED_TABS)) {
-      gsUtils.log(tab.id, 'tgs', 'suspendTabGroup', 'Skipping group suspend: "never suspend tabs in a tab group" is enabled');
+      gsUtils.log(tab.id, 'tgs', 'suspendTabGroup', 'skipped, grouped tabs are never suspended');
       return;
     }
     chrome.tabs.query({ groupId: tab.groupId }, (groupTabs) => {
@@ -752,22 +736,10 @@ export const tgs = (function() {
       hasTabStatusChanged = true;
     }
 
-    // #133: chrome.tabs.onUpdated reports a group membership change as changeInfo.groupId,
-    // carrying the tab's new group (or chrome.tabGroups.TAB_GROUP_ID_NONE when it has left
-    // one). Same reasoning as the unpin/audio-stopped branches above: an auto-suspend alarm
-    // that already fired and was rejected while the tab was protected is gone for good,
-    // nothing re-creates it, so a tab dragged back out of its group would otherwise sit
-    // unsuspended until a reload, an unrelated settings change or a browser restart.
-    //
-    // Read off tab, not changeInfo: the event hands us the tab as it is now, so a tab moved
-    // straight from one group into another (which fires this twice) is correctly still seen
-    // as protected. The reverse direction, joining a group, needs no timer work at all, just
-    // the icon refresh below: an armed timer that fires while the tab is protected is simply
-    // rejected by checkTabEligibilityForSuspension(), exactly as it is for a tab that has
-    // just been pinned.
     if (changeInfo.hasOwnProperty('groupId')) {
       const ignoreGroupedTabs = await gsStorage.getOption(gsStorage.IGNORE_GROUPED_TABS);
-      //reset tab timer if tab has just left its group
+      //reset tab timer if tab has just left its group (#133). Read off tab rather than
+      //changeInfo: a tab moved straight between groups fires this twice and is still grouped.
       if (!gsUtils.isTabInGroup(tab) && ignoreGroupedTabs) {
         await resetAutoSuspendTimerForTab(tab);
       }
