@@ -248,8 +248,6 @@ import  { tgs }                   from './tgs.js';
             tgs.forceSuspendAlwaysListedTabs();
             break;
           }
-          // Options page only ever removes: groups are added from the context menu, where
-          // the group being acted on is unambiguous.
           case 'removeNeverSuspendGroup' : {
             if (typeof request.groupKey === 'string' && request.groupKey) {
               await tgs.setTabGroupNeverSuspend(request.groupKey, false);
@@ -423,7 +421,7 @@ import  { tgs }                   from './tgs.js';
         break;
       case 'suspend_tab_group':
       case 'tab_suspend_group':
-        tgs.suspendTabGroup(tab); //async. unhandled promise
+        tgs.suspendTabGroup(tab);
         break;
       case 'unsuspend_tab_group':
       case 'tab_unsuspend_group':
@@ -503,7 +501,7 @@ import  { tgs }                   from './tgs.js';
         const tab = await new Promise((r) => {
           tgs.getCurrentlyActiveTab(r);
         });
-        tgs.suspendTabGroup(tab); //async. unhandled promise
+        tgs.suspendTabGroup(tab);
         break;
       }
       case '2d-unsuspend-tab-group': {
@@ -578,11 +576,8 @@ import  { tgs }                   from './tgs.js';
   // Listeners must be part of the top-level evaluation of the service worker
   function addChromeListeners() {
     chrome.windows.onFocusChanged.addListener(async (windowId) => {
-      // Fire-and-forget, never awaited, on this path and the one below. The page menu's
-      // never-suspend-group item is enabled only when the tab in front of the user is in a
-      // named group (#133), and a different window or tab means a different answer, but these
-      // two listeners are the hottest in the extension and a menu label must not sit in front
-      // of focus handling on every tab switch, nor be able to strand it by not settling.
+      // Never awaited, here or below (#133): these are the hottest listeners in the
+      // extension, and a menu label must not delay focus handling or strand it by hanging.
       tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
       await tgs.handleWindowFocusChanged(windowId);
     });
@@ -645,12 +640,8 @@ import  { tgs }                   from './tgs.js';
     // either of them discovered there was nothing to do.
     const RELEVANT_TAB_UPDATE_KEYS = ['status', 'url', 'discarded', 'audible', 'pinned'];
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-      // Joining or leaving a tab group changes whether "Never suspend this group" applies to
-      // the active tab (#133), and nothing in chrome.tabGroups reports a tab moving between
-      // existing groups. Checked ahead of the filter below, which leaves 'groupId' out
-      // deliberately: routing it into the suspended/unsuspended state handlers is not what a
-      // group change means, and this only costs one property test on the 'frozen' storm the
-      // filter exists to shed.
+      // Nothing in chrome.tabGroups reports a tab moving between existing groups (#133), and
+      // the filter below leaves groupId out: the state handlers are not where it belongs.
       if (changeInfo && Object.hasOwn(changeInfo, 'groupId') && tab.active) {
         tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
       }
@@ -690,15 +681,11 @@ import  { tgs }                   from './tgs.js';
         }
       }
     });
-    // A never-suspend group (#133) is matched by title and color, so both of those have to
-    // be tracked as they change. onUpdated also fires on collapse/expand, which leaves the
-    // key alone and is discarded by the handler.
+    // a never-suspend group is matched by title and color (#133), so track both as they change
     chrome.tabGroups.onCreated.addListener(async (group) => {
       await tgs.handleTabGroupCreated(group);
     });
-    // Awaited, not fire-and-forget: the handler's work is what keeps a renamed group
-    // protected, and returning its promise from the listener is what asks Chrome to keep the
-    // service worker up until that work is done rather than tearing it down mid-write.
+    // awaited: the returned promise keeps the worker up for the write a rename triggers
     chrome.tabGroups.onUpdated.addListener(async (group) => {
       await tgs.handleTabGroupUpdated(group);
     });
@@ -768,10 +755,8 @@ import  { tgs }                   from './tgs.js';
         }
       }
       await tgs.initTabGroupKeyCache();
-      // The context menu itself is only built on install and when the setting changes, but it
-      // outlives the service worker, so its enabled state is re-derived on every start (#133).
-      // Not awaited: nothing else in startup depends on a menu label, and this executor has no
-      // reject arm, so anything awaited here that never settles takes the whole init with it.
+      // The menu outlives the worker but is built only on install, so re-derive its state per
+      // start (#133). Not awaited: this executor has no reject arm to catch a hang.
       tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
 
       gsUtils.log('background', 'init successful');

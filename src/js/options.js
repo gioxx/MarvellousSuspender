@@ -40,9 +40,8 @@ import  { tgs }                   from './tgs.js';
   };
 
 
-  // Chrome's own tab group palette, keyed by chrome.tabGroups.Color. That enum is fixed, so
-  // a stored key can never name a colour that is missing from here, and the swatch means the
-  // nine colour names never need translating.
+  // Chrome's own palette, keyed by chrome.tabGroups.Color. A swatch also saves translating
+  // nine colour names.
   const TAB_GROUP_COLORS = {
     grey   : '#5f6368',
     blue   : '#1a73e8',
@@ -55,8 +54,7 @@ import  { tgs }                   from './tgs.js';
     orange : '#fa903e',
   };
 
-  // Groups are added from the context menu, where the group being acted on is unambiguous and
-  // has to be a named one. This list is for reviewing and removing them (#133).
+  // groups are added from the context menu; this list is for reviewing and removing (#133)
   async function renderNeverSuspendGroups() {
     const listEl        = document.getElementById('neverSuspendGroupsList');
     const emptyEl       = document.getElementById('neverSuspendGroupsEmpty');
@@ -64,29 +62,22 @@ import  { tgs }                   from './tgs.js';
       await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS),
     );
     const groupKeys     = storedList ? storedList.split('\n') : [];
-    // How many open groups each stored key matches right now. A key is a name and a colour,
-    // not a group, so one entry still covers two groups the user named the same thing, and an
-    // entry left behind by a rename matches nothing at all: a rename adds the new key and
-    // never retires the old one, so "matches 0 open groups" is the signal that a line is a
-    // leftover and safe to remove. Resolved the same way the service worker matches a tab,
-    // which for a group whose title the user has cleared is the last name it wore, so an
-    // entry still doing its job does not read as a leftover.
+    // A key is a name and a colour, not a group, so a rename leaves entries matching nothing:
+    // "matches 0 open groups" is what tells the user a line is safe to remove. Resolved as the
+    // service worker matches a tab, so an entry still doing its job does not read as stale.
     const openGroups     = await chrome.tabGroups.query({});
     const openGroupKeys  = await Promise.all(openGroups.map(async (group) => {
       const liveKey = gsUtils.getTabGroupKey(group);
       let state;
       try {
-        // chrome.storage.session, which this reads through, is open to extension pages at the
-        // default access level. Guarded anyway: the count is a hint, and falling back to the
-        // group's own key is a far better outcome than the whole list failing to render.
+        // guarded: the count is a hint, and losing it beats the list failing to render
         state = await tgs.getTabGroupKeyState(group.id);
       }
       catch (e) {
         gsUtils.warning('options', 'renderNeverSuspendGroups', 'could not read the tab group key cache', e);
         return liveKey;
       }
-      // A group the user has switched off is no longer matched by a key it still wears, so it
-      // is not counted under that key either.
+      // a group switched off is not matched by a key it still wears, so it is not counted
       const groupKey = liveKey ?? state.keys.at(-1) ?? null;
       return groupKey !== null && !state.suppressed.includes(groupKey) ? groupKey : null;
     }));
@@ -98,17 +89,15 @@ import  { tgs }                   from './tgs.js';
     for (const groupKey of groupKeys) {
       const group = gsUtils.parseTabGroupKey(groupKey);
       if (!group) {
-        // Not a colour plus a real title. cleanupTabGroupList() above already drops those, so
-        // this is belt and braces against a key shape this build cannot produce.
+        // cleanupTabGroupList() above already drops these; belt and braces
         continue;
       }
 
       const li      = document.createElement('li');
       const swatch  = document.createElement('span');
       swatch.className = 'tabGroupSwatch';
-      // hasOwn, not a plain lookup: a corrupt stored colour of 'constructor' or '__proto__'
-      // resolves to an inherited property, which is truthy enough to defeat a ?? fallback and
-      // leaves the swatch unpainted.
+      // hasOwn, not a plain lookup: a stored colour of 'constructor' or '__proto__' resolves
+      // to an inherited property, truthy enough to defeat a ?? fallback
       swatch.style.backgroundColor = Object.hasOwn(TAB_GROUP_COLORS, group.color)
         ? TAB_GROUP_COLORS[group.color]
         : TAB_GROUP_COLORS.grey;
@@ -132,8 +121,7 @@ import  { tgs }                   from './tgs.js';
       removeEl.textContent = gsUtils.getMessage('html_options_never_suspend_groups_remove');
       removeEl.addEventListener('click', async (event) => {
         event.preventDefault();
-        // The service worker owns the list, so that removing a group also re-arms the
-        // suspend timers of the tabs still in it.
+        // the worker owns the list, so removing also re-arms the timers of the tabs still in it
         await chrome.runtime.sendMessage({ action: 'removeNeverSuspendGroup', groupKey });
         await renderNeverSuspendGroups();
       });

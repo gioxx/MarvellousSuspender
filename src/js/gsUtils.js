@@ -504,11 +504,9 @@ export const gsUtils = {
     return ignoreAppWindows && await gsUtils.isTabInAppWindow(tab);
   },
 
-  // Unlike the sibling protections above there is no global on/off setting to gate on:
-  // the exemption is opted into one group at a time (#133), so an empty list is "off".
+  // no global on/off to gate on: opted into one group at a time (#133)
   isProtectedTabGroupTab: async (tab) => {
-    // Read the list before resolving the group: it is empty for everyone not using the
-    // feature, and that is the case worth not spending a chrome.tabGroups.get() on.
+    // read the list first: it is empty for everyone not using the feature
     const neverSuspendGroups = await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS);
     if (!neverSuspendGroups) {
       return false;
@@ -620,21 +618,13 @@ export const gsUtils = {
     return listItems.some((item) => gsUtils.testForMatch(item, url));
   },
 
-  // Chrome's numeric tab group ids are not stable across restarts (#133), so an exempt
-  // group is remembered as "<color>:<title>" instead. Colors come from Chrome's own fixed
-  // enum and never contain a colon, titles can, hence the split on the first one only.
-  // Returns null for a group with no title: only named groups can be exempted. A colour on
-  // its own is not an identifier, it is a category that matches every untitled group of that
-  // colour, including ones the user creates later and has no reason to go and inspect.
+  // "<color>:<title>", colors never containing a colon and titles being free to (#133).
+  // Null without a title: a bare colour is not an identifier, it matches every untitled group
+  // of that colour, including ones created later that nobody would think to check.
   getTabGroupKey(group) {
-    // Normalised here, at the single producer, so the live key can never disagree with the
-    // stored form. The list is one entry per line and each line is trimmed on the way in, so
-    // a title with trailing whitespace (Chrome keeps it) or a newline in it (another
-    // extension can set one through tabGroups.update) would otherwise produce a key no
-    // stored entry can ever equal: toggling would appear to work and the group would just
-    // never be protected. The named-group test runs on the normalised title, not the raw
-    // one, or a title of nothing but spaces would slip through and produce the bare colour
-    // key that the whole rule exists to prevent.
+    // Normalised at the single producer, since stored lines are trimmed: a title with
+    // trailing whitespace or a newline would otherwise match nothing, silently. The named
+    // test runs on the normalised title, or spaces alone would produce a bare colour key.
     const title = (group?.title ?? '').replace(/[\r\n]+/g, ' ').trim();
     if (!title) {
       return null;
@@ -642,8 +632,7 @@ export const gsUtils = {
     return `${group.color}:${title}`;
   },
 
-  // Null for anything that is not a colour and a real title, which also makes it the test
-  // for "is this a key this build could have produced".
+  // null unless colour plus a real title, which makes it the test for a well-formed key
   parseTabGroupKey(groupKey) {
     const separatorIndex = (groupKey ?? '').indexOf(':');
     if (separatorIndex === -1) {
@@ -659,9 +648,7 @@ export const gsUtils = {
     };
   },
 
-  // The key a tab's group can be EXEMPTED under: strictly the live group's own key, so an
-  // untitled group is null however it got that way. Used by the toggle and by the context
-  // menu items' enabled state.
+  // the key a group can be EXEMPTED under, so untitled is null
   getTabGroupKeyForTab: async (tab) => {
     if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
       return null;
@@ -670,21 +657,9 @@ export const gsUtils = {
     return group ? gsUtils.getTabGroupKey(group) : null;
   },
 
-  // The key a tab's group is MATCHED by, which is not the same question. It is the group's
-  // own key while it has a title, and otherwise the last named key that group id wore this
-  // browser session (tgs.js keeps them). Clearing the title off an exempted group would
-  // otherwise unprotect it on the spot and say nothing, which is the failure this feature is
-  // designed against; a group with its name rubbed out is still the group the user marked.
-  // Across a browser restart that memory is gone and so is the protection, but by then so is
-  // every other way of telling which group it was: the id is new and the title is empty. The
-  // same goes for a group in an incognito window, whose keys that worker never records: the
-  // fallback has nothing to read, so an incognito group that loses its title loses its
-  // protection where a normal one would keep it. That falls straight out of the incognito
-  // worker writing nothing, which is deliberate and worth more than this corner.
-  //
-  // Null once the key is suppressed for this group id, which is how an off switch reaches the
-  // group's older keys without taking them off a list other groups share (see tgs.js's
-  // toggleNeverSuspendTabGroup).
+  // The key a group is MATCHED by, a different question: its own, or the last named key it
+  // wore this session, so clearing a title does not silently unprotect it. Null once that key
+  // is suppressed for this id, which is how off reaches old keys (tgs.js's toggle).
   getMatchableTabGroupKeyForTab: async (tab) => {
     if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
       return null;
@@ -706,9 +681,7 @@ export const gsUtils = {
     return listItems.some((item) => item.trim() === groupKey);
   },
 
-  // Only ever reachable from a settings change that arrived over sync. A local toggle
-  // reconciles its own tabs directly (tgs.setTabGroupNeverSuspend), and the re-save of the
-  // value it just wrote leaves this key out of changedSettingKeys entirely.
+  // only reachable from a synced change: a local toggle reconciles its own tabs
   tabGroupLeftNeverSuspendList: async (tab, oldList, newList) => {
     const groupKey = await gsUtils.getMatchableTabGroupKeyForTab(tab);
     return groupKey !== null
@@ -716,14 +689,8 @@ export const gsUtils = {
       && !gsUtils.checkSpecificNeverSuspendGroups(groupKey, newList);
   },
 
-  // Deliberately not cleanupWhitelist(): that splits on /[\s\n]+/, which would tear any
-  // group title containing a space into separate, meaningless entries.
-  // Lines that are not a colour plus a real title are dropped rather than kept, which is not
-  // the extension retiring someone's exemption: a title-less key cannot be produced by
-  // getTabGroupKey() and so can never match any group again, whether it arrived from a
-  // pre-named-groups build of this feature over sync or from a hand-edited settings backup.
-  // Keeping it would mean a line that protects nothing, is not rendered in Options, and
-  // therefore cannot be removed there either.
+  // Not cleanupWhitelist(): that splits on whitespace and would tear a title with a space in
+  // it. A line without a real title is dropped, getTabGroupKey() being unable to produce one.
   cleanupTabGroupList(listString) {
     const listItems = new Set();
     for (const line of (listString ?? '').split('\n')) {
@@ -1195,11 +1162,8 @@ export const gsUtils = {
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && (await gsUtils.isProtectedPinnedTab(tab))) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab))) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && (await gsUtils.isProtectedAppWindowTab(tab))) ||
-            // Same as the three above, for a group exempted on another device (#133). The
-            // local toggle unsuspends the group's sleeping tabs itself (tgs.js's
-            // _reconcileTabGroupTabs), so without this the same setting arriving over sync
-            // would half-apply: the group would be protected from here on, while the tabs that
-            // were already asleep when it arrived stayed asleep with nothing to wake them.
+            // as the three above, for a group exempted on another device (#133): the local
+            // toggle wakes its sleeping tabs itself, so over sync they would stay asleep
             (changedSettingKeys.includes(gsStorage.NEVER_SUSPEND_GROUPS) && (await gsUtils.isProtectedTabGroupTab(tab)))
           ) {
             await tgs.unsuspendTab(tab);
