@@ -27,10 +27,10 @@
     "message": "Obnovit všechny karty ve skupině aktivní karty"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "Pozastavit všechny karty mimo skupiny v aktivním okně"
+    "message": "Suspend all tabs not in a group in active window"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "Obnovit všechny karty mimo skupiny v aktivním okně"
+    "message": "Unsuspend all tabs not in a group in active window"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Pozastavit všechny ostatní karty v aktivním okně"
@@ -78,10 +78,10 @@
     "message": "Obnovit všechny karty v této skupině"
   },
   "js_context_suspend_ungrouped_tabs": {
-    "message": "Pozastavit všechny karty mimo skupiny"
+    "message": "Suspend all tabs not in a group"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "Obnovit všechny karty mimo skupiny"
+    "message": "Unsuspend all tabs not in a group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Pozastavit všechny ostatní karty v tomto okně"
