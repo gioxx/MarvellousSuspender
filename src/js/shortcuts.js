@@ -23,6 +23,8 @@ import  { gsUtils }               from './gsUtils.js';
       '2-toggle-temp-whitelist-tab'    : 'ext_cmd_toggle_tab_pause_description',
       '2a-suspend-selected-tabs'       : 'ext_cmd_suspend_selected_tabs_description',
       '2b-unsuspend-selected-tabs'     : 'ext_cmd_unsuspend_selected_tabs_description',
+      '2e-suspend-ungrouped-tabs'      : 'ext_cmd_suspend_ungrouped_tabs_description',
+      '2f-unsuspend-ungrouped-tabs'    : 'ext_cmd_unsuspend_ungrouped_tabs_description',
       '3-suspend-active-window'        : 'ext_cmd_soft_suspend_active_window_description',
       '3b-force-suspend-active-window' : 'ext_cmd_force_suspend_active_window_description',
       '4-unsuspend-active-window'      : 'ext_cmd_unsuspend_active_window_description',

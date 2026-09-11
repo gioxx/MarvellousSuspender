@@ -464,6 +464,44 @@ export const tgs = (function() {
     });
   }
 
+  // The counterpart to suspendTabGroup()/unsuspendTabGroup() above, for the ungrouped tabs of
+  // the window the action was triggered from (#133). TAB_GROUP_ID_NONE is the selection here
+  // rather than an early-exit guard, so unlike the group actions these stay meaningful when
+  // triggered from a grouped tab. The windowId guard is load-bearing: chrome.tabs.query()
+  // treats an undefined windowId as "not specified" and would widen the sweep to every window.
+  function suspendUngroupedTabs(tab) {
+    if (!tab || typeof tab.windowId !== 'number') {
+      return;
+    }
+    chrome.tabs.query(
+      { windowId: tab.windowId, groupId: chrome.tabGroups.TAB_GROUP_ID_NONE },
+      (ungroupedTabs) => {
+        for (const ungroupedTab of ungroupedTabs) {
+          // Mixed forceLevel for the same reasons as suspendTabGroup() above: level 2 for the
+          // tabs swept up by the bulk action, level 1 only for the tab the user acted on.
+          gsTabSuspendManager.queueTabForSuspension(ungroupedTab, ungroupedTab.id === tab.id ? 1 : 2);
+        }
+      },
+    );
+  }
+
+  function unsuspendUngroupedTabs(tab) {
+    if (!tab || typeof tab.windowId !== 'number') {
+      return;
+    }
+    chrome.tabs.query(
+      { windowId: tab.windowId, groupId: chrome.tabGroups.TAB_GROUP_ID_NONE },
+      (ungroupedTabs) => {
+        ungroupedTabs.forEach((ungroupedTab) => {
+          gsTabSuspendManager.unqueueTabForSuspension(ungroupedTab);
+          if (gsUtils.isSuspendedTab(ungroupedTab)) {
+            unsuspendTab(ungroupedTab);
+          }
+        });
+      },
+    );
+  }
+
   function queueSessionTimer() {
     clearTimeout(_sessionSaveTimer);
     _sessionSaveTimer = setTimeout(() => {
@@ -1654,6 +1692,16 @@ export const tgs = (function() {
         title: gsUtils.getMessage('js_context_unsuspend_tab_group'),
         contexts: allContexts,
       });
+      chrome.contextMenus.create({
+        id: 'suspend_ungrouped_tabs',
+        title: gsUtils.getMessage('js_context_suspend_ungrouped_tabs'),
+        contexts: allContexts,
+      });
+      chrome.contextMenus.create({
+        id: 'unsuspend_ungrouped_tabs',
+        title: gsUtils.getMessage('js_context_unsuspend_ungrouped_tabs'),
+        contexts: allContexts,
+      });
 
       chrome.contextMenus.create({
         id: 'separator2',
@@ -1743,6 +1791,16 @@ export const tgs = (function() {
       chrome.contextMenus.create({
         id: 'tab_unsuspend_group',
         title: gsUtils.getMessage('js_context_unsuspend_tab_group'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_suspend_ungrouped',
+        title: gsUtils.getMessage('js_context_suspend_ungrouped_tabs'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_unsuspend_ungrouped',
+        title: gsUtils.getMessage('js_context_unsuspend_ungrouped_tabs'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
@@ -1842,6 +1900,8 @@ export const tgs = (function() {
     unsuspendSelectedTabs,
     suspendTabGroup,
     unsuspendTabGroup,
+    suspendUngroupedTabs,
+    unsuspendUngroupedTabs,
     whitelistHighlightedTab,
     unsuspendAllTabsInAllWindows,
     unsuspendWhitelistedTabs,

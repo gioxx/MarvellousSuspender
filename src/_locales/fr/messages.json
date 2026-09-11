@@ -26,6 +26,12 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "Annule la suspension de tous les onglets du groupe de l'onglet actif"
   },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Suspend tous les onglets hors groupe de la fenêtre active"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Annule la suspension de tous les onglets hors groupe de la fenêtre active"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspend tous les autres onglets de la fenêtre active"
   },
@@ -70,6 +76,12 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "Annuler la suspension de tous les onglets de ce groupe"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Suspendre tous les onglets hors groupe"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Annuler la suspension de tous les onglets hors groupe"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspendre tous les autres onglets de cette fenêtre"

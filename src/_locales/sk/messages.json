@@ -26,6 +26,12 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "Obnov všetky taby v skupine aktívneho tabu"
   },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Pozastav všetky taby mimo skupín v aktívnom okne"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Obnov všetky taby mimo skupín v aktívnom okne"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Pozastav ostatné taby v aktívnom okne"
   },
@@ -70,6 +76,12 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "Obnov všetky taby v tejto skupine"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Pozastav všetky taby mimo skupín"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Obnov všetky taby mimo skupín"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Pozastav ostatné taby v tomto okne"
