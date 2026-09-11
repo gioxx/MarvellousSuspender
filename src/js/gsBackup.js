@@ -170,7 +170,10 @@ export const gsBackup = (() => {
       throw new Error('TMS_DOWNLOADS_PERMISSION_MISSING');
     }
     // data: URL works from service workers; Blob URLs do not survive SW lifecycle
-    const base64                      = btoa(unescape(encodeURIComponent(jsonString)));
+    const jsonBytes = new TextEncoder().encode(jsonString);
+    let jsonBinary  = '';
+    for (const b of jsonBytes) jsonBinary += String.fromCharCode(b);
+    const base64                      = btoa(jsonBinary);
     const dataUrl                     = `data:application/json;base64,${base64}`;
     const { localPath: filename, deviceId } = await buildFilename();
 
@@ -765,6 +768,8 @@ export const gsBackup = (() => {
       gsUtils.log('gsBackup', 'performBackup: skipped — running in a split-incognito context.');
       return;
     }
+    let jsonString;
+    let destination;
     try {
       const currentSessionId = await gsSession.getSessionId();
       const session          = await gsIndexedDb.fetchSessionBySessionId(currentSessionId);
@@ -774,9 +779,9 @@ export const gsBackup = (() => {
         return;
       }
 
-      const exportObj    = await buildExportObject(session);
-      const jsonString   = JSON.stringify(exportObj, null, 2);
-      const destination  = await gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION);
+      const exportObj = await buildExportObject(session);
+      jsonString      = JSON.stringify(exportObj, null, 2);
+      destination     = await gsStorage.getOption(gsStorage.AUTO_BACKUP_DESTINATION);
 
       if (destination === 'drive') {
         const result = await performDriveBackup(jsonString);
@@ -787,11 +792,25 @@ export const gsBackup = (() => {
       await clearDownloadsPermissionMissing();
       return result;
     } catch (e) {
-      gsUtils.error('gsBackup', 'performBackup failed:', e);
+      gsUtils.error('gsBackup', 'performBackup failed:', e?.message || e, e?.stack || '');
       if (e?.message === 'TMS_DRIVE_AUTH_MISSING') {
         await flagDriveAuthError();
       } else if (e?.message === 'TMS_DOWNLOADS_PERMISSION_MISSING') {
         await flagDownloadsPermissionMissing();
+      } else if (destination === 'drive' && jsonString) {
+        // Transient Drive failure (network / 5xx / 429): queue the payload and let
+        // retryPendingDriveBackup() take over with exponential backoff, instead of
+        // silently waiting for the next scheduled tick (up to 24h away).
+        await chrome.alarms.clear(RETRY_ALARM_NAME);
+        await chrome.storage.local.set({
+          tmsPendingDriveBackup: {
+            json     : jsonString,
+            createdAt: new Date().toISOString(),
+            attempts : 0,
+          },
+        });
+        chrome.alarms.create(RETRY_ALARM_NAME, { delayInMinutes: RETRY_BACKOFF_MINUTES[0] });
+        gsUtils.log('gsBackup', 'performBackup: transient Drive failure — queued pending backup for retry.');
       }
     }
   }
@@ -979,8 +998,11 @@ export const gsBackup = (() => {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.ok) throw new Error(`Drive download failed: ${res.status}`);
-    const text    = await res.text();
-    const base64  = btoa(unescape(encodeURIComponent(text)));
+    const text        = await res.text();
+    const textBytes   = new TextEncoder().encode(text);
+    let textBinary    = '';
+    for (const b of textBytes) textBinary += String.fromCharCode(b);
+    const base64  = btoa(textBinary);
     const dataUrl = `data:application/json;base64,${base64}`;
     await chrome.downloads.download({
       url            : dataUrl,
