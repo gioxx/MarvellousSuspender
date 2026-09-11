@@ -27,10 +27,10 @@
     "message": "BatalTangguhkan semua tab di grup tab aktif"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "Tangguhkan semua tab yang tidak ada di grup pada jendela aktif"
+    "message": "Suspend all tabs not in a group in active window"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "BatalTangguhkan semua tab yang tidak ada di grup pada jendela aktif"
+    "message": "Unsuspend all tabs not in a group in active window"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Tangguhkan semua tab lainnya di jendela aktif"
@@ -78,10 +78,10 @@
     "message": "BatalTangguhkan semua tab di grup ini"
   },
   "js_context_suspend_ungrouped_tabs": {
-    "message": "Tangguhkan semua tab yang tidak ada di grup"
+    "message": "Suspend all tabs not in a group"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "BatalTangguhkan semua tab yang tidak ada di grup"
+    "message": "Unsuspend all tabs not in a group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Tangguhkan semua tab lain di jendela ini"

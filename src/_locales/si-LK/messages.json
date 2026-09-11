@@ -27,10 +27,10 @@
     "message": "සක්‍රිය ටැබයේ සමූහයේ ඇති සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "සක්‍රිය කවුළුවේ සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවන්න"
+    "message": "Suspend all tabs not in a group in active window"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "සක්‍රිය කවුළුවේ සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+    "message": "Unsuspend all tabs not in a group in active window"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "සක්‍රිය කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"
@@ -78,10 +78,10 @@
     "message": "මෙම සමූහයේ ඇති සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
   },
   "js_context_suspend_ungrouped_tabs": {
-    "message": "සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවන්න"
+    "message": "Suspend all tabs not in a group"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+    "message": "Unsuspend all tabs not in a group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "මෙම කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"

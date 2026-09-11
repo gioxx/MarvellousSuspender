@@ -27,10 +27,10 @@
     "message": "Aktif sekmenin grubundaki tüm sekmelerin askısını kaldır"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "Aktif penceredeki grupta olmayan tüm sekmeleri askıya al"
+    "message": "Suspend all tabs not in a group in active window"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "Aktif penceredeki grupta olmayan tüm sekmelerin askısını kaldır"
+    "message": "Unsuspend all tabs not in a group in active window"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Aktif pencere dışında tüm sekmeleri askıya al"
@@ -78,10 +78,10 @@
     "message": "Bu gruptaki tüm sekmelerin askısını kaldır"
   },
   "js_context_suspend_ungrouped_tabs": {
-    "message": "Grupta olmayan tüm sekmeleri askıya al"
+    "message": "Suspend all tabs not in a group"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "Grupta olmayan tüm sekmelerin askısını kaldır"
+    "message": "Unsuspend all tabs not in a group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Bu pencere dışındaki tüm sekmeleri askıya al"
