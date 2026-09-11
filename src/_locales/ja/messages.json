@@ -27,10 +27,10 @@
     "message": "アクティブなタブのグループ内のすべてのタブをサスペンド解除"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "アクティブなウィンドウ内のグループに属さないすべてのタブをサスペンド"
+    "message": "Suspend all tabs not in a group in active window"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "アクティブなウィンドウ内のグループに属さないすべてのタブをサスペンド解除"
+    "message": "Unsuspend all tabs not in a group in active window"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "アクティブなウィンドウ内の他のすべてのタブをサスペンド"
@@ -78,10 +78,10 @@
     "message": "このグループ内のすべてのタブをサスペンド解除"
   },
   "js_context_suspend_ungrouped_tabs": {
-    "message": "グループに属さないすべてのタブをサスペンド"
+    "message": "Suspend all tabs not in a group"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "グループに属さないすべてのタブをサスペンド解除"
+    "message": "Unsuspend all tabs not in a group"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "このウィンドウ内の他のすべてのタブをサスペンド"
