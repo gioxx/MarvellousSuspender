@@ -432,8 +432,14 @@ export const tgs = (function() {
     });
   }
 
-  function suspendTabGroup(tab) {
+  async function suspendTabGroup(tab) {
     if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
+      return;
+    }
+    // A never-suspend group (#133) is absolute against the bulk actions, so skip the whole
+    // group: the acted-on tab's forceLevel 1 below would otherwise slip one tab through.
+    if (await gsUtils.isProtectedTabGroupTab(tab)) {
+      gsUtils.log('tgs', 'suspendTabGroup', 'ignored: the group is on the never-suspend list');
       return;
     }
     chrome.tabs.query({ groupId: tab.groupId }, (groupTabs) => {
@@ -500,6 +506,376 @@ export const tgs = (function() {
         });
       },
     );
+  }
+
+  // Per group id: the named keys it has worn this session, most recent last, plus the keys
+  // the user has since switched off for it (#133).
+  const TAB_GROUP_KEYS_BY_ID = 'gsTabGroupKeysById';
+
+  // caps what a runaway renamer could grow
+  const TAB_GROUP_KEY_HISTORY_LIMIT = 20;
+
+  // The incognito worker never writes here: it shares both stores under "split", and a title
+  // from an incognito window must not reach them or chrome.storage.sync. Reads stand.
+  const IS_INCOGNITO_CONTEXT = chrome.extension.inIncognitoContext;
+
+  // Chrome does not await an async listener, so overlapping onUpdated chains each
+  // read-modify-write the list and can drop an entry outright. Every write goes through this
+  // chain. Underscore-prefixed bodies below assume it is held; reads deliberately skip it.
+  let _tabGroupWriteChain = Promise.resolve();
+
+  function withTabGroupLock(fn) {
+    const result = _tabGroupWriteChain.then(fn, fn);
+    _tabGroupWriteChain = result.then(() => {}, () => {});
+    return result;
+  }
+
+  // Resolve-on-error like the gsChrome wrappers: initTabGroupKeyCache() is awaited from
+  // background.js's init executor, which has no reject arm, so a rejection would strand
+  // startup. A lost read is a cold record and a lost write over-protects, both survivable.
+  async function _getTabGroupKeyCache() {
+    try {
+      const result = await chrome.storage.session.get([TAB_GROUP_KEYS_BY_ID]);
+      return result[TAB_GROUP_KEYS_BY_ID] ?? {};
+    }
+    catch (e) {
+      gsUtils.warning('tgs', 'could not read the tab group key cache', e);
+      return {};
+    }
+  }
+
+  async function _setTabGroupKeyCache(cache) {
+    try {
+      await chrome.storage.session.set({ [TAB_GROUP_KEYS_BY_ID]: cache });
+    }
+    catch (e) {
+      gsUtils.warning('tgs', 'could not write the tab group key cache', e);
+    }
+  }
+
+  // { keys, suppressed }. Any other shape (an earlier revision stored a bare array) reads as
+  // empty, which costs a rename follow-up rather than a protection.
+  function _tabGroupKeyState(cache, groupId) {
+    const record = cache[groupId];
+    if (Array.isArray(record)) {
+      return { keys : record, suppressed : [] };
+    }
+    return {
+      keys       : Array.isArray(record?.keys) ? record.keys : [],
+      suppressed : Array.isArray(record?.suppressed) ? record.suppressed : [],
+    };
+  }
+
+  // named keys only, which is what the untitled fallback in gsUtils leans on
+  async function _rememberTabGroupKey(groupId, groupKey) {
+    if (IS_INCOGNITO_CONTEXT || groupKey === null) {
+      return;
+    }
+    const cache = await _getTabGroupKeyCache();
+    const state = _tabGroupKeyState(cache, groupId);
+    const keys = state.keys.filter((key) => key !== groupKey);
+    keys.push(groupKey);
+    cache[groupId] = {
+      keys       : keys.slice(-TAB_GROUP_KEY_HISTORY_LIMIT),
+      suppressed : state.suppressed,
+    };
+    await _setTabGroupKeyCache(cache);
+  }
+
+  // Marks keys as no longer applying to one group id, without touching the shared list: they
+  // may be worn by a group this context cannot see. See toggleNeverSuspendTabGroup().
+  async function _setSuppressedTabGroupKeys(groupId, suppressed) {
+    if (IS_INCOGNITO_CONTEXT) {
+      return;
+    }
+    const cache = await _getTabGroupKeyCache();
+    const state = _tabGroupKeyState(cache, groupId);
+    cache[groupId] = { keys : state.keys, suppressed };
+    await _setTabGroupKeyCache(cache);
+  }
+
+  // read-only, so it does not take the lock
+  async function getTabGroupKeyState(groupId) {
+    const cache = await _getTabGroupKeyCache();
+    return _tabGroupKeyState(cache, groupId);
+  }
+
+  // Seeds the mapping for groups that already existed, so an extension reload mid-session
+  // does not lose them.
+  function initTabGroupKeyCache() {
+    if (IS_INCOGNITO_CONTEXT) {
+      return Promise.resolve();
+    }
+    return withTabGroupLock(async () => {
+      const groups = await gsChrome.tabGroupsGetAll();
+      const cache = await _getTabGroupKeyCache();
+      // Merge, never replace: this also runs on the worker restart an onUpdated itself
+      // triggers, and overwriting would discard the pre-rename key that handler reads.
+      const refreshedCache = Object.assign({}, cache);
+      for (const group of groups) {
+        const groupKey = gsUtils.getTabGroupKey(group);
+        if (groupKey !== null && _tabGroupKeyState(refreshedCache, group.id).keys.length === 0) {
+          refreshedCache[group.id] = { keys : [groupKey], suppressed : [] };
+        }
+      }
+      await _setTabGroupKeyCache(refreshedCache);
+    });
+  }
+
+  // for a group that arrives already named: a reopened saved group, or another extension
+  function handleTabGroupCreated(group) {
+    const groupKey = gsUtils.getTabGroupKey(group);
+    if (IS_INCOGNITO_CONTEXT || groupKey === null) {
+      return Promise.resolve();
+    }
+    return withTabGroupLock(() => _rememberTabGroupKey(group.id, groupKey));
+  }
+
+  // Not debounced. An earlier revision waited 700ms for the group to settle, and a worker
+  // teardown inside that window dropped the rename for good, leaving the exemption on the old
+  // key. A burst collapses anyway, the live group being resolved inside the lock.
+  async function handleTabGroupUpdated(group) {
+    if (IS_INCOGNITO_CONTEXT) {
+      return;
+    }
+    await withTabGroupLock(() => _applyTabGroupUpdate(group.id));
+    // not awaited: a menu label must not extend or stall the write above
+    refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
+  }
+
+  async function _applyTabGroupUpdate(groupId) {
+    const cache = await _getTabGroupKeyCache();
+    const state = _tabGroupKeyState(cache, groupId);
+    const oldGroupKey = state.keys.at(-1);
+    // resolve the group rather than trust the event payload, which can be behind by now
+    const liveGroup = await gsChrome.tabGroupsGet(groupId);
+    if (!liveGroup) {
+      // dissolved before this ran; onRemoved prunes the cache
+      return;
+    }
+    const newGroupKey = gsUtils.getTabGroupKey(liveGroup);
+    if (newGroupKey === null) {
+      // Title cleared, not followed: the only key writable here is the bare colour, which
+      // matches every untitled group of that colour. The cache keeps the last named key and
+      // gsUtils.getMatchableTabGroupKeyForTab() falls back to it, so protection holds.
+      return;
+    }
+    if (oldGroupKey === newGroupKey) {
+      // collapse/expand lands here too and leaves the key untouched
+      return;
+    }
+    await _rememberTabGroupKey(groupId, newGroupKey);
+    if (oldGroupKey === undefined) {
+      // cold cache: nothing to rename from, so the old entry stays, which is the safe side
+      return;
+    }
+    const neverSuspendGroups = await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS);
+    // Protected under the old key, not merely listed under it: following a rename out of a
+    // suppressed key would hand back an exemption the user switched off.
+    if (!gsUtils.checkSpecificNeverSuspendGroups(oldGroupKey, neverSuspendGroups)
+      || state.suppressed.includes(oldGroupKey)) {
+      return;
+    }
+    gsUtils.log('tgs', 'tab group renamed, adding exemption for', newGroupKey, 'from', oldGroupKey);
+    // Add the new key, leave the old one alone: "is any other group still using it" cannot be
+    // answered here, tabGroups.query() being blind to closed and other-context groups, and
+    // answering it wrong silently un-exempts someone. A stale key over-protects instead.
+    const liftedSuppression = state.suppressed.includes(newGroupKey);
+    if (liftedSuppression) {
+      await _setSuppressedTabGroupKeys(groupId, state.suppressed.filter((key) => key !== newGroupKey));
+    }
+    // A rename is bookkeeping, so no reconcile pass: it would wake tabs suspended by hand
+    // inside the group. A lifted suppression is a real state change, so that one gets it.
+    await _setTabGroupNeverSuspend([newGroupKey], true, false);
+    if (liftedSuppression) {
+      await _reconcileTabGroupTabs([newGroupKey], true);
+    }
+  }
+
+  function handleTabGroupRemoved(group) {
+    if (IS_INCOGNITO_CONTEXT) {
+      return Promise.resolve();
+    }
+    return withTabGroupLock(async () => {
+      const cache = await _getTabGroupKeyCache();
+      if (cache[group.id] === undefined) {
+        return;
+      }
+      delete cache[group.id];
+      await _setTabGroupKeyCache(cache);
+    });
+  }
+
+  // the key a live group is matched by, as gsUtils.getMatchableTabGroupKeyForTab() does
+  function _matchableTabGroupKey(cache, group) {
+    const state = _tabGroupKeyState(cache, group.id);
+    const groupKey = gsUtils.getTabGroupKey(group) ?? state.keys.at(-1) ?? null;
+    return groupKey !== null && !state.suppressed.includes(groupKey) ? groupKey : null;
+  }
+
+  // Nothing else brings open tabs back in line. Separate from the write below because
+  // lifting a suppression changes protection without changing the list.
+  async function _reconcileTabGroupTabs(groupKeys, exempt) {
+    const groups = await gsChrome.tabGroupsGetAll();
+    const cache = await _getTabGroupKeyCache();
+    for (const group of groups) {
+      if (!groupKeys.includes(_matchableTabGroupKey(cache, group))) {
+        continue;
+      }
+      const groupTabs = await gsChrome.tabsQuery({ groupId: group.id });
+      for (const groupTab of groupTabs) {
+        if (exempt) {
+          gsTabSuspendManager.unqueueTabForSuspension(groupTab);
+          if (gsUtils.isSuspendedTab(groupTab)) {
+            await unsuspendTab(groupTab);
+          }
+        }
+        else if (gsUtils.isNormalTab(groupTab, true)) {
+          await resetAutoSuspendTimerForTab(groupTab);
+        }
+      }
+    }
+    setIconStatusForActiveTab();
+  }
+
+  // The one place the list is mutated. Every key passed in is one the caller can point at, a
+  // group's current key or a line clicked in Options; it never infers a key to remove.
+  async function _setTabGroupNeverSuspend(groupKeys, exempt, reconcile = true) {
+    if (IS_INCOGNITO_CONTEXT) {
+      // an incognito group's title must not reach chrome.storage.sync
+      gsUtils.warning('tgs', 'setTabGroupNeverSuspend', 'ignored in the incognito context', groupKeys);
+      return false;
+    }
+    const oldList = (await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS)) ?? '';
+    const listedKeys = groupKeys.filter((key) => gsUtils.checkSpecificNeverSuspendGroups(key, oldList));
+    if (exempt ? listedKeys.length === groupKeys.length : listedKeys.length === 0) {
+      return false;
+    }
+    const newList = exempt
+      ? gsUtils.cleanupTabGroupList([oldList, ...groupKeys].join('\n'))
+      : gsUtils.cleanupTabGroupList(
+        oldList.split('\n').filter((item) => !groupKeys.includes(item.trim())).join('\n'),
+      );
+    await gsStorage.setOptionAndSync(gsStorage.NEVER_SUSPEND_GROUPS, newList);
+    if (reconcile) {
+      await _reconcileTabGroupTabs(groupKeys, exempt);
+    }
+    return true;
+  }
+
+  // exactly one key, which is what an Options remove link means
+  function setTabGroupNeverSuspend(groupKey, exempt) {
+    return withTabGroupLock(() => _setTabGroupNeverSuspend([groupKey], exempt));
+  }
+
+  // The two context menu items name their direction instead of flipping whatever they find:
+  // the tab strip pair acts on the right-clicked tab while any label can only be derived from
+  // the active one, so a label that claimed which way it goes would be read off the wrong tab
+  // whenever those differ. The 2g shortcut has no label to misread and stays a toggle.
+  function setNeverSuspendTabGroup(tab, exempt) {
+    return withTabGroupLock(() => _applyNeverSuspendTabGroup(tab, exempt));
+  }
+
+  function toggleNeverSuspendTabGroup(tab) {
+    return withTabGroupLock(() => _applyNeverSuspendTabGroup(tab, null));
+  }
+
+  // exempt: true to protect, false to release, null to flip whichever way the group sits
+  async function _applyNeverSuspendTabGroup(tab, requestedExempt) {
+    const groupKey = await gsUtils.getTabGroupKeyForTab(tab);
+    if (groupKey === null) {
+      // The gate that counts: the shortcut has no enabled state, and the tab strip items act
+      // on the right-clicked tab while their enabled state is derived from the active one.
+      gsUtils.log('tgs', '_applyNeverSuspendTabGroup', 'ignored: tab is not in a named group');
+      return;
+    }
+    // The 2g shortcut resolves its tab through getCurrentlyActiveTab(), which is blind to
+    // incognito windows and can land on a background normal one. Refuse on positive
+    // evidence only, so a lookup that fails does not turn into a refused gesture.
+    const tabWindow = await gsChrome.windowsGet(tab.windowId);
+    if (tabWindow?.focused === false) {
+      gsUtils.log('tgs', '_applyNeverSuspendTabGroup', 'ignored: the tab\'s window is not focused');
+      return;
+    }
+    // record it while the group id is in hand, so a later rename is followed from a cold cache
+    await _rememberTabGroupKey(tab.groupId, groupKey);
+    const cache = await _getTabGroupKeyCache();
+    const state = _tabGroupKeyState(cache, tab.groupId);
+    const neverSuspendGroups = await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS);
+    // asked the way the suspension path answers it, or the menu offers to turn off a group
+    // a suppression already turned off, taking its key off the list on someone else's behalf
+    const isExempt = gsUtils.checkSpecificNeverSuspendGroups(groupKey, neverSuspendGroups)
+      && !state.suppressed.includes(groupKey);
+    const exempt = requestedExempt === null ? !isExempt : requestedExempt;
+    if (exempt === isExempt) {
+      // both items are always offered, so the one naming the state the group is already in
+      // does nothing rather than reporting an error the menu has nowhere to show
+      gsUtils.log('tgs', '_applyNeverSuspendTabGroup', 'ignored: already', exempt ? 'exempt' : 'suspendable', groupKey);
+      return;
+    }
+
+    if (exempt) {
+      // an explicit yes clears every earlier no, including ones against names it is not
+      // wearing now, which would otherwise bite on the next rename back
+      const wasSuppressed = state.suppressed.length > 0;
+      await _setSuppressedTabGroupKeys(tab.groupId, []);
+      const listChanged = await _setTabGroupNeverSuspend([groupKey], true);
+      if (!listChanged && wasSuppressed) {
+        // the suppression alone was holding it out, so there is no list write to hang this off
+        await _reconcileTabGroupTabs([groupKey], true);
+      }
+      return;
+    }
+
+    // Off removes only the key the group is wearing, the one the gesture points at, and
+    // suppresses its older keys against this id instead. Removing those from the list took
+    // protection off closed and incognito groups wearing them, which nothing here can see.
+    const suppressed = [...new Set([...state.suppressed, ...state.keys.filter((key) => key !== groupKey)])];
+    await _setSuppressedTabGroupKeys(tab.groupId, suppressed);
+    await _setTabGroupNeverSuspend([groupKey], false);
+  }
+
+  // Page items only. chrome.contextMenus has no tooltip, so the reason the pair is unavailable
+  // goes in the first one's label. The tab strip twins stay enabled: they act on the
+  // right-clicked tab, and a state derived from the active one greyed them out on valid
+  // targets, which a disabled item never lets you fix.
+  const NEVER_SUSPEND_GROUP_MENU_ID = 'never_suspend_group';
+  const ALLOW_SUSPENDING_GROUP_MENU_ID = 'allow_suspending_group';
+
+  // Never rejects and no caller awaits it: the focus paths call this, and getCurrentlyActiveTab()
+  // takes a callback with no error path, so a throw would leave the promise below pending.
+  async function refreshNeverSuspendGroupMenuItems() {
+    try {
+      if (IS_INCOGNITO_CONTEXT || !(await gsStorage.getOption(gsStorage.ADD_CONTEXT))) {
+        return;
+      }
+      const activeTab = await new Promise((resolve) => {
+        getCurrentlyActiveTab(resolve);
+      });
+      const enabled = (await gsUtils.getTabGroupKeyForTab(activeTab)) !== null;
+      // Only the first item carries the explanation: repeating it on both would say the same
+      // thing twice, and "never suspend" is the one being reached for on an unnamed group.
+      const updates = [
+        [NEVER_SUSPEND_GROUP_MENU_ID, {
+          enabled,
+          title: enabled
+            ? gsUtils.getMessage('js_context_never_suspend_group')
+            : gsUtils.getMessage('js_context_never_suspend_group_unnamed'),
+        }],
+        [ALLOW_SUSPENDING_GROUP_MENU_ID, { enabled }],
+      ];
+      for (const [menuItemId, properties] of updates) {
+        chrome.contextMenus.update(menuItemId, properties, () => {
+          if (chrome.runtime.lastError) {
+            // the item is gone: the context menu setting was turned off in between
+            gsUtils.log('tgs', 'refreshNeverSuspendGroupMenuItems', chrome.runtime.lastError);
+          }
+        });
+      }
+    }
+    catch (e) {
+      gsUtils.warning('tgs', 'refreshNeverSuspendGroupMenuItems', e);
+    }
   }
 
   function queueSessionTimer() {
@@ -1511,6 +1887,11 @@ export const tgs = (function() {
           callback(gsUtils.STATUS_APP_WINDOW);
           return;
         }
+        //check never-suspend tab group (#133)
+        if (await gsUtils.isProtectedTabGroupTab(tab)) {
+          callback(gsUtils.STATUS_TAB_GROUP);
+          return;
+        }
         //check active
         if (await gsUtils.isProtectedActiveTab(tab)) {
           callback(gsUtils.STATUS_ACTIVE);
@@ -1703,6 +2084,21 @@ export const tgs = (function() {
         contexts: allContexts,
       });
 
+      // Gated on the active tab, which for a page menu is the tab it acts on. Created
+      // disabled so a right-click before the first refresh under-offers rather than misleads.
+      chrome.contextMenus.create({
+        id: 'never_suspend_group',
+        title: gsUtils.getMessage('js_context_never_suspend_group_unnamed'),
+        enabled: false,
+        contexts: allContexts,
+      });
+      chrome.contextMenus.create({
+        id: 'allow_suspending_group',
+        title: gsUtils.getMessage('js_context_allow_suspending_group'),
+        enabled: false,
+        contexts: allContexts,
+      });
+
       chrome.contextMenus.create({
         id: 'separator2',
         type: 'separator',
@@ -1793,6 +2189,18 @@ export const tgs = (function() {
         title: gsUtils.getMessage('js_context_unsuspend_tab_group'),
         contexts: ['tab'],
       });
+      // enabled always: they act on the right-clicked tab, so gating on the active one would
+      // grey them out on valid targets. See refreshNeverSuspendGroupMenuItems().
+      chrome.contextMenus.create({
+        id: 'tab_never_suspend_group',
+        title: gsUtils.getMessage('js_context_never_suspend_group'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_allow_suspending_group',
+        title: gsUtils.getMessage('js_context_allow_suspending_group'),
+        contexts: ['tab'],
+      });
       chrome.contextMenus.create({
         id: 'tab_suspend_ungrouped',
         title: gsUtils.getMessage('js_context_suspend_ungrouped_tabs'),
@@ -1833,6 +2241,9 @@ export const tgs = (function() {
         title: gsUtils.getMessage('js_context_unsuspend_all_tabs'),
         contexts: ['tab'],
       });
+
+      // enable the page item above if the tab in front of the user is in a named group (#133)
+      refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
     }
   }
 
@@ -1902,6 +2313,15 @@ export const tgs = (function() {
     unsuspendTabGroup,
     suspendUngroupedTabs,
     unsuspendUngroupedTabs,
+    toggleNeverSuspendTabGroup,
+    setNeverSuspendTabGroup,
+    setTabGroupNeverSuspend,
+    getTabGroupKeyState,
+    refreshNeverSuspendGroupMenuItems,
+    initTabGroupKeyCache,
+    handleTabGroupCreated,
+    handleTabGroupUpdated,
+    handleTabGroupRemoved,
     whitelistHighlightedTab,
     unsuspendAllTabsInAllWindows,
     unsuspendWhitelistedTabs,

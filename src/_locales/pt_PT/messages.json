@@ -32,6 +32,9 @@
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
     "message": "Reativar todos os separadores fora de grupos na janela ativa"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Alternar nunca suspender para o grupo do separador ativo"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todos os outras separadores na janela ativa"
   },
@@ -82,6 +85,15 @@
   },
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "Reativar todos os separadores fora de grupos"
+  },
+  "js_context_never_suspend_group": {
+    "message": "Nunca suspender este grupo"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "Permitir suspender este grupo"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "Nunca suspender este grupo (apenas grupos com nome)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas as outras guias nessa janela"
@@ -583,6 +595,24 @@
   "html_options_always_suspend_force": {
     "message": "Suspender já os separadores correspondentes"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "Nunca suspender separadores nos seguintes grupos:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Os separadores destes grupos nunca são suspensos automaticamente e são ignorados pelas ações de suspensão em massa."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Adicione um grupo com \"Nunca suspender este grupo\" no menu de contexto. Só podem ser adicionados grupos que tenham nome."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Os grupos são identificados por nome e cor e acompanham mudanças de nome enquanto o navegador se mantiver aberto."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Ainda não foi adicionado nenhum grupo de separadores."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Remover"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Adicionar The Marvellous Suspender no menu de contexto do clique do botão direito"
   },
@@ -886,6 +916,9 @@
   "js_popup_app_window": {
     "message": "O separador está aberto numa janela de aplicação"
   },
+  "js_popup_tab_group": {
+    "message": "O separador está num grupo que nunca é suspenso"
+  },
   "js_popup_temp_whitelist": {
     "message": "Suspensão de guias pausada."
   },
@@ -983,6 +1016,14 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Não existem separadores abertos que correspondam à lista de suspensão forçada atual."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "corresponde a $count$ grupo(s) aberto(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_always_suspend_matches_heading": {
     "message": "Separadores abertos correspondentes à lista de suspensão forçada:"

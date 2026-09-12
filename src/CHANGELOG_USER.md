@@ -4,6 +4,12 @@ This file only ever holds the current release's changes, written for people usin
 
 For the full technical changelog (every fix, every review round, every detail), see [CHANGELOG.md on GitHub](https://github.com/gioxx/MarvellousSuspender/blob/master/CHANGELOG.md).
 
+## [Unreleased]
+
+### New
+
+- **Never suspend this group**: mark a tab group and its tabs are left alone however long you leave them, which is handy for monitoring or dashboard tabs. Only named groups can be marked, so name the group first (in the page right-click menu the items stay greyed out until you do), then pick "Never suspend this group" from either right-click menu, and "Allow suspending this group" to undo it; review the list in Options.
+
 ## [9.0.3]
 
 ### New

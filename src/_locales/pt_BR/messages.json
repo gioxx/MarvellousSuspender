@@ -32,6 +32,9 @@
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
     "message": "Recarregar todas as guias fora de grupos na janela ativa"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Alternar nunca suspender para o grupo da guia ativa"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todas as outras guias na janela ativa"
   },
@@ -82,6 +85,15 @@
   },
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "Recarregar todas as guias fora de grupos"
+  },
+  "js_context_never_suspend_group": {
+    "message": "Nunca suspender este grupo"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "Permitir suspender este grupo"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "Nunca suspender este grupo (somente grupos nomeados)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas as outras guias nessa janela"
@@ -583,6 +595,24 @@
   "html_options_always_suspend_force": {
     "message": "Suspender agora as guias correspondentes"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "Nunca suspender guias nos seguintes grupos:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "As guias desses grupos nunca são suspensas automaticamente e são ignoradas pelas ações de suspensão em massa."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Adicione um grupo com \"Nunca suspender este grupo\" no menu de contexto. Só é possível adicionar grupos que tenham nome."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Os grupos são identificados por nome e cor e acompanham renomeações enquanto o navegador permanecer aberto."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Nenhum grupo de guias adicionado ainda."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Remover"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Adicionar The Marvellous Suspender no menu de contexto do clique do botão direito"
   },
@@ -886,6 +916,9 @@
   "js_popup_app_window": {
     "message": "A guia está aberta em uma janela de aplicativo"
   },
+  "js_popup_tab_group": {
+    "message": "A guia está em um grupo que nunca é suspenso"
+  },
   "js_popup_temp_whitelist": {
     "message": "Suspensão de guias pausada."
   },
@@ -983,6 +1016,14 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Não há guias abertas que correspondam à lista de suspensão forçada atual."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "corresponde a $count$ grupo(s) aberto(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_always_suspend_matches_heading": {
     "message": "Guias abertas correspondentes à lista de suspensão forçada:"

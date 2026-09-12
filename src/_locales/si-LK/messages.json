@@ -32,6 +32,9 @@
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
     "message": "සක්‍රිය කවුළුවේ සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "සක්‍රිය ටැබයේ සමූහය සඳහා 'කිසිවිටක අත්හිටුවන්න එපා' මාරු කරන්න"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "සක්‍රිය කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"
   },
@@ -82,6 +85,15 @@
   },
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "js_context_never_suspend_group": {
+    "message": "මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "මෙම සමූහය අත්හිටුවීමට ඉඩ දෙන්න"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා (නම් කළ සමූහ පමණි)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "මෙම කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"
@@ -583,6 +595,24 @@
   "html_options_always_suspend_force": {
     "message": "ගැළපෙන ටැබ් දැන් අත්හිටුවන්න"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "පහත ටැබ් සමූහවල ඇති ටැබ් කිසිවිටක අත්හිටුවන්න එපා:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "මෙම සමූහවල ඇති ටැබ් කිසිවිටෙක ස්වයංක්‍රීයව අත්හිටුවන්නේ නැත, තොග අත්හිටුවීම් ක්‍රියාවලදීද මඟහරිනු ලැබේ."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "දකුණු-ක්ලික් මෙනුවේ ඇති \"මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා\" මගින් සමූහයක් එක් කරන්න. නමක් ඇති සමූහ පමණක් එක් කළ හැකිය."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "සමූහ නම සහ වර්ණය අනුව ගැළපේ, බ්‍රවුසරය විවෘතව පවතින තෙක් නම් වෙනස් කිරීම් අනුගමනය කරයි."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "තවම ටැබ් සමූහ එක් කර නැත."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "ඉවත් කරන්න"
+  },
   "html_options_other_enable_context_menu": {
     "message": "සන්දර්භය මෙනුව දකුණු-ක්ලික් කිරීමට පුදුමාකාර අත්හිටුවීම එක් කරන්න"
   },
@@ -886,6 +916,9 @@
   "js_popup_app_window": {
     "message": "ටැබය යෙදුම් කවුළුවක විවෘතව ඇත"
   },
+  "js_popup_tab_group": {
+    "message": "ටැබය කිසිවිටක අත්හිටුවන්නේ නැති සමූහයක ඇත"
+  },
   "js_popup_temp_whitelist": {
     "message": "ටැබ් අත්හිටුවීම විරාම කරන ලදී."
   },
@@ -983,6 +1016,14 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "වත්මන් සැමවිට-අත්හිටුවන ලැයිස්තුවට ගැළපෙන විවෘත ටැබ් නොමැත."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "ගැළපෙන විවෘත සමූහ ගණන: $count$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_always_suspend_matches_heading": {
     "message": "සැමවිට-අත්හිටුවන ලැයිස්තුවට ගැළපෙන විවෘත ටැබ්:"

@@ -216,6 +216,7 @@ export const gsUtils = {
   STATUS_TEMPWHITELIST  : 'tempWhitelist',
   STATUS_PINNED         : 'pinned',
   STATUS_APP_WINDOW     : 'appWindow',
+  STATUS_TAB_GROUP      : 'tabGroup',
   STATUS_WHITELISTED    : 'whitelisted',
   STATUS_CHARGING       : 'charging',
   STATUS_NOCONNECTIVITY : 'noConnectivity',
@@ -507,6 +508,17 @@ export const gsUtils = {
     return ignoreAppWindows && await gsUtils.isTabInAppWindow(tab);
   },
 
+  // no global on/off to gate on: opted into one group at a time (#133)
+  isProtectedTabGroupTab: async (tab) => {
+    // read the list first: it is empty for everyone not using the feature
+    const neverSuspendGroups = await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS);
+    if (!neverSuspendGroups) {
+      return false;
+    }
+    const groupKey = await gsUtils.getMatchableTabGroupKeyForTab(tab);
+    return groupKey !== null && gsUtils.checkSpecificNeverSuspendGroups(groupKey, neverSuspendGroups);
+  },
+
   // Note: Normal tabs may be in a discarded state
   isNormalTab(tab, excludeDiscarded) {
     excludeDiscarded = excludeDiscarded || false;
@@ -608,6 +620,90 @@ export const gsUtils = {
   checkSpecificAlwaysSuspendList(url, listString) {
     const listItems = listString ? listString.split(/[\s\n]+/) : [];
     return listItems.some((item) => gsUtils.testForMatch(item, url));
+  },
+
+  // "<color>:<title>", colors never containing a colon and titles being free to (#133).
+  // Null without a title: a bare colour is not an identifier, it matches every untitled group
+  // of that colour, including ones created later that nobody would think to check.
+  getTabGroupKey(group) {
+    // Normalised at the single producer, since stored lines are trimmed: a title with
+    // trailing whitespace or a newline would otherwise match nothing, silently. The named
+    // test runs on the normalised title, or spaces alone would produce a bare colour key.
+    const title = (group?.title ?? '').replace(/[\r\n]+/g, ' ').trim();
+    if (!title) {
+      return null;
+    }
+    return `${group.color}:${title}`;
+  },
+
+  // null unless colour plus a real title, which makes it the test for a well-formed key
+  parseTabGroupKey(groupKey) {
+    const separatorIndex = (groupKey ?? '').indexOf(':');
+    if (separatorIndex === -1) {
+      return null;
+    }
+    const title = groupKey.substring(separatorIndex + 1);
+    if (!title.trim()) {
+      return null;
+    }
+    return {
+      color : groupKey.substring(0, separatorIndex),
+      title,
+    };
+  },
+
+  // the key a group can be EXEMPTED under, so untitled is null
+  getTabGroupKeyForTab: async (tab) => {
+    if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
+      return null;
+    }
+    const group = await gsChrome.tabGroupsGet(tab.groupId);
+    return group ? gsUtils.getTabGroupKey(group) : null;
+  },
+
+  // The key a group is MATCHED by, a different question: its own, or the last named key it
+  // wore this session, so clearing a title does not silently unprotect it. Null once that key
+  // is suppressed for this id, which is how off reaches old keys (tgs.js's toggle).
+  getMatchableTabGroupKeyForTab: async (tab) => {
+    if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
+      return null;
+    }
+    const group = await gsChrome.tabGroupsGet(tab.groupId);
+    if (!group) {
+      return null;
+    }
+    const state = await tgs.getTabGroupKeyState(tab.groupId);
+    const groupKey = gsUtils.getTabGroupKey(group) ?? state.keys.at(-1) ?? null;
+    if (groupKey === null || state.suppressed.includes(groupKey)) {
+      return null;
+    }
+    return groupKey;
+  },
+
+  checkSpecificNeverSuspendGroups(groupKey, listString) {
+    const listItems = listString ? listString.split('\n') : [];
+    return listItems.some((item) => item.trim() === groupKey);
+  },
+
+  // only reachable from a synced change: a local toggle reconciles its own tabs
+  tabGroupLeftNeverSuspendList: async (tab, oldList, newList) => {
+    const groupKey = await gsUtils.getMatchableTabGroupKeyForTab(tab);
+    return groupKey !== null
+      && gsUtils.checkSpecificNeverSuspendGroups(groupKey, oldList)
+      && !gsUtils.checkSpecificNeverSuspendGroups(groupKey, newList);
+  },
+
+  // Not cleanupWhitelist(): that splits on whitespace and would tear a title with a space in
+  // it. A line without a real title is dropped, getTabGroupKey() being unable to produce one.
+  cleanupTabGroupList(listString) {
+    const listItems = new Set();
+    for (const line of (listString ?? '').split('\n')) {
+      const item = line.trim();
+      if (item && gsUtils.parseTabGroupKey(item)) {
+        listItems.add(item);
+      }
+    }
+    return [...listItems].sort().join('\n');
   },
 
   removeFromWhitelist: async (url) => {
@@ -1069,7 +1165,10 @@ export const gsUtils = {
           if (
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && (await gsUtils.isProtectedPinnedTab(tab))) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab))) ||
-            (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && (await gsUtils.isProtectedAppWindowTab(tab)))
+            (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && (await gsUtils.isProtectedAppWindowTab(tab))) ||
+            // as the three above, for a group exempted on another device (#133): the local
+            // toggle wakes its sleeping tabs itself, so over sync they would stay asleep
+            (changedSettingKeys.includes(gsStorage.NEVER_SUSPEND_GROUPS) && (await gsUtils.isProtectedTabGroupTab(tab)))
           ) {
             await tgs.unsuspendTab(tab);
             continue;
@@ -1170,6 +1269,16 @@ export const gsUtils = {
               ( !gsUtils.checkSpecificAlwaysSuspendList(tab.url, oldValueBySettingKey[gsStorage.ALWAYS_SUSPEND_LIST]) &&
                gsUtils.checkSpecificAlwaysSuspendList(tab.url, newValueBySettingKey[gsStorage.ALWAYS_SUSPEND_LIST])
               )
+            ) ||
+            // Same shape as the whitelist case above, for a group that dropped off the
+            // never-suspend list on another device (#133): its tabs' timers fired and were
+            // rejected while it was protected, and nothing else would re-arm them here.
+            (changedSettingKeys.includes(gsStorage.NEVER_SUSPEND_GROUPS) &&
+              (await gsUtils.tabGroupLeftNeverSuspendList(
+                tab,
+                oldValueBySettingKey[gsStorage.NEVER_SUSPEND_GROUPS],
+                newValueBySettingKey[gsStorage.NEVER_SUSPEND_GROUPS],
+              ))
             );
           if (updateSuspendTime) {
             await tgs.resetAutoSuspendTimerForTab(tab);

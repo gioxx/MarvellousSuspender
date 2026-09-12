@@ -32,6 +32,9 @@
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
     "message": "Возобновить все вкладки вне групп в активном окне"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Переключить «никогда не приостанавливать» для группы активной вкладки"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Приостановить все остальные вкладки в активном окне"
   },
@@ -82,6 +85,15 @@
   },
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "Возобновить все вкладки вне групп"
+  },
+  "js_context_never_suspend_group": {
+    "message": "Никогда не приостанавливать эту группу"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "Разрешить приостановку этой группы"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "Никогда не приостанавливать эту группу (только группы с названием)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Приостановить все остальные вкладки в этом окне"
@@ -583,6 +595,24 @@
   "html_options_always_suspend_force": {
     "message": "Приостановить подходящие вкладки сейчас"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "Никогда не приостанавливать вкладки в следующих группах:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Вкладки в этих группах никогда не приостанавливаются автоматически и пропускаются при массовой приостановке."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Добавьте группу с помощью пункта «Никогда не приостанавливать эту группу» в контекстном меню. Добавить можно только группы, у которых есть название."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Группы определяются по названию и цвету и следуют за переименованием, пока браузер остаётся открытым."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Группы вкладок ещё не добавлены."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Удалить"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Добавить The Marvellous Suspender в контекстное меню правой кнопки мыши"
   },
@@ -886,6 +916,9 @@
   "js_popup_app_window": {
     "message": "Вкладка открыта в окне приложения"
   },
+  "js_popup_tab_group": {
+    "message": "Вкладка находится в группе, которая никогда не приостанавливается"
+  },
   "js_popup_temp_whitelist": {
     "message": "Приостановка вкладки поставлена на паузу."
   },
@@ -983,6 +1016,14 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Нет открытых вкладок, соответствующих текущему списку принудительного приостановления."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "совпадений среди открытых групп: $count$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_always_suspend_matches_heading": {
     "message": "Открытые вкладки, соответствующие списку принудительного приостановления:"

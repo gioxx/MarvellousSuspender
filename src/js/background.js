@@ -272,6 +272,12 @@ import  { tgs }                   from './tgs.js';
             tgs.forceSuspendAlwaysListedTabs();
             break;
           }
+          case 'removeNeverSuspendGroup' : {
+            if (typeof request.groupKey === 'string' && request.groupKey) {
+              await tgs.setTabGroupNeverSuspend(request.groupKey, false);
+            }
+            break;
+          }
           case 'suspendSelected' : {
             tgs.suspendSelectedTabs();
             break;
@@ -456,6 +462,14 @@ import  { tgs }                   from './tgs.js';
       case 'tab_unsuspend_ungrouped':
         tgs.unsuspendUngroupedTabs(tab);
         break;
+      case 'never_suspend_group':
+      case 'tab_never_suspend_group':
+        await tgs.setNeverSuspendTabGroup(tab, true);
+        break;
+      case 'allow_suspending_group':
+      case 'tab_allow_suspending_group':
+        await tgs.setNeverSuspendTabGroup(tab, false);
+        break;
       case 'soft_suspend_other_tabs_in_window':
         tgs.suspendAllTabs(false);
         break;
@@ -550,6 +564,13 @@ import  { tgs }                   from './tgs.js';
         tgs.unsuspendUngroupedTabs(tab);
         break;
       }
+      case '2g-toggle-never-suspend-group': {
+        const tab = await new Promise((r) => {
+          tgs.getCurrentlyActiveTab(r);
+        });
+        await tgs.toggleNeverSuspendTabGroup(tab);
+        break;
+      }
       case '3-suspend-active-window':
         tgs.suspendAllTabs(false);
         break;
@@ -612,10 +633,14 @@ import  { tgs }                   from './tgs.js';
   // Listeners must be part of the top-level evaluation of the service worker
   function addChromeListeners() {
     chrome.windows.onFocusChanged.addListener(async (windowId) => {
+      // Never awaited, here or below (#133): these are the hottest listeners in the
+      // extension, and a menu label must not delay focus handling or strand it by hanging.
+      tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
       await tgs.handleWindowFocusChanged(windowId);
     });
     chrome.tabs.onActivated.addListener(async (activeInfo) => {
       gsUtils.log(activeInfo.tabId, 'tab onActivated');
+      tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
 
       // Opportunistic favicon-repair backstop (#474): if the session flag shows the
@@ -684,6 +709,11 @@ import  { tgs }                   from './tgs.js';
     // either of them discovered there was nothing to do.
     const RELEVANT_TAB_UPDATE_KEYS = ['status', 'url', 'discarded', 'audible', 'pinned'];
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+      // Nothing in chrome.tabGroups reports a tab moving between existing groups (#133), and
+      // the filter below leaves groupId out: the state handlers are not where it belongs.
+      if (changeInfo && Object.hasOwn(changeInfo, 'groupId') && tab.active) {
+        tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
+      }
       if (!changeInfo || !RELEVANT_TAB_UPDATE_KEYS.some((key) => changeInfo.hasOwnProperty(key))) {
         return;
       }
@@ -719,6 +749,17 @@ import  { tgs }                   from './tgs.js';
           await tgs.handleUnsuspendedTabStateChanged(tab, changeInfo);
         }
       }
+    });
+    // a never-suspend group is matched by title and color (#133), so track both as they change
+    chrome.tabGroups.onCreated.addListener(async (group) => {
+      await tgs.handleTabGroupCreated(group);
+    });
+    // awaited: the returned promise keeps the worker up for the write a rename triggers
+    chrome.tabGroups.onUpdated.addListener(async (group) => {
+      await tgs.handleTabGroupUpdated(group);
+    });
+    chrome.tabGroups.onRemoved.addListener(async (group) => {
+      await tgs.handleTabGroupRemoved(group);
     });
     chrome.windows.onCreated.addListener(async (window) => {
       gsUtils.log(window.id, 'background', 'window created.');
@@ -782,6 +823,11 @@ import  { tgs }                   from './tgs.js';
           await tgs.setCurrentFocusedWindowId(activeTab.windowId);
         }
       }
+      await tgs.initTabGroupKeyCache();
+      // The menu outlives the worker but is built only on install, so re-derive its state per
+      // start (#133). Not awaited: this executor has no reject arm to catch a hang.
+      tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
+
       gsUtils.log('background', 'init successful');
       resolve();
     });
