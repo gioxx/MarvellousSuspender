@@ -26,6 +26,12 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "Recarregar todas as guias no grupo da guia ativa"
   },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Suspender todas as guias fora de grupos na janela ativa"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Recarregar todas as guias fora de grupos na janela ativa"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todas as outras guias na janela ativa"
   },
@@ -70,6 +76,12 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "Recarregar todas as guias neste grupo"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Suspender todas as guias fora de grupos"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Recarregar todas as guias fora de grupos"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas as outras guias nessa janela"
