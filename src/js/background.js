@@ -462,9 +462,13 @@ import  { tgs }                   from './tgs.js';
       case 'tab_unsuspend_ungrouped':
         tgs.unsuspendUngroupedTabs(tab);
         break;
-      case 'toggle_never_suspend_group':
-      case 'tab_toggle_never_suspend_group':
-        await tgs.toggleNeverSuspendTabGroup(tab);
+      case 'never_suspend_group':
+      case 'tab_never_suspend_group':
+        await tgs.setNeverSuspendTabGroup(tab, true);
+        break;
+      case 'allow_suspending_group':
+      case 'tab_allow_suspending_group':
+        await tgs.setNeverSuspendTabGroup(tab, false);
         break;
       case 'soft_suspend_other_tabs_in_window':
         tgs.suspendAllTabs(false);

@@ -86,10 +86,13 @@
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "Annuler la suspension de tous les onglets hors groupe"
   },
-  "js_context_toggle_never_suspend_group": {
-    "message": "Ne jamais suspendre/Autoriser la suspension de ce groupe"
+  "js_context_never_suspend_group": {
+    "message": "Ne jamais suspendre ce groupe"
   },
-  "js_context_toggle_never_suspend_group_unnamed": {
+  "js_context_allow_suspending_group": {
+    "message": "Autoriser la suspension de ce groupe"
+  },
+  "js_context_never_suspend_group_unnamed": {
     "message": "Ne jamais suspendre ce groupe (groupes nommés uniquement)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {

@@ -86,10 +86,13 @@
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "Alle Tabs außerhalb von Gruppen aufwachen"
   },
-  "js_context_toggle_never_suspend_group": {
-    "message": "Diese Gruppe nicht aussetzen/Aussetzen erlauben"
+  "js_context_never_suspend_group": {
+    "message": "Diese Gruppe nicht aussetzen"
   },
-  "js_context_toggle_never_suspend_group_unnamed": {
+  "js_context_allow_suspending_group": {
+    "message": "Aussetzen dieser Gruppe erlauben"
+  },
+  "js_context_never_suspend_group_unnamed": {
     "message": "Diese Gruppe nicht aussetzen (nur benannte Gruppen)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {

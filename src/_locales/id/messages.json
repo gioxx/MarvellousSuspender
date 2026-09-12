@@ -86,10 +86,13 @@
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "BatalTangguhkan semua tab yang tidak ada di grup"
   },
-  "js_context_toggle_never_suspend_group": {
-    "message": "Jangan pernah menangguhkan/Izinkan menangguhkan grup ini"
+  "js_context_never_suspend_group": {
+    "message": "Jangan pernah menangguhkan grup ini"
   },
-  "js_context_toggle_never_suspend_group_unnamed": {
+  "js_context_allow_suspending_group": {
+    "message": "Izinkan menangguhkan grup ini"
+  },
+  "js_context_never_suspend_group_unnamed": {
     "message": "Jangan pernah menangguhkan grup ini (hanya grup bernama)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {

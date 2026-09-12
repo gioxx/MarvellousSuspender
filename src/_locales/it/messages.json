@@ -86,10 +86,13 @@
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "Riattiva tutte le schede non in un gruppo"
   },
-  "js_context_toggle_never_suspend_group": {
-    "message": "Non sospendere mai/Consenti la sospensione di questo gruppo"
+  "js_context_never_suspend_group": {
+    "message": "Non sospendere mai questo gruppo"
   },
-  "js_context_toggle_never_suspend_group_unnamed": {
+  "js_context_allow_suspending_group": {
+    "message": "Consenti la sospensione di questo gruppo"
+  },
+  "js_context_never_suspend_group_unnamed": {
     "message": "Non sospendere mai questo gruppo (solo gruppi con nome)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {

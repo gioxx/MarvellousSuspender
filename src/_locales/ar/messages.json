@@ -86,10 +86,13 @@
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "إلغاء تعليق جميع علامات التبويب غير الموجودة في مجموعة"
   },
-  "js_context_toggle_never_suspend_group": {
-    "message": "عدم تعليق هذه المجموعة مطلقاً/السماح بتعليقها"
+  "js_context_never_suspend_group": {
+    "message": "عدم تعليق هذه المجموعة مطلقاً"
   },
-  "js_context_toggle_never_suspend_group_unnamed": {
+  "js_context_allow_suspending_group": {
+    "message": "السماح بتعليق هذه المجموعة"
+  },
+  "js_context_never_suspend_group_unnamed": {
     "message": "عدم تعليق هذه المجموعة مطلقاً (المجموعات المسماة فقط)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {

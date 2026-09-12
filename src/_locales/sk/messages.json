@@ -86,10 +86,13 @@
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "Obnov všetky taby mimo skupín"
   },
-  "js_context_toggle_never_suspend_group": {
-    "message": "Nikdy nepozastavuj/Povoľ pozastavenie tejto skupiny"
+  "js_context_never_suspend_group": {
+    "message": "Nikdy nepozastavuj túto skupinu"
   },
-  "js_context_toggle_never_suspend_group_unnamed": {
+  "js_context_allow_suspending_group": {
+    "message": "Povoľ pozastavenie tejto skupiny"
+  },
+  "js_context_never_suspend_group_unnamed": {
     "message": "Nikdy nepozastavuj túto skupinu (len pomenované skupiny)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {

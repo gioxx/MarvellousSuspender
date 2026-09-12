@@ -86,10 +86,13 @@
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "Obnovit všechny karty mimo skupiny"
   },
-  "js_context_toggle_never_suspend_group": {
-    "message": "Nikdy nepozastavovat/Povolit pozastavení této skupiny"
+  "js_context_never_suspend_group": {
+    "message": "Nikdy nepozastavovat tuto skupinu"
   },
-  "js_context_toggle_never_suspend_group_unnamed": {
+  "js_context_allow_suspending_group": {
+    "message": "Povolit pozastavení této skupiny"
+  },
+  "js_context_never_suspend_group_unnamed": {
     "message": "Nikdy nepozastavovat tuto skupinu (jen pojmenované skupiny)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {

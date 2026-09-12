@@ -768,59 +768,79 @@ export const tgs = (function() {
     return withTabGroupLock(() => _setTabGroupNeverSuspend([groupKey], exempt));
   }
 
-  function toggleNeverSuspendTabGroup(tab) {
-    return withTabGroupLock(async () => {
-      const groupKey = await gsUtils.getTabGroupKeyForTab(tab);
-      if (groupKey === null) {
-        // The gate that counts: the shortcut has no enabled state, and the tab strip item
-        // acts on the right-clicked tab while its label was derived from the active one.
-        gsUtils.log('tgs', 'toggleNeverSuspendTabGroup', 'ignored: tab is not in a named group');
-        return;
-      }
-      // The 2g shortcut resolves its tab through getCurrentlyActiveTab(), which is blind to
-      // incognito windows and can land on a background normal one. Refuse on positive
-      // evidence only, so a lookup that fails does not turn into a refused gesture.
-      const tabWindow = await gsChrome.windowsGet(tab.windowId);
-      if (tabWindow?.focused === false) {
-        gsUtils.log('tgs', 'toggleNeverSuspendTabGroup', 'ignored: the tab\'s window is not focused');
-        return;
-      }
-      // record it while the group id is in hand, so a later rename is followed from a cold cache
-      await _rememberTabGroupKey(tab.groupId, groupKey);
-      const cache = await _getTabGroupKeyCache();
-      const state = _tabGroupKeyState(cache, tab.groupId);
-      const neverSuspendGroups = await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS);
-      // asked the way the suspension path answers it, or the menu offers to turn off a group
-      // a suppression already turned off, taking its key off the list on someone else's behalf
-      const isExempt = gsUtils.checkSpecificNeverSuspendGroups(groupKey, neverSuspendGroups)
-        && !state.suppressed.includes(groupKey);
-
-      if (!isExempt) {
-        // an explicit yes clears every earlier no, including ones against names it is not
-        // wearing now, which would otherwise bite on the next rename back
-        const wasSuppressed = state.suppressed.length > 0;
-        await _setSuppressedTabGroupKeys(tab.groupId, []);
-        const listChanged = await _setTabGroupNeverSuspend([groupKey], true);
-        if (!listChanged && wasSuppressed) {
-          // the suppression alone was holding it out, so there is no list write to hang this off
-          await _reconcileTabGroupTabs([groupKey], true);
-        }
-        return;
-      }
-
-      // Off removes only the key the group is wearing, the one the gesture points at, and
-      // suppresses its older keys against this id instead. Removing those from the list took
-      // protection off closed and incognito groups wearing them, which nothing here can see.
-      const suppressed = [...new Set([...state.suppressed, ...state.keys.filter((key) => key !== groupKey)])];
-      await _setSuppressedTabGroupKeys(tab.groupId, suppressed);
-      await _setTabGroupNeverSuspend([groupKey], false);
-    });
+  // The two context menu items name their direction instead of flipping whatever they find:
+  // the tab strip pair acts on the right-clicked tab while any label can only be derived from
+  // the active one, so a label that claimed which way it goes would be read off the wrong tab
+  // whenever those differ. The 2g shortcut has no label to misread and stays a toggle.
+  function setNeverSuspendTabGroup(tab, exempt) {
+    return withTabGroupLock(() => _applyNeverSuspendTabGroup(tab, exempt));
   }
 
-  // Page item only. chrome.contextMenus has no tooltip, so the reason goes in the label. The
-  // tab strip twin stays enabled: it acts on the right-clicked tab, and a state derived from
-  // the active one greyed it out on named groups, which a disabled item never lets you fix.
-  const NEVER_SUSPEND_GROUP_MENU_ID = 'toggle_never_suspend_group';
+  function toggleNeverSuspendTabGroup(tab) {
+    return withTabGroupLock(() => _applyNeverSuspendTabGroup(tab, null));
+  }
+
+  // exempt: true to protect, false to release, null to flip whichever way the group sits
+  async function _applyNeverSuspendTabGroup(tab, requestedExempt) {
+    const groupKey = await gsUtils.getTabGroupKeyForTab(tab);
+    if (groupKey === null) {
+      // The gate that counts: the shortcut has no enabled state, and the tab strip items act
+      // on the right-clicked tab while their enabled state is derived from the active one.
+      gsUtils.log('tgs', '_applyNeverSuspendTabGroup', 'ignored: tab is not in a named group');
+      return;
+    }
+    // The 2g shortcut resolves its tab through getCurrentlyActiveTab(), which is blind to
+    // incognito windows and can land on a background normal one. Refuse on positive
+    // evidence only, so a lookup that fails does not turn into a refused gesture.
+    const tabWindow = await gsChrome.windowsGet(tab.windowId);
+    if (tabWindow?.focused === false) {
+      gsUtils.log('tgs', '_applyNeverSuspendTabGroup', 'ignored: the tab\'s window is not focused');
+      return;
+    }
+    // record it while the group id is in hand, so a later rename is followed from a cold cache
+    await _rememberTabGroupKey(tab.groupId, groupKey);
+    const cache = await _getTabGroupKeyCache();
+    const state = _tabGroupKeyState(cache, tab.groupId);
+    const neverSuspendGroups = await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS);
+    // asked the way the suspension path answers it, or the menu offers to turn off a group
+    // a suppression already turned off, taking its key off the list on someone else's behalf
+    const isExempt = gsUtils.checkSpecificNeverSuspendGroups(groupKey, neverSuspendGroups)
+      && !state.suppressed.includes(groupKey);
+    const exempt = requestedExempt === null ? !isExempt : requestedExempt;
+    if (exempt === isExempt) {
+      // both items are always offered, so the one naming the state the group is already in
+      // does nothing rather than reporting an error the menu has nowhere to show
+      gsUtils.log('tgs', '_applyNeverSuspendTabGroup', 'ignored: already', exempt ? 'exempt' : 'suspendable', groupKey);
+      return;
+    }
+
+    if (exempt) {
+      // an explicit yes clears every earlier no, including ones against names it is not
+      // wearing now, which would otherwise bite on the next rename back
+      const wasSuppressed = state.suppressed.length > 0;
+      await _setSuppressedTabGroupKeys(tab.groupId, []);
+      const listChanged = await _setTabGroupNeverSuspend([groupKey], true);
+      if (!listChanged && wasSuppressed) {
+        // the suppression alone was holding it out, so there is no list write to hang this off
+        await _reconcileTabGroupTabs([groupKey], true);
+      }
+      return;
+    }
+
+    // Off removes only the key the group is wearing, the one the gesture points at, and
+    // suppresses its older keys against this id instead. Removing those from the list took
+    // protection off closed and incognito groups wearing them, which nothing here can see.
+    const suppressed = [...new Set([...state.suppressed, ...state.keys.filter((key) => key !== groupKey)])];
+    await _setSuppressedTabGroupKeys(tab.groupId, suppressed);
+    await _setTabGroupNeverSuspend([groupKey], false);
+  }
+
+  // Page items only. chrome.contextMenus has no tooltip, so the reason the pair is unavailable
+  // goes in the first one's label. The tab strip twins stay enabled: they act on the
+  // right-clicked tab, and a state derived from the active one greyed them out on valid
+  // targets, which a disabled item never lets you fix.
+  const NEVER_SUSPEND_GROUP_MENU_ID = 'never_suspend_group';
+  const ALLOW_SUSPENDING_GROUP_MENU_ID = 'allow_suspending_group';
 
   // Never rejects and no caller awaits it: the focus paths call this, and getCurrentlyActiveTab()
   // takes a callback with no error path, so a throw would leave the promise below pending.
@@ -833,15 +853,25 @@ export const tgs = (function() {
         getCurrentlyActiveTab(resolve);
       });
       const enabled = (await gsUtils.getTabGroupKeyForTab(activeTab)) !== null;
-      const title = enabled
-        ? gsUtils.getMessage('js_context_toggle_never_suspend_group')
-        : gsUtils.getMessage('js_context_toggle_never_suspend_group_unnamed');
-      chrome.contextMenus.update(NEVER_SUSPEND_GROUP_MENU_ID, { title, enabled }, () => {
-        if (chrome.runtime.lastError) {
-          // the item is gone: the context menu setting was turned off in between
-          gsUtils.log('tgs', 'refreshNeverSuspendGroupMenuItems', chrome.runtime.lastError);
-        }
-      });
+      // Only the first item carries the explanation: repeating it on both would say the same
+      // thing twice, and "never suspend" is the one being reached for on an unnamed group.
+      const updates = [
+        [NEVER_SUSPEND_GROUP_MENU_ID, {
+          enabled,
+          title: enabled
+            ? gsUtils.getMessage('js_context_never_suspend_group')
+            : gsUtils.getMessage('js_context_never_suspend_group_unnamed'),
+        }],
+        [ALLOW_SUSPENDING_GROUP_MENU_ID, { enabled }],
+      ];
+      for (const [menuItemId, properties] of updates) {
+        chrome.contextMenus.update(menuItemId, properties, () => {
+          if (chrome.runtime.lastError) {
+            // the item is gone: the context menu setting was turned off in between
+            gsUtils.log('tgs', 'refreshNeverSuspendGroupMenuItems', chrome.runtime.lastError);
+          }
+        });
+      }
     }
     catch (e) {
       gsUtils.warning('tgs', 'refreshNeverSuspendGroupMenuItems', e);
@@ -2057,8 +2087,14 @@ export const tgs = (function() {
       // Gated on the active tab, which for a page menu is the tab it acts on. Created
       // disabled so a right-click before the first refresh under-offers rather than misleads.
       chrome.contextMenus.create({
-        id: 'toggle_never_suspend_group',
-        title: gsUtils.getMessage('js_context_toggle_never_suspend_group_unnamed'),
+        id: 'never_suspend_group',
+        title: gsUtils.getMessage('js_context_never_suspend_group_unnamed'),
+        enabled: false,
+        contexts: allContexts,
+      });
+      chrome.contextMenus.create({
+        id: 'allow_suspending_group',
+        title: gsUtils.getMessage('js_context_allow_suspending_group'),
         enabled: false,
         contexts: allContexts,
       });
@@ -2153,11 +2189,16 @@ export const tgs = (function() {
         title: gsUtils.getMessage('js_context_unsuspend_tab_group'),
         contexts: ['tab'],
       });
-      // enabled always: it acts on the right-clicked tab, so gating on the active one would
-      // grey it out on valid targets. See refreshNeverSuspendGroupMenuItems().
+      // enabled always: they act on the right-clicked tab, so gating on the active one would
+      // grey them out on valid targets. See refreshNeverSuspendGroupMenuItems().
       chrome.contextMenus.create({
-        id: 'tab_toggle_never_suspend_group',
-        title: gsUtils.getMessage('js_context_toggle_never_suspend_group'),
+        id: 'tab_never_suspend_group',
+        title: gsUtils.getMessage('js_context_never_suspend_group'),
+        contexts: ['tab'],
+      });
+      chrome.contextMenus.create({
+        id: 'tab_allow_suspending_group',
+        title: gsUtils.getMessage('js_context_allow_suspending_group'),
         contexts: ['tab'],
       });
       chrome.contextMenus.create({
@@ -2273,6 +2314,7 @@ export const tgs = (function() {
     suspendUngroupedTabs,
     unsuspendUngroupedTabs,
     toggleNeverSuspendTabGroup,
+    setNeverSuspendTabGroup,
     setTabGroupNeverSuspend,
     getTabGroupKeyState,
     refreshNeverSuspendGroupMenuItems,
