@@ -219,8 +219,12 @@ export const gsTabCheckManager = (function() {
     gsUtils.log(tab.id, QUEUE_ID, 'checkSuspendedTab', tab.url);
     if (executionProps.resuspend && !executionProps.resuspended) {
       await gsUtils.resuspendSuspendedTab(tab);
+      // refetchTab so the next pass re-reads the tab after the resuspend reload rather
+      // than trusting this now-stale snapshot (status, frozen, groupId can all have
+      // changed). Matches the resuspend requeue in the missing-view branch below.
       requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, {
         resuspended: true,
+        refetchTab: true,
       });
       return;
     }
@@ -247,6 +251,44 @@ export const gsTabCheckManager = (function() {
         requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
         return;
       }
+    }
+
+    // If tab is a file:// tab and file is blocked then unsuspend tab. Handled before the
+    // frozen-tab shortcut below because this only navigates the tab (no message to the
+    // page), so it must still run for a frozen blocked-file tab rather than being
+    // pre-empted by that shortcut reporting it as a healthy suspended tab.
+    if (!gsSession.isFileUrlsAccessAllowed()) {
+      const url = tab.url || tab.pendingUrl;
+      const originalUrl = gsUtils.getOriginalUrl(url);
+      if (originalUrl && originalUrl.indexOf('file') === 0) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Unsuspending blocked local file tab.');
+        await gsChrome.tabsUpdate(tab.id, { url: originalUrl });
+        requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
+        return;
+      }
+    }
+
+    // A tab Chrome has frozen (MV3 tab freezing — common for background suspended tabs
+    // during a busy cold start) can't answer the getSuspendInfo/initTab messages below:
+    // the sendMessage just hangs until the 60s job timeout, which then logs a
+    // "Failed to initialise tab … timeout" warning and gives up. Resolve it here instead
+    // of stalling a queue slot on that timeout.
+    //
+    // A frozen tab isn't necessarily a fully initialised one — Chrome can freeze a
+    // status:complete page before its initialiseSuspendedTab() work (title/favicon) has
+    // run. But a frozen page can't establish those invariants until it thaws, and
+    // requeuing until then would just hold performInitialisationTabChecks()'s Promise.all
+    // pending (gsInitialisationMode stuck on) until the queue's ~5-minute requeue cap,
+    // ending in the same timeout warning and failed tally this avoids. So resolve
+    // STATUS_SUSPENDED either way — a still-blank frozen tab is repaired when it is next
+    // focused (its own responsiveness check) or, for the favicon, by the #474 backstop.
+    if (tab.frozen) {
+      const logLine = ensureSuspendedTabTitleAndFaviconSet(tab)
+        ? 'Tab is frozen but already initialised. Accepting without a responsiveness check.'
+        : 'Tab is frozen before initialisation completed. Accepting; will be re-checked on focus / by the favicon backstop.';
+      gsUtils.log(tab.id, QUEUE_ID, logLine);
+      resolve(gsUtils.STATUS_SUSPENDED);
+      return;
     }
 
     // Make sure tab is registered as a 'view' of the extension
@@ -283,18 +325,6 @@ export const gsTabCheckManager = (function() {
       // Queue a refresh as tab may no longer exist
       requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
       return;
-    }
-
-    // If tab is a file:// tab and file is blocked then unsuspend tab
-    if (!gsSession.isFileUrlsAccessAllowed()) {
-      const url = tab.url || tab.pendingUrl;
-      const originalUrl = gsUtils.getOriginalUrl(url);
-      if (originalUrl && originalUrl.indexOf('file') === 0) {
-        gsUtils.log(tab.id, QUEUE_ID, 'Unsuspending blocked local file tab.');
-        await gsChrome.tabsUpdate(tab.id, { url: originalUrl });
-        requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
-        return;
-      }
     }
 
     const attemptDiscarding =

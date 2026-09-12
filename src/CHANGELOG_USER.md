@@ -12,6 +12,7 @@ For the full technical changelog (every fix, every review round, every detail), 
 - **"Always reopen suspended tabs scrolled to the top"**: a new option if you'd rather suspended tabs always reopen at the top of the page instead of wherever you left them.
 - **Reload also unsuspends background tabs**: reloading a suspended tab you're not currently looking at (e.g. via a multi-tab selection) can now unsuspend it too, if you turn this on.
 - **Suspend/unsuspend all tabs in a tab group**: new right-click and keyboard-shortcut options.
+- **Suspend/unsuspend all tabs not in a group**: the same, for the loose tabs outside your tab groups in the current window.
 - **Never suspend this group**: mark a tab group and its tabs are left alone however long you leave them, which is handy for monitoring or dashboard tabs. Only named groups can be marked, so name the group first (in the page right-click menu the item stays greyed out until you do), then mark it from either right-click menu; review the list in Options.
 - **"Never suspend app windows"**: a new option (on by default) keeps tabs open in an app-mode window — installed web apps, or a site you've opened via "Create Shortcut → Open as window" — from being auto-suspended.
 - **"What's new" screen**: this very screen! Shown once after an update, so you don't have to go digging for what changed.
@@ -20,6 +21,7 @@ For the full technical changelog (every fix, every review round, every detail), 
 
 - **A rare but real out-of-memory crash**, reproduced live and traced all the way down to its actual cause: a lot of hardening work in how the extension manages memory across many open tabs, especially for people who use the debug page's `captureLogs` option to help us diagnose issues. If you don't use that option, this mostly won't have been visible to you — but the underlying fixes make the extension more resilient regardless.
 - **Google Drive backup disconnecting on Brave and Vivaldi** after just one or two automatic backups. If you use Drive backup on one of those browsers, you'll need to reconnect once (Options → Backup → Connect) after updating — after that, it stays connected reliably.
+- **Suspended tabs showing the extension's own icon instead of the real site favicon after restarting the browser** — mostly on Brave, Vivaldi and Dia, where it came back every restart and had to be fixed by hand. The extension now retries the favicon repair on its own after startup (and again the moment you open a suspended tab), so it recovers without you doing anything.
 - **The battery-specific timeout not reacting** when you unplugged your computer, requiring a manual trigger to take effect.
 - **A bright white flash switching between suspended tabs**, especially noticeable in dark mode/low light — reported as far back as v7.1.6.2, finally tracked down and fixed.
 - **The reload link on suspended tabs was too bright/conspicuous in dark mode** — toned down to match the rest of that page's quiet look.

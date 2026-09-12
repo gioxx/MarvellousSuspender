@@ -26,6 +26,12 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "Unsuspend all tabs in the active tab's group"
   },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Suspend all tabs not in a group in active window"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Unsuspend all tabs not in a group in active window"
+  },
   "ext_cmd_toggle_never_suspend_group_description": {
     "message": "Toggle never suspend for the active tab's group"
   },
@@ -73,6 +79,12 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "Unsuspend all tabs in this group"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Suspend all tabs not in a group"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Unsuspend all tabs not in a group"
   },
   "js_context_toggle_never_suspend_group": {
     "message": "Never suspend/Allow suspending this group"

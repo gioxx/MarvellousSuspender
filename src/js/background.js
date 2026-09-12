@@ -134,6 +134,30 @@ import  { tgs }                   from './tgs.js';
     }
   });
 
+  // Favicon-repair backstop (#474). The startup favicon pass (gsSession.runStartupChecks
+  // -> performTabChecks) can be skipped or cut short on Chromium forks whose onStartup is
+  // unreliable, or lost to a service-worker recycle mid-run — and gsStartupOnceRun above
+  // only records that startup was *attempted*, not that the favicon pass finished. This
+  // independent session flag (set by gsSession only once the pass confirms every
+  // repairable suspended-tab favicon is good) tracks the favicon pass specifically. While
+  // it is unset, each service-worker spawn ensures a one-shot alarm exists to retry the
+  // pass; once set, nothing re-arms, so installs where onStartup already works see at most
+  // one extra wake. Only create the alarm when none is pending — an unconditional
+  // create() replaces the pending one and restarts its ~30s delay, so rapid worker
+  // recycling (exactly the environment this targets) could otherwise postpone it forever.
+  // Skipped in the split-incognito worker: it shares chrome.storage.session with the
+  // regular profile but chrome.tabs.query() sees only incognito tabs, so the regular
+  // worker owns this backstop (see gsSession).
+  if (!chrome.extension.inIncognitoContext) {
+    gsStorage.getStorage('session', 'gsFaviconRepairDone').then(async (done) => {
+      if (done) return;
+      const existing = await chrome.alarms.get(gsSession.FAVICON_REPAIR_ALARM_NAME);
+      if (!existing) {
+        chrome.alarms.create(gsSession.FAVICON_REPAIR_ALARM_NAME, { delayInMinutes: 0.5 });
+      }
+    });
+  }
+
   chrome.runtime.onSuspend.addListener(() => {
     gsUtils.log('5 runtime.onSuspend');
     gsBackup.performEmergencyBackup(); // fire-and-forget: the service worker may be killed before this resolves
@@ -292,7 +316,10 @@ import  { tgs }                   from './tgs.js';
             break;
           }
           case 'repairFavicons' : {
-            responseData = await gsSession.performTabChecks();
+            // Through repairFaviconsNow(), not performTabChecks() directly, so a manual
+            // repair can't run concurrently with an in-flight favicon-repair backstop
+            // cycle (gsTabQueue would double-run a tab).
+            responseData = await gsSession.repairFaviconsNow();
             break;
           }
           case 'checkTabResponsiveness' : {
@@ -427,6 +454,14 @@ import  { tgs }                   from './tgs.js';
       case 'tab_unsuspend_group':
         tgs.unsuspendTabGroup(tab);
         break;
+      case 'suspend_ungrouped_tabs':
+      case 'tab_suspend_ungrouped':
+        tgs.suspendUngroupedTabs(tab);
+        break;
+      case 'unsuspend_ungrouped_tabs':
+      case 'tab_unsuspend_ungrouped':
+        tgs.unsuspendUngroupedTabs(tab);
+        break;
       case 'toggle_never_suspend_group':
       case 'tab_toggle_never_suspend_group':
         await tgs.toggleNeverSuspendTabGroup(tab);
@@ -511,6 +546,20 @@ import  { tgs }                   from './tgs.js';
         tgs.unsuspendTabGroup(tab);
         break;
       }
+      case '2e-suspend-ungrouped-tabs': {
+        const tab = await new Promise((r) => {
+          tgs.getCurrentlyActiveTab(r);
+        });
+        tgs.suspendUngroupedTabs(tab);
+        break;
+      }
+      case '2f-unsuspend-ungrouped-tabs': {
+        const tab = await new Promise((r) => {
+          tgs.getCurrentlyActiveTab(r);
+        });
+        tgs.unsuspendUngroupedTabs(tab);
+        break;
+      }
       case '2g-toggle-never-suspend-group': {
         const tab = await new Promise((r) => {
           tgs.getCurrentlyActiveTab(r);
@@ -562,6 +611,10 @@ import  { tgs }                   from './tgs.js';
       await gsIndexedDb.trimLogEntries(gsIndexedDb.LOG_ENTRIES_MAX);
       return;
     }
+    if (alarm.name === gsSession.FAVICON_REPAIR_ALARM_NAME) {
+      await gsSession.ensureFaviconRepairForSession('alarm');
+      return;
+    }
 
     const tabId = parseInt(alarm.name);
     const tab = await gsChrome.tabsGet(tabId);
@@ -585,6 +638,18 @@ import  { tgs }                   from './tgs.js';
       gsUtils.log(activeInfo.tabId, 'tab onActivated');
       tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
+
+      // Opportunistic favicon-repair backstop (#474): if the session flag shows the
+      // startup favicon pass never confirmed success, repair now that the user is
+      // actually looking at a suspended tab — no waiting for the alarm above.
+      // ensureFaviconRepairForSession() is a no-op once the flag is set, so this costs
+      // one chrome.storage.session read per activation until then and nothing afterwards.
+      if (!(await gsStorage.getStorage('session', 'gsFaviconRepairDone'))) {
+        const activatedTab = await gsChrome.tabsGet(activeInfo.tabId);
+        if (activatedTab && gsUtils.isSuspendedTab(activatedTab)) {
+          await gsSession.ensureFaviconRepairForSession('tabActivated');
+        }
+      }
     });
     chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
       gsUtils.log(removedTabId, 'tab onReplaced', addedTabId, removedTabId);

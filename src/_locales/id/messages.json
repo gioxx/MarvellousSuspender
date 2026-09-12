@@ -26,6 +26,12 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "BatalTangguhkan semua tab di grup tab aktif"
   },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Tangguhkan semua tab yang tidak ada di grup pada jendela aktif"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "BatalTangguhkan semua tab yang tidak ada di grup pada jendela aktif"
+  },
   "ext_cmd_toggle_never_suspend_group_description": {
     "message": "Alihkan jangan pernah menangguhkan untuk grup tab aktif"
   },
@@ -73,6 +79,12 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "BatalTangguhkan semua tab di grup ini"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Tangguhkan semua tab yang tidak ada di grup"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "BatalTangguhkan semua tab yang tidak ada di grup"
   },
   "js_context_toggle_never_suspend_group": {
     "message": "Jangan pernah menangguhkan/Izinkan menangguhkan grup ini"

@@ -57,7 +57,10 @@ export const gsFavicon = (() => {
     const defaultIconUrls = [
       getChromeFavIconUrl('http://chromeDefaultFavicon'),
       getChromeFavIconUrl('chromeDefaultFavicon'),
-      await gsMascot.resolveUrl('img/ic_suspendy_16x16.webp'),
+      // Both mascot variants, not just the one the current setting renders: a suspended
+      // tab can still carry the opposite variant after gsLegacyMascot was toggled, and
+      // neither should ever be fingerprinted as a real favicon.
+      ...gsMascot.resolveBothUrls('img/ic_suspendy_16x16.webp'),
       await gsMascot.resolveUrl('img/chromeDefaultFavicon.webp'),
       await gsMascot.resolveUrl('img/chromeDefaultFaviconSml.webp'),
       await gsMascot.resolveUrl('img/chromeDevDefaultFavicon.webp'),
@@ -233,7 +236,11 @@ export const gsFavicon = (() => {
    * @returns { Promise< FavIconMeta | undefined > }
    */
   async function buildFaviconMetaFromTab(favIconUrl) {
-    if (favIconUrl && favIconUrl !== (await gsMascot.resolveUrl('img/ic_suspendy_16x16.webp'))) {
+    // Reject both mascot variants, not just the currently-rendered one: otherwise a tab
+    // left carrying the opposite variant after a gsLegacyMascot toggle gets its stale
+    // extension icon converted into a valid data: favicon here, which then reads as
+    // "repaired" while the tab still visibly shows the extension icon.
+    if (favIconUrl && !gsMascot.resolveBothUrls('img/ic_suspendy_16x16.webp').includes(favIconUrl)) {
       gsUtils.log('gsFavicon', 'buildFaviconMetaFromTab', favIconUrl);
       try {
         const faviconMeta = await buildFaviconMeta(favIconUrl);

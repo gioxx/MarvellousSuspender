@@ -26,6 +26,12 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "Возобновить все вкладки в группе активной вкладки"
   },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Приостановить все вкладки вне групп в активном окне"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Возобновить все вкладки вне групп в активном окне"
+  },
   "ext_cmd_toggle_never_suspend_group_description": {
     "message": "Переключить «никогда не приостанавливать» для группы активной вкладки"
   },
@@ -73,6 +79,12 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "Возобновить все вкладки в этой группе"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Приостановить все вкладки вне групп"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Возобновить все вкладки вне групп"
   },
   "js_context_toggle_never_suspend_group": {
     "message": "Никогда не приостанавливать/Разрешить приостановку этой группы"

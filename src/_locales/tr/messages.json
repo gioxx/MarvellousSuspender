@@ -26,6 +26,12 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "Aktif sekmenin grubundaki tüm sekmelerin askısını kaldır"
   },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Aktif penceredeki grupta olmayan tüm sekmeleri askıya al"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Aktif penceredeki grupta olmayan tüm sekmelerin askısını kaldır"
+  },
   "ext_cmd_toggle_never_suspend_group_description": {
     "message": "Etkin sekmenin grubu için hiçbir zaman askıya alma ayarını değiştir"
   },
@@ -73,6 +79,12 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "Bu gruptaki tüm sekmelerin askısını kaldır"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Grupta olmayan tüm sekmeleri askıya al"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Grupta olmayan tüm sekmelerin askısını kaldır"
   },
   "js_context_toggle_never_suspend_group": {
     "message": "Bu grubu hiçbir zaman askıya alma/Askıya almaya izin ver"

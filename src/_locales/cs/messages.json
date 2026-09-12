@@ -26,6 +26,12 @@
   "ext_cmd_unsuspend_tab_group_description": {
     "message": "Obnovit všechny karty ve skupině aktivní karty"
   },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Pozastavit všechny karty mimo skupiny v aktivním okně"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Obnovit všechny karty mimo skupiny v aktivním okně"
+  },
   "ext_cmd_toggle_never_suspend_group_description": {
     "message": "Přepnout nikdy nepozastavovat pro skupinu aktivní karty"
   },
@@ -73,6 +79,12 @@
   },
   "js_context_unsuspend_tab_group": {
     "message": "Obnovit všechny karty v této skupině"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Pozastavit všechny karty mimo skupiny"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Obnovit všechny karty mimo skupiny"
   },
   "js_context_toggle_never_suspend_group": {
     "message": "Nikdy nepozastavovat/Povolit pozastavení této skupiny"
