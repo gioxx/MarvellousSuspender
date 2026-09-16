@@ -381,7 +381,7 @@
     "message": "Никогда не приостанавливать вкладки, открытые в окнах приложений"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Никогда не приостанавливать вкладки в группе вкладок"
+    "message": "Never suspend tabs in a tab group"
   },
   "html_options_suspend_no_forms": {
     "message": "Никогда не приостанавливать вкладки с несохранёнными полями ввода"
@@ -890,7 +890,7 @@
     "message": "Вкладка открыта в окне приложения"
   },
   "js_popup_grouped_tab": {
-    "message": "Вкладка находится в группе вкладок"
+    "message": "Tab is in a tab group"
   },
   "js_popup_temp_whitelist": {
     "message": "Приостановка вкладки поставлена на паузу."
