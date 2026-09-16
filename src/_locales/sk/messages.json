@@ -380,6 +380,9 @@
   "html_options_suspend_no_app_windows": {
     "message": "Nikdy nepozastav taby otvorené v oknách aplikácií"
   },
+  "html_options_suspend_no_grouped_tabs": {
+    "message": "Nikdy nepozastav taby v skupine tabov"
+  },
   "html_options_suspend_no_forms": {
     "message": "Nikdy nepozastav taby s neuloženými vstupmi"
   },
@@ -885,6 +888,9 @@
   },
   "js_popup_app_window": {
     "message": "Karta je otvorená v okne aplikácie"
+  },
+  "js_popup_grouped_tab": {
+    "message": "Karta je v skupine kariet"
   },
   "js_popup_temp_whitelist": {
     "message": "Pozastavovanie karty pozastavené."
