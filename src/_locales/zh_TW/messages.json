@@ -381,7 +381,7 @@
     "message": "不要凍結在應用程式視窗中開啟的分頁"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "不要凍結分頁群組中的分頁"
+    "message": "Never suspend tabs in a tab group"
   },
   "html_options_suspend_no_forms": {
     "message": "不要凍結輸入框有文字且尚未儲存的分頁"
@@ -890,7 +890,7 @@
     "message": "分頁已在應用程式視窗中開啟"
   },
   "js_popup_grouped_tab": {
-    "message": "分頁在分頁群組中"
+    "message": "Tab is in a tab group"
   },
   "js_popup_temp_whitelist": {
     "message": "分頁凍結暫停。"
