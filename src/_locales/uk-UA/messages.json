@@ -3,58 +3,58 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "Free your memory. Suspend the tabs you don't need, right now."
+    "message": "Звільніть свою пам'ять. Призупиніть непотрібні вкладки прямо зараз."
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
   },
   "ext_cmd_toggle_tab_suspension_description": {
-    "message": "Suspend/Unsuspend active tab"
+    "message": "Призупинити/Відновити активну вкладку"
   },
   "ext_cmd_toggle_tab_pause_description": {
-    "message": "Pause/Unpause suspension of active tab"
+    "message": "Пауза/Продовжити призупинення активної вкладки"
   },
   "ext_cmd_suspend_selected_tabs_description": {
-    "message": "Suspend selected tabs"
+    "message": "Призупинити вибрані вкладки"
   },
   "ext_cmd_unsuspend_selected_tabs_description": {
-    "message": "Unsuspend selected tabs"
+    "message": "Відновити вибрані вкладки"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "Suspend all tabs in the active tab's group"
+    "message": "Призупинити всі вкладки в групі активних вкладок"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "Unsuspend all tabs in the active tab's group"
+    "message": "Відновити всі вкладки в групі активних вкладок"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "Suspend all tabs not in a group in active window"
+    "message": "Призупинити всі вкладки без групи в активному вікні"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "Unsuspend all tabs not in a group in active window"
+    "message": "Відновити всі вкладки без групи в активному вікні"
   },
   "ext_cmd_soft_suspend_active_window_description": {
-    "message": "Suspend all other tabs in active window"
+    "message": "Призупинити всі інші вкладки в активному вікні"
   },
   "ext_cmd_force_suspend_active_window_description": {
-    "message": "Force suspend all other tabs in active window"
+    "message": "Примусово призупинити всі інші вкладки в активному вікні"
   },
   "ext_cmd_unsuspend_active_window_description": {
-    "message": "Unsuspend all tabs in active window"
+    "message": "Відновити всі вкладки в активному вікні"
   },
   "ext_cmd_soft_suspend_all_windows_description": {
-    "message": "Suspend all tabs in all windows"
+    "message": "Призупинити всі вкладки у всіх вікнах"
   },
   "ext_cmd_force_suspend_all_windows_description": {
-    "message": "Force suspend all tabs in all windows"
+    "message": "Примусово призупинити всі вкладки у всіх вікнах"
   },
   "ext_cmd_unsuspend_all_windows_description": {
-    "message": "Unsuspend all tabs in all windows"
+    "message": "Відновити всі вкладки у всіх вікнах"
   },
   "js_context_open_link_in_suspended_tab": {
-    "message": "Open Link in New Suspended Tab"
+    "message": "Відкрити посилання в новій призупиненій вкладці"
   },
   "js_context_toggle_suspend_state": {
-    "message": "Suspend/Unsuspend this tab"
+    "message": "Призупинити/Відновити цю вкладку"
   },
   "js_context_toggle_pause_suspension": {
     "message": "Pause/Unpause suspension of this tab"
