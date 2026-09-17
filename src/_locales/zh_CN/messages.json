@@ -381,7 +381,7 @@
     "message": "不要冻结应用窗口中打开的标签页"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Never suspend tabs in a tab group"
+    "message": "不要冻结标签组中的标签页"
   },
   "html_options_suspend_no_forms": {
     "message": "不要冻结输入框有文字且尚未储存的标签页"
@@ -890,7 +890,7 @@
     "message": "标签页已在应用窗口中打开"
   },
   "js_popup_grouped_tab": {
-    "message": "Tab is in a tab group"
+    "message": "标签页在标签组中"
   },
   "js_popup_temp_whitelist": {
     "message": "页面冻结暂停。"
