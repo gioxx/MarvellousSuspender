@@ -3,14 +3,31 @@ import  { gsUtils }               from './gsUtils.js';
 
 'use strict';
 
-// setOption() and the sync listener both read-modify-write the whole settings object, so two
-// overlapping calls could write back a stale copy. Per context: a page has its own chain.
+// Every write of the settings object is a read-modify-write of the whole object, so two
+// overlapping ones could write back a stale copy. Per context: a page has its own chain.
 let _settingsWriteChain = Promise.resolve();
 
 function withSettingsLock(fn) {
   const result = _settingsWriteChain.then(fn, fn);
   _settingsWriteChain = result.then(() => {}, () => {});
   return result;
+}
+
+//defaults filled in, not saved. Use this inside the lock: getSettings() would deadlock there
+async function readSettings() {
+  const settings = await gsStorage.getStorage('local', 'gsSettings');
+  if (!settings) {
+    return { settings: gsStorage.getSettingsDefaults(), backfilled: true };
+  }
+  const defaults = gsStorage.getSettingsDefaults();
+  let backfilled = false;
+  for (const prop in defaults) {
+    if (typeof settings[prop] === 'undefined' || settings[prop] === null) {
+      settings[prop] = defaults[prop];
+      backfilled = true;
+    }
+  }
+  return { settings, backfilled };
 }
 
 export const gsStorage = {
@@ -235,7 +252,7 @@ export const gsStorage = {
         var oldValueBySettingKey = {};
         var newValueBySettingKey = {};
         await withSettingsLock(async () => {
-          const localSettings = await gsStorage.getSettings();
+          const { settings: localSettings, backfilled } = await readSettings();
           Object.keys(remoteSettings).forEach(function(key) {
             var remoteSetting = remoteSettings[key];
 
@@ -261,7 +278,7 @@ export const gsStorage = {
               localSettings[key] = remoteSetting.newValue;
             }
           });
-          if (changedSettingKeys.length > 0) {
+          if (changedSettingKeys.length > 0 || backfilled) {
             await gsStorage.saveSettings(localSettings);
           }
         });
@@ -279,18 +296,15 @@ export const gsStorage = {
 
   //due to migration issues and new settings being added, i have built in some redundancy
   //here so that getOption will always return a valid value.
+  //no save here, getSettings() does it under the lock
   getOption: async (prop) => {
     const settings = await gsStorage.getSettings();
-    if (typeof settings[prop] === 'undefined' || settings[prop] === null) {
-      settings[prop] = gsStorage.getSettingsDefaults()[prop];
-      await gsStorage.saveSettings(settings);
-    }
-    return settings[prop];
+    return settings[prop] ?? gsStorage.getSettingsDefaults()[prop];
   },
 
   setOption: async (prop, value) => {
     await withSettingsLock(async () => {
-      const settings = await gsStorage.getSettings();
+      const { settings } = await readSettings();
       settings[prop] = value;
       await gsStorage.saveSettings(settings);
     });
@@ -348,23 +362,15 @@ export const gsStorage = {
   },
 
   getSettings: async () => {
-    let settings = await gsStorage.getStorage('local', 'gsSettings');
-    if (!settings) {
-      settings = gsStorage.getSettingsDefaults();
-      await gsStorage.saveSettings(settings);
-      return settings;
-    }
-    // backfill any settings keys introduced after the user's initial install
-    const defaults = gsStorage.getSettingsDefaults();
-    let hasNewKeys = false;
-    for (const prop in defaults) {
-      if (typeof settings[prop] === 'undefined' || settings[prop] === null) {
-        settings[prop] = defaults[prop];
-        hasNewKeys = true;
-      }
-    }
-    if (hasNewKeys) {
-      await gsStorage.saveSettings(settings);
+    const { settings, backfilled } = await readSettings();
+    if (backfilled) {
+      //save from a fresh read under the lock, so a newer write is not overwritten
+      await withSettingsLock(async () => {
+        const fresh = await readSettings();
+        if (fresh.backfilled) {
+          await gsStorage.saveSettings(fresh.settings);
+        }
+      });
     }
     return settings;
   },
