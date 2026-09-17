@@ -12,7 +12,7 @@
     "message": "Призупинити/Відновити активну вкладку"
   },
   "ext_cmd_toggle_tab_pause_description": {
-    "message": "Пауза/Продовжити призупинення активної вкладки"
+    "message": "Пауза/Відновити призупинення активної вкладки"
   },
   "ext_cmd_suspend_selected_tabs_description": {
     "message": "Призупинити вибрані вкладки"
@@ -57,37 +57,37 @@
     "message": "Призупинити/Відновити цю вкладку"
   },
   "js_context_toggle_pause_suspension": {
-    "message": "Pause/Unpause suspension of this tab"
+    "message": "Пауза/Відновити призупинення цієї вкладки"
   },
   "js_context_never_suspend_domain": {
-    "message": "Never suspend this domain"
+    "message": "Ніколи не призупиняти цей домен"
   },
   "js_context_never_suspend_page": {
-    "message": "Never suspend this URL"
+    "message": "Ніколи не призупиняти цю URL-адресу"
   },
   "js_context_suspend_selected_tabs": {
-    "message": "Suspend selected tabs"
+    "message": "Призупинити вибрані вкладки"
   },
   "js_context_unsuspend_selected_tabs": {
-    "message": "Unsuspend selected tabs"
+    "message": "Відновити вибрані вкладки"
   },
   "js_context_suspend_tab_group": {
-    "message": "Suspend all tabs in this group"
+    "message": "Призупинити всі вкладки в цій групі"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "Unsuspend all tabs in this group"
+    "message": "Відновити всі вкладки в цій групі"
   },
   "js_context_suspend_ungrouped_tabs": {
-    "message": "Suspend all tabs not in a group"
+    "message": "Призупинити всі вкладки, що не входять до групи"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "Unsuspend all tabs not in a group"
+    "message": "Відновити всі вкладки, що не входять до групи"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
-    "message": "Suspend all other tabs in this window"
+    "message": "Призупинити всі інші вкладки в цьому вікні"
   },
   "js_context_force_suspend_other_tabs_in_window": {
-    "message": "Force suspend all other tabs in this window"
+    "message": "Примусово призупинити всі інші вкладки в цьому вікні"
   },
   "js_context_unsuspend_all_tabs_in_window": {
     "message": "Unsuspend all tabs in this window"
