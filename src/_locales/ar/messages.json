@@ -381,7 +381,7 @@
     "message": "لا تعلق أبداً علامات التبويب المفتوحة في نوافذ التطبيقات"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Never suspend tabs in a tab group"
+    "message": "لا تعلق أبداً علامات التبويب الموجودة في مجموعة علامات تبويب"
   },
   "html_options_suspend_no_forms": {
     "message": "لا تعلق أبداً علامات التبويب التي تحتوي على مدخلات نموذج غير محفوظة"
@@ -890,7 +890,7 @@
     "message": "علامة التبويب مفتوحة في نافذة تطبيق"
   },
   "js_popup_grouped_tab": {
-    "message": "Tab is in a tab group"
+    "message": "علامة التبويب موجودة في مجموعة علامات تبويب"
   },
   "js_popup_temp_whitelist": {
     "message": "تعليق علامة التبويب مؤقتاً."
