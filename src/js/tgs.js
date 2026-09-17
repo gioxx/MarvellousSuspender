@@ -441,18 +441,17 @@ export const tgs = (function() {
     const protectedGroup = (await gsStorage.getOption(gsStorage.IGNORE_GROUPED_TABS))
       ? true
       : await gsUtils.isProtectedTabGroupTab(tab);
-    chrome.tabs.query({ groupId: tab.groupId }, (groupTabs) => {
-      for (const groupTab of groupTabs) {
-        // forceLevel 2 for the rest of the group, not 1: this suspends every tab in the
-        // group in one go, not just the one the user acted on, so whitelist/pinned/audible/
-        // active-tab/form-input protections must still apply to the tabs swept up by the
-        // group action. The acted-on tab itself stays at forceLevel 1 (matching the
-        // single-tab/selected-tabs force-suspend actions): level 2 unconditionally rejects
-        // the active tab, so if the user explicitly triggered this on the active tab (e.g.
-        // via the keyboard shortcut), it would otherwise never get suspended at all.
-        gsTabSuspendManager.queueTabForSuspension(groupTab, groupTab.id === tab.id && !protectedGroup ? 1 : 2);
-      }
-    });
+    const groupTabs = await gsChrome.tabsQuery({ groupId: tab.groupId });
+    for (const groupTab of groupTabs) {
+      // forceLevel 2 for the rest of the group, not 1: this suspends every tab in the
+      // group in one go, not just the one the user acted on, so whitelist/pinned/audible/
+      // active-tab/form-input protections must still apply to the tabs swept up by the
+      // group action. The acted-on tab itself stays at forceLevel 1 (matching the
+      // single-tab/selected-tabs force-suspend actions): level 2 unconditionally rejects
+      // the active tab, so if the user explicitly triggered this on the active tab (e.g.
+      // via the keyboard shortcut), it would otherwise never get suspended at all.
+      gsTabSuspendManager.queueTabForSuspension(groupTab, groupTab.id === tab.id && !protectedGroup ? 1 : 2);
+    }
   }
 
   function unsuspendTabGroup(tab) {
@@ -813,20 +812,22 @@ export const tgs = (function() {
       const activeTab = await new Promise((resolve) => {
         getCurrentlyActiveTab(resolve);
       });
-      const enabled = (await gsUtils.getTabGroupKeyForTab(activeTab)) !== null;
+      const { liveKey, groupKey } = await gsUtils.getTabGroupExemption(activeTab);
       if (run !== _menuRefreshRun) {
         return;
       }
+      const named = liveKey !== null;
       // Only the first item carries the explanation: repeating it on both would say the same
       // thing twice, and "never suspend" is the one being reached for on an unnamed group.
+      // release goes by the last known name, so an untitled group can still be released
       const updates = [
         [NEVER_SUSPEND_GROUP_MENU_ID, {
-          enabled,
-          title: enabled
+          enabled: named,
+          title: named
             ? gsUtils.getMessage('js_context_never_suspend_group')
             : gsUtils.getMessage('js_context_never_suspend_group_unnamed'),
         }],
-        [ALLOW_SUSPENDING_GROUP_MENU_ID, { enabled }],
+        [ALLOW_SUSPENDING_GROUP_MENU_ID, { enabled: groupKey !== null }],
       ];
       for (const [menuItemId, properties] of updates) {
         chrome.contextMenus.update(menuItemId, properties, () => {

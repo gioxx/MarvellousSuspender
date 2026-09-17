@@ -662,15 +662,6 @@ export const gsUtils = {
     };
   },
 
-  // the key a group can be EXEMPTED under, so untitled is null
-  getTabGroupKeyForTab: async (tab) => {
-    if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
-      return null;
-    }
-    const group = await gsChrome.tabGroupsGet(tab.groupId);
-    return group ? gsUtils.getTabGroupKey(group) : null;
-  },
-
   // The key a group is MATCHED by: its own, or the last named key it wore this session, so
   // clearing a title does not unprotect it. The one place this rule lives.
   resolveTabGroupKey(group, lastKey) {
