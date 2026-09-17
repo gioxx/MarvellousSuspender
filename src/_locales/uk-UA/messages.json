@@ -90,64 +90,64 @@
     "message": "Примусово призупинити всі інші вкладки в цьому вікні"
   },
   "js_context_unsuspend_all_tabs_in_window": {
-    "message": "Unsuspend all tabs in this window"
+    "message": "Відновити всі вкладки в цьому вікні"
   },
   "js_context_soft_suspend_all_tabs": {
-    "message": "Suspend all tabs in all windows"
+    "message": "Призупинити всі вкладки у всіх вікнах"
   },
   "js_context_force_suspend_all_tabs": {
-    "message": "Force suspend all tabs in all windows"
+    "message": "Примусово призупинити всі вкладки у всіх вікнах"
   },
   "js_context_unsuspend_all_tabs": {
-    "message": "Unsuspend all tabs in all windows"
+    "message": "Відновити всі вкладки у всіх вікнах"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "Стан вкладки (Бета)"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "Якщо у вас виникли проблеми з призупиненими вкладками, особливо з іконками сайтів, натисніть «Сканувати вкладки», щоб перевірити, чи зможемо ми їх виправити."
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "Ми не виявили жодних проблем із вашими призупиненими вкладками. Якщо ви все ще помічаєте якісь неполадки, повідомте нам про це нижче, і ми спробуємо розширити цю перевірку."
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "Деякі призупинені вкладки завантажилися не повністю. Ми можемо перезавантажити їх, щоб виправити їх."
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "Деякі з ваших призупинених вкладок використовують іконку сайту за замовчуванням браузера. Це означає, що їх немає в кеші TMS. Ми можемо відновити, а потім знову призупинити мінімальну кількість вкладок, щоб завантажити відсутні іконки сайту."
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "Сканувати вкладки"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "Копіювати результати"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "Сканування вкладок..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "Призупинені вкладки TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "іконки у кеші TMS"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "вкладки не завантажилися"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "вкладки мають іконку TMS"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "вкладки мають іконку за замовчуванням"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "унікальні імена хостів вкладок"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "Локальний кеш іконок TMS може не охоплювати всі вкладки. Якщо кеш вашого браузера очищено, TMS може не відображати деякі іконки."
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "Далі: Перезавантажити $count$ вкладок",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -155,7 +155,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "Далі: Відновити $count$ вкладок для кешування іконок",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -163,7 +163,7 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "Відновлення іконок..."
   },
   "html_health_after_reload": {
     "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
