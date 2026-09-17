@@ -381,7 +381,7 @@
     "message": "Nunca suspender pestañas abiertas en ventanas de aplicaciones"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Never suspend tabs in a tab group"
+    "message": "Nunca suspender pestañas de un grupo de pestañas"
   },
   "html_options_suspend_no_forms": {
     "message": "Nunca suspender pestañas que contengan entradas de formulario no guardadas"
@@ -890,7 +890,7 @@
     "message": "La pestaña está abierta en una ventana de aplicación"
   },
   "js_popup_grouped_tab": {
-    "message": "Tab is in a tab group"
+    "message": "La pestaña está en un grupo de pestañas"
   },
   "js_popup_temp_whitelist": {
     "message": "Suspensión de pestaña pausa."
