@@ -673,23 +673,20 @@ export const gsUtils = {
     return group ? gsUtils.getTabGroupKey(group) : null;
   },
 
-  // The key a group is MATCHED by, a different question: its own, or the last named key it
-  // wore this session, so clearing a title does not silently unprotect it. Null once that key
-  // is suppressed for this id, which is how off reaches old keys (tgs.js's toggle).
+  // The key a group is MATCHED by: its own, or the last named key it wore this session, so
+  // clearing a title does not unprotect it. Null once that key is suppressed for this id.
+  // The one place this rule lives; the worker and Options both call it.
+  resolveTabGroupKey(group, state) {
+    const groupKey = gsUtils.getTabGroupKey(group) ?? state.keys.at(-1) ?? null;
+    return groupKey !== null && !state.suppressed.includes(groupKey) ? groupKey : null;
+  },
+
   getMatchableTabGroupKeyForTab: async (tab) => {
     if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
       return null;
     }
     const group = await gsChrome.tabGroupsGet(tab.groupId);
-    if (!group) {
-      return null;
-    }
-    const state = await tgs.getTabGroupKeyState(tab.groupId);
-    const groupKey = gsUtils.getTabGroupKey(group) ?? state.keys.at(-1) ?? null;
-    if (groupKey === null || state.suppressed.includes(groupKey)) {
-      return null;
-    }
-    return groupKey;
+    return group ? gsUtils.resolveTabGroupKey(group, await tgs.getTabGroupKeyState(tab.groupId)) : null;
   },
 
   checkSpecificNeverSuspendGroups(groupKey, listString) {
@@ -1179,7 +1176,7 @@ export const gsUtils = {
             (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab))) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && (await gsUtils.isProtectedAppWindowTab(tab))) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_GROUPED_TABS) && (await gsUtils.isProtectedGroupedTab(tab))) ||
-            // as the three above, for a group exempted on another device (#133): the local
+            // as above, for a group exempted on another device (#133): the local
             // toggle wakes its sleeping tabs itself, so over sync they would stay asleep
             (changedSettingKeys.includes(gsStorage.NEVER_SUSPEND_GROUPS) && (await gsUtils.isProtectedTabGroupTab(tab)))
           ) {

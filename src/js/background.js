@@ -448,7 +448,7 @@ import  { tgs }                   from './tgs.js';
         break;
       case 'suspend_tab_group':
       case 'tab_suspend_group':
-        tgs.suspendTabGroup(tab);
+        await tgs.suspendTabGroup(tab);
         break;
       case 'unsuspend_tab_group':
       case 'tab_unsuspend_group':
@@ -540,7 +540,7 @@ import  { tgs }                   from './tgs.js';
         const tab = await new Promise((r) => {
           tgs.getCurrentlyActiveTab(r);
         });
-        tgs.suspendTabGroup(tab);
+        await tgs.suspendTabGroup(tab);
         break;
       }
       case '2d-unsuspend-tab-group': {
@@ -568,6 +568,13 @@ import  { tgs }                   from './tgs.js';
         const tab = await new Promise((r) => {
           tgs.getCurrentlyActiveTab(r);
         });
+        // getCurrentlyActiveTab() cannot see incognito and may land on a background window.
+        // Refuse only when Chrome says so, so a failed lookup is not a refused gesture (#133).
+        const tabWindow = tab && await gsChrome.windowsGet(tab.windowId);
+        if (tabWindow?.focused === false) {
+          gsUtils.log('background', '2g', 'ignored: the active tab\'s window is not focused');
+          break;
+        }
         await tgs.toggleNeverSuspendTabGroup(tab);
         break;
       }
@@ -633,14 +640,12 @@ import  { tgs }                   from './tgs.js';
   // Listeners must be part of the top-level evaluation of the service worker
   function addChromeListeners() {
     chrome.windows.onFocusChanged.addListener(async (windowId) => {
-      // Never awaited, here or below (#133): these are the hottest listeners in the
-      // extension, and a menu label must not delay focus handling or strand it by hanging.
-      tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
+      tgs.refreshNeverSuspendGroupMenuItems();
       await tgs.handleWindowFocusChanged(windowId);
     });
     chrome.tabs.onActivated.addListener(async (activeInfo) => {
       gsUtils.log(activeInfo.tabId, 'tab onActivated');
-      tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
+      tgs.refreshNeverSuspendGroupMenuItems();
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
 
       // Opportunistic favicon-repair backstop (#474): if the session flag shows the
@@ -712,7 +717,7 @@ import  { tgs }                   from './tgs.js';
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       // Nothing in chrome.tabGroups reports a tab moving between existing groups (#133).
       if (changeInfo && Object.hasOwn(changeInfo, 'groupId') && tab.active) {
-        tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
+        tgs.refreshNeverSuspendGroupMenuItems();
       }
       if (!changeInfo || !RELEVANT_TAB_UPDATE_KEYS.some((key) => changeInfo.hasOwnProperty(key))) {
         return;
@@ -824,9 +829,8 @@ import  { tgs }                   from './tgs.js';
         }
       }
       await tgs.initTabGroupKeyCache();
-      // The menu outlives the worker but is built only on install, so re-derive its state per
-      // start (#133). Not awaited: this executor has no reject arm to catch a hang.
-      tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
+      // the menu outlives the worker but is built only on install, so re-derive it per start (#133)
+      tgs.refreshNeverSuspendGroupMenuItems();
 
       gsUtils.log('background', 'init successful');
       resolve();

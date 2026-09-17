@@ -41,20 +41,6 @@ import  { tgs }                   from './tgs.js';
   };
 
 
-  // Chrome's own palette, keyed by chrome.tabGroups.Color. A swatch also saves translating
-  // nine colour names.
-  const TAB_GROUP_COLORS = {
-    grey   : '#5f6368',
-    blue   : '#1a73e8',
-    red    : '#d93025',
-    yellow : '#f9ab00',
-    green  : '#1e8e3e',
-    pink   : '#d01884',
-    purple : '#9334e6',
-    cyan   : '#007b83',
-    orange : '#fa903e',
-  };
-
   // groups are added from the context menu; this list is for reviewing and removing (#133)
   async function renderNeverSuspendGroups() {
     const listEl        = document.getElementById('neverSuspendGroupsList');
@@ -68,19 +54,14 @@ import  { tgs }                   from './tgs.js';
     // service worker matches a tab, so an entry still doing its job does not read as stale.
     const openGroups     = await chrome.tabGroups.query({});
     const openGroupKeys  = await Promise.all(openGroups.map(async (group) => {
-      const liveKey = gsUtils.getTabGroupKey(group);
-      let state;
       try {
-        // guarded: the count is a hint, and losing it beats the list failing to render
-        state = await tgs.getTabGroupKeyState(group.id);
+        return gsUtils.resolveTabGroupKey(group, await tgs.getTabGroupKeyState(group.id));
       }
       catch (e) {
+        // the count is a hint, and losing it beats the list failing to render
         gsUtils.warning('options', 'renderNeverSuspendGroups', 'could not read the tab group key cache', e);
-        return liveKey;
+        return gsUtils.getTabGroupKey(group);
       }
-      // a group switched off is not matched by a key it still wears, so it is not counted
-      const groupKey = liveKey ?? state.keys.at(-1) ?? null;
-      return groupKey !== null && !state.suppressed.includes(groupKey) ? groupKey : null;
     }));
     const matchesFor = (key) => openGroupKeys.filter((openKey) => openKey === key).length;
 
@@ -94,18 +75,12 @@ import  { tgs }                   from './tgs.js';
         continue;
       }
 
-      const li      = document.createElement('li');
-      const swatch  = document.createElement('span');
-      swatch.className = 'tabGroupSwatch';
-      // hasOwn, not a plain lookup: a stored colour of 'constructor' or '__proto__' resolves
-      // to an inherited property, truthy enough to defeat a ?? fallback
-      swatch.style.backgroundColor = Object.hasOwn(TAB_GROUP_COLORS, group.color)
-        ? TAB_GROUP_COLORS[group.color]
-        : TAB_GROUP_COLORS.grey;
-      li.appendChild(swatch);
-
+      const li    = document.createElement('li');
+      // the same theme-aware pill the session history uses; an unknown stored colour falls
+      // back to grey rather than becoming an arbitrary class name
+      const color = Object.values(chrome.tabGroups.Color).includes(group.color) ? group.color : 'grey';
       const title = document.createElement('span');
-      title.className = 'tabGroupTitle';
+      title.className = `tabGroupTitle group chrome ${color}`;
       // textContent, never innerHTML: a tab group title is free text the user typed.
       title.textContent = group.title;
       li.appendChild(title);
