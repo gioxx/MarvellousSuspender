@@ -381,7 +381,7 @@
     "message": "Nikdy nepozastavovat karty otevřené v oknech aplikací"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Never suspend tabs in a tab group"
+    "message": "Nikdy nepozastavovat karty ve skupině karet"
   },
   "html_options_suspend_no_forms": {
     "message": "Nikdy nepozastavovat karty s neuloženými údaji ve formulářích"
@@ -890,7 +890,7 @@
     "message": "Karta je otevřena v okně aplikace"
   },
   "js_popup_grouped_tab": {
-    "message": "Tab is in a tab group"
+    "message": "Karta je ve skupině karet"
   },
   "js_popup_temp_whitelist": {
     "message": "Pozastavování karty pozastaveno."
