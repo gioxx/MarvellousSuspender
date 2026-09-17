@@ -216,6 +216,7 @@ export const gsUtils = {
   STATUS_TEMPWHITELIST  : 'tempWhitelist',
   STATUS_PINNED         : 'pinned',
   STATUS_APP_WINDOW     : 'appWindow',
+  STATUS_GROUPED_TAB    : 'groupedTab',
   STATUS_TAB_GROUP      : 'tabGroup',
   STATUS_WHITELISTED    : 'whitelisted',
   STATUS_CHARGING       : 'charging',
@@ -506,6 +507,17 @@ export const gsUtils = {
   isProtectedAppWindowTab: async (tab) => {
     const ignoreAppWindows = await gsStorage.getOption(gsStorage.IGNORE_APP_WINDOWS);
     return ignoreAppWindows && await gsUtils.isTabInAppWindow(tab);
+  },
+
+  // #133: split from isProtectedGroupedTab() so performPostSaveUpdates() can ask without the
+  // setting gate, which has already flipped by the time it runs. Same as isTabInAppWindow().
+  isTabInGroup: (tab) => {
+    return !!tab && typeof tab.groupId === 'number' && tab.groupId !== chrome.tabGroups.TAB_GROUP_ID_NONE;
+  },
+
+  isProtectedGroupedTab: async (tab) => {
+    const ignoreGroupedTabs = await gsStorage.getOption(gsStorage.IGNORE_GROUPED_TABS);
+    return ignoreGroupedTabs && gsUtils.isTabInGroup(tab);
   },
 
   // no global on/off to gate on: opted into one group at a time (#133)
@@ -1161,11 +1173,12 @@ export const gsUtils = {
         }
 
         if (gsUtils.isSuspendedTab(tab)) {
-          //If toggling IGNORE_PINNED, IGNORE_ACTIVE_TABS or IGNORE_APP_WINDOWS to TRUE, then unsuspend any suspended pinned/active/app-window tabs
+          //If toggling IGNORE_PINNED, IGNORE_ACTIVE_TABS, IGNORE_APP_WINDOWS or IGNORE_GROUPED_TABS to TRUE, then unsuspend any suspended pinned/active/app-window/grouped tabs
           if (
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && (await gsUtils.isProtectedPinnedTab(tab))) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_ACTIVE_TABS) && (await gsUtils.isProtectedActiveTab(tab))) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && (await gsUtils.isProtectedAppWindowTab(tab))) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_GROUPED_TABS) && (await gsUtils.isProtectedGroupedTab(tab))) ||
             // as the three above, for a group exempted on another device (#133): the local
             // toggle wakes its sleeping tabs itself, so over sync they would stay asleep
             (changedSettingKeys.includes(gsStorage.NEVER_SUSPEND_GROUPS) && (await gsUtils.isProtectedTabGroupTab(tab)))
@@ -1255,6 +1268,7 @@ export const gsUtils = {
             (changedSettingKeys.includes(gsStorage.IGNORE_PINNED) && !settings[gsStorage.IGNORE_PINNED] && tab.pinned) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_AUDIO) && !settings[gsStorage.IGNORE_AUDIO] && tab.audible) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_APP_WINDOWS) && !settings[gsStorage.IGNORE_APP_WINDOWS] && await gsUtils.isTabInAppWindow(tab)) ||
+            (changedSettingKeys.includes(gsStorage.IGNORE_GROUPED_TABS) && !settings[gsStorage.IGNORE_GROUPED_TABS] && gsUtils.isTabInGroup(tab)) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_OFFLINE) && !settings[gsStorage.IGNORE_WHEN_OFFLINE] && !navigator.onLine) ||
             (changedSettingKeys.includes(gsStorage.IGNORE_WHEN_CHARGING) && !settings[gsStorage.IGNORE_WHEN_CHARGING] && await tgs.isCharging()) ||
             (changedSettingKeys.includes(gsStorage.WHITELIST) &&

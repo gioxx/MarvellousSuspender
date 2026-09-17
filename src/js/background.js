@@ -698,7 +698,7 @@ import  { tgs }                   from './tgs.js';
     };
 
     // chrome.tabs.onUpdated fires for every kind of tab-state change this extension
-    // cares about ('status', 'url', 'discarded', 'audible', 'pinned' — see the checks
+    // cares about ('status', 'url', 'discarded', 'audible', 'pinned', 'groupId' — see the checks
     // below and in tgs.js's handleSuspendedTabStateChanged()/
     // handleUnsuspendedTabStateChanged()), but also for ones it never acts on, chiefly
     // 'frozen'. Live testing found Chrome flips 'frozen' on/off on background/suspended
@@ -707,10 +707,10 @@ import  { tgs }                   from './tgs.js';
     // reach this far, logging (a real cost with captureLogs on: buffering, coalescing,
     // periodic storage flushes) and dispatching into both handler functions before
     // either of them discovered there was nothing to do.
-    const RELEVANT_TAB_UPDATE_KEYS = ['status', 'url', 'discarded', 'audible', 'pinned'];
+    // 'groupId' (#133) lets handleUnsuspendedTabStateChanged() re-arm a tab that left its group.
+    const RELEVANT_TAB_UPDATE_KEYS = ['status', 'url', 'discarded', 'audible', 'pinned', 'groupId'];
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-      // Nothing in chrome.tabGroups reports a tab moving between existing groups (#133), and
-      // the filter below leaves groupId out: the state handlers are not where it belongs.
+      // Nothing in chrome.tabGroups reports a tab moving between existing groups (#133).
       if (changeInfo && Object.hasOwn(changeInfo, 'groupId') && tab.active) {
         tgs.refreshNeverSuspendGroupMenuItems(); //async. unhandled promise
       }

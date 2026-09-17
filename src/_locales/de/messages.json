@@ -392,6 +392,9 @@
   "html_options_suspend_no_app_windows": {
     "message": "In App-Fenstern geöffnete Tabs nicht aussetzen"
   },
+  "html_options_suspend_no_grouped_tabs": {
+    "message": "Tabs in einer Tab-Gruppe nicht aussetzen"
+  },
   "html_options_suspend_no_forms": {
     "message": "Tabs mit ungespeicherten Formularen nicht aussetzen"
   },
@@ -915,6 +918,9 @@
   },
   "js_popup_app_window": {
     "message": "Tab ist in einem App-Fenster geöffnet"
+  },
+  "js_popup_grouped_tab": {
+    "message": "Tab ist in einer Tab-Gruppe"
   },
   "js_popup_tab_group": {
     "message": "Tab ist in einer Gruppe, die nie ausgesetzt wird"

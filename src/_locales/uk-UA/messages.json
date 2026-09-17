@@ -1,4 +1,4 @@
-﻿{
+{
   "ext_extension_name": {
     "message": "The Marvellous Suspender"
   },
@@ -391,9 +391,6 @@
   },
   "html_options_suspend_no_app_windows": {
     "message": "Never suspend tabs opened in app windows"
-  },
-  "html_options_suspend_no_grouped_tabs": {
-    "message": "Never suspend tabs in a tab group"
   },
   "html_options_suspend_no_forms": {
     "message": "Never suspend tabs that contain unsaved form inputs"
@@ -919,9 +916,6 @@
   "js_popup_app_window": {
     "message": "Tab is open in an app window"
   },
-  "js_popup_grouped_tab": {
-    "message": "Tab is in a tab group"
-  },
   "js_popup_tab_group": {
     "message": "Tab is in a group that is never suspended"
   },
@@ -1186,7 +1180,11 @@
   },
   "js_options_backup_next_run": {
     "message": "Next run: $time$",
-    "placeholders": { "time": { "content": "$1" } }
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_backup_last_local": {
     "message": "Last backup: $date$",

@@ -392,6 +392,9 @@
   "html_options_suspend_no_app_windows": {
     "message": "Никогда не приостанавливать вкладки, открытые в окнах приложений"
   },
+  "html_options_suspend_no_grouped_tabs": {
+    "message": "Никогда не приостанавливать вкладки в группе вкладок"
+  },
   "html_options_suspend_no_forms": {
     "message": "Никогда не приостанавливать вкладки с несохранёнными полями ввода"
   },
@@ -915,6 +918,9 @@
   },
   "js_popup_app_window": {
     "message": "Вкладка открыта в окне приложения"
+  },
+  "js_popup_grouped_tab": {
+    "message": "Вкладка находится в группе вкладок"
   },
   "js_popup_tab_group": {
     "message": "Вкладка находится в группе, которая никогда не приостанавливается"

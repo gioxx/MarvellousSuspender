@@ -436,10 +436,13 @@ export const tgs = (function() {
     if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
       return;
     }
-    // A never-suspend group (#133) is absolute against the bulk actions, so skip the whole
-    // group: the acted-on tab's forceLevel 1 below would otherwise slip one tab through.
+    // #133: bulk action, so a standing protection wins; a per-tab suspend still overrides.
+    if (await gsStorage.getOption(gsStorage.IGNORE_GROUPED_TABS)) {
+      gsUtils.log(tab.id, 'tgs', 'suspendTabGroup', 'skipped, grouped tabs are never suspended');
+      return;
+    }
     if (await gsUtils.isProtectedTabGroupTab(tab)) {
-      gsUtils.log('tgs', 'suspendTabGroup', 'ignored: the group is on the never-suspend list');
+      gsUtils.log(tab.id, 'tgs', 'suspendTabGroup', 'skipped, this group is never suspended');
       return;
     }
     chrome.tabs.query({ groupId: tab.groupId }, (groupTabs) => {
@@ -1039,6 +1042,7 @@ export const tgs = (function() {
       !changeInfo.hasOwnProperty('status') &&
       !changeInfo.hasOwnProperty('audible') &&
       !changeInfo.hasOwnProperty('pinned') &&
+      !changeInfo.hasOwnProperty('groupId') &&
       !changeInfo.hasOwnProperty('discarded')
     ) {
       return;
@@ -1098,6 +1102,16 @@ export const tgs = (function() {
       const ignorePinned = await gsStorage.getOption(gsStorage.IGNORE_PINNED);
       //reset tab timer if tab has become unpinned
       if (!changeInfo.pinned && ignorePinned) {
+        await resetAutoSuspendTimerForTab(tab);
+      }
+      hasTabStatusChanged = true;
+    }
+
+    if (changeInfo.hasOwnProperty('groupId')) {
+      const ignoreGroupedTabs = await gsStorage.getOption(gsStorage.IGNORE_GROUPED_TABS);
+      //reset tab timer if tab has just left its group (#133). Read off tab rather than
+      //changeInfo: a tab moved straight between groups fires this twice and is still grouped.
+      if (!gsUtils.isTabInGroup(tab) && ignoreGroupedTabs) {
         await resetAutoSuspendTimerForTab(tab);
       }
       hasTabStatusChanged = true;
@@ -1885,6 +1899,11 @@ export const tgs = (function() {
         //check app-mode window tab (#154)
         if (await gsUtils.isProtectedAppWindowTab(tab)) {
           callback(gsUtils.STATUS_APP_WINDOW);
+          return;
+        }
+        //check tab in a tab group (#133)
+        if (await gsUtils.isProtectedGroupedTab(tab)) {
+          callback(gsUtils.STATUS_GROUPED_TAB);
           return;
         }
         //check never-suspend tab group (#133)
