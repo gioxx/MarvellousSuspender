@@ -55,7 +55,7 @@ import  { tgs }                   from './tgs.js';
     const openGroups     = await chrome.tabGroups.query({});
     const openGroupKeys  = await Promise.all(openGroups.map(async (group) => {
       try {
-        return gsUtils.resolveTabGroupKey(group, await tgs.getTabGroupKeyState(group.id));
+        return gsUtils.resolveTabGroupKey(group, await tgs.getLastTabGroupKey(group.id));
       }
       catch (e) {
         // the count is a hint, and losing it beats the list failing to render

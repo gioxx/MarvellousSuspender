@@ -523,12 +523,10 @@ export const gsUtils = {
   // no global on/off to gate on: opted into one group at a time (#133)
   isProtectedTabGroupTab: async (tab) => {
     // read the list first: it is empty for everyone not using the feature
-    const neverSuspendGroups = await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS);
-    if (!neverSuspendGroups) {
+    if (!(await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS))) {
       return false;
     }
-    const groupKey = await gsUtils.getMatchableTabGroupKeyForTab(tab);
-    return groupKey !== null && gsUtils.checkSpecificNeverSuspendGroups(groupKey, neverSuspendGroups);
+    return (await gsUtils.getTabGroupExemption(tab)).exempt;
   },
 
   // Note: Normal tabs may be in a discarded state
@@ -674,19 +672,30 @@ export const gsUtils = {
   },
 
   // The key a group is MATCHED by: its own, or the last named key it wore this session, so
-  // clearing a title does not unprotect it. Null once that key is suppressed for this id.
-  // The one place this rule lives; the worker and Options both call it.
-  resolveTabGroupKey(group, state) {
-    const groupKey = gsUtils.getTabGroupKey(group) ?? state.keys.at(-1) ?? null;
-    return groupKey !== null && !state.suppressed.includes(groupKey) ? groupKey : null;
+  // clearing a title does not unprotect it. The one place this rule lives.
+  resolveTabGroupKey(group, lastKey) {
+    return gsUtils.getTabGroupKey(group) ?? lastKey ?? null;
   },
 
-  getMatchableTabGroupKeyForTab: async (tab) => {
-    if (!tab || typeof tab.groupId !== 'number' || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
-      return null;
+  // the one answer the suspend check and the toggle share: the group's own key (named only),
+  // the key it is matched by, and whether that one is on the list
+  getTabGroupExemption: async (tab) => {
+    const none = { liveKey : null, groupKey : null, exempt : false };
+    if (!gsUtils.isTabInGroup(tab)) {
+      return none;
     }
     const group = await gsChrome.tabGroupsGet(tab.groupId);
-    return group ? gsUtils.resolveTabGroupKey(group, await tgs.getTabGroupKeyState(tab.groupId)) : null;
+    if (!group) {
+      return none;
+    }
+    const groupKey = gsUtils.resolveTabGroupKey(group, await tgs.getLastTabGroupKey(tab.groupId));
+    return {
+      liveKey : gsUtils.getTabGroupKey(group),
+      groupKey,
+      exempt  : groupKey !== null && gsUtils.checkSpecificNeverSuspendGroups(
+        groupKey, await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS),
+      ),
+    };
   },
 
   checkSpecificNeverSuspendGroups(groupKey, listString) {
@@ -696,7 +705,7 @@ export const gsUtils = {
 
   // only reachable from a synced change: a local toggle reconciles its own tabs
   tabGroupLeftNeverSuspendList: async (tab, oldList, newList) => {
-    const groupKey = await gsUtils.getMatchableTabGroupKeyForTab(tab);
+    const { groupKey } = await gsUtils.getTabGroupExemption(tab);
     return groupKey !== null
       && gsUtils.checkSpecificNeverSuspendGroups(groupKey, oldList)
       && !gsUtils.checkSpecificNeverSuspendGroups(groupKey, newList);
