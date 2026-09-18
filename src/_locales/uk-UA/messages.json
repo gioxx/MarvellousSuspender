@@ -33,7 +33,7 @@
     "message": "Відновити всі вкладки без групи в активному вікні"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Перемкнути «ніколи не призупиняти» для групи активної вкладки"
+    "message": "Toggle never suspend for the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Призупинити всі інші вкладки в активному вікні"
@@ -87,13 +87,13 @@
     "message": "Відновити всі вкладки, що не входять до групи"
   },
   "js_context_never_suspend_group": {
-    "message": "Ніколи не призупиняти цю групу"
+    "message": "Never suspend this group"
   },
   "js_context_allow_suspending_group": {
-    "message": "Дозволити призупинення цієї групи"
+    "message": "Allow suspending this group"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Ніколи не призупиняти цю групу (лише групи з назвою)"
+    "message": "Never suspend this group (named groups only)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Призупинити всі інші вкладки в цьому вікні"
