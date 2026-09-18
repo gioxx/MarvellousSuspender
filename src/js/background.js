@@ -90,15 +90,34 @@ import  { tgs }                   from './tgs.js';
   // menu registry gets cleared outside those two triggers (confirmed on Opera GX 135) would
   // otherwise leave the context menu missing until the next extension update or a manual
   // toggle of the Options checkbox.
+  // The top-level rebuildContextMenu() call below and the onInstalled listener's own call
+  // both fire independently on a fresh install/update (MV3 evaluates the script top-to-
+  // bottom while Chrome also dispatches onInstalled) — without coalescing, both would run
+  // their own full removeAll()->getOption->create() sequence, and even with
+  // buildContextMenu() itself serialized (tgs.js) that still means duplicate create() calls
+  // colliding on ids (mc-triage review, PR #500). A concurrent call here just awaits the
+  // one already in flight instead of starting a second, redundant sequence.
+  let _rebuildContextMenuPromise = null;
   async function rebuildContextMenu() {
     if (chrome.extension.inIncognitoContext) return;
-    // chrome.contextMenus.removeAll() is async — awaiting it here (Codex review, PR #500)
-    // ensures it has actually finished before the create() calls below run, otherwise the
-    // outstanding removal can complete afterwards and delete the items it was meant to
-    // precede rather than the stale ones it was meant to clear.
-    await tgs.buildContextMenu(false);
-    const contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
-    tgs.buildContextMenu(contextMenus);
+    if (_rebuildContextMenuPromise) {
+      return _rebuildContextMenuPromise;
+    }
+    _rebuildContextMenuPromise = (async () => {
+      try {
+        // chrome.contextMenus.removeAll() is async — awaiting it here (Codex review, PR
+        // #500) ensures it has actually finished before the create() calls below run,
+        // otherwise the outstanding removal can complete afterwards and delete the items
+        // it was meant to precede rather than the stale ones it was meant to clear.
+        await tgs.buildContextMenu(false);
+        const contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
+        await tgs.buildContextMenu(contextMenus);
+      }
+      finally {
+        _rebuildContextMenuPromise = null;
+      }
+    })();
+    return _rebuildContextMenuPromise;
   }
 
   chrome.runtime.onInstalled.addListener(async (details) => {

@@ -1646,7 +1646,23 @@ export const tgs = (function() {
   }
 
   //HANDLERS FOR RIGHT-CLICK CONTEXT MENU
+  // Serializes every buildContextMenu() call — from background.js's rebuildContextMenu()
+  // (top-level wake + onInstalled) and from gsUtils.js's ADD_CONTEXT settings-change
+  // handler alike — behind one shared chain, so a removeAll()+create() sequence from one
+  // caller can never interleave with another caller's own removeAll()/create() calls
+  // (mc-triage review on PR #500: two unsynchronized rebuildContextMenu() calls on every
+  // install/update could otherwise race, one's removeAll() wiping the other's just-created
+  // items, or their create() calls colliding on duplicate ids).
+  let _contextMenuChain = Promise.resolve();
   function buildContextMenu(showContextMenu) {
+    const result = _contextMenuChain.then(() => _buildContextMenuImpl(showContextMenu));
+    // Keep the chain alive even if this call's removal/creation throws, so a later,
+    // unrelated call still runs instead of being stuck behind a permanently rejected chain.
+    _contextMenuChain = result.catch(() => {});
+    return result;
+  }
+
+  function _buildContextMenuImpl(showContextMenu) {
     /** @type { chrome.contextMenus.CreateProperties['contexts'] } */
     const allContexts = ['page', 'frame', 'editable', 'image', 'video', 'audio']; //'selection',
 
