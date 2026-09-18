@@ -146,7 +146,12 @@ import  { tgs }                   from './tgs.js';
         await gsStorage.saveStorage('session', 'gsContextMenuRebuildDone', true);
       }
       catch (error) {
-        gsUtils.error('background', 'rebuildContextMenu failed', error);
+        // JSON.stringify(error) on a plain Error yields "{}" (message/stack are
+        // non-enumerable), so the persisted debug-report entry would otherwise read
+        // "rebuildContextMenu failed {}" with nothing to diagnose the very intermittent
+        // failure this self-heal exists to catch (mc-triage review round 5, PR #500 —
+        // same pattern this PR's own CHANGELOG entry already documents fixing in gsBackup.js).
+        gsUtils.error('background', 'rebuildContextMenu failed:', error?.message || error, error?.stack || '');
       }
     });
   }
