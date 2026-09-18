@@ -33,7 +33,7 @@
     "message": "Відновити всі вкладки без групи в активному вікні"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Toggle never suspend for the active tab's group"
+    "message": "Увімкнути/вимкнути режим «ніколи не призупиняти» для групи активної вкладки."
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Призупинити всі інші вкладки в активному вікні"
@@ -87,13 +87,13 @@
     "message": "Відновити всі вкладки, що не входять до групи"
   },
   "js_context_never_suspend_group": {
-    "message": "Never suspend this group"
+    "message": "Ніколи не призупиняти цю групу"
   },
   "js_context_allow_suspending_group": {
-    "message": "Allow suspending this group"
+    "message": "Дозволити призупиняти цю групу"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Never suspend this group (named groups only)"
+    "message": "Ніколи не призупиняти цю групу (лише назви груп)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Призупинити всі інші вкладки в цьому вікні"
@@ -336,10 +336,10 @@
     "message": "«Пошук по вкладках» (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "Preserve YouTube playback position when suspending"
+    "message": "Зберігати позицію відтворення YouTube при призупиненню"
   },
   "html_options_other_title": {
-    "message": "General"
+    "message": "Загальні"
   },
   "html_options_language": {
     "message": "Мова"
@@ -348,13 +348,13 @@
     "message": "За замовчуванням системи"
   },
   "html_options_suspend_automatically_after": {
-    "message": "Automatically suspend tabs after"
+    "message": "Автоматично призупиняти вкладки після"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "Suspend tabs on battery power after"
+    "message": "Призупиняти вкладки у режимі роботи від акумулятора після"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "Same as when plugged in"
+    "message": "Так само, як і під час живлення від мережі"
   },
   "html_options_suspend_never": {
     "message": "Ніколи"
@@ -390,46 +390,46 @@
     "message": "Ніколи не призупиняти закріплені вкладки"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "Ніколи не призупиняти вкладки, відкриті у вікнах програм"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Never suspend tabs in a tab group"
+    "message": "Ніколи не призупиняти вкладки в групі вкладок"
   },
   "html_options_suspend_no_forms": {
-    "message": "Never suspend tabs that contain unsaved form inputs"
+    "message": "Ніколи не призупиняти вкладки, що містять незбережені дані форми"
   },
   "html_options_suspend_no_audio": {
-    "message": "Never suspend tabs that are playing audio"
+    "message": "Ніколи не призупиняти вкладки, які відтворюють аудіо"
   },
   "html_options_suspend_only_connected": {
-    "message": "Never suspend tabs when offline"
+    "message": "Ніколи не призупиняти вкладки в режимі офлайн"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Claim tabs suspended by other extensions"
+    "message": "Перехоплювати вкладки, призупинені іншими розширеннями"
   },
   "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Automatically takes over tabs already suspended by another compatible"
+    "message": "Автоматично перехоплює вкладки, які вже призупинені іншим сумісним"
   },
   "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "extension (e.g. The Great Suspender, or a different install of this one)."
+    "message": "розширеням (наприклад, The Great Suspender або інша його версія)."
   },
   "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "A tab counts as \"suspended\" if its URL contains 'suspended.html'."
+    "message": "Вкладка вважається «призупиненою», якщо її URL адреса містить «suspended.html»."
   },
   "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "Enabling this rewrites that URL to this install so TMS can manage"
+    "message": "Увімкнення цієї опції змінює URL-адресу для поточного розширення, щоб TMS міг"
   },
   "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "the tab going forward."
+    "message": "надалі керувати цією вкладкою."
   },
   "html_options_suspend_only_on_battery": {
-    "message": "Never suspend tabs when connected to power source"
+    "message": "Ніколи не призупиняти вкладки, коли пристрій підключений до джерела живлення"
   },
   "html_options_suspend_no_active_tabs": {
-    "message": "Never suspend active tab in each window"
+    "message": "Ніколи не призупиняти активну вкладку в кожному вікні"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Always reopen suspended tabs scrolled to the top"
+    "message": "Завжди відкривати призупинені вкладки у верхній частині сторінки"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
     "message": "The tab reopens at the top of the page instead of wherever it was"
