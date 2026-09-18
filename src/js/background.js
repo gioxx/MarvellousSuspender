@@ -272,6 +272,12 @@ import  { tgs }                   from './tgs.js';
             tgs.forceSuspendAlwaysListedTabs();
             break;
           }
+          case 'removeNeverSuspendGroup' : {
+            if (typeof request.groupKey === 'string' && request.groupKey) {
+              await tgs.setTabGroupNeverSuspend(request.groupKey, false);
+            }
+            break;
+          }
           case 'suspendSelected' : {
             tgs.suspendSelectedTabs();
             break;
@@ -442,7 +448,7 @@ import  { tgs }                   from './tgs.js';
         break;
       case 'suspend_tab_group':
       case 'tab_suspend_group':
-        tgs.suspendTabGroup(tab);
+        await tgs.suspendTabGroup(tab);
         break;
       case 'unsuspend_tab_group':
       case 'tab_unsuspend_group':
@@ -455,6 +461,14 @@ import  { tgs }                   from './tgs.js';
       case 'unsuspend_ungrouped_tabs':
       case 'tab_unsuspend_ungrouped':
         tgs.unsuspendUngroupedTabs(tab);
+        break;
+      case 'never_suspend_group':
+      case 'tab_never_suspend_group':
+        await tgs.setNeverSuspendTabGroup(tab, true);
+        break;
+      case 'allow_suspending_group':
+      case 'tab_allow_suspending_group':
+        await tgs.setNeverSuspendTabGroup(tab, false);
         break;
       case 'soft_suspend_other_tabs_in_window':
         tgs.suspendAllTabs(false);
@@ -526,7 +540,7 @@ import  { tgs }                   from './tgs.js';
         const tab = await new Promise((r) => {
           tgs.getCurrentlyActiveTab(r);
         });
-        tgs.suspendTabGroup(tab);
+        await tgs.suspendTabGroup(tab);
         break;
       }
       case '2d-unsuspend-tab-group': {
@@ -548,6 +562,20 @@ import  { tgs }                   from './tgs.js';
           tgs.getCurrentlyActiveTab(r);
         });
         tgs.unsuspendUngroupedTabs(tab);
+        break;
+      }
+      case '2g-toggle-never-suspend-group': {
+        const tab = await new Promise((r) => {
+          tgs.getCurrentlyActiveTab(r);
+        });
+        // getCurrentlyActiveTab() cannot see incognito and may land on a background window.
+        // Refuse only when Chrome says so, so a failed lookup is not a refused gesture (#133).
+        const tabWindow = tab && await gsChrome.windowsGet(tab.windowId);
+        if (tabWindow?.focused === false) {
+          gsUtils.log('background', '2g', 'ignored: the active tab\'s window is not focused');
+          break;
+        }
+        await tgs.toggleNeverSuspendTabGroup(tab);
         break;
       }
       case '3-suspend-active-window':
@@ -612,10 +640,12 @@ import  { tgs }                   from './tgs.js';
   // Listeners must be part of the top-level evaluation of the service worker
   function addChromeListeners() {
     chrome.windows.onFocusChanged.addListener(async (windowId) => {
+      tgs.refreshNeverSuspendGroupMenuItems();
       await tgs.handleWindowFocusChanged(windowId);
     });
     chrome.tabs.onActivated.addListener(async (activeInfo) => {
       gsUtils.log(activeInfo.tabId, 'tab onActivated');
+      tgs.refreshNeverSuspendGroupMenuItems();
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
 
       // Opportunistic favicon-repair backstop (#474): if the session flag shows the
@@ -685,6 +715,10 @@ import  { tgs }                   from './tgs.js';
     // 'groupId' (#133) lets handleUnsuspendedTabStateChanged() re-arm a tab that left its group.
     const RELEVANT_TAB_UPDATE_KEYS = ['status', 'url', 'discarded', 'audible', 'pinned', 'groupId'];
     chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+      // Nothing in chrome.tabGroups reports a tab moving between existing groups (#133).
+      if (changeInfo && Object.hasOwn(changeInfo, 'groupId') && tab.active) {
+        tgs.refreshNeverSuspendGroupMenuItems();
+      }
       if (!changeInfo || !RELEVANT_TAB_UPDATE_KEYS.some((key) => changeInfo.hasOwnProperty(key))) {
         return;
       }
@@ -720,6 +754,17 @@ import  { tgs }                   from './tgs.js';
           await tgs.handleUnsuspendedTabStateChanged(tab, changeInfo);
         }
       }
+    });
+    // a never-suspend group is matched by title and color (#133), so track both as they change
+    chrome.tabGroups.onCreated.addListener(async (group) => {
+      await tgs.handleTabGroupCreated(group);
+    });
+    // awaited: the returned promise keeps the worker up for the write a rename triggers
+    chrome.tabGroups.onUpdated.addListener(async (group) => {
+      await tgs.handleTabGroupUpdated(group);
+    });
+    chrome.tabGroups.onRemoved.addListener(async (group) => {
+      await tgs.handleTabGroupRemoved(group);
     });
     chrome.windows.onCreated.addListener(async (window) => {
       gsUtils.log(window.id, 'background', 'window created.');
@@ -783,6 +828,10 @@ import  { tgs }                   from './tgs.js';
           await tgs.setCurrentFocusedWindowId(activeTab.windowId);
         }
       }
+      await tgs.initTabGroupKeyCache();
+      // the menu outlives the worker but is built only on install, so re-derive it per start (#133)
+      tgs.refreshNeverSuspendGroupMenuItems();
+
       gsUtils.log('background', 'init successful');
       resolve();
     });

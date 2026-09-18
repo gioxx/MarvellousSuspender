@@ -314,7 +314,8 @@ export const gsTabSuspendManager = (function() {
           (await gsUtils.isProtectedPinnedTab(tab)) ||
           (await gsUtils.isProtectedAudibleTab(tab)) ||
           (await gsUtils.isProtectedAppWindowTab(tab)) ||
-          (await gsUtils.isProtectedGroupedTab(tab))
+          (await gsUtils.isProtectedGroupedTab(tab)) ||
+          (await gsUtils.isProtectedTabGroupTab(tab))
         ) {
           return false;
         }

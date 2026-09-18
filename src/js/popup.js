@@ -160,6 +160,8 @@ import  { tgs }                   from './tgs.js';
       statusDetail = gsUtils.getMessage('js_popup_app_window');
     } else if (status === gsUtils.STATUS_GROUPED_TAB) {
       statusDetail = gsUtils.getMessage('js_popup_grouped_tab');
+    } else if (status === gsUtils.STATUS_TAB_GROUP) {
+      statusDetail = gsUtils.getMessage('js_popup_tab_group');
     } else if (status === gsUtils.STATUS_TEMPWHITELIST) {
       statusDetail =
         gsUtils.getMessage('js_popup_temp_whitelist') +

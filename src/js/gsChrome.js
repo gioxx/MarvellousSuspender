@@ -178,6 +178,25 @@ export const gsChrome = {
   },
 
   /**
+   * A group can be dissolved between a tabs query and this lookup (the last tab left it,
+   * or the user ungrouped it), so a miss here is routine rather than an error.
+   * @param   { number } groupId
+   * @returns { Promise<chrome.tabGroups.TabGroup | null> }
+   */
+  tabGroupsGet(groupId) {
+    return new Promise((resolve) => {
+      chrome.tabGroups.get(groupId, (group) => {
+        if (chrome.runtime.lastError) {
+          gsUtils.log('tabGroupsGet', groupId, chrome.runtime.lastError);
+          resolve(null);
+          return;
+        }
+        resolve(group);
+      });
+    });
+  },
+
+  /**
    * @typedef { Record<number, chrome.tabGroups.TabGroup> } GroupMap
    * @param   { chrome.tabGroups.TabGroup[] } groups
    * @returns { Promise<GroupMap> }

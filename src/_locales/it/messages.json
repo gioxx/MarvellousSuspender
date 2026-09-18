@@ -32,6 +32,9 @@
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
     "message": "Riattiva tutte le schede non in un gruppo nella finestra attiva"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Attiva o disattiva «non sospendere mai» per il gruppo della scheda attiva"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Sospendi tutte le altre schede nella finestra attiva"
   },
@@ -82,6 +85,15 @@
   },
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "Riattiva tutte le schede non in un gruppo"
+  },
+  "js_context_never_suspend_group": {
+    "message": "Non sospendere mai questo gruppo"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "Consenti la sospensione di questo gruppo"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "Non sospendere mai questo gruppo (solo gruppi con nome)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Sospendi tutte le altre schede in questa finestra"
@@ -586,6 +598,24 @@
   "html_options_always_suspend_force": {
     "message": "Sospendi subito le schede corrispondenti"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "Non sospendere mai le schede nei seguenti gruppi:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Le schede in questi gruppi non vengono mai sospese automaticamente e sono ignorate dalle azioni di sospensione di gruppo."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Aggiungi un gruppo con «Non sospendere mai questo gruppo» nel menu contestuale. Si possono aggiungere solo gruppi che hanno un nome."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "I gruppi sono identificati da nome e colore e seguono le rinomine finché il browser resta aperto."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Nessun gruppo di schede aggiunto."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Rimuovi"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Aggiungi The Marvellous Suspender al menu contestuale del tasto destro del mouse"
   },
@@ -892,6 +922,9 @@
   "js_popup_grouped_tab": {
     "message": "La scheda è in un gruppo di schede"
   },
+  "js_popup_tab_group": {
+    "message": "La scheda è in un gruppo che non viene mai sospeso"
+  },
   "js_popup_temp_whitelist": {
     "message": "Sospensione della scheda disattivata."
   },
@@ -989,6 +1022,14 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Non ci sono schede aperte che corrispondono all'attuale lista di sospensione forzata."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "corrisponde a $count$ gruppo/i aperto/i",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_always_suspend_matches_heading": {
     "message": "Schede aperte corrispondenti alla lista di sospensione forzata:"

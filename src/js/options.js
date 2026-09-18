@@ -4,8 +4,12 @@ import  { gsMascot }              from './gsMascot.js';
 import  { gsNewsFeed }            from './gsNewsFeed.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
+import  { tgs }                   from './tgs.js';
 
 (() => {
+
+  // the pill colours style.css gives a span.group.chrome rule
+  const TAB_GROUP_COLORS = ['grey', 'blue', 'red', 'yellow', 'green', 'pink', 'purple', 'cyan', 'orange'];
 
   const elementPrefMap = {
     preview: gsStorage.SCREEN_CAPTURE,
@@ -40,6 +44,72 @@ import  { gsUtils }               from './gsUtils.js';
   };
 
 
+  // groups are added from the context menu; this list is for reviewing and removing (#133)
+  async function renderNeverSuspendGroups() {
+    const listEl        = document.getElementById('neverSuspendGroupsList');
+    const emptyEl       = document.getElementById('neverSuspendGroupsEmpty');
+    const storedList    = gsUtils.cleanupTabGroupList(
+      await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS),
+    );
+    const groupKeys     = storedList ? storedList.split('\n') : [];
+    // A key is a name and a colour, not a group, so a rename leaves entries matching nothing:
+    // "matches 0 open groups" is what tells the user a line is safe to remove. Resolved as the
+    // service worker matches a tab, so an entry still doing its job does not read as stale.
+    const openGroups     = await chrome.tabGroups.query({});
+    const openGroupKeys  = await Promise.all(openGroups.map(async (group) => {
+      try {
+        return gsUtils.resolveTabGroupKey(group, await tgs.getLastTabGroupKey(group.id));
+      }
+      catch (e) {
+        // the count is a hint, and losing it beats the list failing to render
+        gsUtils.warning('options', 'renderNeverSuspendGroups', 'could not read the tab group key cache', e);
+        return gsUtils.getTabGroupKey(group);
+      }
+    }));
+    const matchesFor = (key) => openGroupKeys.filter((openKey) => openKey === key).length;
+
+    listEl.innerHTML = '';
+    emptyEl.classList.toggle('reallyHidden', groupKeys.length > 0);
+
+    for (const groupKey of groupKeys) {
+      const group = gsUtils.parseTabGroupKey(groupKey);
+      if (!group) {
+        // cleanupTabGroupList() above already drops these; belt and braces
+        continue;
+      }
+
+      const li    = document.createElement('li');
+      // the same theme-aware pill the session history uses; an unknown stored colour falls
+      // back to grey rather than becoming an arbitrary class name
+      const color = TAB_GROUP_COLORS.includes(group.color) ? group.color : 'grey';
+      const title = document.createElement('span');
+      title.className = `tabGroupTitle group chrome ${color}`;
+      // textContent, never innerHTML: a tab group title is free text the user typed.
+      title.textContent = group.title;
+      li.appendChild(title);
+
+      const matches = document.createElement('span');
+      matches.className = 'tabGroupMatches';
+      matches.textContent = gsUtils.getMessage(
+        'js_options_never_suspend_groups_open_count', [String(matchesFor(groupKey))],
+      );
+      li.appendChild(matches);
+
+      const removeEl = document.createElement('a');
+      removeEl.href = '#neverSuspendGroupsLbl';
+      removeEl.textContent = gsUtils.getMessage('html_options_never_suspend_groups_remove');
+      removeEl.addEventListener('click', async (event) => {
+        event.preventDefault();
+        // the worker owns the list, so removing also re-arms the timers of the tabs still in it
+        await chrome.runtime.sendMessage({ action: 'removeNeverSuspendGroup', groupKey });
+        await renderNeverSuspendGroups();
+      });
+      li.appendChild(removeEl);
+
+      listEl.appendChild(li);
+    }
+  }
+
   function selectComboBox(element, key) {
     for (let i = 0; i < element.children.length; i += 1) {
       const child = element.children[i];
@@ -62,6 +132,7 @@ import  { gsUtils }               from './gsUtils.js';
       }
 
       addClickHandlers();
+      renderNeverSuspendGroups();
 
       setForceScreenCaptureVisibility(settings[gsStorage.SCREEN_CAPTURE] !== '0');
       setAutoSuspendOptionsVisibility(parseFloat(settings[gsStorage.SUSPEND_TIME]) > 0);
