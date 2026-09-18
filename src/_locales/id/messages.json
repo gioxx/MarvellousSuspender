@@ -33,7 +33,7 @@
     "message": "BatalTangguhkan semua tab yang tidak ada di grup pada jendela aktif"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Alihkan jangan pernah menangguhkan untuk grup tab aktif"
+    "message": "Toggle never suspend for the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Tangguhkan semua tab lainnya di jendela aktif"
@@ -87,13 +87,13 @@
     "message": "BatalTangguhkan semua tab yang tidak ada di grup"
   },
   "js_context_never_suspend_group": {
-    "message": "Jangan pernah menangguhkan grup ini"
+    "message": "Never suspend this group"
   },
   "js_context_allow_suspending_group": {
-    "message": "Izinkan menangguhkan grup ini"
+    "message": "Allow suspending this group"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Jangan pernah menangguhkan grup ini (hanya grup bernama)"
+    "message": "Never suspend this group (named groups only)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Tangguhkan semua tab lain di jendela ini"
@@ -599,22 +599,22 @@
     "message": "Tangguhkan tab yang cocok sekarang"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Jangan pernah menangguhkan tab di grup berikut:"
+    "message": "Never suspend tabs in the following tab groups:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Tab di grup ini tidak pernah ditangguhkan secara otomatis dan dilewati oleh tindakan penangguhan massal."
+    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Tambahkan grup dengan \"Jangan pernah menangguhkan grup ini\" di menu klik kanan. Hanya grup yang memiliki nama yang dapat ditambahkan."
+    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Grup dicocokkan berdasarkan nama dan warna, dan mengikuti penggantian nama selama peramban tetap terbuka."
+    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "Belum ada grup tab yang ditambahkan."
+    "message": "No tab groups added yet."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Hapus"
+    "message": "Remove"
   },
   "html_options_other_enable_context_menu": {
     "message": "Tambahkan The Marvellous Suspender ke menu konteks klik-kanan"
@@ -923,7 +923,7 @@
     "message": "Tab berada dalam grup tab"
   },
   "js_popup_tab_group": {
-    "message": "Tab berada di grup yang tidak pernah ditangguhkan"
+    "message": "Tab is in a group that is never suspended"
   },
   "js_popup_temp_whitelist": {
     "message": "Penangguhan tab dijeda."
@@ -1024,7 +1024,7 @@
     "message": "Tidak ada tab terbuka yang cocok dengan daftar selalu tangguhkan saat ini."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "cocok dengan $count$ grup yang terbuka",
+    "message": "matches $count$ open group(s)",
     "placeholders": {
       "count": {
         "content": "$1"
