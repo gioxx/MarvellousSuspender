@@ -155,10 +155,17 @@ export const gsTabQueue = (function() {
       // requeues/deadlineAt/timeoutTimer, none of it inherited from the job that just
       // settled — so the follow-up's caller(s) get a promise that resolves from this new
       // job's own outcome.
+      // Returns whether this call already triggered an immediate requestProcessQueue(0)
+      // itself, so callers (resolveTabPromise()/rejectTabPromise()) can skip their own
+      // otherwise-redundant one (mc-triage review round 4, PR #502) — but only in that
+      // specific case. When the follow-up has its own delay, sleepTab() arms a timer for
+      // THIS tab only; the outer requestProcessQueue() must still run so any OTHER tab
+      // already queued gets a chance at the executor slot this settle just freed, rather
+      // than waiting on this tab's unrelated follow-up delay.
       function promoteFollowUp(tabDetails) {
         const followUp = tabDetails.pendingFollowUp;
         if (!followUp) {
-          return;
+          return false;
         }
         const newTabDetails = {
           tab: followUp.tab,
@@ -170,10 +177,10 @@ export const gsTabQueue = (function() {
         addTabToQueue(newTabDetails);
         if (followUp.delay && isValidInteger(followUp.delay, 1)) {
           sleepTab(newTabDetails, followUp.delay);
+          return false;
         }
-        else {
-          requestProcessQueue(0);
-        }
+        requestProcessQueue(0);
+        return true;
       }
 
       function applyExecutionProps(tabDetails, executionProps) {
@@ -380,8 +387,9 @@ export const gsTabQueue = (function() {
         clearTimeout(tabDetails.timeoutTimer);
         removeTabFromQueue(tabDetails);
         tabDetails.deferredPromise.resolve(result);
-        promoteFollowUp(tabDetails);
-        requestProcessQueue(_queueProperties.processingDelay);
+        if (!promoteFollowUp(tabDetails)) {
+          requestProcessQueue(_queueProperties.processingDelay);
+        }
       }
 
       function rejectTabPromise(tabDetails, error) {
@@ -392,8 +400,9 @@ export const gsTabQueue = (function() {
         clearTimeout(tabDetails.timeoutTimer);
         removeTabFromQueue(tabDetails);
         tabDetails.deferredPromise.reject(error);
-        promoteFollowUp(tabDetails);
-        requestProcessQueue(_queueProperties.processingDelay);
+        if (!promoteFollowUp(tabDetails)) {
+          requestProcessQueue(_queueProperties.processingDelay);
+        }
       }
 
       function requeueTab(tabDetails, requeueDelay, executionProps) {
