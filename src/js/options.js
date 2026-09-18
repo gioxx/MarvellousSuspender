@@ -8,6 +8,9 @@ import  { tgs }                   from './tgs.js';
 
 (() => {
 
+  // the pill colours style.css gives a span.group.chrome rule
+  const TAB_GROUP_COLORS = ['grey', 'blue', 'red', 'yellow', 'green', 'pink', 'purple', 'cyan', 'orange'];
+
   const elementPrefMap = {
     preview: gsStorage.SCREEN_CAPTURE,
     forceScreenCapture: gsStorage.SCREEN_CAPTURE_FORCE,
@@ -78,7 +81,7 @@ import  { tgs }                   from './tgs.js';
       const li    = document.createElement('li');
       // the same theme-aware pill the session history uses; an unknown stored colour falls
       // back to grey rather than becoming an arbitrary class name
-      const color = Object.values(chrome.tabGroups.Color).includes(group.color) ? group.color : 'grey';
+      const color = TAB_GROUP_COLORS.includes(group.color) ? group.color : 'grey';
       const title = document.createElement('span');
       title.className = `tabGroupTitle group chrome ${color}`;
       // textContent, never innerHTML: a tab group title is free text the user typed.
