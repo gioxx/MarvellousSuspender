@@ -33,7 +33,7 @@
     "message": "Riattiva tutte le schede non in un gruppo nella finestra attiva"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Attiva o disattiva «non sospendere mai» per il gruppo della scheda attiva"
+    "message": "Toggle never suspend for the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Sospendi tutte le altre schede nella finestra attiva"
@@ -87,13 +87,13 @@
     "message": "Riattiva tutte le schede non in un gruppo"
   },
   "js_context_never_suspend_group": {
-    "message": "Non sospendere mai questo gruppo"
+    "message": "Never suspend this group"
   },
   "js_context_allow_suspending_group": {
-    "message": "Consenti la sospensione di questo gruppo"
+    "message": "Allow suspending this group"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Non sospendere mai questo gruppo (solo gruppi con nome)"
+    "message": "Never suspend this group (named groups only)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Sospendi tutte le altre schede in questa finestra"
@@ -599,22 +599,22 @@
     "message": "Sospendi subito le schede corrispondenti"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Non sospendere mai le schede nei seguenti gruppi:"
+    "message": "Never suspend tabs in the following tab groups:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Le schede in questi gruppi non vengono mai sospese automaticamente e sono ignorate dalle azioni di sospensione di gruppo."
+    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Aggiungi un gruppo con «Non sospendere mai questo gruppo» nel menu contestuale. Si possono aggiungere solo gruppi che hanno un nome."
+    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "I gruppi sono identificati da nome e colore e seguono le rinomine finché il browser resta aperto."
+    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "Nessun gruppo di schede aggiunto."
+    "message": "No tab groups added yet."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Rimuovi"
+    "message": "Remove"
   },
   "html_options_other_enable_context_menu": {
     "message": "Aggiungi The Marvellous Suspender al menu contestuale del tasto destro del mouse"
@@ -923,7 +923,7 @@
     "message": "La scheda è in un gruppo di schede"
   },
   "js_popup_tab_group": {
-    "message": "La scheda è in un gruppo che non viene mai sospeso"
+    "message": "Tab is in a group that is never suspended"
   },
   "js_popup_temp_whitelist": {
     "message": "Sospensione della scheda disattivata."
@@ -1024,7 +1024,7 @@
     "message": "Non ci sono schede aperte che corrispondono all'attuale lista di sospensione forzata."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "corrisponde a $count$ gruppo/i aperto/i",
+    "message": "matches $count$ open group(s)",
     "placeholders": {
       "count": {
         "content": "$1"
