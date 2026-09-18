@@ -659,7 +659,8 @@ export const tgs = (function() {
       return;
     }
     // Move, don't copy: a leftover old key brought a turned-off exemption back after a restart.
-    // A group with the same name and colour loses it too, the collision accepted on #133.
+    // The accepted #133 collision, both ways: a group wearing the old name loses the exemption,
+    // one wearing the new name gains it, as any group renamed onto a listed name does.
     gsUtils.log('tgs', 'tab group renamed, moving exemption from', oldGroupKey, 'to', newGroupKey);
     await _replaceTabGroupKey(oldGroupKey, newGroupKey);
   }
