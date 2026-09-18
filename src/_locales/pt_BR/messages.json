@@ -33,7 +33,7 @@
     "message": "Recarregar todas as guias fora de grupos na janela ativa"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Alternar nunca suspender para o grupo da guia ativa"
+    "message": "Toggle never suspend for the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todas as outras guias na janela ativa"
@@ -87,13 +87,13 @@
     "message": "Recarregar todas as guias fora de grupos"
   },
   "js_context_never_suspend_group": {
-    "message": "Nunca suspender este grupo"
+    "message": "Never suspend this group"
   },
   "js_context_allow_suspending_group": {
-    "message": "Permitir suspender este grupo"
+    "message": "Allow suspending this group"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Nunca suspender este grupo (somente grupos nomeados)"
+    "message": "Never suspend this group (named groups only)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas as outras guias nessa janela"
@@ -599,22 +599,22 @@
     "message": "Suspender agora as guias correspondentes"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Nunca suspender guias nos seguintes grupos:"
+    "message": "Never suspend tabs in the following tab groups:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "As guias desses grupos nunca são suspensas automaticamente e são ignoradas pelas ações de suspensão em massa."
+    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Adicione um grupo com \"Nunca suspender este grupo\" no menu de contexto. Só é possível adicionar grupos que tenham nome."
+    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Os grupos são identificados por nome e cor e acompanham renomeações enquanto o navegador permanecer aberto."
+    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "Nenhum grupo de guias adicionado ainda."
+    "message": "No tab groups added yet."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Remover"
+    "message": "Remove"
   },
   "html_options_other_enable_context_menu": {
     "message": "Adicionar The Marvellous Suspender no menu de contexto do clique do botão direito"
@@ -923,7 +923,7 @@
     "message": "A guia está em um grupo de guias"
   },
   "js_popup_tab_group": {
-    "message": "A guia está em um grupo que nunca é suspenso"
+    "message": "Tab is in a group that is never suspended"
   },
   "js_popup_temp_whitelist": {
     "message": "Suspensão de guias pausada."
@@ -1024,7 +1024,7 @@
     "message": "Não há guias abertas que correspondam à lista de suspensão forçada atual."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "corresponde a $count$ grupo(s) aberto(s)",
+    "message": "matches $count$ open group(s)",
     "placeholders": {
       "count": {
         "content": "$1"
