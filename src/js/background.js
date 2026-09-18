@@ -84,48 +84,23 @@ import  { tgs }                   from './tgs.js';
     });
   }
 
-  // buildContextMenu() itself is idempotent (removeAll() then recreate from scratch), so
-  // this just wraps the "read the option, rebuild accordingly" sequence for reuse both at
-  // install/update and on every plain service-worker wake (#491) — a browser whose internal
-  // menu registry gets cleared outside those two triggers (confirmed on Opera GX 135) would
-  // otherwise leave the context menu missing until the next extension update or a manual
-  // toggle of the Options checkbox.
-  // The top-level rebuildContextMenu() call below and the onInstalled listener's own call
-  // both fire independently on a fresh install/update (MV3 evaluates the script top-to-
-  // bottom while Chrome also dispatches onInstalled) — without coalescing, both would run
-  // their own full removeAll()->getOption->create() sequence, and even with
-  // buildContextMenu() itself serialized (tgs.js) that still means duplicate create() calls
-  // colliding on ids (mc-triage review, PR #500). A concurrent call here just awaits the
-  // one already in flight instead of starting a second, redundant sequence.
-  let _rebuildContextMenuPromise = null;
-  async function rebuildContextMenu() {
-    if (chrome.extension.inIncognitoContext) return;
-    if (_rebuildContextMenuPromise) {
-      return _rebuildContextMenuPromise;
-    }
-    _rebuildContextMenuPromise = (async () => {
-      try {
-        // chrome.contextMenus.removeAll() is async — awaiting it here (Codex review, PR
-        // #500) ensures it has actually finished before the create() calls below run,
-        // otherwise the outstanding removal can complete afterwards and delete the items
-        // it was meant to precede rather than the stale ones it was meant to clear.
-        await tgs.buildContextMenu(false);
-        const contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
-        await tgs.buildContextMenu(contextMenus);
-      }
-      finally {
-        _rebuildContextMenuPromise = null;
-      }
-    })();
-    return _rebuildContextMenuPromise;
-  }
-
   chrome.runtime.onInstalled.addListener(async (details) => {
     gsUtils.log('2 runtime.onInstalled', details);
     // Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version.
     // Fired when an unpacked extension is reloaded
 
-    await rebuildContextMenu();
+    // tgs.rebuildContextMenu() (#491) is the single source of truth for the whole "clear
+    // then rebuild from the current setting" sequence, also run below (gated to the first
+    // wake of the browser session, see gsContextMenuRebuildDone) as a self-heal for a
+    // browser whose internal menu registry gets cleared outside these two triggers
+    // (confirmed on Opera GX 135), which would otherwise leave the context menu missing
+    // until the next extension update or a manual toggle of the Options checkbox. It
+    // self-coalesces, so this call and that one don't race each other into a duplicate
+    // removeAll->create sequence on a fresh install/update. Marking the session sentinel
+    // here too means an install/update doesn't trigger a second, redundant rebuild from
+    // the gated block below on the same wake.
+    await tgs.rebuildContextMenu();
+    await gsStorage.saveStorage('session', 'gsContextMenuRebuildDone', true);
 
     // remove update message after extension has been updated
     if (details.reason == 'update') {
@@ -154,11 +129,27 @@ import  { tgs }                   from './tgs.js';
   });
 
   // Context-menu self-heal (#491), same family as the onStartup-unreliability gaps fixed
-  // for favicons (#474/#397/PR #484) but a different code path: a lost context menu needs
-  // recreating on ANY service-worker respawn, not just the first one of a browser session,
-  // so this runs unconditionally on every wake rather than being gated behind the
-  // once-per-session gsStartupOnceRun sentinel below.
-  rebuildContextMenu();
+  // for favicons (#474/#397/PR #484) but a different code path. Gated to the first
+  // service-worker wake of the browser session (mc-triage review round 3): the failure
+  // this guards against — a browser's internal menu registry getting cleared outside the
+  // known onInstalled/manual-toggle triggers — is rare, but a plain removeAll()+create()
+  // cycle running on every alarm/message/tab-check wake during normal browsing would mean
+  // a user right-clicking during that brief window could see the menu transiently empty on
+  // a cadence unrelated to when the actual bug occurs. chrome.storage.session is cleared
+  // at the browser-session boundary, so a missing sentinel here means this is genuinely a
+  // fresh session (mirrors gsStartupOnceRun's own reasoning above), not just a SW recycle.
+  if (!chrome.extension.inIncognitoContext) {
+    gsStorage.getStorage('session', 'gsContextMenuRebuildDone').then(async (done) => {
+      if (done) return;
+      try {
+        await tgs.rebuildContextMenu();
+        await gsStorage.saveStorage('session', 'gsContextMenuRebuildDone', true);
+      }
+      catch (error) {
+        gsUtils.error('background', 'rebuildContextMenu failed', error);
+      }
+    });
+  }
 
   // Fallback for onStartup unreliability (some Chromium builds, notably Brave, never
   // fire it after a normal restart, see #397). chrome.storage.session is cleared at the

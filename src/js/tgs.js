@@ -1662,6 +1662,33 @@ export const tgs = (function() {
     return result;
   }
 
+  // Single source of truth for the whole "clear then rebuild from the current setting"
+  // sequence — used by background.js (top-level wake + onInstalled) AND gsUtils.js's
+  // ADD_CONTEXT settings-change handler (mc-triage review round 3, PR #500: that handler
+  // used to call buildContextMenu(addContextMenu) directly, a single call with no
+  // preceding removeAll(), which could create() duplicate-id items if the menu already
+  // existed). Coalesces concurrent calls to itself into the one already in flight instead
+  // of starting a second, redundant removeAll->getOption->create sequence (the top-level
+  // and onInstalled calls otherwise fire independently on every install/update).
+  let _rebuildContextMenuPromise = null;
+  async function rebuildContextMenu() {
+    if (chrome.extension.inIncognitoContext) return;
+    if (_rebuildContextMenuPromise) {
+      return _rebuildContextMenuPromise;
+    }
+    _rebuildContextMenuPromise = (async () => {
+      try {
+        await buildContextMenu(false);
+        const contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
+        await buildContextMenu(contextMenus);
+      }
+      finally {
+        _rebuildContextMenuPromise = null;
+      }
+    })();
+    return _rebuildContextMenuPromise;
+  }
+
   function _buildContextMenuImpl(showContextMenu) {
     /** @type { chrome.contextMenus.CreateProperties['contexts'] } */
     const allContexts = ['page', 'frame', 'editable', 'image', 'video', 'audio']; //'selection',
@@ -1873,10 +1900,20 @@ export const tgs = (function() {
         title: gsUtils.getMessage('js_context_soft_suspend_all_tabs'),
         contexts: ['tab'],
       });
-      chrome.contextMenus.create({
-        id: 'tab_unsuspend_all',
-        title: gsUtils.getMessage('js_context_unsuspend_all_tabs'),
-        contexts: ['tab'],
+      // Resolved only once this, the LAST create() call's callback fires (mc-triage
+      // review round 3, PR #500) — chrome.contextMenus.create() calls are processed by
+      // the browser in the order issued, so this one settling after the browser is done
+      // with it means every create() before it is done too. Without this, buildContextMenu(true)
+      // used to resolve as soon as JS finished issuing the create() calls, not once Chrome
+      // actually finished creating them — the next queued call on _contextMenuChain (e.g.
+      // a settings-toggle's own removeAll()) could then start while these were still
+      // landing in the browser process.
+      return new Promise((resolve) => {
+        chrome.contextMenus.create({
+          id: 'tab_unsuspend_all',
+          title: gsUtils.getMessage('js_context_unsuspend_all_tabs'),
+          contexts: ['tab'],
+        }, resolve);
       });
     }
   }
@@ -1901,6 +1938,7 @@ export const tgs = (function() {
 
     initialiseTabContentScript,
     buildContextMenu,
+    rebuildContextMenu,
     getActiveTabStatus,
     calculateTabStatus,
 
