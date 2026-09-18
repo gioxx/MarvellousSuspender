@@ -32,6 +32,9 @@
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
     "message": "Obnovit všechny karty mimo skupiny v aktivním okně"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Přepnout nikdy nepozastavovat pro skupinu aktivní karty"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Pozastavit všechny ostatní karty v aktivním okně"
   },
@@ -82,6 +85,15 @@
   },
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "Obnovit všechny karty mimo skupiny"
+  },
+  "js_context_never_suspend_group": {
+    "message": "Nikdy nepozastavovat tuto skupinu"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "Povolit pozastavení této skupiny"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "Nikdy nepozastavovat tuto skupinu (jen pojmenované skupiny)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Pozastavit všechny ostatní karty v tomto okně"
@@ -586,6 +598,24 @@
   "html_options_always_suspend_force": {
     "message": "Nyní pozastavit odpovídající karty"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "Nikdy nepozastavovat karty v následujících skupinách:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Karty v těchto skupinách se nikdy nepozastavují automaticky a hromadné akce pozastavení je přeskakují."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Skupinu přidáte pomocí „Nikdy nepozastavovat tuto skupinu“ v místní nabídce. Přidat lze jen skupiny, které mají název."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Skupiny se rozpoznávají podle názvu a barvy a přejmenování sledují, dokud zůstane prohlížeč otevřený."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Zatím nebyly přidány žádné skupiny karet."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Odebrat"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Přidat The Marvellous Suspender do kontextové nabídky pravého tlačítka"
   },
@@ -892,6 +922,9 @@
   "js_popup_grouped_tab": {
     "message": "Karta je ve skupině karet"
   },
+  "js_popup_tab_group": {
+    "message": "Karta je ve skupině, která se nikdy nepozastavuje"
+  },
   "js_popup_temp_whitelist": {
     "message": "Pozastavování karty pozastaveno."
   },
@@ -989,6 +1022,14 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "Žádné otevřené karty neodpovídají aktuálnímu seznamu vždy pozastavit."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "odpovídá otevřeným skupinám: $count$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_always_suspend_matches_heading": {
     "message": "Otevřené karty odpovídající seznamu vždy pozastavit:"

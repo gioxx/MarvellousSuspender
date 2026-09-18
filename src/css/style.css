@@ -805,6 +805,56 @@ a.btn.btnNeg:hover {
   background-color: var(--accent);
 }
 
+/* ── Never-suspend tab groups list (#133) ────────────────────────────────── */
+
+.tabGroupList {
+  flex-basis: 100%;
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.tabGroupList:empty {
+  display: none;
+}
+
+.tabGroupList li {
+  display: flex;
+  align-items: center;
+  column-gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+.tabGroupList li:last-child {
+  border-bottom: none;
+}
+
+.tabGroupMatches {
+  flex: none;
+  margin-left: auto;
+  margin-right: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+}
+
+.tabGroupTitle {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tabGroupListEmpty {
+  flex-basis: 100%;
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-sm);
+}
+
 /* ── Changelog modal ─────────────────────────────────────────────────────── */
 
 #changelogModal .modalDialog {

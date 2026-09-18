@@ -32,6 +32,9 @@
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
     "message": "恢复当前窗口中所有不在组中的标签页"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "切换活动标签页所在组的“永不冻结”设置"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "冻结当前窗口中所有的标签页"
   },
@@ -82,6 +85,15 @@
   },
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "恢复所有不在组中的标签页"
+  },
+  "js_context_never_suspend_group": {
+    "message": "永远不冻结此组"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "允许冻结此组"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "永远不冻结此组（仅限已命名的组）"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "冻结当前窗口中所有的标签页"
@@ -586,6 +598,24 @@
   "html_options_always_suspend_force": {
     "message": "立即挂起匹配的标签页"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "永远不要冻结以下标签页组中的标签页："
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "这些组中的标签页永远不会自动冻结，批量冻结操作也会跳过它们。"
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "通过右键菜单中的“永远不冻结此组”添加组。只能添加已命名的组。"
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "组按名称和颜色匹配，只要浏览器保持打开，重命名后仍会跟随。"
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "尚未添加标签页组。"
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "移除"
+  },
   "html_options_other_enable_context_menu": {
     "message": "把 The Marvellous Suspender 加到右键菜单"
   },
@@ -892,6 +922,9 @@
   "js_popup_grouped_tab": {
     "message": "标签页在标签组中"
   },
+  "js_popup_tab_group": {
+    "message": "标签页位于永不冻结的组中"
+  },
   "js_popup_temp_whitelist": {
     "message": "页面冻结暂停。"
   },
@@ -989,6 +1022,14 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "没有打开的标签页匹配当前的强制挂起列表。"
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "匹配 $count$ 个打开的标签页组",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_always_suspend_matches_heading": {
     "message": "匹配强制挂起列表的已打开标签页："
