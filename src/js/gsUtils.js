@@ -1318,11 +1318,13 @@ export const gsUtils = {
       };
     });
 
-    //if context menu has been disabled then remove from chrome
+    //if context menu setting has changed then rebuild it from scratch
     if (gsUtils.contains(changedSettingKeys, gsStorage.ADD_CONTEXT)) {
-      gsStorage.getOption(gsStorage.ADD_CONTEXT).then((addContextMenu) => {
-        tgs.buildContextMenu(addContextMenu);
-      });
+      // tgs.rebuildContextMenu() always does removeAll() before create() (mc-triage
+      // review, PR #500) — calling tgs.buildContextMenu(addContextMenu) directly here used
+      // to skip that removal, so toggling the option on while items already existed (e.g.
+      // right after a wake-triggered rebuild) could create() duplicate-id items.
+      tgs.rebuildContextMenu();
     }
 
     //if screenshot preferences have changed then update the queue parameters
