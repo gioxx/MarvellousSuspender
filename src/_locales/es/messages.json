@@ -33,7 +33,7 @@
     "message": "Anular suspensión de todas las pestañas que no están en un grupo en la ventana activa"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Alternar nunca suspender para el grupo de la pestaña activa"
+    "message": "Toggle never suspend for the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspender todas las demás pestañas en la ventana activa"
@@ -87,13 +87,13 @@
     "message": "Anular suspensión de todas las pestañas que no están en un grupo"
   },
   "js_context_never_suspend_group": {
-    "message": "Nunca suspender este grupo"
+    "message": "Never suspend this group"
   },
   "js_context_allow_suspending_group": {
-    "message": "Permitir suspender este grupo"
+    "message": "Allow suspending this group"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Nunca suspender este grupo (solo grupos con nombre)"
+    "message": "Never suspend this group (named groups only)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspender todas las demás pestañas en esta ventana"
@@ -599,22 +599,22 @@
     "message": "Suspender ahora las pestañas coincidentes"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Nunca suspender las pestañas de los siguientes grupos:"
+    "message": "Never suspend tabs in the following tab groups:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Las pestañas de estos grupos nunca se suspenden automáticamente y las acciones de suspensión masiva las omiten."
+    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Añada un grupo con «Nunca suspender este grupo» en el menú contextual. Solo se pueden añadir grupos que tengan nombre."
+    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Los grupos se identifican por nombre y color, y siguen los cambios de nombre mientras el navegador siga abierto."
+    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "Todavía no se ha añadido ningún grupo de pestañas."
+    "message": "No tab groups added yet."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Eliminar"
+    "message": "Remove"
   },
   "html_options_other_enable_context_menu": {
     "message": "Añadir The Marvellous Suspender al menú contextual del clic derecho"
@@ -923,7 +923,7 @@
     "message": "La pestaña está en un grupo de pestañas"
   },
   "js_popup_tab_group": {
-    "message": "La pestaña está en un grupo que nunca se suspende"
+    "message": "Tab is in a group that is never suspended"
   },
   "js_popup_temp_whitelist": {
     "message": "Suspensión de pestaña pausa."
@@ -1024,7 +1024,7 @@
     "message": "No hay pestañas abiertas que coincidan con la lista de suspensión forzada actual."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "coincide con $count$ grupo(s) abierto(s)",
+    "message": "matches $count$ open group(s)",
     "placeholders": {
       "count": {
         "content": "$1"
