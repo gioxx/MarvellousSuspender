@@ -94,6 +94,9 @@
     "2f-unsuspend-ungrouped-tabs": {
       "description": "__MSG_ext_cmd_unsuspend_ungrouped_tabs_description__"
     },
+    "2g-toggle-never-suspend-group": {
+      "description": "__MSG_ext_cmd_toggle_never_suspend_group_description__"
+    },
     "3-suspend-active-window": {
       "description": "__MSG_ext_cmd_soft_suspend_active_window_description__"
     },

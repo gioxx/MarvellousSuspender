@@ -32,6 +32,9 @@
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
     "message": "回復目前視窗中所有不在群組中的分頁"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "切換使用中分頁所屬群組的「永不凍結」設定"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "凍結目前視窗中所有的分頁"
   },
@@ -82,6 +85,15 @@
   },
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "回復所有不在群組中的分頁"
+  },
+  "js_context_never_suspend_group": {
+    "message": "永遠不凍結此群組"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "允許凍結此群組"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "永遠不凍結此群組（僅限已命名的群組）"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "凍結目前視窗中所有的分頁"
@@ -586,6 +598,24 @@
   "html_options_always_suspend_force": {
     "message": "立即暫停符合的分頁"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "永遠不要凍結以下分頁群組中的分頁："
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "這些群組中的分頁永遠不會自動凍結，批次凍結操作也會略過它們。"
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "透過右鍵選單中的「永遠不凍結此群組」新增群組。只能新增已命名的群組。"
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "群組依名稱與顏色比對，只要瀏覽器保持開啟，重新命名後仍會跟隨。"
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "尚未新增分頁群組。"
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "移除"
+  },
   "html_options_other_enable_context_menu": {
     "message": "把 The Marvellous Suspender 加到右鍵選單"
   },
@@ -892,6 +922,9 @@
   "js_popup_grouped_tab": {
     "message": "分頁在分頁群組中"
   },
+  "js_popup_tab_group": {
+    "message": "分頁位於永不凍結的群組中"
+  },
   "js_popup_temp_whitelist": {
     "message": "分頁凍結暫停。"
   },
@@ -989,6 +1022,14 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "沒有開啟的分頁符合目前的強制暫停清單。"
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "符合 $count$ 個開啟的分頁群組",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_always_suspend_matches_heading": {
     "message": "符合強制暫停清單的已開啟分頁："

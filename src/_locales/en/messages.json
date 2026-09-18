@@ -32,6 +32,9 @@
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
     "message": "Unsuspend all tabs not in a group in active window"
   },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Toggle never suspend for the active tab's group"
+  },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspend all other tabs in active window"
   },
@@ -82,6 +85,15 @@
   },
   "js_context_unsuspend_ungrouped_tabs": {
     "message": "Unsuspend all tabs not in a group"
+  },
+  "js_context_never_suspend_group": {
+    "message": "Never suspend this group"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "Allow suspending this group"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "Never suspend this group (named groups only)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspend all other tabs in this window"
@@ -586,6 +598,24 @@
   "html_options_always_suspend_force": {
     "message": "Suspend matching tabs now"
   },
+  "html_options_never_suspend_groups_title": {
+    "message": "Never suspend tabs in the following tab groups:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "No tab groups added yet."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Remove"
+  },
   "html_options_other_enable_context_menu": {
     "message": "Add The Marvellous Suspender to right-click context menu"
   },
@@ -892,6 +922,9 @@
   "js_popup_grouped_tab": {
     "message": "Tab is in a tab group"
   },
+  "js_popup_tab_group": {
+    "message": "Tab is in a group that is never suspended"
+  },
   "js_popup_temp_whitelist": {
     "message": "Tab suspension paused."
   },
@@ -989,6 +1022,14 @@
   },
   "js_options_always_suspend_no_matches": {
     "message": "There are no open tabs that match the current always-suspend list."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "matches $count$ open group(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_always_suspend_matches_heading": {
     "message": "Open tabs matching the always-suspend list:"
