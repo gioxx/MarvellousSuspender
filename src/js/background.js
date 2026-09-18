@@ -84,17 +84,25 @@ import  { tgs }                   from './tgs.js';
     });
   }
 
+  // buildContextMenu() itself is idempotent (removeAll() then recreate from scratch), so
+  // this just wraps the "read the option, rebuild accordingly" sequence for reuse both at
+  // install/update and on every plain service-worker wake (#491) — a browser whose internal
+  // menu registry gets cleared outside those two triggers (confirmed on Opera GX 135) would
+  // otherwise leave the context menu missing until the next extension update or a manual
+  // toggle of the Options checkbox.
+  async function rebuildContextMenu() {
+    if (chrome.extension.inIncognitoContext) return;
+    tgs.buildContextMenu(false);
+    const contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
+    tgs.buildContextMenu(contextMenus);
+  }
+
   chrome.runtime.onInstalled.addListener(async (details) => {
     gsUtils.log('2 runtime.onInstalled', details);
     // Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version.
     // Fired when an unpacked extension is reloaded
 
-    //add context menu items
-    if (!chrome.extension.inIncognitoContext) {
-      tgs.buildContextMenu(false);
-      const contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
-      tgs.buildContextMenu(contextMenus);
-    }
+    await rebuildContextMenu();
 
     // remove update message after extension has been updated
     if (details.reason == 'update') {
@@ -121,6 +129,13 @@ import  { tgs }                   from './tgs.js';
     startupOnce();
 
   });
+
+  // Context-menu self-heal (#491), same family as the onStartup-unreliability gaps fixed
+  // for favicons (#474/#397/PR #484) but a different code path: a lost context menu needs
+  // recreating on ANY service-worker respawn, not just the first one of a browser session,
+  // so this runs unconditionally on every wake rather than being gated behind the
+  // once-per-session gsStartupOnceRun sentinel below.
+  rebuildContextMenu();
 
   // Fallback for onStartup unreliability (some Chromium builds, notably Brave, never
   // fire it after a normal restart, see #397). chrome.storage.session is cleared at the
