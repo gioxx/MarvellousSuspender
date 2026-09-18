@@ -166,25 +166,25 @@
     "message": "Відновлення іконок..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "Як тільки ваші вкладки завантажаться у фоновий режим, ви зможете знову натиснути «Сканувати вкладки», щоб перевірити, чи покращили ми ситуацію."
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "Ви можете знову натиснути «Сканувати вкладки», щоб перевірити, чи покращили ми ситуацію."
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "Якщо у вас все ще виникають проблеми з вкладками або іконками, ви можете натиснути «Копіювати результати» та вставити в новий"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "Проблема на GitHub."
   },
   "html_health_num_grouped_broken": {
-    "message": "grouped tabs in broken state (Tab Groups bug)"
+    "message": "згруповані вкладки у несправному стані (помилка групи вкладок)"
   },
   "html_health_repair_intro": {
-    "message": "Some tabs in Tab Groups are in a broken state: they show as a new tab instead of loading correctly after browser restart. TMS can attempt to restore them."
+    "message": "Деякі вкладки в групах вкладок нe працюють: вони відображаються як нова вкладка, а не завантажуються коректно після перезапуску браузера. TMS може спробувати їх відновити."
   },
   "html_health_repair_button": {
-    "message": "Repair $count$ grouped tab(s)",
+    "message": "Відновити $count$ згрупованих вкладок",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -192,16 +192,16 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Done. Re-scan to verify grouped tabs are back to their suspended state."
+    "message": "Готово. Проведіть повторне сканування, щоб переконатися, що згруповані вкладки знову перебувають у призупиненому стані."
   },
   "html_about_title": {
-    "message": "About"
+    "message": "Про розширення"
   },
   "html_about_version_label": {
     "message": "Версія"
   },
   "html_about_tagline": {
-    "message": "The spiritual successor to modern tab suspension: replaces inactive tabs with a lightweight hibernation page, giving you granular control over when they wake."
+    "message": "Духовний наступник сучасного призупинення вкладок: замінює неактивні вкладки, легкою сторінкою в режимі гібернації(глибокого сну), що дає вам детальний контроль над тим, коли вони прокидаються."
   },
   "html_about_section_credits": {
     "message": "Подяки"
@@ -210,10 +210,10 @@
     "message": " і "
   },
   "html_about_community_thanks_link": {
-    "message": "всі учасники на GitHub"
+    "message": "всіма учасниками на GitHub."
   },
   "html_about_fork_beginning": {
-    "message": "На основі оригіналу"
+    "message": "На основі оригінальної"
   },
   "html_about_fork_mid": {
     "message": "доступно на GitHub, без рекламних трекерів"
