@@ -92,7 +92,11 @@ import  { tgs }                   from './tgs.js';
   // toggle of the Options checkbox.
   async function rebuildContextMenu() {
     if (chrome.extension.inIncognitoContext) return;
-    tgs.buildContextMenu(false);
+    // chrome.contextMenus.removeAll() is async — awaiting it here (Codex review, PR #500)
+    // ensures it has actually finished before the create() calls below run, otherwise the
+    // outstanding removal can complete afterwards and delete the items it was meant to
+    // precede rather than the stale ones it was meant to clear.
+    await tgs.buildContextMenu(false);
     const contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
     tgs.buildContextMenu(contextMenus);
   }

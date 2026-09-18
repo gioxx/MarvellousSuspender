@@ -1651,7 +1651,12 @@ export const tgs = (function() {
     const allContexts = ['page', 'frame', 'editable', 'image', 'video', 'audio']; //'selection',
 
     if (!showContextMenu) {
-      chrome.contextMenus.removeAll();
+      // Returned so callers (background.js's rebuildContextMenu()) can await the removal
+      // before issuing the create() calls below — chrome.contextMenus.removeAll() is
+      // async, and an unawaited one racing against the creates that follow it can delete
+      // the just-created items instead of the stale ones it was meant to clear (Codex
+      // review, PR #500).
+      return chrome.contextMenus.removeAll();
     }
     else {
       chrome.contextMenus.create({
