@@ -1655,8 +1655,11 @@ export const tgs = (function() {
       // before issuing the create() calls below — chrome.contextMenus.removeAll() is
       // async, and an unawaited one racing against the creates that follow it can delete
       // the just-created items instead of the stale ones it was meant to clear (Codex
-      // review, PR #500).
-      return chrome.contextMenus.removeAll();
+      // review, PR #500). removeAll() only returns a Promise from Chrome 123+ (returns
+      // undefined below that), but manifest.json's minimum_chrome_version is 110, so it's
+      // wrapped in an explicit Promise via the callback form to actually await completion
+      // across the whole supported range (Codex review round 2).
+      return new Promise((resolve) => chrome.contextMenus.removeAll(resolve));
     }
     else {
       chrome.contextMenus.create({
