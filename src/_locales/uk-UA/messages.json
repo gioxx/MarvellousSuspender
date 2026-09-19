@@ -531,25 +531,25 @@
     "message": "або раптовий збій у роботі браузера, спробуйте вимкнути цю функцію."
   },
   "html_options_suspend_force_screen_capture": {
-    "message": "Enable high quality screen capture mode"
+    "message": "Увімкнути режим високої якості знімків екрана"
   },
   "html_options_suspend_force_screen_capture_tooltip_line1": {
-    "message": "When disabled, screen captures have the following limitations to aid in performance:"
+    "message": "Якщо вимкнено, створення знімків екрана має такі обмеження для підвищення продуктивності:"
   },
   "html_options_suspend_force_screen_capture_tooltip_line2": {
-    "message": "- Low quality screen capture"
+    "message": "- Низька якість знімків екрана"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Will not capture screen if it takes more than 1 minute to generate image"
+    "message": "- Знімок екрана не створюється, якщо генерація зображення триває понад 1 хвилину"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
-    "message": "- Maximum height of screen capture limited to 5000px"
+    "message": "- Максимальна висота знімка екрана обмежена 5000 пікселями"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Enabling high quality screen capture mode may significantly increase CPU load"
+    "message": "Увімкнення режиму високої якості знімків екрана може значно збільшити "
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "and memory usage."
+    "message": "навантаження на процесор і використання пам'яті."
   },
   "html_options_whitelist_title": {
     "message": "Never suspend tabs with URLs from the following list:"
