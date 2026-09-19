@@ -1,4 +1,3 @@
-import  * as html2canvas        from './html2canvas.min.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMessages }            from './gsMessages.js';
@@ -539,7 +538,7 @@ export const gsTabSuspendManager = (function() {
 
           // console.log('Generating via html2canvas..');
           const generateCanvas = () => {
-            return html2canvas(document.body, {
+            return globalThis.html2canvas(document.body, {
               height,
               width,
               logging: false,
