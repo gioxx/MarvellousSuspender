@@ -56,7 +56,9 @@ import  { tgs }                   from './tgs.js';
     return urlStr;
   }
 
-  async function getPreviewUri(suspendedUrl) {
+  async function getPreviewUri(suspendedUrl, previewMode) {
+    // Disabled, viewport, or full-page preview
+    if (!previewMode || previewMode === '0') return null;
     const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
     const preview = await gsIndexedDb.fetchPreviewImage(originalUrl);
     let previewUri = null;
@@ -348,7 +350,7 @@ import  { tgs }                   from './tgs.js';
 
     // Set imagePreview
     const previewMode = options[gsStorage.SCREEN_CAPTURE];
-    const previewUri = await getPreviewUri(suspendedUrl);
+    const previewUri = await getPreviewUri(suspendedUrl, previewMode);
     await toggleImagePreviewVisibility( tab, previewMode, previewUri, );
 
     // Set theme
@@ -405,8 +407,8 @@ import  { tgs }                   from './tgs.js';
   }
 
   async function updatePreviewMode(tab, previewMode) {
-    const previewUri = await getPreviewUri(tab.url);
-    await toggleImagePreviewVisibility( tab, previewMode, previewUri, );
+    const previewUri = await getPreviewUri(tab.url, previewMode);
+    await toggleImagePreviewVisibility(tab, previewMode, previewUri);
     const scrollPosition = gsUtils.getSuspendedScrollPosition(tab.url);
     setScrollPosition(scrollPosition, previewMode);
   }
