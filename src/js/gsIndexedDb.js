@@ -280,9 +280,11 @@ export const gsIndexedDb = {
       if (count <= maxCount) return;
       const keys = await db.getAllKeysFromIndex(gsIndexedDb.DB_LOG_ENTRIES, 'ts');
       if (keys.length > maxCount) {
-        for (const key of keys.slice(0, keys.length - maxCount)) {
-          await db.delete(gsIndexedDb.DB_LOG_ENTRIES, key);
-        }
+        const tx = db.transaction(gsIndexedDb.DB_LOG_ENTRIES, 'readwrite');
+        await Promise.all([
+          ...keys.slice(0, keys.length - maxCount).map(key => tx.store.delete(key)),
+          tx.done,
+        ]);
       }
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
@@ -516,32 +518,20 @@ export const gsIndexedDb = {
     try {
       const db = await gsIndexedDb.getDb();
 
-      const tabInfoKeys = await db.getAllKeys(gsIndexedDb.DB_SUSPENDED_TABINFO);
-      if (tabInfoKeys.length > maxTabItems) {
-        for (const key of tabInfoKeys.slice(0, tabInfoKeys.length - maxTabItems)) {
-          await db.delete(gsIndexedDb.DB_SUSPENDED_TABINFO, key);
-        }
-      }
-
-      const faviconKeys = await db.getAllKeys(gsIndexedDb.DB_FAVICON_META);
-      const maxFaviconItems = parseInt(maxTabItems + maxTabItems * 0.3);
-      if (faviconKeys.length > maxFaviconItems) {
-        for (const key of faviconKeys.slice(0, faviconKeys.length - maxFaviconItems)) {
-          await db.delete(gsIndexedDb.DB_FAVICON_META, key);
-        }
-      }
-
-      const previewKeys = await db.getAllKeys(gsIndexedDb.DB_PREVIEWS);
-      if (previewKeys.length > maxTabItems) {
-        for (const key of previewKeys.slice(0, previewKeys.length - maxTabItems)) {
-          await db.delete(gsIndexedDb.DB_PREVIEWS, key);
-        }
-      }
-
-      const sessionKeys = await db.getAllKeys(gsIndexedDb.DB_CURRENT_SESSIONS);
-      if (sessionKeys.length > maxHistories) {
-        for (const key of sessionKeys.slice(0, sessionKeys.length - maxHistories)) {
-          await db.delete(gsIndexedDb.DB_CURRENT_SESSIONS, key);
+      const limits = [
+        [gsIndexedDb.DB_SUSPENDED_TABINFO, maxTabItems],
+        [gsIndexedDb.DB_FAVICON_META, Math.floor(maxTabItems * 1.3)],
+        [gsIndexedDb.DB_PREVIEWS, maxTabItems],
+        [gsIndexedDb.DB_CURRENT_SESSIONS, maxHistories],
+      ];
+      for (const [tableName, maxCount] of limits) {
+        const keys = await db.getAllKeys(tableName);
+        if (keys.length > maxCount) {
+          const tx = db.transaction(tableName, 'readwrite');
+          await Promise.all([
+            ...keys.slice(0, keys.length - maxCount).map(key => tx.store.delete(key)),
+            tx.done,
+          ]);
         }
       }
     } catch (e) {
