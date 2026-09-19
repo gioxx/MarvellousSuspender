@@ -684,21 +684,19 @@ import  { tgs }                   from './tgs.js';
     });
 
     async function claimTab(tabId) {
-      const tabs  = await gsChrome.tabsQuery();
-      for (const tab of tabs) {
-        const url = tab.url ?? '';
-        if (
-          tab.id == tabId &&
-          url.match('^chrome-extension://[^/]*/suspended\\.html') &&    // Match any extension with suspended.html at the end
-          gsUtils.isSuspendedTab(tab, true) &&
-          !url.includes(chrome.runtime.id)                              // But exclude our own extension ID
-        ) {
-          const newUrl = url.replace(
-            gsUtils.getRootUrl(tab.url),
-            chrome.runtime.id,
-          );
-          await gsChrome.tabsUpdate(tab.id, { url: newUrl });
-        }
+      const tab = await gsChrome.tabsGet(tabId);
+      if (!tab) return;
+      const url = tab.url ?? '';
+      if (
+        url.match('^chrome-extension://[^/]*/suspended\\.html') &&    // Match any extension with suspended.html at the end
+        gsUtils.isSuspendedTab(tab, true) &&
+        !url.includes(chrome.runtime.id)                              // But exclude our own extension ID
+      ) {
+        const newUrl = url.replace(
+          gsUtils.getRootUrl(tab.url),
+          chrome.runtime.id,
+        );
+        await gsChrome.tabsUpdate(tab.id, { url: newUrl });
       }
     };
 
