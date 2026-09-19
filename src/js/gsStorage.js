@@ -40,6 +40,7 @@ async function readSettings() {
 export const gsStorage = {
   SCREEN_CAPTURE                : 'screenCapture',
   SCREEN_CAPTURE_FORCE          : 'screenCaptureForce',
+  SCREEN_CAPTURE_METHOD         : 'screenCaptureMethod',
   SUSPEND_IN_PLACE_OF_DISCARD   : 'suspendInPlaceOfDiscard',
   UNSUSPEND_ON_FOCUS            : 'gsUnsuspendOnFocus',
   RELOAD_UNSUSPEND_BACKGROUND   : 'gsReloadUnsuspendBackground',
@@ -99,6 +100,7 @@ export const gsStorage = {
     const defaults = {};
     defaults[gsStorage.SCREEN_CAPTURE] = '0';
     defaults[gsStorage.SCREEN_CAPTURE_FORCE] = false;
+    defaults[gsStorage.SCREEN_CAPTURE_METHOD] = 'auto';
     defaults[gsStorage.SUSPEND_IN_PLACE_OF_DISCARD] = false;
     defaults[gsStorage.DISCARD_IN_PLACE_OF_SUSPEND] = false;
     defaults[gsStorage.DISCARD_AFTER_SUSPEND] = false;

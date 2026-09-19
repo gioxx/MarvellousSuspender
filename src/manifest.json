@@ -5,6 +5,7 @@
   "default_locale": "en",
   "permissions": [
     "tabs",
+    "activeTab",
     "storage",
     "history",
     "unlimitedStorage",
