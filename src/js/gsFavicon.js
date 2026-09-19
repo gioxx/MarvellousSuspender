@@ -415,8 +415,6 @@ export const gsFavicon = (() => {
           }
 
           const origDataArray = imageData.data;
-          const normalisedDataArray = new Uint8ClampedArray(origDataArray);
-          const transparentDataArray = new Uint8ClampedArray(origDataArray);
 
           const fuzzy     = 0.1;
           let   r         = 0;
@@ -451,20 +449,15 @@ export const gsFavicon = (() => {
           const isDark = darkLightDiff + fuzzy < 0;
           const normaliserMultiple = 1 / (maxAlpha / 255);
 
-          for (let x = 0; x < origDataArray.length; x += 4) {
-            a = origDataArray[x + 3];
-            normalisedDataArray[x + 3] = parseInt(String(a * normaliserMultiple), 10);
+          for (let x = 3; x < origDataArray.length; x += 4) {
+            origDataArray[x] = Math.floor(origDataArray[x] * normaliserMultiple);
           }
-          for (let x = 0; x < normalisedDataArray.length; x += 4) {
-            a = normalisedDataArray[x + 3];
-            transparentDataArray[x + 3] = parseInt(String(a * 0.5), 10);
-          }
-
-          imageData.data.set(normalisedDataArray);
           context.putImageData(imageData, 0, 0);
           const normalisedDataUrl = canvas.toDataURL('image/png');
 
-          imageData.data.set(transparentDataArray);
+          for (let x = 3; x < origDataArray.length; x += 4) {
+            origDataArray[x] = Math.floor(origDataArray[x] * 0.5);
+          }
           context.putImageData(imageData, 0, 0);
           const transparentDataUrl = canvas.toDataURL('image/png');
 
