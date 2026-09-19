@@ -429,40 +429,40 @@
     "message": "Ніколи не призупиняти активну вкладку в кожному вікні"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Завжди відкривати призупинені вкладки у верхній частині сторінки"
+    "message": "Завжди відкривати призупинені вкладки на початку сторінки"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "The tab reopens at the top of the page instead of wherever it was"
+    "message": "При відновленні вкладка відкривається на початку сторінки замість того місця,"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "scrolled to when suspended."
+    "message": "де вона була прокручена під час призупинення."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Applies to both automatic and manual suspension, and overrides"
+    "message": "Застосовується як до автоматичного, так і до ручного призупинення"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "links that jump to a #section on load."
+    "message": "та скасовує перехід за посиланнями на #розділ під час завантаження."
   },
   "html_options_suspend_automatically_unsuspend": {
-    "message": "Automatically unsuspend tab when it is viewed"
+    "message": "Автоматично відновити вкладку під час її перегляду"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
+    "message": "Перезавантаження також відновлює вкладки у фоновому режимі (не лише активну вкладку)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
+    "message": "Якщо увімкнено, оновлення призупиненої вкладки (Ctrl+R або ПКМ"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "> Reload) also unsuspends it even when it's not the currently"
+    "message": "> Перезавантажити) також відновлює її, навіть якщо"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "focused tab."
+    "message": "вона не є активною в цей момент."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Useful for reloading several suspended tabs at once, e.g. after"
+    "message": "Корисно для одночасного відновлення кількох призупинених вкладок,"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "selecting multiple tabs and pressing Ctrl+R."
+    "message": "наприклад, після виділення декількох вкладок і натискання Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Apply your browser's built-in memory-saving when suspending"
