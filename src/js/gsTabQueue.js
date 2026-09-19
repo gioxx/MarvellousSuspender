@@ -36,8 +36,7 @@ export const gsTabQueue = (function() {
         executorFn: (tab, resolve, reject, requeue) => resolve(true),
         exceptionFn: (tab, resolve, reject, requeue) => resolve(false),
       };
-      const _tabDetailsByTabId = {};
-      const _queuedTabIds = [];
+      const _tabDetailsByTabId = new Map();
       let   _processingQueueBufferTimer = null;
       const _queueId = queueId;
 
@@ -73,12 +72,12 @@ export const gsTabQueue = (function() {
       }
 
       function getTotalQueueSize() {
-        return Object.keys(_tabDetailsByTabId).length;
+        return _tabDetailsByTabId.size;
       }
 
       function queueTabAsPromise(tab, executionProps, delay) {
         executionProps = executionProps || {};
-        let tabDetails = _tabDetailsByTabId[tab.id];
+        let tabDetails = _tabDetailsByTabId.get(tab.id);
         if (!tabDetails) {
           // gsUtils.log(tab.id, _queueId, 'Queueing new tab.');
           tabDetails = {
@@ -121,7 +120,7 @@ export const gsTabQueue = (function() {
       }
 
       function unqueueTab(tab) {
-        const tabDetails = _tabDetailsByTabId[tab.id];
+        const tabDetails = _tabDetailsByTabId.get(tab.id);
         if (tabDetails) {
           // gsUtils.log(tab.id, _queueId, 'Unqueueing tab.');
           clearTimeout(tabDetails.timeoutTimer);
@@ -136,35 +135,18 @@ export const gsTabQueue = (function() {
 
       function addTabToQueue(tabDetails) {
         const tab = tabDetails.tab;
-        _tabDetailsByTabId[tab.id] = tabDetails;
-        _queuedTabIds.push(tab.id);
-        gsUtils.log(tab.id, _queueId, 'addTabToQueue queue', _queuedTabIds.length);
+        _tabDetailsByTabId.set(tab.id, tabDetails);
+        gsUtils.log(tab.id, _queueId, 'addTabToQueue queue', _tabDetailsByTabId.size);
       }
 
       function removeTabFromQueue(tabDetails) {
         const tab = tabDetails.tab;
-        delete _tabDetailsByTabId[tab.id];
-        for (const [i, tabId] of _queuedTabIds.entries()) {
-          if (tabId === tab.id) {
-            _queuedTabIds.splice(i, 1);
-            break;
-          }
-        }
-        gsUtils.log(tab.id, _queueId, 'removeTabFromQueue queue', _queuedTabIds.length);
-      }
-
-      function moveTabToEndOfQueue(tabDetails) {
-        const tab = tabDetails.tab;
-        for (const [i, tabId] of _queuedTabIds.entries()) {
-          if (tabId === tab.id) {
-            _queuedTabIds.push(_queuedTabIds.splice(i, 1)[0]);
-            break;
-          }
-        }
+        _tabDetailsByTabId.delete(tab.id);
+        gsUtils.log(tab.id, _queueId, 'removeTabFromQueue queue', _tabDetailsByTabId.size);
       }
 
       function getQueuedTabDetails(tab) {
-        return _tabDetailsByTabId[tab.id];
+        return _tabDetailsByTabId.get(tab.id);
       }
 
       function createDeferredPromise() {
@@ -202,8 +184,7 @@ export const gsTabQueue = (function() {
 
       function processQueue() {
         let inProgressCount = 0;
-        for (const tabId of _queuedTabIds) {
-          const tabDetails = _tabDetailsByTabId[tabId];
+        for (const tabDetails of _tabDetailsByTabId.values()) {
           if (tabDetails.status === STATUS_IN_PROGRESS) {
             inProgressCount += 1;
           }
@@ -297,7 +278,7 @@ export const gsTabQueue = (function() {
       }
 
       function resolveTabPromise(tabDetails, result) {
-        if (!_tabDetailsByTabId[tabDetails.tab.id]) {
+        if (!_tabDetailsByTabId.get(tabDetails.tab.id)) {
           return;
         }
         gsUtils.log(tabDetails.tab.id, _queueId, 'Queued tab resolved. Result: ', result);
@@ -308,7 +289,7 @@ export const gsTabQueue = (function() {
       }
 
       function rejectTabPromise(tabDetails, error) {
-        if (!_tabDetailsByTabId[tabDetails.tab.id]) {
+        if (!_tabDetailsByTabId.get(tabDetails.tab.id)) {
           return;
         }
         gsUtils.log(tabDetails.tab.id, _queueId, 'Queued tab rejected. Error: ', error);
@@ -358,7 +339,6 @@ export const gsTabQueue = (function() {
         // that requeues forever without ever resolving.
         clearTimeout(tabDetails.timeoutTimer);
         delete tabDetails.timeoutTimer;
-        // moveTabToEndOfQueue(tabDetails);
         sleepTab(tabDetails, requeueDelay);
         requestProcessQueue(_queueProperties.processingDelay);
       }
