@@ -91,9 +91,9 @@ export const gsIndexedDb = {
   addPreviewImage: async function(tabUrl, previewUrl) {
     try {
       const db = await gsIndexedDb.getDb();
-      const existing = await db.getAllFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
-      for (const item of existing) {
-        await db.delete(gsIndexedDb.DB_PREVIEWS, item.id);
+      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
+      for (const key of existingKeys) {
+        await db.delete(gsIndexedDb.DB_PREVIEWS, key);
       }
       await db.add(gsIndexedDb.DB_PREVIEWS, { url: tabUrl, img: previewUrl });
     } catch (e) {
@@ -108,9 +108,9 @@ export const gsIndexedDb = {
         return;
       }
       const db = await gsIndexedDb.getDb();
-      const existing = await db.getAllFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabProperties.url);
-      for (const item of existing) {
-        await db.delete(gsIndexedDb.DB_SUSPENDED_TABINFO, item.id);
+      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabProperties.url);
+      for (const key of existingKeys) {
+        await db.delete(gsIndexedDb.DB_SUSPENDED_TABINFO, key);
       }
       await db.add(gsIndexedDb.DB_SUSPENDED_TABINFO, tabProperties);
     } catch (e) {
@@ -147,9 +147,9 @@ export const gsIndexedDb = {
       }
       const faviconMetaWithUrl = Object.assign(faviconMeta, { url });
       const db = await gsIndexedDb.getDb();
-      const existing = await db.getAllFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url);
-      for (const item of existing) {
-        await db.delete(gsIndexedDb.DB_FAVICON_META, item.id);
+      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url);
+      for (const key of existingKeys) {
+        await db.delete(gsIndexedDb.DB_FAVICON_META, key);
       }
       await db.add(gsIndexedDb.DB_FAVICON_META, faviconMetaWithUrl);
     } catch (e) {
