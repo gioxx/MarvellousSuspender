@@ -530,6 +530,30 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "che si blocca inaspettatamente, prova a disattivare questa funzione."
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "Metodo di cattura"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "Automatico (consigliato)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "Solo screenshot del browser"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "Solo rendering della pagina"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "Automatico scatta un vero screenshot del browser quando la scheda da sospendere è quella che stai guardando."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "È istantaneo e funziona su ogni sito. Le altre schede vengono ridisegnate dal rendering della pagina, che è più lento."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "Solo screenshot del browser non esegue mai il rendering della pagina, quindi le schede sospese in background non hanno anteprima."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "Lo screenshot del browser copre solo la parte visibile della pagina, anche se è selezionato 'Cattura l'intera pagina'."
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "Abilita la modalità di cattura dello schermo in alta qualità"
   },
