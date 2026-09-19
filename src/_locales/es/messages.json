@@ -530,6 +530,30 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "falla inesperadamente, intente deshabilitar esta función."
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "Método de captura"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "Automático (recomendado)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "Solo captura del navegador"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "Solo renderizador de página"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "Automático toma una captura real del navegador cuando la pestaña que se suspende es la que estás viendo."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "Es instantáneo y funciona en todos los sitios. Las demás pestañas las redibuja el renderizador de página, que es más lento."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "Solo captura del navegador nunca ejecuta el renderizador de página, así que las pestañas suspendidas en segundo plano no tienen vista previa."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "La captura del navegador solo cubre la parte visible de la página, aunque esté seleccionado 'Capturar toda la página'."
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "Habilitar el modo de captura de pantalla de alta calidad"
   },

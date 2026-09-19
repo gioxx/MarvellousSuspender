@@ -1,7 +1,7 @@
-import  * as html2canvas        from './html2canvas.min.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMessages }            from './gsMessages.js';
+import  { gsPrecapture }          from './gsPrecapture.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsTabCheckManager }     from './gsTabCheckManager.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
@@ -120,6 +120,7 @@ export const gsTabSuspendManager = (function() {
     // not be set?
     // Do not bypass loading state if screen capture is required
     let screenCaptureMode = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
+    const screenCaptureMethod = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_METHOD);
     if (tab.status === 'loading') {
       const savedTabInfo = await gsIndexedDb.fetchTabInfo(tab.url);
       if (screenCaptureMode === '0' && savedTabInfo) {
@@ -149,7 +150,7 @@ export const gsTabSuspendManager = (function() {
     // If we need to make a screen capture and tab is not responding then reload it
     // TODO: This doesn't actually seem to work
     // Tabs that have just been reloaded usually fail to run the screen capture script :(
-    if (!tabInfo && screenCaptureMode !== '0' && !executionProps.reloaded) {
+    if (!tabInfo && screenCaptureMode !== '0' && screenCaptureMethod !== 'native' && !executionProps.reloaded) {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab is not responding. Will reload for screen capture.');
       await gsChrome.tabsUpdate(tab.id, { url: tab.url });
       // allow up to 30 seconds for tab to reload and trigger its subsequent suspension request
@@ -170,6 +171,9 @@ export const gsTabSuspendManager = (function() {
       return;
     }
 
+    // Pre-captures are keyed on the url the tab really has, not the timestamped one below
+    executionProps.precaptureUrl = tab.url;
+
     // Temporarily change tab.url to append youtube timestamp
     const timestampedUrl = await generateUrlWithYouTubeTimestamp(tab);
     // NOTE: This does not actually change the tab url, just the current tab object
@@ -183,6 +187,22 @@ export const gsTabSuspendManager = (function() {
       const success = await executeTabSuspension(tab, suspendedUrl);
       resolve(success);
       return;
+    }
+
+    // captureVisibleTab can only ever see the viewport, so 'entire page' goes to the renderer first
+    const nativeFirst = screenCaptureMethod === 'native' || (screenCaptureMethod === 'auto' && screenCaptureMode === '1');
+    if (nativeFirst) {
+      executionProps.nativeCaptureTried = true;
+      const previewUrl = await gsPrecapture.captureVisibleTab(tab)
+        ?? await gsPrecapture.take(tab.id, executionProps.precaptureUrl);
+      if (previewUrl) {
+        await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
+      }
+      if (previewUrl || screenCaptureMethod === 'native') {
+        const success = await executeTabSuspension(tab, suspendedUrl);
+        resolve(success);
+        return;
+      }
     }
 
     // Hack. Save handle to resolve function so we can call it later
@@ -216,8 +236,13 @@ export const gsTabSuspendManager = (function() {
 
     if (!previewUrl) {
       gsUtils.warning(tab.id, QUEUE_ID, 'savePreviewData reported an error: ', errorMsg,);
+      const screenCaptureMethod = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_METHOD);
+      if (screenCaptureMethod === 'auto' && !queuedTabDetails.executionProps.nativeCaptureTried) {
+        previewUrl = await gsPrecapture.captureVisibleTab(tab)
+          ?? await gsPrecapture.take(tab.id, queuedTabDetails.executionProps.precaptureUrl);
+      }
     }
-    else {
+    if (previewUrl) {
       await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
     }
 
@@ -479,7 +504,7 @@ export const gsTabSuspendManager = (function() {
 
           // console.log('Generating via html2canvas..');
           const generateCanvas = () => {
-            return html2canvas(document.body, {
+            return globalThis.html2canvas(document.body, {
               height,
               width,
               logging: false,

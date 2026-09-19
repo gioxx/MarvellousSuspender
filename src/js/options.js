@@ -2,6 +2,7 @@ import  { gsChangelog }           from './gsChangelog.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsMascot }              from './gsMascot.js';
 import  { gsNewsFeed }            from './gsNewsFeed.js';
+import  { gsPrecapture }          from './gsPrecapture.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsUtils }               from './gsUtils.js';
 import  { tgs }                   from './tgs.js';
@@ -14,6 +15,8 @@ import  { tgs }                   from './tgs.js';
   const elementPrefMap = {
     preview: gsStorage.SCREEN_CAPTURE,
     forceScreenCapture: gsStorage.SCREEN_CAPTURE_FORCE,
+    screenCaptureMethod: gsStorage.SCREEN_CAPTURE_METHOD,
+    screenCapturePrecapture: gsStorage.SCREEN_CAPTURE_PRECAPTURE,
     suspendInPlaceOfDiscard: gsStorage.SUSPEND_IN_PLACE_OF_DISCARD,
     onlineCheck: gsStorage.IGNORE_WHEN_OFFLINE,
     batteryCheck: gsStorage.IGNORE_WHEN_CHARGING,
@@ -134,7 +137,7 @@ import  { tgs }                   from './tgs.js';
       addClickHandlers();
       renderNeverSuspendGroups();
 
-      setForceScreenCaptureVisibility(settings[gsStorage.SCREEN_CAPTURE] !== '0');
+      setScreenCaptureOptionsVisibility(settings[gsStorage.SCREEN_CAPTURE] !== '0');
       setAutoSuspendOptionsVisibility(parseFloat(settings[gsStorage.SUSPEND_TIME]) > 0);
       setSyncNoteVisibility(!settings[gsStorage.SYNC_SETTINGS]);
 
@@ -238,8 +241,16 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  function setForceScreenCaptureVisibility(visible) {
+  function setScreenCaptureOptionsVisibility(visible) {
+    document.getElementById('screenCaptureMethodContainer').classList.toggle('hidden', !visible);
+    setPrecaptureVisibility();
     document.getElementById('forceScreenCaptureContainer').classList.toggle('hidden', !visible);
+  }
+
+  function setPrecaptureVisibility() {
+    const usesNative = document.getElementById('preview').value !== '0' &&
+      document.getElementById('screenCaptureMethod').value !== 'renderer';
+    document.getElementById('screenCapturePrecaptureContainer').classList.toggle('hidden', !usesNative);
   }
 
   function setSyncNoteVisibility(visible) {
@@ -259,7 +270,19 @@ import  { tgs }                   from './tgs.js';
 
       // add specific screen element listeners
       if (pref === gsStorage.SCREEN_CAPTURE) {
-        setForceScreenCaptureVisibility(getOptionValue(element) !== '0');
+        setScreenCaptureOptionsVisibility(getOptionValue(element) !== '0');
+      }
+      else if (pref === gsStorage.SCREEN_CAPTURE_METHOD) {
+        setPrecaptureVisibility();
+      }
+      else if (pref === gsStorage.SCREEN_CAPTURE_PRECAPTURE) {
+        // permissions.request has to run inside the click's user gesture, so before any other await
+        if (element.checked) {
+          element.checked = await chrome.permissions.request(gsPrecapture.ALL_URLS).catch(() => false);
+        }
+        else {
+          await gsPrecapture.clear();
+        }
       }
       else if (pref === gsStorage.SUSPEND_TIME) {
         const interval = getOptionValue(element);

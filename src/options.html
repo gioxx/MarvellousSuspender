@@ -422,6 +422,35 @@ __MSG_html_options_suspend_screen_capturing_tooltip_line3b__">
           </select>
         </div>
       </div>
+      <div class="formRow" id="screenCaptureMethodContainer">
+        <label id="screenCaptureMethodLbl" class="topLabel" for="screenCaptureMethod"
+               data-i18n="__MSG_html_options_suspend_screen_capture_method__:"></label>
+        <div class="select-wrapper">
+          <select id="screenCaptureMethod" class="option">
+            <option value="auto" data-i18n="__MSG_html_options_suspend_screen_capture_method_auto__"></option>
+            <option value="native" data-i18n="__MSG_html_options_suspend_screen_capture_method_native__"></option>
+            <option value="renderer" data-i18n="__MSG_html_options_suspend_screen_capture_method_renderer__"></option>
+          </select>
+        </div>
+        <span data-i18n-tooltip="__MSG_html_options_suspend_screen_capture_method_tooltip_line1__
+__MSG_html_options_suspend_screen_capture_method_tooltip_line2__
+
+__MSG_html_options_suspend_screen_capture_method_tooltip_line3__
+__MSG_html_options_suspend_screen_capture_method_tooltip_line4__">
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
+        </span>
+      </div>
+      <div class="formRow" id="screenCapturePrecaptureContainer">
+        <input type="checkbox" id="screenCapturePrecapture" class="option" />
+        <label for="screenCapturePrecapture" class="cbLabel" data-i18n="__MSG_html_options_suspend_screen_capture_precapture__"></label>
+        <span data-i18n-tooltip="__MSG_html_options_suspend_screen_capture_precapture_tooltip_line1__
+__MSG_html_options_suspend_screen_capture_precapture_tooltip_line2__
+
+__MSG_html_options_suspend_screen_capture_precapture_tooltip_line3__
+__MSG_html_options_suspend_screen_capture_precapture_tooltip_line4__">
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
+        </span>
+      </div>
       <div class="formRow" id="forceScreenCaptureContainer">
         <input type="checkbox" id="forceScreenCapture" class="option" />
         <label for="forceScreenCapture" class="cbLabel" data-i18n="__MSG_html_options_suspend_force_screen_capture__"></label>

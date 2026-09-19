@@ -530,6 +530,30 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "意外崩溃，请尝试关闭此功能。"
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "截图方式"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "自动（推荐）"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "仅使用浏览器截图"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "仅使用页面渲染器"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "自动模式下，如果被休眠的标签页正是您当前查看的标签页，则会使用浏览器原生截图。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "原生截图瞬间完成，并且适用于所有网站。其他标签页则由速度较慢的页面渲染器重新绘制。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "“仅使用浏览器截图”不会运行页面渲染器，因此在后台休眠的标签页没有预览图。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "即使选择了“截取整个页面”，浏览器截图也只包含页面的可见部分。"
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "启用高质量的屏幕截图模式"
   },
