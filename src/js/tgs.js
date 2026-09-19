@@ -1318,8 +1318,9 @@ export const tgs = (function() {
 
   async function initialiseSuspendedTab(tab) {
     gsUtils.log( tab.id, 'tgs', 'initialiseSuspendedTab' );
-    const unloadedUrl = await getTabStatePropForTabId(tab.id, STATE_UNLOADED_URL);
-    const disableUnsuspendOnReload = await getTabStatePropForTabId( tab.id, STATE_DISABLE_UNSUSPEND_ON_RELOAD );
+    const tabState = await getTabStateForTabId(tab.id);
+    const unloadedUrl = tabState?.[STATE_UNLOADED_URL];
+    const disableUnsuspendOnReload = tabState?.[STATE_DISABLE_UNSUSPEND_ON_RELOAD];
     await deleteTabStateForTabId(tab.id);
 
     if (await isCurrentFocusedTab(tab)) {
