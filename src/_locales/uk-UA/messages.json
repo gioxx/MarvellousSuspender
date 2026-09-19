@@ -33,7 +33,7 @@
     "message": "Відновити всі вкладки без групи в активному вікні"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Перемкнути «ніколи не призупиняти» для групи активної вкладки"
+    "message": "Увімкнути/вимкнути режим «ніколи не призупиняти» для групи активної вкладки."
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Призупинити всі інші вкладки в активному вікні"
@@ -90,10 +90,10 @@
     "message": "Ніколи не призупиняти цю групу"
   },
   "js_context_allow_suspending_group": {
-    "message": "Дозволити призупинення цієї групи"
+    "message": "Дозволити призупиняти цю групу"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Ніколи не призупиняти цю групу (лише групи з назвою)"
+    "message": "Ніколи не призупиняти цю групу (лише назви груп)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Призупинити всі інші вкладки в цьому вікні"
@@ -336,10 +336,10 @@
     "message": "«Пошук по вкладках» (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "Preserve YouTube playback position when suspending"
+    "message": "Зберігати позицію відтворення YouTube при призупиненню"
   },
   "html_options_other_title": {
-    "message": "General"
+    "message": "Загальні"
   },
   "html_options_language": {
     "message": "Мова"
@@ -348,13 +348,13 @@
     "message": "За замовчуванням системи"
   },
   "html_options_suspend_automatically_after": {
-    "message": "Automatically suspend tabs after"
+    "message": "Автоматично призупиняти вкладки після"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "Suspend tabs on battery power after"
+    "message": "Призупиняти вкладки у режимі роботи від акумулятора після"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "Same as when plugged in"
+    "message": "Так само, як і під час живлення від мережі"
   },
   "html_options_suspend_never": {
     "message": "Ніколи"
@@ -390,100 +390,100 @@
     "message": "Ніколи не призупиняти закріплені вкладки"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Never suspend tabs opened in app windows"
+    "message": "Ніколи не призупиняти вкладки, відкриті у вікнах програм"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Never suspend tabs in a tab group"
+    "message": "Ніколи не призупиняти вкладки в групі вкладок"
   },
   "html_options_suspend_no_forms": {
-    "message": "Never suspend tabs that contain unsaved form inputs"
+    "message": "Ніколи не призупиняти вкладки, що містять незбережені дані форми"
   },
   "html_options_suspend_no_audio": {
-    "message": "Never suspend tabs that are playing audio"
+    "message": "Ніколи не призупиняти вкладки, які відтворюють аудіо"
   },
   "html_options_suspend_only_connected": {
-    "message": "Never suspend tabs when offline"
+    "message": "Ніколи не призупиняти вкладки в режимі офлайн"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Claim tabs suspended by other extensions"
+    "message": "Перехоплювати вкладки, призупинені іншими розширеннями"
   },
   "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Automatically takes over tabs already suspended by another compatible"
+    "message": "Автоматично перехоплює вкладки, які вже призупинені іншим сумісним"
   },
   "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "extension (e.g. The Great Suspender, or a different install of this one)."
+    "message": "розширеням (наприклад, The Great Suspender або інша його версія)."
   },
   "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "A tab counts as \"suspended\" if its URL contains 'suspended.html'."
+    "message": "Вкладка вважається «призупиненою», якщо її URL адреса містить «suspended.html»."
   },
   "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "Enabling this rewrites that URL to this install so TMS can manage"
+    "message": "Увімкнення цієї опції змінює URL-адресу для поточного розширення, щоб TMS міг"
   },
   "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "the tab going forward."
+    "message": "надалі керувати цією вкладкою."
   },
   "html_options_suspend_only_on_battery": {
-    "message": "Never suspend tabs when connected to power source"
+    "message": "Ніколи не призупиняти вкладки, коли пристрій підключений до джерела живлення"
   },
   "html_options_suspend_no_active_tabs": {
-    "message": "Never suspend active tab in each window"
+    "message": "Ніколи не призупиняти активну вкладку в кожному вікні"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Always reopen suspended tabs scrolled to the top"
+    "message": "Завжди відкривати призупинені вкладки на початку сторінки"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "The tab reopens at the top of the page instead of wherever it was"
+    "message": "При відновленні вкладка відкривається на початку сторінки замість того місця,"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "scrolled to when suspended."
+    "message": "де вона була прокручена під час призупинення."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Applies to both automatic and manual suspension, and overrides"
+    "message": "Застосовується як до автоматичного, так і до ручного призупинення"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "links that jump to a #section on load."
+    "message": "та скасовує перехід за посиланнями на #розділ під час завантаження."
   },
   "html_options_suspend_automatically_unsuspend": {
-    "message": "Automatically unsuspend tab when it is viewed"
+    "message": "Автоматично відновити вкладку під час її перегляду"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Reload also unsuspends tabs in the background (not just the active tab)"
+    "message": "Перезавантаження також відновлює вкладки у фоновому режимі (не лише активну вкладку)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "When enabled, reloading a suspended tab (Ctrl+R or right-click"
+    "message": "Якщо увімкнено, оновлення призупиненої вкладки (Ctrl+R або ПКМ"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "> Reload) also unsuspends it even when it's not the currently"
+    "message": "> Перезавантажити) також відновлює її, навіть якщо"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "focused tab."
+    "message": "вона не є активною в цей момент."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Useful for reloading several suspended tabs at once, e.g. after"
+    "message": "Корисно для одночасного відновлення кількох призупинених вкладок,"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "selecting multiple tabs and pressing Ctrl+R."
+    "message": "наприклад, після виділення декількох вкладок і натискання Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "Застосовувати вбудовану економію пам'яті браузера під час призупинення"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Reduces a suspended tab's memory usage even more, by utilizing"
+    "message": "Додатково зменшує використання пам'яті призупиненою вкладкою завдяки"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "використанню вбудованої функції браузера з вивантаження вкладок (вивантаження вкладок)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "to 500% memory savings when working with large numbers of tabs."
+    "message": "Це може забезпечити до 500% економії пам'яті під час роботи з великою кількістю вкладок."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "However, it will also cause a slight rendering delay when selecting"
+    "message": "Однак це також спричинить незначну затримку рендерингу "
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "a suspended tab."
+    "message": "під час вибору призупиненої вкладки."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Детальніше про вивантаження вкладок див.:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -501,85 +501,85 @@
     "message": "Система"
   },
   "html_options_suspend_screen_capturing": {
-    "message": "Screen capturing"
+    "message": "Захоплення екрана"
   },
   "html_options_suspend_screen_capturing_disabled": {
     "message": "Відключено"
   },
   "html_options_suspend_screen_capturing_screen_only": {
-    "message": "Capture top of screen only"
+    "message": "Знімати лише верхню частину екрана"
   },
   "html_options_suspend_screen_capturing_entire_page": {
-    "message": "Capture entire page"
+    "message": "Захоплювати всю сторінку"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "On a suspended tab, the extension can display an image preview of the what the tab"
+    "message": "На призупиненій вкладці розширення може відображати попередній перегляд зображення того,"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "looked like just before it was suspended."
+    "message": "як виглядала сторінка безпосередньо перед призупиненням."
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "The screen capturing feature is experimental and can cause significant CPU usage as"
+    "message": "Функція створення знімків екрана є експериментальною та може спричиняти значне навантаження на процесор,"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "well as slightly increased memory usage."
+    "message": "а також незначне збільшення використання пам'яті."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "Якщо ви помітите незвичну поведінку, наприклад, тривалу затримку під час призупинення вкладок"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "crashing unexpectedly, try turning this feature off."
+    "message": "або раптовий збій у роботі браузера, спробуйте вимкнути цю функцію."
   },
   "html_options_suspend_force_screen_capture": {
-    "message": "Enable high quality screen capture mode"
+    "message": "Увімкнути режим високої якості знімків екрана"
   },
   "html_options_suspend_force_screen_capture_tooltip_line1": {
-    "message": "When disabled, screen captures have the following limitations to aid in performance:"
+    "message": "Якщо вимкнено, створення знімків екрана має такі обмеження для підвищення продуктивності:"
   },
   "html_options_suspend_force_screen_capture_tooltip_line2": {
-    "message": "- Low quality screen capture"
+    "message": "- Низька якість знімків екрана"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Will not capture screen if it takes more than 1 minute to generate image"
+    "message": "- Знімок екрана не створюється, якщо генерація зображення триває понад 1 хвилину"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
-    "message": "- Maximum height of screen capture limited to 5000px"
+    "message": "- Максимальна висота знімка екрана обмежена 5000 пікселями"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Enabling high quality screen capture mode may significantly increase CPU load"
+    "message": "Увімкнення режиму високої якості знімків екрана може значно збільшити "
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "and memory usage."
+    "message": "навантаження на процесор і використання пам'яті."
   },
   "html_options_whitelist_title": {
-    "message": "Never suspend tabs with URLs from the following list:"
+    "message": "Ніколи не призупиняти вкладки з URL-адресами з наступного списку:"
   },
   "html_options_always_suspend_title": {
-    "message": "Always suspend tabs with URLs from the following list:"
+    "message": "Завжди призупиняти вкладки з URL-адресами з наведеного списку:"
   },
   "html_options_always_suspend_tooltip_line1a": {
-    "message": "Tabs matching this list always suspend after the normal timeout,"
+    "message": "Вкладки, що відповідають цьому списку, завжди призупиняються після закінчення звичайного часу очікування,"
   },
   "html_options_always_suspend_tooltip_line1b": {
-    "message": "regardless of audio, form input, or pinned state."
+    "message": "незалежно від відтворення аудіо, вводу даних у форми чи закріпленого стану вкладки."
   },
   "html_options_always_suspend_tooltip_line2a": {
-    "message": "One entry per line, same matching rules as the list above (plain text"
+    "message": "Один запис у кожному рядку. Застосовуються ті самі правила збігу, що й для списку вище"
   },
   "html_options_always_suspend_tooltip_line2b": {
-    "message": "match anywhere in the URL, or /regex/ between slashes)."
+    "message": "(пошук звичайного тексту в будь-якому місці URL-адреси або /регулярний вираз/ між скісними рисками)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Add the URL of each page you want to allow on a new line. For example:"
+    "message": "Додайте URL-адресу кожної сторінки, яку хочете дозволити, з нового рядка. Наприклад:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "To allow multiple sites in one line you can specify part of the url instead:"
+    "message": "Щоб дозволити кілька сайтів одним рядком, ви можете натомість вказати частину URL-адреси:"
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "You can also specify regular expressions by enclosing the text in forward slashes:"
+    "message": "Ви також можете вказувати регулярні вирази, взявши текст у скісні риски:"
   },
   "html_options_changelog_modal_title": {
-    "message": "What's new in v$version$",
+    "message": "Що нового у v$version$",
     "placeholders": {
       "version": {
         "content": "$1"
@@ -590,109 +590,109 @@
     "message": "Закрити"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake matching tabs now"
+    "message": "Розбудити відповідні вкладки зараз"
   },
   "html_options_list_test_btn": {
-    "message": "Test list"
+    "message": "Перевірити список"
   },
   "html_options_always_suspend_force": {
-    "message": "Suspend matching tabs now"
+    "message": "Призупинити відповідні вкладки зараз"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Never suspend tabs in the following tab groups:"
+    "message": "Ніколи не призупиняти вкладки в таких групах вкладок:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
+    "message": "Вкладки у цих групах ніколи не призупиняються автоматично, і пропускаються масовими призупиненнями."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
+    "message": "Додати групу можна через контекстне меню за допомогою пункту «Ніколи не призупиняти цю групу». Додавати можна лише групи, які мають назву."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
+    "message": "Групи порівнюються за назвою та кольором, а також відстежують зміни назви, поки браузер залишається відкритим."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "No tab groups added yet."
+    "message": "Групи вкладок ще не додано."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Remove"
+    "message": "Видалити"
   },
   "html_options_other_enable_context_menu": {
-    "message": "Add The Marvellous Suspender to right-click context menu"
+    "message": "Додати The Marvellous Suspender до контекстного меню"
   },
   "html_options_other_enable_context_menu_tooltip_line1": {
-    "message": "Add controls for this extension to the right-click menu of a web page."
+    "message": "Додає елементи керування цим розширенням до контекстного меню вебсторінки."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "This will give you access to advanced suspending actions not available"
+    "message": "Це надасть вам доступ до розширених дій із призупинення, недоступних "
   },
   "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "elsewhere in the extension."
+    "message": "в інших розділах розширення."
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "Синхронізувати налаштування з вашим профілем браузера"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "Налаштування розширення будуть синхронізовані у всіх браузерах, які"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "logged in with the same profile."
+    "message": "увійшли в систему під тим самим профілем."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "Це також синхронізує налаштування в режимі інкогніто."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "Увімкнення цієї функції перезапише налаштування в усіх інших браузерах, у яких використовується той самий профіль."
   },
   "html_options_suspend_on_low_memory": {
-    "message": "Instantly suspend when system memory gets very low"
+    "message": "Миттєво призупиняти вкладки, коли системної пам'яті стає дуже мало"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "Ця опція перевизначає функцію автоматичного вивантаження вкладок браузером."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "Якщо увімкнено, вона примусово призупиняє вкладку замість її вивантаження."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "Зазвичай ваш браузер вивантажує вкладки лише тоді, коли рівень системної пам'яті стає дуже низьким."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Please note: This may cause tabs to suspend earlier than the time you have"
+    "message": "Зверніть увагу: це може призвести до призупинення вкладок раніше за час, "
   },
   "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "specified in the Automatic tab suspension options."
+    "message": "вказаний у налаштуваннях автоматичного призупинення."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Докладніше про вивантаження вкладок дивіться за посиланням:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_popup_unsuspend_tab": {
-    "message": "Unsuspend this tab"
+    "message": "Відновити цю вкладку"
   },
   "html_popup_suspend_tab": {
-    "message": "Suspend this tab now"
+    "message": "Призупинити цю вкладку зараз"
   },
   "html_popup_never_suspend_domain": {
-    "message": "Never suspend this domain"
+    "message": "Ніколи не призупиняти цей домен"
   },
   "html_popup_never_suspend_page": {
-    "message": "Never suspend this URL"
+    "message": "Ніколи не призупиняти цю URL-адресу"
   },
   "html_popup_suspend_other_tabs": {
-    "message": "Suspend all other tabs"
+    "message": "Призупиняти всі інші вкладки"
   },
   "html_popup_unsuspend_all_tabs": {
-    "message": "Unsuspend all tabs"
+    "message": "Відновити всі вкладки"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake matching tabs now"
+    "message": "Розбудити відповідні вкладки зараз"
   },
   "html_popup_suspend_selected_tabs": {
-    "message": "Suspend selected tabs"
+    "message": "Призупинити вибрані вкладки"
   },
   "html_popup_unsuspend_selected_tabs": {
-    "message": "Unsuspend selected tabs"
+    "message": "Відновити вибрані вкладки"
   },
   "html_popup_settings": {
     "message": "Налаштування"

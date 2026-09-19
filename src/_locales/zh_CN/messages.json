@@ -33,7 +33,7 @@
     "message": "恢复当前窗口中所有不在组中的标签页"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "切换活动标签页所在组的“永不冻结”设置"
+    "message": "Toggle never suspend for the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "冻结当前窗口中所有的标签页"
@@ -87,13 +87,13 @@
     "message": "恢复所有不在组中的标签页"
   },
   "js_context_never_suspend_group": {
-    "message": "永远不冻结此组"
+    "message": "Never suspend this group"
   },
   "js_context_allow_suspending_group": {
-    "message": "允许冻结此组"
+    "message": "Allow suspending this group"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "永远不冻结此组（仅限已命名的组）"
+    "message": "Never suspend this group (named groups only)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "冻结当前窗口中所有的标签页"
@@ -599,22 +599,22 @@
     "message": "立即挂起匹配的标签页"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "永远不要冻结以下标签页组中的标签页："
+    "message": "Never suspend tabs in the following tab groups:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "这些组中的标签页永远不会自动冻结，批量冻结操作也会跳过它们。"
+    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "通过右键菜单中的“永远不冻结此组”添加组。只能添加已命名的组。"
+    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "组按名称和颜色匹配，只要浏览器保持打开，重命名后仍会跟随。"
+    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "尚未添加标签页组。"
+    "message": "No tab groups added yet."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "移除"
+    "message": "Remove"
   },
   "html_options_other_enable_context_menu": {
     "message": "把 The Marvellous Suspender 加到右键菜单"
@@ -923,7 +923,7 @@
     "message": "标签页在标签组中"
   },
   "js_popup_tab_group": {
-    "message": "标签页位于永不冻结的组中"
+    "message": "Tab is in a group that is never suspended"
   },
   "js_popup_temp_whitelist": {
     "message": "页面冻结暂停。"
@@ -1024,7 +1024,7 @@
     "message": "没有打开的标签页匹配当前的强制挂起列表。"
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "匹配 $count$ 个打开的标签页组",
+    "message": "matches $count$ open group(s)",
     "placeholders": {
       "count": {
         "content": "$1"

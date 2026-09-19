@@ -33,7 +33,7 @@
     "message": "アクティブなウィンドウ内のグループに属さないすべてのタブをサスペンド解除"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "アクティブなタブのグループのサスペンドしない設定を切り替える"
+    "message": "Toggle never suspend for the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "アクティブなウィンドウ内の他のすべてのタブをサスペンド"
@@ -87,13 +87,13 @@
     "message": "グループに属さないすべてのタブをサスペンド解除"
   },
   "js_context_never_suspend_group": {
-    "message": "このグループをサスペンドしない"
+    "message": "Never suspend this group"
   },
   "js_context_allow_suspending_group": {
-    "message": "このグループのサスペンドを許可"
+    "message": "Allow suspending this group"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "このグループをサスペンドしない（名前付きグループのみ）"
+    "message": "Never suspend this group (named groups only)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "このウィンドウ内の他のすべてのタブをサスペンド"
@@ -599,22 +599,22 @@
     "message": "一致するタブを今すぐ停止"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "次のタブグループ内のタブはサスペンドしない:"
+    "message": "Never suspend tabs in the following tab groups:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "これらのグループのタブは自動的にサスペンドされず、一括サスペンド操作でもスキップされます。"
+    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "右クリックメニューの「このグループをサスペンドしない」からグループを追加できます。名前が付いたグループのみ追加できます。"
+    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "グループは名前と色で照合され、ブラウザーが開いている間は名前の変更に追従します。"
+    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "タブグループはまだ追加されていません。"
+    "message": "No tab groups added yet."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "削除"
+    "message": "Remove"
   },
   "html_options_other_enable_context_menu": {
     "message": "右クリックのコンテキストメニューにThe Marvellous Suspenderを追加する"
@@ -923,7 +923,7 @@
     "message": "タブはタブグループ内にあります"
   },
   "js_popup_tab_group": {
-    "message": "タブはサスペンドされないグループに含まれています"
+    "message": "Tab is in a group that is never suspended"
   },
   "js_popup_temp_whitelist": {
     "message": "タブの停止は一時停止中です。"
@@ -1024,7 +1024,7 @@
     "message": "現在の常時停止リストに一致する開いているタブはありません。"
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "一致する開いているグループ: $count$",
+    "message": "matches $count$ open group(s)",
     "placeholders": {
       "count": {
         "content": "$1"

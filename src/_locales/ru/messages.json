@@ -33,7 +33,7 @@
     "message": "Возобновить все вкладки вне групп в активном окне"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Переключить «никогда не приостанавливать» для группы активной вкладки"
+    "message": "Toggle never suspend for the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Приостановить все остальные вкладки в активном окне"
@@ -87,13 +87,13 @@
     "message": "Возобновить все вкладки вне групп"
   },
   "js_context_never_suspend_group": {
-    "message": "Никогда не приостанавливать эту группу"
+    "message": "Never suspend this group"
   },
   "js_context_allow_suspending_group": {
-    "message": "Разрешить приостановку этой группы"
+    "message": "Allow suspending this group"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Никогда не приостанавливать эту группу (только группы с названием)"
+    "message": "Never suspend this group (named groups only)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Приостановить все остальные вкладки в этом окне"
@@ -599,22 +599,22 @@
     "message": "Приостановить подходящие вкладки сейчас"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Никогда не приостанавливать вкладки в следующих группах:"
+    "message": "Never suspend tabs in the following tab groups:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Вкладки в этих группах никогда не приостанавливаются автоматически и пропускаются при массовой приостановке."
+    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Добавьте группу с помощью пункта «Никогда не приостанавливать эту группу» в контекстном меню. Добавить можно только группы, у которых есть название."
+    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Группы определяются по названию и цвету и следуют за переименованием, пока браузер остаётся открытым."
+    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "Группы вкладок ещё не добавлены."
+    "message": "No tab groups added yet."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Удалить"
+    "message": "Remove"
   },
   "html_options_other_enable_context_menu": {
     "message": "Добавить The Marvellous Suspender в контекстное меню правой кнопки мыши"
@@ -923,7 +923,7 @@
     "message": "Вкладка находится в группе вкладок"
   },
   "js_popup_tab_group": {
-    "message": "Вкладка находится в группе, которая никогда не приостанавливается"
+    "message": "Tab is in a group that is never suspended"
   },
   "js_popup_temp_whitelist": {
     "message": "Приостановка вкладки поставлена на паузу."
@@ -1024,7 +1024,7 @@
     "message": "Нет открытых вкладок, соответствующих текущему списку принудительного приостановления."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "совпадений среди открытых групп: $count$",
+    "message": "matches $count$ open group(s)",
     "placeholders": {
       "count": {
         "content": "$1"

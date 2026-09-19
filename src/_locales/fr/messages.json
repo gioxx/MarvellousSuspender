@@ -33,7 +33,7 @@
     "message": "Annule la suspension de tous les onglets hors groupe de la fenêtre active"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Basculer « ne jamais suspendre » pour le groupe de l'onglet actif"
+    "message": "Toggle never suspend for the active tab's group"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Suspend tous les autres onglets de la fenêtre active"
@@ -87,13 +87,13 @@
     "message": "Annuler la suspension de tous les onglets hors groupe"
   },
   "js_context_never_suspend_group": {
-    "message": "Ne jamais suspendre ce groupe"
+    "message": "Never suspend this group"
   },
   "js_context_allow_suspending_group": {
-    "message": "Autoriser la suspension de ce groupe"
+    "message": "Allow suspending this group"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Ne jamais suspendre ce groupe (groupes nommés uniquement)"
+    "message": "Never suspend this group (named groups only)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Suspendre tous les autres onglets de cette fenêtre"
@@ -599,22 +599,22 @@
     "message": "Suspendre maintenant les onglets correspondants"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Ne jamais suspendre les onglets des groupes suivants :"
+    "message": "Never suspend tabs in the following tab groups:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Les onglets de ces groupes ne sont jamais suspendus automatiquement et sont ignorés par les actions de suspension groupée."
+    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Ajoutez un groupe avec « Ne jamais suspendre ce groupe » dans le menu contextuel. Seuls les groupes portant un nom peuvent être ajoutés."
+    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Les groupes sont identifiés par leur nom et leur couleur, et suivent les renommages tant que le navigateur reste ouvert."
+    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "Aucun groupe d'onglets ajouté pour l'instant."
+    "message": "No tab groups added yet."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Retirer"
+    "message": "Remove"
   },
   "html_options_other_enable_context_menu": {
     "message": "Ajouter The Marvellous Suspender au menu contextuel du clic droit"
@@ -923,7 +923,7 @@
     "message": "L'onglet est dans un groupe d'onglets"
   },
   "js_popup_tab_group": {
-    "message": "L'onglet est dans un groupe qui n'est jamais suspendu"
+    "message": "Tab is in a group that is never suspended"
   },
   "js_popup_temp_whitelist": {
     "message": "La suspension de l'onglet a été interrompue."
@@ -1024,7 +1024,7 @@
     "message": "Aucun onglet ouvert ne correspond à la liste de suspension forcée actuelle."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "correspond à $count$ groupe(s) ouvert(s)",
+    "message": "matches $count$ open group(s)",
     "placeholders": {
       "count": {
         "content": "$1"
