@@ -552,34 +552,34 @@
     "message": "навантаження на процесор і використання пам'яті."
   },
   "html_options_whitelist_title": {
-    "message": "Never suspend tabs with URLs from the following list:"
+    "message": "Ніколи не призупиняти вкладки з URL-адресами з наступного списку:"
   },
   "html_options_always_suspend_title": {
-    "message": "Always suspend tabs with URLs from the following list:"
+    "message": "Завжди призупиняти вкладки з URL-адресами з наведеного списку:"
   },
   "html_options_always_suspend_tooltip_line1a": {
-    "message": "Tabs matching this list always suspend after the normal timeout,"
+    "message": "Вкладки, що відповідають цьому списку, завжди призупиняються після закінчення звичайного часу очікування,"
   },
   "html_options_always_suspend_tooltip_line1b": {
-    "message": "regardless of audio, form input, or pinned state."
+    "message": "незалежно від відтворення аудіо, вводу даних у форми чи закріпленого стану вкладки."
   },
   "html_options_always_suspend_tooltip_line2a": {
-    "message": "One entry per line, same matching rules as the list above (plain text"
+    "message": "Один запис у кожному рядку. Застосовуються ті самі правила збігу, що й для списку вище"
   },
   "html_options_always_suspend_tooltip_line2b": {
-    "message": "match anywhere in the URL, or /regex/ between slashes)."
+    "message": "(пошук звичайного тексту в будь-якому місці URL-адреси або /регулярний вираз/ між скісними рисками)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Add the URL of each page you want to allow on a new line. For example:"
+    "message": "Додайте URL-адресу кожної сторінки, яку хочете дозволити, з нового рядка. Наприклад:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "To allow multiple sites in one line you can specify part of the url instead:"
+    "message": "Щоб дозволити кілька сайтів одним рядком, ви можете натомість вказати частину URL-адреси:"
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "You can also specify regular expressions by enclosing the text in forward slashes:"
+    "message": "Ви також можете вказувати регулярні вирази, взявши текст у скісні риски:"
   },
   "html_options_changelog_modal_title": {
-    "message": "What's new in v$version$",
+    "message": "Що нового у v$version$",
     "placeholders": {
       "version": {
         "content": "$1"
@@ -590,109 +590,109 @@
     "message": "Закрити"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Wake matching tabs now"
+    "message": "Розбудити відповідні вкладки зараз"
   },
   "html_options_list_test_btn": {
-    "message": "Test list"
+    "message": "Перевірити список"
   },
   "html_options_always_suspend_force": {
-    "message": "Suspend matching tabs now"
+    "message": "Призупинити відповідні вкладки зараз"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Never suspend tabs in the following tab groups:"
+    "message": "Ніколи не призупиняти вкладки в таких групах вкладок:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
+    "message": "Вкладки у цих групах ніколи не призупиняються автоматично, і пропускаються масовими призупиненнями."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
+    "message": "Додати групу можна через контекстне меню за допомогою пункту «Ніколи не призупиняти цю групу». Додавати можна лише групи, які мають назву."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
+    "message": "Групи порівнюються за назвою та кольором, а також відстежують зміни назви, поки браузер залишається відкритим."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "No tab groups added yet."
+    "message": "Групи вкладок ще не додано."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Remove"
+    "message": "Видалити"
   },
   "html_options_other_enable_context_menu": {
-    "message": "Add The Marvellous Suspender to right-click context menu"
+    "message": "Додати The Marvellous Suspender до контекстного меню"
   },
   "html_options_other_enable_context_menu_tooltip_line1": {
-    "message": "Add controls for this extension to the right-click menu of a web page."
+    "message": "Додає елементи керування цим розширенням до контекстного меню вебсторінки."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "This will give you access to advanced suspending actions not available"
+    "message": "Це надасть вам доступ до розширених дій із призупинення, недоступних "
   },
   "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "elsewhere in the extension."
+    "message": "в інших розділах розширення."
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "Синхронізувати налаштування з вашим профілем браузера"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "Налаштування розширення будуть синхронізовані у всіх браузерах, які"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "logged in with the same profile."
+    "message": "увійшли в систему під тим самим профілем."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "Це також синхронізує налаштування в режимі інкогніто."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "Увімкнення цієї функції перезапише налаштування в усіх інших браузерах, у яких використовується той самий профіль."
   },
   "html_options_suspend_on_low_memory": {
-    "message": "Instantly suspend when system memory gets very low"
+    "message": "Миттєво призупиняти вкладки, коли системної пам'яті стає дуже мало"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "Ця опція перевизначає функцію автоматичного вивантаження вкладок браузером."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "Якщо увімкнено, вона примусово призупиняє вкладку замість її вивантаження."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "Зазвичай ваш браузер вивантажує вкладки лише тоді, коли рівень системної пам'яті стає дуже низьким."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Please note: This may cause tabs to suspend earlier than the time you have"
+    "message": "Зверніть увагу: це може призвести до призупинення вкладок раніше за час, "
   },
   "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "specified in the Automatic tab suspension options."
+    "message": "вказаний у налаштуваннях автоматичного призупинення."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Докладніше про вивантаження вкладок дивіться за посиланням:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_popup_unsuspend_tab": {
-    "message": "Unsuspend this tab"
+    "message": "Відновити цю вкладку"
   },
   "html_popup_suspend_tab": {
-    "message": "Suspend this tab now"
+    "message": "Призупинити цю вкладку зараз"
   },
   "html_popup_never_suspend_domain": {
-    "message": "Never suspend this domain"
+    "message": "Ніколи не призупиняти цей домен"
   },
   "html_popup_never_suspend_page": {
-    "message": "Never suspend this URL"
+    "message": "Ніколи не призупиняти цю URL-адресу"
   },
   "html_popup_suspend_other_tabs": {
-    "message": "Suspend all other tabs"
+    "message": "Призупиняти всі інші вкладки"
   },
   "html_popup_unsuspend_all_tabs": {
-    "message": "Unsuspend all tabs"
+    "message": "Відновити всі вкладки"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Wake matching tabs now"
+    "message": "Розбудити відповідні вкладки зараз"
   },
   "html_popup_suspend_selected_tabs": {
-    "message": "Suspend selected tabs"
+    "message": "Призупинити вибрані вкладки"
   },
   "html_popup_unsuspend_selected_tabs": {
-    "message": "Unsuspend selected tabs"
+    "message": "Відновити вибрані вкладки"
   },
   "html_popup_settings": {
     "message": "Налаштування"
