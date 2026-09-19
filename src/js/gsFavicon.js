@@ -371,16 +371,19 @@ export const gsFavicon = (() => {
     // gsUtils.log( 'gsFavicon', 'buildFaviconMeta', url );
     const timeout = 5 * 1000;
     return new Promise((resolve, reject) => {
+      const overtimeTimer = setTimeout(() => {
+        reject(`Failed to load img.src for ${url}`);
+      }, timeout);
+
       const img = new Image();
       // 12-16-2018 ::: @CollinChaffin ::: Anonymous declaration required to prevent terminating cross origin security errors
       // 12-16-2018 ::: @CollinChaffin ::: http://bit.ly/2BolEqx
       // 12-16-2018 ::: @CollinChaffin ::: https://bugs.chromium.org/p/chromium/issues/detail?id=409090#c23
       // 12-16-2018 ::: @CollinChaffin ::: https://bugs.chromium.org/p/chromium/issues/detail?id=718352#c10
       img.crossOrigin = 'Anonymous';
-      let imageLoaded = false;
 
       img.onload = () => {
-        imageLoaded = true;
+        clearTimeout(overtimeTimer);
 
         // faviconMeta.normalisedDataUrl/transparentDataUrl only ever end up as a tab-bar
         // <img>/<link rel="icon"> in suspended.js (setFaviconMeta()) — never rendered above
@@ -476,11 +479,6 @@ export const gsFavicon = (() => {
         }
       };
       img.src = url;
-      setTimeout(() => {
-        if (!imageLoaded) {
-          reject(`Failed to load img.src for ${url}`);
-        }
-      }, timeout);
     });
   }
 
