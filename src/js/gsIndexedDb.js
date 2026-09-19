@@ -75,15 +75,12 @@ export const gsIndexedDb = {
   },
 
   fetchPreviewImage: async function(tabUrl) {
-    let results;
     try {
       const db = await gsIndexedDb.getDb();
-      results = await db.getAllFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
+      const result = await db.getFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
+      return result ?? null;
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
-    }
-    if (results && results.length > 0) {
-      return results[0];
     }
     return null;
   },
@@ -119,22 +116,16 @@ export const gsIndexedDb = {
   },
 
   fetchTabInfo: async function(tabUrl) {
-    let results;
     try {
       const db = await gsIndexedDb.getDb();
-      results = (await db.getAllFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabUrl)).reverse();
+      const tabInfo = await db.getFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabUrl);
+      if (tabInfo) {
+        tabInfo.favIconUrl = tabInfo.favIconUrl || tabInfo.favicon;
+        delete tabInfo.favicon;
+        return tabInfo;
+      }
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
-    }
-    if (results && results.length > 0) {
-      const tabInfo = results[0];
-      if (tabInfo.favicon) {
-        if (!tabInfo.favIconUrl) {
-          tabInfo.favIconUrl = tabInfo.favicon;
-        }
-        delete tabInfo.favicon;
-      }
-      return tabInfo;
     }
     return null;
   },
@@ -158,15 +149,12 @@ export const gsIndexedDb = {
   },
 
   fetchFaviconMeta: async function(url) {
-    let results;
     try {
       const db = await gsIndexedDb.getDb();
-      results = (await db.getAllFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url)).reverse();
+      const faviconMeta = await db.getFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url);
+      return faviconMeta ?? null;
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
-    }
-    if (results && results.length > 0) {
-      return results[0];
     }
     return null;
   },
