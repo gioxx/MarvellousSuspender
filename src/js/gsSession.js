@@ -866,7 +866,7 @@ export const gsSession = (function() {
     const groupDelay          = 1000 / tabsToGroupPerSecond;
     for (const pair of allNewTabs) {
       const newTabId = pair.newTab?.id;
-      if (newTabId) {
+      if (newTabId && pair.sessionTab.groupId > 0) {
         await gsUtils.setTimeout(groupDelay);
         await assignTabGroupFromSession(targetWindowId, newTabId, pair.sessionTab.groupId, currentTabGroupsMap, sessionTabGroupsMap);
       }
