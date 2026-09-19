@@ -3,6 +3,13 @@ import  { gsUtils }               from './gsUtils.js';
 
 'use strict';
 
+// Share reads within this context; Chrome remains the source of truth across contexts.
+/** @type { object | Promise<object> | null } */
+let settingsPromise = null;
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName === 'local' && changes.gsSettings) settingsPromise = null;
+});
+
 // Every write of the settings object is a read-modify-write of the whole object, so two
 // overlapping ones could write back a stale copy. Per context: a page has its own chain.
 let _settingsWriteChain = Promise.resolve();
@@ -362,22 +369,35 @@ export const gsStorage = {
   },
 
   getSettings: async () => {
-    const { settings, backfilled } = await readSettings();
-    if (backfilled) {
-      //save from a fresh read under the lock, so a newer write is not overwritten
-      await withSettingsLock(async () => {
-        const fresh = await readSettings();
-        if (fresh.backfilled) {
-          await gsStorage.saveSettings(fresh.settings);
-        }
-      });
-    }
-    return settings;
+    if (settingsPromise) return structuredClone(await settingsPromise);
+    settingsPromise = new Promise(async resolve => {
+      const { settings, backfilled } = await readSettings();
+      if (backfilled) {
+        //save from a fresh read under the lock, so a newer write is not overwritten
+        await withSettingsLock(async () => {
+          const fresh = await readSettings();
+          if (fresh.backfilled) {
+            await gsStorage.saveSettings(fresh.settings);
+          }
+        });
+      }
+      resolve(settings);
+    });
+    const setting = await settingsPromise
+    settingsPromise = setting;
+    // Callers modify their snapshots (notably syncSettings deletes the sync flag).
+    return structuredClone(setting);
   },
 
   saveSettings: async (settings) => {
     // gsUtils.log(0, 'saveSettings');
-    return gsStorage.saveStorage('local', 'gsSettings', settings);
+    settingsPromise = null;
+    try {
+      await gsStorage.saveStorage('local', 'gsSettings', settings);
+    }
+    finally {
+      settingsPromise = null;
+    }
   },
 
   getTabState: async (tabId) => {

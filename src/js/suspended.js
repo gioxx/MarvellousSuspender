@@ -56,7 +56,9 @@ import  { tgs }                   from './tgs.js';
     return urlStr;
   }
 
-  async function getPreviewUri(suspendedUrl) {
+  async function getPreviewUri(suspendedUrl, previewMode) {
+    // Disabled, viewport, or full-page preview
+    if (!previewMode || previewMode === '0') return null;
     const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
     const preview = await gsIndexedDb.fetchPreviewImage(originalUrl);
     let previewUri = null;
@@ -313,8 +315,11 @@ import  { tgs }                   from './tgs.js';
     }
     setTitle(title);
 
-    const appendUrl = await gsStorage.getOption(gsStorage.APPEND_URL_TO_TITLE);
-    if (appendUrl) {
+    const optionsPromise  = gsStorage.getSettings();
+    const faviconMetaPromise = gsFavicon.getFaviconMeta(tab);
+
+    const options = await optionsPromise;
+    if (options[gsStorage.APPEND_URL_TO_TITLE]) {
       const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
       if (originalUrl) {
         document.title = title + ' · ' + originalUrl;
@@ -325,30 +330,29 @@ import  { tgs }                   from './tgs.js';
     setWatermark();
 
     // Set faviconMeta
-    const faviconMeta = await gsFavicon.getFaviconMeta(tab);
+    const faviconMeta = await faviconMetaPromise;
     setFaviconMeta(faviconMeta);
 
-    if (quickInit) {
-      // quickInit skips the heavy setup below (preview, unsuspend click handlers, etc.)
-      // for tabs about to be discarded anyway, but that also means it never registers
-      // the beforeunload listener the "reload also unsuspends background tabs" option
-      // depends on — a background tab suspended with "Discard after suspend" on always
-      // takes this path, silently defeating that option regardless of its own state.
-      const reloadUnsuspendBackground = await gsStorage.getOption(gsStorage.RELOAD_UNSUSPEND_BACKGROUND);
-      await setUnloadTabHandler(tab, reloadUnsuspendBackground);
-      return;
-    }
+    await setUnloadTabHandler(tab, options[gsStorage.RELOAD_UNSUSPEND_BACKGROUND]);
 
-    const options = await gsStorage.getSettings();
+    // quickInit skips the heavy setup below (preview, unsuspend click handlers, etc.)
+    // for tabs about to be discarded anyway, but that also means it never registers
+    // the beforeunload listener the "reload also unsuspends background tabs" option
+    // depends on — a background tab suspended with "Discard after suspend" on always
+    // takes this path, silently defeating that option regardless of its own state.
+    if (quickInit) return;
+
     const originalUrl = gsUtils.getOriginalUrl(suspendedUrl);
 
     // Add event listeners
-    await setUnloadTabHandler(tab, options[gsStorage.RELOAD_UNSUSPEND_BACKGROUND]);
     await setUnsuspendTabHandlers(tab);
 
     // Set imagePreview
     const previewMode = options[gsStorage.SCREEN_CAPTURE];
-    const previewUri = await getPreviewUri(suspendedUrl);
+    const previewUriPromise = getPreviewUri(suspendedUrl, previewMode);
+    const suspendReasonIntPromise = tgs.getTabStatePropForTabId(tab.id, tgs.STATE_SUSPEND_REASON);
+
+    const previewUri = await previewUriPromise;
     await toggleImagePreviewVisibility( tab, previewMode, previewUri, );
 
     // Set theme
@@ -360,8 +364,8 @@ import  { tgs }                   from './tgs.js';
     setUrl(originalUrl);
 
     // Set reason
-    const suspendReasonInt = await tgs.getTabStatePropForTabId( tab.id, tgs.STATE_SUSPEND_REASON );
     let suspendReason = null;
+    const suspendReasonInt = await suspendReasonIntPromise;
     if (suspendReasonInt === 3) {
       suspendReason = gsUtils.getMessage('js_suspended_low_memory');
     }
@@ -405,8 +409,8 @@ import  { tgs }                   from './tgs.js';
   }
 
   async function updatePreviewMode(tab, previewMode) {
-    const previewUri = await getPreviewUri(tab.url);
-    await toggleImagePreviewVisibility( tab, previewMode, previewUri, );
+    const previewUri = await getPreviewUri(tab.url, previewMode);
+    await toggleImagePreviewVisibility(tab, previewMode, previewUri);
     const scrollPosition = gsUtils.getSuspendedScrollPosition(tab.url);
     setScrollPosition(scrollPosition, previewMode);
   }
