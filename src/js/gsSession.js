@@ -754,10 +754,10 @@ export const gsSession = (function() {
   function generateTabMatchingObjects(sessionWindows, currentWindows) {
     const unsuspendedSessionUrlsByWindowId = {};
     sessionWindows.forEach(function(sessionWindow) {
-      unsuspendedSessionUrlsByWindowId[sessionWindow.id] = [];
+      unsuspendedSessionUrlsByWindowId[sessionWindow.id] = new Set();
       sessionWindow.tabs.forEach(function(curTab) {
         if (gsUtils.isNormalTab(curTab)) {
-          unsuspendedSessionUrlsByWindowId[sessionWindow.id].push(curTab.url);
+          unsuspendedSessionUrlsByWindowId[sessionWindow.id].add(curTab.url);
         }
       });
     });
@@ -779,7 +779,7 @@ export const gsSession = (function() {
         const unsuspendedCurrentUrls =
           unsuspendedCurrentUrlsByWindowId[currentWindow.id];
         const matchCount = unsuspendedCurrentUrls.filter(function(url) {
-          return unsuspendedSessionUrls.includes(url);
+          return unsuspendedSessionUrls.has(url);
         }).length;
         tabMatchingObjects.push({
           tabMatchCount: matchCount,
@@ -812,16 +812,16 @@ export const gsSession = (function() {
       // if we have been provided with a current window to recover into
       gsUtils.log( 'gsUtils', 'Restoring into existingWindow: ', sessionWindow, existingWindow );
 
-      const currentTabIds   = [];
-      const currentTabUrls  = [];
+      const currentTabIds   = new Set();
+      const currentTabUrls  = new Set();
       for (const currentTab of existingWindow.tabs) {
-        currentTabIds.push(currentTab.id);
-        currentTabUrls.push(currentTab.url);
+        currentTabIds.add(currentTab.id);
+        currentTabUrls.add(currentTab.url);
       }
 
       for (const [i, sessionTab] of sessionWindow.tabs.entries()) {
         //if current tab does not exist then recreate it
-        if ( !gsUtils.isSpecialTab(sessionTab) && !currentTabUrls.includes(sessionTab.url) && !currentTabIds.includes(sessionTab.id) ) {
+        if ( !gsUtils.isSpecialTab(sessionTab) && !currentTabUrls.has(sessionTab.url) && !currentTabIds.has(sessionTab.id) ) {
           tabPromises.push(
             createNewTabAsPromised({ delay: i * delay, windowId: existingWindow.id, index: sessionTab.index, sessionTab, suspendMode })
           );
