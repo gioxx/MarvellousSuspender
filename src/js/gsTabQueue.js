@@ -37,7 +37,8 @@ export const gsTabQueue = (function() {
         exceptionFn: (tab, resolve, reject, requeue) => resolve(false),
       };
       const _tabDetailsByTabId = new Map();
-      let   _processingQueueBufferTimer = null;
+      let   _processingQueueBufferTimer = 0;
+      let   _processingQueueDueAt = 0;
       const _queueId = queueId;
 
       setQueueProperties(queueProps);
@@ -168,18 +169,16 @@ export const gsTabQueue = (function() {
       }
 
       function requestProcessQueue(processingDelay) {
-        setTimeout(() => {
-          startProcessQueueBufferTimer();
-        }, processingDelay);
-      }
-
-      function startProcessQueueBufferTimer() {
-        if (_processingQueueBufferTimer === null) {
-          _processingQueueBufferTimer = setTimeout(() => {
-            _processingQueueBufferTimer = null;
-            processQueue();
-          }, PROCESSING_QUEUE_CHECK_INTERVAL);
-        }
+        if (_tabDetailsByTabId.size === 0) return;
+        const dueAt = Date.now() + processingDelay + PROCESSING_QUEUE_CHECK_INTERVAL;
+        // A burst of tabs shares one wake-up; an earlier request can bring it forward.
+        if (_processingQueueBufferTimer !== 0 && _processingQueueDueAt <= dueAt) return;
+        clearTimeout(_processingQueueBufferTimer);
+        _processingQueueDueAt = dueAt;
+        _processingQueueBufferTimer = setTimeout(() => {
+          _processingQueueBufferTimer = 0;
+          processQueue();
+        }, processingDelay + PROCESSING_QUEUE_CHECK_INTERVAL);
       }
 
       function processQueue() {
