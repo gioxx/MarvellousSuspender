@@ -465,25 +465,25 @@
     "message": "наприклад, після виділення декількох вкладок і натискання Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "Застосовувати вбудовану економію пам'яті браузера під час призупинення"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Reduces a suspended tab's memory usage even more, by utilizing"
+    "message": "Додатково зменшує використання пам'яті призупиненою вкладкою завдяки"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "використанню вбудованої функції браузера з вивантаження вкладок (вивантаження вкладок)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "to 500% memory savings when working with large numbers of tabs."
+    "message": "Це може забезпечити до 500% економії пам'яті під час роботи з великою кількістю вкладок."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "However, it will also cause a slight rendering delay when selecting"
+    "message": "Однак це також спричинить незначну затримку рендерингу "
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "a suspended tab."
+    "message": "під час вибору призупиненої вкладки."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Детальніше про вивантаження вкладок див.:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -501,34 +501,34 @@
     "message": "Система"
   },
   "html_options_suspend_screen_capturing": {
-    "message": "Screen capturing"
+    "message": "Захоплення екрана"
   },
   "html_options_suspend_screen_capturing_disabled": {
     "message": "Відключено"
   },
   "html_options_suspend_screen_capturing_screen_only": {
-    "message": "Capture top of screen only"
+    "message": "Знімати лише верхню частину екрана"
   },
   "html_options_suspend_screen_capturing_entire_page": {
-    "message": "Capture entire page"
+    "message": "Захоплювати всю сторінку"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "On a suspended tab, the extension can display an image preview of the what the tab"
+    "message": "На призупиненій вкладці розширення може відображати попередній перегляд зображення того,"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "looked like just before it was suspended."
+    "message": "як виглядала сторінка безпосередньо перед призупиненням."
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "The screen capturing feature is experimental and can cause significant CPU usage as"
+    "message": "Функція створення знімків екрана є експериментальною та може спричиняти значне навантаження на процесор,"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "well as slightly increased memory usage."
+    "message": "а також незначне збільшення використання пам'яті."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "Якщо ви помітите незвичну поведінку, наприклад, тривалу затримку під час призупинення вкладок"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "crashing unexpectedly, try turning this feature off."
+    "message": "або раптовий збій у роботі браузера, спробуйте вимкнути цю функцію."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Enable high quality screen capture mode"
