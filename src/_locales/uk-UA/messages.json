@@ -728,7 +728,7 @@
     "message": "Автоматичне відновлення вкладок"
   },
   "html_recovery_go_to_session_manager": {
-    "message": "Перейти до менеджера сесій"
+    "message": "Перейти до керування сесіями"
   },
   "html_recovery_important_message": {
     "message": "Наразі у вас увімкнено запис екрана. Якщо розширення постійно аварійно завершує роботу, рекомендується вимкнути цю опцію."
@@ -1071,121 +1071,121 @@
     "message": "Автоматичне резервне копіювання сесії"
   },
   "html_backup_session_desc": {
-    "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
+    "message": "На відміну від сеансів, резервні копії зберігаються в вигляді файлів JSON за межами Chrome: до вашої папки Завантаження або Google Drive. Вони залишаються неушкодженими після збоїв браузера, скидання налаштувань профілю та повторного встановлення. Це ваша справжня гарантія безпеки."
   },
   "html_options_backup_enable": {
-    "message": "Automatically back up your session"
+    "message": "Автоматично створювати резервні копії сесії"
   },
   "html_options_backup_enable_tooltip_line1a": {
-    "message": "Silently saves a copy of your current session as a JSON file."
+    "message": "Тихо зберігає копію вашого поточного сеансу у вигляді JSON-файлу."
   },
   "html_options_backup_enable_tooltip_line1b": {
-    "message": "Choose to save locally (tms-backups folder inside your Downloads)"
+    "message": "Виберіть для локального збереження (папка tms-backups у ваших завантаженнях)"
   },
   "html_options_backup_enable_tooltip_line1c": {
-    "message": "or to a 'TMS Backups' folder on Google Drive."
+    "message": "або у папку «TMS Backups» на Google Drive."
   },
   "html_options_backup_enable_tooltip_line2a": {
-    "message": "For local backups, Chrome must be set to download files automatically"
+    "message": "Для створення локальних резервних копій у Chrome має бути ввімкнено автоматичне завантаження файлів (Без запитів)."
   },
   "html_options_backup_enable_tooltip_line2b": {
-    "message": "(without asking). Check chrome://settings/downloads."
+    "message": "Перевірте chrome://settings/downloads"
   },
   "html_options_backup_enable_tooltip_line2c": {
-    "message": "Google Drive backups have no such requirement."
+    "message": "Для резервних копій на Google Диску це не потрібно."
   },
   "html_options_backup_interval": {
-    "message": "Backup every"
+    "message": "Резервне копіювання кожні"
   },
   "html_options_backup_daily_time": {
-    "message": "At what time"
+    "message": "В який час"
   },
   "html_backup_interval_warning": {
-    "message": "Heads up: with an interval this long, a lot can happen between backups. Consider a shorter interval to reduce the risk of data loss."
+    "message": "Зверніть увагу: при такому тривалому інтервалі між резервними копіями може статися багато чого. Рекомендуємо скоротити інтервал, щоб зменшити ризик втрати даних."
   },
   "html_options_backup_note": {
-    "message": "Both local and Drive backups include a device identifier (e.g. tms-session-a3f7b2c8-2026-06-18T14-30.json), so each browser installation keeps its own independent pool of backups. The most recent N local backups are kept per device; Drive backups are also kept N per device, so sessions from different machines or browsers never overwrite each other.\n\n<strong>Even with Google Drive selected, a local safety-net file is still written when the browser closes and uploaded to Drive on the next startup. A local file appearing here is expected, not a bug.</strong>"
+    "message": "Як локальні резервні копії, так і резервні копії на Drive містять ідентифікатор пристрою (наприклад, tms-session-a3f7b2c8-2026-06-18T14-30.json), тому кожна інсталяція браузера зберігає власний незалежний набір резервних копій. На кожному пристрої зберігаються N останніх локальних резервних копій; резервні копії на Drive також зберігаються у кількості N шт. на кожен пристрій, тому сесії з різних комп’ютерів або браузерів ніколи не перезаписують одна одну.\n\n<strong>Навіть якщо вибрано Google Drive, під час закриття браузера все одно створюється локальний файл резервної копії, який завантажується на Drive під час наступного запуску. Локальний файл, що з'являється тут, є очікуваним, а не помилкою.</strong>"
   },
   "html_backup_max_files_label": {
-    "message": "Max backups to keep"
+    "message": "Максимальна кількість резервних копій для зберігання"
   },
   "html_backup_device_name_label": {
-    "message": "Device name (optional)"
+    "message": "Назва пристрою (необов'язково)"
   },
   "html_backup_device_name_save": {
-    "message": "Save"
+    "message": "Зберегти"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Legacy backups"
+    "message": "Старі резервні копії"
   },
   "html_options_backup_now": {
-    "message": "Backup now"
+    "message": "Створити резервну копію зараз"
   },
   "html_options_back_to_top": {
-    "message": "↑ Top"
+    "message": "↑ Вгору"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Sessions are stored inside Chrome only: they won't survive a browser crash or profile reset."
+    "message": "Сесії зберігаються виключно в Chrome: вони не збережуться у разі аварійного завершення роботи браузера або скидання налаштувань профілю."
   },
   "html_history_backup_settings_link": {
-    "message": "Set up Backup to save your tabs outside the browser →"
+    "message": "Налаштуйте резервне копіювання, щоб зберігати вкладки поза браузером →"
   },
   "js_options_backup_now_running": {
-    "message": "Running backup…"
+    "message": "Виконується резервне копіювання…"
   },
   "js_options_backup_now_done": {
-    "message": "Backup saved."
+    "message": "Резервна копія збережена."
   },
   "js_backup_option_saved": {
-    "message": "Saved"
+    "message": "Збережено"
   },
   "js_backup_permission_denied": {
-    "message": "Permission denied: automatic backup was not enabled."
+    "message": "Немає дозволу: автоматичне резервне копіювання не ввімкнено."
   },
   "html_options_other_enable_news_feed": {
-    "message": "Enable news feed"
+    "message": "Увімкнути стрічку новин"
   },
   "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "Periodically checks marvellouscode.works for TMS news and shows them"
+    "message": "Періодично перевіряє marvellouscode.works на наявність новин TMS та показує їх"
   },
   "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "in the sidebar."
+    "message": "на бічній панелі."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "Disable to skip this background request."
+    "message": "Вимкніть, щоб пропустити цей фоновий запит."
   },
   "html_options_other_legacy_mascot": {
-    "message": "Use the classic The Great Suspender artwork instead of the new mascot"
+    "message": "Використовувати класичну ілюстрацію «The Great Suspender» замість нового талісмана"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Switches icons and illustrations back to the original The Great"
+    "message": "Повертає значки та ілюстрації до оригінального \"The Great\""
   },
   "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "Suspender style, where a legacy version of the image is available."
+    "message": "Стиль Suspender, якщо доступна застаріла версія зображення."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
-    "message": "Images with no legacy equivalent keep using the new artwork."
+    "message": "Зображення, які не мають аналогів у застарілих версіях, продовжують використовувати нову ілюстрацію."
   },
   "html_permissions_notice_text": {
-    "message": "Starting with this version, TMS only asks for filesystem/Google account access when you actually turn on local or Google Drive backup, instead of requesting it upfront."
+    "message": "Починаючи з цієї версії, TMS запитує дозвіл на доступ до файлової системи та облікового запису Google лише тоді, коли ви фактично вмикаєте локальне резервне копіювання або резервне копіювання на Google Drive, а не вимагає його заздалегідь."
   },
   "html_permissions_notice_link": {
-    "message": "Learn more about permissions."
+    "message": "Дізнатися більше про дозволи."
   },
   "html_permissions_notice_dismiss": {
-    "message": "Got it"
+    "message": "Зрозуміло"
   },
   "html_permissions_info_note": {
-    "message": "TMS requests the Downloads and Google account permissions only when you enable local or Google Drive backup below."
+    "message": "TMS запитує дозволи на завантаження та обліковий запис Google, лише якщо ви ввімкнете локальне резервне копіювання або резервне копіювання на Google Диск нижче."
   },
   "html_permissions_info_note_link": {
-    "message": "See the full permissions breakdown."
+    "message": "Див. повний перелік дозволів."
   },
   "js_options_backup_now_error": {
-    "message": "Chrome is asking where to save files, so automatic backups won't work silently. Disable \"Ask where to save\" in chrome://settings/downloads."
+    "message": "Chrome запитує, куди зберігати файли, тому автоматичне резервне копіювання не працюватиме безшумно. Вимкніть опцію \"Запитувати, де зберігати...\" в chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
-    "message": "Next run: $time$",
+    "message": "Наступний запуск: $time$",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -1193,7 +1193,7 @@
     }
   },
   "js_options_backup_last_local": {
-    "message": "Last backup: $date$",
+    "message": "Остання резервна копія: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1201,91 +1201,91 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "Backup destination"
+    "message": "Шлях резервного копіювання"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (Downloads folder)"
+    "message": "Локальна (папка \"Завантаження\")"
   },
   "html_options_backup_dest_drive": {
     "message": "Google Drive"
   },
   "html_options_backup_drive_connect": {
-    "message": "Connect Google Account"
+    "message": "Підключити обліковий запис Google"
   },
   "html_options_backup_drive_disconnect": {
-    "message": "Disconnect"
+    "message": "Відключитись"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatic backup failed: no Google account connected. Click here to fix it."
+    "message": "Автоматичне резервне копіювання не вдалося: не підключено обліковий запис Google. Натисніть тут, щоб виправити це."
   },
   "html_popup_backup_downloads_error": {
-    "message": "Automatic backup failed: the Downloads permission is missing. Click here to fix it."
+    "message": "Автоматичне резервне копіювання не вдалося: відсутній дозвіл на доступ до папки «Завантаження». Натисніть тут, щоб виправити це."
   },
   "html_popup_backup_nudge_text": {
-    "message": "Automatic backup is off. Protect your sessions."
+    "message": "Автоматичне резервне копіювання вимкнено. Захистіть свої сесії."
   },
   "html_backup_nudge_dismiss": {
-    "message": "Remind me in 10 days"
+    "message": "Нагадай мені через 10 днів"
   },
   "html_backup_nudge_note_text": {
-    "message": "Automatic backup is off. Enabling it protects your sessions if this browser profile ever gets reset or corrupted."
+    "message": "Автоматичне резервне копіювання вимкнено. Увімкнення цієї функції захистить ваші сесії на випадок, якщо цей профіль браузера буде скинуто або пошкоджено."
   },
   "html_backup_nudge_optout": {
-    "message": "I'm not interested, stop reminding me"
+    "message": "Мені це не цікаво, перестань мені про це нагадувати"
   },
   "html_backup_downloads_permission_missing": {
-    "message": "Automatic backup is on, but the Downloads permission isn't granted on this device (this can happen after importing settings or syncing from another browser). Backups won't run until you grant it."
+    "message": "Автоматичне резервне копіювання увімкнено, але на цьому пристрої не надано дозвіл на доступ до папки «Завантаження» (така ситуація може виникнути після імпорту налаштувань або синхронізації з іншим браузером). Резервне копіювання не виконуватиметься, доки ви не надасте цей дозвіл."
   },
   "html_backup_downloads_permission_grant": {
-    "message": "Grant permission"
+    "message": "Надати дозвіл"
   },
   "js_options_backup_drive_connecting": {
-    "message": "Connecting…"
+    "message": "Підключення…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Could not connect to Google. Please try again."
+    "message": "Не вдалося підключитися до Google. Спробуйте ще раз."
   },
   "html_options_settings_backup": {
-    "message": "Settings backup"
+    "message": "Резервне копіювання налаштувань"
   },
   "html_backup_settings_desc": {
-    "message": "Export all extension settings to a JSON file, useful as a backup or to transfer your configuration to another browser profile. Importing a file replaces the current settings."
+    "message": "Експортувати всі налаштування розширення у файл JSON — це корисно для створення резервної копії або для перенесення конфігурації в інший профіль браузера. Імпорт файлу замінить поточні налаштування."
   },
   "html_backup_local_folder_hint": {
-    "message": "Local backups go to the tms-backups folder inside your Downloads."
+    "message": "Локальні резервні копії зберігаються в папці tms-backups у \"Завантаження\"."
   },
   "html_backup_drive_folder_note": {
-    "message": "Backups are saved to the 'TMS Backups' folder in your Google Drive."
+    "message": "Резервні копії зберігаються в папці \"TMS Backups\" на вашому Google Диску."
   },
   "html_backup_drive_open_folder": {
-    "message": "Open TMS Backups folder on Drive ↗"
+    "message": "Відкрити папку «TMS Backups» на Диску ↗"
   },
   "html_backup_drive_label_account": {
-    "message": "Account"
+    "message": "Обліковий запис"
   },
   "html_backup_drive_label_folder": {
-    "message": "Folder"
+    "message": "Папка"
   },
   "html_backup_settings_local_title": {
-    "message": "Local"
+    "message": "Локальний"
   },
   "html_backup_settings_drive_title": {
     "message": "Google Drive"
   },
   "html_backup_drive_save_settings": {
-    "message": "Save settings to Drive"
+    "message": "Зберегти налаштування на Диску"
   },
   "html_backup_settings_drive_restore": {
-    "message": "Restore settings from Drive"
+    "message": "Відновити налаштування з Диску"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Saving to Drive…"
+    "message": "Збереження на Диск…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "Settings saved to Drive."
+    "message": "Параметри збережено до Диску."
   },
   "js_backup_drive_settings_error": {
-    "message": "Could not save settings to Drive. Please try again."
+    "message": "Не вдалося зберегти налаштування до Диску. Будь ласка, спробуйте ще раз."
   },
   "js_backup_cooldown": {
     "message": "Wait $seconds$s before the next backup.",
@@ -1360,13 +1360,13 @@
     "message": "Select a Drive backup"
   },
   "html_backup_restore_import": {
-    "message": "Import selected"
+    "message": "Імпорт вибраного"
   },
   "js_backup_restore_importing": {
-    "message": "Importing…"
+    "message": "Імпорт..."
   },
   "js_backup_restore_success": {
-    "message": "Imported as \"$name$\".",
+    "message": "Імпортовано як \"$name$\".",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1374,22 +1374,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ Open Sessions to restore"
+    "message": "→ Відкрити Сесії для відновлення"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Invalid backup file."
+    "message": "Недійсний файл резервної копії."
   },
   "js_backup_restore_error_drive": {
-    "message": "Could not download from Drive. Check your connection and try again."
+    "message": "He вдалося завантажити з Диска. Перевірте з'єднання та повторіть спробу."
   },
   "js_backup_restore_error_generic": {
-    "message": "Import failed. Please try again."
+    "message": "Імпорт не вдався. Спробуйте ще раз."
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Save Drive backup before switching?"
+    "message": "Зберегти резервну копію диска перед переходом?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Your most recent Drive backup is from $date$. Save it as a session in Sessions Manager so you can restore it without needing Google Drive.",
+    "message": "Ваша найновіша резервна копія з Google Drive була створена $date$. Збережіть її як сесія у \"Керування сесіями\", щоб мати змогу відновити її без використання Google Drive.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1397,31 +1397,31 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Save to Sessions"
+    "message": "Зберегти до сесій"
   },
   "html_backup_drive_import_modal_cancel": {
-    "message": "Skip"
+    "message": "Пропустити"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive backup files"
+    "message": "Файли резервних копій диска"
   },
   "html_backup_drive_download_btn": {
-    "message": "Download"
+    "message": "Завантажити"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Delete"
+    "message": "Видалити"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Delete this backup file from Drive? This cannot be undone."
+    "message": "Видалити цей файл резервної копії з Диска? Це не можна скасувати."
   },
   "html_backup_drive_delete_device_btn": {
-    "message": "Delete all"
+    "message": "Видалити все"
   },
   "html_backup_drive_delete_device_modal_title": {
-    "message": "Delete all backups for this device?"
+    "message": "Видалити всі резервні копії для цього пристрою?"
   },
   "html_backup_drive_delete_device_modal_body": {
-    "message": "This will permanently delete all $count$ backup file(s) for \"$device$\" from Google Drive. This cannot be undone.",
+    "message": "Це назавжди видалить усі $count$ файлів резервних копій для \"$device$\" з Google Диска. Цю дію не можна скасувати.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1432,18 +1432,18 @@
     }
   },
   "html_backup_drive_delete_device_modal_confirm": {
-    "message": "Delete all"
+    "message": "Видалити все"
   },
   "html_backup_drive_delete_device_modal_cancel": {
-    "message": "Cancel"
+    "message": "Скасувати"
   },
   "js_backup_drive_delete_device_error": {
-    "message": "Some backup files could not be deleted. Try again."
+    "message": "Деякі резервні копії не вдалося видалити. Повторіть спробу."
   },
   "html_backup_drive_no_files": {
-    "message": "No Drive backup files found."
+    "message": "Файли резервної копії Диска не знайдено."
   },
   "html_backup_drive_files_loading": {
-    "message": "Loading…"
+    "message": "Завантаження…"
   }
 }
