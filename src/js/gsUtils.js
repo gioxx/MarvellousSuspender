@@ -1318,28 +1318,19 @@ export const gsUtils = {
       };
     });
 
-    //if context menu setting has changed then rebuild it from scratch
-    if (gsUtils.contains(changedSettingKeys, gsStorage.ADD_CONTEXT)) {
-      // tgs.rebuildContextMenu() always does removeAll() before create() (mc-triage
-      // review, PR #500) — calling tgs.buildContextMenu(addContextMenu) directly here used
-      // to skip that removal, so toggling the option on while items already existed (e.g.
-      // right after a wake-triggered rebuild) could create() duplicate-id items.
-      //
-      // This listener runs in every context that loads gsUtils.js, Options page included —
-      // that context has its own separate tgs.js module instance, so calling
-      // tgs.rebuildContextMenu() directly here would serialize only against other calls
-      // from that same context, not against the service worker's own rebuilds, while both
-      // would still be mutating the single browser-level chrome.contextMenus resource
-      // concurrently (Codex review, PR #500). Routed through the service worker, the one
-      // place tgs.js's own serialization actually covers every caller, via a message when
-      // this isn't already that context.
-      if (typeof ServiceWorkerGlobalScope !== 'undefined' && self instanceof ServiceWorkerGlobalScope) {
-        tgs.rebuildContextMenu();
-      }
-      else {
-        chrome.runtime.sendMessage({ action: 'rebuildContextMenu' });
-      }
-    }
+    // Context-menu rebuilds on an ADD_CONTEXT change are handled entirely by
+    // background.js's own chrome.storage.onChanged listener on the gsSettings blob now,
+    // not from here. This function runs in every context that loads gsUtils.js, Options
+    // page included, each with its own separate tgs.js module instance -- calling
+    // tgs.rebuildContextMenu() directly from a non-service-worker context, or messaging
+    // the service worker to do it, both broke down for an Options page opened in an
+    // incognito window under "incognito": "split": chrome.runtime.sendMessage() from
+    // there can only ever reach the incognito instance's own service worker, whose
+    // rebuildContextMenu() no-ops for incognito by design, never the regular profile's
+    // (Codex review round 2, PR #500). gsSettings itself lives in chrome.storage.local,
+    // which -- unlike chrome.storage.sync or a runtime message -- is not partitioned by
+    // that split (see the log-buffer migration note above), so the regular service
+    // worker's own listener on it is reached by a write from either instance, uniformly.
 
     //if screenshot preferences have changed then update the queue parameters
     if (

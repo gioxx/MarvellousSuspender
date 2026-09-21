@@ -130,6 +130,29 @@ import  { tgs }                   from './tgs.js';
     return _contextMenuRebuildOncePromise;
   }
 
+  // Reacts to an ADD_CONTEXT change regardless of which context wrote it -- gsUtils.js's
+  // performPostSaveUpdates() used to call tgs.rebuildContextMenu() directly, or message
+  // this service worker to, from whichever context the Options page toggle actually ran
+  // in; both broke down for an Options page opened in an incognito window under
+  // "incognito": "split", since chrome.runtime.sendMessage() from there can only ever
+  // reach the incognito instance's own separate service worker, whose
+  // rebuildContextMenu() no-ops for incognito by design, never this one (Codex review
+  // round 2, PR #500). gsSettings lives in chrome.storage.local, which -- unlike
+  // chrome.storage.sync or a runtime message -- is not partitioned by that split (see
+  // gsUtils.js's log-buffer migration note): a write from either instance fires this
+  // listener, so this service worker's own reaction to it is reached uniformly no matter
+  // which context, or which profile side of the split, made the change.
+  if (!chrome.extension.inIncognitoContext) {
+    chrome.storage.onChanged.addListener((changes, areaName) => {
+      if (areaName !== 'local' || !changes.gsSettings) return;
+      const oldAddContext = changes.gsSettings.oldValue?.[gsStorage.ADD_CONTEXT];
+      const newAddContext = changes.gsSettings.newValue?.[gsStorage.ADD_CONTEXT];
+      if (oldAddContext !== newAddContext) {
+        tgs.rebuildContextMenu();
+      }
+    });
+  }
+
   chrome.runtime.onInstalled.addListener(async (details) => {
     gsUtils.log('2 runtime.onInstalled', details);
     // Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version.
@@ -303,19 +326,6 @@ import  { tgs }                   from './tgs.js';
           }
           case 'savePreviewData' : {
             await gsTabSuspendManager.handlePreviewImageResponse(sender.tab, request.previewUrl, request.errorMsg); // async. unhandled promise
-            break;
-          }
-          case 'rebuildContextMenu' : {
-            // Routed here rather than calling tgs.rebuildContextMenu() directly from
-            // whichever context the ADD_CONTEXT setting changed in (gsUtils.js's
-            // chrome.storage.onChanged listener runs in every context that loads it,
-            // Options page included) -- that context has its own separate tgs.js module
-            // instance, so its _rebuildContextMenuPromise/_contextMenuChain/dirty-flag loop
-            // aren't shared with the service worker's, and chrome.contextMenus itself is a
-            // single browser-level resource both would still be mutating concurrently
-            // (Codex review, PR #500). This service worker is the one place tgs.js's own
-            // serialization actually covers every caller.
-            await tgs.rebuildContextMenu();
             break;
           }
           case 'fetchNewsFeed' : {
