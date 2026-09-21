@@ -1324,7 +1324,21 @@ export const gsUtils = {
       // review, PR #500) — calling tgs.buildContextMenu(addContextMenu) directly here used
       // to skip that removal, so toggling the option on while items already existed (e.g.
       // right after a wake-triggered rebuild) could create() duplicate-id items.
-      tgs.rebuildContextMenu();
+      //
+      // This listener runs in every context that loads gsUtils.js, Options page included —
+      // that context has its own separate tgs.js module instance, so calling
+      // tgs.rebuildContextMenu() directly here would serialize only against other calls
+      // from that same context, not against the service worker's own rebuilds, while both
+      // would still be mutating the single browser-level chrome.contextMenus resource
+      // concurrently (Codex review, PR #500). Routed through the service worker, the one
+      // place tgs.js's own serialization actually covers every caller, via a message when
+      // this isn't already that context.
+      if (typeof ServiceWorkerGlobalScope !== 'undefined' && self instanceof ServiceWorkerGlobalScope) {
+        tgs.rebuildContextMenu();
+      }
+      else {
+        chrome.runtime.sendMessage({ action: 'rebuildContextMenu' });
+      }
     }
 
     //if screenshot preferences have changed then update the queue parameters

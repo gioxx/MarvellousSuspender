@@ -305,6 +305,19 @@ import  { tgs }                   from './tgs.js';
             await gsTabSuspendManager.handlePreviewImageResponse(sender.tab, request.previewUrl, request.errorMsg); // async. unhandled promise
             break;
           }
+          case 'rebuildContextMenu' : {
+            // Routed here rather than calling tgs.rebuildContextMenu() directly from
+            // whichever context the ADD_CONTEXT setting changed in (gsUtils.js's
+            // chrome.storage.onChanged listener runs in every context that loads it,
+            // Options page included) -- that context has its own separate tgs.js module
+            // instance, so its _rebuildContextMenuPromise/_contextMenuChain/dirty-flag loop
+            // aren't shared with the service worker's, and chrome.contextMenus itself is a
+            // single browser-level resource both would still be mutating concurrently
+            // (Codex review, PR #500). This service worker is the one place tgs.js's own
+            // serialization actually covers every caller.
+            await tgs.rebuildContextMenu();
+            break;
+          }
           case 'fetchNewsFeed' : {
             gsNewsFeed.fetchAndCacheIfStale();
             break;
