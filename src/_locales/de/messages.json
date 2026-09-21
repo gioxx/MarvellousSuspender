@@ -33,7 +33,7 @@
     "message": "Alle Tabs außerhalb von Gruppen im aktiven Fenster aufwachen"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Toggle never suspend for the active tab's group"
+    "message": "Nicht aussetzen für die Gruppe des aktiven Tabs umschalten"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Alle anderen Tabs im aktiven Fenster aussetzen"
@@ -87,13 +87,13 @@
     "message": "Alle Tabs außerhalb von Gruppen aufwachen"
   },
   "js_context_never_suspend_group": {
-    "message": "Never suspend this group"
+    "message": "Diese Gruppe nicht aussetzen"
   },
   "js_context_allow_suspending_group": {
-    "message": "Allow suspending this group"
+    "message": "Aussetzen dieser Gruppe erlauben"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Never suspend this group (named groups only)"
+    "message": "Diese Gruppe nicht aussetzen (nur benannte Gruppen)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Alle anderen Tabs in diesem Fenster aussetzen"
@@ -599,22 +599,22 @@
     "message": "Passende Tabs jetzt aussetzen"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Never suspend tabs in the following tab groups:"
+    "message": "Tabs in den folgenden Tab-Gruppen nicht aussetzen:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
+    "message": "Tabs in diesen Gruppen werden nie automatisch ausgesetzt und von den Sammelaktionen übersprungen."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
+    "message": "Eine Gruppe fügen Sie über „Diese Gruppe nicht aussetzen“ im Kontextmenü hinzu. Hinzugefügt werden können nur Gruppen mit einem Namen."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
+    "message": "Gruppen werden anhand von Name und Farbe erkannt und folgen Umbenennungen, solange der Browser geöffnet bleibt."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "No tab groups added yet."
+    "message": "Noch keine Tab-Gruppen hinzugefügt."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Remove"
+    "message": "Entfernen"
   },
   "html_options_other_enable_context_menu": {
     "message": "Füge The Marvellous Suspender zum Rechtsklick-Kontextmenü hinzu"
@@ -923,7 +923,7 @@
     "message": "Tab ist in einer Tab-Gruppe"
   },
   "js_popup_tab_group": {
-    "message": "Tab is in a group that is never suspended"
+    "message": "Tab ist in einer Gruppe, die nie ausgesetzt wird"
   },
   "js_popup_temp_whitelist": {
     "message": "Aussetzen pausiert."
@@ -1024,7 +1024,7 @@
     "message": "Keine offenen Tabs entsprechen der aktuellen Immer-aussetzen-Liste."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "matches $count$ open group(s)",
+    "message": "passt auf $count$ offene Gruppe(n)",
     "placeholders": {
       "count": {
         "content": "$1"
