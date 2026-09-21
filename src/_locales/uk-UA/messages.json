@@ -899,106 +899,106 @@
     "message": "Не призупиняти"
   },
   "js_popup_whitelisted": {
-    "message": "Site allowed."
+    "message": "Сайт додано до списку дозволених."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Remove from allowlist"
+    "message": "Видалити зі списку дозволених"
   },
   "js_popup_audible": {
-    "message": "Tab is playing audio."
+    "message": "Вкладка відтворює аудіо."
   },
   "js_popup_form_input": {
-    "message": "Tab is receiving form input."
+    "message": "У вкладці є введення форми, які не збережено."
   },
   "js_popup_form_input_unpause": {
-    "message": "Unpause"
+    "message": "Скасувати паузу"
   },
   "js_popup_pinned": {
-    "message": "Tab has been pinned"
+    "message": "Вкладку закріплено"
   },
   "js_popup_app_window": {
-    "message": "Tab is open in an app window"
+    "message": "Вкладка відкрита у вікні програми"
   },
   "js_popup_grouped_tab": {
-    "message": "Tab is in a tab group"
+    "message": "Вкладка знаходиться в групі вкладок"
   },
   "js_popup_tab_group": {
-    "message": "Tab is in a group that is never suspended"
+    "message": "Вкладка знаходиться в групі, яка ніколи не призупинятиметься"
   },
   "js_popup_temp_whitelist": {
-    "message": "Tab suspension paused."
+    "message": "Призупинення вкладки поставлено на паузу."
   },
   "js_popup_temp_whitelist_unpause": {
-    "message": "Unpause"
+    "message": "Скасувати паузу"
   },
   "js_popup_never": {
-    "message": "Automatic tab suspension disabled."
+    "message": "Автоматичне призупинення вкладок вимкнено."
   },
   "js_popup_no_connectivity": {
-    "message": "No network connection"
+    "message": "З'єднання з мережею відсутнє"
   },
   "js_popup_charging": {
-    "message": "Connected to power source"
+    "message": "Підключено до джерела живлення"
   },
   "js_popup_blockedFile": {
-    "message": "Local files cannot be suspended."
+    "message": "Локальні файли не можна призупинити."
   },
   "js_popup_blockedFile_enable": {
-    "message": "Enable"
+    "message": "Увімкнути"
   },
   "js_popup_unknown": {
-    "message": "Waiting for tab to load..."
+    "message": "Очікування завантаження вкладки..."
   },
   "js_popup_initialising": {
-    "message": "Waiting for extension to initialize..."
+    "message": "Очікування ініціалізації розширення..."
   },
   "js_popup_error": {
-    "message": "Auto-suspend unavailable for this tab"
+    "message": "Автоматичне призупинення недоступне для цієї вкладки"
   },
   "js_history_delete": {
-    "message": "delete"
+    "message": "видалити"
   },
   "js_history_export": {
-    "message": "export"
+    "message": "експорт"
   },
   "js_history_reload": {
-    "message": "open and load"
+    "message": "відкрити та завантажити"
   },
   "js_history_resuspend": {
-    "message": "open and suspend"
+    "message": "відкрити та призупинити"
   },
   "js_history_save": {
-    "message": "save"
+    "message": "зберегти"
   },
   "js_history_window": {
-    "message": "Window"
+    "message": "Вікно"
   },
   "js_history_windows": {
-    "message": "Windows"
+    "message": "Вікна"
   },
   "js_history_tab": {
-    "message": "Tab"
+    "message": "Вкладка"
   },
   "js_history_tabs": {
-    "message": "Tabs"
+    "message": "Вкладки"
   },
   "js_history_enter_name_for_session": {
-    "message": "Enter a name for this session"
+    "message": "Введіть ім'я для цієї сесії"
   },
   "js_history_confirm_delete": {
-    "message": "Are you sure you want to delete this session?"
+    "message": "Ви дійсно бажаєте видалити цю сесію?"
   },
   "js_history_confirm_session_overwrite": {
-    "message": "There is already a saved session with this name. Overwrite existing session?"
+    "message": "Сесія з такою назвою вже існує. Перезаписати існуючу сесію?"
   },
   "js_history_import_fail": {
-    "message": "Failed to load file. Ensure file is plain text and contains a single url per line."
+    "message": "Не вдалося завантажити файл. Переконайтеся, що файл має формат простого тексту і містить одну URL-agpecy в кожному рядку."
   },
   "js_history_migrate_fail": {
-    "message": "Need 32-character extension id to migrate from"
+    "message": "Для міграції потрібен 32-символьний ідентифікатор розширення"
   },
   "js_history_migrate_success": {
-    "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
+    "message": "Успішно перенесено $tabcount$ вкладок.Перезавантажте браузер, якщо перенесені вкладки не перезавантажуються\nавтоматично.",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -1006,25 +1006,25 @@
     }
   },
   "js_suspended_hotkey_to_reload": {
-    "message": "Set keyboard shortcuts"
+    "message": "Призначити гарячі клавіші"
   },
   "js_suspended_low_memory": {
-    "message": "Tab suspended due to low system memory"
+    "message": "Вкладка призупинена через недостатній обсяг системної пам’яті"
   },
   "js_options_incognito_warning": {
-    "message": "You are in incognito mode. Some features will not be available."
+    "message": "Ви перебуваєте в режимі анонімного перегляду. Деякі функції будуть недоступні."
   },
   "js_options_whitelist_no_matches": {
-    "message": "There are no open tabs that match the current allowlist."
+    "message": "Немає відкритих вкладок, які відповідають поточному списку дозволених."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Allowlisted open tabs:"
+    "message": "Дозволені відкриті вкладки:"
   },
   "js_options_always_suspend_no_matches": {
-    "message": "There are no open tabs that match the current always-suspend list."
+    "message": "Немає відкритих вкладок, які відповідають поточному списку примусово призупинених."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "matches $count$ open group(s)",
+    "message": "$count$ збігів серед відкритих груп",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1032,43 +1032,43 @@
     }
   },
   "js_options_always_suspend_matches_heading": {
-    "message": "Open tabs matching the always-suspend list:"
+    "message": "Відкриті вкладки, що відповідають списку примусово призупинених:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
-    "message": "and"
+    "message": "і"
   },
   "js_options_whitelist_matches_overflow_suffix": {
-    "message": "more."
+    "message": "більше."
   },
   "js_permissions_button_export": {
-    "message": "Save backup"
+    "message": "Зберегти резервну копію"
   },
   "js_permissions_button_set": {
-    "message": "Open extension settings"
+    "message": "Відкрити налаштування розширення"
   },
   "js_update_confirm": {
-    "message": "You have not saved a backup yet. Update the extension anyway?"
+    "message": "Резервне копіювання ще не збережено. Оновити розширення все одно?"
   },
   "js_update_button_export": {
-    "message": "Save backup"
+    "message": "Зберегти резервну копію"
   },
   "js_update_button_reload": {
-    "message": "Update extension now"
+    "message": "Оновити розширення зараз"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "Зберегти резервну копію перед оновленням"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "Активувати розширення (показати спливаюче вікно)"
   },
   "js_shortcuts_not_set": {
-    "message": "not set"
+    "message": "не задано"
   },
   "js_session_save_point": {
-    "message": "Automatic save point for v"
+    "message": "Автоматична точка збереження для v"
   },
   "html_options_backup_title": {
-    "message": "Automatic session backup"
+    "message": "Автоматичне резервне копіювання сесії"
   },
   "html_backup_session_desc": {
     "message": "Unlike sessions, backups are saved as JSON files outside Chrome: to your Downloads folder or Google Drive. They survive browser crashes, profile resets, and fresh installs. This is your real safety net."
