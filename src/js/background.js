@@ -325,7 +325,7 @@ import  { tgs }                   from './tgs.js';
             break;
           }
           case 'savePreviewData' : {
-            await gsTabSuspendManager.handlePreviewImageResponse(sender.tab, request.previewUrl, request.errorMsg); // async. unhandled promise
+            await gsTabSuspendManager.handlePreviewImageResponse(sender.tab, request.previewUrl, request.errorMsg, request.token); // async. unhandled promise
             break;
           }
           case 'fetchNewsFeed' : {
