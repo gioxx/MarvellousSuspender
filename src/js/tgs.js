@@ -2327,7 +2327,6 @@ export const tgs = (function() {
     setTabStatePropForTabId,
 
     initialiseTabContentScript,
-    buildContextMenu,
     rebuildContextMenu,
     getActiveTabStatus,
     calculateTabStatus,
