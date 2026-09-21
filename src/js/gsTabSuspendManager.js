@@ -18,6 +18,19 @@ export const gsTabSuspendManager = (function() {
 
   let   _suspensionQueue;
   const INIT_RESOLVERS = [];
+  // Tracks, per tab id, which job's executionProps a preview-generation request is
+  // currently in flight for. handlePreviewImageResponse() is reached from a
+  // chrome.runtime message sent by the injected content script (background.js's
+  // 'savePreviewData' case) as well as two internal error callbacks below, none of which
+  // carry any reference to the specific queue job the request belongs to -- only the tab
+  // id. Without this, a late response arriving after that job was superseded (e.g. an
+  // external unqueueTab() promoted a follow-up into a fresh tabDetails/executionProps for
+  // the same tab id, mc-triage review round 7, PR #502) would resolve, or apply a stale
+  // screenshot to, whatever job now occupies that tab id's queue slot instead of being
+  // dropped as stale -- the same identity-vs-presence class of bug already fixed for
+  // resolveTabPromise()/rejectTabPromise() in gsTabQueue.js, but reachable here through
+  // this direct executionProps.resolveFn() call that bypasses those checks entirely.
+  const _pendingPreviewExecutionPropsByTabId = new Map();
 
   function initAsPromised() {
     gsUtils.log('gsTabSuspendManager initAsPromised', _suspensionQueue);
@@ -187,6 +200,7 @@ export const gsTabSuspendManager = (function() {
 
     // Hack. Save handle to resolve function so we can call it later
     executionProps.resolveFn = resolve;
+    _pendingPreviewExecutionPropsByTabId.set(tab.id, executionProps);
     requestGeneratePreviewImage(tab); // async
     gsUtils.log(tab.id, QUEUE_ID, 'Preview generation script started successfully.',);
     // handlePreviewImageResponse is called on the 'savePreviewData' message response
@@ -194,9 +208,19 @@ export const gsTabSuspendManager = (function() {
   }
 
   async function handlePreviewImageResponse(tab, previewUrl, errorMsg) {
+    const expectedExecutionProps = _pendingPreviewExecutionPropsByTabId.get(tab.id);
+    _pendingPreviewExecutionPropsByTabId.delete(tab.id);
+
     const queuedTabDetails = getQueuedTabDetails(tab);
     if (!queuedTabDetails) {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab missing from suspensionQueue. Assuming suspension cancelled for this tab.',);
+      return;
+    }
+    // Identity, not just presence: a late preview response whose job has since been
+    // superseded (a different executionProps object now occupies this tab id's slot)
+    // must not be applied to, or resolve, that newer job.
+    if (queuedTabDetails.executionProps !== expectedExecutionProps) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Preview response is for a superseded suspension job. Ignoring.',);
       return;
     }
 

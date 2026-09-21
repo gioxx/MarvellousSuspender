@@ -112,9 +112,7 @@ export const gsTabQueue = (function() {
           // Always the freshest tab this follow-up has been called with — promoteFollowUp()
           // must run against this, not the superseded job's now-stale tab snapshot.
           followUp.tab = tab;
-          for (const prop in executionProps) {
-            followUp.executionProps[prop] = executionProps[prop];
-          }
+          applyExecutionProps(followUp, executionProps);
           // A later immediate call clears an earlier-queued delay, matching the merge
           // behaviour below for a merely-queued (not in-progress) entry: getTabUpdatedListener()
           // queuing with delay 0 to continue right away must not inherit a stale 5s delay
