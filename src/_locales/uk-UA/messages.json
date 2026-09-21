@@ -881,22 +881,22 @@
     "message": "Я забезпечую плавну роботу вашого комп'ютера, призупиняючи вкладки, якими ви не користуєтеся."
   },
   "html_welcome_text_line3": {
-    "message": "You can fine-tune the settings below."
+    "message": "Ви можете налаштувати параметри нижче."
   },
   "js_popup_normal": {
-    "message": "Tab will suspend automatically."
+    "message": "Вкладка автоматично призупиниться."
   },
   "js_popup_normal_pause": {
-    "message": "Not now"
+    "message": "Не зараз"
   },
   "js_popup_special": {
-    "message": "Tab cannot be suspended"
+    "message": "Вкладку неможливо призупинити"
   },
   "js_popup_suspended": {
-    "message": "Tab suspended"
+    "message": "Вкладка призупинена"
   },
   "js_popup_suspended_pause": {
-    "message": "Don't suspend"
+    "message": "Не призупиняти"
   },
   "js_popup_whitelisted": {
     "message": "Site allowed."
