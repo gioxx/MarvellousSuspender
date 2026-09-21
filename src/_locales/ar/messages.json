@@ -33,7 +33,7 @@
     "message": "إلغاء تعليق جميع علامات التبويب غير الموجودة في مجموعة في النافذة النشطة"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Toggle never suspend for the active tab's group"
+    "message": "تبديل عدم التعليق مطلقاً لمجموعة علامة التبويب النشطة"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "تعليق جميع علامات التبويب الأخرى في النافذة النشطة"
@@ -87,13 +87,13 @@
     "message": "إلغاء تعليق جميع علامات التبويب غير الموجودة في مجموعة"
   },
   "js_context_never_suspend_group": {
-    "message": "Never suspend this group"
+    "message": "عدم تعليق هذه المجموعة مطلقاً"
   },
   "js_context_allow_suspending_group": {
-    "message": "Allow suspending this group"
+    "message": "السماح بتعليق هذه المجموعة"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Never suspend this group (named groups only)"
+    "message": "عدم تعليق هذه المجموعة مطلقاً (المجموعات المسماة فقط)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "تعليق جميع علامات التبويب الأخرى في النافذة النشطة"
@@ -599,22 +599,22 @@
     "message": "علّق علامات التبويب المطابقة الآن"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Never suspend tabs in the following tab groups:"
+    "message": "لا تعلق أبداً علامات التبويب في المجموعات التالية:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
+    "message": "لا يتم تعليق علامات التبويب في هذه المجموعات تلقائياً، ويتم تخطيها في إجراءات التعليق الجماعي."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
+    "message": "أضف مجموعة باستخدام \"عدم تعليق هذه المجموعة مطلقاً\" في قائمة النقر بزر الفأرة الأيمن. لا يمكن إضافة سوى المجموعات التي لها اسم."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
+    "message": "تتم مطابقة المجموعات بالاسم واللون، وتتبع إعادة التسمية طالما بقي المتصفح مفتوحاً."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "No tab groups added yet."
+    "message": "لم تتم إضافة أي مجموعات علامات تبويب بعد."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Remove"
+    "message": "إزالة"
   },
   "html_options_other_enable_context_menu": {
     "message": "أضف الموصل المبتكر إلى قائمة السياق بالنقر الأيمن"
@@ -923,7 +923,7 @@
     "message": "علامة التبويب موجودة في مجموعة علامات تبويب"
   },
   "js_popup_tab_group": {
-    "message": "Tab is in a group that is never suspended"
+    "message": "علامة التبويب في مجموعة لا يتم تعليقها مطلقاً"
   },
   "js_popup_temp_whitelist": {
     "message": "تعليق علامة التبويب مؤقتاً."
@@ -1024,7 +1024,7 @@
     "message": "لا توجد علامات تبويب مفتوحة تطابق قائمة التعليق الدائم الحالية."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "matches $count$ open group(s)",
+    "message": "يطابق $count$ من المجموعات المفتوحة",
     "placeholders": {
       "count": {
         "content": "$1"
