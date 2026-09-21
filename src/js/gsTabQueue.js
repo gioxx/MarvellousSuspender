@@ -92,7 +92,16 @@ export const gsTabQueue = (function() {
         // running job settles (see promoteFollowUp()). Multiple calls arriving before that
         // happens merge into the same not-yet-started follow-up, same as the existing
         // "already queued" merge below does for a merely-queued (not in-progress) entry.
-        if (tabDetails?.status === STATUS_IN_PROGRESS) {
+        //
+        // Also true once a follow-up already exists, even if the current job has since
+        // left STATUS_IN_PROGRESS (e.g. it called requeueTab(), which sleepTab()s the very
+        // same tabDetails while the follow-up is still attached) — mc-triage review round
+        // 6, PR #502: without this, a caller arriving during that requeue's SLEEPING window
+        // would fall through to the "already queued" merge below and get served by the
+        // current job's next attempt, ahead of the earlier-registered follow-up, which then
+        // has to wait for that whole job to settle before even being promoted. Keeping every
+        // later caller behind an already-registered follow-up preserves arrival order.
+        if (tabDetails?.status === STATUS_IN_PROGRESS || tabDetails?.pendingFollowUp) {
           tabDetails.pendingFollowUp ??= {
             tab,
             executionProps: {},
