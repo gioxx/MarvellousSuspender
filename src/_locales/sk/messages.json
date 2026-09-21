@@ -33,7 +33,7 @@
     "message": "Obnov všetky taby mimo skupín v aktívnom okne"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Toggle never suspend for the active tab's group"
+    "message": "Prepnúť nikdy nepozastavovať pre skupinu aktívnej karty"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Pozastav ostatné taby v aktívnom okne"
@@ -87,13 +87,13 @@
     "message": "Obnov všetky taby mimo skupín"
   },
   "js_context_never_suspend_group": {
-    "message": "Never suspend this group"
+    "message": "Nikdy nepozastavuj túto skupinu"
   },
   "js_context_allow_suspending_group": {
-    "message": "Allow suspending this group"
+    "message": "Povoľ pozastavenie tejto skupiny"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Never suspend this group (named groups only)"
+    "message": "Nikdy nepozastavuj túto skupinu (len pomenované skupiny)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Pozastav ostatné taby v tomto okne"
@@ -599,22 +599,22 @@
     "message": "Teraz pozastaviť zodpovedajúce karty"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Never suspend tabs in the following tab groups:"
+    "message": "Nikdy nepozastavovať karty v nasledujúcich skupinách:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
+    "message": "Karty v týchto skupinách sa nikdy nepozastavujú automaticky a hromadné akcie pozastavenia ich preskakujú."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
+    "message": "Skupinu pridáte pomocou „Nikdy nepozastavuj túto skupinu“ v kontextovej ponuke. Pridať možno len skupiny, ktoré majú názov."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
+    "message": "Skupiny sa rozpoznávajú podľa názvu a farby a sledujú premenovanie, kým zostane prehliadač otvorený."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "No tab groups added yet."
+    "message": "Zatiaľ neboli pridané žiadne skupiny kariet."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Remove"
+    "message": "Odstrániť"
   },
   "html_options_other_enable_context_menu": {
     "message": "Pridať The Marvellous Suspender do kontextovej ponuky pravého tlačidla"
@@ -923,7 +923,7 @@
     "message": "Karta je v skupine kariet"
   },
   "js_popup_tab_group": {
-    "message": "Tab is in a group that is never suspended"
+    "message": "Karta je v skupine, ktorá sa nikdy nepozastavuje"
   },
   "js_popup_temp_whitelist": {
     "message": "Pozastavovanie karty pozastavené."
@@ -1024,7 +1024,7 @@
     "message": "Žiadne otvorené karty nezodpovedajú aktuálnemu zoznamu vždy pozastaviť."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "matches $count$ open group(s)",
+    "message": "zodpovedá otvoreným skupinám: $count$",
     "placeholders": {
       "count": {
         "content": "$1"
