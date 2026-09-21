@@ -2013,16 +2013,30 @@ export const tgs = (function() {
   // of starting a second, redundant removeAll->getOption->create sequence (the top-level
   // and onInstalled calls otherwise fire independently on every install/update).
   let _rebuildContextMenuPromise = null;
+  let _rebuildContextMenuDirty = false;
   async function rebuildContextMenu() {
     if (chrome.extension.inIncognitoContext) return;
     if (_rebuildContextMenuPromise) {
+      // A call arriving while a rebuild is already running would otherwise just get hand
+      // back that in-flight promise as-is, which reads ADD_CONTEXT only once, near its
+      // start -- if that's the very setting change this call exists to apply, the
+      // in-flight run finishes using the value from before this call happened, and nothing
+      // re-reads it until some later change or a session restart (Codex review, PR #500:
+      // e.g. gsUtils.js's ADD_CONTEXT settings-change handler firing again while an earlier
+      // rebuild from that same handler, onInstalled, or the wake-time self-heal is still in
+      // flight). Marking dirty makes the in-flight run loop once more with a fresh read
+      // before resolving, similar in spirit to gsTabQueue.js's own follow-up mechanism.
+      _rebuildContextMenuDirty = true;
       return _rebuildContextMenuPromise;
     }
     _rebuildContextMenuPromise = (async () => {
       try {
-        await buildContextMenu(false);
-        const contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
-        await buildContextMenu(contextMenus);
+        do {
+          _rebuildContextMenuDirty = false;
+          await buildContextMenu(false);
+          const contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
+          await buildContextMenu(contextMenus);
+        } while (_rebuildContextMenuDirty);
       }
       finally {
         _rebuildContextMenuPromise = null;

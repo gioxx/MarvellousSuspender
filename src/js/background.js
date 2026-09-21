@@ -97,6 +97,18 @@ import  { tgs }                   from './tgs.js';
   // concurrent buildContextMenu() calls, closes that gap.
   let _contextMenuRebuildOncePromise = null;
   function ensureContextMenuRebuiltOnce() {
+    // The incognito split worker shares chrome.storage.session with the regular profile's
+    // worker, but tgs.rebuildContextMenu() itself no-ops for incognito (it has no context
+    // menu of its own) -- onInstalled used to call this unconditionally (unlike the
+    // wake-time self-heal call below, which already guards itself), so the incognito
+    // worker's own onInstalled could still fall through to the sentinel write below and
+    // mark the session's rebuild "done" without any real rebuild ever happening, causing
+    // the regular worker's own self-heal to skip its rebuild for the rest of the session
+    // (Codex review, PR #500). Guarded here, once, so every caller is covered by
+    // construction rather than needing its own guard.
+    if (chrome.extension.inIncognitoContext) {
+      return Promise.resolve();
+    }
     if (_contextMenuRebuildOncePromise) {
       return _contextMenuRebuildOncePromise;
     }
