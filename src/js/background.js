@@ -84,23 +84,45 @@ import  { tgs }                   from './tgs.js';
     });
   }
 
+  // Single source of truth for "has this browser session's context menu already been
+  // (re)built at least once" (#491) — used by both chrome.runtime.onInstalled below and
+  // the wake-time self-heal further down. Reading gsContextMenuRebuildDone and later
+  // saving it as true are two separate awaited storage calls, not one atomic operation;
+  // without an in-memory gate around the whole read-rebuild-write sequence, the wake-time
+  // self-heal's own independent read of that same sentinel could land in the gap between
+  // onInstalled's rebuild finishing and its sentinel write actually committing, see the
+  // sentinel as still false, and fire a second, redundant rebuild on the very same wake
+  // (mc-triage review round 6, PR #500). Coalescing every caller onto one in-flight
+  // promise, the same pattern tgs.rebuildContextMenu() itself already uses to serialize
+  // concurrent buildContextMenu() calls, closes that gap.
+  let _contextMenuRebuildOncePromise = null;
+  function ensureContextMenuRebuiltOnce() {
+    if (_contextMenuRebuildOncePromise) {
+      return _contextMenuRebuildOncePromise;
+    }
+    _contextMenuRebuildOncePromise = (async () => {
+      const done = await gsStorage.getStorage('session', 'gsContextMenuRebuildDone');
+      if (done) return;
+      await tgs.rebuildContextMenu();
+      await gsStorage.saveStorage('session', 'gsContextMenuRebuildDone', true);
+    })();
+    return _contextMenuRebuildOncePromise;
+  }
+
   chrome.runtime.onInstalled.addListener(async (details) => {
     gsUtils.log('2 runtime.onInstalled', details);
     // Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version.
     // Fired when an unpacked extension is reloaded
 
-    // tgs.rebuildContextMenu() (#491) is the single source of truth for the whole "clear
-    // then rebuild from the current setting" sequence, also run below (gated to the first
-    // wake of the browser session, see gsContextMenuRebuildDone) as a self-heal for a
+    // ensureContextMenuRebuiltOnce() (#491) is the single source of truth for the whole
+    // "clear then rebuild from the current setting" sequence, also run below (gated to the
+    // first wake of the browser session, see gsContextMenuRebuildDone) as a self-heal for a
     // browser whose internal menu registry gets cleared outside these two triggers
     // (confirmed on Opera GX 135), which would otherwise leave the context menu missing
     // until the next extension update or a manual toggle of the Options checkbox. It
     // self-coalesces, so this call and that one don't race each other into a duplicate
-    // removeAll->create sequence on a fresh install/update. Marking the session sentinel
-    // here too means an install/update doesn't trigger a second, redundant rebuild from
-    // the gated block below on the same wake.
-    await tgs.rebuildContextMenu();
-    await gsStorage.saveStorage('session', 'gsContextMenuRebuildDone', true);
+    // removeAll->create sequence, or a redundant one, on a fresh install/update.
+    await ensureContextMenuRebuiltOnce();
 
     // remove update message after extension has been updated
     if (details.reason == 'update') {
@@ -138,21 +160,18 @@ import  { tgs }                   from './tgs.js';
   // a cadence unrelated to when the actual bug occurs. chrome.storage.session is cleared
   // at the browser-session boundary, so a missing sentinel here means this is genuinely a
   // fresh session (mirrors gsStartupOnceRun's own reasoning above), not just a SW recycle.
+  // Routed through ensureContextMenuRebuiltOnce() rather than its own independent
+  // read-rebuild-write sequence, so a concurrent onInstalled call on the same wake
+  // coalesces onto this one (or vice versa) instead of racing it (mc-triage review round
+  // 6, PR #500).
   if (!chrome.extension.inIncognitoContext) {
-    gsStorage.getStorage('session', 'gsContextMenuRebuildDone').then(async (done) => {
-      if (done) return;
-      try {
-        await tgs.rebuildContextMenu();
-        await gsStorage.saveStorage('session', 'gsContextMenuRebuildDone', true);
-      }
-      catch (error) {
-        // JSON.stringify(error) on a plain Error yields "{}" (message/stack are
-        // non-enumerable), so the persisted debug-report entry would otherwise read
-        // "rebuildContextMenu failed {}" with nothing to diagnose the very intermittent
-        // failure this self-heal exists to catch (mc-triage review round 5, PR #500 —
-        // same pattern this PR's own CHANGELOG entry already documents fixing in gsBackup.js).
-        gsUtils.error('background', 'rebuildContextMenu failed:', error?.message || error, error?.stack || '');
-      }
+    ensureContextMenuRebuiltOnce().catch((error) => {
+      // JSON.stringify(error) on a plain Error yields "{}" (message/stack are
+      // non-enumerable), so the persisted debug-report entry would otherwise read
+      // "rebuildContextMenu failed {}" with nothing to diagnose the very intermittent
+      // failure this self-heal exists to catch (mc-triage review round 5, PR #500 —
+      // same pattern this PR's own CHANGELOG entry already documents fixing in gsBackup.js).
+      gsUtils.error('background', 'rebuildContextMenu failed:', error?.message || error, error?.stack || '');
     });
   }
 
