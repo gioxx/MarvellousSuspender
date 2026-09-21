@@ -1318,12 +1318,19 @@ export const gsUtils = {
       };
     });
 
-    //if context menu has been disabled then remove from chrome
-    if (gsUtils.contains(changedSettingKeys, gsStorage.ADD_CONTEXT)) {
-      gsStorage.getOption(gsStorage.ADD_CONTEXT).then((addContextMenu) => {
-        tgs.buildContextMenu(addContextMenu);
-      });
-    }
+    // Context-menu rebuilds on an ADD_CONTEXT change are handled entirely by
+    // background.js's own chrome.storage.onChanged listener on the gsSettings blob now,
+    // not from here. This function runs in every context that loads gsUtils.js, Options
+    // page included, each with its own separate tgs.js module instance -- calling
+    // tgs.rebuildContextMenu() directly from a non-service-worker context, or messaging
+    // the service worker to do it, both broke down for an Options page opened in an
+    // incognito window under "incognito": "split": chrome.runtime.sendMessage() from
+    // there can only ever reach the incognito instance's own service worker, whose
+    // rebuildContextMenu() no-ops for incognito by design, never the regular profile's
+    // (Codex review round 2, PR #500). gsSettings itself lives in chrome.storage.local,
+    // which -- unlike chrome.storage.sync or a runtime message -- is not partitioned by
+    // that split (see the log-buffer migration note above), so the regular service
+    // worker's own listener on it is reached by a write from either instance, uniformly.
 
     //if screenshot preferences have changed then update the queue parameters
     if (

@@ -1988,12 +1988,77 @@ export const tgs = (function() {
   }
 
   //HANDLERS FOR RIGHT-CLICK CONTEXT MENU
+  // Serializes every buildContextMenu() call — from background.js's rebuildContextMenu()
+  // (top-level wake + onInstalled) and from gsUtils.js's ADD_CONTEXT settings-change
+  // handler alike — behind one shared chain, so a removeAll()+create() sequence from one
+  // caller can never interleave with another caller's own removeAll()/create() calls
+  // (mc-triage review on PR #500: two unsynchronized rebuildContextMenu() calls on every
+  // install/update could otherwise race, one's removeAll() wiping the other's just-created
+  // items, or their create() calls colliding on duplicate ids).
+  let _contextMenuChain = Promise.resolve();
   function buildContextMenu(showContextMenu) {
+    const result = _contextMenuChain.then(() => _buildContextMenuImpl(showContextMenu));
+    // Keep the chain alive even if this call's removal/creation throws, so a later,
+    // unrelated call still runs instead of being stuck behind a permanently rejected chain.
+    _contextMenuChain = result.catch(() => {});
+    return result;
+  }
+
+  // Single source of truth for the whole "clear then rebuild from the current setting"
+  // sequence — used by background.js (top-level wake + onInstalled) AND gsUtils.js's
+  // ADD_CONTEXT settings-change handler (mc-triage review round 3, PR #500: that handler
+  // used to call buildContextMenu(addContextMenu) directly, a single call with no
+  // preceding removeAll(), which could create() duplicate-id items if the menu already
+  // existed). Coalesces concurrent calls to itself into the one already in flight instead
+  // of starting a second, redundant removeAll->getOption->create sequence (the top-level
+  // and onInstalled calls otherwise fire independently on every install/update).
+  let _rebuildContextMenuPromise = null;
+  let _rebuildContextMenuDirty = false;
+  async function rebuildContextMenu() {
+    if (chrome.extension.inIncognitoContext) return;
+    if (_rebuildContextMenuPromise) {
+      // A call arriving while a rebuild is already running would otherwise just get hand
+      // back that in-flight promise as-is, which reads ADD_CONTEXT only once, near its
+      // start -- if that's the very setting change this call exists to apply, the
+      // in-flight run finishes using the value from before this call happened, and nothing
+      // re-reads it until some later change or a session restart (Codex review, PR #500:
+      // e.g. gsUtils.js's ADD_CONTEXT settings-change handler firing again while an earlier
+      // rebuild from that same handler, onInstalled, or the wake-time self-heal is still in
+      // flight). Marking dirty makes the in-flight run loop once more with a fresh read
+      // before resolving, similar in spirit to gsTabQueue.js's own follow-up mechanism.
+      _rebuildContextMenuDirty = true;
+      return _rebuildContextMenuPromise;
+    }
+    _rebuildContextMenuPromise = (async () => {
+      try {
+        do {
+          _rebuildContextMenuDirty = false;
+          await buildContextMenu(false);
+          const contextMenus = await gsStorage.getOption(gsStorage.ADD_CONTEXT);
+          await buildContextMenu(contextMenus);
+        } while (_rebuildContextMenuDirty);
+      }
+      finally {
+        _rebuildContextMenuPromise = null;
+      }
+    })();
+    return _rebuildContextMenuPromise;
+  }
+
+  function _buildContextMenuImpl(showContextMenu) {
     /** @type { chrome.contextMenus.CreateProperties['contexts'] } */
     const allContexts = ['page', 'frame', 'editable', 'image', 'video', 'audio']; //'selection',
 
     if (!showContextMenu) {
-      chrome.contextMenus.removeAll();
+      // Returned so callers (background.js's rebuildContextMenu()) can await the removal
+      // before issuing the create() calls below — chrome.contextMenus.removeAll() is
+      // async, and an unawaited one racing against the creates that follow it can delete
+      // the just-created items instead of the stale ones it was meant to clear (Codex
+      // review, PR #500). removeAll() only returns a Promise from Chrome 123+ (returns
+      // undefined below that), but manifest.json's minimum_chrome_version is 110, so it's
+      // wrapped in an explicit Promise via the callback form to actually await completion
+      // across the whole supported range (Codex review round 2).
+      return new Promise((resolve) => chrome.contextMenus.removeAll(resolve));
     }
     else {
       chrome.contextMenus.create({
@@ -2218,14 +2283,28 @@ export const tgs = (function() {
         title: gsUtils.getMessage('js_context_soft_suspend_all_tabs'),
         contexts: ['tab'],
       });
-      chrome.contextMenus.create({
-        id: 'tab_unsuspend_all',
-        title: gsUtils.getMessage('js_context_unsuspend_all_tabs'),
-        contexts: ['tab'],
+      // Resolved only once this, the LAST create() call's callback fires (mc-triage
+      // review round 3, PR #500) — chrome.contextMenus.create() calls are processed by
+      // the browser in the order issued, so this one settling after the browser is done
+      // with it means every create() before it is done too. Without this, buildContextMenu(true)
+      // used to resolve as soon as JS finished issuing the create() calls, not once Chrome
+      // actually finished creating them — the next queued call on _contextMenuChain (e.g.
+      // a settings-toggle's own removeAll()) could then start while these were still
+      // landing in the browser process.
+      const lastCreate = new Promise((resolve) => {
+        chrome.contextMenus.create({
+          id: 'tab_unsuspend_all',
+          title: gsUtils.getMessage('js_context_unsuspend_all_tabs'),
+          contexts: ['tab'],
+        }, resolve);
       });
 
       // enable the page item above if the tab in front of the user is in a named group (#133)
+      // Debounced/fire-and-forget (own internal setTimeout), so it doesn't need to be
+      // awaited here and its ordering relative to lastCreate above doesn't matter.
       refreshNeverSuspendGroupMenuItems();
+
+      return lastCreate;
     }
   }
 
@@ -2248,7 +2327,7 @@ export const tgs = (function() {
     setTabStatePropForTabId,
 
     initialiseTabContentScript,
-    buildContextMenu,
+    rebuildContextMenu,
     getActiveTabStatus,
     calculateTabStatus,
 
