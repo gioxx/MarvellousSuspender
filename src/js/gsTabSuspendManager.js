@@ -36,6 +36,21 @@ export const gsTabSuspendManager = (function() {
   const _pendingPreviewExecutionPropsByTabId = new Map();
   let   _previewRequestSeq = 0;
 
+  // handlePreviewImageResponse() is the only thing that ever deletes a
+  // _pendingPreviewExecutionPropsByTabId entry -- a job that never produces a response
+  // (html2canvas hangs until the queue's own jobTimeout forces handleSuspensionException's
+  // EXCEPTION_TIMEOUT path, or the tab gets unqueued externally, e.g. on close, while a
+  // preview is still in flight) left its entry, holding executionProps and its resolveFn
+  // closure, in the map for the rest of the service worker's lifetime (Codex review round
+  // 3, PR #502). Called from every other path that can conclude such a job, identity-
+  // checked the same way the response handler is so it never removes a newer job's entry.
+  function _clearPendingPreview(tabId, executionProps) {
+    const pending = _pendingPreviewExecutionPropsByTabId.get(tabId);
+    if (pending && pending.executionProps === executionProps) {
+      _pendingPreviewExecutionPropsByTabId.delete(tabId);
+    }
+  }
+
   function initAsPromised() {
     gsUtils.log('gsTabSuspendManager initAsPromised', _suspensionQueue);
     return new Promise(async (resolve) => {
@@ -99,8 +114,16 @@ export const gsTabSuspendManager = (function() {
       gsUtils.warning(tab.id, QUEUE_ID, 'unqueueTabForSuspension', 'Queue not initialized');
       return;
     }
+    // Captured before unqueueTab() below removes the entry -- an external cancellation of
+    // a running job rejects its deferredPromise directly, bypassing executionProps.resolveFn
+    // (and therefore handleSuspensionException too), so a preview request it had in flight
+    // would otherwise never get cleaned up (Codex review round 3, PR #502).
+    const tabDetails = getQueuedTabDetails(tab);
     const removed = _suspensionQueue.unqueueTab(tab);
     if (removed) {
+      if (tabDetails) {
+        _clearPendingPreview(tab.id, tabDetails.executionProps);
+      }
       gsUtils.log(tab.id, QUEUE_ID, 'unqueueTabForSuspension', 'Removed tab from suspension queue');
     }
   }
@@ -281,6 +304,12 @@ export const gsTabSuspendManager = (function() {
       resolve(false);
       return;
     }
+    // This job is concluding here rather than via handlePreviewImageResponse() -- if it
+    // had a preview request in flight (only true once performSuspension() got as far as
+    // setting executionProps.resolveFn), that request's own eventual response, if it ever
+    // arrives, must find nothing to act on rather than resolving a job that's already
+    // settled.
+    _clearPendingPreview(tab.id, executionProps);
     if (exceptionType === _suspensionQueue.EXCEPTION_TIMEOUT) {
       gsUtils.log(tab.id, QUEUE_ID, `Tab took more than ${ _suspensionQueue.getQueueProperties().jobTimeout }ms to suspend. Will force suspension.`);
       const success = await executeTabSuspension(tab, executionProps.suspendedUrl,);
