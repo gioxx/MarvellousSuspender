@@ -105,7 +105,16 @@ import  { tgs }                   from './tgs.js';
       if (done) return;
       await tgs.rebuildContextMenu();
       await gsStorage.saveStorage('session', 'gsContextMenuRebuildDone', true);
-    })();
+    })().catch((error) => {
+      // A transient failure (e.g. a storage error) must not permanently wedge every later
+      // call behind this one rejected attempt for the rest of the service worker instance's
+      // lifetime — unlike tgs.js's own rebuildContextMenu(), which only coalesces genuinely
+      // concurrent calls and always clears its gate, this one is also meant to skip real
+      // work once successful, so only a failure clears it, letting the next caller retry
+      // (mc-triage review round 7, PR #500).
+      _contextMenuRebuildOncePromise = null;
+      throw error;
+    });
     return _contextMenuRebuildOncePromise;
   }
 
@@ -121,8 +130,16 @@ import  { tgs }                   from './tgs.js';
     // (confirmed on Opera GX 135), which would otherwise leave the context menu missing
     // until the next extension update or a manual toggle of the Options checkbox. It
     // self-coalesces, so this call and that one don't race each other into a duplicate
-    // removeAll->create sequence, or a redundant one, on a fresh install/update.
-    await ensureContextMenuRebuiltOnce();
+    // removeAll->create sequence, or a redundant one, on a fresh install/update. Caught
+    // (rather than left to reject the listener) so a failure here doesn't also skip the
+    // UPDATE_AVAILABLE cleanup below, matching the self-heal call's own error handling
+    // (mc-triage review round 7, PR #500).
+    try {
+      await ensureContextMenuRebuiltOnce();
+    }
+    catch (error) {
+      gsUtils.error('background', 'rebuildContextMenu failed:', error?.message || error, error?.stack || '');
+    }
 
     // remove update message after extension has been updated
     if (details.reason == 'update') {
