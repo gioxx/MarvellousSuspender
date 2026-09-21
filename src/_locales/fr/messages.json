@@ -599,7 +599,7 @@
     "message": "Suspendre maintenant les onglets correspondants"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Ne jamais suspendre les onglets des groupes suivants :"
+    "message": "Ne jamais suspendre les onglets des groupes suivants:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
     "message": "Les onglets de ces groupes ne sont jamais suspendus automatiquement et sont ignorés par les actions de suspension groupée."
