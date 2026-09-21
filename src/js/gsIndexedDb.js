@@ -125,7 +125,9 @@ export const gsIndexedDb = {
   fetchTabInfo: async function(tabUrl) {
     try {
       const db = await gsIndexedDb.getDb();
-      const tabInfo = await db.getFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabUrl);
+      const index = db.transaction(gsIndexedDb.DB_SUSPENDED_TABINFO).store.index('url');
+      const cursor = await index.openCursor(tabUrl, 'prev');
+      const tabInfo = cursor?.value;
       if (tabInfo) {
         tabInfo.favIconUrl = tabInfo.favIconUrl || tabInfo.favicon;
         delete tabInfo.favicon;
@@ -158,8 +160,9 @@ export const gsIndexedDb = {
   fetchFaviconMeta: async function(url) {
     try {
       const db = await gsIndexedDb.getDb();
-      const faviconMeta = await db.getFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url);
-      return faviconMeta ?? null;
+      const index = db.transaction(gsIndexedDb.DB_FAVICON_META).store.index('url');
+      const cursor = await index.openCursor(url, 'prev');
+      return cursor?.value ?? null;
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
