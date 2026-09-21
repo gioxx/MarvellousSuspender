@@ -33,7 +33,7 @@
     "message": "සක්‍රිය කවුළුවේ සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Toggle never suspend for the active tab's group"
+    "message": "සක්‍රිය ටැබයේ සමූහය සඳහා 'කිසිවිටක අත්හිටුවන්න එපා' මාරු කරන්න"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "සක්‍රිය කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"
@@ -87,13 +87,13 @@
     "message": "සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
   },
   "js_context_never_suspend_group": {
-    "message": "Never suspend this group"
+    "message": "මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා"
   },
   "js_context_allow_suspending_group": {
-    "message": "Allow suspending this group"
+    "message": "මෙම සමූහය අත්හිටුවීමට ඉඩ දෙන්න"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Never suspend this group (named groups only)"
+    "message": "මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා (නම් කළ සමූහ පමණි)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "මෙම කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"
@@ -599,22 +599,22 @@
     "message": "ගැළපෙන ටැබ් දැන් අත්හිටුවන්න"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Never suspend tabs in the following tab groups:"
+    "message": "පහත ටැබ් සමූහවල ඇති ටැබ් කිසිවිටක අත්හිටුවන්න එපා:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
+    "message": "මෙම සමූහවල ඇති ටැබ් කිසිවිටෙක ස්වයංක්‍රීයව අත්හිටුවන්නේ නැත, තොග අත්හිටුවීම් ක්‍රියාවලදීද මඟහරිනු ලැබේ."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
+    "message": "දකුණු-ක්ලික් මෙනුවේ ඇති \"මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා\" මගින් සමූහයක් එක් කරන්න. නමක් ඇති සමූහ පමණක් එක් කළ හැකිය."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
+    "message": "සමූහ නම සහ වර්ණය අනුව ගැළපේ, බ්‍රවුසරය විවෘතව පවතින තෙක් නම් වෙනස් කිරීම් අනුගමනය කරයි."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "No tab groups added yet."
+    "message": "තවම ටැබ් සමූහ එක් කර නැත."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Remove"
+    "message": "ඉවත් කරන්න"
   },
   "html_options_other_enable_context_menu": {
     "message": "සන්දර්භය මෙනුව දකුණු-ක්ලික් කිරීමට පුදුමාකාර අත්හිටුවීම එක් කරන්න"
@@ -923,7 +923,7 @@
     "message": "ටැබය ටැබ් සමූහයක ඇත"
   },
   "js_popup_tab_group": {
-    "message": "Tab is in a group that is never suspended"
+    "message": "ටැබය කිසිවිටක අත්හිටුවන්නේ නැති සමූහයක ඇත"
   },
   "js_popup_temp_whitelist": {
     "message": "ටැබ් අත්හිටුවීම විරාම කරන ලදී."
@@ -1024,7 +1024,7 @@
     "message": "වත්මන් සැමවිට-අත්හිටුවන ලැයිස්තුවට ගැළපෙන විවෘත ටැබ් නොමැත."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "matches $count$ open group(s)",
+    "message": "ගැළපෙන විවෘත සමූහ ගණන: $count$",
     "placeholders": {
       "count": {
         "content": "$1"
