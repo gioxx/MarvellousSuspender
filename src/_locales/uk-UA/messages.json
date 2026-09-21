@@ -222,7 +222,7 @@
     "message": " та "
   },
   "html_about_community_thanks_link": {
-    "message": "всіма учасниками на GitHub."
+    "message": "всіма учасниками на GitHub"
   },
   "html_about_fork_beginning": {
     "message": "На основі оригінальної"
@@ -264,7 +264,7 @@
     "message": "От, халепа!"
   },
   "html_broken_line1": {
-    "message": "Не вдалося запустити. Можливо, ви використовуєте несумісний браузер?"
+    "message": "не вдалося запустити. Можливо, ви використовуєте несумісний браузер?"
   },
   "html_broken_line2": {
     "message": "Спробуйте перезапустити розширення. Якщо проблема не зникне, зверніться за допомогою на"
@@ -327,7 +327,7 @@
     "message": "Якщо функцію увімкнено, оригінальну URL-адресу буде додано до"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "заголовка призупиненої вкладки"
+    "message": "заголовка призупиненої вкладки."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2a": {
     "message": "Це дозволяє знаходити призупинені вкладки за іменем хоста за допомогою функції Chrome"
@@ -471,10 +471,10 @@
     "message": "Додатково зменшує використання пам'яті призупиненою вкладкою завдяки"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "використанню вбудованої функції браузера з вивантаження вкладок (вивантаження вкладок)."
+    "message": "використанню вбудованої функції браузера з вивантаження вкладок (вивантаження вкладок)"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "Це може забезпечити до 500% економії пам'яті під час роботи з великою кількістю вкладок."
+    "message": "це може забезпечити до 500% економії пам'яті під час роботи з великою кількістю вкладок."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
     "message": "Однак це також спричинить незначну затримку рендерингу "
@@ -641,7 +641,7 @@
     "message": "Це також синхронізує налаштування в режимі інкогніто."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Увімкнення цієї функції перезапише налаштування в усіх інших браузерах, у яких використовується той самий профіль."
+    "message": "Увімкнення цієї функції перезапише налаштування в усіх інших браузерах, у яких використовується той самий профіль"
   },
   "html_options_suspend_on_low_memory": {
     "message": "Миттєво призупиняти вкладки, коли системної пам'яті стає дуже мало"
@@ -719,7 +719,7 @@
     "message": "От, халепа!"
   },
   "html_recovery_description_line1": {
-    "message": "Схоже, ви відновлюєте роботу після збою розширення.\n"
+    "message": "Схоже, ви відновлюєте роботу після збою розширення."
   },
   "html_recovery_description_line2": {
     "message": "Ваші призупинені вкладки могли аварійно завершити роботу або зникнути."
@@ -860,7 +860,7 @@
     "message": "Зачекайте, поки я відновлю ваші призупинені вкладки..."
   },
   "html_updated_great_suspender_updated": {
-    "message": "Успішно оновлено."
+    "message": "Успішно оновлено"
   },
   "html_updated_info_line1": {
     "message": "Перед оновленням було автоматично створено резервну копію ваших вкладок."
@@ -992,13 +992,13 @@
     "message": "Сесія з такою назвою вже існує. Перезаписати існуючу сесію?"
   },
   "js_history_import_fail": {
-    "message": "Не вдалося завантажити файл. Переконайтеся, що файл має формат простого тексту і містить одну URL-agpecy в кожному рядку."
+    "message": "Не вдалося завантажити файл. Переконайтеся, що файл має формат простого тексту і містить одну URL-адресу в кожному рядку."
   },
   "js_history_migrate_fail": {
-    "message": "Для міграції потрібен 32-символьний ідентифікатор розширення"
+    "message": "Для перенесення потрібен 32-символьний ідентифікатор розширення"
   },
   "js_history_migrate_success": {
-    "message": "Успішно перенесено $tabcount$ вкладок.Перезавантажте браузер, якщо перенесені вкладки не перезавантажуються\nавтоматично.",
+    "message": "Успішно перенесено $tabcount$ вкладок. Перезавантажте браузер, якщо перенесені вкладки не перезавантажуються автоматично.",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -1089,7 +1089,7 @@
     "message": "Для створення локальних резервних копій у Chrome має бути ввімкнено автоматичне завантаження файлів (Без запитів)."
   },
   "html_options_backup_enable_tooltip_line2b": {
-    "message": "Перевірте chrome://settings/downloads"
+    "message": "Перевірте chrome://settings/downloads."
   },
   "html_options_backup_enable_tooltip_line2c": {
     "message": "Для резервних копій на Google Диску це не потрібно."
@@ -1288,7 +1288,7 @@
     "message": "Не вдалося зберегти налаштування до Диску. Будь ласка, спробуйте ще раз."
   },
   "js_backup_cooldown": {
-    "message": "Wait $seconds$s before the next backup.",
+    "message": "Зачекайте $seconds$с перед наступним резервним копіюванням.",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1296,19 +1296,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Downloading settings from Drive…"
+    "message": "Завантаження налаштувань з Диска..."
   },
   "js_backup_settings_drive_not_found": {
-    "message": "No settings file found on Drive. Save your settings to Drive first."
+    "message": "На «Диску» не знайдено файл налаштувань. Спочатку збережіть налаштування на «Диску»."
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Settings restored. Reloading…"
+    "message": "Налаштування відновлені. Перезавантаження…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Could not restore settings from Drive. Please try again."
+    "message": "Не вдалося зберегти налаштування до Диску. Будь ласка, спробуйте ще раз."
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "Last backup: $date$",
+    "message": "Остання резервна копія: $date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1316,7 +1316,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Existing settings backup from $date$. Overwrite?",
+    "message": "Існує резервна копія налаштувань від $date$. Перезаписати?",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1324,40 +1324,40 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Export settings"
+    "message": "Експорт налаштувань"
   },
   "html_options_settings_import": {
-    "message": "Import settings"
+    "message": "Імпорт налаштувань"
   },
   "js_options_settings_import_confirm": {
-    "message": "This will overwrite your current settings. Continue?"
+    "message": "Поточні налаштування будуть перезаписані. Продовжити?"
   },
   "js_options_settings_import_success": {
-    "message": "Settings imported. Reloading…"
+    "message": "Налаштування імпортовано. Перезавантаження…"
   },
   "js_options_settings_import_error": {
-    "message": "Invalid settings file."
+    "message": "Недійсний файл налаштувань."
   },
   "html_history_migrate_nav": {
-    "message": "Migrate"
+    "message": "Перенести"
   },
   "html_backup_restore_title": {
-    "message": "Restore from backup"
+    "message": "Відновити з резервної копії"
   },
   "html_backup_restore_desc": {
-    "message": "Import a backup file to restore it as a saved session. Once imported, open Sessions to choose which windows to restore."
+    "message": "Імпортуйте файл резервної копії, щоб відновити його як збережену сесію. Після імпорту відкрийте \"Сесії\", щоб вибрати, які вікна відновити."
   },
   "html_backup_restore_local_title": {
-    "message": "Local file"
+    "message": "Локальний файл"
   },
   "html_backup_restore_drive_title": {
     "message": "Google Drive"
   },
   "html_backup_restore_from_file": {
-    "message": "Choose backup file"
+    "message": "Вибрати файл резервної копії"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Select a Drive backup"
+    "message": "Виберіть резервну копію з Диска"
   },
   "html_backup_restore_import": {
     "message": "Імпорт вибраного"
