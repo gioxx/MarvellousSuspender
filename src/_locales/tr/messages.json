@@ -33,7 +33,7 @@
     "message": "Aktif penceredeki grupta olmayan tüm sekmelerin askısını kaldır"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Toggle never suspend for the active tab's group"
+    "message": "Etkin sekmenin grubu için hiçbir zaman askıya alma ayarını değiştir"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Aktif pencere dışında tüm sekmeleri askıya al"
@@ -87,13 +87,13 @@
     "message": "Grupta olmayan tüm sekmelerin askısını kaldır"
   },
   "js_context_never_suspend_group": {
-    "message": "Never suspend this group"
+    "message": "Bu grubu hiçbir zaman askıya alma"
   },
   "js_context_allow_suspending_group": {
-    "message": "Allow suspending this group"
+    "message": "Bu grubun askıya alınmasına izin ver"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Never suspend this group (named groups only)"
+    "message": "Bu grubu hiçbir zaman askıya alma (yalnızca adlandırılmış gruplar)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Bu pencere dışındaki tüm sekmeleri askıya al"
@@ -599,22 +599,22 @@
     "message": "Eşleşen sekmeleri şimdi askıya al"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Never suspend tabs in the following tab groups:"
+    "message": "Aşağıdaki sekme gruplarındaki sekmeleri hiçbir zaman askıya alma:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Tabs in these groups are never suspended automatically, and are skipped by the bulk suspend actions."
+    "message": "Bu gruplardaki sekmeler hiçbir zaman otomatik olarak askıya alınmaz ve toplu askıya alma işlemlerinde atlanır."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Add a group with \"Never suspend this group\" in the right-click menu. Only groups with a name can be added."
+    "message": "Sağ tık menüsündeki \"Bu grubu hiçbir zaman askıya alma\" ile bir grup ekleyin. Yalnızca adı olan gruplar eklenebilir."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Groups are matched by name and colour, and follow renames while the browser stays open."
+    "message": "Gruplar ad ve renge göre eşleştirilir ve tarayıcı açık kaldığı sürece yeniden adlandırmaları izler."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "No tab groups added yet."
+    "message": "Henüz sekme grubu eklenmedi."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Remove"
+    "message": "Kaldır"
   },
   "html_options_other_enable_context_menu": {
     "message": "Sağ tuş menüye Marvellous Suspender için menü ekle"
@@ -923,7 +923,7 @@
     "message": "Sekme bir sekme grubunda"
   },
   "js_popup_tab_group": {
-    "message": "Tab is in a group that is never suspended"
+    "message": "Sekme, hiçbir zaman askıya alınmayan bir grupta"
   },
   "js_popup_temp_whitelist": {
     "message": "Sekme askı durumu duraklatıldı."
@@ -1024,7 +1024,7 @@
     "message": "Geçerli her zaman askıya al listesiyle eşleşen açık sekme yok."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "matches $count$ open group(s)",
+    "message": "$count$ açık grupla eşleşiyor",
     "placeholders": {
       "count": {
         "content": "$1"
