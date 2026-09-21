@@ -79,6 +79,49 @@ export const gsTabQueue = (function() {
       function queueTabAsPromise(tab, executionProps, delay) {
         executionProps = executionProps || {};
         let tabDetails = _tabDetailsByTabId[tab.id];
+
+        // A check for this tab is already executing (#485). Re-sleeping or mutating that
+        // live entry here would either start a second concurrent executor for the same
+        // tab once it wakes (sleepTab() flips it SLEEPING -> QUEUED, and processQueue()
+        // sees STATUS_QUEUED while the original executorFn call is still in flight — same
+        // tabDetails object, called a second time) or feed the running executorFn props
+        // it was never called with, mid-flight, via the executionProps object it already
+        // captured by reference. Instead, park this call as a follow-up: it becomes its
+        // own fresh job — its own timeoutTimer/deadlineAt/requeues, and its own promise
+        // resolving from its own eventual outcome, not the running job's — once the
+        // running job settles (see promoteFollowUp()). Multiple calls arriving before that
+        // happens merge into the same not-yet-started follow-up, same as the existing
+        // "already queued" merge below does for a merely-queued (not in-progress) entry.
+        //
+        // Also true once a follow-up already exists, even if the current job has since
+        // left STATUS_IN_PROGRESS (e.g. it called requeueTab(), which sleepTab()s the very
+        // same tabDetails while the follow-up is still attached) — mc-triage review round
+        // 6, PR #502: without this, a caller arriving during that requeue's SLEEPING window
+        // would fall through to the "already queued" merge below and get served by the
+        // current job's next attempt, ahead of the earlier-registered follow-up, which then
+        // has to wait for that whole job to settle before even being promoted. Keeping every
+        // later caller behind an already-registered follow-up preserves arrival order.
+        if (tabDetails?.status === STATUS_IN_PROGRESS || tabDetails?.pendingFollowUp) {
+          tabDetails.pendingFollowUp ??= {
+            tab,
+            executionProps: {},
+            deferredPromise: createDeferredPromise(),
+            delay: undefined,
+          };
+          const followUp = tabDetails.pendingFollowUp;
+          // Always the freshest tab this follow-up has been called with — promoteFollowUp()
+          // must run against this, not the superseded job's now-stale tab snapshot.
+          followUp.tab = tab;
+          applyExecutionProps(followUp, executionProps);
+          // A later immediate call clears an earlier-queued delay, matching the merge
+          // behaviour below for a merely-queued (not in-progress) entry: getTabUpdatedListener()
+          // queuing with delay 0 to continue right away must not inherit a stale 5s delay
+          // from an earlier onCreated-style follow-up call for the same tab.
+          followUp.delay = (delay && isValidInteger(delay, 1)) ? delay : undefined;
+          gsUtils.log(tab.id, _queueId, 'Tab check in progress. Queueing as follow-up.');
+          return followUp.deferredPromise;
+        }
+
         if (!tabDetails) {
           // gsUtils.log(tab.id, _queueId, 'Queueing new tab.');
           tabDetails = {
@@ -113,6 +156,40 @@ export const gsTabQueue = (function() {
         return tabDetails.deferredPromise;
       }
 
+      // Called once a job (whose tabDetails may have accumulated a pendingFollowUp while
+      // it ran) has just been removed from the queue by resolveTabPromise()/
+      // rejectTabPromise(). Re-adds the same tab id as a brand new job — its own
+      // requeues/deadlineAt/timeoutTimer, none of it inherited from the job that just
+      // settled — so the follow-up's caller(s) get a promise that resolves from this new
+      // job's own outcome.
+      // Returns whether this call already triggered an immediate requestProcessQueue(0)
+      // itself, so callers (resolveTabPromise()/rejectTabPromise()) can skip their own
+      // otherwise-redundant one (mc-triage review round 4, PR #502) — but only in that
+      // specific case. When the follow-up has its own delay, sleepTab() arms a timer for
+      // THIS tab only; the outer requestProcessQueue() must still run so any OTHER tab
+      // already queued gets a chance at the executor slot this settle just freed, rather
+      // than waiting on this tab's unrelated follow-up delay.
+      function promoteFollowUp(tabDetails) {
+        const followUp = tabDetails.pendingFollowUp;
+        if (!followUp) {
+          return false;
+        }
+        const newTabDetails = {
+          tab: followUp.tab,
+          executionProps: followUp.executionProps,
+          deferredPromise: followUp.deferredPromise,
+          status: STATUS_QUEUED,
+          requeues: 0,
+        };
+        addTabToQueue(newTabDetails);
+        if (followUp.delay && isValidInteger(followUp.delay, 1)) {
+          sleepTab(newTabDetails, followUp.delay);
+          return false;
+        }
+        requestProcessQueue(0);
+        return true;
+      }
+
       function applyExecutionProps(tabDetails, executionProps) {
         executionProps = executionProps || {};
         for (const prop in executionProps) {
@@ -124,8 +201,18 @@ export const gsTabQueue = (function() {
         const tabDetails = _tabDetailsByTabId[tab.id];
         if (tabDetails) {
           // gsUtils.log(tab.id, _queueId, 'Unqueueing tab.');
-          clearTimeout(tabDetails.timeoutTimer);
-          removeTabFromQueue(tabDetails);
+          // An explicit external cancellation means the caller wants nothing further to
+          // happen for this tab (e.g. removeTabIdReferences() on tab close/replace) — a
+          // pending follow-up must not survive to spawn a fresh job afterwards.
+          if (tabDetails.pendingFollowUp) {
+            tabDetails.pendingFollowUp.deferredPromise.reject('Queued tab job cancelled externally');
+            delete tabDetails.pendingFollowUp;
+          }
+          // rejectTabPromise() already does its own clearTimeout+removeTabFromQueue+
+          // reject+requestProcessQueue — doing those here first (as this used to) removed
+          // the entry from _tabDetailsByTabId before calling it, tripping its own
+          // presence guard and silently skipping the actual deferredPromise.reject(),
+          // leaving this call's original caller-side promise unsettled forever.
           rejectTabPromise(tabDetails, 'Queued tab job cancelled externally');
           return true;
         }
@@ -297,25 +384,32 @@ export const gsTabQueue = (function() {
       }
 
       function resolveTabPromise(tabDetails, result) {
-        if (!_tabDetailsByTabId[tabDetails.tab.id]) {
+        // Identity, not just presence (#485): a late resolve/reject callback from a job
+        // already superseded by a promoted follow-up (same tab id, different tabDetails
+        // object) must not touch the newer entry — presence alone can't tell them apart.
+        if (_tabDetailsByTabId[tabDetails.tab.id] !== tabDetails) {
           return;
         }
         gsUtils.log(tabDetails.tab.id, _queueId, 'Queued tab resolved. Result: ', result);
         clearTimeout(tabDetails.timeoutTimer);
         removeTabFromQueue(tabDetails);
         tabDetails.deferredPromise.resolve(result);
-        requestProcessQueue(_queueProperties.processingDelay);
+        if (!promoteFollowUp(tabDetails)) {
+          requestProcessQueue(_queueProperties.processingDelay);
+        }
       }
 
       function rejectTabPromise(tabDetails, error) {
-        if (!_tabDetailsByTabId[tabDetails.tab.id]) {
+        if (_tabDetailsByTabId[tabDetails.tab.id] !== tabDetails) {
           return;
         }
         gsUtils.log(tabDetails.tab.id, _queueId, 'Queued tab rejected. Error: ', error);
         clearTimeout(tabDetails.timeoutTimer);
         removeTabFromQueue(tabDetails);
         tabDetails.deferredPromise.reject(error);
-        requestProcessQueue(_queueProperties.processingDelay);
+        if (!promoteFollowUp(tabDetails)) {
+          requestProcessQueue(_queueProperties.processingDelay);
+        }
       }
 
       function requeueTab(tabDetails, requeueDelay, executionProps) {

@@ -18,6 +18,38 @@ export const gsTabSuspendManager = (function() {
 
   let   _suspensionQueue;
   const INIT_RESOLVERS = [];
+  // Tracks, per tab id, which job's executionProps a preview-generation request is
+  // currently in flight for, keyed by a per-request token rather than the tab id alone.
+  // handlePreviewImageResponse() is reached from a chrome.runtime message sent by the
+  // injected content script (background.js's 'savePreviewData' case) as well as two
+  // internal error callbacks below, none of which carry any reference to the specific
+  // queue job the request belongs to -- only the tab id, echoed back through the
+  // message/callback. A tab-id-only map is not enough: if job A registers here and then
+  // gets superseded by job B for the same tab (both requesting a preview) before A's late
+  // response arrives, B's own request would overwrite A's entry, so by the time A's
+  // response shows up the "expected" props it's compared against are already B's --
+  // trivially matching and letting A's stale screenshot resolve B's job instead of being
+  // dropped as stale (Codex review round 2, PR #502; the earlier map-only fix from round 7
+  // closed the tabDetails-identity gap but not this one, since the correlation itself was
+  // what got clobbered by the overwrite). _previewRequestSeq gives every request its own
+  // token that a later request for the same tab id can't collide with.
+  const _pendingPreviewExecutionPropsByTabId = new Map();
+  let   _previewRequestSeq = 0;
+
+  // handlePreviewImageResponse() is the only thing that ever deletes a
+  // _pendingPreviewExecutionPropsByTabId entry -- a job that never produces a response
+  // (html2canvas hangs until the queue's own jobTimeout forces handleSuspensionException's
+  // EXCEPTION_TIMEOUT path, or the tab gets unqueued externally, e.g. on close, while a
+  // preview is still in flight) left its entry, holding executionProps and its resolveFn
+  // closure, in the map for the rest of the service worker's lifetime (Codex review round
+  // 3, PR #502). Called from every other path that can conclude such a job, identity-
+  // checked the same way the response handler is so it never removes a newer job's entry.
+  function _clearPendingPreview(tabId, executionProps) {
+    const pending = _pendingPreviewExecutionPropsByTabId.get(tabId);
+    if (pending && pending.executionProps === executionProps) {
+      _pendingPreviewExecutionPropsByTabId.delete(tabId);
+    }
+  }
 
   function initAsPromised() {
     gsUtils.log('gsTabSuspendManager initAsPromised', _suspensionQueue);
@@ -82,8 +114,16 @@ export const gsTabSuspendManager = (function() {
       gsUtils.warning(tab.id, QUEUE_ID, 'unqueueTabForSuspension', 'Queue not initialized');
       return;
     }
+    // Captured before unqueueTab() below removes the entry -- an external cancellation of
+    // a running job rejects its deferredPromise directly, bypassing executionProps.resolveFn
+    // (and therefore handleSuspensionException too), so a preview request it had in flight
+    // would otherwise never get cleaned up (Codex review round 3, PR #502).
+    const tabDetails = getQueuedTabDetails(tab);
     const removed = _suspensionQueue.unqueueTab(tab);
     if (removed) {
+      if (tabDetails) {
+        _clearPendingPreview(tab.id, tabDetails.executionProps);
+      }
       gsUtils.log(tab.id, QUEUE_ID, 'unqueueTabForSuspension', 'Removed tab from suspension queue');
     }
   }
@@ -187,16 +227,38 @@ export const gsTabSuspendManager = (function() {
 
     // Hack. Save handle to resolve function so we can call it later
     executionProps.resolveFn = resolve;
-    requestGeneratePreviewImage(tab); // async
+    const previewToken = ++_previewRequestSeq;
+    _pendingPreviewExecutionPropsByTabId.set(tab.id, { token: previewToken, executionProps });
+    requestGeneratePreviewImage(tab, previewToken); // async
     gsUtils.log(tab.id, QUEUE_ID, 'Preview generation script started successfully.',);
     // handlePreviewImageResponse is called on the 'savePreviewData' message response
     // this will refetch the queued tabDetails and call executionProps.resolveFn(true)
   }
 
-  async function handlePreviewImageResponse(tab, previewUrl, errorMsg) {
+  async function handlePreviewImageResponse(tab, previewUrl, errorMsg, previewToken) {
+    const pending = _pendingPreviewExecutionPropsByTabId.get(tab.id);
+    // Token, not just tab id: a later preview request for the same tab (job B, superseding
+    // job A) overwrites this map entry with its own token/executionProps, so a late
+    // response arriving for A after that overwrite must not be mistaken for B's just
+    // because it's now the only entry present for this tab id.
+    if (!pending || pending.token !== previewToken) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Preview response is for a superseded suspension job. Ignoring.',);
+      return;
+    }
+    _pendingPreviewExecutionPropsByTabId.delete(tab.id);
+    const expectedExecutionProps = pending.executionProps;
+
     const queuedTabDetails = getQueuedTabDetails(tab);
     if (!queuedTabDetails) {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab missing from suspensionQueue. Assuming suspension cancelled for this tab.',);
+      return;
+    }
+    // Identity, not just presence: belt-and-suspenders alongside the token check above --
+    // a late preview response whose job has since been superseded (a different
+    // executionProps object now occupies this tab id's slot) must not be applied to, or
+    // resolve, that newer job.
+    if (queuedTabDetails.executionProps !== expectedExecutionProps) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Preview response is for a superseded suspension job. Ignoring.',);
       return;
     }
 
@@ -242,6 +304,12 @@ export const gsTabSuspendManager = (function() {
       resolve(false);
       return;
     }
+    // This job is concluding here rather than via handlePreviewImageResponse() -- if it
+    // had a preview request in flight (only true once performSuspension() got as far as
+    // setting executionProps.resolveFn), that request's own eventual response, if it ever
+    // arrives, must find nothing to act on rather than resolving a job that's already
+    // settled.
+    _clearPendingPreview(tab.id, executionProps);
     if (exceptionType === _suspensionQueue.EXCEPTION_TIMEOUT) {
       gsUtils.log(tab.id, QUEUE_ID, `Tab took more than ${ _suspensionQueue.getQueueProperties().jobTimeout }ms to suspend. Will force suspension.`);
       const success = await executeTabSuspension(tab, executionProps.suspendedUrl,);
@@ -431,20 +499,20 @@ export const gsTabSuspendManager = (function() {
     // }
   }
 
-  async function requestGeneratePreviewImage(tab) {
+  async function requestGeneratePreviewImage(tab, previewToken) {
     const screenCaptureMode   = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
     const forceScreenCapture  = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_FORCE);
     const screenCaptureLib = 'js/html2canvas.min.js';
     gsUtils.log(tab.id, QUEUE_ID, `Injecting ${screenCaptureLib} into content script`,);
     gsMessages.executeScriptOnTab(tab.id, screenCaptureLib, error => {
       if (error) {
-        handlePreviewImageResponse(tab, null, 'Failed to executeScriptOnTab'); // async. unhandled promise.
+        handlePreviewImageResponse(tab, null, 'Failed to executeScriptOnTab', previewToken); // async. unhandled promise.
         return;
       }
       gsMessages.executeCodeOnTab(
         tab.id,
-        [screenCaptureMode, forceScreenCapture],  // args for injection
-        async (mode, force) => { // code to inject
+        [screenCaptureMode, forceScreenCapture, previewToken],  // args for injection
+        async (mode, force, token) => { // code to inject
 
 
           // NOTE: This function below is run within the content script scope
@@ -535,13 +603,13 @@ export const gsTabSuspendManager = (function() {
             errorMsg = 'Failed to generate dataUrl';
           }
           // console.log('saving previewData..');
-          chrome.runtime.sendMessage({ action: 'savePreviewData', previewUrl: dataUrl, errorMsg, });
+          chrome.runtime.sendMessage({ action: 'savePreviewData', previewUrl: dataUrl, errorMsg, token, });
 
 
         },  // end code to inject
         (error) => {  // callback
           if (error) {
-            handlePreviewImageResponse(tab, null, 'Failed to executeCodeOnTab: generatePreviewImgContentScript'); // async. unhandled promise.
+            handlePreviewImageResponse(tab, null, 'Failed to executeCodeOnTab: generatePreviewImgContentScript', previewToken); // async. unhandled promise.
             return;
           }
         },
