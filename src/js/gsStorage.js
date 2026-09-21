@@ -368,25 +368,33 @@ export const gsStorage = {
     }
   },
 
+  fetchSettings: async () => {
+    const { settings, backfilled } = await readSettings();
+    if (backfilled) {
+      // Save from a fresh read under the lock, so a newer write is not overwritten.
+      await withSettingsLock(async () => {
+        const fresh = await readSettings();
+        if (fresh.backfilled) {
+          await gsStorage.saveSettings(fresh.settings);
+        }
+      });
+    }
+    return settings;
+  },
+
   getSettings: async () => {
     if (settingsPromise) return structuredClone(await settingsPromise);
-    settingsPromise = new Promise(async resolve => {
-      const { settings, backfilled } = await readSettings();
-      if (backfilled) {
-        //save from a fresh read under the lock, so a newer write is not overwritten
-        await withSettingsLock(async () => {
-          const fresh = await readSettings();
-          if (fresh.backfilled) {
-            await gsStorage.saveSettings(fresh.settings);
-          }
-        });
-      }
-      resolve(settings);
-    });
-    const setting = await settingsPromise
-    settingsPromise = setting;
-    // Callers modify their snapshots (notably syncSettings deletes the sync flag).
-    return structuredClone(setting);
+    try {
+      const pending = gsStorage.fetchSettings();
+      settingsPromise = pending;
+      const setting = await settingsPromise;
+      if (settingsPromise === pending) settingsPromise = setting;
+      return structuredClone(setting);
+    }
+    catch (error) {
+      settingsPromise = null;
+      throw error;
+    }
   },
 
   saveSettings: async (settings) => {

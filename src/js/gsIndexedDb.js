@@ -31,47 +31,54 @@ export const gsIndexedDb = {
   LOG_TRIM_ALARM_NAME: 'tms-log-trim',
 
   // Share the opening promise, then retain the resolved connection.
+  /** @type {Awaited<ReturnType<typeof openDB>> | ReturnType<typeof openDB> | null} */
   _db: null,
 
   getDb: async function() {
     if (gsIndexedDb._db) return gsIndexedDb._db;
-    gsIndexedDb._db = openDB(gsIndexedDb.DB_SERVER, gsIndexedDb.DB_VERSION, {
-      // transaction (the versionchange transaction idb.js's own upgrade() wrapper
-      // already passes as its 4th argument) is what lets an *existing* store pick up a
-      // newly-added index below — db.createObjectStore() only works for a store being
-      // created in this same upgrade pass; an already-existing store's own object
-      // needs transaction.objectStore(name) instead. Without this, a store shipped
-      // once without a given index (e.g. DB_LOG_ENTRIES's 'ts' index, added after that
-      // store's own DB_VERSION bump) could never pick it up for anyone who'd already
-      // opened that version, even after a later version bump added the index here.
-      upgrade(db, oldVersion, newVersion, transaction) {
-        const stores = [
-          { name: gsIndexedDb.DB_PREVIEWS,          indexes: ['url'] },
-          { name: gsIndexedDb.DB_SUSPENDED_TABINFO, indexes: ['url'] },
-          { name: gsIndexedDb.DB_FAVICON_META,      indexes: ['url'] },
-          { name: gsIndexedDb.DB_CURRENT_SESSIONS,  indexes: ['sessionId'] },
-          { name: gsIndexedDb.DB_SAVED_SESSIONS,    indexes: ['sessionId'] },
-          // ts: insertion order (the autoIncrement 'id') doesn't match chronological
-          // order once multiple contexts flush independently — a throttled context can
-          // persist an older-ts batch after another context has already persisted
-          // newer entries. fetchLogEntries()/trimLogEntries() below order and trim by
-          // this index instead of by 'id', so "most recent" and "oldest to evict"
-          // both mean what they say regardless of which context wrote what when.
-          { name: gsIndexedDb.DB_LOG_ENTRIES,       indexes: ['ts'] },
-        ];
-        for (const { name, indexes } of stores) {
-          const store = db.objectStoreNames.contains(name)
-            ? transaction.objectStore(name)
-            : db.createObjectStore(name, { keyPath: 'id', autoIncrement: true });
-          for (const idx of indexes) {
-            if (!store.indexNames.contains(idx)) store.createIndex(idx, idx);
+    try {
+      gsIndexedDb._db = openDB(gsIndexedDb.DB_SERVER, gsIndexedDb.DB_VERSION, {
+        // transaction (the versionchange transaction idb.js's own upgrade() wrapper
+        // already passes as its 4th argument) is what lets an *existing* store pick up a
+        // newly-added index below — db.createObjectStore() only works for a store being
+        // created in this same upgrade pass; an already-existing store's own object
+        // needs transaction.objectStore(name) instead. Without this, a store shipped
+        // once without a given index (e.g. DB_LOG_ENTRIES's 'ts' index, added after that
+        // store's own DB_VERSION bump) could never pick it up for anyone who'd already
+        // opened that version, even after a later version bump added the index here.
+        upgrade(db, oldVersion, newVersion, transaction) {
+          const stores = [
+            { name: gsIndexedDb.DB_PREVIEWS,          indexes: ['url'] },
+            { name: gsIndexedDb.DB_SUSPENDED_TABINFO, indexes: ['url'] },
+            { name: gsIndexedDb.DB_FAVICON_META,      indexes: ['url'] },
+            { name: gsIndexedDb.DB_CURRENT_SESSIONS,  indexes: ['sessionId'] },
+            { name: gsIndexedDb.DB_SAVED_SESSIONS,    indexes: ['sessionId'] },
+            // ts: insertion order (the autoIncrement 'id') doesn't match chronological
+            // order once multiple contexts flush independently — a throttled context can
+            // persist an older-ts batch after another context has already persisted
+            // newer entries. fetchLogEntries()/trimLogEntries() below order and trim by
+            // this index instead of by 'id', so "most recent" and "oldest to evict"
+            // both mean what they say regardless of which context wrote what when.
+            { name: gsIndexedDb.DB_LOG_ENTRIES,       indexes: ['ts'] },
+          ];
+          for (const { name, indexes } of stores) {
+            const store = db.objectStoreNames.contains(name)
+              ? transaction.objectStore(name)
+              : db.createObjectStore(name, { keyPath: 'id', autoIncrement: true });
+            for (const idx of indexes) {
+              if (!store.indexNames.contains(idx)) store.createIndex(idx, idx);
+            }
           }
-        }
-      },
-    });
-    const db = await gsIndexedDb._db;
-    gsIndexedDb._db = db;
-    return db;
+        },
+      });
+      const db = await gsIndexedDb._db;
+      gsIndexedDb._db = db;
+      return db;
+    }
+    catch (error) {
+      gsIndexedDb._db = null;
+      throw error;
+    }
   },
 
   fetchPreviewImage: async function(tabUrl) {
