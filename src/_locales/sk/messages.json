@@ -1179,7 +1179,7 @@
     "message": "TMS si vyžiada povolenia Stiahnuté súbory a účet Google iba vtedy, keď nižšie zapnete lokálnu zálohu alebo zálohu na Disku Google."
   },
   "html_permissions_info_note_link": {
-    "message": "Zobraziť úplný prehľad povolení."
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "Chrome sa pýta, kam ukladať súbory, takže automatické zálohy nebudú fungovať ticho. Vypnite „Pýtať sa, kam uložiť každý súbor“ v chrome://settings/downloads."
