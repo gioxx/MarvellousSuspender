@@ -3,6 +3,13 @@ import  { gsUtils }               from './gsUtils.js';
 
 'use strict';
 
+// Share reads within this context; Chrome remains the source of truth across contexts.
+/** @type { object | Promise<object> | null } */
+let settingsPromise = null;
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName === 'local' && changes.gsSettings) settingsPromise = null;
+});
+
 // Every write of the settings object is a read-modify-write of the whole object, so two
 // overlapping ones could write back a stale copy. Per context: a page has its own chain.
 let _settingsWriteChain = Promise.resolve();
@@ -361,10 +368,10 @@ export const gsStorage = {
     }
   },
 
-  getSettings: async () => {
+  fetchSettings: async () => {
     const { settings, backfilled } = await readSettings();
     if (backfilled) {
-      //save from a fresh read under the lock, so a newer write is not overwritten
+      // Save from a fresh read under the lock, so a newer write is not overwritten.
       await withSettingsLock(async () => {
         const fresh = await readSettings();
         if (fresh.backfilled) {
@@ -375,9 +382,30 @@ export const gsStorage = {
     return settings;
   },
 
+  getSettings: async () => {
+    if (settingsPromise) return structuredClone(await settingsPromise);
+    try {
+      const pending = gsStorage.fetchSettings();
+      settingsPromise = pending;
+      const setting = await settingsPromise;
+      if (settingsPromise === pending) settingsPromise = setting;
+      return structuredClone(setting);
+    }
+    catch (error) {
+      settingsPromise = null;
+      throw error;
+    }
+  },
+
   saveSettings: async (settings) => {
     // gsUtils.log(0, 'saveSettings');
-    return gsStorage.saveStorage('local', 'gsSettings', settings);
+    settingsPromise = null;
+    try {
+      await gsStorage.saveStorage('local', 'gsSettings', settings);
+    }
+    finally {
+      settingsPromise = null;
+    }
   },
 
   getTabState: async (tabId) => {

@@ -30,11 +30,14 @@ export const gsIndexedDb = {
   LOG_ENTRIES_MAX: 10000,
   LOG_TRIM_ALARM_NAME: 'tms-log-trim',
 
+  // Share the opening promise, then retain the resolved connection.
+  /** @type {Awaited<ReturnType<typeof openDB>> | ReturnType<typeof openDB> | null} */
   _db: null,
 
   getDb: async function() {
-    if (!gsIndexedDb._db) {
-      gsIndexedDb._db = await openDB(gsIndexedDb.DB_SERVER, gsIndexedDb.DB_VERSION, {
+    if (gsIndexedDb._db) return gsIndexedDb._db;
+    try {
+      gsIndexedDb._db = openDB(gsIndexedDb.DB_SERVER, gsIndexedDb.DB_VERSION, {
         // transaction (the versionchange transaction idb.js's own upgrade() wrapper
         // already passes as its 4th argument) is what lets an *existing* store pick up a
         // newly-added index below — db.createObjectStore() only works for a store being
@@ -68,20 +71,23 @@ export const gsIndexedDb = {
           }
         },
       });
+      const db = await gsIndexedDb._db;
+      gsIndexedDb._db = db;
+      return db;
     }
-    return gsIndexedDb._db;
+    catch (error) {
+      gsIndexedDb._db = null;
+      throw error;
+    }
   },
 
   fetchPreviewImage: async function(tabUrl) {
-    let results;
     try {
       const db = await gsIndexedDb.getDb();
-      results = await db.getAllFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
+      const result = await db.getFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
+      return result ?? null;
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
-    }
-    if (results && results.length > 0) {
-      return results[0];
     }
     return null;
   },
@@ -89,9 +95,9 @@ export const gsIndexedDb = {
   addPreviewImage: async function(tabUrl, previewUrl) {
     try {
       const db = await gsIndexedDb.getDb();
-      const existing = await db.getAllFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
-      for (const item of existing) {
-        await db.delete(gsIndexedDb.DB_PREVIEWS, item.id);
+      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
+      for (const key of existingKeys) {
+        await db.delete(gsIndexedDb.DB_PREVIEWS, key);
       }
       await db.add(gsIndexedDb.DB_PREVIEWS, { url: tabUrl, img: previewUrl });
     } catch (e) {
@@ -106,9 +112,9 @@ export const gsIndexedDb = {
         return;
       }
       const db = await gsIndexedDb.getDb();
-      const existing = await db.getAllFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabProperties.url);
-      for (const item of existing) {
-        await db.delete(gsIndexedDb.DB_SUSPENDED_TABINFO, item.id);
+      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabProperties.url);
+      for (const key of existingKeys) {
+        await db.delete(gsIndexedDb.DB_SUSPENDED_TABINFO, key);
       }
       await db.add(gsIndexedDb.DB_SUSPENDED_TABINFO, tabProperties);
     } catch (e) {
@@ -117,22 +123,18 @@ export const gsIndexedDb = {
   },
 
   fetchTabInfo: async function(tabUrl) {
-    let results;
     try {
       const db = await gsIndexedDb.getDb();
-      results = (await db.getAllFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabUrl)).reverse();
+      const index = db.transaction(gsIndexedDb.DB_SUSPENDED_TABINFO).store.index('url');
+      const cursor = await index.openCursor(tabUrl, 'prev');
+      const tabInfo = cursor?.value;
+      if (tabInfo) {
+        tabInfo.favIconUrl = tabInfo.favIconUrl || tabInfo.favicon;
+        delete tabInfo.favicon;
+        return tabInfo;
+      }
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
-    }
-    if (results && results.length > 0) {
-      const tabInfo = results[0];
-      if (tabInfo.favicon) {
-        if (!tabInfo.favIconUrl) {
-          tabInfo.favIconUrl = tabInfo.favicon;
-        }
-        delete tabInfo.favicon;
-      }
-      return tabInfo;
     }
     return null;
   },
@@ -145,9 +147,9 @@ export const gsIndexedDb = {
       }
       const faviconMetaWithUrl = Object.assign(faviconMeta, { url });
       const db = await gsIndexedDb.getDb();
-      const existing = await db.getAllFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url);
-      for (const item of existing) {
-        await db.delete(gsIndexedDb.DB_FAVICON_META, item.id);
+      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url);
+      for (const key of existingKeys) {
+        await db.delete(gsIndexedDb.DB_FAVICON_META, key);
       }
       await db.add(gsIndexedDb.DB_FAVICON_META, faviconMetaWithUrl);
     } catch (e) {
@@ -156,15 +158,13 @@ export const gsIndexedDb = {
   },
 
   fetchFaviconMeta: async function(url) {
-    let results;
     try {
       const db = await gsIndexedDb.getDb();
-      results = (await db.getAllFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url)).reverse();
+      const index = db.transaction(gsIndexedDb.DB_FAVICON_META).store.index('url');
+      const cursor = await index.openCursor(url, 'prev');
+      return cursor?.value ?? null;
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
-    }
-    if (results && results.length > 0) {
-      return results[0];
     }
     return null;
   },
@@ -290,9 +290,11 @@ export const gsIndexedDb = {
       if (count <= maxCount) return;
       const keys = await db.getAllKeysFromIndex(gsIndexedDb.DB_LOG_ENTRIES, 'ts');
       if (keys.length > maxCount) {
-        for (const key of keys.slice(0, keys.length - maxCount)) {
-          await db.delete(gsIndexedDb.DB_LOG_ENTRIES, key);
-        }
+        const tx = db.transaction(gsIndexedDb.DB_LOG_ENTRIES, 'readwrite');
+        await Promise.all([
+          ...keys.slice(0, keys.length - maxCount).map(key => tx.store.delete(key)),
+          tx.done,
+        ]);
       }
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
@@ -526,32 +528,20 @@ export const gsIndexedDb = {
     try {
       const db = await gsIndexedDb.getDb();
 
-      const tabInfoKeys = await db.getAllKeys(gsIndexedDb.DB_SUSPENDED_TABINFO);
-      if (tabInfoKeys.length > maxTabItems) {
-        for (const key of tabInfoKeys.slice(0, tabInfoKeys.length - maxTabItems)) {
-          await db.delete(gsIndexedDb.DB_SUSPENDED_TABINFO, key);
-        }
-      }
-
-      const faviconKeys = await db.getAllKeys(gsIndexedDb.DB_FAVICON_META);
-      const maxFaviconItems = parseInt(maxTabItems + maxTabItems * 0.3);
-      if (faviconKeys.length > maxFaviconItems) {
-        for (const key of faviconKeys.slice(0, faviconKeys.length - maxFaviconItems)) {
-          await db.delete(gsIndexedDb.DB_FAVICON_META, key);
-        }
-      }
-
-      const previewKeys = await db.getAllKeys(gsIndexedDb.DB_PREVIEWS);
-      if (previewKeys.length > maxTabItems) {
-        for (const key of previewKeys.slice(0, previewKeys.length - maxTabItems)) {
-          await db.delete(gsIndexedDb.DB_PREVIEWS, key);
-        }
-      }
-
-      const sessionKeys = await db.getAllKeys(gsIndexedDb.DB_CURRENT_SESSIONS);
-      if (sessionKeys.length > maxHistories) {
-        for (const key of sessionKeys.slice(0, sessionKeys.length - maxHistories)) {
-          await db.delete(gsIndexedDb.DB_CURRENT_SESSIONS, key);
+      const limits = [
+        [gsIndexedDb.DB_SUSPENDED_TABINFO, maxTabItems],
+        [gsIndexedDb.DB_FAVICON_META, Math.floor(maxTabItems * 1.3)],
+        [gsIndexedDb.DB_PREVIEWS, maxTabItems],
+        [gsIndexedDb.DB_CURRENT_SESSIONS, maxHistories],
+      ];
+      for (const [tableName, maxCount] of limits) {
+        const keys = await db.getAllKeys(tableName);
+        if (keys.length > maxCount) {
+          const tx = db.transaction(tableName, 'readwrite');
+          await Promise.all([
+            ...keys.slice(0, keys.length - maxCount).map(key => tx.store.delete(key)),
+            tx.done,
+          ]);
         }
       }
     } catch (e) {

@@ -1159,11 +1159,19 @@ export const gsUtils = {
 
   performPostSaveUpdates(changedSettingKeys, oldValueBySettingKey, newValueBySettingKey) {
     // gsUtils.log('gsUtils', 'performPostSaveUpdates');
-    if (changedSettingKeys.includes(gsStorage.LEGACY_MASCOT)) {
+    const updateMascot = changedSettingKeys.includes(gsStorage.LEGACY_MASCOT);
+    const updateTheme = changedSettingKeys.includes(gsStorage.THEME);
+    const updatePreviewMode = changedSettingKeys.includes(gsStorage.SCREEN_CAPTURE);
+    const updateDiscardAfterSuspend = changedSettingKeys.includes(gsStorage.DISCARD_AFTER_SUSPEND);
+    const updateIgnoreForms = changedSettingKeys.includes(gsStorage.IGNORE_FORMS);
+    const updateSuspendInPlaceOfDiscard = changedSettingKeys.includes(gsStorage.SUSPEND_IN_PLACE_OF_DISCARD);
+
+    if (updateMascot) {
       tgs.refreshDefaultIcon();
       tgs.setIconStatusForActiveTab();
     }
     chrome.tabs.query({}, async (tabs) => {
+      let settingsPromise = null;
       for (const tab of tabs) {
         if (gsUtils.isSpecialTab(tab)) {
           continue;
@@ -1185,7 +1193,6 @@ export const gsUtils = {
           }
 
           // if the legacy mascot setting has changed then refresh already-suspended tabs
-          const updateMascot = changedSettingKeys.includes(gsStorage.LEGACY_MASCOT);
           if (updateMascot) {
             if (await gsChrome.contextGetByTabId(tab.id)) {
               if (tab.id) {
@@ -1204,8 +1211,6 @@ export const gsUtils = {
           // loaded leaves that tab's cache stale until it's next reactivated, one
           // self-correcting flash at that point via the normal async setTheme() call,
           // same as this cache's baseline behaviour before it existed at all.
-          const updateTheme = changedSettingKeys.includes(gsStorage.THEME);
-          const updatePreviewMode = changedSettingKeys.includes(gsStorage.SCREEN_CAPTURE);
           if (updateTheme || updatePreviewMode) {
             if (await gsChrome.contextGetByTabId(tab.id)) {
               if (updateTheme) {
@@ -1230,18 +1235,18 @@ export const gsUtils = {
           }
 
           //if discardAfterSuspend has changed then updated discarded tabs
-          const updateDiscardAfterSuspend = changedSettingKeys.includes(gsStorage.DISCARD_AFTER_SUSPEND);
-          gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND).then((discardAfterSuspend) => {
-            if (
-              updateDiscardAfterSuspend &&
-              discardAfterSuspend &&
-              gsUtils.isSuspendedTab(tab) &&
-              !gsUtils.isDiscardedTab(tab)
-            ) {
-              gsTabDiscardManager.queueTabForDiscard(tab);
-            }
-            return;
-          });
+          if (updateDiscardAfterSuspend) {
+            gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND).then((discardAfterSuspend) => {
+              if (
+                discardAfterSuspend &&
+                gsUtils.isSuspendedTab(tab) &&
+                !gsUtils.isDiscardedTab(tab)
+              ) {
+                gsTabDiscardManager.queueTabForDiscard(tab);
+              }
+              return;
+            });
+          }
         }
 
         if (!gsUtils.isNormalTab(tab, true)) {
@@ -1249,14 +1254,12 @@ export const gsUtils = {
         }
 
         //update content scripts of normal tabs
-        const updateIgnoreForms = changedSettingKeys.includes(
-          gsStorage.IGNORE_FORMS,
-        );
         if (updateIgnoreForms) {
           gsMessages.sendUpdateToContentScriptOfTab(tab); //async. unhandled error
         }
 
-        gsStorage.getSettings().then(async (settings) => {
+        settingsPromise = settingsPromise ?? gsStorage.getSettings();
+        settingsPromise.then(async (settings) => {
           //update suspend timers
           const updateSuspendTime =
             changedSettingKeys.includes(gsStorage.SUSPEND_TIME) ||
@@ -1297,7 +1300,6 @@ export const gsUtils = {
         });
 
         //if SuspendInPlaceOfDiscard has changed then updated discarded tabs
-        const updateSuspendInPlaceOfDiscard = changedSettingKeys.includes( gsStorage.SUSPEND_IN_PLACE_OF_DISCARD );
         if (updateSuspendInPlaceOfDiscard && gsUtils.isDiscardedTab(tab)) {
           gsTabDiscardManager.handleDiscardedUnsuspendedTab(tab); //async. unhandled promise.
           //note: this may cause the tab to suspend

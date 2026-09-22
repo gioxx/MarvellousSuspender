@@ -1,4 +1,4 @@
-import  * as html2canvas        from './html2canvas.min.js';
+/** @import * as html2canvas from './html2canvas.min.js' */
 import  { gsChrome }              from './gsChrome.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMessages }            from './gsMessages.js';
