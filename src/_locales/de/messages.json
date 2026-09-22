@@ -1179,7 +1179,7 @@
     "message": "TMS fordert die Berechtigungen für Downloads und Google-Konto nur an, wenn du unten die lokale oder Google-Drive-Sicherung aktivierst."
   },
   "html_permissions_info_note_link": {
-    "message": "Vollständige Aufschlüsselung der Berechtigungen ansehen."
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "Chrome fragt nach, wo Dateien gespeichert werden sollen, wodurch automatische Sicherungen nicht im Hintergrund funktionieren. Deaktiviere „Nachfragen, wo jede Datei gespeichert werden soll“ in chrome://settings/downloads."
