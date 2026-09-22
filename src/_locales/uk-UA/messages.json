@@ -1179,7 +1179,7 @@
     "message": "TMS запитує дозволи на завантаження та обліковий запис Google, лише якщо ви ввімкнете локальне резервне копіювання або резервне копіювання на Google Диск нижче."
   },
   "html_permissions_info_note_link": {
-    "message": "Див. повний перелік дозволів."
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "Chrome запитує, куди зберігати файли, тому автоматичне резервне копіювання не працюватиме безшумно. Вимкніть опцію \"Запитувати, де зберігати...\" в chrome://settings/downloads."
