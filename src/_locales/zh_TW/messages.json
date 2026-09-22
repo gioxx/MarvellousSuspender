@@ -1179,7 +1179,7 @@
     "message": "TMS 僅在您於下方啟用本機或 Google 雲端硬碟備份時，才要求下載與 Google 帳戶權限。"
   },
   "html_permissions_info_note_link": {
-    "message": "查看完整的權限明細。"
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "Chrome 正在詢問檔案儲存位置，因此自動備份將無法在背景靜默完成。請在 chrome://settings/downloads 中關閉「下載前詢問每個檔案的儲存位置」。"
