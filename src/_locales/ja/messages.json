@@ -1179,7 +1179,7 @@
     "message": "TMSは、以下でローカルまたはGoogleドライブのバックアップを有効にしたときにのみ、ダウンロードとGoogleアカウントの権限を要求します。"
   },
   "html_permissions_info_note_link": {
-    "message": "権限の詳細な内訳を見る。"
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "Chromeがファイルの保存先を尋ねています。このままでは自動バックアップは静かに動作しません。chrome://settings/downloadsで「ダウンロード前に各ファイルの保存場所を確認する」をオフにしてください。"
