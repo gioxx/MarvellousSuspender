@@ -641,6 +641,12 @@ a.active {
   text-decoration: none;
 }
 
+.gsNote-blockLink {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+}
+
 .permissionsNoticeActions {
   margin-top: var(--space-3);
 }
