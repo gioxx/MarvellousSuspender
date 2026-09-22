@@ -1179,7 +1179,7 @@
     "message": "TMS meminta izin Unduhan dan akun Google hanya saat Anda mengaktifkan cadangan lokal atau Google Drive di bawah ini."
   },
   "html_permissions_info_note_link": {
-    "message": "Lihat rincian lengkap izin."
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "Chrome menanyakan tempat menyimpan file, sehingga cadangan otomatis tidak akan berfungsi secara diam-diam. Nonaktifkan \"Tanyakan tempat menyimpan setiap file\" di chrome://settings/downloads."
