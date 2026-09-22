@@ -1179,7 +1179,7 @@
     "message": "TMS demande les permissions Téléchargements et compte Google uniquement lorsque vous activez la sauvegarde locale ou Google Drive ci-dessous."
   },
   "html_permissions_info_note_link": {
-    "message": "Voir le détail complet des permissions."
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "Chrome demande où enregistrer les fichiers, les sauvegardes automatiques ne fonctionneront donc pas silencieusement. Désactivez « Demander où enregistrer chaque fichier » dans chrome://settings/downloads."
