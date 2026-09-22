@@ -1179,7 +1179,7 @@
     "message": "TMS solicita los permisos de Descargas y cuenta de Google solo cuando activas la copia de seguridad local o en Google Drive a continuación."
   },
   "html_permissions_info_note_link": {
-    "message": "Ver el desglose completo de permisos."
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "Chrome está preguntando dónde guardar los archivos, por lo que las copias de seguridad automáticas no funcionarán en silencio. Desactiva \"Preguntar dónde guardar cada archivo\" en chrome://settings/downloads."
