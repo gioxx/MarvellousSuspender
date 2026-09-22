@@ -52,6 +52,8 @@ export const gsPrecapture = (function() {
     const forceScreenCapture = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_FORCE);
     const options = { format: 'jpeg', quality: forceScreenCapture ? 92 : 50 };
     let timer;
+    // Counts against the per-second quota whether or not it succeeds, so record it up front
+    _lastCaptureAt = Date.now();
     try {
       // captureVisibleTab never settles for a window that isn't painting (occluded, display asleep)
       const dataUrl = await Promise.race([
@@ -60,7 +62,6 @@ export const gsPrecapture = (function() {
           timer = setTimeout(() => reject(new Error('Timed out')), CAPTURE_TIMEOUT);
         }),
       ]);
-      _lastCaptureAt = Date.now();
       // The capture is of whichever tab is active at that instant, so make sure it was still ours
       if (!await isCapturable()) {
         return null;
