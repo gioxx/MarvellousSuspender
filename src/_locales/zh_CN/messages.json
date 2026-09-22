@@ -1179,7 +1179,7 @@
     "message": "TMS 仅在您在下方启用本地或 Google 云端硬盘备份时才请求“下载内容”和 Google 账号权限。"
   },
   "html_permissions_info_note_link": {
-    "message": "查看完整的权限说明。"
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "Chrome 正在询问文件保存位置，因此自动备份将无法静默完成。请在 chrome://settings/downloads 中关闭「下载前询问每个文件的保存位置」。"
