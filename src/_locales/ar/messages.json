@@ -1179,7 +1179,7 @@
     "message": "يطلب TMS أذونات التنزيلات وحساب Google فقط عند تفعيل النسخ الاحتياطي المحلي أو على Google Drive أدناه."
   },
   "html_permissions_info_note_link": {
-    "message": "عرض تفصيل الأذونات الكامل."
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "يسألك Chrome عن مكان حفظ الملفات، لذا لن تعمل النسخ الاحتياطية التلقائية بصمت. عطّل \"السؤال عن مكان حفظ كل ملف\" في chrome://settings/downloads."
