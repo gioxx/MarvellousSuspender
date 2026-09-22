@@ -1179,7 +1179,7 @@
     "message": "පහත ස්ථානීය හෝ Google Drive උපස්ථ සක්‍රීය කළ විට පමණක් TMS බාගැනීම් සහ Google ගිණුම් අවසර ඉල්ලයි."
   },
   "html_permissions_info_note_link": {
-    "message": "සම්පූර්ණ අවසර විස්තරය බලන්න."
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "Chrome ගොනු කොහේ සුරැකිය යුතුදැයි අසමින් ඇත, එබැවින් ස්වයංක්‍රීය උපස්ථ නිහඬව ක්‍රියා නොකරනු ඇත. chrome://settings/downloads හි \"සෑම ගොනුවක්ම කොහේ සුරැකිය යුතුදැයි අසන්න\" අක්‍රීය කරන්න."
