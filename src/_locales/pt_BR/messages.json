@@ -1179,7 +1179,7 @@
     "message": "O TMS solicita as permissões de Downloads e de conta do Google somente quando você ativa o backup local ou no Google Drive abaixo."
   },
   "html_permissions_info_note_link": {
-    "message": "Ver o detalhamento completo das permissões."
+    "message": "See the full permissions breakdown"
   },
   "js_options_backup_now_error": {
     "message": "O Chrome está perguntando onde salvar os arquivos, então os backups automáticos não funcionarão silenciosamente. Desative \"Perguntar onde salvar cada arquivo\" em chrome://settings/downloads."
