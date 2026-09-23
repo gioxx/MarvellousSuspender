@@ -530,30 +530,6 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "neočekávaně padá, zkuste tuto funkci vypnout."
   },
-  "html_options_suspend_screen_capture_method": {
-    "message": "Způsob snímání"
-  },
-  "html_options_suspend_screen_capture_method_auto": {
-    "message": "Automaticky (doporučeno)"
-  },
-  "html_options_suspend_screen_capture_method_native": {
-    "message": "Pouze snímek prohlížeče"
-  },
-  "html_options_suspend_screen_capture_method_renderer": {
-    "message": "Pouze vykreslení stránky"
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automatický režim pořídí skutečný snímek prohlížeče, pokud je uspávaná karta právě ta, na kterou se díváte."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "Je to okamžité a funguje to na každém webu. Ostatní karty překresluje vykreslovač stránky, který je pomalejší."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Režim Pouze snímek prohlížeče nikdy nespouští vykreslovač stránky, takže karty uspané na pozadí nemají náhled."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Snímek prohlížeče zachytí jen viditelnou část stránky, i když je zvoleno snímání celé stránky."
-  },
   "html_options_suspend_force_screen_capture": {
     "message": "Povolit vysoce kvalitní režim snímání obrazovky"
   },

@@ -530,30 +530,6 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "beklenmedik çekilde çökme vb. olursa, bu özelliği kapatmayı deneyin."
   },
-  "html_options_suspend_screen_capture_method": {
-    "message": "Yakalama yöntemi"
-  },
-  "html_options_suspend_screen_capture_method_auto": {
-    "message": "Otomatik (önerilen)"
-  },
-  "html_options_suspend_screen_capture_method_native": {
-    "message": "Yalnızca tarayıcı ekran görüntüsü"
-  },
-  "html_options_suspend_screen_capture_method_renderer": {
-    "message": "Yalnızca sayfa oluşturucu"
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Otomatik, askıya alınan sekme o anda baktığınız sekmeyse gerçek bir tarayıcı ekran görüntüsü alır."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "Bu anında gerçekleşir ve her sitede çalışır. Diğer sekmeler daha yavaş olan sayfa oluşturucu tarafından yeniden çizilir."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Yalnızca tarayıcı ekran görüntüsü, sayfa oluşturucuyu hiç çalıştırmaz; bu nedenle arka planda askıya alınan sekmelerin önizlemesi olmaz."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Tarayıcı ekran görüntüsü, 'Tüm sayfayı yakala' seçili olsa bile yalnızca sayfanın görünen kısmını kapsar."
-  },
   "html_options_suspend_force_screen_capture": {
     "message": "Yüksek kaliteli ekran görüntüsü yakalamayı etkinleştir"
   },

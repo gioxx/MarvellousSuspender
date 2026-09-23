@@ -530,30 +530,6 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "neočakávane padá, skúste túto funkciu vypnúť."
   },
-  "html_options_suspend_screen_capture_method": {
-    "message": "Spôsob snímania"
-  },
-  "html_options_suspend_screen_capture_method_auto": {
-    "message": "Automaticky (odporúčané)"
-  },
-  "html_options_suspend_screen_capture_method_native": {
-    "message": "Iba snímka prehliadača"
-  },
-  "html_options_suspend_screen_capture_method_renderer": {
-    "message": "Iba vykreslenie stránky"
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automatický režim vytvorí skutočnú snímku prehliadača, ak je uspávaná karta práve tá, na ktorú sa pozeráte."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "Je to okamžité a funguje to na každom webe. Ostatné karty prekresľuje vykresľovač stránky, ktorý je pomalší."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Režim Iba snímka prehliadača nikdy nespúšťa vykresľovač stránky, takže karty uspané na pozadí nemajú náhľad."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Snímka prehliadača zachytí iba viditeľnú časť stránky, aj keď je zvolené snímanie celej stránky."
-  },
   "html_options_suspend_force_screen_capture": {
     "message": "Povoliť vysoko kvalitný režim snímania obrazovky"
   },

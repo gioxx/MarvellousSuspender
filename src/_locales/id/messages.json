@@ -530,30 +530,6 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "crash secara tidak terduga, cobalah mematikan fitur ini."
   },
-  "html_options_suspend_screen_capture_method": {
-    "message": "Metode tangkapan"
-  },
-  "html_options_suspend_screen_capture_method_auto": {
-    "message": "Otomatis (disarankan)"
-  },
-  "html_options_suspend_screen_capture_method_native": {
-    "message": "Hanya tangkapan layar browser"
-  },
-  "html_options_suspend_screen_capture_method_renderer": {
-    "message": "Hanya perender halaman"
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Otomatis mengambil tangkapan layar browser yang sebenarnya jika tab yang ditangguhkan adalah tab yang sedang Anda lihat."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "Prosesnya instan dan berfungsi di semua situs. Tab lainnya digambar ulang oleh perender halaman, yang lebih lambat."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Hanya tangkapan layar browser tidak pernah menjalankan perender halaman, sehingga tab yang ditangguhkan di latar belakang tidak memiliki pratinjau."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Tangkapan layar browser hanya mencakup bagian halaman yang terlihat, meskipun 'Tangkap seluruh halaman' dipilih."
-  },
   "html_options_suspend_force_screen_capture": {
     "message": "Aktifkan mode penangkapan layar berkualitas tinggi"
   },

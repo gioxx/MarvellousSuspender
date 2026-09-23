@@ -530,30 +530,6 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "внезапные вылеты Chrome, попробуйте отключить эту функцию."
   },
-  "html_options_suspend_screen_capture_method": {
-    "message": "Способ захвата"
-  },
-  "html_options_suspend_screen_capture_method_auto": {
-    "message": "Автоматически (рекомендуется)"
-  },
-  "html_options_suspend_screen_capture_method_native": {
-    "message": "Только снимок браузера"
-  },
-  "html_options_suspend_screen_capture_method_renderer": {
-    "message": "Только отрисовка страницы"
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "В автоматическом режиме делается настоящий снимок браузера, если приостанавливаемая вкладка сейчас открыта перед вами."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "Это происходит мгновенно и работает на любом сайте. Остальные вкладки перерисовываются отрисовщиком страницы, что медленнее."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Режим «Только снимок браузера» никогда не запускает отрисовщик страницы, поэтому вкладки, приостановленные в фоне, остаются без предпросмотра."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Снимок браузера охватывает только видимую часть страницы, даже если выбран захват всей страницы."
-  },
   "html_options_suspend_force_screen_capture": {
     "message": "Использовать более высокое качество скриншотов страниц"
   },
