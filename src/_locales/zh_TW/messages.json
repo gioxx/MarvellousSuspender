@@ -576,7 +576,7 @@
     "message": "要在一列中將多個網站列入白名單，可以指定網址的一部分："
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "您還可以使用斜線包起來的文字來指定正規表示式："
+    "message": "您還可以使用斜線包起文字來指定正規表示式："
   },
   "html_options_changelog_modal_title": {
     "message": "v$version$ 新增內容",
@@ -728,7 +728,7 @@
     "message": "自動回復分頁"
   },
   "html_recovery_go_to_session_manager": {
-    "message": "前往記錄管理器"
+    "message": "前往記錄管理"
   },
   "html_recovery_important_message": {
     "message": "你目前已開啟螢幕擷取，如果擴充功能多次發生故障，建議你取消勾選。"
@@ -1044,7 +1044,7 @@
     "message": "儲存備份"
   },
   "js_permissions_button_set": {
-    "message": "打開擴充套件設定"
+    "message": "打開擴充功能設定"
   },
   "js_update_confirm": {
     "message": "您尚未匯出備份。確定要更新擴充功能嗎？"
@@ -1179,7 +1179,7 @@
     "message": "TMS 僅在您於下方啟用本機或 Google 雲端硬碟備份時，才要求下載與 Google 帳戶權限。"
   },
   "html_permissions_info_note_link": {
-    "message": "See the full permissions breakdown"
+    "message": "查看完整的權限明細"
   },
   "js_options_backup_now_error": {
     "message": "Chrome 正在詢問檔案儲存位置，因此自動備份將無法在背景靜默完成。請在 chrome://settings/downloads 中關閉「下載前詢問每個檔案的儲存位置」。"
