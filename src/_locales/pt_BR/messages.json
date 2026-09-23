@@ -530,6 +530,30 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "travar inesperadamente, tente desativar esse recurso."
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "Método de captura"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "Automático (recomendado)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "Somente captura do navegador"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "Somente renderizador de página"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "Automático faz uma captura real do navegador quando a aba suspensa é a que você está vendo."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "É instantâneo e funciona em todos os sites. As outras abas são redesenhadas pelo renderizador de página, que é mais lento."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "Somente captura do navegador nunca executa o renderizador de página, então abas suspensas em segundo plano ficam sem pré-visualização."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "A captura do navegador cobre apenas a parte visível da página, mesmo com 'Capturar a página inteira' selecionado."
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "Ativar o modo de captura de tela de alta qualidade"
   },

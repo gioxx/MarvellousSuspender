@@ -14,6 +14,7 @@ import  { tgs }                   from './tgs.js';
   const elementPrefMap = {
     preview: gsStorage.SCREEN_CAPTURE,
     forceScreenCapture: gsStorage.SCREEN_CAPTURE_FORCE,
+    screenCaptureMethod: gsStorage.SCREEN_CAPTURE_METHOD,
     suspendInPlaceOfDiscard: gsStorage.SUSPEND_IN_PLACE_OF_DISCARD,
     onlineCheck: gsStorage.IGNORE_WHEN_OFFLINE,
     batteryCheck: gsStorage.IGNORE_WHEN_CHARGING,
@@ -134,7 +135,7 @@ import  { tgs }                   from './tgs.js';
       addClickHandlers();
       renderNeverSuspendGroups();
 
-      setForceScreenCaptureVisibility(settings[gsStorage.SCREEN_CAPTURE] !== '0');
+      setScreenCaptureOptionsVisibility(settings[gsStorage.SCREEN_CAPTURE] !== '0');
       setAutoSuspendOptionsVisibility(parseFloat(settings[gsStorage.SUSPEND_TIME]) > 0);
       setSyncNoteVisibility(!settings[gsStorage.SYNC_SETTINGS]);
 
@@ -238,7 +239,8 @@ import  { tgs }                   from './tgs.js';
     }
   }
 
-  function setForceScreenCaptureVisibility(visible) {
+  function setScreenCaptureOptionsVisibility(visible) {
+    document.getElementById('screenCaptureMethodContainer').classList.toggle('hidden', !visible);
     document.getElementById('forceScreenCaptureContainer').classList.toggle('hidden', !visible);
   }
 
@@ -259,7 +261,7 @@ import  { tgs }                   from './tgs.js';
 
       // add specific screen element listeners
       if (pref === gsStorage.SCREEN_CAPTURE) {
-        setForceScreenCaptureVisibility(getOptionValue(element) !== '0');
+        setScreenCaptureOptionsVisibility(getOptionValue(element) !== '0');
       }
       else if (pref === gsStorage.SUSPEND_TIME) {
         const interval = getOptionValue(element);
