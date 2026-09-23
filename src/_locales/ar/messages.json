@@ -114,52 +114,52 @@
     "message": "إلغاء تعليق جميع علامات التبويب في جميع النوافذ"
   },
   "html_health_title": {
-    "message": "سلامة علامات التبويب (تجريبي)"
+    "message": "Tab Health (Beta)"
   },
   "html_health_title_intro": {
-    "message": "إذا كنت تواجه مشكلات في علامات التبويب المعلّقة، خاصة في أيقونات المواقع، فانقر على \"فحص علامات التبويب\" لمعرفة ما إذا كان بإمكاننا إصلاحها."
+    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
   },
   "html_health_all_good": {
-    "message": "لم نجد أي مشكلات في علامات التبويب المعلّقة لديك. إذا كنت لا تزال ترى شيئًا خاطئًا، أخبرنا أدناه وسنحاول توسيع هذا الفحص."
+    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
   },
   "html_health_reload_intro": {
-    "message": "لديك بعض علامات التبويب المعلّقة التي لم يتم تحميلها بالكامل. يمكننا إعادة تحميل تلك العلامات لتنظيف الأمور."
+    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
   },
   "html_health_restore_intro": {
-    "message": "بعض علامات التبويب المعلّقة لديك تستخدم أيقونة الموقع الافتراضية من المتصفح. هذا يعني أن ذاكرة التخزين المؤقت لـ TMS لا تملكها. يمكننا استعادة عدد أدنى من علامات التبويب وتعليقها من جديد لجلب الأيقونات المفقودة."
+    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
   },
   "html_health_scan_button": {
-    "message": "فحص علامات التبويب"
+    "message": "Scan Tabs"
   },
   "html_health_copy_button": {
-    "message": "نسخ النتائج"
+    "message": "Copy Results"
   },
   "html_health_scan_label": {
-    "message": "جارٍ فحص علامات التبويب..."
+    "message": "Scanning tabs..."
   },
   "html_health_num_tms_tabs": {
-    "message": "علامات تبويب معلّقة بواسطة TMS"
+    "message": "TMS Suspended tabs"
   },
   "html_health_num_tms_cache": {
-    "message": "أيقونة في ذاكرة تخزين TMS المؤقتة"
+    "message": "favicons in the TMS Cache"
   },
   "html_health_num_tabs_empty": {
-    "message": "علامات تبويب لم يتم تحميلها"
+    "message": "tabs haven't loaded"
   },
   "html_health_num_tabs_extension": {
-    "message": "علامات تبويب تحمل أيقونة TMS"
+    "message": "tabs have the TMS favicon"
   },
   "html_health_num_tabs_default": {
-    "message": "علامات تبويب تحمل أيقونة افتراضية"
+    "message": "tabs have a default favicon"
   },
   "html_health_num_hostnames": {
-    "message": "أسماء مضيف فريدة"
+    "message": "unique tab hostnames"
   },
   "html_health_small_cache": {
-    "message": "قد لا تغطي ذاكرة التخزين المؤقت المحلية لأيقونات TMS جميع علامات التبويب. إذا تم مسح ذاكرة التخزين المؤقت للمتصفح، فقد لا يتمكن TMS من عرض بعض الأيقونات."
+    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
   },
   "html_health_reload_button": {
-    "message": "التالي: إعادة تحميل $count$ علامة تبويب",
+    "message": "Next: Reload $count$ Tabs",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -167,7 +167,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "التالي: استعادة $count$ علامة تبويب لتخزين الأيقونات مؤقتًا",
+    "message": "Next: Restore $count$ tabs to cache favicons",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -175,19 +175,19 @@
     }
   },
   "html_health_action_label": {
-    "message": "جارٍ استعادة الأيقونات..."
+    "message": "Restoring favicons..."
   },
   "html_health_after_reload": {
-    "message": "بمجرد أن تنتهي علامات التبويب من التحميل في الخلفية، يمكنك النقر على \"فحص علامات التبويب\" مرة أخرى لمعرفة ما إذا تحسنت الأمور."
+    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
   },
   "html_health_after_restore": {
-    "message": "يمكنك النقر على \"فحص علامات التبويب\" مرة أخرى لمعرفة ما إذا تحسنت الأمور."
+    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
   },
   "html_health_need_help1": {
-    "message": "إذا كنت لا تزال تواجه مشكلات في علامات التبويب أو الأيقونات، يمكنك النقر على \"نسخ النتائج\" ولصقها في"
+    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
   },
   "html_health_need_help2": {
-    "message": "مشكلة جديدة (Issue) على GitHub."
+    "message": "Issue on GitHub."
   },
   "html_health_num_grouped_broken": {
     "message": "علامات تبويب مجمّعة في حالة معطلة (خلل مجموعات علامات التبويب)"
@@ -234,7 +234,7 @@
     "message": "مزيد من المعلومات متاح على"
   },
   "html_about_contributors": {
-    "message": "قُدّم لك من قبل"
+    "message": "Brought to you by"
   },
   "html_about_report_issues_prefix": {
     "message": "إذا كان لديك ملاحظات أو ترغب في الإبلاغ عن مشكلة، فيمكنك القيام بذلك على سبيل المثال"
@@ -264,7 +264,7 @@
     "message": "روه روه!"
   },
   "html_broken_line1": {
-    "message": "فشل في البدء. ربما تستخدم متصفحًا غير متوافق؟"
+    "message": "failed to start. Perhaps you are using an incompatible browser?"
   },
   "html_broken_line2": {
     "message": "حاول إعادة تشغيل الإضافة. إذا استمرت المشكلة، اطلب المساعدة على"
@@ -303,7 +303,7 @@
     "message": "ترحيل علامات التبويب"
   },
   "html_history_migrate_old_id": {
-    "message": "معرّف الامتداد"
+    "message": "Extension ID"
   },
   "html_history_migrate_section_title": {
     "message": "ترحيل علامات التبويب"
@@ -336,7 +336,7 @@
     "message": "باستخدام ميزة \"البحث في علامات التبويب\" في Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "الحفاظ على موضع تشغيل يوتيوب عند التعليق"
+    "message": "Preserve YouTube playback position when suspending"
   },
   "html_options_other_title": {
     "message": "عام"
@@ -360,7 +360,7 @@
     "message": "أبدا"
   },
   "html_options_suspend_seconds": {
-    "message": "ثواني"
+    "message": "الثواني"
   },
   "html_options_suspend_minute": {
     "message": "دقيقة"
@@ -465,13 +465,13 @@
     "message": "بعد تحديد عدة علامات تبويب والضغط على Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "تطبيق توفير الذاكرة المدمج في المتصفح عند التعليق"
+    "message": "Apply your browser's built-in memory-saving when suspending"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "يقلل من استخدام ذاكرة التبويب المعلق أكثر، من خلال استخدام"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "وظيفة \"تجاهل علامات التبويب\" المدمجة في متصفحك. يمكن أن يؤدي ذلك إلى توفير يصل إلى"
+    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
     "message": "إلى 500٪ مدخرات الذاكرة عند العمل مع عدد كبير من علامات التبويب."
@@ -480,10 +480,10 @@
     "message": "غير أنه سيؤدي أيضا إلى تأخير طفيف عند الاختيار"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "علامة التبويب المعلقة."
+    "message": "علامة التبويب المعلقة"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "لمزيد من المعلومات حول تجاهل علامات التبويب، راجع:"
+    "message": "For more information on tab discarding refer to:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -525,7 +525,7 @@
     "message": "بالإضافة إلى زيادة طفيفة في استخدام الذاكرة."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "إذا لاحظت سلوكًا غريبًا، مثل استغراق علامات التبويب وقتًا طويلاً للتعليق، أو أن المتصفح"
+    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "تعطل بشكل غير متوقع، حاول إيقاف تشغيل هذه الميزة."
@@ -629,31 +629,31 @@
     "message": "في مكان آخر من التمديد."
   },
   "html_options_other_enable_sync": {
-    "message": "مزامنة الإعدادات مع ملف تعريف المتصفح الخاص بك"
+    "message": "Sync settings with your browser profile"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "ستتم مزامنة إعدادات الامتداد عبر جميع المتصفحات التي"
+    "message": "Extension settings will be synchronized across all browsers which are"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "تم تسجيل الدخول بنفس الملف الشخصي."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "سيؤدي هذا أيضًا إلى مزامنة الإعدادات في وضع التصفح المتخفي."
+    "message": "This will also synchronize settings in incognito mode."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "تفعيل هذا سيؤدي إلى الكتابة فوق الإعدادات في جميع المتصفحات الأخرى المسجلة بنفس الملف الشخصي"
+    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
   },
   "html_options_suspend_on_low_memory": {
     "message": "التعليق فوراً عندما تصبح ذاكرة النظام منخفضة جداً"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "سيؤدي هذا الخيار إلى تجاوز وظيفة تجاهل علامات التبويب التلقائية."
+    "message": "This option will override automatic tab discarding functionality."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "عند التفعيل، سيُجبر علامة التبويب على التعليق بدلاً من تجاهلها."
+    "message": "If enabled, it will force a tab to suspend instead of being discarded."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "عادةً، لا يتجاهل متصفحك علامات التبويب إلا عندما تصبح ذاكرة النظام منخفضة جدًا."
+    "message": "Typically, your browser will only discard tabs once system memory gets very low."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "يرجى ملاحظة: قد يتسبب هذا في تعليق علامات التبويب قبل الوقت الذي لديك فيه"
@@ -662,7 +662,7 @@
     "message": "محدد في خيارات التعليق التلقائي للتبويب."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "لمزيد من المعلومات حول تجاهل علامات التبويب، راجع:"
+    "message": "For more information on tab discarding refer to:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -755,16 +755,16 @@
     "message": "الإعدادات"
   },
   "html_sidebar_session_management": {
-    "message": "الجلسات"
+    "message": "Sessions"
   },
   "html_sidebar_tab_health": {
-    "message": "سلامة علامات التبويب"
+    "message": "Tab Health"
   },
   "html_sidebar_shortcuts": {
     "message": "اختصارات لوحة المفاتيح"
   },
   "html_sidebar_support": {
-    "message": "حول عن اضافة"
+    "message": "حول عن الإضافة مارفيلوس سوسبندر"
   },
   "html_sidebar_backup": {
     "message": "النسخ الاحتياطي"
@@ -794,7 +794,7 @@
     "message": "النسخ الاحتياطي والاستعادة"
   },
   "html_success_great_success": {
-    "message": "نجاح رائع!"
+    "message": "نجاح رائع !"
   },
   "html_success_all_tabs_restored": {
     "message": "تم استعادة جميع علامات التبويب الخاصة بك."
@@ -836,13 +836,13 @@
     "message": "التحديث"
   },
   "html_update_heading2": {
-    "message": "أصبح جاهزًا ليكون أكثر <i>روعة</i>"
+    "message": "is ready to get marvellous-<i>er</i>"
   },
   "html_update_info": {
-    "message": "سيتم تثبيت إصدار جديد من The Marvellous Suspender في المرة القادمة التي يُعاد فيها تشغيل متصفحك."
+    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
   },
   "html_update_info_withbackup": {
-    "message": "هام: لم نتمكن من إنشاء نقطة استعادة لعلامات التبويب الخاصة بك.<br>احفظ نسخة احتياطية الآن!"
+    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
   },
   "html_update_info_nobackup_prefix": {
     "message": "يوصى بشدة بأن تقوم بتصدير نسخة من الجلسة الحالية من "
@@ -971,7 +971,7 @@
     "message": "احفظ"
   },
   "js_history_window": {
-    "message": "نافذة"
+    "message": "نافذة "
   },
   "js_history_windows": {
     "message": "ويندوز"
@@ -998,7 +998,7 @@
     "message": "تحتاج إلى معرف اضافة 32 حرف للانتقال من"
   },
   "js_history_migrate_success": {
-    "message": "تم ترحيل $tabcount$ علامة تبويب بنجاح. أعد تشغيل المتصفح إذا لم يُعاد تحميل علامات التبويب المرحّلة تلقائيًا.",
+    "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -1012,7 +1012,7 @@
     "message": "تم تعليق علامة التبويب بسبب انخفاض ذاكرة النظام"
   },
   "js_options_incognito_warning": {
-    "message": "أنت في وضع التخفي. بعض الميزات لن تكون متاحة."
+    "message": "أنت في وضع التخفي.بعض الميزات لن تكون متاحة."
   },
   "js_options_whitelist_no_matches": {
     "message": "لا توجد علامات تبويب مفتوحة تتطابق مع القائمة المسموح بها الحالية."
@@ -1056,10 +1056,10 @@
     "message": "تحديث الإضافة الآن"
   },
   "js_suspend_button_backup": {
-    "message": "احفظ نسخة احتياطية قبل التحديث"
+    "message": "Save a backup before updating"
   },
   "js_shortcuts_default_command": {
-    "message": "تفعيل الامتداد (إظهار النافذة المنبثقة)"
+    "message": "Activate the extension ( show popup )"
   },
   "js_shortcuts_not_set": {
     "message": "لم يتم تعيينه"
