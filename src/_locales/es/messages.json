@@ -114,52 +114,52 @@
     "message": "Anular suspensión de todas las pestañas en todas las ventanas"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "Estado de las pestañas (Beta)"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "Si tienes problemas con tus pestañas suspendidas, especialmente con los favicons, haz clic en \"Escanear pestañas\" para ver si podemos repararlas."
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "No hemos encontrado ningún problema con tus pestañas suspendidas. Si sigues viendo algo raro, avísanos abajo e intentaremos ampliar esta comprobación."
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "Algunas de tus pestañas suspendidas no se han cargado por completo. Podemos recargarlas para solucionarlo."
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "Algunas de tus pestañas suspendidas usan el favicon predeterminado del navegador. Eso significa que la caché de TMS no las tiene. Podemos restaurar y volver a suspender un número mínimo de pestañas para obtener esos favicons que faltan."
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "Escanear pestañas"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "Copiar resultados"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "Escaneando pestañas..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "Pestañas suspendidas por TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "favicons en la caché de TMS"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "pestañas no se han cargado"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "pestañas tienen el favicon de TMS"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "pestañas tienen un favicon predeterminado"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "nombres de host únicos"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "Es posible que la caché local de favicons de TMS no cubra todas las pestañas. Si se borra la caché del navegador, TMS podría no mostrar algunos favicons."
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "Siguiente: recargar $count$ pestañas",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -167,7 +167,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "Siguiente: restaurar $count$ pestañas para almacenar favicons",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -175,19 +175,19 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "Restaurando favicons..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "Cuando tus pestañas terminen de cargarse en segundo plano, puedes volver a hacer clic en \"Escanear pestañas\" para ver si algo ha mejorado."
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "Puedes volver a hacer clic en \"Escanear pestañas\" para ver si algo ha mejorado."
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "Si sigues teniendo problemas con las pestañas o los favicons, puedes hacer clic en \"Copiar resultados\" y pegarlo en un nuevo"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "Issue en GitHub."
   },
   "html_health_num_grouped_broken": {
     "message": "pestañas agrupadas en estado defectuoso (error de grupos de pestañas)"
@@ -234,7 +234,7 @@
     "message": "Más información disponible en"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "Creado por"
   },
   "html_about_report_issues_prefix": {
     "message": "Si tiene comentarios o desea reportar un problema, puede hacerlo en el"
@@ -264,7 +264,7 @@
     "message": "¡Oh oh!"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "no se pudo iniciar. ¿Quizás estás usando un navegador incompatible?"
   },
   "html_broken_line2": {
     "message": "Intente reiniciar la extensión. Si el problema persiste, pida ayuda en la"
@@ -303,7 +303,7 @@
     "message": "Migrar pestañas"
   },
   "html_history_migrate_old_id": {
-    "message": "Extension ID"
+    "message": "ID de la extensión"
   },
   "html_history_migrate_section_title": {
     "message": "Migración de pestañas"
@@ -336,7 +336,7 @@
     "message": "usando \"Buscar pestañas\" de Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "Preserve YouTube playback position when suspending"
+    "message": "Conservar la posición de reproducción de YouTube al suspender"
   },
   "html_options_other_title": {
     "message": "General"
@@ -465,13 +465,13 @@
     "message": "ejemplo tras seleccionar varias pestañas y pulsar Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "Aplicar el ahorro de memoria integrado del navegador al suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "Reduce el uso de memoria de una pestaña suspendida aún más, mediante la utilización"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "la función integrada de \"descarte de pestañas\" de tu navegador. Esto puede suponer hasta"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
     "message": "al 500% de ahorro de memoria cuando se trabaja con un gran número de pestañas."
@@ -483,7 +483,7 @@
     "message": "pestañas suspendidas"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Para más información sobre el descarte de pestañas, consulta:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -525,7 +525,7 @@
     "message": "así como un uso de memoria ligeramente mayor."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "Si notas un comportamiento extraño, como que las pestañas tardan mucho en suspenderse o que el navegador"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "falla inesperadamente, intente deshabilitar esta función."
@@ -629,31 +629,31 @@
     "message": "en otra parte de la extensión."
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "Sincronizar la configuración con tu perfil del navegador"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "La configuración de la extensión se sincronizará en todos los navegadores que estén"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "conectado con el mismo perfil."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "Esto también sincronizará la configuración en modo incógnito."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "Activar esto sobrescribirá la configuración en todos los demás navegadores conectados con el mismo perfil"
   },
   "html_options_suspend_on_low_memory": {
     "message": "Suspender instantáneamente cuando la memoria del sistema es muy baja"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "Esta opción anulará la función de descarte automático de pestañas."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "Si está activada, forzará la suspensión de una pestaña en lugar de descartarla."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "Normalmente, tu navegador solo descarta pestañas cuando la memoria del sistema es muy baja."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "Tenga en cuenta: Esto puede causar que las pestañas se suspendan antes del tiempo que tiene"
@@ -662,7 +662,7 @@
     "message": "especificado en las opciones de suspensión Automática de pestañas."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Para más información sobre el descarte de pestañas, consulta:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -755,10 +755,10 @@
     "message": "Configuración"
   },
   "html_sidebar_session_management": {
-    "message": "Sessions"
+    "message": "Sesiones"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "Estado de las pestañas"
   },
   "html_sidebar_shortcuts": {
     "message": "Atajos del teclado"
@@ -836,13 +836,13 @@
     "message": "Actualizar"
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "está listo para ser aún más marav<i>illoso</i>"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "Se instalará una nueva versión de The Marvellous Suspender la próxima vez que reinicies tu navegador."
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "IMPORTANTE: No pudimos crear un punto de restauración para tus pestañas.<br>¡Guarda una copia de seguridad AHORA!"
   },
   "html_update_info_nobackup_prefix": {
     "message": "Se recomienda encarecidamente que exporte una copia de su sesión actual desde "
@@ -998,7 +998,7 @@
     "message": "Necesita un id de extensión de 32 caracteres para migrar desde"
   },
   "js_history_migrate_success": {
-    "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
+    "message": "Se migraron correctamente $tabcount$ pestañas. Reinicia el navegador si las pestañas migradas no se recargan automáticamente.",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -1056,10 +1056,10 @@
     "message": "Actualizar extensión ahora"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "Guardar una copia de seguridad antes de actualizar"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "Activar la extensión (mostrar ventana emergente)"
   },
   "js_shortcuts_not_set": {
     "message": "no establecido"
