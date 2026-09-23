@@ -9,16 +9,16 @@
     "message": "The Marvellous Suspender"
   },
   "ext_cmd_toggle_tab_suspension_description": {
-    "message": "Suspender/Recarregar a guia ativa"
+    "message": "Suspender/Recarregar a aba ativa"
   },
   "ext_cmd_toggle_tab_pause_description": {
-    "message": "Pausar/Retomar suspensão da guia ativa"
+    "message": "Pausar/Retomar suspensão da aba ativa"
   },
   "ext_cmd_suspend_selected_tabs_description": {
-    "message": "Suspender guias selecionadas"
+    "message": "Suspender abas selecionadas"
   },
   "ext_cmd_unsuspend_selected_tabs_description": {
-    "message": "Recarregar guias selecionadas"
+    "message": "Recarregar abas selecionadas"
   },
   "ext_cmd_suspend_tab_group_description": {
     "message": "Suspender todas as guias no grupo da guia ativa"
@@ -36,31 +36,31 @@
     "message": "Alternar nunca suspender para o grupo da guia ativa"
   },
   "ext_cmd_soft_suspend_active_window_description": {
-    "message": "Suspender todas as outras guias na janela ativa"
+    "message": "Suspender todas as outras abas na janela ativa"
   },
   "ext_cmd_force_suspend_active_window_description": {
-    "message": "Forçar a suspensão de todas as guias na janela ativa"
+    "message": "Forçar a suspensão de todas as abas na janela ativa"
   },
   "ext_cmd_unsuspend_active_window_description": {
-    "message": "Recarregar todas as guias na janela ativa"
+    "message": "Recarregar todas as abas na janela ativa"
   },
   "ext_cmd_soft_suspend_all_windows_description": {
-    "message": "Suspender todas as guias em todas as janelas"
+    "message": "Suspender todas as abas em todas as janelas"
   },
   "ext_cmd_force_suspend_all_windows_description": {
-    "message": "Forçar suspensão de todas as guias em todas as janelas"
+    "message": "Forçar suspensão de todas as abas em todas as janelas"
   },
   "ext_cmd_unsuspend_all_windows_description": {
-    "message": "Recarregar todas as guias em todas as janelas"
+    "message": "Recarregar todas as abas em todas as janelas"
   },
   "js_context_open_link_in_suspended_tab": {
-    "message": "Abrir Link em Nova Guia Suspensa"
+    "message": "Abrir Link em Nova Aba Suspensa"
   },
   "js_context_toggle_suspend_state": {
-    "message": "Suspender/Recarregar esta guia"
+    "message": "Suspender/Recarregar esta aba"
   },
   "js_context_toggle_pause_suspension": {
-    "message": "Pausar/Retomar a suspensão desta guia"
+    "message": "Pausar/Retomar a suspensão desta aba"
   },
   "js_context_never_suspend_domain": {
     "message": "Nunca suspender este domínio"
@@ -69,10 +69,10 @@
     "message": "Nunca suspender esta URL"
   },
   "js_context_suspend_selected_tabs": {
-    "message": "Suspender as guias selecionadas"
+    "message": "Suspender as abas selecionadas"
   },
   "js_context_unsuspend_selected_tabs": {
-    "message": "Recarregar as guias selecionadas"
+    "message": "Recarregar as abas selecionadas"
   },
   "js_context_suspend_tab_group": {
     "message": "Suspender todas as guias neste grupo"
@@ -96,22 +96,22 @@
     "message": "Nunca suspender este grupo (somente grupos nomeados)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
-    "message": "Suspender todas as outras guias nessa janela"
+    "message": "Suspender todas as outras abas nessa janela"
   },
   "js_context_force_suspend_other_tabs_in_window": {
-    "message": "Forçar a suspensão de todas as outras guias nessa janela"
+    "message": "Forçar a suspensão de todas as outras abas nessa janela"
   },
   "js_context_unsuspend_all_tabs_in_window": {
-    "message": "Recarregar todas as guias nessa janela"
+    "message": "Recarregar todas as abas nessa janela"
   },
   "js_context_soft_suspend_all_tabs": {
-    "message": "Suspender todas as guias em todas as janelas"
+    "message": "Suspender todas as abas em todas as janelas"
   },
   "js_context_force_suspend_all_tabs": {
-    "message": "Forçar a suspensão de todas as guias em todas as janelas"
+    "message": "Forçar a suspensão de todas as abas em todas as janelas"
   },
   "js_context_unsuspend_all_tabs": {
-    "message": "Recarregar todas as guias em todas as janelas"
+    "message": "Recarregar todas as abas em todas as janelas"
   },
   "html_health_title": {
     "message": "Saúde das guias (Beta)"
@@ -228,7 +228,7 @@
     "message": "Baseado no original"
   },
   "html_about_fork_mid": {
-    "message": "disponível no GitHub, sem rastreamento ADS"
+    "message": "disponível no GitHub, sem rastreamento anúncios"
   },
   "html_about_fork_end": {
     "message": "Mais informações disponíveis em"
@@ -237,7 +237,7 @@
     "message": "Trazido a você por"
   },
   "html_about_report_issues_prefix": {
-    "message": "Se você tiver comentários ou quiser denunciar um problema, poderá fazer isso no"
+    "message": "Se você tiver comentários ou quiser comunicar um problema, poderá fazer isso no"
   },
   "html_about_report_issues_suffix": {
     "message": ". Por favor, verifique se a sua ideia ou problema já existe antes de criar um novo. Obrigado!"
