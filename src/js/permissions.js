@@ -16,9 +16,17 @@ import  { historyUtils }          from './historyUtils.js';
     document.getElementById('setFilePermissiosnBtn').onclick = async function(
       e
     ) {
-      await gsChrome.tabsCreate({
-        url: 'chrome://extensions?id=' + chrome.runtime.id,
-      });
+      // Requesting the file:///* host permission only succeeds once the user has
+      // enabled "Allow access to file URLs" for this extension - Chrome silently
+      // resolves the request to false rather than throwing if that toggle is off,
+      // it can't be flipped via the API (#514). Try the direct grant first so a
+      // user who already has the toggle on isn't sent on a pointless detour.
+      const granted = await chrome.permissions.request({ origins: ['file:///*'] }).catch(() => false);
+      if (!granted) {
+        await gsChrome.tabsCreate({
+          url: 'chrome://extensions?id=' + chrome.runtime.id,
+        });
+      }
     };
   });
 })();

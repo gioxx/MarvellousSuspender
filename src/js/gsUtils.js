@@ -445,10 +445,10 @@ export const gsUtils = {
     return false;
   },
 
-  //tests if the page is a file:// page AND the user has not enabled access to
-  //file URLs in extension settings
+  //tests if the page is a file:// page AND the extension can't actually suspend it
+  //yet (toggle off, host permission not granted, or both - see gsSession.isFileUrlsUsable)
   isBlockedFileTab(tab) {
-    if (gsUtils.isFileTab(tab) && !gsSession.isFileUrlsAccessAllowed()) {
+    if (gsUtils.isFileTab(tab) && !gsSession.isFileUrlsUsable()) {
       return true;
     }
     return false;

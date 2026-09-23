@@ -16,7 +16,9 @@ export const gsSession = (function() {
   const updateUrl   = chrome.runtime.getURL('update.html');
   const updatedUrl  = chrome.runtime.getURL('updated.html');
 
-  let fileUrlsAccessAllowed = false;
+  let fileUrlsAccessAllowed  = false;
+  let fileHostPermissionGranted = false;
+  const FILE_HOST_ORIGIN = 'file:///*';
 
   // Favicon-repair backstop (#474). The startup favicon pass (runStartupChecks ->
   // performTabChecks) can be skipped or cut short on Chromium forks whose onStartup is
@@ -54,6 +56,16 @@ export const gsSession = (function() {
         resolve(null);
       });
     });
+
+    // The "Allow access to file URLs" toggle above only permits the extension to be
+    // granted the file:// host permission - it does not grant it. Without the
+    // file:///* host permission actually held (chrome.permissions.request, only
+    // callable once the toggle is on), chrome.scripting.executeScript on file:// tabs
+    // fails silently, so both checks are needed to know file:// tabs are actually
+    // suspendable (#514).
+    await refreshFileHostPermissionGranted();
+    chrome.permissions.onAdded.addListener(refreshFileHostPermissionGranted);
+    chrome.permissions.onRemoved.addListener(refreshFileHostPermissionGranted);
 
     //remove any update screens
     await Promise.all([
@@ -146,6 +158,17 @@ export const gsSession = (function() {
 
   function isFileUrlsAccessAllowed() {
     return fileUrlsAccessAllowed;
+  }
+
+  async function refreshFileHostPermissionGranted() {
+    fileHostPermissionGranted = await chrome.permissions.contains({ origins: [FILE_HOST_ORIGIN] });
+  }
+
+  // Whether file:// tabs are actually suspendable right now: both the browser-level
+  // "Allow access to file URLs" toggle and the file:///* host permission grant are
+  // required (#514 - having only the toggle on is not enough).
+  function isFileUrlsUsable() {
+    return fileUrlsAccessAllowed && fileHostPermissionGranted;
   }
 
   async function getUpdateType() {
@@ -978,6 +1001,7 @@ export const gsSession = (function() {
     isInitialising,
     isUpdated,
     isFileUrlsAccessAllowed,
+    isFileUrlsUsable,
     setSynchedSettingsOnInit,
     recoverLostTabs,
     triggerDiscardOfAllTabs,
