@@ -450,7 +450,6 @@ export const gsTabQueue = (function() {
 
       return {
         EXCEPTION_TIMEOUT,
-        STATUS_IN_PROGRESS,
         setQueueProperties,
         getQueueProperties,
         getTotalQueueSize,
