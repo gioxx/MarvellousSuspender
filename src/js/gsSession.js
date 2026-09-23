@@ -195,7 +195,17 @@ export const gsSession = (function() {
   // #514). The check itself is a cheap local call, so re-running it on every await here
   // costs nothing worth caching against.
   function ensureFileUrlsStateReady() {
-    return fileUrlsStateReadyPromise.then(refreshFileUrlsAccessAllowed);
+    // Refresh both flags here, rather than leaving fileHostPermissionGranted to the
+    // separate chrome.permissions.onAdded/onRemoved listeners registered by
+    // initFileUrlsState(): those fire independently for the same event with no
+    // guaranteed ordering against a caller's own onAdded listener (e.g. background.js's,
+    // arming auto-suspend timers for already-open file:// tabs), which could otherwise
+    // read fileHostPermissionGranted before that separate listener's own
+    // chrome.permissions.contains() call has resolved (Codex review, #514).
+    return fileUrlsStateReadyPromise.then(() => Promise.all([
+      refreshFileUrlsAccessAllowed(),
+      refreshFileHostPermissionGranted(),
+    ]));
   }
 
   async function getUpdateType() {

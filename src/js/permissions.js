@@ -13,9 +13,26 @@ import  { historyUtils }          from './historyUtils.js';
         document.getElementById('exportBackupBtn').style.display = 'none';
       });
     };
-    document.getElementById('setFilePermissiosnBtn').onclick = async function(
-      e
-    ) {
+    const setFilePermissionsBtn = document.getElementById('setFilePermissiosnBtn');
+
+    // chrome.permissions.request() requires an actual user gesture to show its prompt, so
+    // returning from chrome://extensions can't just silently retry it - the button below
+    // needs a second real click once the toggle is on. Nothing pointed the user back at
+    // it (Codex review, #514): once this page regains visibility after being sent there,
+    // pulse the button so the required next step is visible instead of a silent dead end.
+    let awaitingReturnFromSettings = false;
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState !== 'visible' || !awaitingReturnFromSettings) return;
+      awaitingReturnFromSettings = false;
+      setFilePermissionsBtn.classList.add('pulse-attention');
+      setFilePermissionsBtn.addEventListener(
+        'animationend',
+        () => setFilePermissionsBtn.classList.remove('pulse-attention'),
+        { once: true },
+      );
+    });
+
+    setFilePermissionsBtn.onclick = async function(e) {
       // Requesting the file:///* host permission only succeeds once the user has
       // enabled "Allow access to file URLs" for this extension - Chrome silently
       // resolves the request to false rather than throwing if that toggle is off,
@@ -30,6 +47,7 @@ import  { historyUtils }          from './historyUtils.js';
         // that has nothing left for them to do.
         await gsSession.ensureFileUrlsStateReady();
         if (!gsSession.isFileUrlsAccessAllowed()) {
+          awaitingReturnFromSettings = true;
           await gsChrome.tabsCreate({
             url: 'chrome://extensions?id=' + chrome.runtime.id,
           });
