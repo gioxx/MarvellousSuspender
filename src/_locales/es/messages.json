@@ -832,6 +832,9 @@
   "html_permissions_backup": {
     "message": "Tenga en cuenta: si cambia esta opción, todas las pestañas suspendidas desaparecerán brevemente.\nPor si acaso, ahora podría ser un buen momento para guardar una copia de seguridad de su sesión de pestañas actual."
   },
+  "html_permissions_return_hint": {
+    "message": "Bienvenido de nuevo: haz clic de nuevo en el botón para terminar de conceder el acceso a archivos locales."
+  },
   "html_update_title": {
     "message": "Actualizar"
   },

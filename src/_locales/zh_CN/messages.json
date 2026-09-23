@@ -832,6 +832,9 @@
   "html_permissions_backup": {
     "message": "请注意：改变这个设置可能会使你当前所有的冻结标签页短暂的消失。\n为了以防万一，最好对当前标签页的会话的做备份。"
   },
+  "html_permissions_return_hint": {
+    "message": "欢迎回来:请再次点击按钮以完成本地文件访问权限的授予。"
+  },
   "html_update_title": {
     "message": "更新"
   },

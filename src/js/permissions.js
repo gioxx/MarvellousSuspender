@@ -14,12 +14,14 @@ import  { historyUtils }          from './historyUtils.js';
       });
     };
     const setFilePermissionsBtn = document.getElementById('setFilePermissiosnBtn');
+    const returnHint            = document.getElementById('filePermissionsReturnHint');
 
     // chrome.permissions.request() requires an actual user gesture to show its prompt, so
     // returning from chrome://extensions can't just silently retry it - the button below
-    // needs a second real click once the toggle is on. Nothing pointed the user back at
-    // it (Codex review, #514): once this page regains visibility after being sent there,
-    // pulse the button so the required next step is visible instead of a silent dead end.
+    // needs a second real click once the toggle is on. Pulsing the button alone doesn't
+    // say why a click that already went to "Open extension settings" needs doing again
+    // (Codex review, #514) - a plain-language hint now appears too, once this page regains
+    // visibility after being sent there, and is cleared again on the next click either way.
     let awaitingReturnFromSettings = false;
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState !== 'visible' || !awaitingReturnFromSettings) return;
@@ -30,9 +32,11 @@ import  { historyUtils }          from './historyUtils.js';
         () => setFilePermissionsBtn.classList.remove('pulse-attention'),
         { once: true },
       );
+      returnHint.classList.remove('hidden');
     });
 
     setFilePermissionsBtn.onclick = async function(e) {
+      returnHint.classList.add('hidden');
       // Requesting the file:///* host permission only succeeds once the user has
       // enabled "Allow access to file URLs" for this extension - Chrome silently
       // resolves the request to false rather than throwing if that toggle is off,
