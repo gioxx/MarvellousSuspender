@@ -79,6 +79,7 @@ module.exports = function(grunt) {
       public: {
         src: [
           '<%= config.tempDir %>src/**/*',
+          '!**/html2canvas.js',
           '!**/Thumbs.db',
         ],
         dest: 'build/zip/<%= config.buildName %>.zip',
@@ -86,6 +87,7 @@ module.exports = function(grunt) {
       private: {
         src: [
           '<%= config.tempDir %>src/**/*',
+          '!**/html2canvas.js',
           '!**/Thumbs.db',
         ],
         dest: 'build/crx/<%= config.buildName %>.crx',
