@@ -1044,9 +1044,13 @@ export const tgs = (function() {
     // Check if tab is queued for suspension
     const queuedTabDetails = gsTabSuspendManager.getQueuedTabDetails(tab);
     if (queuedTabDetails) {
-      // Requeue tab to wake it from possible sleep
-      delete queuedTabDetails.executionProps.refetchTab;
-      gsTabSuspendManager.queueTabForSuspension( tab, queuedTabDetails.executionProps.forceLevel );
+      // Requeue tab to wake it from possible sleep. A job that is already running needs no
+      // waking, and since #502 queueing it again parks a follow-up that would run a whole
+      // second suspension after the first has replaced the tab
+      if (!gsTabSuspendManager.isSuspensionInProgress(tab)) {
+        delete queuedTabDetails.executionProps.refetchTab;
+        gsTabSuspendManager.queueTabForSuspension( tab, queuedTabDetails.executionProps.forceLevel );
+      }
       return;
     }
 
