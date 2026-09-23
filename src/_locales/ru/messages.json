@@ -1179,7 +1179,7 @@
     "message": "TMS запрашивает разрешения «Загрузки» и аккаунт Google только при включении локального резервного копирования или резервного копирования на Google Диск ниже."
   },
   "html_permissions_info_note_link": {
-    "message": "See the full permissions breakdown"
+    "message": "Полный список разрешений"
   },
   "js_options_backup_now_error": {
     "message": "Chrome спрашивает, куда сохранять файлы, поэтому автоматические резервные копии не будут работать незаметно. Отключите «Спрашивать, куда сохранять каждый файл» в chrome://settings/downloads."
