@@ -114,52 +114,52 @@
     "message": "Annuler la suspension de tous les onglets dans toutes les fenêtres"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "État des onglets (Bêta)"
   },
   "html_health_title_intro": {
-    "message": "If you're having issues with your suspended tabs, particularly with favicons, click Scan Tabs to see if we can repair them."
+    "message": "Si vous rencontrez des problèmes avec vos onglets suspendus, notamment avec les favicons, cliquez sur « Analyser les onglets » pour voir si nous pouvons les réparer."
   },
   "html_health_all_good": {
-    "message": "We didn't find any issues with your suspended tabs.  If you're still seeing something wrong, let us know below and we'll try to expand this health check."
+    "message": "Nous n'avons trouvé aucun problème avec vos onglets suspendus. Si vous constatez toujours une anomalie, faites-le-nous savoir ci-dessous et nous tenterons d'étendre cette vérification."
   },
   "html_health_reload_intro": {
-    "message": "You have some suspended tabs that have not fully loaded.  We can reload those suspended tabs to clean things up."
+    "message": "Certains de vos onglets suspendus ne se sont pas entièrement chargés. Nous pouvons les recharger pour nettoyer tout ça."
   },
   "html_health_restore_intro": {
-    "message": "Some of your suspended tabs are using the browser default favicon.  That means the TMS cache doesn't have them.  We can restore and then re-suspend a minimum number of tabs to fetch those missing favicons."
+    "message": "Certains de vos onglets suspendus utilisent le favicon par défaut du navigateur. Cela signifie que le cache de TMS ne les possède pas. Nous pouvons restaurer puis re-suspendre un nombre minimal d'onglets pour récupérer ces favicons manquants."
   },
   "html_health_scan_button": {
-    "message": "Scan Tabs"
+    "message": "Analyser les onglets"
   },
   "html_health_copy_button": {
-    "message": "Copy Results"
+    "message": "Copier les résultats"
   },
   "html_health_scan_label": {
-    "message": "Scanning tabs..."
+    "message": "Analyse des onglets..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS Suspended tabs"
+    "message": "Onglets suspendus par TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons in the TMS Cache"
+    "message": "favicons dans le cache de TMS"
   },
   "html_health_num_tabs_empty": {
-    "message": "tabs haven't loaded"
+    "message": "onglets non chargés"
   },
   "html_health_num_tabs_extension": {
-    "message": "tabs have the TMS favicon"
+    "message": "onglets ont le favicon de TMS"
   },
   "html_health_num_tabs_default": {
-    "message": "tabs have a default favicon"
+    "message": "onglets ont un favicon par défaut"
   },
   "html_health_num_hostnames": {
-    "message": "unique tab hostnames"
+    "message": "noms d'hôte uniques"
   },
   "html_health_small_cache": {
-    "message": "The local TMS favicon cache may not cover all tabs. If your browser cache gets cleared, TMS may not be able to show some favicons."
+    "message": "Le cache local des favicons de TMS pourrait ne pas couvrir tous les onglets. Si le cache du navigateur est vidé, TMS pourrait ne plus afficher certains favicons."
   },
   "html_health_reload_button": {
-    "message": "Next: Reload $count$ Tabs",
+    "message": "Suivant : recharger $count$ onglets",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -167,7 +167,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Next: Restore $count$ tabs to cache favicons",
+    "message": "Suivant : restaurer $count$ onglets pour mettre les favicons en cache",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -175,19 +175,19 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restoring favicons..."
+    "message": "Restauration des favicons..."
   },
   "html_health_after_reload": {
-    "message": "Once your tabs finish loading in the background, you can \"Scan Tabs\" again to see if we've improved things."
+    "message": "Une fois vos onglets chargés en arrière-plan, vous pouvez cliquer à nouveau sur « Analyser les onglets » pour voir si la situation s'est améliorée."
   },
   "html_health_after_restore": {
-    "message": "You can click \"Scan Tabs\" again to see if we've improved things."
+    "message": "Vous pouvez cliquer à nouveau sur « Analyser les onglets » pour voir si la situation s'est améliorée."
   },
   "html_health_need_help1": {
-    "message": "If you're still having tab or favicon issues, you can click Copy Results and paste into a new"
+    "message": "Si vous rencontrez toujours des problèmes d'onglets ou de favicons, vous pouvez cliquer sur « Copier les résultats » et les coller dans une nouvelle"
   },
   "html_health_need_help2": {
-    "message": "Issue on GitHub."
+    "message": "Issue sur GitHub."
   },
   "html_health_num_grouped_broken": {
     "message": "onglets groupés dans un état défectueux (bug des groupes d'onglets)"
@@ -234,7 +234,7 @@
     "message": "Plus d'informations disponibles sur"
   },
   "html_about_contributors": {
-    "message": "Brought to you by"
+    "message": "Proposé par"
   },
   "html_about_report_issues_prefix": {
     "message": "Si vous avez des commentaires ou souhaitez signaler un problème, vous pouvez le faire sur la"
@@ -261,10 +261,10 @@
     "message": "est cassé"
   },
   "html_broken_ruh_roh": {
-    "message": "Ruh Roh!"
+    "message": "Oups !"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible browser?"
+    "message": "n'a pas pu démarrer. Utilisez-vous peut-être un navigateur incompatible ?"
   },
   "html_broken_line2": {
     "message": "Essayez de redémarrer l'extension. Si le problème persiste, demandez de l'aide sur la"
@@ -303,7 +303,7 @@
     "message": "Migration d'onglets"
   },
   "html_history_migrate_old_id": {
-    "message": "Extension ID"
+    "message": "ID de l'extension"
   },
   "html_history_migrate_section_title": {
     "message": "Migration des onglets"
@@ -336,7 +336,7 @@
     "message": "grâce à la fonction \"Rechercher dans les onglets\" de Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "Preserve YouTube playback position when suspending"
+    "message": "Conserver la position de lecture YouTube lors de la mise en veille"
   },
   "html_options_other_title": {
     "message": "Général"
@@ -465,13 +465,13 @@
     "message": "par exemple après en avoir sélectionné plusieurs et appuyé sur Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply your browser's built-in memory-saving when suspending"
+    "message": "Appliquer l'économie de mémoire intégrée du navigateur lors de la suspension"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
     "message": "Réduit encore plus l'utilisation de la mémoire d'un onglet suspendu, en utilisant la"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "your browser's built-in 'tab discarding' functionality. This can result in up"
+    "message": "la fonction native de « décharge d'onglets » de votre navigateur. Cela peut permettre jusqu'à"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
     "message": "500% d'économie de mémoire lorsque vous travaillez avec un grand nombre d'onglets."
@@ -483,7 +483,7 @@
     "message": "d'un onglet suspendu."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Pour plus d'informations sur la décharge d'onglets, consultez :"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -525,7 +525,7 @@
     "message": "ainsi qu'une utilisation de mémoire légèrement augmentée."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behavior such as tabs taking a long time to suspend, or the browser"
+    "message": "Si vous remarquez un comportement étrange, comme des onglets qui mettent longtemps à se suspendre, ou que le navigateur"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "plantant inopinément, essayez de désactiver cette fonctionnalité."
@@ -629,31 +629,31 @@
     "message": "autre part dans l'extension."
   },
   "html_options_other_enable_sync": {
-    "message": "Sync settings with your browser profile"
+    "message": "Synchroniser les paramètres avec votre profil de navigateur"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronized across all browsers which are"
+    "message": "Les paramètres de l'extension seront synchronisés sur tous les navigateurs qui sont"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
     "message": "connecté avec le même profil."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronize settings in incognito mode."
+    "message": "Cela synchronisera également les paramètres en mode navigation privée."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same profile"
+    "message": "Activer cette option écrasera les paramètres sur tous les autres navigateurs connectés au même profil"
   },
   "html_options_suspend_on_low_memory": {
     "message": "Suspendre instantanément lorsque la mémoire du système devient très faible"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override automatic tab discarding functionality."
+    "message": "Cette option remplacera la fonction de décharge automatique des onglets."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded."
+    "message": "Si activée, elle forcera la suspension d'un onglet au lieu de le décharger."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, your browser will only discard tabs once system memory gets very low."
+    "message": "En général, votre navigateur ne décharge les onglets que lorsque la mémoire système devient très faible."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
     "message": "Remarque : Cela peut entraîner la suspension des onglets plus tôt que le temps que vous avez"
@@ -662,7 +662,7 @@
     "message": "spécifié dans les options de suspension automatique des onglets."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on tab discarding refer to:"
+    "message": "Pour plus d'informations sur la décharge d'onglets, consultez :"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -716,7 +716,7 @@
     "message": "Récupération"
   },
   "html_recovery_ruh_roh": {
-    "message": "Ruh roh!"
+    "message": "Oups !"
   },
   "html_recovery_description_line1": {
     "message": "On dirait que vous récupérez à partir d'un plantage d'extension."
@@ -758,7 +758,7 @@
     "message": "Sessions"
   },
   "html_sidebar_tab_health": {
-    "message": "Tab Health"
+    "message": "État des onglets"
   },
   "html_sidebar_shortcuts": {
     "message": "Raccourcis clavier"
@@ -821,7 +821,7 @@
     "message": "Le rechargement automatique des onglets est temporairement désactivé."
   },
   "html_permissions_title": {
-    "message": "Permissions"
+    "message": "Autorisations"
   },
   "html_permissions_heading": {
     "message": "Veuillez me donner accès aux URL de fichiers locaux"
@@ -836,13 +836,13 @@
     "message": "Mis à jour"
   },
   "html_update_heading2": {
-    "message": "is ready to get marvellous-<i>er</i>"
+    "message": "est prêt à devenir encore plus <i>merveilleux</i>"
   },
   "html_update_info": {
-    "message": "A new version of The Marvellous Suspender will be installed the next time your browser is restarted."
+    "message": "Une nouvelle version de The Marvellous Suspender sera installée au prochain redémarrage de votre navigateur."
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANT: We were unable to create a restore point for your tabs.<br>Save a backup NOW!"
+    "message": "IMPORTANT : nous n'avons pas pu créer de point de restauration pour vos onglets.<br>Enregistrez une sauvegarde MAINTENANT !"
   },
   "html_update_info_nobackup_prefix": {
     "message": "Il est fortement recommandé d'exporter une copie de votre session actuelle à partir de "
@@ -998,7 +998,7 @@
     "message": "Nécessite un id d'extension de 32 caractères pour migrer depuis"
   },
   "js_history_migrate_success": {
-    "message": "Successfully migrated $tabcount$ tabs. Please restart your browser if the migrated tabs do not auto-reload.",
+    "message": "$tabcount$ onglets migrés avec succès. Redémarrez votre navigateur si les onglets migrés ne se rechargent pas automatiquement.",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -1056,10 +1056,10 @@
     "message": "Mettre à jour l'extension"
   },
   "js_suspend_button_backup": {
-    "message": "Save a backup before updating"
+    "message": "Enregistrer une sauvegarde avant la mise à jour"
   },
   "js_shortcuts_default_command": {
-    "message": "Activate the extension ( show popup )"
+    "message": "Activer l'extension (afficher la fenêtre contextuelle)"
   },
   "js_shortcuts_not_set": {
     "message": "non défini"
