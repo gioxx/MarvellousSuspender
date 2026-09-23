@@ -947,6 +947,20 @@ import  { tgs }                   from './tgs.js';
   chrome.commands.onCommand.addListener(commandListener);
   chrome.contextMenus.onClicked.addListener(contextMenuListener);
   chrome.alarms.onAlarm.addListener(alarmListener);
+  // A file:// tab already open and backgrounded when the file:///* host permission is
+  // granted (permissions.js) never fires a chrome.tabs.onUpdated event of its own, so it
+  // never re-runs the isNormalTab() check that would now include it and arm its
+  // auto-suspend timer - it would otherwise stay unscheduled until some unrelated tab
+  // event happens to touch it (Codex review, #514). gsSession's own onAdded listener
+  // (registered in every context) only refreshes its cached flags; this background-only
+  // one re-scans every open tab, the same way a settings change already does.
+  chrome.permissions.onAdded.addListener(async (permissions) => {
+    if (!permissions.origins?.includes('file:///*')) return;
+    await gsSession.ensureFileUrlsStateReady();
+    if (gsSession.isFileUrlsUsable()) {
+      tgs.resetAutoSuspendTimerForAllTabs();
+    }
+  });
   addChromeListeners();
   addMiscListeners();
 
