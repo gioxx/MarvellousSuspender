@@ -43,19 +43,23 @@ import  { historyUtils }          from './historyUtils.js';
       // it can't be flipped via the API (#514). Try the direct grant first so a
       // user who already has the toggle on isn't sent on a pointless detour.
       const granted = await chrome.permissions.request({ origins: ['file:///*'] }).catch(() => false);
-      if (!granted) {
+      // Checked regardless of `granted`: if the permission was already held from an
+      // earlier grant and the user has since disabled "Allow access to file URLs",
+      // request() just re-confirms the still-held permission and resolves true
+      // immediately, with no prompt - file tabs are still unusable, but skipping this
+      // check whenever granted is true would leave the click doing nothing at all in
+      // that case (Codex review, #514).
+      await gsSession.ensureFileUrlsStateReady();
+      if (!gsSession.isFileUrlsAccessAllowed()) {
         // A denied request also resolves to false when the toggle IS already on and
         // the user simply declined the browser's own permission prompt (Codex review) -
         // only the toggle-off case needs the chrome://extensions redirect; a real
         // decline should leave the user on this page rather than send them somewhere
         // that has nothing left for them to do.
-        await gsSession.ensureFileUrlsStateReady();
-        if (!gsSession.isFileUrlsAccessAllowed()) {
-          awaitingReturnFromSettings = true;
-          await gsChrome.tabsCreate({
-            url: 'chrome://extensions?id=' + chrome.runtime.id,
-          });
-        }
+        awaitingReturnFromSettings = true;
+        await gsChrome.tabsCreate({
+          url: 'chrome://extensions?id=' + chrome.runtime.id,
+        });
       }
     };
   });
