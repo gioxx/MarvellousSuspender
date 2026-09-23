@@ -9,16 +9,16 @@
     "message": "The Marvellous Suspender"
   },
   "ext_cmd_toggle_tab_suspension_description": {
-    "message": "Askıya Al/Askıyı Kaldır active tab"
+    "message": "Aktif sekmeyi Askıya Al/Askısını Kaldır"
   },
   "ext_cmd_toggle_tab_pause_description": {
-    "message": "Aktif sekmenin askı durumunu Duraklat/Devam Et"
+    "message": "Aktif sekmenin otomatik askıya alınmasını Duraklat/Devam Et"
   },
   "ext_cmd_suspend_selected_tabs_description": {
-    "message": "Seçilen sekmeyi askıya al"
+    "message": "Seçilen sekmeleri askıya al"
   },
   "ext_cmd_unsuspend_selected_tabs_description": {
-    "message": "Seçilen sekmenin askısını kaldır"
+    "message": "Seçilen sekmelerin askısını kaldır"
   },
   "ext_cmd_suspend_tab_group_description": {
     "message": "Aktif sekmenin grubundaki tüm sekmeleri askıya al"
@@ -36,25 +36,25 @@
     "message": "Etkin sekmenin grubu için hiçbir zaman askıya alma ayarını değiştir"
   },
   "ext_cmd_soft_suspend_active_window_description": {
-    "message": "Aktif pencere dışında tüm sekmeleri askıya al"
+    "message": "Aktif penceredeki diğer tüm sekmeleri askıya al"
   },
   "ext_cmd_force_suspend_active_window_description": {
-    "message": "Aktif pencere dışında tüm sekmeleri zorla askıya al"
+    "message": "Aktif penceredeki diğer tüm sekmeleri zorla askıya al"
   },
   "ext_cmd_unsuspend_active_window_description": {
-    "message": "Aktif penceredeki tüm sekmelerin askıya almasını kaldır"
+    "message": "Aktif penceredeki tüm sekmelerin askıdan çıkar"
   },
   "ext_cmd_soft_suspend_all_windows_description": {
     "message": "Tüm pencerelerde tüm sekmeleri askıya al"
   },
   "ext_cmd_force_suspend_all_windows_description": {
-    "message": "Tüm penceredeki tüm sekmeleri zorla askıya al"
+    "message": "Tüm pencerelerdeki tüm sekmeleri zorla askıya al"
   },
   "ext_cmd_unsuspend_all_windows_description": {
-    "message": "Tüm pencerelerde tüm sekmelerin askıya almasını kaldır"
+    "message": "Tüm pencerelerdeki tüm sekmeleri askıdan çıkar"
   },
   "js_context_open_link_in_suspended_tab": {
-    "message": "Askıya Alınmış Sekmede Adresi Aç"
+    "message": "Bağlantıyı Yeni Askıya Alınmış Sekmede Aç"
   },
   "js_context_toggle_suspend_state": {
     "message": "Bu sekmeyi Askıya Al/Askısını Kaldır"
@@ -63,16 +63,16 @@
     "message": "Bu sekmenin askı durumunu Duraklat/Devam Et"
   },
   "js_context_never_suspend_domain": {
-    "message": "Bu alanadını hiçbir zaman askıya alma"
+    "message": "Bu alan adını hiçbir zaman askıya alma"
   },
   "js_context_never_suspend_page": {
     "message": "Bu URL adresini hiçbir zaman askıya alma"
   },
   "js_context_suspend_selected_tabs": {
-    "message": "Seçilen sekmeyi askıya al"
+    "message": "Seçilen sekmeleri askıya al"
   },
   "js_context_unsuspend_selected_tabs": {
-    "message": "Seçilen sekmenin askısını kaldır"
+    "message": "Seçilen sekmelerin askısını kaldır"
   },
   "js_context_suspend_tab_group": {
     "message": "Bu gruptaki tüm sekmeleri askıya al"
@@ -96,22 +96,22 @@
     "message": "Bu grubu hiçbir zaman askıya alma (yalnızca adlandırılmış gruplar)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
-    "message": "Bu pencere dışındaki tüm sekmeleri askıya al"
+    "message": "Bu penceredeki tüm sekmeleri askıya al"
   },
   "js_context_force_suspend_other_tabs_in_window": {
-    "message": "Bu pencere dışındaki tüm sekmeleri zorla askıya al"
+    "message": "Bu penceredeki tüm sekmeleri zorla askıya al"
   },
   "js_context_unsuspend_all_tabs_in_window": {
-    "message": "Bu penceredeki tüm sekmelerin askısını kaldır"
+    "message": "Bu penceredeki tüm sekmeleri askıdan çıkar"
   },
   "js_context_soft_suspend_all_tabs": {
-    "message": "Tüm penceredeki tüm sekmeleri askıya al"
+    "message": "Tüm pencerelerdeki tüm sekmeleri askıya al"
   },
   "js_context_force_suspend_all_tabs": {
-    "message": "Tüm penceredeki tüm sekmeleri zorla askıya al"
+    "message": "Tüm pencerelerdeki tüm sekmeleri zorla askıya al"
   },
   "js_context_unsuspend_all_tabs": {
-    "message": "Tüm penceredeki tüm sekmelerin askısını kaldır"
+    "message": "Tüm pencerelerdeki tüm sekmelerin askısını kaldır"
   },
   "html_health_title": {
     "message": "Sekme Durumu (Beta)"
@@ -237,10 +237,10 @@
     "message": "Şunlar tarafından sunulmaktadır:"
   },
   "html_about_report_issues_prefix": {
-    "message": "Geri bildiriminiz varsa veya bir sorunu bildirmek istiyorsanız"
+    "message": "Geri bildiriminiz varsa veya bir sorunu bildirmek istiyorsanız bu bağlantıdan gerçekleştirebilirsiniz:"
   },
   "html_about_report_issues_suffix": {
-    "message": ". Lütfen yeni bir tane oluşturmadan önce fikrinizin veya sorununun mevcut olup olmaduğını kontrol ediniz. Teşekkürler!"
+    "message": ". Lütfen yeni bir tane oluşturmadan önce fikrinizin veya sorununun başka biri tarafından halihazırda açılmadığından emin olunuz. Teşekkürler!"
   },
   "html_about_debugging_prefix": {
     "message": "Günlükleri yakalamak ve bir tanılama raporu oluşturmak için "
@@ -288,7 +288,7 @@
     "message": "TMS, açık sekmelerinizin sürekli bir anlık görüntüsünü tutar, herhangi bir kurulum gerekmez. Oturumlar gezinirken otomatik olarak güncellenir, ancak yalnızca Chrome içinde bulunurlar: tarayıcı profili kaybolur veya bozulursa, onlar da kaybolur."
   },
   "html_history_current_session": {
-    "message": "Şuanki oturum"
+    "message": "Mevcut oturum"
   },
   "html_history_recent_sessions": {
     "message": "Son oturumlar"
@@ -297,7 +297,7 @@
     "message": "Kayıtlı oturumlar"
   },
   "html_history_import_session": {
-    "message": "Oturum Al"
+    "message": "Oturumları içe aktar"
   },
   "html_history_migrate_tabs": {
     "message": "Sekmeleri taşı"
@@ -348,7 +348,7 @@
     "message": "Sistem varsayılanı"
   },
   "html_options_suspend_automatically_after": {
-    "message": "Otomatik sekmeyi askıya al"
+    "message": "Sekmeleri otomatik askıya alma süresi"
   },
   "html_options_suspend_on_battery_after": {
     "message": "Pil gücündeyken sekmeleri şu süre sonra askıya al"
@@ -357,7 +357,7 @@
     "message": "Prize takılıyken ile aynı"
   },
   "html_options_suspend_never": {
-    "message": "Hiç"
+    "message": "Hiçbir zaman"
   },
   "html_options_suspend_seconds": {
     "message": "saniye"
@@ -387,7 +387,7 @@
     "message": "hafta"
   },
   "html_options_suspend_no_pinned": {
-    "message": "Sabitlenmiş sekmeleri asla askıya al yapma"
+    "message": "Sabitlenmiş sekmeleri asla askıya alma"
   },
   "html_options_suspend_no_app_windows": {
     "message": "Uygulama pencerelerinde açık sekmeleri asla askıya alma"
@@ -396,13 +396,13 @@
     "message": "Bir sekme grubundaki sekmeleri asla askıya alma"
   },
   "html_options_suspend_no_forms": {
-    "message": "Asla kaydedilmemiş form girişleri içeren sekmeleri askıya al yapma"
+    "message": "Asla kaydedilmemiş form girişleri içeren sekmeleri askıya alma"
   },
   "html_options_suspend_no_audio": {
-    "message": "Asla ses çalan sekmelere askıya al yapma"
+    "message": "Asla ses çalan sekmeleri askıya alma"
   },
   "html_options_suspend_only_connected": {
-    "message": "Çevrimdışı olduğunda askıya al yapma"
+    "message": "Çevrimdışı olduğunda asla sekmeleri askıya alma"
   },
   "html_options_suspend_claim_by_default": {
     "message": "Varsayılan olarak sahiplen"
@@ -423,10 +423,10 @@
     "message": "o URL'yi bu kuruluma yeniden yazar."
   },
   "html_options_suspend_only_on_battery": {
-    "message": "Güç kaynağına bağlı iken sekmeleri askıya al yapma"
+    "message": "Cihaz şarja takılıyken asla sekmeleri askıya alma"
   },
   "html_options_suspend_no_active_tabs": {
-    "message": "Asla aktif penceredeki sekmeye askıya al yapma"
+    "message": "Her bir penceredeki aktif sekmeleri asla askıya alma"
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Askıya alınmış sekmeleri her zaman sayfanın en üstünden yeniden aç"
@@ -444,7 +444,7 @@
     "message": "yüklemede bir #bölüme atlayan bağlantıları geçersiz kılar."
   },
   "html_options_suspend_automatically_unsuspend": {
-    "message": "Sekme görüntülendiğinde askısını kaldır"
+    "message": "Sekmeye geçiş yapıldığında otomatik olarak askıdan çıkar"
   },
   "html_options_suspend_reload_unsuspend_background": {
     "message": "Yeniden yükleme, arka plandaki sekmelerin de askısını kaldırır (yalnızca etkin sekmenin değil)"
@@ -468,19 +468,19 @@
     "message": "Askıya alırken tarayıcının yerleşik bellek tasarrufunu uygula"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Askıya alınmış bir sekmenin bellek kullanımını daha da azaltarak"
+    "message": "Askıya alınmış bir sekmenin bellek kullanımını Chrome'un"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
     "message": "tarayıcınızın yerleşik 'sekme atma' işlevini kullanır. Bu, çok sayıda sekmeyle çalışırken"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "çok sayıda sekmeler ile çalışırken %500'e varan bellek tasarrufu."
+    "message": "%500'e varan oranlarda bellek tasarrufu avantajı sağlayabilir."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Ancak, seçildiğinde askıya alınmış sekmede."
+    "message": "Ancak, bu seçenek seçildiğinde askıya alınmış sekmeleri geri yüklerken"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "işlem işlemede gecikmeye sebep olur."
+    "message": "yüklenme süresinde ufak bir gecikmeye de neden olacaktır."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Sekme atma hakkında daha fazla bilgi için bkz.:"
@@ -492,10 +492,10 @@
     "message": "Tema"
   },
   "html_options_suspend_theme_light": {
-    "message": "Açık"
+    "message": "Aydınlık"
   },
   "html_options_suspend_theme_dark": {
-    "message": "Koyu"
+    "message": "Karanlık"
   },
   "html_options_suspend_theme_system": {
     "message": "Sistem"
@@ -513,22 +513,22 @@
     "message": "Tüm sayfayı yakala"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "Askıya alınmış bir sekmede, uzantı sekmenin ne olduğuna ilişkin resim önizlemesi görüntüleyebilir"
+    "message": "Askıya alınmış bir sekmede, uzantı sekme askıya alınmadan önce sayfanın nasıl gözüktüğüne dair"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "askıya alınmamış hali gibi."
+    "message": "bir önizleme gösterebilir."
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
     "message": "Ekran görüntüsü yakalama özelliği önemli miktarda işlemci (cpu) kullanımına sebep olabilir"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "ve az miktarda bellek kullanımına."
+    "message": "ve az miktarda da artmış bellek kullanımına neden olabilir."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
     "message": "Sekmelerin askıya alınmasının uzun sürmesi veya tarayıcının"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "beklenmedik çekilde çökme vb. olursa, bu özelliği kapatmayı deneyin."
+    "message": "beklenmedik şekilde çöküyorsa, bu özelliği devre dışı bırakmayı deneyin."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Yüksek kaliteli ekran görüntüsü yakalamayı etkinleştir"
