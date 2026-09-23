@@ -30,13 +30,17 @@ export const gsSession = (function() {
   // await fileUrlsStateReadyPromise first so they never read the pre-resolution default.
   const fileUrlsStateReadyPromise = initFileUrlsState();
 
-  async function initFileUrlsState() {
+  async function refreshFileUrlsAccessAllowed() {
     await new Promise((resolve) => {
       chrome.extension.isAllowedFileSchemeAccess((isAllowedAccess) => {
         fileUrlsAccessAllowed = isAllowedAccess;
         resolve(null);
       });
     });
+  }
+
+  async function initFileUrlsState() {
+    await refreshFileUrlsAccessAllowed();
     await refreshFileHostPermissionGranted();
     chrome.permissions.onAdded.addListener(refreshFileHostPermissionGranted);
     chrome.permissions.onRemoved.addListener(refreshFileHostPermissionGranted);
@@ -179,12 +183,19 @@ export const gsSession = (function() {
     return fileUrlsAccessAllowed && fileHostPermissionGranted;
   }
 
-  // Await this (only needed before a call that gates on isFileUrlsUsable/
-  // isFileUrlsAccessAllowed in a context that isn't guaranteed to have already awaited
-  // initAsPromised, e.g. tgs.calculateTabStatus() called directly from popup.js/debug.js)
-  // to make sure this context's own copy of the two flags above has resolved at least once.
+  // Await this before a call that gates on isFileUrlsUsable/isFileUrlsAccessAllowed: it
+  // both makes sure this context's own copy of the two flags above has resolved at least
+  // once (e.g. tgs.calculateTabStatus() called directly from popup.js/debug.js, whose own
+  // gsSession instance never runs initAsPromised()), and re-checks the toggle live every
+  // call, not only the first. Unlike fileHostPermissionGranted, which chrome.permissions'
+  // onAdded/onRemoved keep fresh, there is no change event for the "Allow access to file
+  // URLs" toggle - a long-lived context (the background service worker, or this same
+  // permissions.html tab left open across a trip to chrome://extensions) would otherwise
+  // keep reading a stale snapshot from module load for its entire lifetime (Codex review,
+  // #514). The check itself is a cheap local call, so re-running it on every await here
+  // costs nothing worth caching against.
   function ensureFileUrlsStateReady() {
-    return fileUrlsStateReadyPromise;
+    return fileUrlsStateReadyPromise.then(refreshFileUrlsAccessAllowed);
   }
 
   async function getUpdateType() {
