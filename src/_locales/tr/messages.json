@@ -1179,7 +1179,7 @@
     "message": "TMS, İndirilenler ve Google hesabı izinlerini yalnızca aşağıda yerel veya Google Drive yedeklemesini etkinleştirdiğinizde ister."
   },
   "html_permissions_info_note_link": {
-    "message": "See the full permissions breakdown"
+    "message": "Tüm izinlerin tam dökümünü görün"
   },
   "js_options_backup_now_error": {
     "message": "Chrome, dosyaların nereye kaydedileceğini soruyor, bu nedenle otomatik yedeklemeler sessizce çalışmayacak. chrome://settings/downloads adresinde \"Her dosyayı indirmeden önce nereye kaydedileceğini sor\" seçeneğini kapatın."
