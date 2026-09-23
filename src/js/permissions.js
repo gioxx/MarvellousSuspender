@@ -23,9 +23,17 @@ import  { historyUtils }          from './historyUtils.js';
       // user who already has the toggle on isn't sent on a pointless detour.
       const granted = await chrome.permissions.request({ origins: ['file:///*'] }).catch(() => false);
       if (!granted) {
-        await gsChrome.tabsCreate({
-          url: 'chrome://extensions?id=' + chrome.runtime.id,
-        });
+        // A denied request also resolves to false when the toggle IS already on and
+        // the user simply declined the browser's own permission prompt (Codex review) -
+        // only the toggle-off case needs the chrome://extensions redirect; a real
+        // decline should leave the user on this page rather than send them somewhere
+        // that has nothing left for them to do.
+        await gsSession.ensureFileUrlsStateReady();
+        if (!gsSession.isFileUrlsAccessAllowed()) {
+          await gsChrome.tabsCreate({
+            url: 'chrome://extensions?id=' + chrome.runtime.id,
+          });
+        }
       }
     };
   });
