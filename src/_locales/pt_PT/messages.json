@@ -1179,7 +1179,7 @@
     "message": "O TMS pede as permissões de Transferências e conta Google apenas quando ativa a cópia de segurança local ou no Google Drive abaixo."
   },
   "html_permissions_info_note_link": {
-    "message": "See the full permissions breakdown"
+    "message": "Ver o detalhe completo das permissões"
   },
   "js_options_backup_now_error": {
     "message": "O Chrome está a perguntar onde guardar os ficheiros, pelo que as cópias de segurança automáticas não funcionarão silenciosamente. Desative \"Perguntar onde guardar cada ficheiro\" em chrome://settings/downloads."
