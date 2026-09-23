@@ -1795,7 +1795,13 @@ export const tgs = (function() {
       callback(gsUtils.STATUS_LOADING);
       return;
     }
-    //check if it is a blockedFile tab (this needs to have precedence over isSpecialTab)
+    //check if it is a blockedFile tab (this needs to have precedence over isSpecialTab).
+    //calculateTabStatus() runs directly in popup.js/debug.js's own module instance, not
+    //only via background.js's (the only one that calls gsSession.initAsPromised()), so
+    //make sure this context's own file-permission state has resolved at least once (#514).
+    if (gsUtils.isFileTab(tab)) {
+      await gsSession.ensureFileUrlsStateReady();
+    }
     if (gsUtils.isBlockedFileTab(tab)) {
       callback(gsUtils.STATUS_BLOCKED_FILE);
       return;
