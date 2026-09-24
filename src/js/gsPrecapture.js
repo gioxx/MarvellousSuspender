@@ -128,7 +128,8 @@ export const gsPrecapture = (function() {
   async function remove(tabId) {
     clearTimeout(_timers.get(tabId));
     _timers.delete(tabId);
-    if (!await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_PRECAPTURE)) return;
+    // Always deletes, regardless of the current setting: a stored capture must not outlive
+    // its tab just because the setting was turned off (locally, or via a sync echo) in between.
     try {
       const db = await getDb();
       await db.delete(DB_STORE, tabId);
