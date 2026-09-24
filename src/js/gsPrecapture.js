@@ -19,6 +19,10 @@ export const gsPrecapture = (function() {
   let _db;
   let _pruned = false;
   let _lastCaptureAt = 0;
+  // Every caller of captureVisibleTab() is chained through this, not just the precapture
+  // scheduler: the suspension queue's own concurrent jobs (one per window's active tab) can
+  // call it directly, and without a shared chain their calls aren't spaced at all.
+  let _captureChain = Promise.resolve();
   // Bumped by clear(): a capture already in flight when the setting is disabled must not
   // write to the store after it's been cleared, even though it passed isEnabled() earlier.
   let _generation = 0;
@@ -43,13 +47,31 @@ export const gsPrecapture = (function() {
   }
 
   // Resolves with a data url, or null when the tab is not the visible tab of its window
-  async function captureVisibleTab(tab) {
+  function captureVisibleTab(tab) {
+    // Chained rather than fired directly: two concurrent callers (e.g. two suspension-queue
+    // jobs for active tabs in different windows) must not both pass a stale _lastCaptureAt
+    // check and issue their chrome.tabs.captureVisibleTab() calls in the same instant.
+    const run = _captureChain.then(() => doCaptureVisibleTab(tab));
+    // Keep the chain alive even if this run rejects, so the next queued caller still gets a turn
+    _captureChain = run.catch(() => {});
+    return run;
+  }
+
+  async function doCaptureVisibleTab(tab) {
     const isCapturable = async () => {
       const _tab = await gsChrome.tabsGet(tab.id);
       return !!_tab && _tab.active && !gsUtils.isSuspendedTab(_tab);
     };
     if (!await isCapturable()) {
       return null;
+    }
+
+    const wait = _lastCaptureAt + MIN_CAPTURE_INTERVAL - Date.now();
+    if (wait > 0) {
+      await new Promise((resolve) => setTimeout(resolve, wait));
+      if (!await isCapturable()) {
+        return null;
+      }
     }
 
     const forceScreenCapture = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_FORCE);
@@ -89,8 +111,11 @@ export const gsPrecapture = (function() {
   }
 
   async function precapture(tabId) {
-    if (!await isEnabled()) return;
+    // Snapshot before the isEnabled() await, not after: clear() can bump this while that
+    // await is in flight, and a snapshot taken afterwards would already read the bumped
+    // value, defeating the check below entirely.
     const generation = _generation;
+    if (!await isEnabled()) return;
     await prune();
 
     const tab = await gsChrome.tabsGet(tabId);

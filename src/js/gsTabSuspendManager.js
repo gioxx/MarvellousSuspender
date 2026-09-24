@@ -317,6 +317,13 @@ export const gsTabSuspendManager = (function() {
           gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while awaiting fallback native capture. Ignoring.',);
           return;
         }
+        // Eligibility was already checked once above, before this second await -- it can
+        // just as easily have changed again during the fallback capture itself.
+        if (!await checkTabEligibilityForSuspension(tab, suspensionForceLevel)) {
+          gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.',);
+          queuedTabDetails.executionProps.resolveFn(false);
+          return;
+        }
       }
     }
     if (previewUrl) {
