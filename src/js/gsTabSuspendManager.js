@@ -238,8 +238,25 @@ export const gsTabSuspendManager = (function() {
       }
       if (previewUrl) {
         await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
+        // This await too: an unsuspend-all racing it removes the queue entry checked above
+        // but leaves execution here able to fall through to executeTabSuspension() regardless.
+        const stillQueuedAfterSave = getQueuedTabDetails(tab);
+        if (!stillQueuedAfterSave || stillQueuedAfterSave.executionProps !== executionProps) {
+          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while saving native preview. Ignoring.',);
+          return;
+        }
       }
       if (previewUrl || screenCaptureMethod === 'native') {
+        // Forced 'native' mode treats a null previewUrl as acceptable (no preview, still
+        // suspend), which also swallows the specific case of captureVisibleTab() rejecting a
+        // stale-page capture on navigation -- re-check the tab is still on the page suspendedUrl
+        // was generated for, not just that it's still active/eligible, before using it.
+        const liveTab = await gsChrome.tabsGet(tab.id);
+        if (!liveTab || liveTab.url !== executionProps.precaptureUrl) {
+          gsUtils.log(tab.id, QUEUE_ID, 'Tab navigated while awaiting native capture. Ignoring.',);
+          resolve(false);
+          return;
+        }
         if (!await checkTabEligibilityForSuspension(tab, executionProps.forceLevel)) {
           // Settle the job rather than just returning: an unsettled promise leaves this job's
           // queue timeout armed, and handleSuspensionException() would later force-suspend the

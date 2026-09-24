@@ -281,6 +281,13 @@ import  { tgs }                   from './tgs.js';
           element.checked = await chrome.permissions.request(gsPrecapture.ALL_URLS).catch(() => false);
         }
         else {
+          // Persist the setting as off before clearing, not after: a background capture that
+          // already passed its own generation check can still finish its put() between this
+          // clear() and the normal end-of-handler save below, and the storage write itself is
+          // what the cross-context invalidation listener reacts to -- clearing first leaves a
+          // window where that write hasn't happened yet.
+          await gsStorage.setOptionAndSync(pref, false);
+          showSavedFeedback(element);
           await gsPrecapture.clear();
           // Least-privilege: don't leave the broad host permission granted once the feature
           // it was requested for is switched off. Re-enabling asks for it again.
