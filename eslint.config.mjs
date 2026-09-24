@@ -14,7 +14,7 @@ export default defineConfig(
     ignores: [
       'node_modules',
       'src/js/db.js',
-      'src/js/html2canvas.min.js',
+      'src/js/snapdom.js',
     ],
   },
 

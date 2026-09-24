@@ -1,4 +1,3 @@
-/** @import * as html2canvas from './html2canvas.min.js' */
 import  { gsChrome }              from './gsChrome.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMessages }            from './gsMessages.js';
@@ -15,6 +14,8 @@ export const gsTabSuspendManager = (function() {
   const DEFAULT_CONCURRENT_SUSPENSIONS = 3;
   const DEFAULT_SUSPENSION_TIMEOUT = 60 * 1000;
   const NATIVE_CAPTURE_TIMEOUT = 1500;
+  const PREVIEW_RENDER_TIMEOUT = 20 * 1000;
+  const PREVIEW_RENDER_TIMEOUT_HIGH_QUALITY = 45 * 1000;
 
   const QUEUE_ID = 'suspensionQueue';
 
@@ -40,7 +41,7 @@ export const gsTabSuspendManager = (function() {
 
   // handlePreviewImageResponse() is the only thing that ever deletes a
   // _pendingPreviewExecutionPropsByTabId entry -- a job that never produces a response
-  // (html2canvas hangs until the queue's own jobTimeout forces handleSuspensionException's
+  // (the renderer hangs until the queue's own jobTimeout forces handleSuspensionException's
   // EXCEPTION_TIMEOUT path, or the tab gets unqueued externally, e.g. on close, while a
   // preview is still in flight) left its entry, holding executionProps and its resolveFn
   // closure, in the map for the rest of the service worker's lifetime (Codex review round
@@ -564,8 +565,17 @@ export const gsTabSuspendManager = (function() {
   async function requestGeneratePreviewImage(tab, previewToken) {
     const screenCaptureMode   = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
     const forceScreenCapture  = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_FORCE);
-    const screenCaptureLib = 'js/html2canvas.min.js';
+    const screenCaptureLib = 'js/snapdom.js';
     gsUtils.log(tab.id, QUEUE_ID, `Injecting ${screenCaptureLib} into content script`,);
+
+    // Timed from here rather than inside the page: a hidden tab's timers are delayed while
+    // its main thread is busy rendering, so an in-page deadline fires late or not at all.
+    // If the page answers first this call is dropped as stale by the token check.
+    const renderTimeout = forceScreenCapture ? PREVIEW_RENDER_TIMEOUT_HIGH_QUALITY : PREVIEW_RENDER_TIMEOUT;
+    setTimeout(() => {
+      handlePreviewImageResponse(tab, null, `Preview render timed out after ${renderTimeout}ms`, previewToken); // async. unhandled promise.
+    }, renderTimeout);
+
     gsMessages.executeScriptOnTab(tab.id, screenCaptureLib, error => {
       if (error) {
         handlePreviewImageResponse(tab, null, 'Failed to executeScriptOnTab', previewToken); // async. unhandled promise.
@@ -586,12 +596,10 @@ export const gsTabSuspendManager = (function() {
           const IMAGE_TYPE = 'image/webp';
           const IMAGE_QUALITY = force ? 0.92 : 0.5;
 
-          let height = 0;
-          let width = 0;
-
-          // check where we need to capture the whole screen
+          // 'viewport' clips to what is on screen at the current scroll position
+          let clip = 'viewport';
           if (mode === '2') {
-            height = Math.max(
+            const height = Math.max(
               window.innerHeight,
               document.body.scrollHeight,
               document.body.offsetHeight,
@@ -600,25 +608,16 @@ export const gsTabSuspendManager = (function() {
               document.documentElement.offsetHeight,
             );
             // cap the max height otherwise it fails to convert to a data url
-            height = Math.min(height, MAX_CANVAS_HEIGHT);
+            clip = { x: 0, y: 0, width: document.body.clientWidth, height: Math.min(height, MAX_CANVAS_HEIGHT) };
           }
-          else {
-            height = window.innerHeight;
-          }
-          width = document.body.clientWidth;
 
-          // console.log('Generating via html2canvas..');
           const generateCanvas = () => {
-            return html2canvas(document.body, {
-              height,
-              width,
-              logging: false,
-              imageTimeout: 10000,
-              removeContainer: false,
-              async: true,
+            return globalThis.snapdom.toCanvas(document.body, {
+              clip,
+              scale: 1,
+              embedFonts: false,
             });
           };
-
 
           const isCanvasVisible = canvas => {
             const ctx       = canvas.getContext('2d');
