@@ -19,6 +19,9 @@ export const gsPrecapture = (function() {
   let _db;
   let _pruned = false;
   let _lastCaptureAt = 0;
+  // Bumped by clear(): a capture already in flight when the setting is disabled must not
+  // write to the store after it's been cleared, even though it passed isEnabled() earlier.
+  let _generation = 0;
 
   // Deliberately not a store in the main 'tgs' database: previews there are keyed by url and
   // trimmed oldest first, so writing one per visited page would evict suspended tabs' previews
@@ -87,6 +90,7 @@ export const gsPrecapture = (function() {
 
   async function precapture(tabId) {
     if (!await isEnabled()) return;
+    const generation = _generation;
     await prune();
 
     const tab = await gsChrome.tabsGet(tabId);
@@ -105,6 +109,7 @@ export const gsPrecapture = (function() {
     if (!img) return;
     const current = await gsChrome.tabsGet(tabId);
     if (current?.url !== tab.url) return;
+    if (generation !== _generation) return;
 
     const db = await getDb();
     await db.put(DB_STORE, { tabId, url: tab.url, img });
@@ -153,6 +158,7 @@ export const gsPrecapture = (function() {
   }
 
   async function clear() {
+    _generation++;
     const db = await getDb();
     await db.clear(DB_STORE);
   }

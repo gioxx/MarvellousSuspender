@@ -240,7 +240,11 @@ export const gsTabSuspendManager = (function() {
       }
       if (previewUrl || screenCaptureMethod === 'native') {
         if (!await checkTabEligibilityForSuspension(tab, executionProps.forceLevel)) {
+          // Settle the job rather than just returning: an unsettled promise leaves this job's
+          // queue timeout armed, and handleSuspensionException() would later force-suspend the
+          // tab anyway despite this check having just rejected it.
           gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.',);
+          resolve(false);
           return;
         }
         const success = await executeTabSuspension(tab, suspendedUrl);
@@ -306,6 +310,13 @@ export const gsTabSuspendManager = (function() {
       if (screenCaptureMethod === 'auto' && !queuedTabDetails.executionProps.nativeCaptureTried) {
         previewUrl = await gsPrecapture.captureVisibleTab(tab)
           ?? await gsPrecapture.take(tab.id, queuedTabDetails.executionProps.precaptureUrl);
+        // This fallback capture awaits too, so re-check the job identity again, same reason
+        // as the check above this function's earlier await (the queue's savePreviewData round trip).
+        const stillQueued = getQueuedTabDetails(tab);
+        if (!stillQueued || stillQueued.executionProps !== expectedExecutionProps) {
+          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while awaiting fallback native capture. Ignoring.',);
+          return;
+        }
       }
     }
     if (previewUrl) {
