@@ -1,6 +1,7 @@
 import  { gsChrome }              from './gsChrome.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMessages }            from './gsMessages.js';
+import  { gsPrecapture }          from './gsPrecapture.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsTabCheckManager }     from './gsTabCheckManager.js';
@@ -13,7 +14,6 @@ export const gsTabSuspendManager = (function() {
 
   const DEFAULT_CONCURRENT_SUSPENSIONS = 3;
   const DEFAULT_SUSPENSION_TIMEOUT = 60 * 1000;
-  const NATIVE_CAPTURE_TIMEOUT = 1500;
   const PREVIEW_RENDER_TIMEOUT = 20 * 1000;
   const PREVIEW_RENDER_TIMEOUT_HIGH_QUALITY = 45 * 1000;
 
@@ -203,6 +203,9 @@ export const gsTabSuspendManager = (function() {
       return;
     }
 
+    // Pre-captures are keyed on the url the tab really has, not the timestamped one below
+    executionProps.precaptureUrl = tab.url;
+
     // Temporarily change tab.url to append youtube timestamp
     const timestampedUrl = await generateUrlWithYouTubeTimestamp(tab);
     // NOTE: This does not actually change the tab url, just the current tab object
@@ -222,7 +225,8 @@ export const gsTabSuspendManager = (function() {
     const nativeFirst = screenCaptureMethod === 'native' || (screenCaptureMethod === 'auto' && screenCaptureMode === '1');
     if (nativeFirst) {
       executionProps.nativeCaptureTried = true;
-      const previewUrl = await captureVisibleTabPreview(tab);
+      const previewUrl = await gsPrecapture.captureVisibleTab(tab)
+        ?? await gsPrecapture.take(tab.id, executionProps.precaptureUrl);
       if (previewUrl) {
         await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
       }
@@ -288,7 +292,8 @@ export const gsTabSuspendManager = (function() {
       gsUtils.warning(tab.id, QUEUE_ID, 'savePreviewData reported an error: ', errorMsg,);
       const screenCaptureMethod = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_METHOD);
       if (screenCaptureMethod === 'auto' && !queuedTabDetails.executionProps.nativeCaptureTried) {
-        previewUrl = await captureVisibleTabPreview(tab);
+        previewUrl = await gsPrecapture.captureVisibleTab(tab)
+          ?? await gsPrecapture.take(tab.id, queuedTabDetails.executionProps.precaptureUrl);
       }
     }
     if (previewUrl) {
@@ -521,45 +526,6 @@ export const gsTabSuspendManager = (function() {
     // if (faviconMeta) {
     //   await gsFavicon.saveFaviconMetaToCache(tab.url, faviconMeta);
     // }
-  }
-
-  // Resolves with a data url, or null whenever the tab can't be captured natively:
-  // not the active tab of its window, no activeTab grant, window minimized, protected page
-  async function captureVisibleTabPreview(tab) {
-    const isCapturable = async () => {
-      const _tab = await gsChrome.tabsGet(tab.id);
-      return !!_tab && _tab.active && !gsUtils.isSuspendedTab(_tab);
-    };
-    if (!await isCapturable()) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Tab is not visible. Skipping native capture.');
-      return null;
-    }
-
-    const forceScreenCapture = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_FORCE);
-    const options = { format: 'jpeg', quality: forceScreenCapture ? 92 : 50 };
-    let timer;
-    try {
-      // captureVisibleTab never settles for a window that isn't painting (occluded, display asleep)
-      const previewUrl = await Promise.race([
-        chrome.tabs.captureVisibleTab(tab.windowId, options),
-        new Promise((resolve, reject) => {
-          timer = setTimeout(() => reject(new Error('Timed out')), NATIVE_CAPTURE_TIMEOUT);
-        }),
-      ]);
-      // The capture is of whichever tab is active at that instant, so make sure it was still ours
-      if (!await isCapturable()) {
-        gsUtils.log(tab.id, QUEUE_ID, 'Tab lost visibility during native capture. Discarding.');
-        return null;
-      }
-      return previewUrl ?? null;
-    }
-    catch (e) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Native capture failed', e.message);
-      return null;
-    }
-    finally {
-      clearTimeout(timer);
-    }
   }
 
   async function requestGeneratePreviewImage(tab, previewToken) {
