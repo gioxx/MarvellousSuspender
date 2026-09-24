@@ -832,6 +832,9 @@
   "html_permissions_backup": {
     "message": "Lütfen dikkat: Bu seçeneğin değiştirilmesi, askıya alınan tüm sekmelerinizin kısa bir süre kaybolmasına neden olur.\nBu durumda şuanki oturumunu kaydetmeniz iyi bir seçenek olabilir."
   },
+  "html_permissions_return_hint": {
+    "message": "Welcome back — click the button again now to finish granting local file access."
+  },
   "html_update_title": {
     "message": "Güncelle"
   },
