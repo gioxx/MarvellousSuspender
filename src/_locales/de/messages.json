@@ -1234,7 +1234,11 @@
   },
   "js_options_backup_next_run": {
     "message": "Nächste Ausführung: $time$",
-    "placeholders": { "time": { "content": "$1" } }
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_backup_last_local": {
     "message": "Letzte Sicherung: $date$",
