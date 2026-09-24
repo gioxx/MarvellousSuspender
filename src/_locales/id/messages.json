@@ -848,7 +848,7 @@
     "message": "Untuk manajemen sesi lanjutan, kunjungi halaman"
   },
   "html_success_goto_advanced_suffix": {
-    "message": ""
+    "message": "halaman"
   },
   "html_session_manager": {
     "message": "manajemen sesi"
@@ -1234,7 +1234,11 @@
   },
   "js_options_backup_next_run": {
     "message": "Berikutnya: $time$",
-    "placeholders": { "time": { "content": "$1" } }
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_backup_last_local": {
     "message": "Cadangan terakhir: $date$",
