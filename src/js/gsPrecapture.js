@@ -205,22 +205,26 @@ export const gsPrecapture = (function() {
     _timers.clear();
   }
 
-  // The background service worker is normally the only context that ever schedules or runs a
-  // capture, but the setting can be flipped off from options.js's own separate module instance,
-  // whose local generation/timers are irrelevant to the worker's in-flight work. Reacting to the
-  // storage write itself, rather than only to a local clear() call, reaches every context.
-  chrome.storage.onChanged.addListener((changes, areaName) => {
-    if (areaName !== 'local' || !changes.gsSettings) return;
-    const wasOn = changes.gsSettings.oldValue?.[gsStorage.SCREEN_CAPTURE_PRECAPTURE];
-    const isOn = changes.gsSettings.newValue?.[gsStorage.SCREEN_CAPTURE_PRECAPTURE];
-    if (wasOn && !isOn) invalidate();
-  });
-
   async function clear() {
     invalidate();
     const db = await getDb();
     await db.clear(DB_STORE);
   }
+
+  // The background service worker is normally the only context that ever schedules or runs a
+  // capture, but the setting can be turned off from anywhere that reaches this same storage key:
+  // options.js's own separate module instance, a synced change from another device, or a
+  // settings import -- none of which call this file's own clear()/permission-removal directly.
+  // Reacting to the storage write itself, rather than requiring each of those call sites to
+  // remember both cleanup steps, is what actually reaches every context and every trigger.
+  chrome.storage.onChanged.addListener(async (changes, areaName) => {
+    if (areaName !== 'local' || !changes.gsSettings) return;
+    const wasOn = changes.gsSettings.oldValue?.[gsStorage.SCREEN_CAPTURE_PRECAPTURE];
+    const isOn = changes.gsSettings.newValue?.[gsStorage.SCREEN_CAPTURE_PRECAPTURE];
+    if (!wasOn || isOn) return;
+    await clear();
+    await chrome.permissions.remove(ALL_URLS).catch(() => {});
+  });
 
   return {
     ALL_URLS,
