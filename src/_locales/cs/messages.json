@@ -12,7 +12,7 @@
     "message": "Pozastavit/obnovit aktivní kartu"
   },
   "ext_cmd_toggle_tab_pause_description": {
-    "message": "Pozastavit/obnovit pozastavování aktivní karty"
+    "message": "Zastavit/obnovit pozastavování aktivní karty"
   },
   "ext_cmd_suspend_selected_tabs_description": {
     "message": "Pozastavit vybrané karty"
@@ -27,19 +27,19 @@
     "message": "Obnovit všechny karty ve skupině aktivní karty"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "Pozastavit všechny karty mimo skupiny v aktivním okně"
+    "message": "Pozastavit všechny karty mimo skupinu v aktivním okně"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "Obnovit všechny karty mimo skupiny v aktivním okně"
+    "message": "Obnovit všechny karty mimo skupinu v aktivním okně"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Přepnout nikdy nepozastavovat pro skupinu aktivní karty"
+    "message": "Přepnout „nikdy nepozastavovat“ pro skupinu aktivní karty"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Pozastavit všechny ostatní karty v aktivním okně"
   },
   "ext_cmd_force_suspend_active_window_description": {
-    "message": "Vynutit pozastavení všech ostatních karet v aktivním okně"
+    "message": "Vynutit pozastavení ostatních karet v aktivním okně"
   },
   "ext_cmd_unsuspend_active_window_description": {
     "message": "Obnovit všechny karty v aktivním okně"
@@ -60,13 +60,13 @@
     "message": "Pozastavit/obnovit tuto kartu"
   },
   "js_context_toggle_pause_suspension": {
-    "message": "Pozastavit/obnovit pozastavování této karty"
+    "message": "Zastavit/obnovit pozastavování této karty"
   },
   "js_context_never_suspend_domain": {
     "message": "Nikdy nepozastavovat tuto doménu"
   },
   "js_context_never_suspend_page": {
-    "message": "Nikdy nepozastavovat tuto URL adresu"
+    "message": "Nikdy nepozastavovat tuto adresu URL"
   },
   "js_context_suspend_selected_tabs": {
     "message": "Pozastavit vybrané karty"
@@ -81,25 +81,25 @@
     "message": "Obnovit všechny karty v této skupině"
   },
   "js_context_suspend_ungrouped_tabs": {
-    "message": "Pozastavit všechny karty mimo skupiny"
+    "message": "Pozastavit všechny karty mimo skupinu"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "Obnovit všechny karty mimo skupiny"
+    "message": "Obnovit všechny karty mimo skupinu"
   },
   "js_context_never_suspend_group": {
     "message": "Nikdy nepozastavovat tuto skupinu"
   },
   "js_context_allow_suspending_group": {
-    "message": "Povolit pozastavení této skupiny"
+    "message": "Povolit pozastavování této skupiny"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Nikdy nepozastavovat tuto skupinu (jen pojmenované skupiny)"
+    "message": "Nikdy nepozastavovat tuto skupinu (pouze pojmenované skupiny)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
     "message": "Pozastavit všechny ostatní karty v tomto okně"
   },
   "js_context_force_suspend_other_tabs_in_window": {
-    "message": "Vynutit pozastavení všech ostatních karet v tomto okně"
+    "message": "Vynutit pozastavení ostatních karet v tomto okně"
   },
   "js_context_unsuspend_all_tabs_in_window": {
     "message": "Obnovit všechny karty v tomto okně"
@@ -117,16 +117,16 @@
     "message": "Stav karet (Beta)"
   },
   "html_health_title_intro": {
-    "message": "Pokud máte problémy s pozastavenými kartami, zejména s ikonami stránek, klikněte na „Skenovat karty“ a zjistěte, zda je dokážeme opravit."
+    "message": "Pokud máš problémy s pozastavenými kartami, zejména s favikonami, klikni na Skenovat karty a zjisti, jestli je dokážeme opravit."
   },
   "html_health_all_good": {
-    "message": "Nenašli jsme žádné problémy s vašimi pozastavenými kartami. Pokud přesto něco nefunguje správně, dejte nám vědět níže a pokusíme se tuto kontrolu rozšířit."
+    "message": "U pozastavených karet jsme nenašli žádné problémy. Pokud přesto něco nefunguje, dej nám vědět níže a pokusíme se tuto kontrolu rozšířit."
   },
   "html_health_reload_intro": {
-    "message": "Některé vaše pozastavené karty se nenačetly úplně. Můžeme je znovu načíst, abychom vše vyřešili."
+    "message": "Máš pozastavené karty, které se nenačetly úplně. Můžeme je znovu načíst a uklidit tak situaci."
   },
   "html_health_restore_intro": {
-    "message": "Některé vaše pozastavené karty používají výchozí ikonu prohlížeče. To znamená, že je mezipaměť TMS nemá. Můžeme obnovit a znovu pozastavit minimální počet karet, abychom získali chybějící ikony."
+    "message": "Některé z tvých pozastavených karet používají výchozí favikonu prohlížeče. To znamená, že je vyrovnávací paměť TMS nemá. Můžeme obnovit a znovu pozastavit minimální počet karet, abychom získali chybějící favikony."
   },
   "html_health_scan_button": {
     "message": "Skenovat karty"
@@ -138,28 +138,28 @@
     "message": "Skenování karet..."
   },
   "html_health_num_tms_tabs": {
-    "message": "Karet pozastavených TMS"
+    "message": "Kart pozastavených TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "ikon v mezipaměti TMS"
+    "message": "favikon ve vyrovnávací paměti TMS"
   },
   "html_health_num_tabs_empty": {
     "message": "karet se nenačetlo"
   },
-  "html_health_num_tabs_extension": {
-    "message": "karet má ikonu TMS"
-  },
   "html_health_num_tabs_default": {
-    "message": "karet má výchozí ikonu"
+    "message": "karet má výchozí favikonu"
+  },
+  "html_health_num_tabs_extension": {
+    "message": "karet má favikonu TMS"
   },
   "html_health_num_hostnames": {
-    "message": "jedinečných názvů hostitelů karet"
+    "message": "unikátních hostitelských jmen karet"
   },
   "html_health_small_cache": {
-    "message": "Místní mezipaměť ikon TMS nemusí pokrývat všechny karty. Pokud dojde k vymazání mezipaměti prohlížeče, TMS nemusí být schopen zobrazit některé ikony."
+    "message": "Místní vyrovnávací paměť favikon TMS nemusí pokrývat všechny karty. Pokud se vyrovnávací paměť prohlížeče vymaže, TMS nemusí být schopen zobrazit některé favikony."
   },
   "html_health_reload_button": {
-    "message": "Další: Znovu načíst $count$ karet",
+    "message": "Další krok: Znovu načíst $count$ karet",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -167,7 +167,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Další: Obnovit $count$ karet za účelem uložení ikon do mezipaměti",
+    "message": "Další krok: Obnovit $count$ karet kvůli favikonám",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -175,25 +175,25 @@
     }
   },
   "html_health_action_label": {
-    "message": "Obnovování ikon..."
+    "message": "Obnovování favikon..."
   },
   "html_health_after_reload": {
-    "message": "Jakmile se vaše karty na pozadí dokončí načítat, můžete znovu kliknout na „Skenovat karty“ a zjistit, zda se situace zlepšila."
+    "message": "Jakmile se tvé karty na pozadí dokončí načítat, můžeš znovu kliknout na „Skenovat karty“ a zjistit, jestli se situace zlepšila."
   },
   "html_health_after_restore": {
-    "message": "Můžete znovu kliknout na „Skenovat karty“ a zjistit, zda se situace zlepšila."
+    "message": "Můžeš znovu kliknout na „Skenovat karty“ a zjistit, jestli se situace zlepšila."
   },
   "html_health_need_help1": {
-    "message": "Pokud máte stále problémy s kartami nebo ikonami, můžete kliknout na „Kopírovat výsledky“ a vložit je do nového"
+    "message": "Pokud máš stále problémy s kartami nebo favikonami, můžeš kliknout na Kopírovat výsledky a vložit je do nového"
   },
   "html_health_need_help2": {
-    "message": "Issue na GitHubu."
+    "message": "hlášení (Issue) na GitHubu."
   },
   "html_health_num_grouped_broken": {
-    "message": "seskupených karet v poškozeném stavu (chyba skupin karet)"
+    "message": "seskupených karet v porouchaném stavu (chyba skupin karet)"
   },
   "html_health_repair_intro": {
-    "message": "Některé karty ve skupinách jsou v poškozeném stavu: po restartu prohlížeče se zobrazují jako nová karta místo správného načtení. TMS se je může pokusit obnovit."
+    "message": "Některé karty ve skupinách karet jsou v porouchaném stavu: po restartu prohlížeče se zobrazují jako nová karta místo správného načtení. TMS se je může pokusit obnovit."
   },
   "html_health_repair_button": {
     "message": "Opravit $count$ seskupených karet",
@@ -204,7 +204,7 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Hotovo. Znovu skenujte a ověřte, že se seskupené karty vrátily do pozastaveného stavu."
+    "message": "Hotovo. Znovu naskenuj a ověř, že se seskupené karty vrátily do pozastaveného stavu."
   },
   "html_about_title": {
     "message": "O aplikaci"
@@ -213,7 +213,7 @@
     "message": "Verze"
   },
   "html_about_tagline": {
-    "message": "Duchovní nástupce moderního pozastavování karet: nahrazuje neaktivní karty odlehčenou stránkou hibernace a dává vám podrobnou kontrolu nad tím, kdy se probudí."
+    "message": "Duchovní nástupce moderního pozastavování karet: nahrazuje neaktivní karty odlehčenou stránkou hibernace a dává ti podrobnou kontrolu nad tím, kdy se probudí."
   },
   "html_about_section_credits": {
     "message": "Poděkování"
@@ -225,55 +225,55 @@
     "message": "všem přispěvatelům na GitHubu"
   },
   "html_about_fork_beginning": {
-    "message": "Založeno na originále"
+    "message": "Založeno na původní"
   },
   "html_about_fork_mid": {
-    "message": "dostupném na GitHubu, bez sledování reklamami"
+    "message": "dostupné na GitHubu, bez reklamního sledování"
   },
   "html_about_fork_end": {
-    "message": "Další informace jsou dostupné na"
+    "message": "Více informací najdeš na"
   },
   "html_about_contributors": {
-    "message": "Přináší vám"
+    "message": "Vytvořeno"
   },
   "html_about_report_issues_prefix": {
-    "message": "Pokud máte zpětnou vazbu nebo chcete nahlásit problém, můžete tak učinit na"
+    "message": "Pokud máš zpětnou vazbu nebo chceš nahlásit problém, můžeš tak učinit na"
   },
   "html_about_report_issues_suffix": {
-    "message": ". Než vytvoříte nový, zkontrolujte prosím, zda váš nápad nebo problém již neexistuje. Děkujeme!"
+    "message": ". Než založíš nový, zkontroluj prosím, jestli tvůj nápad nebo problém už neexistuje. Díky!"
   },
   "html_about_debugging_prefix": {
-    "message": "Chcete-li zachytit protokoly a vygenerovat diagnostickou zprávu, přejděte na "
+    "message": "Pro zachycení logů a vygenerování diagnostické zprávy přejdi na "
   },
   "html_about_debugging_suffix": {
     "message": "diagnostickou stránku."
   },
   "html_about_the_github_issues_page": {
-    "message": "stránce GitHub Issues"
+    "message": "stránku Issues na GitHubu"
   },
   "html_about_section_support": {
-    "message": "Podpořte vývoj"
+    "message": "Podpoř vývoj"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender je zdarma a s otevřeným zdrojovým kódem. Pokud jej považujete za užitečný, zvažte malý příspěvek: pomůže udržet projekt naživu a rozvíjet ho."
+    "message": "The Marvellous Suspender je zdarma a open-source. Pokud ti přijde užitečný, zvaž malý příspěvek: pomůže udržet projekt naživu a rozvíjet ho."
   },
   "html_broken_title": {
-    "message": "je poškozeno"
+    "message": "je porouchaný"
   },
   "html_broken_ruh_roh": {
     "message": "Jejda!"
   },
   "html_broken_line1": {
-    "message": "se nepodařilo spustit. Možná používáte nekompatibilní prohlížeč?"
+    "message": "se nepodařilo spustit. Možná používáš nekompatibilní prohlížeč?"
   },
   "html_broken_line2": {
-    "message": "Zkuste rozšíření restartovat. Pokud problém přetrvává, požádejte o pomoc na"
+    "message": "Zkus rozšíření restartovat. Pokud problém přetrvává, požádej o pomoc na"
   },
   "html_broken_line2_github_page": {
     "message": "stránce projektu na GitHubu"
   },
   "html_broken_line3": {
-    "message": "Ztracené karty můžete obnovit ze"
+    "message": "Ztracené karty můžeš obnovit ze"
   },
   "html_broken_line3_session_management": {
     "message": "stránky správy relací"
@@ -285,7 +285,7 @@
     "message": "Správa relací"
   },
   "html_history_page_desc": {
-    "message": "TMS udržuje průběžný snímek vašich otevřených karet, bez nutnosti nastavení. Relace se automaticky aktualizují při procházení, ale existují pouze uvnitř Chromu: pokud se profil prohlížeče ztratí nebo poškodí, ztratí se i ony."
+    "message": "TMS udržuje průběžný snímek tvých otevřených karet bez nutnosti nastavení. Relace se aktualizují automaticky při prohlížení, ale žijí uvnitř Chromu: pokud se profil prohlížeče ztratí nebo poškodí, zmizí spolu s ním."
   },
   "html_history_current_session": {
     "message": "Aktuální relace"
@@ -309,7 +309,7 @@
     "message": "Migrace karet"
   },
   "html_history_migrate_section_desc": {
-    "message": "Obnovte karty pozastavené předchozí verzí nebo jiným forkem tohoto rozšíření. Zadejte níže staré ID rozšíření a klikněte na „Migrovat karty“ pro převod pozastavených URL adres."
+    "message": "Obnov karty pozastavené předchozí verzí nebo jiným forkem tohoto rozšíření. Zadej níže staré ID rozšíření a klikni na Migrovat karty pro převod pozastavených adres URL."
   },
   "html_options_title": {
     "message": "Nastavení"
@@ -321,19 +321,19 @@
     "message": "Pozastavené karty"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Připojit původní URL adresu k názvu pozastavené karty"
+    "message": "Připojit původní adresu URL k názvu pozastavené karty"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "Pokud je povoleno, původní URL adresa se připojí k názvu"
+    "message": "Pokud je povoleno, původní adresa URL se připojí k názvu karty"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "karty prohlížeče u pozastavených stránek."
+    "message": "prohlížeče u pozastavených stránek."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "To umožňuje najít pozastavené karty podle hostname pomocí"
+    "message": "To umožňuje najít pozastavené karty podle hostitele pomocí funkce Chromu"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "funkce prohlížeče Chrome \"Hledat na kartách\" (Ctrl+Shift+A)."
+    "message": "„Hledat na kartách“ (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Zachovat pozici přehrávání YouTube při pozastavení"
@@ -345,16 +345,16 @@
     "message": "Jazyk"
   },
   "html_options_language_auto": {
-    "message": "Výchozí systémový"
+    "message": "Výchozí nastavení systému"
   },
   "html_options_suspend_automatically_after": {
     "message": "Automaticky pozastavit karty po"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "Pozastavit karty na baterii po"
+    "message": "Pozastavit karty při napájení z baterie po"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "Stejné jako při napájení"
+    "message": "Stejně jako při napájení ze sítě"
   },
   "html_options_suspend_never": {
     "message": "Nikdy"
@@ -372,19 +372,19 @@
     "message": "hodině"
   },
   "html_options_suspend_hours": {
-    "message": "hodiny"
+    "message": "hodinách"
   },
   "html_options_suspend_day": {
-    "message": "den"
+    "message": "dni"
   },
   "html_options_suspend_days": {
-    "message": "dny"
+    "message": "dnech"
   },
   "html_options_suspend_week": {
-    "message": "týden"
+    "message": "týdnu"
   },
   "html_options_suspend_weeks": {
-    "message": "týdny"
+    "message": "týdnech"
   },
   "html_options_suspend_no_pinned": {
     "message": "Nikdy nepozastavovat připnuté karty"
@@ -393,97 +393,97 @@
     "message": "Nikdy nepozastavovat karty otevřené v oknech aplikací"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Nikdy nepozastavovat karty ve skupině karet"
+    "message": "Nikdy nepozastavovat karty ve skupině"
   },
   "html_options_suspend_no_forms": {
-    "message": "Nikdy nepozastavovat karty s neuloženými údaji ve formulářích"
+    "message": "Nikdy nepozastavovat karty s neuloženými daty formuláře"
   },
   "html_options_suspend_no_audio": {
     "message": "Nikdy nepozastavovat karty přehrávající zvuk"
   },
   "html_options_suspend_only_connected": {
-    "message": "Nikdy nepozastavovat karty, když jste offline"
+    "message": "Nikdy nepozastavovat karty, když jsi offline"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Převzít ve výchozím nastavení"
+    "message": "Převzít karty pozastavené jinými rozšířeními"
   },
   "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Automaticky převezme karty už pozastavené jiným kompatibilním rozšířením"
+    "message": "Automaticky převezme karty už pozastavené jiným kompatibilním"
   },
   "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "(např. The Great Suspender nebo jinou instalací tohoto rozšíření)."
+    "message": "rozšířením (např. The Great Suspender nebo jiná instalace tohoto)."
   },
   "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "Karta se považuje za \"pozastavenou\", pokud její URL adresa obsahuje 'suspended.html'."
+    "message": "Karta se počítá jako „pozastavená“, pokud její adresa URL obsahuje 'suspended.html'."
   },
   "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "Povolením této volby se tato URL adresa přepíše na tuto instalaci,"
+    "message": "Povolením této volby se tato adresa URL přepíše na tuto instalaci, aby ji"
   },
   "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "aby ji TMS mohl od té chvíle spravovat."
+    "message": "TMS mohl dále spravovat."
   },
   "html_options_suspend_only_on_battery": {
-    "message": "Nikdy nepozastavovat karty, když je zařízení připojeno k napájení"
+    "message": "Nikdy nepozastavovat karty při připojení ke zdroji napájení"
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Nikdy nepozastavovat aktivní kartu v každém okně"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Vždy znovu otevřít uspané karty od začátku stránky"
+    "message": "Vždy znovu otevřít pozastavené karty posunuté nahoru"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "Karta se znovu otevře od začátku stránky místo místa, kde byla"
+    "message": "Karta se znovu otevře na začátku stránky místo místa,"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "při pozastavení."
+    "message": "kam byla posunuta v okamžiku pozastavení."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
     "message": "Platí pro automatické i ruční pozastavení a má přednost před"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "odkazy, které při načtení přejdou na sekci (#)."
+    "message": "odkazy, které při načtení skáčou na #sekci."
   },
   "html_options_suspend_automatically_unsuspend": {
-    "message": "Automaticky obnovit kartu při jejím zobrazení"
+    "message": "Automaticky obnovit kartu při zobrazení"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Obnovení stránky obnoví i karty na pozadí (nejen aktivní kartu)"
+    "message": "Znovu načtení obnoví i karty na pozadí (nejen aktivní kartu)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Po zapnutí obnovení pozastavené karty (Ctrl+R nebo pravé"
+    "message": "Pokud je povoleno, opětovné načtení pozastavené karty (Ctrl+R nebo pravým"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "tlačítko > Obnovit) kartu probudí, i když právě není"
+    "message": "tlačítkem > Znovu načíst) ji obnoví i tehdy, když právě není"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "aktivní."
+    "message": "aktivní kartou."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Užitečné při obnovování více pozastavených karet najednou,"
+    "message": "Užitečné pro opětovné načtení více pozastavených karet najednou, například po"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "např. po výběru více karet a stisknutí Ctrl+R."
+    "message": "výběru více karet a stisknutí Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Při pozastavení použít vestavěnou úsporu paměti prohlížeče"
+    "message": "Při pozastavení použít vestavěné šetření pamětí prohlížeče"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Ještě více sníží spotřebu paměti pozastavené karty využitím"
+    "message": "Ještě více snižuje spotřebu paměti pozastavené karty využitím"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "vestavěnou funkci prohlížeče „zahazování karet“. To může vést až"
+    "message": "vestavěné funkce prohlížeče pro 'uvolňování karet'. To může vést až"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "až 500% úsporu paměti při práci s velkým počtem karet."
+    "message": "k 500% úspoře paměti při práci s velkým množstvím karet."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Způsobí to však mírné zpoždění vykreslení při výběru"
+    "message": "Způsobí to však také mírné zpoždění vykreslení při výběru"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
     "message": "pozastavené karty."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "Další informace o zahazování karet naleznete na:"
+    "message": "Více informací o uvolňování karet najdeš zde:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -498,133 +498,133 @@
     "message": "Tmavý"
   },
   "html_options_suspend_theme_system": {
-    "message": "Systém"
+    "message": "Systémový"
   },
   "html_options_suspend_screen_capturing": {
     "message": "Snímání obrazovky"
   },
   "html_options_suspend_screen_capturing_disabled": {
-    "message": "Vypnuto"
+    "message": "Zakázáno"
   },
   "html_options_suspend_screen_capturing_screen_only": {
-    "message": "Zachytit pouze horní část obrazovky"
+    "message": "Zachytit jen horní část obrazovky"
   },
   "html_options_suspend_screen_capturing_entire_page": {
     "message": "Zachytit celou stránku"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "U pozastavené karty může rozšíření zobrazit náhled obrázku toho, jak karta"
+    "message": "Na pozastavené kartě může rozšíření zobrazit náhled toho, jak karta"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
     "message": "vypadala těsně před pozastavením."
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "Funkce snímání obrazovky je experimentální a může způsobit výrazné vytížení procesoru a"
+    "message": "Snímání obrazovky je experimentální funkce a může způsobit výrazné vytížení procesoru,"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "mírně zvýšenou spotřebu paměti."
+    "message": "stejně jako mírně zvýšenou spotřebu paměti."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "Pokud si všimnete neobvyklého chování, například že pozastavení karet trvá dlouho nebo že prohlížeč"
+    "message": "Pokud zaznamenáš zvláštní chování, například dlouhé pozastavování karet nebo neočekávané"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "neočekávaně padá, zkuste tuto funkci vypnout."
+    "message": "pády prohlížeče, zkus tuto funkci vypnout."
   },
   "html_options_suspend_screen_capture_method": {
-    "message": "Způsob snímání"
+    "message": "Metoda snímání"
   },
   "html_options_suspend_screen_capture_method_auto": {
     "message": "Automaticky (doporučeno)"
   },
   "html_options_suspend_screen_capture_method_native": {
-    "message": "Pouze snímek prohlížeče"
+    "message": "Pouze snímek obrazovky prohlížeče"
   },
   "html_options_suspend_screen_capture_method_renderer": {
-    "message": "Pouze vykreslení stránky"
+    "message": "Pouze vykreslovač stránky"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automatický režim pořídí skutečný snímek prohlížeče, pokud je uspávaná karta právě ta, na kterou se díváte."
+    "message": "Automaticky pořídí skutečný snímek obrazovky prohlížeče, když je pozastavovaná karta ta, na kterou se právě díváš."
   },
   "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "Je to okamžité a funguje to na každém webu. Ostatní karty překresluje vykreslovač stránky, který je pomalejší."
+    "message": "To je okamžité a funguje na každém webu. Každá jiná karta je překreslena vykreslovačem stránky, což je pomalejší."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Režim Pouze snímek prohlížeče nikdy nespouští vykreslovač stránky, takže karty uspané na pozadí nemají náhled."
+    "message": "Pouze snímek obrazovky prohlížeče nikdy nespustí vykreslovač stránky, takže karty pozastavené na pozadí nezískají náhled."
   },
   "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Snímek prohlížeče zachytí jen viditelnou část stránky, i když je zvoleno snímání celé stránky."
+    "message": "Snímek obrazovky prohlížeče zachytí jen viditelnou část stránky, i když je vybráno „Zachytit celou stránku“."
   },
   "html_options_suspend_screen_capture_precapture": {
-    "message": "Keep a recent screenshot of tabs as I use them"
+    "message": "Udržovat nedávný snímek karet, jak je používáš"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Takes a browser screenshot of a tab about a second after you switch to it or it finishes loading,"
+    "message": "Pořídí snímek obrazovky prohlížeče přibližně sekundu po přepnutí na kartu nebo po dokončení jejího načtení,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "so tabs that are later suspended in the background still get a preview."
+    "message": "takže karty pozastavené později na pozadí stále mají náhled."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome only lets an extension screenshot a tab you haven't clicked its button on if it has access to all sites,"
+    "message": "Chrome umožňuje rozšíření pořídit snímek karty, na jejíž tlačítko jsi neklikl, pouze pokud má přístup ke všem webům,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "so turning this on asks for that permission. It is only used to take these screenshots, which stay on this computer."
+    "message": "takže zapnutí této volby vyžádá toto oprávnění. Používá se jen k pořizování těchto snímků, které zůstávají v tomto počítači."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Only the latest screenshot of each open tab is kept, and it is deleted when the tab closes."
+    "message": "Uchovává se pouze nejnovější snímek každé otevřené karty a smaže se při jejím zavření."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Incognito tabs and whitelisted sites are never captured."
+    "message": "Karty v anonymním režimu a weby na seznamu výjimek se nikdy nesnímají."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Povolit vysoce kvalitní režim snímání obrazovky"
   },
   "html_options_suspend_force_screen_capture_tooltip_line1": {
-    "message": "Když je funkce vypnutá, snímky obrazovky mají kvůli výkonu následující omezení:"
+    "message": "Pokud je zakázáno, snímky obrazovky mají kvůli výkonu následující omezení:"
   },
   "html_options_suspend_force_screen_capture_tooltip_line2": {
     "message": "- Nízká kvalita snímku obrazovky"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Snímek se nepořídí, pokud jeho vytvoření trvá déle než 1 minutu"
+    "message": "- Neprovede snímek obrazovky, pokud generování obrázku trvá déle než 1 minutu"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
-    "message": "- Maximální výška snímku obrazovky je omezena na 5000 px"
+    "message": "- Maximální výška snímku obrazovky omezena na 5000 px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Zapnutí vysoce kvalitního režimu snímání obrazovky může výrazně zvýšit vytížení procesoru"
+    "message": "Povolení vysoce kvalitního režimu snímání obrazovky může výrazně zvýšit zátěž procesoru"
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
     "message": "a spotřebu paměti."
   },
   "html_options_whitelist_title": {
-    "message": "Nikdy nepozastavovat karty s URL adresami z následujícího seznamu:"
+    "message": "Nikdy nepozastavovat karty s adresami URL z následujícího seznamu:"
   },
   "html_options_always_suspend_title": {
     "message": "Vždy pozastavit karty s adresami URL z následujícího seznamu:"
   },
   "html_options_always_suspend_tooltip_line1a": {
-    "message": "Karty odpovídající tomuto seznamu se vždy pozastaví po uplynutí"
+    "message": "Karty odpovídající tomuto seznamu se vždy pozastaví po uplynutí běžného časového limitu,"
   },
   "html_options_always_suspend_tooltip_line1b": {
-    "message": "běžného časového limitu, bez ohledu na zvuk, vyplněný formulář nebo připnutí."
+    "message": "bez ohledu na zvuk, vstup formuláře nebo připnutí."
   },
   "html_options_always_suspend_tooltip_line2a": {
-    "message": "Jedna položka na řádek, stejná pravidla shody jako u výše"
+    "message": "Jedna položka na řádek, stejná pravidla shody jako u seznamu výše (prostý text"
   },
   "html_options_always_suspend_tooltip_line2b": {
-    "message": "uvedeného seznamu (obyčejný text kdekoli v URL, nebo /regex/ mezi lomítky)."
+    "message": "odpovídající kdekoli v adrese URL, nebo /regex/ mezi lomítky)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Přidejte URL adresu každé stránky, kterou chcete zařadit na seznam výjimek, na nový řádek. Například:"
+    "message": "Přidej adresu URL každé stránky, kterou chceš povolit, na nový řádek. Například:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "Pro zařazení více webů na jeden řádek můžete místo toho zadat část URL adresy:"
+    "message": "Pro povolení více webů na jednom řádku můžeš místo toho zadat část adresy URL:"
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "Můžete také zadat regulární výrazy uzavřením textu do lomítek:"
+    "message": "Můžeš také zadat regulární výrazy uzavřením textu do lomítek:"
   },
   "html_options_changelog_modal_title": {
-    "message": "Novinky ve verzi v$version$",
+    "message": "Novinky ve verzi $version$",
     "placeholders": {
       "version": {
         "content": "$1"
@@ -644,70 +644,70 @@
     "message": "Nyní pozastavit odpovídající karty"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Nikdy nepozastavovat karty v následujících skupinách:"
+    "message": "Nikdy nepozastavovat karty v následujících skupinách karet:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Karty v těchto skupinách se nikdy nepozastavují automaticky a hromadné akce pozastavení je přeskakují."
+    "message": "Karty v těchto skupinách se nikdy nepozastavují automaticky a hromadné akce pozastavení je přeskočí."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Skupinu přidáte pomocí „Nikdy nepozastavovat tuto skupinu“ v místní nabídce. Přidat lze jen skupiny, které mají název."
+    "message": "Přidej skupinu pomocí „Nikdy nepozastavovat tuto skupinu“ v nabídce pravého tlačítka. Přidat lze pouze pojmenované skupiny."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Skupiny se rozpoznávají podle názvu a barvy a přejmenování sledují, dokud zůstane prohlížeč otevřený."
+    "message": "Skupiny se přiřazují podle názvu a barvy a sledují přejmenování, dokud je prohlížeč otevřený."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "Zatím nebyly přidány žádné skupiny karet."
+    "message": "Zatím nebyla přidána žádná skupina karet."
   },
   "html_options_never_suspend_groups_remove": {
     "message": "Odebrat"
   },
   "html_options_other_enable_context_menu": {
-    "message": "Přidat The Marvellous Suspender do kontextové nabídky pravého tlačítka"
+    "message": "Přidat The Marvellous Suspender do nabídky pravého tlačítka"
   },
   "html_options_other_enable_context_menu_tooltip_line1": {
-    "message": "Přidá ovládací prvky tohoto rozšíření do kontextové nabídky webové stránky."
+    "message": "Přidá ovládací prvky tohoto rozšíření do nabídky pravého tlačítka na webové stránce."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Získáte tak přístup k pokročilým akcím pozastavování, které nejsou dostupné"
+    "message": "Získáš tak přístup k pokročilým akcím pozastavení, které nejsou"
   },
   "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "jinde v rozšíření."
+    "message": "dostupné jinde v rozšíření."
   },
   "html_options_other_enable_sync": {
-    "message": "Synchronizovat nastavení s vaším profilem prohlížeče"
+    "message": "Synchronizovat nastavení s tvým profilem prohlížeče"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Nastavení rozšíření bude synchronizováno napříč všemi prohlížeči, které jsou"
+    "message": "Nastavení rozšíření se synchronizuje napříč všemi prohlížeči přihlášenými"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "přihlášeni ve stejném profilu."
+    "message": "stejným profilem."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Tím se synchronizuje i nastavení v anonymním režimu."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Zapnutím této volby přepíšete nastavení na všech ostatních prohlížečích přihlášených ke stejnému profilu"
+    "message": "Zapnutím této volby přepíšeš nastavení ve všech ostatních prohlížečích přihlášených ke stejnému profilu"
   },
   "html_options_suspend_on_low_memory": {
-    "message": "Okamžitě pozastavit při velmi nízké systémové paměti"
+    "message": "Okamžitě pozastavit, když je systémová paměť velmi nízká"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Tato volba přepíše funkci automatického zahazování karet."
+    "message": "Tato volba potlačí automatickou funkci uvolňování karet."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "Je-li povolena, vynutí pozastavení karty místo jejího zahození."
+    "message": "Pokud je povolena, vynutí pozastavení karty místo jejího uvolnění."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Váš prohlížeč obvykle zahazuje karty až tehdy, když je systémová paměť velmi nízká."
+    "message": "Prohlížeč běžně uvolňuje karty jen tehdy, když je systémová paměť velmi nízká."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Upozornění: Tímto se mohou karty pozastavit dříve, než je čas, který jste"
+    "message": "Upozornění: kvůli tomu se karty mohou pozastavit dříve, než jsi"
   },
   "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "zadali v nastavení automatického pozastavování karet."
+    "message": "zadal(a) v možnostech automatického pozastavování karet."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "Další informace o zahazování karet naleznete na:"
+    "message": "Více informací o uvolňování karet najdeš zde:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -716,13 +716,13 @@
     "message": "Obnovit tuto kartu"
   },
   "html_popup_suspend_tab": {
-    "message": "Pozastavit tuto kartu nyní"
+    "message": "Pozastavit tuto kartu hned"
   },
   "html_popup_never_suspend_domain": {
     "message": "Nikdy nepozastavovat tuto doménu"
   },
   "html_popup_never_suspend_page": {
-    "message": "Nikdy nepozastavovat tuto URL adresu"
+    "message": "Nikdy nepozastavovat tuto adresu URL"
   },
   "html_popup_suspend_other_tabs": {
     "message": "Pozastavit všechny ostatní karty"
@@ -743,10 +743,10 @@
     "message": "Nastavení"
   },
   "html_popup_backup_now_local": {
-    "message": "Zálohovat relaci nyní (Místně)"
+    "message": "Zálohovat relaci nyní (místně)"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Zálohovat relaci nyní (Cloud)"
+    "message": "Zálohovat relaci nyní (cloud)"
   },
   "html_restoring_title": {
     "message": "Obnovování okna"
@@ -755,7 +755,7 @@
     "message": "Obnovování karet"
   },
   "html_restoring_detail": {
-    "message": "Čekejte prosím, dokud toto okno neobnovím..."
+    "message": "Počkej prosím, obnovuji toto okno..."
   },
   "html_recovery_title": {
     "message": "Obnovení"
@@ -764,10 +764,10 @@
     "message": "Jejda!"
   },
   "html_recovery_description_line1": {
-    "message": "Zdá se, že se zotavujete z pádu rozšíření."
+    "message": "Vypadá to, že se zotavuješ z pádu rozšíření."
   },
   "html_recovery_description_line2": {
-    "message": "Vaše pozastavené karty mohly spadnout nebo zmizet."
+    "message": "Tvé pozastavené karty se mohly zhroutit nebo zmizet."
   },
   "html_recovery_restore_tabs_automatically": {
     "message": "Obnovit karty automaticky"
@@ -776,7 +776,7 @@
     "message": "Přejít do správce relací"
   },
   "html_recovery_important_message": {
-    "message": "Momentálně máte zapnuté snímání obrazovky. Pokud toto rozšíření opakovaně padá, doporučujeme tuto možnost vypnout."
+    "message": "Momentálně máš zapnuté snímání obrazovky. Pokud se toto rozšíření opakovaně zhroutí, doporučujeme tuto volbu vypnout."
   },
   "html_recovery_disable_screen_capturing": {
     "message": "Vypnout snímání obrazovky"
@@ -791,7 +791,7 @@
     "message": "Klávesové zkratky"
   },
   "html_shortcuts_context_menu_note": {
-    "message": "Poznámka: Tyto akce jsou také dostupné přes kontextovou nabídku pravého tlačítka."
+    "message": "Poznámka: tyto akce jsou dostupné také přes nabídku pravého tlačítka."
   },
   "html_shortcuts_remap_keys": {
     "message": "Změnit zkratky"
@@ -821,13 +821,13 @@
     "message": "Novinky a aktualizace"
   },
   "html_news_desc": {
-    "message": "Buďte v obraze s nejnovějšími verzemi, známými problémy a oznámeními z blogu Marvellous Codeworks."
+    "message": "Buď v obraze s nejnovějšími verzemi, známými problémy a oznámeními z blogu Marvellous Codeworks."
   },
   "html_news_loading": {
     "message": "Načítání novinek…"
   },
   "html_news_empty": {
-    "message": "Zatím žádné novinky. Zkuste to znovu brzy!"
+    "message": "Zatím žádné novinky. Zkontroluj to brzy znovu!"
   },
   "html_news_new_pill": {
     "message": "NOVÉ"
@@ -839,64 +839,64 @@
     "message": "Záloha a obnovení"
   },
   "html_success_great_success": {
-    "message": "Skvělý úspěch!"
+    "message": "Marvellous úspěch!"
   },
   "html_success_all_tabs_restored": {
-    "message": "Všechny vaše karty byly obnoveny."
+    "message": "Všechny tvé karty byly obnoveny."
   },
   "html_success_goto_advanced_prefix": {
-    "message": "Pro pokročilou správu relací navštivte stránku"
+    "message": "Pro pokročilou správu relací navštiv"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "."
+    "message": " stránku"
   },
   "html_session_manager": {
-    "message": "správa relací"
+    "message": "správy relací"
   },
   "html_suspended_title": {
     "message": "Pozastavená karta"
   },
   "html_suspended_click_to_reload": {
-    "message": "Obnovte stránku nebo klikněte pro její znovunačtení"
+    "message": "Obnov stránku nebo klikni pro znovu načtení"
   },
   "html_suspended_toast_not_connected": {
-    "message": "Nejste připojeni k internetu"
+    "message": "Nejsi připojen(a) k internetu"
   },
   "html_suspended_toast_reload_disabled": {
-    "message": "Automatické znovunačítání karet je dočasně vypnuto."
+    "message": "Automatické znovu načítání karet je dočasně vypnuto."
   },
   "html_permissions_title": {
     "message": "Oprávnění"
   },
   "html_permissions_heading": {
-    "message": "Prosím, udělte mi přístup k místním URL adresám souborů"
+    "message": "Umožni mi přístup k adresám URL místních souborů"
   },
   "html_permissions_info": {
-    "message": "Toto rozšíření momentálně nemá povoleno pozastavovat URL adresy začínající slovem \"file\".\nChcete-li to změnit, zapněte prosím možnost \"Povolit přístup k URL adresám souborů\" na stránce nastavení rozšíření."
+    "message": "Toto rozšíření momentálně nemá oprávnění pozastavovat adresy URL začínající slovem „file“.\nChceš-li to změnit, zapni na stránce nastavení rozšíření volbu „Povolit přístup k adresám URL souborů“."
   },
   "html_permissions_backup": {
-    "message": "Upozornění: Změnou tohoto nastavení dočasně zmizí všechny vaše pozastavené karty.\nPro jistotu je nyní vhodná chvíle uložit zálohu aktuální relace karet."
+    "message": "Upozornění: změna této volby způsobí, že všechny tvé pozastavené karty krátce zmizí.\nPro jistotu může být teď vhodná chvíle uložit zálohu aktuální relace karet."
   },
   "html_permissions_return_hint": {
-    "message": "Vítejte zpět: klikněte znovu na tlačítko a dokončete udělení přístupu k místním souborům."
+    "message": "Vítej zpět — klikni znovu na tlačítko a dokonči udělení přístupu k místním souborům."
   },
   "html_update_title": {
     "message": "Aktualizace"
   },
   "html_update_heading2": {
-    "message": "je připraven být ještě úžasn<i>ější</i>"
+    "message": "je připraven být ještě marvellous-<i>nější</i>"
   },
   "html_update_info": {
-    "message": "Nová verze The Marvellous Suspender bude nainstalována při příštím restartu vašeho prohlížeče."
+    "message": "Nová verze The Marvellous Suspender se nainstaluje při příštím restartu prohlížeče."
   },
   "html_update_info_withbackup": {
-    "message": "DŮLEŽITÉ: Nepodařilo se nám vytvořit bod obnovení pro vaše karty.<br>Uložte zálohu HNED!"
+    "message": "DŮLEŽITÉ: nepodařilo se nám vytvořit bod obnovení pro tvé karty.<br>Ulož si HNED zálohu!"
   },
   "html_update_info_nobackup_prefix": {
-    "message": "Důrazně doporučujeme před pokračováním v aktualizaci exportovat kopii své aktuální relace z "
+    "message": "Důrazně doporučujeme exportovat kopii tvé aktuální relace z "
   },
   "html_update_info_nobackup_suffix": {
-    "message": "."
+    "message": " před pokračováním v aktualizaci."
   },
   "html_updated_title": {
     "message": "Aktualizováno"
@@ -905,31 +905,31 @@
     "message": "se aktualizuje"
   },
   "html_updating_message": {
-    "message": "Čekejte prosím, dokud neobnovím vaše pozastavené karty..."
+    "message": "Počkej prosím, obnovuji tvé pozastavené karty..."
   },
   "html_updated_great_suspender_updated": {
     "message": "byl aktualizován"
   },
   "html_updated_info_line1": {
-    "message": "Před aktualizací byla vytvořena automatická záloha vašich karet."
+    "message": "Před aktualizací byla automaticky vytvořena záloha tvých karet."
   },
   "html_updated_info_line2_prefix": {
-    "message": "Pokud jste během aktualizace narazili na problémy, můžete ztracené karty obnovit ze stránky "
+    "message": "Pokud jsi během aktualizace narazil(a) na problémy, můžeš ztracené karty obnovit ze stránky "
   },
   "html_updated_info_line2_suffix": {
     "message": "."
   },
   "html_updated_patch_message": {
-    "message": "Omlouváme se za obtěžování. Bylo potřeba provést drobnou údržbu."
+    "message": "Omlouváme se za obtěžování. Jen jsem potřeboval provést malou údržbu."
   },
   "html_welcome_text_line1": {
-    "message": "Děkujeme, že zkoušíte"
+    "message": "Díky, že zkoušíš"
   },
   "html_welcome_text_line2": {
-    "message": "Udržuji váš počítač v chodu tím, že pozastavuji karty, které nepoužíváte."
+    "message": "Zajišťuji, aby tvůj počítač běžel plynule, tím, že pozastavuji karty, které nepoužíváš."
   },
   "html_welcome_text_line3": {
-    "message": "Nastavení níže si můžete doladit."
+    "message": "Nastavení níže si můžeš doladit."
   },
   "js_popup_normal": {
     "message": "Karta se automaticky pozastaví."
@@ -947,25 +947,25 @@
     "message": "Nepozastavovat"
   },
   "js_popup_whitelisted": {
-    "message": "Web na seznamu výjimek."
+    "message": "Web povolen."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Odebrat ze seznamu výjimek"
+    "message": "Odebrat ze seznamu povolených"
   },
   "js_popup_audible": {
     "message": "Karta přehrává zvuk."
   },
   "js_popup_form_input": {
-    "message": "Do karty se zadávají údaje formuláře."
+    "message": "Karta přijímá vstup formuláře."
   },
   "js_popup_form_input_unpause": {
-    "message": "Obnovit"
+    "message": "Pokračovat"
   },
   "js_popup_pinned": {
     "message": "Karta byla připnuta"
   },
   "js_popup_app_window": {
-    "message": "Karta je otevřena v okně aplikace"
+    "message": "Karta je otevřená v okně aplikace"
   },
   "js_popup_grouped_tab": {
     "message": "Karta je ve skupině karet"
@@ -974,19 +974,19 @@
     "message": "Karta je ve skupině, která se nikdy nepozastavuje"
   },
   "js_popup_temp_whitelist": {
-    "message": "Pozastavování karty pozastaveno."
+    "message": "Pozastavování karty je zastaveno."
   },
   "js_popup_temp_whitelist_unpause": {
-    "message": "Obnovit"
+    "message": "Pokračovat"
   },
   "js_popup_never": {
-    "message": "Automatické pozastavování karet vypnuto."
+    "message": "Automatické pozastavování karet je zakázáno."
   },
   "js_popup_no_connectivity": {
     "message": "Žádné síťové připojení"
   },
   "js_popup_charging": {
-    "message": "Připojeno k napájení"
+    "message": "Připojeno ke zdroji napájení"
   },
   "js_popup_blockedFile": {
     "message": "Místní soubory nelze pozastavit."
@@ -995,13 +995,13 @@
     "message": "Povolit"
   },
   "js_popup_unknown": {
-    "message": "Čekání na načtení karty..."
+    "message": "Čeká se na načtení karty..."
   },
   "js_popup_initialising": {
-    "message": "Čekání na inicializaci rozšíření..."
+    "message": "Čeká se na inicializaci rozšíření..."
   },
   "js_popup_error": {
-    "message": "Automatické pozastavení není pro tuto kartu dostupné"
+    "message": "Automatické pozastavení pro tuto kartu není dostupné"
   },
   "js_history_delete": {
     "message": "smazat"
@@ -1031,22 +1031,22 @@
     "message": "Karty"
   },
   "js_history_enter_name_for_session": {
-    "message": "Zadejte název této relace"
+    "message": "Zadej název této relace"
   },
   "js_history_confirm_delete": {
-    "message": "Opravdu chcete tuto relaci smazat?"
+    "message": "Opravdu chceš tuto relaci smazat?"
   },
   "js_history_confirm_session_overwrite": {
-    "message": "Relace s tímto názvem již existuje. Přepsat existující relaci?"
+    "message": "Relace s tímto názvem už existuje. Přepsat stávající relaci?"
   },
   "js_history_import_fail": {
-    "message": "Nepodařilo se načíst soubor. Ujistěte se, že jde o prostý text a obsahuje jednu URL adresu na řádek."
+    "message": "Soubor se nepodařilo načíst. Ujisti se, že jde o prostý text s jednou adresou URL na řádek."
   },
   "js_history_migrate_fail": {
-    "message": "Pro migraci je potřeba 32znakové ID rozšíření"
+    "message": "K migraci je potřeba 32znakové ID rozšíření"
   },
   "js_history_migrate_success": {
-    "message": "Úspěšně migrováno karet: $tabcount$. Pokud se migrované karty automaticky neobnoví, restartujte prohlížeč.",
+    "message": "Úspěšně migrováno $tabcount$ karet. Pokud se migrované karty automaticky nenačtou znovu, restartuj prosím prohlížeč.",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -1060,19 +1060,19 @@
     "message": "Karta pozastavena kvůli nedostatku systémové paměti"
   },
   "js_options_incognito_warning": {
-    "message": "Jste v anonymním režimu. Některé funkce nebudou dostupné."
+    "message": "Jsi v anonymním režimu. Některé funkce nebudou dostupné."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Nejsou otevřeny žádné karty odpovídající aktuálnímu seznamu výjimek."
+    "message": "Žádné otevřené karty neodpovídají aktuálnímu seznamu povolených."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Otevřené karty na seznamu výjimek:"
+    "message": "Povolené otevřené karty:"
   },
   "js_options_always_suspend_no_matches": {
     "message": "Žádné otevřené karty neodpovídají aktuálnímu seznamu vždy pozastavit."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "odpovídá otevřeným skupinám: $count$",
+    "message": "odpovídá $count$ otevřeným skupinám",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1083,10 +1083,10 @@
     "message": "Otevřené karty odpovídající seznamu vždy pozastavit:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
-    "message": "a"
+    "message": "a další"
   },
   "js_options_whitelist_matches_overflow_suffix": {
-    "message": "další."
+    "message": "."
   },
   "js_permissions_button_export": {
     "message": "Uložit zálohu"
@@ -1095,7 +1095,7 @@
     "message": "Otevřít nastavení rozšíření"
   },
   "js_update_confirm": {
-    "message": "Ještě jste neuložili zálohu. Přesto aktualizovat rozšíření?"
+    "message": "Zatím jsi neuložil(a) zálohu. Přesto aktualizovat rozšíření?"
   },
   "js_update_button_export": {
     "message": "Uložit zálohu"
@@ -1104,7 +1104,7 @@
     "message": "Aktualizovat rozšíření nyní"
   },
   "js_suspend_button_backup": {
-    "message": "Před aktualizací uložit zálohu"
+    "message": "Uložit zálohu před aktualizací"
   },
   "js_shortcuts_default_command": {
     "message": "Aktivovat rozšíření (zobrazit vyskakovací okno)"
@@ -1119,28 +1119,28 @@
     "message": "Automatická záloha relace"
   },
   "html_backup_session_desc": {
-    "message": "Na rozdíl od relací se zálohy ukládají jako soubory JSON mimo Chrome: do vaší složky Stažené soubory nebo na Disk Google. Přežijí pády prohlížeče, resety profilu i nové instalace. Toto je vaše skutečná záchranná síť."
+    "message": "Na rozdíl od relací se zálohy ukládají jako soubory JSON mimo Chrome: do složky Stažené soubory nebo na Google Disk. Přežijí pád prohlížeče, obnovení profilu i čistou instalaci. Toto je tvá skutečná záchranná síť."
   },
   "html_options_backup_enable": {
-    "message": "Automaticky zálohovat vaši relaci"
+    "message": "Automaticky zálohovat relaci"
   },
   "html_options_backup_enable_tooltip_line1a": {
-    "message": "Tiše uloží kopii vaší aktuální relace jako soubor JSON."
+    "message": "Tiše uloží kopii aktuální relace jako soubor JSON."
   },
   "html_options_backup_enable_tooltip_line1b": {
-    "message": "Můžete si vybrat lokální uložení (složka tms-backups uvnitř vašich Stažených souborů)"
+    "message": "Vyber si ukládání místně (složka tms-backups uvnitř Stažených souborů)"
   },
   "html_options_backup_enable_tooltip_line1c": {
-    "message": "nebo uložení do složky 'TMS Backups' na Google Disku."
+    "message": "nebo do složky 'TMS Backups' na Google Disku."
   },
   "html_options_backup_enable_tooltip_line2a": {
-    "message": "Pro lokální zálohy musí být Chrome nastaven na automatické stahování souborů (bez dotazu)."
+    "message": "Pro místní zálohy musí být Chrome nastaven na automatické stahování souborů"
   },
   "html_options_backup_enable_tooltip_line2b": {
-    "message": "Zkontrolujte chrome://settings/downloads."
+    "message": "(bez dotazování). Zkontroluj chrome://settings/downloads."
   },
   "html_options_backup_enable_tooltip_line2c": {
-    "message": "Zálohy na Google Disk tento požadavek nemají."
+    "message": "Zálohy na Google Disku tento požadavek nemají."
   },
   "html_options_backup_interval": {
     "message": "Zálohovat každých"
@@ -1149,10 +1149,10 @@
     "message": "V kolik hodin"
   },
   "html_backup_interval_warning": {
-    "message": "Upozornění: při tak dlouhém intervalu se mezi zálohami může stát mnoho. Zvažte kratší interval, abyste snížili riziko ztráty dat."
+    "message": "Pozor: při takto dlouhém intervalu se toho mezi zálohami může stát hodně. Zvaž kratší interval, abys snížil(a) riziko ztráty dat."
   },
   "html_options_backup_note": {
-    "message": "Místní i zálohy na Disku obsahují identifikátor zařízení (např. tms-session-a3f7b2c8-2026-06-18T14-30.json), takže si každá instalace prohlížeče vede vlastní nezávislou sadu záloh. Pro každé zařízení je uchováváno posledních N místních záloh; zálohy na Disku uchovávají také N na zařízení, takže se relace z různých počítačů nebo prohlížečů nikdy vzájemně nepřepíší.\n\n<strong>I když je vybrán Disk Google, při zavření prohlížeče se stále zapíše místní záchranný soubor, který se při dalším spuštění nahraje na Disk. Zobrazení místního souboru zde je očekávané chování, nikoli chyba.</strong>"
+    "message": "Místní i zálohy na Disku obsahují identifikátor zařízení (např. tms-session-a3f7b2c8-2026-06-18T14-30.json), takže si každá instalace prohlížeče udržuje vlastní nezávislý fond záloh. Zachovává se N nejnovějších místních záloh na zařízení; i zálohy na Disku se zachovávají v počtu N na zařízení, takže se relace z různých počítačů nebo prohlížečů nikdy vzájemně nepřepíšou.\n\n<strong>I při výběru Google Disku se při zavření prohlížeče stále zapíše místní záchranný soubor, který se při příštím spuštění nahraje na Disk. Zobrazení místního souboru je tedy očekávané chování, ne chyba.</strong>"
   },
   "html_backup_max_files_label": {
     "message": "Maximální počet uchovávaných záloh"
@@ -1173,13 +1173,13 @@
     "message": "↑ Nahoru"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Relace jsou uloženy pouze uvnitř Chromu: nepřežijí pád prohlížeče ani reset profilu."
+    "message": "Relace jsou uloženy pouze uvnitř Chromu: nepřežijí pád prohlížeče ani obnovení profilu."
   },
   "html_history_backup_settings_link": {
-    "message": "Nastavte zálohu pro uložení karet mimo prohlížeč →"
+    "message": "Nastav Zálohu pro uložení karet mimo prohlížeč →"
   },
   "js_options_backup_now_running": {
-    "message": "Probíhá zálohování…"
+    "message": "Probíhá záloha…"
   },
   "js_options_backup_now_done": {
     "message": "Záloha uložena."
@@ -1188,57 +1188,53 @@
     "message": "Uloženo"
   },
   "js_backup_permission_denied": {
-    "message": "Přístup odepřen: automatická záloha nebyla povolena."
+    "message": "Oprávnění zamítnuto: automatická záloha nebyla povolena."
   },
   "html_options_other_enable_news_feed": {
     "message": "Povolit kanál novinek"
   },
   "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "Pravidelně kontroluje marvellouscode.works ohledně novinek o TMS"
+    "message": "Pravidelně kontroluje marvellouscode.works kvůli novinkám o TMS a zobrazuje je"
   },
   "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "a zobrazuje je na postranním panelu."
+    "message": "v postranním panelu."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "Vypnutím přeskočíte tento požadavek na pozadí."
+    "message": "Vypnutím přeskočíš tento požadavek na pozadí."
   },
   "html_options_other_legacy_mascot": {
     "message": "Použít klasickou grafiku The Great Suspender místo nového maskota"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Vrátí ikony a ilustrace do původního stylu The Great Suspender"
+    "message": "Přepne ikony a ilustrace zpět na původní styl The Great"
   },
   "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "tam, kde je k dispozici starší verze obrázku."
+    "message": "Suspender tam, kde je dostupná starší verze obrázku."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
-    "message": "Obrázky bez staršího ekvivalentu nadále používají novou grafiku."
+    "message": "Obrázky bez starší varianty dál používají novou grafiku."
   },
   "html_permissions_notice_text": {
-    "message": "Od této verze si TMS vyžádá přístup k souborovému systému/účtu Google pouze tehdy, když skutečně zapnete místní zálohu nebo zálohu na Disku Google, místo aby o něj žádal předem."
+    "message": "Počínaje touto verzí TMS žádá o přístup k souborovému systému / účtu Google jen tehdy, když skutečně zapneš místní zálohu nebo zálohu na Google Disk, místo aby o něj žádal předem."
   },
   "html_permissions_notice_link": {
-    "message": "Zjistit více o oprávněních."
+    "message": "Zjisti více o oprávněních."
   },
   "html_permissions_notice_dismiss": {
     "message": "Rozumím"
   },
   "html_permissions_info_note": {
-    "message": "TMS si vyžádá oprávnění Stažené soubory a účet Google pouze tehdy, když níže zapnete místní zálohu nebo zálohu na Disku Google."
+    "message": "TMS požaduje oprávnění Stažené soubory a účet Google jen tehdy, když níže zapneš místní zálohu nebo zálohu na Google Disk."
   },
   "html_permissions_info_note_link": {
-    "message": "Zobrazit úplný přehled oprávnění."
+    "message": "Zobrazit úplný přehled oprávnění"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome se ptá, kam ukládat soubory, takže automatické zálohy nebudou fungovat tiše. Vypněte „Zeptat se, kam uložit každý soubor“ v chrome://settings/downloads."
+    "message": "Chrome se ptá, kam soubory uložit, takže automatické zálohy nebudou fungovat tiše. Vypni „Vždy se zeptat, kam soubor uložit“ v chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "Příští spuštění: $time$",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+    "placeholders": { "time": { "content": "$1" } }
   },
   "js_options_backup_last_local": {
     "message": "Poslední záloha: $date$",
@@ -1255,7 +1251,7 @@
     "message": "Místně (složka Stažené soubory)"
   },
   "html_options_backup_dest_drive": {
-    "message": "Disk Google"
+    "message": "Google Disk"
   },
   "html_options_backup_drive_connect": {
     "message": "Připojit účet Google"
@@ -1264,25 +1260,25 @@
     "message": "Odpojit"
   },
   "html_popup_backup_drive_error": {
-    "message": "Automatická záloha selhala: není připojen žádný účet Google. Kliknutím sem to opravíte."
+    "message": "Automatická záloha se nezdařila: není připojen žádný účet Google. Klikni sem pro opravu."
   },
   "html_popup_backup_downloads_error": {
-    "message": "Automatická záloha se nezdařila: chybí oprávnění Stažené soubory. Kliknutím sem to opravíte."
+    "message": "Automatická záloha se nezdařila: chybí oprávnění Stažené soubory. Klikni sem pro opravu."
   },
   "html_popup_backup_nudge_text": {
-    "message": "Automatická záloha je vypnutá. Chraňte své relace."
+    "message": "Automatická záloha je vypnutá. Chraň své relace."
   },
   "html_backup_nudge_dismiss": {
     "message": "Připomenout za 10 dní"
   },
   "html_backup_nudge_note_text": {
-    "message": "Automatická záloha je vypnutá. Jejím zapnutím ochráníte své relace, pokud se tento profil prohlížeče někdy resetuje nebo poškodí."
+    "message": "Automatická záloha je vypnutá. Jejím zapnutím ochráníš své relace pro případ, že by se tento profil prohlížeče někdy obnovil nebo poškodil."
   },
   "html_backup_nudge_optout": {
-    "message": "Nemám zájem, přestaňte mi to připomínat"
+    "message": "Nemám zájem, dál mi to nepřipomínej"
   },
   "html_backup_downloads_permission_missing": {
-    "message": "Automatická záloha je zapnutá, ale oprávnění Stažené soubory není na tomto zařízení uděleno (může se to stát po importu nastavení nebo synchronizaci z jiného prohlížeče). Zálohy se nespustí, dokud jej neudělíte."
+    "message": "Automatická záloha je zapnutá, ale oprávnění Stažené soubory není na tomto zařízení uděleno (může se to stát po importu nastavení nebo synchronizaci z jiného prohlížeče). Zálohy se nespustí, dokud ho neudělíš."
   },
   "html_backup_downloads_permission_grant": {
     "message": "Udělit oprávnění"
@@ -1291,19 +1287,19 @@
     "message": "Připojování…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Nepodařilo se připojit ke Google. Zkuste to prosím znovu."
+    "message": "Nepodařilo se připojit ke Google. Zkus to prosím znovu."
   },
   "html_options_settings_backup": {
     "message": "Záloha nastavení"
   },
   "html_backup_settings_desc": {
-    "message": "Exportujte veškerá nastavení rozšíření do souboru JSON, užitečné jako záloha nebo pro přenos konfigurace do jiného profilu prohlížeče. Import souboru nahradí aktuální nastavení."
+    "message": "Exportuj veškerá nastavení rozšíření do souboru JSON, užitečné jako záloha nebo pro přenos konfigurace do jiného profilu prohlížeče. Import souboru nahradí aktuální nastavení."
   },
   "html_backup_local_folder_hint": {
-    "message": "Místní zálohy se ukládají do složky tms-backups uvnitř vašich Stažených souborů."
+    "message": "Místní zálohy se ukládají do složky tms-backups uvnitř Stažených souborů."
   },
   "html_backup_drive_folder_note": {
-    "message": "Zálohy se ukládají do složky 'TMS Backups' na vašem Disku Google."
+    "message": "Zálohy se ukládají do složky 'TMS Backups' na tvém Google Disku."
   },
   "html_backup_drive_open_folder": {
     "message": "Otevřít složku TMS Backups na Disku ↗"
@@ -1315,10 +1311,10 @@
     "message": "Složka"
   },
   "html_backup_settings_local_title": {
-    "message": "Místní"
+    "message": "Místně"
   },
   "html_backup_settings_drive_title": {
-    "message": "Disk Google"
+    "message": "Google Disk"
   },
   "html_backup_drive_save_settings": {
     "message": "Uložit nastavení na Disk"
@@ -1333,10 +1329,10 @@
     "message": "Nastavení uloženo na Disk."
   },
   "js_backup_drive_settings_error": {
-    "message": "Nepodařilo se uložit nastavení na Disk. Zkuste to prosím znovu."
+    "message": "Nepodařilo se uložit nastavení na Disk. Zkus to prosím znovu."
   },
   "js_backup_cooldown": {
-    "message": "Počkejte $seconds$ s do další zálohy.",
+    "message": "Počkej $seconds$s před další zálohou.",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1347,13 +1343,13 @@
     "message": "Stahování nastavení z Disku…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "Na Disku nebyl nalezen žádný soubor s nastavením. Nejprve uložte nastavení na Disk."
+    "message": "Na Disku nebyl nalezen žádný soubor s nastavením. Nejprve ulož nastavení na Disk."
   },
   "js_backup_settings_drive_restore_success": {
     "message": "Nastavení obnoveno. Znovu se načítá…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Nepodařilo se obnovit nastavení z Disku. Zkuste to prosím znovu."
+    "message": "Nepodařilo se obnovit nastavení z Disku. Zkus to prosím znovu."
   },
   "js_backup_settings_drive_last_backup": {
     "message": "Poslední záloha: $date$",
@@ -1364,7 +1360,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Již existuje záloha nastavení z $date$. Přepsat?",
+    "message": "Už existuje záloha nastavení z $date$. Přepsat?",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1378,7 +1374,7 @@
     "message": "Importovat nastavení"
   },
   "js_options_settings_import_confirm": {
-    "message": "Tímto přepíšete aktuální nastavení. Pokračovat?"
+    "message": "Tím se přepíší tvá aktuální nastavení. Pokračovat?"
   },
   "js_options_settings_import_success": {
     "message": "Nastavení importováno. Znovu se načítá…"
@@ -1393,25 +1389,25 @@
     "message": "Obnovit ze zálohy"
   },
   "html_backup_restore_desc": {
-    "message": "Importujte soubor zálohy pro jeho obnovení jako uložené relace. Po importu otevřete Relace a vyberte, která okna obnovit."
+    "message": "Importuj soubor zálohy a obnov ho jako uloženou relaci. Po importu otevři Relace a vyber, která okna obnovit."
   },
   "html_backup_restore_local_title": {
     "message": "Místní soubor"
   },
   "html_backup_restore_drive_title": {
-    "message": "Disk Google"
+    "message": "Google Disk"
   },
   "html_backup_restore_from_file": {
     "message": "Vybrat soubor zálohy"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Vyberte zálohu z Disku"
+    "message": "Vyber zálohu z Disku"
   },
   "html_backup_restore_import": {
     "message": "Importovat vybrané"
   },
   "js_backup_restore_importing": {
-    "message": "Importování…"
+    "message": "Importuje se…"
   },
   "js_backup_restore_success": {
     "message": "Importováno jako „$name$“.",
@@ -1428,16 +1424,16 @@
     "message": "Neplatný soubor zálohy."
   },
   "js_backup_restore_error_drive": {
-    "message": "Nepodařilo se stáhnout z Disku. Zkontrolujte připojení a zkuste to znovu."
+    "message": "Nepodařilo se stáhnout z Disku. Zkontroluj připojení a zkus to znovu."
   },
   "js_backup_restore_error_generic": {
-    "message": "Import se nezdařil. Zkuste to prosím znovu."
+    "message": "Import se nezdařil. Zkus to prosím znovu."
   },
   "html_backup_drive_import_modal_title": {
     "message": "Uložit zálohu z Disku před přepnutím?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Vaše poslední záloha na Disku je z $date$. Uložte ji jako relaci ve Správci relací, abyste ji mohli obnovit bez nutnosti Disku Google.",
+    "message": "Tvá nejnovější záloha na Disku je z $date$. Ulož ji jako relaci ve Správci relací, abys ji mohl(a) obnovit bez potřeby Google Disku.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1457,19 +1453,19 @@
     "message": "Stáhnout"
   },
   "html_backup_drive_delete_btn": {
-    "message": "Odstranit"
+    "message": "Smazat"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Odstranit tento soubor zálohy z Disku? Tuto akci nelze vrátit zpět."
+    "message": "Smazat tento soubor zálohy z Disku? Tuto akci nelze vrátit zpět."
   },
   "html_backup_drive_delete_device_btn": {
     "message": "Smazat vše"
   },
   "html_backup_drive_delete_device_modal_title": {
-    "message": "Smazat všechny zálohy tohoto zařízení?"
+    "message": "Smazat všechny zálohy pro toto zařízení?"
   },
   "html_backup_drive_delete_device_modal_body": {
-    "message": "Tímto trvale smažete všech $count$ záložních souborů pro „$device$“ z Google Disku. Tuto akci nelze vrátit zpět.",
+    "message": "Trvale se smaže všech $count$ souborů zálohy pro „$device$“ z Google Disku. Tuto akci nelze vrátit zpět.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1486,7 +1482,7 @@
     "message": "Zrušit"
   },
   "js_backup_drive_delete_device_error": {
-    "message": "Některé záložní soubory se nepodařilo smazat. Zkuste to znovu."
+    "message": "Některé soubory záloh se nepodařilo smazat. Zkus to prosím znovu."
   },
   "html_backup_drive_no_files": {
     "message": "Na Disku nebyly nalezeny žádné soubory záloh."

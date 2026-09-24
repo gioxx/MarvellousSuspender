@@ -3,64 +3,64 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "Libère ta mémoire. Suspends dès maintenant les onglets dont tu n'as pas besoin."
+    "message": "Libérez votre mémoire. Suspendez dès maintenant les onglets dont vous n'avez pas besoin."
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
   },
   "ext_cmd_toggle_tab_suspension_description": {
-    "message": "Suspend/Recharge l'onglet actif"
+    "message": "Suspendre/Réactiver l'onglet actif"
   },
   "ext_cmd_toggle_tab_pause_description": {
-    "message": "Pause/Remet la suspension de l'onglet actif"
+    "message": "Mettre en pause/Reprendre la suspension de l'onglet actif"
   },
   "ext_cmd_suspend_selected_tabs_description": {
-    "message": "Suspend les onglets sélectionnés"
+    "message": "Suspendre les onglets sélectionnés"
   },
   "ext_cmd_unsuspend_selected_tabs_description": {
-    "message": "Annule la suspension des onglets sélectionnés"
+    "message": "Réactiver les onglets sélectionnés"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "Suspend tous les onglets du groupe de l'onglet actif"
+    "message": "Suspendre tous les onglets du groupe de l'onglet actif"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "Annule la suspension de tous les onglets du groupe de l'onglet actif"
+    "message": "Réactiver tous les onglets du groupe de l'onglet actif"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "Suspend tous les onglets hors groupe de la fenêtre active"
+    "message": "Suspendre tous les onglets sans groupe dans la fenêtre active"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "Annule la suspension de tous les onglets hors groupe de la fenêtre active"
+    "message": "Réactiver tous les onglets sans groupe dans la fenêtre active"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Basculer « ne jamais suspendre » pour le groupe de l'onglet actif"
+    "message": "Activer ou désactiver « ne jamais suspendre » pour le groupe de l'onglet actif"
   },
   "ext_cmd_soft_suspend_active_window_description": {
-    "message": "Suspend tous les autres onglets de la fenêtre active"
+    "message": "Suspendre tous les autres onglets de la fenêtre active"
   },
   "ext_cmd_force_suspend_active_window_description": {
-    "message": "Force la suspension de tous les autres onglets dans la fenêtre active"
+    "message": "Forcer la suspension des autres onglets de la fenêtre active"
   },
   "ext_cmd_unsuspend_active_window_description": {
-    "message": "Annule la suspension de tous les onglets dans la fenêtre active"
+    "message": "Réactiver tous les onglets de la fenêtre active"
   },
   "ext_cmd_soft_suspend_all_windows_description": {
-    "message": "Suspend tous les onglets dans toutes les fenêtres"
+    "message": "Suspendre tous les onglets de toutes les fenêtres"
   },
   "ext_cmd_force_suspend_all_windows_description": {
-    "message": "Force la suspension de tous les onglets dans toutes les fenêtres"
+    "message": "Forcer la suspension de tous les onglets de toutes les fenêtres"
   },
   "ext_cmd_unsuspend_all_windows_description": {
-    "message": "Annuler la suspension de tous les onglets dans toutes les fenêtres"
+    "message": "Réactiver tous les onglets de toutes les fenêtres"
   },
   "js_context_open_link_in_suspended_tab": {
     "message": "Ouvrir le lien dans un nouvel onglet suspendu"
   },
   "js_context_toggle_suspend_state": {
-    "message": "Suspendre/Annuler la suspension de cet onglet"
+    "message": "Suspendre/Réactiver cet onglet"
   },
   "js_context_toggle_pause_suspension": {
-    "message": "Pause/Remettre la suspension de cet onglet"
+    "message": "Mettre en pause/Reprendre la suspension de cet onglet"
   },
   "js_context_never_suspend_domain": {
     "message": "Ne jamais suspendre ce domaine"
@@ -72,19 +72,19 @@
     "message": "Suspendre les onglets sélectionnés"
   },
   "js_context_unsuspend_selected_tabs": {
-    "message": "Annuler la suspension des onglets sélectionnés"
+    "message": "Réactiver les onglets sélectionnés"
   },
   "js_context_suspend_tab_group": {
     "message": "Suspendre tous les onglets de ce groupe"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "Annuler la suspension de tous les onglets de ce groupe"
+    "message": "Réactiver tous les onglets de ce groupe"
   },
   "js_context_suspend_ungrouped_tabs": {
-    "message": "Suspendre tous les onglets hors groupe"
+    "message": "Suspendre tous les onglets sans groupe"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "Annuler la suspension de tous les onglets hors groupe"
+    "message": "Réactiver tous les onglets sans groupe"
   },
   "js_context_never_suspend_group": {
     "message": "Ne jamais suspendre ce groupe"
@@ -99,136 +99,217 @@
     "message": "Suspendre tous les autres onglets de cette fenêtre"
   },
   "js_context_force_suspend_other_tabs_in_window": {
-    "message": "Forcer la suspension de tous les autres onglets dans cette fenêtre"
+    "message": "Forcer la suspension des autres onglets de cette fenêtre"
   },
   "js_context_unsuspend_all_tabs_in_window": {
-    "message": "Annuler la suspension de tous les onglets dans cette fenêtre"
+    "message": "Réactiver tous les onglets de cette fenêtre"
   },
   "js_context_soft_suspend_all_tabs": {
-    "message": "Suspendre tous les onglets dans toutes les fenêtres"
+    "message": "Suspendre tous les onglets de toutes les fenêtres"
   },
   "js_context_force_suspend_all_tabs": {
-    "message": "Forcer la suspension de tous les onglets dans toutes les fenêtres"
+    "message": "Forcer la suspension de tous les onglets de toutes les fenêtres"
   },
   "js_context_unsuspend_all_tabs": {
-    "message": "Annuler la suspension de tous les onglets dans toutes les fenêtres"
+    "message": "Réactiver tous les onglets de toutes les fenêtres"
+  },
+  "html_health_title": {
+    "message": "État des onglets (Bêta)"
+  },
+  "html_health_title_intro": {
+    "message": "Si vous rencontrez des problèmes avec vos onglets suspendus, notamment avec les favicônes, cliquez sur Analyser les onglets pour voir si nous pouvons les réparer."
+  },
+  "html_health_all_good": {
+    "message": "Nous n'avons trouvé aucun problème avec vos onglets suspendus. Si vous voyez toujours quelque chose d'anormal, faites-le-nous savoir ci-dessous et nous essaierons d'étendre cette vérification."
+  },
+  "html_health_reload_intro": {
+    "message": "Certains de vos onglets suspendus ne se sont pas entièrement chargés. Nous pouvons les recharger pour arranger la situation."
+  },
+  "html_health_restore_intro": {
+    "message": "Certains de vos onglets suspendus utilisent la favicône par défaut du navigateur. Cela signifie que le cache TMS ne les contient pas. Nous pouvons restaurer puis resuspendre un nombre minimal d'onglets pour récupérer les favicônes manquantes."
+  },
+  "html_health_scan_button": {
+    "message": "Analyser les onglets"
+  },
+  "html_health_copy_button": {
+    "message": "Copier les résultats"
+  },
+  "html_health_scan_label": {
+    "message": "Analyse des onglets en cours..."
+  },
+  "html_health_num_tms_tabs": {
+    "message": "Onglets suspendus par TMS"
+  },
+  "html_health_num_tms_cache": {
+    "message": "favicônes dans le cache TMS"
+  },
+  "html_health_num_tabs_empty": {
+    "message": "onglets non chargés"
+  },
+  "html_health_num_tabs_extension": {
+    "message": "onglets avec la favicône TMS"
+  },
+  "html_health_num_tabs_default": {
+    "message": "onglets avec favicône par défaut"
+  },
+  "html_health_num_hostnames": {
+    "message": "noms d'hôte d'onglets uniques"
+  },
+  "html_health_small_cache": {
+    "message": "Le cache local des favicônes TMS peut ne pas couvrir tous les onglets. Si le cache du navigateur est effacé, TMS pourrait ne plus pouvoir afficher certaines favicônes."
+  },
+  "html_health_reload_button": {
+    "message": "Suivant : recharger $count$ onglets",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_restore_button": {
+    "message": "Suivant : restaurer $count$ onglets pour récupérer les favicônes",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_action_label": {
+    "message": "Restauration des favicônes..."
+  },
+  "html_health_after_reload": {
+    "message": "Une fois que vos onglets ont fini de se charger en arrière-plan, vous pouvez cliquer à nouveau sur « Analyser les onglets » pour voir si la situation s'est améliorée."
+  },
+  "html_health_after_restore": {
+    "message": "Vous pouvez cliquer à nouveau sur « Analyser les onglets » pour voir si la situation s'est améliorée."
+  },
+  "html_health_need_help1": {
+    "message": "Si vous avez toujours des problèmes avec les onglets ou les favicônes, vous pouvez cliquer sur Copier les résultats et les coller dans une nouvelle"
+  },
+  "html_health_need_help2": {
+    "message": "Issue sur GitHub."
+  },
+  "html_health_num_grouped_broken": {
+    "message": "onglets groupés dans un état défectueux (bug des groupes d'onglets)"
+  },
+  "html_health_repair_intro": {
+    "message": "Certains onglets dans des groupes d'onglets sont dans un état défectueux : ils s'affichent comme un nouvel onglet au lieu de se charger correctement après le redémarrage du navigateur. TMS peut tenter de les restaurer."
+  },
+  "html_health_repair_button": {
+    "message": "Réparer $count$ onglet(s) groupé(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_after_repair": {
+    "message": "Terminé. Relancez une analyse pour vérifier que les onglets groupés sont revenus à leur état suspendu."
   },
   "html_about_title": {
     "message": "À propos"
+  },
+  "html_about_version_label": {
+    "message": "Version"
+  },
+  "html_about_tagline": {
+    "message": "Le successeur spirituel de la suspension moderne d'onglets : remplace les onglets inactifs par une page d'hibernation légère, vous donnant un contrôle précis sur le moment de leur réveil."
+  },
+  "html_about_section_credits": {
+    "message": "Crédits"
+  },
+  "html_about_contributors_and": {
+    "message": " et "
+  },
+  "html_about_community_thanks_link": {
+    "message": "tous les contributeurs sur GitHub"
   },
   "html_about_fork_beginning": {
     "message": "Basé sur l'original"
   },
   "html_about_fork_mid": {
-    "message": "disponible sur GitHub, sans suivi publicitaire"
+    "message": "disponible sur GitHub, sans traçage publicitaire"
   },
   "html_about_fork_end": {
-    "message": ", more information available on"
+    "message": "Plus d'informations disponibles sur"
   },
-  "html_about_github_title": {
-    "message": "GitHub"
-  },
-  "html_about_blog_title": {
-    "message": "Blog"
-  },
-  "html_about_twitter_title": {
-    "message": "Twitter"
+  "html_about_contributors": {
+    "message": "Proposé par"
   },
   "html_about_report_issues_prefix": {
     "message": "Si vous avez des commentaires ou souhaitez signaler un problème, vous pouvez le faire sur la"
   },
   "html_about_report_issues_suffix": {
-    "message": ". Veuillez vérifier si votre idée ou problème existe déjà avant d'en créer une nouvelle. Merci!"
+    "message": ". Vérifiez si votre idée ou votre problème existe déjà avant d'en créer un nouveau. Merci !"
   },
   "html_about_debugging_prefix": {
-    "message": "To enable logging, or to set debugging flags, go to the "
+    "message": "Pour capturer les journaux et générer un rapport de diagnostic, rendez-vous sur la page "
   },
   "html_about_debugging_suffix": {
-    "message": "debug page."
+    "message": "de diagnostic."
   },
   "html_about_the_github_issues_page": {
-    "message": "page de problèmes GitHub"
+    "message": "page des issues GitHub"
   },
-  "html_about_html2canvas": {
-    "message": "html2canvas"
+  "html_about_section_support": {
+    "message": "Soutenir le développement"
   },
-  "html_about_html2canvas_prefix": {
-    "message": "This extension uses the"
-  },
-  "html_about_html2canvas_suffix": {
-    "message": "library written by Niklas von Hertzen."
-  },
-  "html_about_indexedDb": {
-    "message": "db.js"
-  },
-  "html_about_indexedDb_prefix": {
-    "message": "It also uses the indexedDb wrapper"
-  },
-  "html_about_indexedDb_suffix": {
-    "message": "written by Aaron Powell."
-  },
-  "html_about_browserstack": {
-    "message": "BrowserStack"
-  },
-  "html_about_browserstack_prefix": {
-    "message": "Thank you also to"
-  },
-  "html_about_browserstack_suffix": {
-    "message": "for providing free chrome testing tools."
-  },
-  "html_about_tgs_prefix": {
-    "message": "This extension could never have existed without"
-  },
-  "html_about_tgs_suffix": {
-    "message": "."
+  "html_about_support_text": {
+    "message": "The Marvellous Suspender est gratuit et open source. Si vous le trouvez utile, envisagez une petite contribution : cela aide à maintenir le projet en vie et à le faire grandir."
   },
   "html_broken_title": {
-    "message": "est cassé"
+    "message": "est en panne"
   },
   "html_broken_ruh_roh": {
     "message": "Oups !"
   },
   "html_broken_line1": {
-    "message": "failed to start. Perhaps you are using an incompatible version of Chrome?"
+    "message": "n'a pas pu démarrer. Utilisez-vous peut-être un navigateur incompatible ?"
   },
   "html_broken_line2": {
     "message": "Essayez de redémarrer l'extension. Si le problème persiste, demandez de l'aide sur la"
   },
   "html_broken_line2_github_page": {
-    "message": "page de projet GitHub"
+    "message": "page du projet GitHub"
   },
   "html_broken_line3": {
     "message": "Vous pouvez récupérer les onglets perdus depuis la"
   },
   "html_broken_line3_session_management": {
-    "message": "page de gestion de session"
+    "message": "page de gestion des sessions"
   },
   "html_broken_button_restart_extension": {
     "message": "Redémarrer l'extension"
   },
   "html_history_title": {
-    "message": "Gestion de session"
+    "message": "Gestion des sessions"
+  },
+  "html_history_page_desc": {
+    "message": "TMS conserve un instantané à jour de vos onglets ouverts, sans configuration nécessaire. Les sessions se mettent à jour automatiquement pendant votre navigation, mais elles résident dans Chrome : si le profil du navigateur est perdu ou corrompu, elles disparaissent avec lui."
   },
   "html_history_current_session": {
-    "message": "Session en cours"
+    "message": "Session actuelle"
   },
   "html_history_recent_sessions": {
     "message": "Sessions récentes"
   },
   "html_history_saved_sessions": {
-    "message": "Sessions sauvegardées"
+    "message": "Sessions enregistrées"
   },
   "html_history_import_session": {
     "message": "Importer une session"
   },
   "html_history_migrate_tabs": {
-    "message": "Migration d'onglets"
+    "message": "Migrer les onglets"
   },
   "html_history_migrate_old_id": {
-    "message": "Old TGS Extension id"
+    "message": "ID de l'extension"
   },
-  "html_notice_important_notice": {
-    "message": "Important notice from The Marvellous Suspender"
+  "html_history_migrate_section_title": {
+    "message": "Migration des onglets"
+  },
+  "html_history_migrate_section_desc": {
+    "message": "Récupérez les onglets suspendus par une version précédente ou un autre fork de cette extension. Entrez ci-dessous l'ancien ID de l'extension et cliquez sur Migrer les onglets pour convertir les URL suspendues."
   },
   "html_options_title": {
     "message": "Paramètres"
@@ -239,8 +320,32 @@
   "html_options_suspended_title": {
     "message": "Onglets suspendus"
   },
+  "html_options_suspended_append_url_to_title": {
+    "message": "Ajouter l'URL d'origine au titre de l'onglet suspendu"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Lorsque cette option est activée, l'URL d'origine est ajoutée au titre de l'onglet"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "du navigateur pour les pages suspendues."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Cela permet de retrouver les onglets suspendus par nom d'hôte grâce à la fonction"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "« Rechercher des onglets » de Chrome (Ctrl+Maj+A)."
+  },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Conserver la position de lecture YouTube lors de la suspension"
+  },
   "html_options_other_title": {
-    "message": "Other"
+    "message": "Général"
+  },
+  "html_options_language": {
+    "message": "Langue"
+  },
+  "html_options_language_auto": {
+    "message": "Paramètre système par défaut"
   },
   "html_options_suspend_automatically_after": {
     "message": "Suspendre automatiquement les onglets après"
@@ -249,7 +354,7 @@
     "message": "Suspendre les onglets sur batterie après"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "Identique à sur secteur"
+    "message": "Identique au mode secteur"
   },
   "html_options_suspend_never": {
     "message": "Jamais"
@@ -258,10 +363,10 @@
     "message": "secondes"
   },
   "html_options_suspend_minute": {
-    "message": "minute"
+    "message": "min"
   },
   "html_options_suspend_minutes": {
-    "message": "minutes"
+    "message": "min"
   },
   "html_options_suspend_hour": {
     "message": "heure"
@@ -285,100 +390,100 @@
     "message": "Ne jamais suspendre les onglets épinglés"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Ne jamais suspendre les onglets ouverts dans une fenêtre d'application"
+    "message": "Ne jamais suspendre les onglets ouverts dans des fenêtres d'application"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Ne jamais suspendre les onglets d'un groupe d'onglets"
+    "message": "Ne jamais suspendre les onglets dans un groupe"
   },
   "html_options_suspend_no_forms": {
-    "message": "Ne jamais suspendre les onglets contenant des entrées de formulaire non enregistrées"
+    "message": "Ne jamais suspendre les onglets contenant des saisies de formulaire non enregistrées"
   },
   "html_options_suspend_no_audio": {
-    "message": "Ne jamais suspendre les onglets qui jouent de l'audio"
+    "message": "Ne jamais suspendre les onglets qui diffusent de l'audio"
   },
   "html_options_suspend_only_connected": {
-    "message": "Ne jamais suspendre les onglets en mode hors connexion"
+    "message": "Ne jamais suspendre les onglets hors ligne"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Revendiquer par défaut"
+    "message": "Prendre en charge les onglets suspendus par d'autres extensions"
   },
   "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Prend automatiquement en charge les onglets déjà suspendus par une autre extension"
+    "message": "Prend automatiquement le contrôle des onglets déjà suspendus par une autre extension"
   },
   "html_options_suspend_claim_by_default_tooltip_line1b": {
     "message": "compatible (par ex. The Great Suspender, ou une autre installation de celle-ci)."
   },
   "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "Un onglet est considéré comme \"suspendu\" si son URL contient 'suspended.html'."
+    "message": "Un onglet est considéré comme « suspendu » si son URL contient 'suspended.html'."
   },
   "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "Activer cette option réécrit cette URL vers cette installation"
+    "message": "Activer cette option réécrit cette URL pour cette installation, afin que"
   },
   "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "afin que TMS puisse gérer l'onglet à partir de maintenant."
+    "message": "TMS puisse gérer l'onglet désormais."
   },
   "html_options_suspend_only_on_battery": {
-    "message": "Ne jamais suspendre les onglets lorsque connecté à une source d'alimentation"
+    "message": "Ne jamais suspendre les onglets lorsque branché sur secteur"
   },
   "html_options_suspend_no_active_tabs": {
-    "message": "Ne jamais suspendre les onglets actifs dans chaque fenêtre"
+    "message": "Ne jamais suspendre l'onglet actif de chaque fenêtre"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Toujours rouvrir les onglets suspendus en haut de la page"
+    "message": "Toujours rouvrir les onglets suspendus défilés en haut de page"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "L'onglet se rouvre en haut de la page au lieu de l'endroit où il"
+    "message": "L'onglet se rouvre en haut de la page au lieu de l'endroit où il était"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "était défilé lors de la suspension."
+    "message": "défilé au moment de la suspension."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "S'applique à la suspension automatique et manuelle, et prévaut"
+    "message": "S'applique à la fois à la suspension automatique et manuelle, et prime sur"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "sur les liens qui pointent vers une section (#) au chargement."
+    "message": "les liens qui pointent vers une #section au chargement."
   },
   "html_options_suspend_automatically_unsuspend": {
-    "message": "Automatiquement annuler la suspension de l'onglet lorsqu'il est vu"
+    "message": "Réactiver automatiquement l'onglet lorsqu'il est consulté"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Le rechargement annule aussi la suspension des onglets en arrière-plan (pas seulement l'onglet actif)"
+    "message": "Le rechargement réactive aussi les onglets en arrière-plan (pas seulement l'onglet actif)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Une fois activé, recharger un onglet suspendu (Ctrl+R ou clic"
+    "message": "Lorsque cette option est activée, recharger un onglet suspendu (Ctrl+R ou clic droit"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "droit > Recharger) annule aussi sa suspension même si ce"
+    "message": "> Recharger) le réactive même s'il n'est pas l'onglet"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "n'est pas l'onglet actif."
+    "message": "actuellement en focus."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Utile pour recharger plusieurs onglets suspendus à la fois,"
+    "message": "Utile pour recharger plusieurs onglets suspendus à la fois, par exemple après"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "par exemple après en avoir sélectionné plusieurs et appuyé sur Ctrl+R."
+    "message": "avoir sélectionné plusieurs onglets et appuyé sur Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Apply Chrome's built-in memory-saving when suspending"
+    "message": "Appliquer l'économie de mémoire intégrée du navigateur lors de la suspension"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Réduit encore plus l'utilisation de la mémoire d'un onglet suspendu, en utilisant la"
+    "message": "Réduit encore davantage l'utilisation de la mémoire d'un onglet suspendu, en utilisant"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "Chrome's built-in 'tab discarding' functionality. This can result in up"
+    "message": "la fonctionnalité intégrée de « décharge d'onglets » du navigateur. Cela peut permettre jusqu'à"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "500% d'économie de mémoire lorsque vous travaillez avec un grand nombre d'onglets."
+    "message": "500 % d'économie de mémoire avec un grand nombre d'onglets."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Cependant, cela provoquera également un léger délai de rendu lors de la sélection"
+    "message": "Cependant, cela provoquera aussi un léger délai d'affichage lorsque vous sélectionnez"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "d'un onglet suspendu."
+    "message": "un onglet suspendu."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "For more information on Chrome discarding refer to:"
+    "message": "Pour plus d'informations sur la décharge d'onglets, consultez :"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -392,35 +497,38 @@
   "html_options_suspend_theme_dark": {
     "message": "Sombre"
   },
+  "html_options_suspend_theme_system": {
+    "message": "Système"
+  },
   "html_options_suspend_screen_capturing": {
     "message": "Capture d'écran"
   },
   "html_options_suspend_screen_capturing_disabled": {
-    "message": "Désactivé"
+    "message": "Désactivée"
   },
   "html_options_suspend_screen_capturing_screen_only": {
-    "message": "Capturer le haut de l'écran uniquement"
+    "message": "Capturer uniquement le haut de l'écran"
   },
   "html_options_suspend_screen_capturing_entire_page": {
     "message": "Capturer la page entière"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "Dans un onglet suspendu, l'extension peut afficher un aperçu de l'image de ce que l'onglet"
+    "message": "Sur un onglet suspendu, l'extension peut afficher un aperçu de l'apparence de l'onglet"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "avait l'air juste avant d'être suspendu."
+    "message": "juste avant sa suspension."
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "La fonctionnalité de capture d'écran est expérimentale et peut causer une utilisation importante du processeur"
+    "message": "La capture d'écran est une fonctionnalité expérimentale et peut entraîner une utilisation importante du processeur,"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "ainsi qu'une utilisation de mémoire légèrement augmentée."
+    "message": "ainsi qu'une légère augmentation de l'utilisation de la mémoire."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "If you notice strange behaviour such as tabs taking a long time to suspend, or chrome"
+    "message": "Si vous remarquez un comportement étrange, comme des onglets qui mettent longtemps à se suspendre, ou le navigateur"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "plantant inopinément, essayez de désactiver cette fonctionnalité."
+    "message": "qui plante de manière inattendue, essayez de désactiver cette fonctionnalité."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Méthode de capture"
@@ -429,689 +537,94 @@
     "message": "Automatique (recommandé)"
   },
   "html_options_suspend_screen_capture_method_native": {
-    "message": "Capture du navigateur uniquement"
+    "message": "Capture d'écran du navigateur uniquement"
   },
   "html_options_suspend_screen_capture_method_renderer": {
     "message": "Moteur de rendu de page uniquement"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automatique prend une vraie capture du navigateur lorsque l'onglet suspendu est celui que vous regardez."
+    "message": "Automatique prend une vraie capture d'écran du navigateur lorsque l'onglet en cours de suspension est celui que vous regardez."
   },
   "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "C'est instantané et cela fonctionne sur tous les sites. Les autres onglets sont redessinés par le moteur de rendu de page, plus lent."
+    "message": "C'est instantané et fonctionne sur tous les sites. Tout autre onglet est redessiné par le moteur de rendu de page, qui est plus lent."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Capture du navigateur uniquement n'exécute jamais le moteur de rendu de page : les onglets suspendus en arrière-plan n'ont donc pas d'aperçu."
+    "message": "Capture d'écran du navigateur uniquement n'exécute jamais le moteur de rendu de page, les onglets suspendus en arrière-plan n'ont donc pas d'aperçu."
   },
   "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Une capture du navigateur ne couvre que la partie visible de la page, même si 'Capturer la page entière' est sélectionné."
+    "message": "Une capture d'écran du navigateur ne couvre que la partie visible de la page, même avec « Capturer la page entière » sélectionné."
   },
   "html_options_suspend_screen_capture_precapture": {
-    "message": "Keep a recent screenshot of tabs as I use them"
+    "message": "Conserver une capture récente des onglets pendant que je les utilise"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Takes a browser screenshot of a tab about a second after you switch to it or it finishes loading,"
+    "message": "Prend une capture d'écran du navigateur d'un onglet environ une seconde après que vous y passez ou qu'il termine de se charger,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "so tabs that are later suspended in the background still get a preview."
+    "message": "afin que les onglets suspendus plus tard en arrière-plan aient tout de même un aperçu."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome only lets an extension screenshot a tab you haven't clicked its button on if it has access to all sites,"
+    "message": "Chrome ne permet à une extension de capturer un onglet sur lequel vous n'avez pas cliqué le bouton que si elle a accès à tous les sites,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "so turning this on asks for that permission. It is only used to take these screenshots, which stay on this computer."
+    "message": "donc activer cette option demande cette autorisation. Elle sert uniquement à prendre ces captures, qui restent sur cet ordinateur."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Only the latest screenshot of each open tab is kept, and it is deleted when the tab closes."
+    "message": "Seule la dernière capture de chaque onglet ouvert est conservée, et elle est supprimée à la fermeture de l'onglet."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Incognito tabs and whitelisted sites are never captured."
+    "message": "Les onglets de navigation privée et les sites de la liste blanche ne sont jamais capturés."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Activer le mode de capture d'écran haute qualité"
   },
   "html_options_suspend_force_screen_capture_tooltip_line1": {
-    "message": "Lorsqu'il est désactivé, les captures d'écran ont les limitations suivantes pour améliorer la performance:"
+    "message": "Lorsque cette option est désactivée, les captures d'écran ont les limitations suivantes pour améliorer les performances :"
   },
   "html_options_suspend_force_screen_capture_tooltip_line2": {
-    "message": "- Capture d'écran de faible qualité"
+    "message": "- Capture d'écran de basse qualité"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Ne capturera pas l'écran si la génération d'image prend plus d'une minute"
+    "message": "- Ne capturera pas l'écran si la génération de l'image prend plus d'1 minute"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Hauteur maximale de la capture d'écran limitée à 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Activer le mode de capture d'écran de haute qualité peut considérablement augmenter la charge du CPU"
+    "message": "Activer le mode de capture d'écran haute qualité peut augmenter significativement la charge du processeur"
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
     "message": "et l'utilisation de la mémoire."
   },
   "html_options_whitelist_title": {
-    "message": "Ne jamais suspendre les onglets avec des URL dans la liste suivante :"
+    "message": "Ne jamais suspendre les onglets dont l'URL figure dans la liste suivante :"
   },
   "html_options_always_suspend_title": {
     "message": "Toujours suspendre les onglets dont l'URL figure dans la liste suivante :"
   },
   "html_options_always_suspend_tooltip_line1a": {
-    "message": "Les onglets correspondant à cette liste sont toujours suspendus après"
+    "message": "Les onglets correspondant à cette liste se suspendent toujours après le délai normal,"
   },
   "html_options_always_suspend_tooltip_line1b": {
-    "message": "le délai normal, indépendamment de l'audio, de la saisie de formulaire ou de l'état épinglé."
+    "message": "quel que soit l'audio, la saisie de formulaire ou l'état d'épinglage."
   },
   "html_options_always_suspend_tooltip_line2a": {
-    "message": "Une entrée par ligne, mêmes règles de correspondance que la liste ci-dessus"
+    "message": "Une entrée par ligne, avec les mêmes règles de correspondance que la liste ci-dessus (texte brut"
   },
   "html_options_always_suspend_tooltip_line2b": {
-    "message": "(correspondance de texte brut n'importe où dans l'URL, ou /regex/ entre barres obliques)."
+    "message": "correspondant n'importe où dans l'URL, ou /regex/ entre barres obliques)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Ajouter l'URL de chaque page que vous souhaitez autoriser sur une nouvelle ligne. Par exemple :"
+    "message": "Ajoutez l'URL de chaque page que vous souhaitez autoriser sur une nouvelle ligne. Par exemple :"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "Pour mettre en liste blanche plusieurs sites en une ligne, vous pouvez spécifier une partie de l'url à la place:"
+    "message": "Pour autoriser plusieurs sites sur une seule ligne, vous pouvez plutôt spécifier une partie de l'URL :"
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "Vous pouvez également spécifier des expressions régulières en mettant le texte entre des slashs:"
-  },
-  "html_options_other_enable_context_menu": {
-    "message": "Ajouter The Marvellous Suspender au menu contextuel du clic droit"
-  },
-  "html_options_other_enable_context_menu_tooltip_line1": {
-    "message": "Ajouter des contrôles pour cette extension au menu contextuel d'une page web."
-  },
-  "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Cela vous donnera accès aux actions de suspension avancées indisponibles"
-  },
-  "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "autre part dans l'extension."
-  },
-  "html_options_other_enable_sync": {
-    "message": "Sync settings with your Chrome profile"
-  },
-  "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Extension settings will be synchronised across all chrome browsers which are"
-  },
-  "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "connecté avec le même profil."
-  },
-  "html_options_other_enable_sync_tooltip_line2": {
-    "message": "This will also synchronise settings in incognito mode."
-  },
-  "html_options_other_enable_sync_warning": {
-    "message": "Turning this on will overwrite settings on all other browsers logged into the same Chrome profile"
-  },
-  "html_options_suspend_on_low_memory": {
-    "message": "Suspendre instantanément lorsque la mémoire du système devient très faible"
-  },
-  "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "This option will override Chrome's automatic tab discarding functionality."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "If enabled, it will force a tab to suspend instead of being discarded by Chrome."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Typically, Chrome will only discard tabs once system memory gets very low."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Remarque : Cela peut entraîner la suspension des onglets plus tôt que le temps que vous avez"
-  },
-  "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "spécifié dans les options de suspension automatique des onglets."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "For more information on Chrome discarding refer to:"
-  },
-  "html_options_suspend_on_low_memory_tooltip_discarding_link": {
-    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
-  },
-  "html_popup_unsuspend_tab": {
-    "message": "Annuler la suspension de l'onglet"
-  },
-  "html_popup_suspend_tab": {
-    "message": "Suspendre cet onglet maintenant"
-  },
-  "html_popup_dont_suspend_now": {
-    "message": "Don't suspend for now"
-  },
-  "html_popup_never_suspend_domain": {
-    "message": "Ne jamais suspendre ce domaine"
-  },
-  "html_popup_never_suspend_page": {
-    "message": "Ne jamais suspendre cette URL"
-  },
-  "html_popup_suspend_other_tabs": {
-    "message": "Suspendre tous les autres onglets"
-  },
-  "html_popup_unsuspend_all_tabs": {
-    "message": "Annuler la suspension de tous les onglets"
-  },
-  "html_popup_suspend_selected_tabs": {
-    "message": "Suspendre les onglets sélectionnés"
-  },
-  "html_popup_unsuspend_selected_tabs": {
-    "message": "Annuler la suspension des onglets sélectionnés"
-  },
-  "html_popup_settings": {
-    "message": "Paramètres"
-  },
-  "html_restoring_title": {
-    "message": "Restauration de la fenêtre"
-  },
-  "html_restoring_heading": {
-    "message": "Restauration des onglets"
-  },
-  "html_restoring_detail": {
-    "message": "Veuillez patienter pendant que je restaure cette fenêtre..."
-  },
-  "html_recovery_title": {
-    "message": "Récupération"
-  },
-  "html_recovery_ruh_roh": {
-    "message": "Oups !"
-  },
-  "html_recovery_description_line1": {
-    "message": "On dirait que vous récupérez à partir d'un plantage d'extension."
-  },
-  "html_recovery_description_line2": {
-    "message": "Vos onglets suspendus peuvent avoir planté ou disparu."
-  },
-  "html_recovery_restore_tabs_automatically": {
-    "message": "Restaurer automatiquement les onglets"
-  },
-  "html_recovery_go_to_session_manager": {
-    "message": "Aller au gestionnaire de sessions"
-  },
-  "html_recovery_important_message": {
-    "message": "La capture d'écran est actuellement activée. Si cette extension plante à plusieurs reprises, il est recommandé de désactiver cette option."
-  },
-  "html_recovery_disable_screen_capturing": {
-    "message": "Désactiver la capture d'écran"
-  },
-  "html_recovery_tabs_to_restore": {
-    "message": "Onglets à restaurer"
-  },
-  "html_shortcuts_title": {
-    "message": "Raccourcis clavier"
-  },
-  "html_shortcuts_keyboard_shortcuts": {
-    "message": "Raccourcis clavier"
-  },
-  "html_shortcuts_context_menu_note": {
-    "message": "Remarque : Ces actions sont également disponibles via le menu contextuel du clic droit."
-  },
-  "html_shortcuts_remap_keys": {
-    "message": "Modifier les raccourcis"
-  },
-  "html_sidebar_general_settings": {
-    "message": "Paramètres"
-  },
-  "html_sidebar_session_management": {
-    "message": "Session management"
-  },
-  "html_sidebar_shortcuts": {
-    "message": "Raccourcis clavier"
-  },
-  "html_sidebar_support": {
-    "message": "À propos"
-  },
-  "html_success_great_success": {
-    "message": "Merveilleux succès!"
-  },
-  "html_success_all_tabs_restored": {
-    "message": "Tous vos onglets ont été restaurés."
-  },
-  "html_success_goto_advanced_prefix": {
-    "message": "Pour une gestion avancée de la session, visitez la"
-  },
-  "html_success_goto_advanced_suffix": {
-    "message": "page"
-  },
-  "html_session_manager": {
-    "message": "gestionnaire de session"
-  },
-  "html_suspended_title": {
-    "message": "Onglet suspendu"
-  },
-  "html_suspended_tab_suspended": {
-    "message": "Tab suspended"
-  },
-  "html_suspended_tab_reload": {
-    "message": "Reload tab"
-  },
-  "html_suspended_tab_whitelist_prefix": {
-    "message": "Never suspend"
-  },
-  "html_suspended_tab_whitelist_suffix": {
-    "message": "..."
-  },
-  "html_suspended_click_to_reload": {
-    "message": "Rafraîchir ou cliquez pour recharger"
-  },
-  "html_suspended_toast_not_connected": {
-    "message": "Vous n'êtes pas connecté(e) à Internet"
-  },
-  "html_suspended_toast_reload_disabled": {
-    "message": "Le rechargement automatique des onglets est temporairement désactivé."
-  },
-  "html_permissions_title": {
-    "message": "Autorisations"
-  },
-  "html_permissions_heading": {
-    "message": "Veuillez me donner accès aux URL de fichiers locaux"
-  },
-  "html_permissions_info": {
-    "message": "Cette extension n'est pas actuellement autorisée à suspendre les URL commençant par le mot \"file\".\nPour modifier cela, veuillez activer \"Autoriser l'accès aux URL de fichier\" à partir de la page des paramètres de l'extension."
-  },
-  "html_permissions_backup": {
-    "message": "Remarque : changer cette option fera disparaître brièvement tous vos onglets suspendus.\nAu cas où, le moment est peut-être bien choisi pour enregistrer une sauvegarde de votre session d'onglets en cours."
-  },
-  "html_permissions_return_hint": {
-    "message": "Bienvenue de retour : cliquez de nouveau sur le bouton pour terminer l'octroi de l'accès aux fichiers locaux."
-  },
-  "html_update_title": {
-    "message": "Mis à jour"
-  },
-  "html_update_heading2": {
-    "message": "is about to get marvellous-er"
-  },
-  "html_update_info": {
-    "message": "A new version of The Marvellous Suspender is ready to be installed.\nPlease note: during the update your suspended tabs will briefly disappear."
-  },
-  "html_update_info_withbackup": {
-    "message": "Just in case, now might be a good time to save a backup of your current tab session."
-  },
-  "html_update_info_nobackup_prefix": {
-    "message": "Il est fortement recommandé d'exporter une copie de votre session actuelle à partir de "
-  },
-  "html_update_info_nobackup_suffix": {
-    "message": " avant de continuer avec la mise à jour."
-  },
-  "html_updated_title": {
-    "message": "Mis à jour"
-  },
-  "html_updating_heading": {
-    "message": "est en cours de mise à jour"
-  },
-  "html_updating_message": {
-    "message": "Veuillez patienter pendant que je restaure vos onglets suspendus..."
-  },
-  "html_updated_great_suspender_updated": {
-    "message": "a été mis à jour"
-  },
-  "html_updated_info_line1": {
-    "message": "Une sauvegarde automatique de vos onglets a été effectuée avant la mise à jour."
-  },
-  "html_updated_info_line2_prefix": {
-    "message": "Si vous avez rencontré des problèmes pendant la mise à jour, vous pouvez récupérer les onglets perdus depuis la "
-  },
-  "html_updated_info_line2_suffix": {
-    "message": " page."
-  },
-  "html_updated_detail_header_prefix": {
-    "message": "What's new in "
-  },
-  "html_updated_detail_header_suffix": {
-    "message": "?"
-  },
-  "html_updated_new_features_header": {
-    "message": "New features:"
-  },
-  "html_updated_bug_fixes_header": {
-    "message": "Bug fixes:"
-  },
-  "html_updated_release_notes": {
-    "message": "Visit GitHub for full release notes: "
-  },
-  "html_updated_patch_message": {
-    "message": "Désolé pour la perturbation. Je devais juste effectuer un peu de maintenance."
-  },
-  "html_welcome_title": {
-    "message": "Welcome"
-  },
-  "html_welcome_text_line1": {
-    "message": "Merci pour votre essai"
-  },
-  "html_welcome_text_line2": {
-    "message": "J'améliore les performances de votre ordinateur en suspendant les onglets que vous n'utilisez pas."
-  },
-  "html_welcome_text_line3": {
-    "message": "Vous pouvez ajuster n'importe lequel des paramètres ci-dessous."
-  },
-  "js_popup_normal": {
-    "message": "L'onglet sera automatiquement suspendu."
-  },
-  "js_popup_normal_pause": {
-    "message": "Plus tard"
-  },
-  "js_popup_special": {
-    "message": "L'onglet ne peut pas être suspendu"
-  },
-  "js_popup_suspended": {
-    "message": "Onglet suspendu"
-  },
-  "js_popup_suspended_pause": {
-    "message": "Ne pas suspendre"
-  },
-  "js_popup_whitelisted": {
-    "message": "Site autorisé."
-  },
-  "js_popup_whitelisted_remove": {
-    "message": "Retirer de la liste d'autorisation"
-  },
-  "js_popup_audible": {
-    "message": "L'onglet est en cours de lecture audio."
-  },
-  "js_popup_form_input": {
-    "message": "L'onglet est en train de recevoir des entrées de formulaire."
-  },
-  "js_popup_form_input_unpause": {
-    "message": "Relancer"
-  },
-  "js_popup_pinned": {
-    "message": "L'onglet est épinglé"
-  },
-  "js_popup_app_window": {
-    "message": "L'onglet est ouvert dans une fenêtre d'application"
-  },
-  "js_popup_grouped_tab": {
-    "message": "L'onglet est dans un groupe d'onglets"
-  },
-  "js_popup_tab_group": {
-    "message": "L'onglet est dans un groupe qui n'est jamais suspendu"
-  },
-  "js_popup_temp_whitelist": {
-    "message": "La suspension de l'onglet a été interrompue."
-  },
-  "js_popup_temp_whitelist_unpause": {
-    "message": "Relancer"
-  },
-  "js_popup_never": {
-    "message": "Suspension automatique de l'onglet désactivée."
-  },
-  "js_popup_no_connectivity": {
-    "message": "Aucune connexion réseau"
-  },
-  "js_popup_charging": {
-    "message": "Connecté à une source d'alimentation"
-  },
-  "js_popup_blockedFile": {
-    "message": "Les fichiers locaux ne peuvent pas être suspendus."
-  },
-  "js_popup_blockedFile_enable": {
-    "message": "Activer"
-  },
-  "js_popup_unknown": {
-    "message": "En attente du chargement de l'onglet ..."
-  },
-  "js_popup_initialising": {
-    "message": "En attente de l'initialisation de l'extension..."
-  },
-  "js_popup_error": {
-    "message": "Suspension automatique indisponible pour cet onglet"
-  },
-  "js_history_delete": {
-    "message": "supprimer"
-  },
-  "js_history_export": {
-    "message": "exporter"
-  },
-  "js_history_reload": {
-    "message": "ouvrir et charger"
-  },
-  "js_history_resuspend": {
-    "message": "ouvrir et suspendre"
-  },
-  "js_history_save": {
-    "message": "sauvegarder"
-  },
-  "js_history_window": {
-    "message": "Fenêtre"
-  },
-  "js_history_windows": {
-    "message": "Fenêtres"
-  },
-  "js_history_tab": {
-    "message": "Onglet"
-  },
-  "js_history_tabs": {
-    "message": "Onglets"
-  },
-  "js_history_enter_name_for_session": {
-    "message": "Saisissez un nom pour cette session"
-  },
-  "js_history_confirm_delete": {
-    "message": "Êtes-vous sûr de vouloir supprimer cette session ?"
-  },
-  "js_history_confirm_session_overwrite": {
-    "message": "Il y a déjà une session enregistrée avec ce nom. Remplacer la session existante ?"
-  },
-  "js_history_import_fail": {
-    "message": "Impossible de charger le fichier. Assurez-vous que le fichier est en texte brut et contient une seule url par ligne."
-  },
-  "js_history_migrate_fail": {
-    "message": "Nécessite un id d'extension de 32 caractères pour migrer depuis"
-  },
-  "js_history_migrate_success": {
-    "message": "Successfully migrated $TABCOUNT$ tabs",
-    "placeholders": {
-      "tabcount": {
-        "content": "$1"
-      }
-    }
-  },
-  "js_suspended_remove_from_whitelist": {
-    "message": "Remove site from whitelist"
-  },
-  "js_suspended_hotkey_to_reload": {
-    "message": "Définir le raccourci clavier"
-  },
-  "js_suspended_low_memory": {
-    "message": "Onglet suspendu en raison d'une mémoire système faible"
-  },
-  "js_options_incognito_warning": {
-    "message": "Vous êtes en mode incognito. Certaines fonctionnalités ne seront pas disponibles."
-  },
-  "js_options_whitelist_no_matches": {
-    "message": "Il n'y a aucun onglet ouvert correspondant à la liste d'autorisation actuelle."
-  },
-  "js_options_whitelist_matches_heading": {
-    "message": "Onglets ouverts sur la liste d'autorisation :"
-  },
-  "js_options_always_suspend_no_matches": {
-    "message": "Aucun onglet ouvert ne correspond à la liste de suspension forcée actuelle."
-  },
-  "js_options_never_suspend_groups_open_count": {
-    "message": "correspond à $count$ groupe(s) ouvert(s)",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "js_options_always_suspend_matches_heading": {
-    "message": "Onglets ouverts correspondant à la liste de suspension forcée :"
-  },
-  "js_options_whitelist_matches_overflow_prefix": {
-    "message": "et"
-  },
-  "js_options_whitelist_matches_overflow_suffix": {
-    "message": "plus."
-  },
-  "js_permissions_button_export": {
-    "message": "Enregistrer la sauvegarde"
-  },
-  "js_permissions_button_set": {
-    "message": "Ouvrir les paramètres de l'extension"
-  },
-  "js_update_confirm": {
-    "message": "Vous n'avez pas encore enregistré de sauvegarde. Mettre à jour l'extension quand même ?"
-  },
-  "js_update_button_export": {
-    "message": "Enregistrer la sauvegarde"
-  },
-  "js_update_button_reload": {
-    "message": "Mettre à jour l'extension"
-  },
-  "js_shortcuts_not_set": {
-    "message": "non défini"
-  },
-  "js_session_save_point": {
-    "message": "Point de sauvegarde automatique pour v"
-  },
-  "html_health_title": {
-    "message": "État des onglets (Bêta)"
-  },
-  "html_health_title_intro": {
-    "message": "Si vous rencontrez des problèmes avec vos onglets suspendus, notamment avec les favicons, cliquez sur « Analyser les onglets » pour voir si nous pouvons les réparer."
-  },
-  "html_health_all_good": {
-    "message": "Nous n'avons trouvé aucun problème avec vos onglets suspendus. Si vous constatez toujours une anomalie, faites-le-nous savoir ci-dessous et nous tenterons d'étendre cette vérification."
-  },
-  "html_health_reload_intro": {
-    "message": "Certains de vos onglets suspendus ne se sont pas entièrement chargés. Nous pouvons les recharger pour nettoyer tout ça."
-  },
-  "html_health_restore_intro": {
-    "message": "Certains de vos onglets suspendus utilisent le favicon par défaut du navigateur. Cela signifie que le cache de TMS ne les possède pas. Nous pouvons restaurer puis re-suspendre un nombre minimal d'onglets pour récupérer ces favicons manquants."
-  },
-  "html_health_scan_button": {
-    "message": "Analyser les onglets"
-  },
-  "html_health_copy_button": {
-    "message": "Copier les résultats"
-  },
-  "html_health_scan_label": {
-    "message": "Analyse des onglets..."
-  },
-  "html_health_num_tms_tabs": {
-    "message": "Onglets suspendus par TMS"
-  },
-  "html_health_num_tms_cache": {
-    "message": "favicons dans le cache de TMS"
-  },
-  "html_health_num_tabs_empty": {
-    "message": "onglets non chargés"
-  },
-  "html_health_num_tabs_extension": {
-    "message": "onglets ont le favicon de TMS"
-  },
-  "html_health_num_tabs_default": {
-    "message": "onglets ont un favicon par défaut"
-  },
-  "html_health_num_hostnames": {
-    "message": "noms d'hôte uniques"
-  },
-  "html_health_small_cache": {
-    "message": "Le cache local des favicons de TMS pourrait ne pas couvrir tous les onglets. Si le cache du navigateur est vidé, TMS pourrait ne plus afficher certains favicons."
-  },
-  "html_health_reload_button": {
-    "message": "Suivant : recharger $count$ onglets",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "html_health_restore_button": {
-    "message": "Suivant : restaurer $count$ onglets pour mettre les favicons en cache",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "html_health_action_label": {
-    "message": "Restauration des favicons..."
-  },
-  "html_health_after_reload": {
-    "message": "Une fois vos onglets chargés en arrière-plan, vous pouvez cliquer à nouveau sur « Analyser les onglets » pour voir si la situation s'est améliorée."
-  },
-  "html_health_after_restore": {
-    "message": "Vous pouvez cliquer à nouveau sur « Analyser les onglets » pour voir si la situation s'est améliorée."
-  },
-  "html_health_need_help1": {
-    "message": "Si vous rencontrez toujours des problèmes d'onglets ou de favicons, vous pouvez cliquer sur « Copier les résultats » et les coller dans une nouvelle"
-  },
-  "html_health_need_help2": {
-    "message": "Issue sur GitHub."
-  },
-  "html_health_num_grouped_broken": {
-    "message": "onglets groupés dans un état défectueux (bug des groupes d'onglets)"
-  },
-  "html_health_repair_intro": {
-    "message": "Certains onglets dans des groupes sont dans un état défectueux : ils apparaissent comme un nouvel onglet au lieu de se charger correctement après le redémarrage du navigateur. TMS peut tenter de les restaurer."
-  },
-  "html_health_repair_button": {
-    "message": "Réparer $count$ onglet(s) groupé(s)",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "html_health_after_repair": {
-    "message": "Terminé. Relancez une analyse pour vérifier que les onglets groupés sont bien revenus à leur état suspendu."
-  },
-  "html_about_version_label": {
-    "message": "Version"
-  },
-  "html_about_tagline": {
-    "message": "Le successeur spirituel de la suspension moderne d'onglets : remplace les onglets inactifs par une page de mise en veille légère, vous donnant un contrôle précis sur leur réveil."
-  },
-  "html_about_section_credits": {
-    "message": "Crédits"
-  },
-  "html_about_contributors_and": {
-    "message": " et "
-  },
-  "html_about_community_thanks_link": {
-    "message": "tous les contributeurs sur GitHub"
-  },
-  "html_about_contributors": {
-    "message": "Proposé par"
-  },
-  "html_about_section_support": {
-    "message": "Soutenir le développement"
-  },
-  "html_about_support_text": {
-    "message": "The Marvellous Suspender est gratuit et open source. Si vous le trouvez utile, envisagez une petite contribution : cela aide à maintenir le projet vivant et à le faire grandir."
-  },
-  "html_history_page_desc": {
-    "message": "TMS conserve un instantané permanent de vos onglets ouverts, sans aucune configuration nécessaire. Les sessions se mettent à jour automatiquement pendant la navigation, mais elles vivent à l'intérieur de Chrome : si le profil du navigateur est perdu ou corrompu, elles disparaissent avec lui."
-  },
-  "html_history_migrate_section_title": {
-    "message": "Migration des onglets"
-  },
-  "html_history_migrate_section_desc": {
-    "message": "Récupérez les onglets suspendus par une version précédente ou un autre fork de cette extension. Saisissez ci-dessous l'ancien identifiant d'extension et cliquez sur « Migrer les onglets » pour convertir les URL suspendues."
-  },
-  "html_options_suspended_append_url_to_title": {
-    "message": "Ajouter l'URL d'origine au titre de l'onglet suspendu"
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "Si activé, l'URL d'origine est ajoutée au titre de l'onglet"
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "du navigateur pour les pages suspendues."
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "Cela permet de retrouver les onglets suspendus par nom d'hôte"
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "grâce à la fonction \"Rechercher dans les onglets\" de Chrome (Ctrl+Shift+A)."
-  },
-  "html_options_language": {
-    "message": "Langue"
-  },
-  "html_options_language_auto": {
-    "message": "Par défaut du système"
-  },
-  "html_options_suspend_theme_system": {
-    "message": "Système"
+    "message": "Vous pouvez aussi spécifier des expressions régulières en encadrant le texte de barres obliques :"
   },
   "html_options_changelog_modal_title": {
-    "message": "Nouveautés de la version v$version$",
+    "message": "Nouveautés de la v$version$",
     "placeholders": {
       "version": {
         "content": "$1"
@@ -1134,22 +647,100 @@
     "message": "Ne jamais suspendre les onglets des groupes suivants :"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Les onglets de ces groupes ne sont jamais suspendus automatiquement et sont ignorés par les actions de suspension groupée."
+    "message": "Les onglets de ces groupes ne sont jamais suspendus automatiquement, et sont ignorés par les actions de suspension groupée."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Ajoutez un groupe avec « Ne jamais suspendre ce groupe » dans le menu contextuel. Seuls les groupes portant un nom peuvent être ajoutés."
+    "message": "Ajoutez un groupe avec « Ne jamais suspendre ce groupe » dans le menu du clic droit. Seuls les groupes nommés peuvent être ajoutés."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Les groupes sont identifiés par leur nom et leur couleur, et suivent les renommages tant que le navigateur reste ouvert."
+    "message": "Les groupes sont associés par nom et couleur, et suivent les renommages tant que le navigateur reste ouvert."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "Aucun groupe d'onglets ajouté pour l'instant."
+    "message": "Aucun groupe d'onglets ajouté pour le moment."
   },
   "html_options_never_suspend_groups_remove": {
     "message": "Retirer"
   },
+  "html_options_other_enable_context_menu": {
+    "message": "Ajouter The Marvellous Suspender au menu du clic droit"
+  },
+  "html_options_other_enable_context_menu_tooltip_line1": {
+    "message": "Ajoute des commandes de cette extension au menu du clic droit d'une page web."
+  },
+  "html_options_other_enable_context_menu_tooltip_line2": {
+    "message": "Cela vous donnera accès à des actions de suspension avancées non disponibles"
+  },
+  "html_options_other_enable_context_menu_tooltip_line3": {
+    "message": "ailleurs dans l'extension."
+  },
+  "html_options_other_enable_sync": {
+    "message": "Synchroniser les paramètres avec votre profil de navigateur"
+  },
+  "html_options_other_enable_sync_tooltip_line1a": {
+    "message": "Les paramètres de l'extension seront synchronisés sur tous les navigateurs connectés"
+  },
+  "html_options_other_enable_sync_tooltip_line1b": {
+    "message": "avec le même profil."
+  },
+  "html_options_other_enable_sync_tooltip_line2": {
+    "message": "Cela synchronisera aussi les paramètres en mode navigation privée."
+  },
+  "html_options_other_enable_sync_warning": {
+    "message": "Activer cette option écrasera les paramètres sur tous les autres navigateurs connectés avec le même profil"
+  },
+  "html_options_suspend_on_low_memory": {
+    "message": "Suspendre instantanément lorsque la mémoire système devient très faible"
+  },
+  "html_options_suspend_on_low_memory_tooltip_line1": {
+    "message": "Cette option remplacera la fonction automatique de décharge d'onglets."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line2": {
+    "message": "Si elle est activée, elle forcera la suspension d'un onglet au lieu de le décharger."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line3": {
+    "message": "Normalement, votre navigateur ne décharge les onglets que lorsque la mémoire système devient très faible."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line4": {
+    "message": "Veuillez noter : cela peut entraîner la suspension d'onglets plus tôt que le délai que vous avez"
+  },
+  "html_options_suspend_on_low_memory_tooltip_line5": {
+    "message": "indiqué dans les options de suspension automatique des onglets."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line6": {
+    "message": "Pour plus d'informations sur la décharge d'onglets, consultez :"
+  },
+  "html_options_suspend_on_low_memory_tooltip_discarding_link": {
+    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  },
+  "html_popup_unsuspend_tab": {
+    "message": "Réactiver cet onglet"
+  },
+  "html_popup_suspend_tab": {
+    "message": "Suspendre cet onglet maintenant"
+  },
+  "html_popup_never_suspend_domain": {
+    "message": "Ne jamais suspendre ce domaine"
+  },
+  "html_popup_never_suspend_page": {
+    "message": "Ne jamais suspendre cette URL"
+  },
+  "html_popup_suspend_other_tabs": {
+    "message": "Suspendre tous les autres onglets"
+  },
+  "html_popup_unsuspend_all_tabs": {
+    "message": "Réactiver tous les onglets"
+  },
   "html_popup_unsuspend_whitelisted_tabs": {
     "message": "Réveiller maintenant les onglets correspondants"
+  },
+  "html_popup_suspend_selected_tabs": {
+    "message": "Suspendre les onglets sélectionnés"
+  },
+  "html_popup_unsuspend_selected_tabs": {
+    "message": "Réactiver les onglets sélectionnés"
+  },
+  "html_popup_settings": {
+    "message": "Paramètres"
   },
   "html_popup_backup_now_local": {
     "message": "Sauvegarder la session maintenant (Local)"
@@ -1157,8 +748,68 @@
   "html_popup_backup_now_cloud": {
     "message": "Sauvegarder la session maintenant (Cloud)"
   },
+  "html_restoring_title": {
+    "message": "Restauration de la fenêtre"
+  },
+  "html_restoring_heading": {
+    "message": "Restauration des onglets"
+  },
+  "html_restoring_detail": {
+    "message": "Veuillez patienter pendant la restauration de cette fenêtre..."
+  },
+  "html_recovery_title": {
+    "message": "Récupération"
+  },
+  "html_recovery_ruh_roh": {
+    "message": "Oups !"
+  },
+  "html_recovery_description_line1": {
+    "message": "Il semble que vous vous remettiez d'un plantage de l'extension."
+  },
+  "html_recovery_description_line2": {
+    "message": "Vos onglets suspendus ont peut-être planté ou disparu."
+  },
+  "html_recovery_restore_tabs_automatically": {
+    "message": "Restaurer les onglets automatiquement"
+  },
+  "html_recovery_go_to_session_manager": {
+    "message": "Aller au gestionnaire de sessions"
+  },
+  "html_recovery_important_message": {
+    "message": "Vous avez actuellement la capture d'écran activée. Si cette extension plante de manière répétée, il est recommandé de désactiver cette option."
+  },
+  "html_recovery_disable_screen_capturing": {
+    "message": "Désactiver la capture d'écran"
+  },
+  "html_recovery_tabs_to_restore": {
+    "message": "Onglets à restaurer"
+  },
+  "html_shortcuts_title": {
+    "message": "Raccourcis clavier"
+  },
+  "html_shortcuts_keyboard_shortcuts": {
+    "message": "Raccourcis clavier"
+  },
+  "html_shortcuts_context_menu_note": {
+    "message": "Remarque : ces actions sont aussi disponibles via le menu du clic droit."
+  },
+  "html_shortcuts_remap_keys": {
+    "message": "Modifier les raccourcis"
+  },
+  "html_sidebar_general_settings": {
+    "message": "Paramètres"
+  },
+  "html_sidebar_session_management": {
+    "message": "Sessions"
+  },
   "html_sidebar_tab_health": {
     "message": "État des onglets"
+  },
+  "html_sidebar_shortcuts": {
+    "message": "Raccourcis clavier"
+  },
+  "html_sidebar_support": {
+    "message": "À propos"
   },
   "html_sidebar_backup": {
     "message": "Sauvegarde"
@@ -1170,7 +821,7 @@
     "message": "Actualités et mises à jour"
   },
   "html_news_desc": {
-    "message": "Restez informé des dernières versions, des problèmes connus et des annonces du blog Marvellous Codeworks."
+    "message": "Restez informé des dernières versions, des problèmes connus et des annonces du blog de Marvellous Codeworks."
   },
   "html_news_loading": {
     "message": "Chargement des actualités…"
@@ -1187,17 +838,288 @@
   "html_backup_page_title": {
     "message": "Sauvegarde et restauration"
   },
+  "html_success_great_success": {
+    "message": "Succès marvellous !"
+  },
+  "html_success_all_tabs_restored": {
+    "message": "Tous vos onglets ont été restaurés."
+  },
+  "html_success_goto_advanced_prefix": {
+    "message": "Pour une gestion avancée des sessions, consultez la page"
+  },
+  "html_success_goto_advanced_suffix": {
+    "message": ""
+  },
+  "html_session_manager": {
+    "message": "de gestion des sessions"
+  },
+  "html_suspended_title": {
+    "message": "Onglet suspendu"
+  },
+  "html_suspended_click_to_reload": {
+    "message": "Actualisez ou cliquez pour recharger"
+  },
+  "html_suspended_toast_not_connected": {
+    "message": "Vous n'êtes pas connecté à Internet"
+  },
+  "html_suspended_toast_reload_disabled": {
+    "message": "Le rechargement automatique des onglets est temporairement désactivé."
+  },
+  "html_permissions_title": {
+    "message": "Autorisations"
+  },
+  "html_permissions_heading": {
+    "message": "Veuillez m'accorder l'accès aux URL de fichiers locaux"
+  },
+  "html_permissions_info": {
+    "message": "Cette extension n'est actuellement pas autorisée à suspendre les URL commençant par « file ».\nPour changer cela, activez « Autoriser l'accès aux URL de fichiers » dans la page des paramètres de l'extension."
+  },
+  "html_permissions_backup": {
+    "message": "Veuillez noter : modifier cette option fera brièvement disparaître tous vos onglets suspendus.\nPar précaution, c'est peut-être le bon moment pour enregistrer une sauvegarde de votre session actuelle."
+  },
+  "html_permissions_return_hint": {
+    "message": "Bon retour — cliquez à nouveau sur le bouton maintenant pour terminer l'octroi de l'accès aux fichiers locaux."
+  },
+  "html_update_title": {
+    "message": "Mise à jour"
+  },
+  "html_update_heading2": {
+    "message": "est prêt à devenir encore plus marvellous"
+  },
+  "html_update_info": {
+    "message": "Une nouvelle version de The Marvellous Suspender sera installée au prochain redémarrage de votre navigateur."
+  },
+  "html_update_info_withbackup": {
+    "message": "IMPORTANT : nous n'avons pas pu créer de point de restauration pour vos onglets.<br>Enregistrez une sauvegarde MAINTENANT !"
+  },
+  "html_update_info_nobackup_prefix": {
+    "message": "Il est fortement recommandé d'exporter une copie de votre session actuelle depuis "
+  },
+  "html_update_info_nobackup_suffix": {
+    "message": " avant de poursuivre la mise à jour."
+  },
+  "html_updated_title": {
+    "message": "Mis à jour"
+  },
+  "html_updating_heading": {
+    "message": "se met à jour"
+  },
+  "html_updating_message": {
+    "message": "Veuillez patienter pendant que je restaure vos onglets suspendus..."
+  },
+  "html_updated_great_suspender_updated": {
+    "message": "a été mis à jour"
+  },
+  "html_updated_info_line1": {
+    "message": "Une sauvegarde automatique de vos onglets a été effectuée avant la mise à jour."
+  },
+  "html_updated_info_line2_prefix": {
+    "message": "Si vous avez rencontré des problèmes lors de la mise à jour, vous pouvez récupérer les onglets perdus depuis la page "
+  },
+  "html_updated_info_line2_suffix": {
+    "message": "."
+  },
+  "html_updated_patch_message": {
+    "message": "Désolé pour le dérangement. J'avais juste besoin d'effectuer une petite maintenance."
+  },
+  "html_welcome_text_line1": {
+    "message": "Merci d'essayer"
+  },
+  "html_welcome_text_line2": {
+    "message": "Je permets à votre ordinateur de fonctionner sans problème en suspendant les onglets que vous n'utilisez pas."
+  },
+  "html_welcome_text_line3": {
+    "message": "Vous pouvez affiner les paramètres ci-dessous."
+  },
+  "js_popup_normal": {
+    "message": "L'onglet se suspendra automatiquement."
+  },
+  "js_popup_normal_pause": {
+    "message": "Pas maintenant"
+  },
+  "js_popup_special": {
+    "message": "Cet onglet ne peut pas être suspendu"
+  },
+  "js_popup_suspended": {
+    "message": "Onglet suspendu"
+  },
+  "js_popup_suspended_pause": {
+    "message": "Ne pas suspendre"
+  },
+  "js_popup_whitelisted": {
+    "message": "Site autorisé."
+  },
+  "js_popup_whitelisted_remove": {
+    "message": "Retirer de la liste d'autorisation"
+  },
+  "js_popup_audible": {
+    "message": "L'onglet diffuse de l'audio."
+  },
+  "js_popup_form_input": {
+    "message": "L'onglet reçoit une saisie de formulaire."
+  },
+  "js_popup_form_input_unpause": {
+    "message": "Reprendre"
+  },
+  "js_popup_pinned": {
+    "message": "L'onglet a été épinglé"
+  },
+  "js_popup_app_window": {
+    "message": "L'onglet est ouvert dans une fenêtre d'application"
+  },
+  "js_popup_grouped_tab": {
+    "message": "L'onglet fait partie d'un groupe d'onglets"
+  },
+  "js_popup_tab_group": {
+    "message": "L'onglet fait partie d'un groupe qui n'est jamais suspendu"
+  },
+  "js_popup_temp_whitelist": {
+    "message": "Suspension de l'onglet mise en pause."
+  },
+  "js_popup_temp_whitelist_unpause": {
+    "message": "Reprendre"
+  },
+  "js_popup_never": {
+    "message": "Suspension automatique des onglets désactivée."
+  },
+  "js_popup_no_connectivity": {
+    "message": "Aucune connexion réseau"
+  },
+  "js_popup_charging": {
+    "message": "Connecté à une source d'alimentation"
+  },
+  "js_popup_blockedFile": {
+    "message": "Les fichiers locaux ne peuvent pas être suspendus."
+  },
+  "js_popup_blockedFile_enable": {
+    "message": "Activer"
+  },
+  "js_popup_unknown": {
+    "message": "En attente du chargement de l'onglet..."
+  },
+  "js_popup_initialising": {
+    "message": "En attente de l'initialisation de l'extension..."
+  },
+  "js_popup_error": {
+    "message": "Suspension automatique indisponible pour cet onglet"
+  },
+  "js_history_delete": {
+    "message": "supprimer"
+  },
+  "js_history_export": {
+    "message": "exporter"
+  },
+  "js_history_reload": {
+    "message": "ouvrir et charger"
+  },
+  "js_history_resuspend": {
+    "message": "ouvrir et suspendre"
+  },
+  "js_history_save": {
+    "message": "enregistrer"
+  },
+  "js_history_window": {
+    "message": "Fenêtre"
+  },
+  "js_history_windows": {
+    "message": "Fenêtres"
+  },
+  "js_history_tab": {
+    "message": "Onglet"
+  },
+  "js_history_tabs": {
+    "message": "Onglets"
+  },
+  "js_history_enter_name_for_session": {
+    "message": "Entrez un nom pour cette session"
+  },
+  "js_history_confirm_delete": {
+    "message": "Voulez-vous vraiment supprimer cette session ?"
+  },
+  "js_history_confirm_session_overwrite": {
+    "message": "Une session portant ce nom existe déjà. Écraser la session existante ?"
+  },
+  "js_history_import_fail": {
+    "message": "Échec du chargement du fichier. Assurez-vous que le fichier est en texte brut et contient une URL par ligne."
+  },
+  "js_history_migrate_fail": {
+    "message": "Un ID d'extension de 32 caractères est nécessaire pour la migration"
+  },
+  "js_history_migrate_success": {
+    "message": "$tabcount$ onglets migrés avec succès. Redémarrez votre navigateur si les onglets migrés ne se rechargent pas automatiquement.",
+    "placeholders": {
+      "tabcount": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_suspended_hotkey_to_reload": {
+    "message": "Définir les raccourcis clavier"
+  },
+  "js_suspended_low_memory": {
+    "message": "Onglet suspendu en raison d'une mémoire système faible"
+  },
+  "js_options_incognito_warning": {
+    "message": "Vous êtes en navigation privée. Certaines fonctionnalités ne seront pas disponibles."
+  },
+  "js_options_whitelist_no_matches": {
+    "message": "Aucun onglet ouvert ne correspond à la liste d'autorisation actuelle."
+  },
+  "js_options_whitelist_matches_heading": {
+    "message": "Onglets ouverts autorisés :"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "Aucun onglet ouvert ne correspond à la liste de suspension permanente actuelle."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "correspond à $count$ groupe(s) ouvert(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Onglets ouverts correspondant à la liste de suspension permanente :"
+  },
+  "js_options_whitelist_matches_overflow_prefix": {
+    "message": "et"
+  },
+  "js_options_whitelist_matches_overflow_suffix": {
+    "message": "de plus."
+  },
+  "js_permissions_button_export": {
+    "message": "Enregistrer la sauvegarde"
+  },
+  "js_permissions_button_set": {
+    "message": "Ouvrir les paramètres de l'extension"
+  },
+  "js_update_confirm": {
+    "message": "Vous n'avez pas encore enregistré de sauvegarde. Mettre à jour l'extension quand même ?"
+  },
+  "js_update_button_export": {
+    "message": "Enregistrer la sauvegarde"
+  },
+  "js_update_button_reload": {
+    "message": "Mettre à jour l'extension maintenant"
+  },
   "js_suspend_button_backup": {
     "message": "Enregistrer une sauvegarde avant la mise à jour"
   },
   "js_shortcuts_default_command": {
-    "message": "Activer l'extension (afficher la fenêtre contextuelle)"
+    "message": "Activer l'extension (afficher le popup)"
+  },
+  "js_shortcuts_not_set": {
+    "message": "non défini"
+  },
+  "js_session_save_point": {
+    "message": "Point de sauvegarde automatique pour v"
   },
   "html_options_backup_title": {
     "message": "Sauvegarde automatique de session"
   },
   "html_backup_session_desc": {
-    "message": "Contrairement aux sessions, les sauvegardes sont enregistrées sous forme de fichiers JSON en dehors de Chrome : dans votre dossier Téléchargements ou sur Google Drive. Elles survivent aux plantages du navigateur, aux réinitialisations de profil et aux nouvelles installations. C'est votre véritable filet de sécurité."
+    "message": "Contrairement aux sessions, les sauvegardes sont enregistrées sous forme de fichiers JSON en dehors de Chrome : dans votre dossier Téléchargements ou sur Google Drive. Elles survivent aux plantages du navigateur, aux réinitialisations de profil et aux installations neuves. C'est votre vrai filet de sécurité."
   },
   "html_options_backup_enable": {
     "message": "Sauvegarder automatiquement votre session"
@@ -1206,16 +1128,16 @@
     "message": "Enregistre silencieusement une copie de votre session actuelle sous forme de fichier JSON."
   },
   "html_options_backup_enable_tooltip_line1b": {
-    "message": "Choisissez de l'enregistrer localement (dossier tms-backups dans vos Téléchargements)"
+    "message": "Choisissez d'enregistrer en local (dossier tms-backups dans vos Téléchargements)"
   },
   "html_options_backup_enable_tooltip_line1c": {
     "message": "ou dans un dossier 'TMS Backups' sur Google Drive."
   },
   "html_options_backup_enable_tooltip_line2a": {
-    "message": "Pour les sauvegardes locales, Chrome doit être configuré pour télécharger les fichiers automatiquement (sans demander)."
+    "message": "Pour les sauvegardes locales, Chrome doit être configuré pour télécharger les fichiers automatiquement"
   },
   "html_options_backup_enable_tooltip_line2b": {
-    "message": "Vérifiez chrome://settings/downloads."
+    "message": "(sans demander). Vérifiez chrome://settings/downloads."
   },
   "html_options_backup_enable_tooltip_line2c": {
     "message": "Les sauvegardes Google Drive n'ont pas cette exigence."
@@ -1230,7 +1152,7 @@
     "message": "Attention : avec un intervalle aussi long, beaucoup de choses peuvent se produire entre deux sauvegardes. Envisagez un intervalle plus court pour réduire le risque de perte de données."
   },
   "html_options_backup_note": {
-    "message": "Les sauvegardes locales et Drive incluent toutes deux un identifiant d'appareil (par ex. tms-session-a3f7b2c8-2026-06-18T14-30.json), de sorte que chaque installation du navigateur conserve son propre ensemble indépendant de sauvegardes. Les N sauvegardes locales les plus récentes sont conservées par appareil ; les sauvegardes Drive conservent également N sauvegardes par appareil, de sorte que les sessions de différentes machines ou navigateurs ne s'écrasent jamais entre elles."
+    "message": "Les sauvegardes locales et Drive incluent toutes deux un identifiant d'appareil (par ex. tms-session-a3f7b2c8-2026-06-18T14-30.json), de sorte que chaque installation de navigateur conserve son propre pool indépendant de sauvegardes. Les N sauvegardes locales les plus récentes sont conservées par appareil ; les sauvegardes Drive sont elles aussi conservées à raison de N par appareil, de sorte que les sessions de différentes machines ou navigateurs ne s'écrasent jamais entre elles.\n\n<strong>Même avec Google Drive sélectionné, un fichier de sécurité local est toujours écrit à la fermeture du navigateur et téléversé sur Drive au démarrage suivant. Voir apparaître ici un fichier local est normal, ce n'est pas un bug.</strong>"
   },
   "html_backup_max_files_label": {
     "message": "Nombre maximal de sauvegardes à conserver"
@@ -1251,10 +1173,10 @@
     "message": "↑ Haut de page"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Les sessions sont stockées uniquement dans Chrome : elles ne survivront pas à un plantage du navigateur ni à une réinitialisation de profil."
+    "message": "Les sessions sont stockées uniquement dans Chrome : elles ne survivent pas à un plantage du navigateur ou à une réinitialisation de profil."
   },
   "html_history_backup_settings_link": {
-    "message": "Configurez la sauvegarde pour enregistrer vos onglets en dehors du navigateur →"
+    "message": "Configurez la Sauvegarde pour conserver vos onglets en dehors du navigateur →"
   },
   "js_options_backup_now_running": {
     "message": "Sauvegarde en cours…"
@@ -1265,16 +1187,54 @@
   "js_backup_option_saved": {
     "message": "Enregistré"
   },
+  "js_backup_permission_denied": {
+    "message": "Autorisation refusée : la sauvegarde automatique n'a pas été activée."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "Activer le fil d'actualités"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Vérifie périodiquement marvellouscode.works pour les actualités TMS et les affiche"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "dans la barre latérale."
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "Désactivez pour éviter cette requête en arrière-plan."
+  },
+  "html_options_other_legacy_mascot": {
+    "message": "Utiliser le graphisme classique de The Great Suspender au lieu de la nouvelle mascotte"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Rétablit les icônes et illustrations dans le style original de The Great"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "Suspender, lorsqu'une version antérieure de l'image est disponible."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Les images sans équivalent antérieur continuent d'utiliser le nouveau graphisme."
+  },
+  "html_permissions_notice_text": {
+    "message": "À partir de cette version, TMS ne demande l'accès au système de fichiers/compte Google que lorsque vous activez réellement la sauvegarde locale ou Google Drive, au lieu de le demander à l'avance."
+  },
+  "html_permissions_notice_link": {
+    "message": "En savoir plus sur les autorisations."
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "Compris"
+  },
+  "html_permissions_info_note": {
+    "message": "TMS ne demande les autorisations Téléchargements et compte Google que lorsque vous activez la sauvegarde locale ou Google Drive ci-dessous."
+  },
+  "html_permissions_info_note_link": {
+    "message": "Voir le détail complet des autorisations"
+  },
   "js_options_backup_now_error": {
-    "message": "Chrome demande où enregistrer les fichiers, donc les sauvegardes automatiques ne fonctionneront pas silencieusement. Désactivez « Demander où enregistrer chaque fichier » dans chrome://settings/downloads."
+    "message": "Chrome demande où enregistrer les fichiers, les sauvegardes automatiques ne fonctionneront donc pas silencieusement. Désactivez « Demander où enregistrer chaque fichier » dans chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "Prochaine exécution : $time$",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+    "placeholders": { "time": { "content": "$1" } }
   },
   "js_options_backup_last_local": {
     "message": "Dernière sauvegarde : $date$",
@@ -1302,8 +1262,29 @@
   "html_popup_backup_drive_error": {
     "message": "Échec de la sauvegarde automatique : aucun compte Google connecté. Cliquez ici pour résoudre le problème."
   },
+  "html_popup_backup_downloads_error": {
+    "message": "Échec de la sauvegarde automatique : l'autorisation Téléchargements est manquante. Cliquez ici pour résoudre le problème."
+  },
+  "html_popup_backup_nudge_text": {
+    "message": "La sauvegarde automatique est désactivée. Protégez vos sessions."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "Me le rappeler dans 10 jours"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "La sauvegarde automatique est désactivée. L'activer protège vos sessions si ce profil de navigateur est un jour réinitialisé ou corrompu."
+  },
+  "html_backup_nudge_optout": {
+    "message": "Ça ne m'intéresse pas, arrêtez de me le rappeler"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "La sauvegarde automatique est activée, mais l'autorisation Téléchargements n'est pas accordée sur cet appareil (cela peut arriver après l'importation de paramètres ou une synchronisation depuis un autre navigateur). Les sauvegardes ne s'exécuteront pas tant que vous ne l'accordez pas."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "Accorder l'autorisation"
+  },
   "js_options_backup_drive_connecting": {
-    "message": "Connexion…"
+    "message": "Connexion en cours…"
   },
   "js_options_backup_drive_auth_error": {
     "message": "Impossible de se connecter à Google. Veuillez réessayer."
@@ -1315,7 +1296,7 @@
     "message": "Exportez tous les paramètres de l'extension dans un fichier JSON, utile comme sauvegarde ou pour transférer votre configuration vers un autre profil de navigateur. L'importation d'un fichier remplace les paramètres actuels."
   },
   "html_backup_local_folder_hint": {
-    "message": "Les sauvegardes locales sont placées dans le dossier tms-backups de vos téléchargements."
+    "message": "Les sauvegardes locales sont enregistrées dans le dossier tms-backups dans vos Téléchargements."
   },
   "html_backup_drive_folder_note": {
     "message": "Les sauvegardes sont enregistrées dans le dossier 'TMS Backups' de votre Google Drive."
@@ -1351,7 +1332,7 @@
     "message": "Impossible d'enregistrer les paramètres sur Drive. Veuillez réessayer."
   },
   "js_backup_cooldown": {
-    "message": "Patientez $seconds$s avant la prochaine sauvegarde.",
+    "message": "Attendez $seconds$s avant la prochaine sauvegarde.",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1379,7 +1360,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Une sauvegarde des paramètres existe déjà du $date$. Écraser ?",
+    "message": "Une sauvegarde des paramètres du $date$ existe déjà. Écraser ?",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1393,22 +1374,22 @@
     "message": "Importer les paramètres"
   },
   "js_options_settings_import_confirm": {
-    "message": "Cela écrasera vos paramètres actuels. Continuer ?"
+    "message": "Ceci écrasera vos paramètres actuels. Continuer ?"
   },
   "js_options_settings_import_success": {
     "message": "Paramètres importés. Rechargement…"
   },
   "js_options_settings_import_error": {
-    "message": "Fichier de paramètres non valide."
+    "message": "Fichier de paramètres invalide."
   },
   "html_history_migrate_nav": {
     "message": "Migrer"
   },
   "html_backup_restore_title": {
-    "message": "Restaurer à partir d'une sauvegarde"
+    "message": "Restaurer depuis une sauvegarde"
   },
   "html_backup_restore_desc": {
-    "message": "Importez un fichier de sauvegarde pour le restaurer en tant que session enregistrée. Une fois importé, ouvrez Sessions pour choisir les fenêtres à restaurer."
+    "message": "Importez un fichier de sauvegarde pour le restaurer en tant que session enregistrée. Une fois importé, ouvrez Sessions pour choisir quelles fenêtres restaurer."
   },
   "html_backup_restore_local_title": {
     "message": "Fichier local"
@@ -1420,7 +1401,7 @@
     "message": "Choisir un fichier de sauvegarde"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Sélectionner une sauvegarde Drive"
+    "message": "Sélectionnez une sauvegarde Drive"
   },
   "html_backup_restore_import": {
     "message": "Importer la sélection"
@@ -1429,7 +1410,7 @@
     "message": "Importation…"
   },
   "js_backup_restore_success": {
-    "message": "Importé sous le nom « $name$ ».",
+    "message": "Importée sous « $name$ ».",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1440,7 +1421,7 @@
     "message": "→ Ouvrir Sessions pour restaurer"
   },
   "js_backup_restore_error_invalid": {
-    "message": "Fichier de sauvegarde non valide."
+    "message": "Fichier de sauvegarde invalide."
   },
   "js_backup_restore_error_drive": {
     "message": "Impossible de télécharger depuis Drive. Vérifiez votre connexion et réessayez."
@@ -1452,7 +1433,7 @@
     "message": "Enregistrer la sauvegarde Drive avant de changer ?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Votre sauvegarde Drive la plus récente date du $date$. Enregistrez-la en tant que session dans le gestionnaire de sessions afin de pouvoir la restaurer sans avoir besoin de Google Drive.",
+    "message": "Votre sauvegarde Drive la plus récente date du $date$. Enregistrez-la comme session dans le Gestionnaire de sessions pour pouvoir la restaurer sans avoir besoin de Google Drive.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1484,7 +1465,7 @@
     "message": "Supprimer toutes les sauvegardes de cet appareil ?"
   },
   "html_backup_drive_delete_device_modal_body": {
-    "message": "Cela supprimera définitivement les $count$ fichiers de sauvegarde de « $device$ » sur Google Drive. Cette action est irréversible.",
+    "message": "Cela supprimera définitivement les $count$ fichier(s) de sauvegarde de « $device$ » de Google Drive. Cette action est irréversible.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1501,78 +1482,12 @@
     "message": "Annuler"
   },
   "js_backup_drive_delete_device_error": {
-    "message": "Certains fichiers de sauvegarde n'ont pas pu être supprimés. Réessayez."
+    "message": "Certains fichiers de sauvegarde n'ont pas pu être supprimés. Veuillez réessayer."
   },
   "html_backup_drive_no_files": {
     "message": "Aucun fichier de sauvegarde trouvé sur Drive."
   },
   "html_backup_drive_files_loading": {
     "message": "Chargement…"
-  },
-  "html_options_suspended_add_youtube_timestamp": {
-    "message": "Conserver la position de lecture YouTube lors de la mise en veille"
-  },
-  "js_backup_permission_denied": {
-    "message": "Permission refusée : la sauvegarde automatique n'a pas été activée."
-  },
-  "html_options_other_enable_news_feed": {
-    "message": "Activer le fil d'actualités"
-  },
-  "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "Vérifie périodiquement marvellouscode.works pour les actualités"
-  },
-  "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "de TMS et les affiche dans la barre latérale."
-  },
-  "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "Désactivez pour éviter cette requête en arrière-plan."
-  },
-  "html_options_other_legacy_mascot": {
-    "message": "Utiliser l'ancien style graphique de The Great Suspender au lieu de la nouvelle mascotte"
-  },
-  "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Rétablit les icônes et illustrations dans le style original de The Great"
-  },
-  "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "Suspender, lorsqu'une version ancienne de l'image est disponible."
-  },
-  "html_options_other_legacy_mascot_tooltip_line3": {
-    "message": "Les images sans équivalent ancien continuent d'utiliser le nouveau style."
-  },
-  "html_permissions_notice_text": {
-    "message": "À partir de cette version, TMS ne demande l'accès au système de fichiers/compte Google que lorsque vous activez réellement la sauvegarde locale ou Google Drive, au lieu de le demander à l'avance."
-  },
-  "html_permissions_notice_link": {
-    "message": "En savoir plus sur les permissions."
-  },
-  "html_permissions_notice_dismiss": {
-    "message": "Compris"
-  },
-  "html_permissions_info_note": {
-    "message": "TMS demande les permissions Téléchargements et compte Google uniquement lorsque vous activez la sauvegarde locale ou Google Drive ci-dessous."
-  },
-  "html_permissions_info_note_link": {
-    "message": "Voir le détail complet des permissions."
-  },
-  "html_popup_backup_downloads_error": {
-    "message": "Échec de la sauvegarde automatique : la permission Téléchargements est manquante. Cliquez ici pour résoudre le problème."
-  },
-  "html_popup_backup_nudge_text": {
-    "message": "La sauvegarde automatique est désactivée. Protégez vos sessions."
-  },
-  "html_backup_nudge_dismiss": {
-    "message": "Me le rappeler dans 10 jours"
-  },
-  "html_backup_nudge_note_text": {
-    "message": "La sauvegarde automatique est désactivée. L'activer protège vos sessions si ce profil de navigateur est un jour réinitialisé ou corrompu."
-  },
-  "html_backup_nudge_optout": {
-    "message": "Non merci, ne plus me le rappeler"
-  },
-  "html_backup_downloads_permission_missing": {
-    "message": "La sauvegarde automatique est activée, mais la permission Téléchargements n'est pas accordée sur cet appareil (cela peut arriver après l'importation de paramètres ou une synchronisation depuis un autre navigateur). Les sauvegardes ne s'exécuteront pas tant que vous ne l'aurez pas accordée."
-  },
-  "html_backup_downloads_permission_grant": {
-    "message": "Accorder la permission"
   }
 }

@@ -9,10 +9,10 @@
     "message": "The Marvellous Suspender"
   },
   "ext_cmd_toggle_tab_suspension_description": {
-    "message": "إيقاف / إلغاء تعليق التبويب النشط"
+    "message": "تعليق/إلغاء تعليق علامة التبويب النشطة"
   },
   "ext_cmd_toggle_tab_pause_description": {
-    "message": "إيقاف مؤقت/إلغاء إيقاف التبويب النشط"
+    "message": "إيقاف مؤقت/استئناف تعليق علامة التبويب النشطة"
   },
   "ext_cmd_suspend_selected_tabs_description": {
     "message": "تعليق علامات التبويب المحددة"
@@ -27,19 +27,19 @@
     "message": "إلغاء تعليق جميع علامات التبويب في مجموعة علامة التبويب النشطة"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "تعليق جميع علامات التبويب غير الموجودة في مجموعة في النافذة النشطة"
+    "message": "تعليق جميع علامات التبويب غير المجمّعة في النافذة النشطة"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "إلغاء تعليق جميع علامات التبويب غير الموجودة في مجموعة في النافذة النشطة"
+    "message": "إلغاء تعليق جميع علامات التبويب غير المجمّعة في النافذة النشطة"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "تبديل عدم التعليق مطلقاً لمجموعة علامة التبويب النشطة"
+    "message": "تبديل «عدم التعليق أبدًا» لمجموعة علامة التبويب النشطة"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "تعليق جميع علامات التبويب الأخرى في النافذة النشطة"
   },
   "ext_cmd_force_suspend_active_window_description": {
-    "message": "تعليق جميع علامات التبويب الأخرى في النافذة النشطة"
+    "message": "فرض تعليق جميع علامات التبويب الأخرى في النافذة النشطة"
   },
   "ext_cmd_unsuspend_active_window_description": {
     "message": "إلغاء تعليق جميع علامات التبويب في النافذة النشطة"
@@ -48,25 +48,25 @@
     "message": "تعليق جميع علامات التبويب في جميع النوافذ"
   },
   "ext_cmd_force_suspend_all_windows_description": {
-    "message": "تعليق جميع علامات التبويب في جميع النوافذ"
+    "message": "فرض تعليق جميع علامات التبويب في جميع النوافذ"
   },
   "ext_cmd_unsuspend_all_windows_description": {
     "message": "إلغاء تعليق جميع علامات التبويب في جميع النوافذ"
   },
   "js_context_open_link_in_suspended_tab": {
-    "message": "فتح الرابط في علامة تبويب معلق جديدة"
+    "message": "فتح الرابط في علامة تبويب معلّقة جديدة"
   },
   "js_context_toggle_suspend_state": {
-    "message": "تعليق/إلغاء تعليق التبويب هذا"
+    "message": "تعليق/إلغاء تعليق علامة التبويب هذه"
   },
   "js_context_toggle_pause_suspension": {
-    "message": "إيقاف مؤقت/إلغاء إيقاف هذا التبويب"
+    "message": "إيقاف مؤقت/استئناف تعليق علامة التبويب هذه"
   },
   "js_context_never_suspend_domain": {
-    "message": "عدم تعليق هذا النطاق مطلقاً"
+    "message": "عدم تعليق هذا النطاق أبدًا"
   },
   "js_context_never_suspend_page": {
-    "message": "عدم تعليق هذا الرابط مطلقاً"
+    "message": "عدم تعليق هذا الرابط أبدًا"
   },
   "js_context_suspend_selected_tabs": {
     "message": "تعليق علامات التبويب المحددة"
@@ -81,34 +81,34 @@
     "message": "إلغاء تعليق جميع علامات التبويب في هذه المجموعة"
   },
   "js_context_suspend_ungrouped_tabs": {
-    "message": "تعليق جميع علامات التبويب غير الموجودة في مجموعة"
+    "message": "تعليق جميع علامات التبويب غير المجمّعة"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "إلغاء تعليق جميع علامات التبويب غير الموجودة في مجموعة"
+    "message": "إلغاء تعليق جميع علامات التبويب غير المجمّعة"
   },
   "js_context_never_suspend_group": {
-    "message": "عدم تعليق هذه المجموعة مطلقاً"
+    "message": "عدم تعليق هذه المجموعة أبدًا"
   },
   "js_context_allow_suspending_group": {
     "message": "السماح بتعليق هذه المجموعة"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "عدم تعليق هذه المجموعة مطلقاً (المجموعات المسماة فقط)"
+    "message": "عدم تعليق هذه المجموعة أبدًا (المجموعات المسمّاة فقط)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
-    "message": "تعليق جميع علامات التبويب الأخرى في النافذة النشطة"
+    "message": "تعليق جميع علامات التبويب الأخرى في هذه النافذة"
   },
   "js_context_force_suspend_other_tabs_in_window": {
-    "message": "تعليق جميع علامات التبويب الأخرى في النافذة النشطة"
+    "message": "فرض تعليق جميع علامات التبويب الأخرى في هذه النافذة"
   },
   "js_context_unsuspend_all_tabs_in_window": {
-    "message": "إلغاء تعليق جميع علامات التبويب في النافذة النشطة"
+    "message": "إلغاء تعليق جميع علامات التبويب في هذه النافذة"
   },
   "js_context_soft_suspend_all_tabs": {
     "message": "تعليق جميع علامات التبويب في جميع النوافذ"
   },
   "js_context_force_suspend_all_tabs": {
-    "message": "Tüm pencerelerde tüm sekmeleri askıya almaya zorla"
+    "message": "فرض تعليق جميع علامات التبويب في جميع النوافذ"
   },
   "js_context_unsuspend_all_tabs": {
     "message": "إلغاء تعليق جميع علامات التبويب في جميع النوافذ"
@@ -117,16 +117,16 @@
     "message": "سلامة علامات التبويب (تجريبي)"
   },
   "html_health_title_intro": {
-    "message": "إذا كنت تواجه مشكلات في علامات التبويب المعلّقة، خاصة في أيقونات المواقع، فانقر على \"فحص علامات التبويب\" لمعرفة ما إذا كان بإمكاننا إصلاحها."
+    "message": "إذا كنت تواجه مشكلات مع علامات التبويب المعلّقة، خاصة مع الأيقونات المفضّلة، انقر فوق فحص علامات التبويب لمعرفة ما إذا كان بإمكاننا إصلاحها."
   },
   "html_health_all_good": {
-    "message": "لم نجد أي مشكلات في علامات التبويب المعلّقة لديك. إذا كنت لا تزال ترى شيئًا خاطئًا، أخبرنا أدناه وسنحاول توسيع هذا الفحص."
+    "message": "لم نجد أي مشكلات في علامات التبويب المعلّقة لديك. إذا كنت لا تزال ترى خللًا ما، أخبرنا أدناه وسنحاول توسيع فحص السلامة هذا."
   },
   "html_health_reload_intro": {
-    "message": "لديك بعض علامات التبويب المعلّقة التي لم يتم تحميلها بالكامل. يمكننا إعادة تحميل تلك العلامات لتنظيف الأمور."
+    "message": "لديك بعض علامات التبويب المعلّقة التي لم تُحمَّل بالكامل. يمكننا إعادة تحميلها لتصحيح الوضع."
   },
   "html_health_restore_intro": {
-    "message": "بعض علامات التبويب المعلّقة لديك تستخدم أيقونة الموقع الافتراضية من المتصفح. هذا يعني أن ذاكرة التخزين المؤقت لـ TMS لا تملكها. يمكننا استعادة عدد أدنى من علامات التبويب وتعليقها من جديد لجلب الأيقونات المفقودة."
+    "message": "بعض علامات التبويب المعلّقة تستخدم الأيقونة المفضّلة الافتراضية للمتصفح. هذا يعني أن ذاكرة التخزين المؤقت لـ TMS لا تحتوي عليها. يمكننا استعادة عدد محدود من علامات التبويب وإعادة تعليقها لجلب الأيقونات المفضّلة المفقودة."
   },
   "html_health_scan_button": {
     "message": "فحص علامات التبويب"
@@ -141,22 +141,22 @@
     "message": "علامات تبويب معلّقة بواسطة TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "أيقونة في ذاكرة تخزين TMS المؤقتة"
+    "message": "أيقونة مفضّلة في ذاكرة تخزين TMS المؤقتة"
   },
   "html_health_num_tabs_empty": {
-    "message": "علامات تبويب لم يتم تحميلها"
+    "message": "علامات تبويب لم تُحمَّل"
   },
   "html_health_num_tabs_extension": {
-    "message": "علامات تبويب تحمل أيقونة TMS"
+    "message": "علامات تبويب تحمل أيقونة TMS المفضّلة"
   },
   "html_health_num_tabs_default": {
-    "message": "علامات تبويب تحمل أيقونة افتراضية"
+    "message": "علامات تبويب تحمل الأيقونة المفضّلة الافتراضية"
   },
   "html_health_num_hostnames": {
-    "message": "أسماء مضيف فريدة"
+    "message": "اسم مضيف فريد لعلامات التبويب"
   },
   "html_health_small_cache": {
-    "message": "قد لا تغطي ذاكرة التخزين المؤقت المحلية لأيقونات TMS جميع علامات التبويب. إذا تم مسح ذاكرة التخزين المؤقت للمتصفح، فقد لا يتمكن TMS من عرض بعض الأيقونات."
+    "message": "قد لا تغطي ذاكرة التخزين المؤقت المحلية للأيقونات المفضّلة في TMS جميع علامات التبويب. إذا تم مسح ذاكرة تخزين المتصفح المؤقتة، فقد لا يتمكن TMS من عرض بعض الأيقونات المفضّلة."
   },
   "html_health_reload_button": {
     "message": "التالي: إعادة تحميل $count$ علامة تبويب",
@@ -167,7 +167,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "التالي: استعادة $count$ علامة تبويب لتخزين الأيقونات مؤقتًا",
+    "message": "التالي: استعادة $count$ علامة تبويب لجلب الأيقونات المفضّلة",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -175,25 +175,25 @@
     }
   },
   "html_health_action_label": {
-    "message": "جارٍ استعادة الأيقونات..."
+    "message": "جارٍ استعادة الأيقونات المفضّلة..."
   },
   "html_health_after_reload": {
-    "message": "بمجرد أن تنتهي علامات التبويب من التحميل في الخلفية، يمكنك النقر على \"فحص علامات التبويب\" مرة أخرى لمعرفة ما إذا تحسنت الأمور."
+    "message": "بمجرد انتهاء تحميل علامات التبويب في الخلفية، يمكنك النقر على \"فحص علامات التبويب\" مرة أخرى لمعرفة ما إذا كنا قد حسّنا الوضع."
   },
   "html_health_after_restore": {
-    "message": "يمكنك النقر على \"فحص علامات التبويب\" مرة أخرى لمعرفة ما إذا تحسنت الأمور."
+    "message": "يمكنك النقر على \"فحص علامات التبويب\" مرة أخرى لمعرفة ما إذا كنا قد حسّنا الوضع."
   },
   "html_health_need_help1": {
-    "message": "إذا كنت لا تزال تواجه مشكلات في علامات التبويب أو الأيقونات، يمكنك النقر على \"نسخ النتائج\" ولصقها في"
+    "message": "إذا كنت لا تزال تواجه مشكلات في علامات التبويب أو الأيقونات المفضّلة، يمكنك النقر على نسخ النتائج ولصقها في"
   },
   "html_health_need_help2": {
-    "message": "مشكلة جديدة (Issue) على GitHub."
+    "message": "مشكلة جديدة على GitHub."
   },
   "html_health_num_grouped_broken": {
-    "message": "علامات تبويب مجمّعة في حالة معطلة (خلل مجموعات علامات التبويب)"
+    "message": "علامات تبويب مجمّعة في حالة معطّلة (خلل في مجموعات علامات التبويب)"
   },
   "html_health_repair_intro": {
-    "message": "بعض علامات التبويب في المجموعات في حالة معطلة: تظهر كعلامة تبويب جديدة بدلاً من التحميل بشكل صحيح بعد إعادة تشغيل المتصفح. يمكن لـ TMS محاولة استعادتها."
+    "message": "بعض علامات التبويب في مجموعات علامات التبويب في حالة معطّلة: تظهر كعلامة تبويب جديدة بدلًا من التحميل الصحيح بعد إعادة تشغيل المتصفح. يمكن لـ TMS محاولة استعادتها."
   },
   "html_health_repair_button": {
     "message": "إصلاح $count$ علامة تبويب مجمّعة",
@@ -204,16 +204,16 @@
     }
   },
   "html_health_after_repair": {
-    "message": "تم. أعد الفحص للتحقق من أن علامات التبويب المجمّعة عادت إلى حالتها المعلّقة."
+    "message": "تم. أعد الفحص للتحقق من عودة علامات التبويب المجمّعة إلى حالتها المعلّقة."
   },
   "html_about_title": {
-    "message": "حول عن الإضافة"
+    "message": "حول"
   },
   "html_about_version_label": {
     "message": "الإصدار"
   },
   "html_about_tagline": {
-    "message": "الخليفة الروحي لتعليق علامات التبويب الحديث: يستبدل علامات التبويب غير النشطة بصفحة سُبات خفيفة، مانحًا إياك تحكمًا دقيقًا في وقت استيقاظها."
+    "message": "الخليفة الروحي لتعليق علامات التبويب الحديث: يستبدل علامات التبويب غير النشطة بصفحة سُبات خفيفة، مما يمنحك تحكمًا دقيقًا في وقت تنشيطها."
   },
   "html_about_section_credits": {
     "message": "شكر وتقدير"
@@ -225,67 +225,67 @@
     "message": "جميع المساهمين على GitHub"
   },
   "html_about_fork_beginning": {
-    "message": "استناداً إلى الأصل"
+    "message": "مبني على النسخة الأصلية"
   },
   "html_about_fork_mid": {
-    "message": "متاح في جيت هب، بدون تتبع ADS"
+    "message": "المتوفرة على GitHub، بدون تتبع إعلانات"
   },
   "html_about_fork_end": {
-    "message": "مزيد من المعلومات متاح على"
+    "message": "مزيد من المعلومات متاحة على"
   },
   "html_about_contributors": {
-    "message": "قُدّم لك من قبل"
+    "message": "قُدّم لك من"
   },
   "html_about_report_issues_prefix": {
-    "message": "إذا كان لديك ملاحظات أو ترغب في الإبلاغ عن مشكلة، فيمكنك القيام بذلك على سبيل المثال"
+    "message": "إذا كانت لديك ملاحظات أو تريد الإبلاغ عن مشكلة، يمكنك القيام بذلك على"
   },
   "html_about_report_issues_suffix": {
-    "message": ". Lütfen yeni bir fikir oluşturmadan önce fikrinizin veya sorunun zaten var olup olmadığını kontrol edin. Teşekkürler!"
+    "message": ". يُرجى التحقق مما إذا كانت فكرتك أو مشكلتك موجودة بالفعل قبل إنشاء مشكلة جديدة. شكرًا لك!"
   },
   "html_about_debugging_prefix": {
-    "message": "لالتقاط السجلات وإنشاء تقرير تشخيصي، انتقل إلى "
+    "message": "لالتقاط السجلات وإنشاء تقرير تشخيصي، انتقل إلى صفحة "
   },
   "html_about_debugging_suffix": {
-    "message": "صفحة التشخيص."
+    "message": "التشخيص."
   },
   "html_about_the_github_issues_page": {
-    "message": "صفحة المشكلات على \"جيت هاب\""
+    "message": "صفحة مشكلات GitHub"
   },
   "html_about_section_support": {
-    "message": "ادعم التطوير"
+    "message": "دعم التطوير"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender مجاني ومفتوح المصدر. إذا وجدته مفيدًا، ففكّر في تقديم مساهمة صغيرة: فهذا يساعد في إبقاء المشروع حيًا ونموه."
+    "message": "‏The Marvellous Suspender مجاني ومفتوح المصدر. إذا وجدته مفيدًا، ففكّر في تقديم مساهمة صغيرة: فهي تساعد في إبقاء المشروع حيًا ونموه."
   },
   "html_broken_title": {
-    "message": "يتم كسر"
+    "message": "معطّل"
   },
   "html_broken_ruh_roh": {
-    "message": "روه روه!"
+    "message": "عذرًا!"
   },
   "html_broken_line1": {
-    "message": "فشل في البدء. ربما تستخدم متصفحًا غير متوافق؟"
+    "message": "فشل بدء التشغيل. ربما تستخدم متصفحًا غير متوافق؟"
   },
   "html_broken_line2": {
     "message": "حاول إعادة تشغيل الإضافة. إذا استمرت المشكلة، اطلب المساعدة على"
   },
   "html_broken_line2_github_page": {
-    "message": "صفحة مشروع جيت هب"
+    "message": "صفحة المشروع على GitHub"
   },
   "html_broken_line3": {
     "message": "يمكنك استعادة علامات التبويب المفقودة من"
   },
   "html_broken_line3_session_management": {
-    "message": "إدارة الجلسة"
+    "message": "صفحة إدارة الجلسات"
   },
   "html_broken_button_restart_extension": {
     "message": "إعادة تشغيل الإضافة"
   },
   "html_history_title": {
-    "message": "إدارة الجلسة"
+    "message": "إدارة الجلسات"
   },
   "html_history_page_desc": {
-    "message": "يحتفظ TMS بلقطة مستمرة لعلامات التبويب المفتوحة لديك، دون الحاجة لأي إعداد. تتحدّث الجلسات تلقائيًا أثناء التصفح، لكنها موجودة داخل Chrome فقط: إذا فُقد ملف تعريف المتصفح أو تلف، تُفقد معه."
+    "message": "يحتفظ TMS بلقطة مستمرة لعلامات التبويب المفتوحة لديك، دون الحاجة لأي إعداد. تُحدَّث الجلسات تلقائيًا أثناء تصفحك، لكنها تعيش داخل Chrome: فإذا فُقد ملف تعريف المتصفح أو تلف، تُفقد معه."
   },
   "html_history_current_session": {
     "message": "الجلسة الحالية"
@@ -297,46 +297,46 @@
     "message": "الجلسات المحفوظة"
   },
   "html_history_import_session": {
-    "message": "استيراد الجلسة"
+    "message": "استيراد جلسة"
   },
   "html_history_migrate_tabs": {
     "message": "ترحيل علامات التبويب"
   },
   "html_history_migrate_old_id": {
-    "message": "معرّف الامتداد"
+    "message": "معرّف الإضافة"
   },
   "html_history_migrate_section_title": {
     "message": "ترحيل علامات التبويب"
   },
   "html_history_migrate_section_desc": {
-    "message": "استعد علامات التبويب المعلّقة بواسطة إصدار سابق أو نسخة أخرى من هذا الامتداد. أدخل معرّف الامتداد القديم أدناه وانقر على \"ترحيل علامات التبويب\" لتحويل عناوين URL المعلّقة."
+    "message": "استعد علامات التبويب المعلّقة من إصدار سابق أو من نسخة أخرى مشتقة من هذه الإضافة. أدخل معرّف الإضافة القديم أدناه وانقر فوق ترحيل علامات التبويب لتحويل الروابط المعلّقة."
   },
   "html_options_title": {
     "message": "الإعدادات"
   },
   "html_options_suspend_title": {
-    "message": "تعليق علامة التبويب التلقائي"
+    "message": "تعليق علامات التبويب تلقائيًا"
   },
   "html_options_suspended_title": {
-    "message": "علامات التبويب المعلقة"
+    "message": "علامات التبويب المعلّقة"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "إلحاق عنوان URL الأصلي بعنوان علامة التبويب المعلّقة"
+    "message": "إضافة الرابط الأصلي إلى عنوان علامة التبويب المعلّقة"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "عند التفعيل، يُلحق عنوان URL الأصلي"
+    "message": "عند التفعيل، يُضاف الرابط الأصلي إلى عنوان علامة تبويب"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "بعنوان علامة تبويب المتصفح للصفحات المعلّقة."
+    "message": "المتصفح للصفحات المعلّقة."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "هذا يتيح العثور على علامات التبويب المعلّقة حسب اسم المضيف"
+    "message": "يتيح هذا العثور على علامات التبويب المعلّقة حسب اسم المضيف باستخدام"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "باستخدام ميزة \"البحث في علامات التبويب\" في Chrome (Ctrl+Shift+A)."
+    "message": "ميزة \"البحث في علامات التبويب\" في Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "الحفاظ على موضع تشغيل يوتيوب عند التعليق"
+    "message": "الحفاظ على موضع تشغيل YouTube عند التعليق"
   },
   "html_options_other_title": {
     "message": "عام"
@@ -348,19 +348,19 @@
     "message": "افتراضي النظام"
   },
   "html_options_suspend_automatically_after": {
-    "message": "تعليق علامات التبويب تلقائياً بعد"
+    "message": "تعليق علامات التبويب تلقائيًا بعد"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "أوقف تعليق علامات التبويب عند التشغيل على البطارية بعد"
+    "message": "تعليق علامات التبويب عند العمل بالبطارية بعد"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "نفس ما عند الاتصال بمصدر الطاقة"
+    "message": "نفس المدة عند التوصيل بالكهرباء"
   },
   "html_options_suspend_never": {
-    "message": "أبدا"
+    "message": "أبدًا"
   },
   "html_options_suspend_seconds": {
-    "message": "ثواني"
+    "message": "ثوانٍ"
   },
   "html_options_suspend_minute": {
     "message": "دقيقة"
@@ -387,115 +387,115 @@
     "message": "أسابيع"
   },
   "html_options_suspend_no_pinned": {
-    "message": "لا تعلق أبداً علامات التبويب الثابتة"
+    "message": "عدم تعليق علامات التبويب المثبّتة أبدًا"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "لا تعلق أبداً علامات التبويب المفتوحة في نوافذ التطبيقات"
+    "message": "عدم تعليق علامات التبويب المفتوحة في نوافذ التطبيقات أبدًا"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "لا تعلق أبداً علامات التبويب الموجودة في مجموعة علامات تبويب"
+    "message": "عدم تعليق علامات التبويب في مجموعة أبدًا"
   },
   "html_options_suspend_no_forms": {
-    "message": "لا تعلق أبداً علامات التبويب التي تحتوي على مدخلات نموذج غير محفوظة"
+    "message": "عدم تعليق علامات التبويب التي تحتوي على بيانات نماذج غير محفوظة أبدًا"
   },
   "html_options_suspend_no_audio": {
-    "message": "لا تقم أبدا بتعليق علامات التبويب التي تشغل الصوت"
+    "message": "عدم تعليق علامات التبويب التي تشغّل صوتًا أبدًا"
   },
   "html_options_suspend_only_connected": {
-    "message": "لا توقف أبداً علامات التبويب عند عدم الاتصال"
+    "message": "عدم تعليق علامات التبويب عند عدم الاتصال بالإنترنت أبدًا"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "الاستحواذ افتراضيًا"
+    "message": "الاستحواذ على علامات التبويب المعلّقة بواسطة إضافات أخرى"
   },
   "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "يستحوذ تلقائيًا على علامات التبويب المعلّقة مسبقًا بواسطة إضافة متوافقة أخرى"
+    "message": "يتولى تلقائيًا التحكم في علامات التبويب المعلّقة بالفعل بواسطة إضافة متوافقة"
   },
   "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "(مثل The Great Suspender، أو تثبيت آخر لهذه الإضافة)."
+    "message": "أخرى (مثل The Great Suspender، أو تثبيت مختلف لهذه الإضافة)."
   },
   "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "تُعتبر علامة التبويب \"معلّقة\" إذا كان عنوان URL الخاص بها يحتوي على 'suspended.html'."
+    "message": "تُعتبر علامة التبويب \"معلّقة\" إذا كان رابطها يحتوي على 'suspended.html'."
   },
   "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "تفعيل هذا الخيار يعيد كتابة ذلك العنوان لهذا التثبيت"
+    "message": "تفعيل هذا الخيار يعيد كتابة ذلك الرابط ليتبع هذا التثبيت، حتى"
   },
   "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "حتى يتمكن TMS من إدارة علامة التبويب من الآن فصاعدًا."
+    "message": "يتمكن TMS من إدارة علامة التبويب من الآن فصاعدًا."
   },
   "html_options_suspend_only_on_battery": {
-    "message": "لا توقف أبداً علامات التبويب عند الاتصال بمصدر الطاقة"
+    "message": "عدم تعليق علامات التبويب عند الاتصال بمصدر طاقة أبدًا"
   },
   "html_options_suspend_no_active_tabs": {
-    "message": "عدم تعليق علامة التبويب النشطة أبدا في كل نافذة"
+    "message": "عدم تعليق علامة التبويب النشطة في كل نافذة أبدًا"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "دائمًا أعد فتح علامات التبويب المعلّقة من أعلى الصفحة"
+    "message": "إعادة فتح علامات التبويب المعلّقة دائمًا مع التمرير إلى الأعلى"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "تُعاد فتح علامة التبويب من أعلى الصفحة بدلاً من"
+    "message": "تُعاد علامة التبويب إلى أعلى الصفحة بدلًا من موضع"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "الموضع الذي كانت عنده عند التعليق."
+    "message": "التمرير عند التعليق."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "ينطبق على التعليق التلقائي واليدوي، ويتجاوز الروابط"
+    "message": "ينطبق هذا على التعليق التلقائي واليدوي معًا، ويتجاوز"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "التي تنتقل إلى قسم (#) عند التحميل."
+    "message": "الروابط التي تنتقل إلى #قسم عند التحميل."
   },
   "html_options_suspend_automatically_unsuspend": {
-    "message": "إلغاء تعليق علامة التبويب تلقائياً عند عرضها"
+    "message": "إلغاء تعليق علامة التبويب تلقائيًا عند عرضها"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "إعادة التحميل تلغي تعليق علامات التبويب في الخلفية أيضاً (وليس فقط علامة التبويب النشطة)"
+    "message": "إعادة التحميل تُلغي أيضًا تعليق علامات التبويب في الخلفية (وليس فقط النشطة)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "عند التفعيل، إعادة تحميل علامة تبويب معلّقة (Ctrl+R أو النقر"
+    "message": "عند التفعيل، إعادة تحميل علامة تبويب معلّقة (Ctrl+R أو النقر بزر الماوس الأيمن"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "بزر الفأرة الأيمن ثم إعادة التحميل) تلغي تعليقها حتى لو لم"
+    "message": "> إعادة تحميل) تُلغي تعليقها أيضًا حتى عندما لا تكون"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "تكن علامة التبويب النشطة حالياً."
+    "message": "علامة التبويب النشطة حاليًا."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "مفيد لإعادة تحميل عدة علامات تبويب معلّقة دفعة واحدة، مثلاً"
+    "message": "مفيد لإعادة تحميل عدة علامات تبويب معلّقة مرة واحدة، مثلًا بعد"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "بعد تحديد عدة علامات تبويب والضغط على Ctrl+R."
+    "message": "تحديد عدة علامات تبويب والضغط على Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "تطبيق توفير الذاكرة المدمج في المتصفح عند التعليق"
+    "message": "تطبيق ميزة توفير الذاكرة المدمجة في المتصفح عند التعليق"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "يقلل من استخدام ذاكرة التبويب المعلق أكثر، من خلال استخدام"
+    "message": "يقلل استهلاك الذاكرة لعلامة التبويب المعلّقة أكثر، عبر استخدام"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "وظيفة \"تجاهل علامات التبويب\" المدمجة في متصفحك. يمكن أن يؤدي ذلك إلى توفير يصل إلى"
+    "message": "وظيفة \"إلغاء تحميل علامات التبويب\" المدمجة في المتصفح. قد يؤدي هذا إلى توفير"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "إلى 500٪ مدخرات الذاكرة عند العمل مع عدد كبير من علامات التبويب."
+    "message": "يصل إلى 500% في الذاكرة عند العمل مع عدد كبير من علامات التبويب."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "غير أنه سيؤدي أيضا إلى تأخير طفيف عند الاختيار"
+    "message": "مع ذلك، سيتسبب أيضًا في تأخير طفيف في العرض عند تحديد"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "علامة التبويب المعلقة."
+    "message": "علامة تبويب معلّقة."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "لمزيد من المعلومات حول تجاهل علامات التبويب، راجع:"
+    "message": "لمزيد من المعلومات حول إلغاء تحميل علامات التبويب، راجع:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_options_suspend_theme": {
-    "message": "موضوع"
+    "message": "السمة"
   },
   "html_options_suspend_theme_light": {
-    "message": "الضوء"
+    "message": "فاتحة"
   },
   "html_options_suspend_theme_dark": {
-    "message": "مظلم"
+    "message": "داكنة"
   },
   "html_options_suspend_theme_system": {
     "message": "النظام"
@@ -504,127 +504,127 @@
     "message": "التقاط الشاشة"
   },
   "html_options_suspend_screen_capturing_disabled": {
-    "message": "معطل"
+    "message": "معطّل"
   },
   "html_options_suspend_screen_capturing_screen_only": {
-    "message": "التقاط أعلى الشاشة فقط"
+    "message": "التقاط الجزء العلوي من الشاشة فقط"
   },
   "html_options_suspend_screen_capturing_entire_page": {
-    "message": "التقاط صفحة كاملة"
+    "message": "التقاط الصفحة كاملة"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "في علامة التبويب المعلقة، يمكن للأضافة أن يعرض صورة معاينة لما تبويب"
+    "message": "على علامة تبويب معلّقة، يمكن للإضافة عرض معاينة صورية لشكل علامة التبويب"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "يبدو وكأنه قبل أن يتم تعليقه."
+    "message": "قبل تعليقها مباشرة."
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "خاصية التقاط الشاشة تجريبية ويمكن أن تسبب استخداما كبيرا لوحدة المعالجة المركزية"
+    "message": "ميزة التقاط الشاشة تجريبية وقد تتسبب في استهلاك ملحوظ للمعالج، بالإضافة"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "بالإضافة إلى زيادة طفيفة في استخدام الذاكرة."
+    "message": "إلى زيادة طفيفة في استهلاك الذاكرة."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "إذا لاحظت سلوكًا غريبًا، مثل استغراق علامات التبويب وقتًا طويلاً للتعليق، أو أن المتصفح"
+    "message": "إذا لاحظت سلوكًا غريبًا، مثل تأخر تعليق علامات التبويب أو تعطّل المتصفح"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "تعطل بشكل غير متوقع، حاول إيقاف تشغيل هذه الميزة."
+    "message": "بشكل غير متوقع، جرّب إيقاف تشغيل هذه الميزة."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "طريقة الالتقاط"
   },
   "html_options_suspend_screen_capture_method_auto": {
-    "message": "تلقائي (موصى به)"
+    "message": "تلقائية (موصى بها)"
   },
   "html_options_suspend_screen_capture_method_native": {
-    "message": "لقطة شاشة المتصفح فقط"
+    "message": "لقطة شاشة من المتصفح فقط"
   },
   "html_options_suspend_screen_capture_method_renderer": {
-    "message": "عارض الصفحة فقط"
+    "message": "أداة عرض الصفحة فقط"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "يلتقط الوضع التلقائي لقطة شاشة حقيقية من المتصفح عندما تكون علامة التبويب المراد تعليقها هي التي تنظر إليها."
+    "message": "الطريقة التلقائية تلتقط لقطة شاشة حقيقية من المتصفح عندما تكون علامة التبويب قيد التعليق هي التي تنظر إليها."
   },
   "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "يتم ذلك فورًا ويعمل على جميع المواقع. أما علامات التبويب الأخرى فيعيد عارض الصفحة رسمها، وهو أبطأ."
+    "message": "هذا فوري ويعمل على كل موقع. أي علامة تبويب أخرى تُعاد رسمها بواسطة أداة عرض الصفحة، وهي أبطأ."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "وضع لقطة شاشة المتصفح فقط لا يشغّل عارض الصفحة أبدًا، لذا لا تحصل علامات التبويب المعلّقة في الخلفية على معاينة."
+    "message": "لقطة شاشة من المتصفح فقط لا تُشغّل أداة عرض الصفحة أبدًا، لذا علامات التبويب المعلّقة في الخلفية لا تحصل على معاينة."
   },
   "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "لقطة شاشة المتصفح تغطي الجزء المرئي من الصفحة فقط، حتى عند اختيار التقاط الصفحة بأكملها."
+    "message": "لقطة شاشة المتصفح تغطي فقط الجزء المرئي من الصفحة، حتى مع تحديد 'التقاط الصفحة كاملة'."
   },
   "html_options_suspend_screen_capture_precapture": {
-    "message": "Keep a recent screenshot of tabs as I use them"
+    "message": "الاحتفاظ بلقطة شاشة حديثة لعلامات التبويب أثناء استخدامها"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Takes a browser screenshot of a tab about a second after you switch to it or it finishes loading,"
+    "message": "يلتقط لقطة شاشة من المتصفح لعلامة تبويب بعد حوالي ثانية من التبديل إليها أو انتهاء تحميلها،"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "so tabs that are later suspended in the background still get a preview."
+    "message": "بحيث تحصل علامات التبويب التي تُعلَّق لاحقًا في الخلفية على معاينة."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome only lets an extension screenshot a tab you haven't clicked its button on if it has access to all sites,"
+    "message": "يسمح Chrome للإضافة بالتقاط لقطة شاشة لعلامة تبويب لم تنقر على زرها إلا إذا كانت تملك صلاحية الوصول لجميع المواقع،"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "so turning this on asks for that permission. It is only used to take these screenshots, which stay on this computer."
+    "message": "لذا فإن تفعيل هذا الخيار يطلب تلك الصلاحية. تُستخدم فقط لالتقاط هذه اللقطات، التي تبقى على هذا الجهاز."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Only the latest screenshot of each open tab is kept, and it is deleted when the tab closes."
+    "message": "يُحتفظ فقط بأحدث لقطة شاشة لكل علامة تبويب مفتوحة، وتُحذف عند إغلاق علامة التبويب."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Incognito tabs and whitelisted sites are never captured."
+    "message": "لا يتم التقاط علامات التبويب في وضع التصفح المتخفي أو المواقع المدرجة في القائمة البيضاء أبدًا."
   },
   "html_options_suspend_force_screen_capture": {
-    "message": "تمكين وضع التقاط الشاشة بجودة عالية"
+    "message": "تفعيل وضع التقاط الشاشة عالي الجودة"
   },
   "html_options_suspend_force_screen_capture_tooltip_line1": {
-    "message": "عند التعطيل، يكون لالتقاط الشاشة القيود التالية للمساعدة في الأداء:"
+    "message": "عند التعطيل، تخضع لقطات الشاشة للقيود التالية لتحسين الأداء:"
   },
   "html_options_suspend_force_screen_capture_tooltip_line2": {
-    "message": "- التقاط شاشة منخفضة الجودة"
+    "message": "- التقاط شاشة بجودة منخفضة"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- لن يتم التقاط الشاشة إذا استغرق إنشاء الصورة أكثر من دقيقة واحدة"
+    "message": "- لن تُلتقط الشاشة إذا استغرق توليد الصورة أكثر من دقيقة واحدة"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
-    "message": "- أقصى ارتفاع لالتقاط الشاشة يقتصر على 5000px"
+    "message": "- الحد الأقصى لارتفاع لقطة الشاشة محدود بـ 5000 بكسل"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "تمكين وضع التقاط الشاشة عالي الجودة قد يزيد بشكل كبير من تحميل المعالج"
+    "message": "قد يؤدي تفعيل وضع التقاط الشاشة عالي الجودة إلى زيادة كبيرة في استهلاك المعالج"
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "و استخدام الذاكرة."
+    "message": "واستهلاك الذاكرة."
   },
   "html_options_whitelist_title": {
-    "message": "لا تعلق أبداً علامات التبويب مع عناوين URL من القائمة التالية:"
+    "message": "عدم تعليق علامات التبويب التي تحتوي روابطها على أي مما يلي أبدًا:"
   },
   "html_options_always_suspend_title": {
-    "message": "قم دائمًا بتعليق علامات التبويب ذات العناوين التالية:"
+    "message": "تعليق علامات التبويب التي تحتوي روابطها على أي مما يلي دائمًا:"
   },
   "html_options_always_suspend_tooltip_line1a": {
     "message": "علامات التبويب المطابقة لهذه القائمة تُعلَّق دائمًا بعد المهلة العادية،"
   },
   "html_options_always_suspend_tooltip_line1b": {
-    "message": "بغض النظر عن الصوت أو إدخال النموذج أو حالة التثبيت."
+    "message": "بغضّ النظر عن الصوت أو بيانات النماذج أو حالة التثبيت."
   },
   "html_options_always_suspend_tooltip_line2a": {
-    "message": "إدخال واحد لكل سطر، نفس قواعد المطابقة المستخدمة في القائمة أعلاه"
+    "message": "إدخال واحد لكل سطر، بنفس قواعد المطابقة الخاصة بالقائمة أعلاه (نص عادي"
   },
   "html_options_always_suspend_tooltip_line2b": {
-    "message": "(تطابق نصي بسيط في أي مكان من عنوان URL، أو /regex/ بين شرطتين مائلتين)."
+    "message": "يطابق أي مكان في الرابط، أو /تعبير نمطي/ بين شرطتين مائلتين)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "إضافة عنوان URL لكل صفحة تريد إضافتها إلى القائمة المسموح بها على سطر جديد. على سبيل المثال:"
+    "message": "أضف رابط كل صفحة تريد السماح بها في سطر جديد. على سبيل المثال:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "لقائمة بيضاء متعددة المواقع في سطر واحد يمكنك تحديد جزء من url بدلاً من ذلك:"
+    "message": "للسماح بعدة مواقع في سطر واحد، يمكنك تحديد جزء من الرابط بدلًا من ذلك:"
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "يمكنك أيضا تحديد التعبيرات العادية عن طريق إرفاق النص في الخطوط الأمامية:"
+    "message": "يمكنك أيضًا تحديد تعبيرات نمطية بوضع النص بين شرطتين مائلتين:"
   },
   "html_options_changelog_modal_title": {
-    "message": "الجديد في الإصدار v$version$",
+    "message": "ما الجديد في الإصدار $version$",
     "placeholders": {
       "version": {
         "content": "$1"
@@ -635,106 +635,106 @@
     "message": "إغلاق"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "أيقظ علامات التبويب المطابقة الآن"
+    "message": "تنشيط علامات التبويب المطابقة الآن"
   },
   "html_options_list_test_btn": {
     "message": "اختبار القائمة"
   },
   "html_options_always_suspend_force": {
-    "message": "علّق علامات التبويب المطابقة الآن"
+    "message": "تعليق علامات التبويب المطابقة الآن"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "لا تعلق أبداً علامات التبويب في المجموعات التالية:"
+    "message": "عدم تعليق علامات التبويب في مجموعات علامات التبويب التالية أبدًا:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "لا يتم تعليق علامات التبويب في هذه المجموعات تلقائياً، ويتم تخطيها في إجراءات التعليق الجماعي."
+    "message": "لا تُعلَّق علامات التبويب في هذه المجموعات تلقائيًا أبدًا، وتُستثنى من إجراءات التعليق الجماعي."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "أضف مجموعة باستخدام \"عدم تعليق هذه المجموعة مطلقاً\" في قائمة النقر بزر الفأرة الأيمن. لا يمكن إضافة سوى المجموعات التي لها اسم."
+    "message": "أضف مجموعة باستخدام \"عدم تعليق هذه المجموعة أبدًا\" من قائمة النقر بزر الماوس الأيمن. لا يمكن إضافة سوى المجموعات التي تحمل اسمًا."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "تتم مطابقة المجموعات بالاسم واللون، وتتبع إعادة التسمية طالما بقي المتصفح مفتوحاً."
+    "message": "تُطابَق المجموعات حسب الاسم واللون، وتتبع إعادة التسمية طالما بقي المتصفح مفتوحًا."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "لم تتم إضافة أي مجموعات علامات تبويب بعد."
+    "message": "لم تُضَف أي مجموعة علامات تبويب بعد."
   },
   "html_options_never_suspend_groups_remove": {
     "message": "إزالة"
   },
   "html_options_other_enable_context_menu": {
-    "message": "أضف الموصل المبتكر إلى قائمة السياق بالنقر الأيمن"
+    "message": "إضافة The Marvellous Suspender إلى قائمة النقر بزر الماوس الأيمن"
   },
   "html_options_other_enable_context_menu_tooltip_line1": {
-    "message": "إضافة عناصر تحكم لهذا الملحق إلى قائمة انقر بالزر الأيمن لصفحة ويب."
+    "message": "إضافة عناصر تحكم لهذه الإضافة إلى قائمة النقر بزر الماوس الأيمن لصفحة الويب."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "هذا سيعطيك الوصول إلى إجراءات التعليق المتقدمة غير متوفرة"
+    "message": "سيمنحك هذا وصولًا إلى إجراءات تعليق متقدمة غير متوفرة"
   },
   "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "في مكان آخر من التمديد."
+    "message": "في أي مكان آخر في الإضافة."
   },
   "html_options_other_enable_sync": {
     "message": "مزامنة الإعدادات مع ملف تعريف المتصفح الخاص بك"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "ستتم مزامنة إعدادات الامتداد عبر جميع المتصفحات التي"
+    "message": "ستتم مزامنة إعدادات الإضافة عبر جميع المتصفحات المسجّل"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "تم تسجيل الدخول بنفس الملف الشخصي."
+    "message": "الدخول بها بنفس ملف التعريف."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "سيؤدي هذا أيضًا إلى مزامنة الإعدادات في وضع التصفح المتخفي."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "تفعيل هذا سيؤدي إلى الكتابة فوق الإعدادات في جميع المتصفحات الأخرى المسجلة بنفس الملف الشخصي"
+    "message": "تفعيل هذا الخيار سيؤدي إلى استبدال الإعدادات على جميع المتصفحات الأخرى المسجّلة الدخول بنفس ملف التعريف"
   },
   "html_options_suspend_on_low_memory": {
-    "message": "التعليق فوراً عندما تصبح ذاكرة النظام منخفضة جداً"
+    "message": "تعليق فوري عند انخفاض ذاكرة النظام بشدة"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "سيؤدي هذا الخيار إلى تجاوز وظيفة تجاهل علامات التبويب التلقائية."
+    "message": "سيتجاوز هذا الخيار وظيفة إلغاء تحميل علامات التبويب التلقائية."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "عند التفعيل، سيُجبر علامة التبويب على التعليق بدلاً من تجاهلها."
+    "message": "عند التفعيل، سيفرض تعليق علامة التبويب بدلًا من إلغاء تحميلها."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "عادةً، لا يتجاهل متصفحك علامات التبويب إلا عندما تصبح ذاكرة النظام منخفضة جدًا."
+    "message": "عادةً، يُلغي المتصفح تحميل علامات التبويب فقط عندما تنخفض ذاكرة النظام بشدة."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "يرجى ملاحظة: قد يتسبب هذا في تعليق علامات التبويب قبل الوقت الذي لديك فيه"
+    "message": "ملاحظة: قد يتسبب هذا في تعليق علامات التبويب في وقت أبكر مما"
   },
   "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "محدد في خيارات التعليق التلقائي للتبويب."
+    "message": "حددته في خيارات تعليق علامات التبويب التلقائي."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "لمزيد من المعلومات حول تجاهل علامات التبويب، راجع:"
+    "message": "لمزيد من المعلومات حول إلغاء تحميل علامات التبويب، راجع:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_popup_unsuspend_tab": {
-    "message": "إلغاء تعليق علامة التبويب"
+    "message": "إلغاء تعليق علامة التبويب هذه"
   },
   "html_popup_suspend_tab": {
     "message": "تعليق علامة التبويب هذه الآن"
   },
   "html_popup_never_suspend_domain": {
-    "message": "عدم تعليق هذا الرابط مطلقاً"
+    "message": "عدم تعليق هذا النطاق أبدًا"
   },
   "html_popup_never_suspend_page": {
-    "message": "عدم تعليق هذا الرابط مطلقاً"
+    "message": "عدم تعليق هذا الرابط أبدًا"
   },
   "html_popup_suspend_other_tabs": {
     "message": "تعليق جميع علامات التبويب الأخرى"
   },
   "html_popup_unsuspend_all_tabs": {
-    "message": "إلغاء تعليق كل علامات التبويب"
+    "message": "إلغاء تعليق جميع علامات التبويب"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "أيقظ علامات التبويب المطابقة الآن"
+    "message": "تنشيط علامات التبويب المطابقة الآن"
   },
   "html_popup_suspend_selected_tabs": {
-    "message": "إلغاء تعليق علامات التبويب المحددة"
+    "message": "تعليق علامات التبويب المحددة"
   },
   "html_popup_unsuspend_selected_tabs": {
     "message": "إلغاء تعليق علامات التبويب المحددة"
@@ -749,40 +749,40 @@
     "message": "نسخ الجلسة احتياطيًا الآن (سحابي)"
   },
   "html_restoring_title": {
-    "message": "إستعادة النافذة"
+    "message": "استعادة النافذة"
   },
   "html_restoring_heading": {
-    "message": "إستعادة علامات التبويب"
+    "message": "استعادة علامات التبويب"
   },
   "html_restoring_detail": {
-    "message": "الرجاء الانتظار بينما استعيد هذه النافذة..."
+    "message": "يُرجى الانتظار أثناء استعادة هذه النافذة..."
   },
   "html_recovery_title": {
-    "message": "استرداد"
+    "message": "الاسترداد"
   },
   "html_recovery_ruh_roh": {
-    "message": "روه روه!"
+    "message": "عذرًا!"
   },
   "html_recovery_description_line1": {
-    "message": "يبدو أنك تستعيد عافيتك من تحطم الملحق."
+    "message": "يبدو أنك تسترد الوضع بعد تعطّل الإضافة."
   },
   "html_recovery_description_line2": {
-    "message": "قد تكون علامات التبويب المعلقة الخاصة بك قد تحطمت أو اختفت."
+    "message": "ربما تعطّلت علامات التبويب المعلّقة لديك أو اختفت."
   },
   "html_recovery_restore_tabs_automatically": {
-    "message": "استعادة علامات التبويب تلقائياً"
+    "message": "استعادة علامات التبويب تلقائيًا"
   },
   "html_recovery_go_to_session_manager": {
-    "message": "اذهب إلى مدير الجلسة"
+    "message": "الانتقال إلى مدير الجلسات"
   },
   "html_recovery_important_message": {
-    "message": "لديك حاليا تشغيل التقاط الشاشة. إذا كان هذا الملحق يتعطل مرارا وتكرارا، فإنه من المستحسن تعطيل هذا الخيار."
+    "message": "لديك حاليًا خاصية التقاط الشاشة مفعّلة. إذا استمرت هذه الإضافة في التعطّل بشكل متكرر، يُنصح بتعطيل هذا الخيار."
   },
   "html_recovery_disable_screen_capturing": {
-    "message": "إيقاف تشغيل التقاط الشاشة"
+    "message": "إيقاف التقاط الشاشة"
   },
   "html_recovery_tabs_to_restore": {
-    "message": "علامات التبويب لإستعادتها"
+    "message": "علامات التبويب المطلوب استعادتها"
   },
   "html_shortcuts_title": {
     "message": "اختصارات لوحة المفاتيح"
@@ -791,7 +791,7 @@
     "message": "اختصارات لوحة المفاتيح"
   },
   "html_shortcuts_context_menu_note": {
-    "message": "ملاحظة: هذه الإجراءات متاحة أيضا عن طريق قائمة السياق بالنقر الأيمن."
+    "message": "ملاحظة: هذه الإجراءات متاحة أيضًا عبر قائمة النقر بزر الماوس الأيمن."
   },
   "html_shortcuts_remap_keys": {
     "message": "تغيير الاختصارات"
@@ -809,7 +809,7 @@
     "message": "اختصارات لوحة المفاتيح"
   },
   "html_sidebar_support": {
-    "message": "حول عن اضافة"
+    "message": "حول"
   },
   "html_sidebar_backup": {
     "message": "النسخ الاحتياطي"
@@ -821,7 +821,7 @@
     "message": "الأخبار والتحديثات"
   },
   "html_news_desc": {
-    "message": "ابقَ على اطّلاع بأحدث الإصدارات والمشكلات المعروفة والإعلانات من مدونة Marvellous Codeworks."
+    "message": "ابقَ على اطّلاع بأحدث الإصدارات، والمشكلات المعروفة، والإعلانات من مدونة Marvellous Codeworks."
   },
   "html_news_loading": {
     "message": "جارٍ تحميل الأخبار…"
@@ -833,7 +833,7 @@
     "message": "جديد"
   },
   "html_news_mark_all_read": {
-    "message": "وضع علامة مقروء على الكل"
+    "message": "تحديد الكل كمقروء"
   },
   "html_backup_page_title": {
     "message": "النسخ الاحتياطي والاستعادة"
@@ -842,97 +842,97 @@
     "message": "نجاح رائع!"
   },
   "html_success_all_tabs_restored": {
-    "message": "تم استعادة جميع علامات التبويب الخاصة بك."
+    "message": "تمت استعادة جميع علامات التبويب الخاصة بك."
   },
   "html_success_goto_advanced_prefix": {
-    "message": "لإدارة الدورات المتقدمة، قم بزيارة"
+    "message": "للحصول على إدارة متقدمة للجلسات، تفضل بزيارة صفحة"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "الصفحة"
+    "message": ""
   },
   "html_session_manager": {
-    "message": "إدارة الجلسة"
+    "message": "إدارة الجلسات"
   },
   "html_suspended_title": {
-    "message": "علامات التبويب المعلقة"
+    "message": "علامة تبويب معلّقة"
   },
   "html_suspended_click_to_reload": {
-    "message": "قم بتحديث أو انقر لإعادة التحميل"
+    "message": "حدّث الصفحة أو انقر لإعادة التحميل"
   },
   "html_suspended_toast_not_connected": {
-    "message": "يجب ان تكون متصلاً بالانترنت."
+    "message": "أنت غير متصل بالإنترنت"
   },
   "html_suspended_toast_reload_disabled": {
-    "message": "إعادة تحميل التبويب التلقائي معطل مؤقتاً."
+    "message": "إعادة التحميل التلقائي لعلامات التبويب معطّلة مؤقتًا."
   },
   "html_permissions_title": {
     "message": "الأذونات"
   },
   "html_permissions_heading": {
-    "message": "الرجاء منحي حق الوصول إلى عناوين URL للملف المحلي"
+    "message": "يُرجى منحي الوصول إلى روابط الملفات المحلية"
   },
   "html_permissions_info": {
-    "message": "هذا التمديد غير مسموح به حاليا لتعليق عناوين URL بدءاً بكلمة \"ملف\".\nلتغيير هذا، يرجى تشغيل \"السماح بالوصول إلى عناوين URLs\" من صفحة إعدادات الملحق."
+    "message": "هذه الإضافة غير مصرَّح لها حاليًا بتعليق الروابط التي تبدأ بكلمة \"file\".\nلتغيير ذلك، يُرجى تفعيل \"السماح بالوصول إلى روابط الملفات\" من صفحة إعدادات الإضافة."
   },
   "html_permissions_backup": {
-    "message": "يرجى ملاحظة أن تغيير هذا الخيار سيؤدي إلى اختفاء جميع علامات التبويب المعلقة الخاصة بك لفترة وجيزة.\nفقط في الحالة ، قد يكون الوقت جيدا لتوفير نسخة احتياطية من جلسة التبويب الحالية."
+    "message": "يُرجى ملاحظة: تغيير هذا الخيار سيؤدي إلى اختفاء جميع علامات التبويب المعلّقة لديك للحظة.\nتحسبًا لذلك، قد يكون هذا وقتًا مناسبًا لحفظ نسخة احتياطية من جلسة علامات التبويب الحالية."
   },
   "html_permissions_return_hint": {
-    "message": "مرحبًا بعودتك: انقر على الزر مرة أخرى الآن لإكمال منح الوصول إلى الملفات المحلية."
+    "message": "مرحبًا بعودتك — انقر على الزر مرة أخرى الآن لإتمام منح الوصول إلى الملفات المحلية."
   },
   "html_update_title": {
     "message": "التحديث"
   },
   "html_update_heading2": {
-    "message": "أصبح جاهزًا ليكون أكثر <i>روعة</i>"
+    "message": "جاهز ليصبح أكثر روعة"
   },
   "html_update_info": {
-    "message": "سيتم تثبيت إصدار جديد من The Marvellous Suspender في المرة القادمة التي يُعاد فيها تشغيل متصفحك."
+    "message": "سيتم تثبيت إصدار جديد من The Marvellous Suspender في المرة القادمة التي تتم فيها إعادة تشغيل متصفحك."
   },
   "html_update_info_withbackup": {
-    "message": "هام: لم نتمكن من إنشاء نقطة استعادة لعلامات التبويب الخاصة بك.<br>احفظ نسخة احتياطية الآن!"
+    "message": "مهم: لم نتمكن من إنشاء نقطة استعادة لعلامات التبويب الخاصة بك.<br>احفظ نسخة احتياطية الآن!"
   },
   "html_update_info_nobackup_prefix": {
-    "message": "يوصى بشدة بأن تقوم بتصدير نسخة من الجلسة الحالية من "
+    "message": "يُنصح بشدة بتصدير نسخة من جلستك الحالية من "
   },
   "html_update_info_nobackup_suffix": {
-    "message": " قبل الاستمرار في التحديث."
+    "message": " قبل المتابعة بالتحديث."
   },
   "html_updated_title": {
-    "message": "التحديث"
+    "message": "تم التحديث"
   },
   "html_updating_heading": {
-    "message": "يتم التحديث"
+    "message": "جارٍ التحديث"
   },
   "html_updating_message": {
-    "message": "الرجاء الانتظار بينما أستعيد علامات التبويب المعلقة الخاصة بك..."
+    "message": "يُرجى الانتظار أثناء استعادة علامات التبويب المعلّقة لديك..."
   },
   "html_updated_great_suspender_updated": {
-    "message": "لقد تم تحديثها"
+    "message": "تم تحديثه"
   },
   "html_updated_info_line1": {
-    "message": "تم إنشاء نسخة احتياطية تلقائية من علامات التبويب الخاصة بك قبل التحديث."
+    "message": "تم إجراء نسخة احتياطية تلقائية لعلامات التبويب الخاصة بك قبل التحديث."
   },
   "html_updated_info_line2_prefix": {
-    "message": "إذا واجهت أي مشاكل أثناء التحديث، يمكنك استعادة علامات التبويب المفقودة من "
+    "message": "إذا واجهت أي مشكلات أثناء التحديث، يمكنك استعادة علامات التبويب المفقودة من صفحة "
   },
   "html_updated_info_line2_suffix": {
-    "message": " الصفحة."
+    "message": "."
   },
   "html_updated_patch_message": {
-    "message": "عذرا على الإزعاج. كنت بحاجة للتو للقيام بصيانة صغيرة."
+    "message": "نعتذر عن الإزعاج. كنت بحاجة فقط لإجراء صيانة بسيطة."
   },
   "html_welcome_text_line1": {
-    "message": "شكراً على المحاولة"
+    "message": "شكرًا لتجربتك"
   },
   "html_welcome_text_line2": {
-    "message": "أجعل جهاز الكمبيوتر يعمل بسلاسة عن طريق تعليق علامات التبويب التي لا تستخدمها."
+    "message": "أجعل جهازك يعمل بسلاسة عبر تعليق علامات التبويب التي لا تستخدمها."
   },
   "html_welcome_text_line3": {
-    "message": "يمكنك ضبط الإعدادات أدناه."
+    "message": "يمكنك ضبط الإعدادات أدناه بدقة."
   },
   "js_popup_normal": {
-    "message": "سيتم تعليق علامة التبويب تلقائياً."
+    "message": "ستُعلَّق علامة التبويب تلقائيًا."
   },
   "js_popup_normal_pause": {
     "message": "ليس الآن"
@@ -941,25 +941,25 @@
     "message": "لا يمكن تعليق علامة التبويب"
   },
   "js_popup_suspended": {
-    "message": "علامة التبويب معلقة"
+    "message": "علامة التبويب معلّقة"
   },
   "js_popup_suspended_pause": {
     "message": "عدم التعليق"
   },
   "js_popup_whitelisted": {
-    "message": "تمت إضافة الموقع إلى القائمة المسموح بها."
+    "message": "الموقع مسموح به."
   },
   "js_popup_whitelisted_remove": {
     "message": "إزالة من القائمة المسموح بها"
   },
   "js_popup_audible": {
-    "message": "علامة التبويب تقوم بتشغيل الصوت."
+    "message": "علامة التبويب تشغّل صوتًا."
   },
   "js_popup_form_input": {
-    "message": "علامة التبويب تتلقى مدخلات النموذج."
+    "message": "علامة التبويب تستقبل بيانات نموذج."
   },
   "js_popup_form_input_unpause": {
-    "message": "إلغاء الإيقاف المؤقت"
+    "message": "استئناف"
   },
   "js_popup_pinned": {
     "message": "تم تثبيت علامة التبويب"
@@ -968,85 +968,85 @@
     "message": "علامة التبويب مفتوحة في نافذة تطبيق"
   },
   "js_popup_grouped_tab": {
-    "message": "علامة التبويب موجودة في مجموعة علامات تبويب"
+    "message": "علامة التبويب ضمن مجموعة علامات تبويب"
   },
   "js_popup_tab_group": {
-    "message": "علامة التبويب في مجموعة لا يتم تعليقها مطلقاً"
+    "message": "علامة التبويب ضمن مجموعة لا تُعلَّق أبدًا"
   },
   "js_popup_temp_whitelist": {
-    "message": "تعليق علامة التبويب مؤقتاً."
+    "message": "تم إيقاف تعليق علامة التبويب مؤقتًا."
   },
   "js_popup_temp_whitelist_unpause": {
-    "message": "إلغاء الإيقاف المؤقت"
+    "message": "استئناف"
   },
   "js_popup_never": {
-    "message": "تم تعطيل تعليق التبويب التلقائي."
+    "message": "تعليق علامات التبويب التلقائي معطّل."
   },
   "js_popup_no_connectivity": {
-    "message": "لا يوجد إتصال بالشبكة"
+    "message": "لا يوجد اتصال بالشبكة"
   },
   "js_popup_charging": {
-    "message": "متصل بمصدر الطاقة"
+    "message": "متصل بمصدر طاقة"
   },
   "js_popup_blockedFile": {
     "message": "لا يمكن تعليق الملفات المحلية."
   },
   "js_popup_blockedFile_enable": {
-    "message": "تمكين"
+    "message": "تفعيل"
   },
   "js_popup_unknown": {
-    "message": "في انتظار علامة التبويب للتحميل..."
+    "message": "في انتظار تحميل علامة التبويب..."
   },
   "js_popup_initialising": {
-    "message": "في انتظار التمديد للتهيئة..."
+    "message": "في انتظار تهيئة الإضافة..."
   },
   "js_popup_error": {
-    "message": "التعليق التلقائي غير متوفر لهذا التبويب"
+    "message": "التعليق التلقائي غير متاح لعلامة التبويب هذه"
   },
   "js_history_delete": {
-    "message": "احذف"
+    "message": "حذف"
   },
   "js_history_export": {
-    "message": "استخراج"
+    "message": "تصدير"
   },
   "js_history_reload": {
-    "message": "افتح و تحميل"
+    "message": "فتح وتحميل"
   },
   "js_history_resuspend": {
-    "message": "افتح و تعليق"
+    "message": "فتح وتعليق"
   },
   "js_history_save": {
-    "message": "احفظ"
+    "message": "حفظ"
   },
   "js_history_window": {
     "message": "نافذة"
   },
   "js_history_windows": {
-    "message": "ويندوز"
+    "message": "نوافذ"
   },
   "js_history_tab": {
-    "message": "علامة التبويب"
+    "message": "علامة تبويب"
   },
   "js_history_tabs": {
-    "message": "علامات التبويب"
+    "message": "علامات تبويب"
   },
   "js_history_enter_name_for_session": {
-    "message": "أدخل إسم لهذه الجلسة"
+    "message": "أدخل اسمًا لهذه الجلسة"
   },
   "js_history_confirm_delete": {
-    "message": "هل أنت متأكد أنك تريد حذف هذه الجلسة؟"
+    "message": "هل أنت متأكد من رغبتك في حذف هذه الجلسة؟"
   },
   "js_history_confirm_session_overwrite": {
-    "message": "هناك بالفعل جلسة محفوظة بهذا الاسم. هل تريد الكتابة فوق جلسة العمل الحالية؟"
+    "message": "توجد بالفعل جلسة محفوظة بهذا الاسم. هل تريد استبدال الجلسة الموجودة؟"
   },
   "js_history_import_fail": {
-    "message": "فشل تحميل الملف. تأكد من أن الملف نص عادي ويحتوي على عنوان URL واحد لكل سطر."
+    "message": "فشل تحميل الملف. تأكد من أن الملف نصي عادي ويحتوي على رابط واحد لكل سطر."
   },
   "js_history_migrate_fail": {
-    "message": "تحتاج إلى معرف اضافة 32 حرف للانتقال من"
+    "message": "مطلوب معرّف إضافة مكوّن من 32 حرفًا للترحيل منه"
   },
   "js_history_migrate_success": {
-    "message": "تم ترحيل $tabcount$ علامة تبويب بنجاح. أعد تشغيل المتصفح إذا لم يُعاد تحميل علامات التبويب المرحّلة تلقائيًا.",
+    "message": "تم ترحيل $tabcount$ علامة تبويب بنجاح. يُرجى إعادة تشغيل المتصفح إذا لم يتم إعادة تحميل علامات التبويب المرحَّلة تلقائيًا.",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -1054,25 +1054,25 @@
     }
   },
   "js_suspended_hotkey_to_reload": {
-    "message": "تعيين اختصارات لوحة المفاتيح"
+    "message": "ضبط اختصارات لوحة المفاتيح"
   },
   "js_suspended_low_memory": {
     "message": "تم تعليق علامة التبويب بسبب انخفاض ذاكرة النظام"
   },
   "js_options_incognito_warning": {
-    "message": "أنت في وضع التخفي. بعض الميزات لن تكون متاحة."
+    "message": "أنت في وضع التصفح المتخفي. لن تكون بعض الميزات متاحة."
   },
   "js_options_whitelist_no_matches": {
-    "message": "لا توجد علامات تبويب مفتوحة تتطابق مع القائمة المسموح بها الحالية."
+    "message": "لا توجد علامات تبويب مفتوحة تطابق القائمة المسموح بها الحالية."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "علامات التبويب المفتوحة في القائمة المسموح بها:"
+    "message": "علامات التبويب المفتوحة المسموح بها:"
   },
   "js_options_always_suspend_no_matches": {
     "message": "لا توجد علامات تبويب مفتوحة تطابق قائمة التعليق الدائم الحالية."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "يطابق $count$ من المجموعات المفتوحة",
+    "message": "يطابق $count$ مجموعة مفتوحة",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1080,82 +1080,82 @@
     }
   },
   "js_options_always_suspend_matches_heading": {
-    "message": "علامات التبويب المفتوحة المطابقة لقائمة التعليق الدائم:"
+    "message": "علامات التبويب المفتوحة التي تطابق قائمة التعليق الدائم:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "و"
   },
   "js_options_whitelist_matches_overflow_suffix": {
-    "message": "المزيد."
+    "message": "أخرى."
   },
   "js_permissions_button_export": {
-    "message": "حفظ النسخة الاحتياطية"
+    "message": "حفظ نسخة احتياطية"
   },
   "js_permissions_button_set": {
     "message": "فتح إعدادات الإضافة"
   },
   "js_update_confirm": {
-    "message": "لم تقم بحفظ نسخة احتياطية بعد. هل تريد تحديث الإضافة على أية حال؟"
+    "message": "لم تحفظ نسخة احتياطية بعد. هل تريد تحديث الإضافة على أي حال؟"
   },
   "js_update_button_export": {
-    "message": "حفظ النسخة الاحتياطية"
+    "message": "حفظ نسخة احتياطية"
   },
   "js_update_button_reload": {
     "message": "تحديث الإضافة الآن"
   },
   "js_suspend_button_backup": {
-    "message": "احفظ نسخة احتياطية قبل التحديث"
+    "message": "حفظ نسخة احتياطية قبل التحديث"
   },
   "js_shortcuts_default_command": {
-    "message": "تفعيل الامتداد (إظهار النافذة المنبثقة)"
+    "message": "تفعيل الإضافة (عرض النافذة المنبثقة)"
   },
   "js_shortcuts_not_set": {
-    "message": "لم يتم تعيينه"
+    "message": "غير محدد"
   },
   "js_session_save_point": {
-    "message": "نقطة الحفظ التلقائي لـ v"
+    "message": "نقطة حفظ تلقائية للإصدار v"
   },
   "html_options_backup_title": {
     "message": "النسخ الاحتياطي التلقائي للجلسة"
   },
   "html_backup_session_desc": {
-    "message": "على عكس الجلسات، تُحفظ النسخ الاحتياطية كملفات JSON خارج Chrome: في مجلد التنزيلات لديك أو على Google Drive. تصمد أمام أعطال المتصفح وإعادة ضبط الملف الشخصي والتثبيتات الجديدة. هذه شبكة الأمان الحقيقية لك."
+    "message": "على عكس الجلسات، تُحفظ النسخ الاحتياطية كملفات JSON خارج Chrome: في مجلد التنزيلات أو على Google Drive. تنجو من تعطّل المتصفح، وإعادة ضبط ملف التعريف، والتثبيتات الجديدة. هذه شبكة أمانك الحقيقية."
   },
   "html_options_backup_enable": {
-    "message": "نسخ جلستك احتياطيًا تلقائيًا"
+    "message": "نسخ الجلسة احتياطيًا تلقائيًا"
   },
   "html_options_backup_enable_tooltip_line1a": {
-    "message": "يحفظ نسخة من جلستك الحالية بصمت كملف JSON."
+    "message": "يحفظ بصمت نسخة من جلستك الحالية كملف JSON."
   },
   "html_options_backup_enable_tooltip_line1b": {
-    "message": "يمكنك الاختيار بين الحفظ محليًا (مجلد tms-backups داخل مجلد التنزيلات)"
+    "message": "اختر الحفظ محليًا (مجلد tms-backups داخل التنزيلات)"
   },
   "html_options_backup_enable_tooltip_line1c": {
     "message": "أو في مجلد 'TMS Backups' على Google Drive."
   },
   "html_options_backup_enable_tooltip_line2a": {
-    "message": "بالنسبة للنسخ الاحتياطية المحلية، يجب ضبط Chrome لتنزيل الملفات تلقائيًا (دون سؤال)."
+    "message": "بالنسبة للنسخ الاحتياطية المحلية، يجب ضبط Chrome لتنزيل الملفات تلقائيًا"
   },
   "html_options_backup_enable_tooltip_line2b": {
-    "message": "تحقق من chrome://settings/downloads."
+    "message": "(دون طلب التأكيد). تحقق من chrome://settings/downloads."
   },
   "html_options_backup_enable_tooltip_line2c": {
     "message": "النسخ الاحتياطية على Google Drive لا تتطلب ذلك."
   },
   "html_options_backup_interval": {
-    "message": "النسخ الاحتياطي كل"
+    "message": "نسخ احتياطي كل"
   },
   "html_options_backup_daily_time": {
     "message": "في أي وقت"
   },
   "html_backup_interval_warning": {
-    "message": "تنبيه: مع فاصل زمني طويل كهذا، يمكن أن يحدث الكثير بين النسخ الاحتياطية. فكّر في فاصل زمني أقصر لتقليل خطر فقدان البيانات."
+    "message": "تنبيه: مع فاصل زمني طويل كهذا، يمكن أن يحدث الكثير بين نسخة احتياطية وأخرى. فكّر في فاصل زمني أقصر لتقليل خطر فقدان البيانات."
   },
   "html_options_backup_note": {
-    "message": "تتضمن كل من النسخ الاحتياطية المحلية ونسخ Drive معرّف جهاز (مثل tms-session-a3f7b2c8-2026-06-18T14-30.json)، بحيث يحتفظ كل تثبيت متصفح بمجموعة نسخ احتياطية مستقلة خاصة به. يتم الاحتفاظ بأحدث N نسخة احتياطية محلية لكل جهاز؛ وتحتفظ نسخ Drive أيضًا بـ N نسخة لكل جهاز، بحيث لا تحل جلسات الأجهزة أو المتصفحات المختلفة محل بعضها البعض أبدًا.\n\n<strong>حتى مع اختيار Google Drive، يُكتب ملف شبكة أمان محلي عند إغلاق المتصفح ويُرفع إلى Drive عند بدء التشغيل التالي. ظهور ملف محلي هنا أمر متوقع، وليس خللاً.</strong>"
+    "message": "تتضمن النسخ الاحتياطية المحلية وعلى Drive معرّف جهاز (مثل tms-session-a3f7b2c8-2026-06-18T14-30.json)، بحيث يحتفظ كل تثبيت للمتصفح بمجموعة نسخ احتياطية خاصة به. يُحتفظ بأحدث N نسخة احتياطية محلية لكل جهاز؛ وتُحفظ نسخ Drive الاحتياطية أيضًا بعدد N لكل جهاز، بحيث لا تستبدل جلسات الأجهزة أو المتصفحات المختلفة بعضها بعضًا أبدًا.\n\n<strong>حتى مع تحديد Google Drive، يُكتب ملف أمان محلي عند إغلاق المتصفح ويُرفع إلى Drive عند بدء التشغيل التالي. ظهور ملف محلي هنا أمر متوقع وليس خللًا.</strong>"
   },
   "html_backup_max_files_label": {
-    "message": "الحد الأقصى للنسخ الاحتياطية المحتفظ بها"
+    "message": "الحد الأقصى للنسخ الاحتياطية المحفوظة"
   },
   "html_backup_device_name_label": {
     "message": "اسم الجهاز (اختياري)"
@@ -1173,13 +1173,13 @@
     "message": "↑ الأعلى"
   },
   "html_history_backup_hint_prefix": {
-    "message": "تُخزَّن الجلسات داخل Chrome فقط: ولن تصمد أمام عطل في المتصفح أو إعادة ضبط الملف الشخصي."
+    "message": "تُحفظ الجلسات داخل Chrome فقط: لن تنجو من تعطّل المتصفح أو إعادة ضبط ملف التعريف."
   },
   "html_history_backup_settings_link": {
     "message": "أعدّ النسخ الاحتياطي لحفظ علامات التبويب خارج المتصفح ←"
   },
   "js_options_backup_now_running": {
-    "message": "جارٍ تشغيل النسخ الاحتياطي…"
+    "message": "جارٍ النسخ الاحتياطي…"
   },
   "js_options_backup_now_done": {
     "message": "تم حفظ النسخة الاحتياطية."
@@ -1191,34 +1191,34 @@
     "message": "تم رفض الإذن: لم يتم تفعيل النسخ الاحتياطي التلقائي."
   },
   "html_options_other_enable_news_feed": {
-    "message": "تفعيل خلاصة الأخبار"
+    "message": "تفعيل تغذية الأخبار"
   },
   "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "يتحقق بشكل دوري من marvellouscode.works بحثًا عن أخبار TMS"
+    "message": "يتحقق بشكل دوري من marvellouscode.works للحصول على أخبار TMS ويعرضها"
   },
   "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "ويعرضها في الشريط الجانبي."
+    "message": "في الشريط الجانبي."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "عطّله لتخطي هذا الطلب في الخلفية."
+    "message": "عطّل هذا الخيار لتخطي هذا الطلب في الخلفية."
   },
   "html_options_other_legacy_mascot": {
-    "message": "استخدم رسومات The Great Suspender الكلاسيكية بدلاً من التميمة الجديدة"
+    "message": "استخدام رسومات The Great Suspender الكلاسيكية بدلًا من الشخصية الجديدة"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "يعيد الأيقونات والرسوم التوضيحية إلى الطراز الأصلي لـ The Great"
+    "message": "يعيد الأيقونات والرسوم التوضيحية إلى نمط The Great"
   },
   "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "Suspender حيثما تتوفر نسخة قديمة من الصورة."
+    "message": "Suspender الأصلي، حيث تتوفر نسخة قديمة من الصورة."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
-    "message": "الصور التي لا تملك مكافئًا قديمًا تستمر في استخدام الرسوم الجديدة."
+    "message": "الصور التي لا تملك مكافئًا قديمًا تستمر باستخدام الرسومات الجديدة."
   },
   "html_permissions_notice_text": {
-    "message": "ابتداءً من هذا الإصدار، لا يطلب TMS الوصول إلى نظام الملفات/حساب Google إلا عند تفعيلك فعليًا للنسخ الاحتياطي المحلي أو على Google Drive، بدلاً من طلبه مسبقًا."
+    "message": "بدءًا من هذا الإصدار، يطلب TMS الوصول إلى نظام الملفات/حساب Google فقط عند تفعيلك الفعلي للنسخ الاحتياطي المحلي أو على Google Drive، بدلًا من طلبه مسبقًا."
   },
   "html_permissions_notice_link": {
-    "message": "معرفة المزيد عن الأذونات."
+    "message": "معرفة المزيد حول الأذونات."
   },
   "html_permissions_notice_dismiss": {
     "message": "فهمت"
@@ -1227,18 +1227,14 @@
     "message": "يطلب TMS أذونات التنزيلات وحساب Google فقط عند تفعيل النسخ الاحتياطي المحلي أو على Google Drive أدناه."
   },
   "html_permissions_info_note_link": {
-    "message": "عرض تفصيل الأذونات الكامل."
+    "message": "عرض تفاصيل الأذونات الكاملة"
   },
   "js_options_backup_now_error": {
-    "message": "يسألك Chrome عن مكان حفظ الملفات، لذا لن تعمل النسخ الاحتياطية التلقائية بصمت. عطّل \"السؤال عن مكان حفظ كل ملف\" في chrome://settings/downloads."
+    "message": "يطلب Chrome تحديد مكان حفظ الملفات، لذا لن تعمل النسخ الاحتياطية التلقائية بصمت. عطّل \"السؤال عن مكان الحفظ\" في chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "التشغيل التالي: $time$",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+    "placeholders": { "time": { "content": "$1" } }
   },
   "js_options_backup_last_local": {
     "message": "آخر نسخة احتياطية: $date$",
@@ -1264,10 +1260,10 @@
     "message": "قطع الاتصال"
   },
   "html_popup_backup_drive_error": {
-    "message": "فشل النسخ الاحتياطي التلقائي: لا يوجد حساب Google متصل. انقر هنا لإصلاح ذلك."
+    "message": "فشل النسخ الاحتياطي التلقائي: لا يوجد حساب Google مرتبط. انقر هنا للإصلاح."
   },
   "html_popup_backup_downloads_error": {
-    "message": "فشل النسخ الاحتياطي التلقائي: إذن التنزيلات مفقود. انقر هنا لإصلاح ذلك."
+    "message": "فشل النسخ الاحتياطي التلقائي: إذن التنزيلات مفقود. انقر هنا للإصلاح."
   },
   "html_popup_backup_nudge_text": {
     "message": "النسخ الاحتياطي التلقائي معطّل. احمِ جلساتك."
@@ -1276,10 +1272,10 @@
     "message": "ذكّرني بعد 10 أيام"
   },
   "html_backup_nudge_note_text": {
-    "message": "النسخ الاحتياطي التلقائي معطّل. تفعيله يحمي جلساتك في حال إعادة ضبط ملف تعريف هذا المتصفح أو تلفه."
+    "message": "النسخ الاحتياطي التلقائي معطّل. تفعيله يحمي جلساتك في حال إعادة ضبط ملف تعريف المتصفح هذا أو تعطّله يومًا ما."
   },
   "html_backup_nudge_optout": {
-    "message": "لست مهتمًا، توقف عن تذكيري"
+    "message": "لست مهتمًا، توقّف عن تذكيري"
   },
   "html_backup_downloads_permission_missing": {
     "message": "النسخ الاحتياطي التلقائي مفعّل، لكن إذن التنزيلات غير ممنوح على هذا الجهاز (قد يحدث هذا بعد استيراد الإعدادات أو المزامنة من متصفح آخر). لن تعمل النسخ الاحتياطية حتى تمنحه."
@@ -1294,13 +1290,13 @@
     "message": "تعذّر الاتصال بـ Google. يُرجى المحاولة مرة أخرى."
   },
   "html_options_settings_backup": {
-    "message": "النسخ الاحتياطي للإعدادات"
+    "message": "نسخ احتياطي للإعدادات"
   },
   "html_backup_settings_desc": {
-    "message": "صدّر جميع إعدادات الامتداد إلى ملف JSON، مفيد كنسخة احتياطية أو لنقل تكوينك إلى ملف تعريف متصفح آخر. استيراد ملف يستبدل الإعدادات الحالية."
+    "message": "تصدير جميع إعدادات الإضافة إلى ملف JSON، مفيد كنسخة احتياطية أو لنقل تكوينك إلى ملف تعريف متصفح آخر. استيراد ملف يستبدل الإعدادات الحالية."
   },
   "html_backup_local_folder_hint": {
-    "message": "تذهب النسخ الاحتياطية المحلية إلى مجلد tms-backups داخل مجلد التنزيلات."
+    "message": "تُحفظ النسخ الاحتياطية المحلية في مجلد tms-backups داخل التنزيلات."
   },
   "html_backup_drive_folder_note": {
     "message": "تُحفظ النسخ الاحتياطية في مجلد 'TMS Backups' على Google Drive الخاص بك."
@@ -1347,7 +1343,7 @@
     "message": "جارٍ تنزيل الإعدادات من Drive…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "لم يتم العثور على ملف إعدادات على Drive. احفظ إعداداتك على Drive أولاً."
+    "message": "لم يُعثر على ملف إعدادات على Drive. احفظ إعداداتك على Drive أولًا."
   },
   "js_backup_settings_drive_restore_success": {
     "message": "تمت استعادة الإعدادات. جارٍ إعادة التحميل…"
@@ -1364,7 +1360,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "توجد بالفعل نسخة احتياطية للإعدادات من $date$. هل تريد الاستبدال؟",
+    "message": "توجد بالفعل نسخة احتياطية للإعدادات من $date$. هل تريد استبدالها؟",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1378,7 +1374,7 @@
     "message": "استيراد الإعدادات"
   },
   "js_options_settings_import_confirm": {
-    "message": "سيؤدي هذا إلى الكتابة فوق إعداداتك الحالية. متابعة؟"
+    "message": "سيؤدي هذا إلى استبدال إعداداتك الحالية. هل تريد المتابعة؟"
   },
   "js_options_settings_import_success": {
     "message": "تم استيراد الإعدادات. جارٍ إعادة التحميل…"
@@ -1390,10 +1386,10 @@
     "message": "ترحيل"
   },
   "html_backup_restore_title": {
-    "message": "الاستعادة من نسخة احتياطية"
+    "message": "استعادة من نسخة احتياطية"
   },
   "html_backup_restore_desc": {
-    "message": "استورد ملف نسخة احتياطية لاستعادته كجلسة محفوظة. بعد الاستيراد، افتح الجلسات لاختيار النوافذ التي تريد استعادتها."
+    "message": "استورد ملف نسخة احتياطية لاستعادته كجلسة محفوظة. بعد الاستيراد، افتح الجلسات لاختيار النوافذ المطلوب استعادتها."
   },
   "html_backup_restore_local_title": {
     "message": "ملف محلي"
@@ -1402,10 +1398,10 @@
     "message": "Google Drive"
   },
   "html_backup_restore_from_file": {
-    "message": "اختيار ملف نسخة احتياطية"
+    "message": "اختيار ملف النسخة الاحتياطية"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "اختر نسخة احتياطية من Drive"
+    "message": "اختيار نسخة احتياطية من Drive"
   },
   "html_backup_restore_import": {
     "message": "استيراد المحدد"
@@ -1422,7 +1418,7 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "← افتح الجلسات للاستعادة"
+    "message": "← فتح الجلسات للاستعادة"
   },
   "js_backup_restore_error_invalid": {
     "message": "ملف نسخة احتياطية غير صالح."
@@ -1437,7 +1433,7 @@
     "message": "هل تريد حفظ نسخة Drive الاحتياطية قبل التبديل؟"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "أحدث نسخة احتياطية لك على Drive من $date$. احفظها كجلسة في مدير الجلسات حتى تتمكن من استعادتها دون الحاجة إلى Google Drive.",
+    "message": "أحدث نسخة احتياطية لديك على Drive من $date$. احفظها كجلسة في مدير الجلسات حتى تتمكن من استعادتها دون الحاجة إلى Google Drive.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1445,7 +1441,7 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "حفظ في الجلسات"
+    "message": "الحفظ في الجلسات"
   },
   "html_backup_drive_import_modal_cancel": {
     "message": "تخطي"
@@ -1466,10 +1462,10 @@
     "message": "حذف الكل"
   },
   "html_backup_drive_delete_device_modal_title": {
-    "message": "حذف جميع النسخ الاحتياطية لهذا الجهاز؟"
+    "message": "هل تريد حذف جميع النسخ الاحتياطية لهذا الجهاز؟"
   },
   "html_backup_drive_delete_device_modal_body": {
-    "message": "سيؤدي هذا إلى حذف جميع ملفات النسخ الاحتياطي البالغ عددها $count$ الخاصة بـ \"$device$\" نهائيًا من Google Drive. لا يمكن التراجع عن هذا الإجراء.",
+    "message": "سيؤدي هذا إلى حذف جميع ملفات النسخ الاحتياطي البالغ عددها $count$ لـ \"$device$\" نهائيًا من Google Drive. لا يمكن التراجع عن هذا الإجراء.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1486,10 +1482,10 @@
     "message": "إلغاء"
   },
   "js_backup_drive_delete_device_error": {
-    "message": "تعذر حذف بعض ملفات النسخ الاحتياطي. حاول مرة أخرى."
+    "message": "تعذّر حذف بعض ملفات النسخ الاحتياطي. يُرجى المحاولة مرة أخرى."
   },
   "html_backup_drive_no_files": {
-    "message": "لم يتم العثور على ملفات نسخ احتياطي على Drive."
+    "message": "لم يُعثر على ملفات نسخ احتياطي على Drive."
   },
   "html_backup_drive_files_loading": {
     "message": "جارٍ التحميل…"

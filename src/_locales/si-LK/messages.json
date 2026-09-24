@@ -555,25 +555,25 @@
     "message": "'සම්පූර්ණ පිටුව ග්‍රහණය කරන්න' තෝරා තිබුණත්, බ්‍රවුසර තිර රුවකට ඇතුළත් වන්නේ පිටුවේ දෘශ්‍යමාන කොටස පමණි."
   },
   "html_options_suspend_screen_capture_precapture": {
-    "message": "Keep a recent screenshot of tabs as I use them"
+    "message": "මම ටැබ් භාවිත කරන අතරතුර ඒවායේ මෑත තිර රුවක් තබා ගන්න"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Takes a browser screenshot of a tab about a second after you switch to it or it finishes loading,"
+    "message": "ඔබ ටැබයකට මාරු වූ විට හෝ එය පූරණය වී අවසන් වූ විට තත්පරයක් පමණ ගතවී එහි බ්‍රවුසර තිර රුවක් ගනී,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "so tabs that are later suspended in the background still get a preview."
+    "message": "එමගින් පසුව පසුබිමින් අත්හිටුවන ලද ටැබ්වලටද පෙරදසුනක් ලැබේ."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome only lets an extension screenshot a tab you haven't clicked its button on if it has access to all sites,"
+    "message": "ඔබ බොත්තම ක්ලික් නොකළ ටැබයක තිර රුවක් ගැනීමට දිගුවකට ඉඩ දෙන්නේ එයට සියලුම අඩවි වෙත ප්‍රවේශය ඇත්නම් පමණක් බව Chrome සලකයි,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "so turning this on asks for that permission. It is only used to take these screenshots, which stay on this computer."
+    "message": "එබැවින් මෙය සක්‍රීය කිරීම එම අවසරය ඉල්ලයි. එය මෙම තිර රූ ගැනීමට පමණක් භාවිතා වන අතර, ඒවා මෙම පරිගණකයේම රැඳී පවතී."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Only the latest screenshot of each open tab is kept, and it is deleted when the tab closes."
+    "message": "විවෘත සෑම ටැබයකම නවතම තිර රුව පමණක් තබා ගනු ලැබේ, ටැබය වසන විට එය මකා දමනු ලැබේ."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Incognito tabs and whitelisted sites are never captured."
+    "message": "අඥාත (incognito) ටැබ් සහ ඉඩ දුන් ලැයිස්තුවේ අඩවි කිසිවිටෙක ග්‍රහණය නොකෙරේ."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "උසස් තත්ත්වයේ තිර ග්‍රහණ මාදිලිය සබල කරන්න"

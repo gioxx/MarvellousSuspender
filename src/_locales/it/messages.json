@@ -66,7 +66,7 @@
     "message": "Non sospendere mai questo dominio"
   },
   "js_context_never_suspend_page": {
-    "message": "Non sospendere mai questo indirizzo"
+    "message": "Non sospendere mai questo URL"
   },
   "js_context_suspend_selected_tabs": {
     "message": "Sospendi le schede selezionate"
@@ -96,13 +96,13 @@
     "message": "Non sospendere mai questo gruppo (solo gruppi con nome)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
-    "message": "Sospendi tutte le altre schede in questa finestra"
+    "message": "Sospendi tutte le altre schede di questa finestra"
   },
   "js_context_force_suspend_other_tabs_in_window": {
-    "message": "Forza la sospensione delle altre schede in questa finestra"
+    "message": "Forza la sospensione delle altre schede di questa finestra"
   },
   "js_context_unsuspend_all_tabs_in_window": {
-    "message": "Riattiva tutte le schede in questa finestra"
+    "message": "Riattiva tutte le schede di questa finestra"
   },
   "js_context_soft_suspend_all_tabs": {
     "message": "Sospendi tutte le schede in ogni finestra"
@@ -114,37 +114,37 @@
     "message": "Riattiva tutte le schede in ogni finestra"
   },
   "html_health_title": {
-    "message": "Tab Health (Beta)"
+    "message": "Stato delle schede (Beta)"
   },
   "html_health_title_intro": {
-    "message": "Se hai problemi con le schede sospese, in particolare con le favicon, fai clic su Analizza schede per verificare se è possibile ripararle."
+    "message": "Se hai problemi con le schede sospese, in particolare con le favicon, fai clic su Scansiona schede per vedere se possiamo ripararle."
   },
   "html_health_all_good": {
-    "message": "Non abbiamo trovato problemi con le schede sospese. Se noti ancora qualcosa di anomalo, segnalacelo qui sotto e proveremo ad ampliare questo controllo."
+    "message": "Non abbiamo trovato problemi con le tue schede sospese. Se noti ancora qualcosa che non va, faccelo sapere qui sotto e proveremo ad ampliare questo controllo."
   },
   "html_health_reload_intro": {
-    "message": "Alcune schede sospese non sono state caricate completamente. Possiamo ricaricarle per rimettere tutto in ordine."
+    "message": "Ci sono schede sospese che non si sono caricate completamente. Possiamo ricaricarle per sistemare la situazione."
   },
   "html_health_restore_intro": {
-    "message": "Alcune schede sospese utilizzano la favicon predefinita del browser, il che significa che la cache di TMS non le contiene. Possiamo ripristinare e ri-sospendere un numero minimo di schede per recuperare le favicon mancanti."
+    "message": "Alcune schede sospese usano la favicon predefinita del browser: significa che la cache TMS non le ha memorizzate. Possiamo ripristinare e poi risospendere un numero minimo di schede per recuperare le favicon mancanti."
   },
   "html_health_scan_button": {
-    "message": "Analizza schede"
+    "message": "Scansiona schede"
   },
   "html_health_copy_button": {
     "message": "Copia risultati"
   },
   "html_health_scan_label": {
-    "message": "Analisi in corso..."
+    "message": "Scansione schede in corso..."
   },
   "html_health_num_tms_tabs": {
     "message": "Schede sospese da TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "favicon nella cache di TMS"
+    "message": "favicon nella cache TMS"
   },
   "html_health_num_tabs_empty": {
-    "message": "schede non ancora caricate"
+    "message": "schede non caricate"
   },
   "html_health_num_tabs_extension": {
     "message": "schede con la favicon di TMS"
@@ -153,10 +153,10 @@
     "message": "schede con favicon predefinita"
   },
   "html_health_num_hostnames": {
-    "message": "hostname univoci delle schede"
+    "message": "hostname di schede univoci"
   },
   "html_health_small_cache": {
-    "message": "La cache locale delle favicon di TMS potrebbe non coprire tutte le schede. Se la cache del browser viene svuotata, TMS potrebbe non essere in grado di mostrare alcune favicon."
+    "message": "La cache locale delle favicon di TMS potrebbe non coprire tutte le schede. Se la cache del browser viene svuotata, TMS potrebbe non riuscire a mostrare alcune favicon."
   },
   "html_health_reload_button": {
     "message": "Avanti: ricarica $count$ schede",
@@ -178,25 +178,25 @@
     "message": "Ripristino favicon in corso..."
   },
   "html_health_after_reload": {
-    "message": "Quando le schede avranno finito di caricarsi in background, puoi fare clic su \"Analizza schede\" per verificare se le cose sono migliorate."
+    "message": "Una volta che le schede hanno finito di caricarsi in background, puoi cliccare di nuovo su \"Scansiona schede\" per vedere se la situazione è migliorata."
   },
   "html_health_after_restore": {
-    "message": "Puoi fare clic su \"Analizza schede\" per verificare se le cose sono migliorate."
+    "message": "Puoi cliccare di nuovo su \"Scansiona schede\" per vedere se la situazione è migliorata."
   },
   "html_health_need_help1": {
-    "message": "Se hai ancora problemi con le schede o le favicon, puoi fare clic su Copia risultati e incollare in una nuova"
+    "message": "Se hai ancora problemi con schede o favicon, puoi cliccare su Copia risultati e incollarli in una nuova"
   },
   "html_health_need_help2": {
-    "message": "segnalazione su GitHub."
+    "message": "Issue su GitHub."
   },
   "html_health_num_grouped_broken": {
-    "message": "schede in Tab Group con stato non corretto (bug Tab Groups)"
+    "message": "schede raggruppate in stato non valido (bug dei gruppi di schede)"
   },
   "html_health_repair_intro": {
-    "message": "Alcune schede nei Tab Group sono in uno stato non corretto: mostrano una nuova scheda invece di caricarsi correttamente dopo il riavvio del browser. TMS può tentare di ripristinarle."
+    "message": "Alcune schede nei gruppi di schede sono in uno stato non valido: al riavvio del browser vengono mostrate come una nuova scheda invece di caricarsi correttamente. TMS può provare a ripristinarle."
   },
   "html_health_repair_button": {
-    "message": "Ripara $count$ scheda/e nei Tab Group",
+    "message": "Ripara $count$ scheda/e raggruppata/e",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -204,7 +204,7 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Fatto. Esegui nuovamente l'analisi per verificare che le schede siano tornate al loro stato sospeso."
+    "message": "Fatto. Esegui una nuova scansione per verificare che le schede raggruppate siano tornate allo stato sospeso."
   },
   "html_about_title": {
     "message": "Informazioni"
@@ -213,7 +213,7 @@
     "message": "Versione"
   },
   "html_about_tagline": {
-    "message": "Il successore spirituale della sospensione moderna delle schede: sostituisce le schede inattive con una pagina di ibernazione leggera, con controllo granulare su quando risvegliarle."
+    "message": "L'erede spirituale della sospensione moderna delle schede: sostituisce le schede inattive con una leggera pagina di ibernazione, dandoti il pieno controllo su quando risvegliarle."
   },
   "html_about_section_credits": {
     "message": "Crediti"
@@ -222,70 +222,70 @@
     "message": " e "
   },
   "html_about_community_thanks_link": {
-    "message": "tutti coloro che hanno contribuito su GitHub"
+    "message": "tutti i contributori su GitHub"
   },
   "html_about_fork_beginning": {
-    "message": "Basata sull'originale"
+    "message": "Basato sull'originale"
   },
   "html_about_fork_mid": {
-    "message": "disponibile su GitHub, ma senza tracciamento ADS"
+    "message": "disponibile su GitHub, senza tracciamento pubblicitario"
   },
   "html_about_fork_end": {
     "message": "Maggiori informazioni disponibili su"
   },
   "html_about_contributors": {
-    "message": "A cura di"
+    "message": "Realizzato da"
   },
   "html_about_report_issues_prefix": {
-    "message": "Se vuoi lasciare un feedback o segnalare un problema, puoi farlo tramite"
+    "message": "Se hai un feedback o vuoi segnalare un problema, puoi farlo sulla"
   },
   "html_about_report_issues_suffix": {
-    "message": ". Ti preghiamo di verificare se la tua idea o il tuo problema esiste già prima di aprire una nuova richiesta. Grazie!"
+    "message": ". Controlla se la tua idea o il tuo problema esiste già prima di crearne uno nuovo. Grazie!"
   },
   "html_about_debugging_prefix": {
-    "message": "Per acquisire log e generare un report diagnostico, vai alla "
+    "message": "Per acquisire i log e generare un report diagnostico, vai alla pagina "
   },
   "html_about_debugging_suffix": {
-    "message": "pagina diagnostica."
+    "message": "diagnostica."
   },
   "html_about_the_github_issues_page": {
-    "message": "la pagina problemi su GitHub"
+    "message": "pagina delle issue su GitHub"
   },
   "html_about_section_support": {
-    "message": "Supporta lo sviluppo"
+    "message": "Sostieni lo sviluppo"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender è gratuito e open-source. Se lo trovi utile, considera un piccolo contributo: aiuta a tenere il progetto vivo e in crescita."
+    "message": "The Marvellous Suspender è gratuito e open source. Se lo trovi utile, valuta un piccolo contributo: aiuta a mantenere vivo e in crescita il progetto."
   },
   "html_broken_title": {
-    "message": "si è rotta"
+    "message": "non funziona"
   },
   "html_broken_ruh_roh": {
-    "message": "D'oh!"
+    "message": "Ops!"
   },
   "html_broken_line1": {
-    "message": "non è riuscita ad avviarsi. Forse stai usando un browser non compatibile?"
+    "message": "l'avvio non è riuscito. Forse stai usando un browser non compatibile?"
   },
   "html_broken_line2": {
     "message": "Prova a riavviare l'estensione. Se il problema persiste, chiedi aiuto sulla"
   },
   "html_broken_line2_github_page": {
-    "message": "pagina del progetto su Github"
+    "message": "pagina del progetto su GitHub"
   },
   "html_broken_line3": {
-    "message": "È possibile recuperare le schede perse dalla"
+    "message": "Puoi recuperare le schede perse dalla"
   },
   "html_broken_line3_session_management": {
     "message": "pagina di gestione delle sessioni"
   },
   "html_broken_button_restart_extension": {
-    "message": "Riavvia l'estensione"
+    "message": "Riavvia estensione"
   },
   "html_history_title": {
-    "message": "Gestione delle sessioni"
+    "message": "Gestione sessioni"
   },
   "html_history_page_desc": {
-    "message": "TMS mantiene uno snapshot aggiornato delle schede aperte, nessuna configurazione necessaria. Le sessioni si aggiornano automaticamente durante la navigazione, ma vivono dentro Chrome: se il profilo viene perso o corrotto, spariscono con esso."
+    "message": "TMS mantiene un'istantanea aggiornata delle tue schede aperte, senza bisogno di configurazione. Le sessioni si aggiornano automaticamente mentre navighi, ma vivono dentro Chrome: se il profilo del browser viene perso o si corrompe, vanno perse insieme ad esso."
   },
   "html_history_current_session": {
     "message": "Sessione corrente"
@@ -300,16 +300,16 @@
     "message": "Importa sessione"
   },
   "html_history_migrate_tabs": {
-    "message": "Migra le schede"
+    "message": "Migra schede"
   },
   "html_history_migrate_old_id": {
     "message": "ID estensione"
   },
   "html_history_migrate_section_title": {
-    "message": "Migrazione da altra estensione"
+    "message": "Migrazione schede"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recupera le schede sospese da una versione precedente o un altro fork di questa estensione. Inserisci l'ID dell'estensione precedente e fai clic su Migra le schede per convertire gli URL sospesi."
+    "message": "Recupera le schede sospese da una versione precedente o da un altro fork di questa estensione. Inserisci qui sotto il vecchio ID dell'estensione e fai clic su Migra schede per convertire gli URL sospesi."
   },
   "html_options_title": {
     "message": "Impostazioni"
@@ -321,22 +321,22 @@
     "message": "Schede sospese"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "Aggiungi l'URL originale al titolo delle schede sospese"
+    "message": "Aggiungi l'URL originale al titolo della scheda sospesa"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "Se abilitato, l'URL originale viene accodato al titolo della"
+    "message": "Se abilitato, l'URL originale viene aggiunto al titolo della scheda"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "scheda del browser per le pagine sospese."
+    "message": "del browser per le pagine sospese."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "Permette di trovare le schede sospese per hostname tramite"
+    "message": "Questo permette di trovare le schede sospese per hostname usando la funzione"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "\"Cerca nelle schede\" di Chrome (Ctrl+Shift+A)."
+    "message": "\"Cerca schede\" di Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "Mantieni la posizione di riproduzione di YouTube alla sospensione"
+    "message": "Mantieni la posizione di riproduzione di YouTube durante la sospensione"
   },
   "html_options_other_title": {
     "message": "Generali"
@@ -345,16 +345,16 @@
     "message": "Lingua"
   },
   "html_options_language_auto": {
-    "message": "Predefinito di sistema"
+    "message": "Predefinita di sistema"
   },
   "html_options_suspend_automatically_after": {
     "message": "Sospendi automaticamente le schede dopo"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "Sospendi le schede a batteria dopo"
+    "message": "Sospendi le schede con alimentazione a batteria dopo"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "Come quando alimentato"
+    "message": "Come da alimentazione a corrente"
   },
   "html_options_suspend_never": {
     "message": "Mai"
@@ -363,10 +363,10 @@
     "message": "secondi"
   },
   "html_options_suspend_minute": {
-    "message": "minuto"
+    "message": "min"
   },
   "html_options_suspend_minutes": {
-    "message": "minuti"
+    "message": "min"
   },
   "html_options_suspend_hour": {
     "message": "ora"
@@ -387,61 +387,61 @@
     "message": "settimane"
   },
   "html_options_suspend_no_pinned": {
-    "message": "Non sospendere mai le schede fissate"
+    "message": "Non sospendere mai le schede appuntate"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Non sospendere mai le schede aperte in finestre app"
+    "message": "Non sospendere mai le schede aperte nelle finestre app"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Non sospendere mai le schede in un gruppo di schede"
+    "message": "Non sospendere mai le schede in un gruppo"
   },
   "html_options_suspend_no_forms": {
-    "message": "Non sospendere mai le schede che contengono moduli compilati non salvati"
+    "message": "Non sospendere mai le schede con dati di modulo non salvati"
   },
   "html_options_suspend_no_audio": {
-    "message": "Non sospendere mai le schede che stanno riproducendo audio"
+    "message": "Non sospendere mai le schede che riproducono audio"
   },
   "html_options_suspend_only_connected": {
-    "message": "Non sospendere mai le schede quando non sei connesso a Internet"
+    "message": "Non sospendere mai le schede quando sei offline"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Rivendica schede sospese da altre estensioni"
+    "message": "Prendi in carico le schede sospese da altre estensioni"
   },
   "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Prende automaticamente in carico le schede già sospese da un'altra"
+    "message": "Prende automaticamente il controllo delle schede già sospese da un'altra estensione"
   },
   "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "estensione compatibile (es. The Great Suspender, o un'altra installazione di questa)."
+    "message": "compatibile (es. The Great Suspender, o un'altra installazione di questa)."
   },
   "html_options_suspend_claim_by_default_tooltip_line2a": {
     "message": "Una scheda è considerata \"sospesa\" se il suo URL contiene 'suspended.html'."
   },
   "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "Attivando questa opzione, l'URL viene riscritto verso questa"
+    "message": "Abilitando questa opzione, quell'URL viene riscritto per questa installazione,"
   },
   "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "installazione così TMS può gestire la scheda da quel momento in poi."
+    "message": "così TMS può gestire la scheda da quel momento in poi."
   },
   "html_options_suspend_only_on_battery": {
-    "message": "Non sospendere mai le schede quando il PC è collegato all'alimentazione"
+    "message": "Non sospendere mai le schede quando sei collegato all'alimentazione"
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Non sospendere mai la scheda attiva in ogni finestra"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Riapri sempre le schede sospese partendo dall'inizio della pagina"
+    "message": "Riapri sempre le schede sospese con lo scroll all'inizio"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "La scheda si riapre dall'inizio della pagina invece che dal punto"
+    "message": "La scheda si riapre all'inizio della pagina invece che nel punto"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "in cui era stata sospesa."
+    "message": "in cui era scrollata al momento della sospensione."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Vale sia per la sospensione automatica che manuale, e prevale sui"
+    "message": "Si applica sia alla sospensione automatica che manuale, e ha la precedenza sui"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "link che puntano a una sezione (#) della pagina."
+    "message": "collegamenti che rimandano a una #sezione al caricamento."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Riattiva automaticamente la scheda quando viene visualizzata"
@@ -450,40 +450,40 @@
     "message": "Il ricaricamento riattiva anche le schede in background (non solo quella attiva)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Se attivo, ricaricare una scheda sospesa (Ctrl+R o tasto destro"
+    "message": "Se abilitato, ricaricare una scheda sospesa (Ctrl+R o clic destro"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "> Ricarica) la riattiva anche se non è la scheda"
+    "message": "> Ricarica) la riattiva anche quando non è la scheda"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
     "message": "attualmente in primo piano."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Utile per ricaricare più schede sospese insieme, ad esempio"
+    "message": "Utile per ricaricare più schede sospese in un colpo solo, ad esempio dopo"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "selezionandone diverse e premendo Ctrl+R."
+    "message": "aver selezionato più schede e premuto Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Applica il risparmio di memoria integrato del browser durante la sospensione"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Riduce ancora di più l'utilizzo della memoria di una scheda sospesa, utilizzando"
+    "message": "Riduce ulteriormente l'uso di memoria di una scheda sospesa, sfruttando"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "la funzionalità integrata del browser di 'scarto schede'. Il risparmio può raggiungere"
+    "message": "la funzione integrata del browser di 'scaricamento delle schede'. Questo può portare fino"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "il 500% di memoria in meno quando si lavora con molte schede aperte."
+    "message": "al 500% di risparmio di memoria quando si lavora con molte schede."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Tuttavia, causerà anche un leggero ritardo di rendering quando si seleziona"
+    "message": "Tuttavia, causerà anche un lieve ritardo nel rendering quando selezioni"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
     "message": "una scheda sospesa."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "Per ulteriori informazioni sullo scarto delle schede, consulta:"
+    "message": "Per maggiori informazioni sullo scaricamento delle schede, consulta:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -507,25 +507,25 @@
     "message": "Disabilitata"
   },
   "html_options_suspend_screen_capturing_screen_only": {
-    "message": "Cattura solo la parte visibile della pagina"
+    "message": "Cattura solo la parte superiore dello schermo"
   },
   "html_options_suspend_screen_capturing_entire_page": {
     "message": "Cattura l'intera pagina"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "In una scheda sospesa, l'estensione può mostrare un'immagine di ciò che la scheda"
+    "message": "Su una scheda sospesa, l'estensione può mostrare un'anteprima dell'aspetto della scheda"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "conteneva appena prima che fosse sospesa."
+    "message": "subito prima che fosse sospesa."
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "La funzione di cattura dello schermo è sperimentale e può causare un uso significativo della CPU"
+    "message": "La cattura dello schermo è una funzione sperimentale e può causare un uso significativo della CPU,"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "e un leggero aumento della memoria."
+    "message": "oltre a un leggero aumento dell'uso di memoria."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "Se noti comportamenti anomali, come schede che impiegano molto tempo per sospendersi, o il browser"
+    "message": "Se noti comportamenti anomali, come schede che impiegano molto tempo a sospendersi o il browser"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "che si blocca inaspettatamente, prova a disattivare questa funzione."
@@ -540,91 +540,91 @@
     "message": "Solo screenshot del browser"
   },
   "html_options_suspend_screen_capture_method_renderer": {
-    "message": "Solo rendering della pagina"
+    "message": "Solo renderer di pagina"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automatico scatta un vero screenshot del browser quando la scheda da sospendere è quella che stai guardando."
+    "message": "Automatico esegue uno screenshot reale del browser quando la scheda in fase di sospensione è quella che stai guardando."
   },
   "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "È istantaneo e funziona su ogni sito. Le altre schede vengono ridisegnate dal rendering della pagina, che è più lento."
+    "message": "È istantaneo e funziona su ogni sito. Ogni altra scheda viene ridisegnata dal renderer di pagina, che è più lento."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Solo screenshot del browser non esegue mai il rendering della pagina, quindi le schede sospese in background non hanno anteprima."
+    "message": "Solo screenshot del browser non esegue mai il renderer di pagina, quindi le schede sospese in background non hanno anteprima."
   },
   "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Lo screenshot del browser copre solo la parte visibile della pagina, anche se è selezionato 'Cattura l'intera pagina'."
+    "message": "Uno screenshot del browser copre solo la parte visibile della pagina, anche con 'Cattura l'intera pagina' selezionato."
   },
   "html_options_suspend_screen_capture_precapture": {
-    "message": "Mantieni una schermata recente delle schede man mano che le uso"
+    "message": "Mantieni uno screenshot recente delle schede mentre le uso"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Cattura uno screenshot del browser di una scheda circa un secondo dopo che vi passi sopra o dopo che ha finito di caricarsi,"
+    "message": "Esegue uno screenshot del browser di una scheda circa un secondo dopo che passi ad essa o che ha finito di caricarsi,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "cosicché le schede sospese successivamente in background ottengano comunque un'anteprima."
+    "message": "così le schede sospese in seguito in background hanno comunque un'anteprima."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome consente a un'estensione di fotografare una scheda su cui non hai cliccato il suo pulsante solo se ha accesso a tutti i siti,"
+    "message": "Chrome permette a un'estensione di catturare lo screenshot di una scheda su cui non hai cliccato il suo pulsante solo se ha accesso a tutti i siti,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "quindi attivando questa opzione viene richiesto tale permesso. Viene usato solo per acquisire questi screenshot, che restano su questo computer."
+    "message": "quindi attivare questa opzione richiede quel permesso. Viene usato solo per acquisire questi screenshot, che restano su questo computer."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Viene conservato solo l'ultimo screenshot di ciascuna scheda aperta, ed eliminato alla chiusura della scheda."
+    "message": "Viene mantenuto solo l'ultimo screenshot di ogni scheda aperta, ed è eliminato quando la scheda si chiude."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line6": {
     "message": "Le schede in incognito e i siti in whitelist non vengono mai catturati."
   },
   "html_options_suspend_force_screen_capture": {
-    "message": "Abilita la modalità di cattura dello schermo in alta qualità"
+    "message": "Abilita la modalità di cattura schermo ad alta qualità"
   },
   "html_options_suspend_force_screen_capture_tooltip_line1": {
-    "message": "Quando disabilitato, le schermate hanno le seguenti limitazioni per migliorare le prestazioni:"
+    "message": "Quando disabilitata, le catture dello schermo hanno le seguenti limitazioni per migliorare le prestazioni:"
   },
   "html_options_suspend_force_screen_capture_tooltip_line2": {
-    "message": "- Cattura dello schermo di bassa qualità"
+    "message": "- Cattura dello schermo a bassa qualità"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Lo schermo non sarà catturato se verrà impiegato più di 1 minuto per generare l'immagine"
+    "message": "- Non cattura lo schermo se impiega più di 1 minuto per generare l'immagine"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
-    "message": "- Altezza massima dello schermo limitata a 5000px"
+    "message": "- Altezza massima della cattura schermo limitata a 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Abilitare la modalità di cattura dello schermo in alta qualità potrebbe aumentare significativamente il carico della CPU"
+    "message": "Abilitare la modalità di cattura schermo ad alta qualità può aumentare significativamente il carico della CPU"
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "e l'utilizzo della memoria."
+    "message": "e l'uso di memoria."
   },
   "html_options_whitelist_title": {
-    "message": "Non sospendere mai le schede contenenti i seguenti indirizzi:"
+    "message": "Non sospendere mai le schede con URL dal seguente elenco:"
   },
   "html_options_always_suspend_title": {
-    "message": "Sospendi sempre le schede contenenti i seguenti indirizzi:"
+    "message": "Sospendi sempre le schede con URL dal seguente elenco:"
   },
   "html_options_always_suspend_tooltip_line1a": {
-    "message": "Le schede corrispondenti a questo elenco vengono sempre sospese dopo"
+    "message": "Le schede che corrispondono a questo elenco si sospendono sempre dopo il timeout normale,"
   },
   "html_options_always_suspend_tooltip_line1b": {
-    "message": "il normale timeout, indipendentemente da audio, input nei form o stato di appuntato."
+    "message": "indipendentemente da audio, dati di modulo o stato di appuntamento."
   },
   "html_options_always_suspend_tooltip_line2a": {
-    "message": "Una voce per riga, stesse regole di corrispondenza dell'elenco sopra"
+    "message": "Una voce per riga, con le stesse regole di corrispondenza dell'elenco sopra (testo semplice"
   },
   "html_options_always_suspend_tooltip_line2b": {
-    "message": "(corrispondenza di testo semplice in qualsiasi punto dell'URL, oppure /regex/ tra slash)."
+    "message": "che corrisponde in qualsiasi punto dell'URL, oppure /regex/ tra barre)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Aggiungi l'indirizzo di ogni pagina che desideri inserire nell'elenco consentiti, uno per riga. Per esempio:"
+    "message": "Aggiungi l'URL di ogni pagina che vuoi consentire su una nuova riga. Ad esempio:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "Per autorizzare più siti in una riga puoi invece specificare una parte dell'indirizzo:"
+    "message": "Per consentire più siti in una riga, puoi specificare invece parte dell'URL:"
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "Puoi anche usare le espressioni regolari racchiudendo il testo tra due slash:"
+    "message": "Puoi anche specificare espressioni regolari racchiudendo il testo tra barre:"
   },
   "html_options_changelog_modal_title": {
-    "message": "Novità della versione v$version$",
+    "message": "Novità nella v$version$",
     "placeholders": {
       "version": {
         "content": "$1"
@@ -635,40 +635,40 @@
     "message": "Chiudi"
   },
   "html_options_whitelist_unsuspend": {
-    "message": "Riattiva subito le schede corrispondenti"
+    "message": "Risveglia ora le schede corrispondenti"
   },
   "html_options_list_test_btn": {
-    "message": "Verifica il funzionamento della lista"
+    "message": "Test elenco"
   },
   "html_options_always_suspend_force": {
-    "message": "Sospendi subito le schede corrispondenti"
+    "message": "Sospendi ora le schede corrispondenti"
   },
   "html_options_never_suspend_groups_title": {
     "message": "Non sospendere mai le schede nei seguenti gruppi:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Le schede in questi gruppi non vengono mai sospese automaticamente e sono ignorate dalle azioni di sospensione di gruppo."
+    "message": "Le schede in questi gruppi non vengono mai sospese automaticamente, e sono escluse dalle azioni di sospensione in blocco."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Aggiungi un gruppo con «Non sospendere mai questo gruppo» nel menu contestuale. Si possono aggiungere solo gruppi che hanno un nome."
+    "message": "Aggiungi un gruppo con \"Non sospendere mai questo gruppo\" nel menu del clic destro. Possono essere aggiunti solo gruppi con un nome."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "I gruppi sono identificati da nome e colore e seguono le rinomine finché il browser resta aperto."
+    "message": "I gruppi vengono associati per nome e colore, e seguono le rinomine finché il browser resta aperto."
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "Nessun gruppo di schede aggiunto."
+    "message": "Nessun gruppo di schede ancora aggiunto."
   },
   "html_options_never_suspend_groups_remove": {
     "message": "Rimuovi"
   },
   "html_options_other_enable_context_menu": {
-    "message": "Aggiungi The Marvellous Suspender al menu contestuale del tasto destro del mouse"
+    "message": "Aggiungi The Marvellous Suspender al menu del clic destro"
   },
   "html_options_other_enable_context_menu_tooltip_line1": {
-    "message": "Aggiungi i controlli per questa estensione al menu del clic destro di una pagina web."
+    "message": "Aggiunge i comandi di questa estensione al menu del clic destro di una pagina web."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Questo ti darà accesso alle azioni di sospensione avanzate non disponibili"
+    "message": "Questo ti darà accesso ad azioni di sospensione avanzate non disponibili"
   },
   "html_options_other_enable_context_menu_tooltip_line3": {
     "message": "altrove nell'estensione."
@@ -677,37 +677,37 @@
     "message": "Sincronizza le impostazioni con il tuo profilo del browser"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Le impostazioni dell'estensione verranno sincronizzate su tutti i browser che sono"
+    "message": "Le impostazioni dell'estensione verranno sincronizzate su tutti i browser"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "connessi con lo stesso profilo."
+    "message": "collegati con lo stesso profilo."
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "Le impostazioni verranno sincronizzate anche in modalità di navigazione in incognito."
+    "message": "Questo sincronizzerà anche le impostazioni in modalità in incognito."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Attivando questa opzione, le impostazioni su tutti gli altri browser connessi con lo stesso profilo verranno sovrascritte"
+    "message": "Attivando questa opzione, le impostazioni su tutti gli altri browser collegati allo stesso profilo verranno sovrascritte"
   },
   "html_options_suspend_on_low_memory": {
-    "message": "Sospendi istantaneamente quando la memoria di sistema diventa molto bassa"
+    "message": "Sospendi istantaneamente quando la memoria di sistema è molto bassa"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Questa opzione sostituisce la funzionalità di scarto automatico delle schede."
+    "message": "Questa opzione ha la precedenza sulla funzione automatica di scaricamento delle schede."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "Se abilitata, forzerà la sospensione di una scheda invece di scartarla."
+    "message": "Se abilitata, forzerà la sospensione di una scheda invece del suo scaricamento."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Di solito, il browser scarta le schede solo quando la memoria di sistema è molto bassa."
+    "message": "In genere il browser scarica le schede solo quando la memoria di sistema diventa molto bassa."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Nota: questo può causare la sospensione delle schede prima del tempo"
+    "message": "Nota bene: questo potrebbe far sospendere le schede prima del tempo che hai"
   },
   "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "che hai specificato nelle opzioni di sospensione automatica delle schede."
+    "message": "specificato nelle opzioni di sospensione automatica delle schede."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "Per ulteriori informazioni sullo scarto delle schede, consulta:"
+    "message": "Per maggiori informazioni sullo scaricamento delle schede, consulta:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -716,13 +716,13 @@
     "message": "Riattiva questa scheda"
   },
   "html_popup_suspend_tab": {
-    "message": "Sospendi questa scheda ora"
+    "message": "Sospendi subito questa scheda"
   },
   "html_popup_never_suspend_domain": {
     "message": "Non sospendere mai questo dominio"
   },
   "html_popup_never_suspend_page": {
-    "message": "Non sospendere mai questo indirizzo"
+    "message": "Non sospendere mai questo URL"
   },
   "html_popup_suspend_other_tabs": {
     "message": "Sospendi tutte le altre schede"
@@ -731,7 +731,7 @@
     "message": "Riattiva tutte le schede"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
-    "message": "Riattiva subito le schede corrispondenti"
+    "message": "Risveglia ora le schede corrispondenti"
   },
   "html_popup_suspend_selected_tabs": {
     "message": "Sospendi le schede selezionate"
@@ -743,16 +743,16 @@
     "message": "Impostazioni"
   },
   "html_popup_backup_now_local": {
-    "message": "Esegui backup adesso (Locale)"
+    "message": "Esegui backup sessione ora (Locale)"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Esegui backup adesso (Cloud)"
+    "message": "Esegui backup sessione ora (Cloud)"
   },
   "html_restoring_title": {
-    "message": "Ripristino la finestra"
+    "message": "Ripristino finestra"
   },
   "html_restoring_heading": {
-    "message": "Ripristino le schede"
+    "message": "Ripristino schede"
   },
   "html_restoring_detail": {
     "message": "Attendi mentre ripristino questa finestra..."
@@ -761,13 +761,13 @@
     "message": "Ripristino"
   },
   "html_recovery_ruh_roh": {
-    "message": "D'oh!"
+    "message": "Ops!"
   },
   "html_recovery_description_line1": {
-    "message": "Sembra che tu stia effettuando un ripristino da un crash dell'estensione."
+    "message": "Sembra che tu stia recuperando da un crash dell'estensione."
   },
   "html_recovery_description_line2": {
-    "message": "Le schede sospese potrebbero essersi bloccate o scomparse."
+    "message": "Le tue schede sospese potrebbero essersi bloccate o essere scomparse."
   },
   "html_recovery_restore_tabs_automatically": {
     "message": "Ripristina automaticamente le schede"
@@ -776,10 +776,10 @@
     "message": "Vai al gestore delle sessioni"
   },
   "html_recovery_important_message": {
-    "message": "Al momento è attivata la cattura dello schermo. Se questa estensione si blocca ripetutamente, è consigliabile disabilitare questa opzione."
+    "message": "Attualmente hai la cattura dello schermo attivata. Se questa estensione va ripetutamente in crash, ti consigliamo di disabilitare questa opzione."
   },
   "html_recovery_disable_screen_capturing": {
-    "message": "Disattiva cattura dello schermo"
+    "message": "Disattiva la cattura dello schermo"
   },
   "html_recovery_tabs_to_restore": {
     "message": "Schede da ripristinare"
@@ -791,10 +791,10 @@
     "message": "Scorciatoie da tastiera"
   },
   "html_shortcuts_context_menu_note": {
-    "message": "Nota: queste azioni sono disponibili anche tramite il menu di scelta rapida del tasto destro."
+    "message": "Nota: queste azioni sono disponibili anche tramite il menu del clic destro."
   },
   "html_shortcuts_remap_keys": {
-    "message": "Imposta scorciatoie"
+    "message": "Modifica scorciatoie"
   },
   "html_sidebar_general_settings": {
     "message": "Impostazioni"
@@ -803,7 +803,7 @@
     "message": "Sessioni"
   },
   "html_sidebar_tab_health": {
-    "message": "Salute schede"
+    "message": "Stato delle schede"
   },
   "html_sidebar_shortcuts": {
     "message": "Scorciatoie da tastiera"
@@ -821,37 +821,37 @@
     "message": "Novità e aggiornamenti"
   },
   "html_news_desc": {
-    "message": "Tieniti aggiornato sulle ultime versioni, i problemi noti e gli annunci dal blog di Marvellous Codeworks."
+    "message": "Resta aggiornato sulle ultime release, sui problemi noti e sugli annunci dal blog di Marvellous Codeworks."
   },
   "html_news_loading": {
     "message": "Caricamento novità…"
   },
   "html_news_empty": {
-    "message": "Nessuna novità per ora. Riprova più tardi!"
+    "message": "Ancora nessuna novità. Ricontrolla presto!"
   },
   "html_news_new_pill": {
     "message": "NUOVO"
   },
   "html_news_mark_all_read": {
-    "message": "Segna tutti come letti"
+    "message": "Segna tutto come letto"
   },
   "html_backup_page_title": {
     "message": "Backup e ripristino"
   },
   "html_success_great_success": {
-    "message": "Un successo meraviglioso!"
+    "message": "Successo marvellous!"
   },
   "html_success_all_tabs_restored": {
-    "message": "Tutte le schede sono state ripristinate."
+    "message": "Tutte le tue schede sono state ripristinate."
   },
   "html_success_goto_advanced_prefix": {
-    "message": "Per la gestione avanzata delle sessioni, vai alla"
+    "message": "Per la gestione avanzata delle sessioni, visita la pagina"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "pagina"
+    "message": ""
   },
   "html_session_manager": {
-    "message": "gestione delle sessioni"
+    "message": "di gestione delle sessioni"
   },
   "html_suspended_title": {
     "message": "Scheda sospesa"
@@ -866,73 +866,73 @@
     "message": "Il ricaricamento automatico delle schede è temporaneamente disabilitato."
   },
   "html_permissions_title": {
-    "message": "Autorizzazioni"
+    "message": "Permessi"
   },
   "html_permissions_heading": {
-    "message": "Per favore dammi accesso agli indirizzi dei file locali"
+    "message": "Concedimi l'accesso agli URL di file locali"
   },
   "html_permissions_info": {
-    "message": "Questa estensione non è attualmente autorizzata a sospendere gli indirizzi che cominciano per \"file\".\nPer modificare questo comportamento attiva \"Consenti accesso agli indirizzi dei file\" dalla pagina delle impostazioni dell'estensione."
+    "message": "Questa estensione al momento non è autorizzata a sospendere URL che iniziano con \"file\".\nPer modificare questa impostazione, attiva \"Consenti l'accesso agli URL di file\" nella pagina delle impostazioni dell'estensione."
   },
   "html_permissions_backup": {
-    "message": "Nota: la modifica di questa opzione causerà la scomparsa di tutte le schede sospese.\nPer l'evenienza, ora potrebbe essere un buon momento per salvare un backup della sessione di schede correnti."
+    "message": "Nota bene: modificando questa opzione, tutte le tue schede sospese scompariranno per un istante.\nPer sicurezza, potrebbe essere un buon momento per salvare un backup della sessione corrente."
   },
   "html_permissions_return_hint": {
-    "message": "Bentornato: clicca di nuovo il pulsante ora per completare la concessione dell'accesso ai file locali."
+    "message": "Bentornato — fai di nuovo clic sul pulsante per completare la concessione dell'accesso ai file locali."
   },
   "html_update_title": {
-    "message": "Aggiorna"
+    "message": "Aggiornamento"
   },
   "html_update_heading2": {
-    "message": "è pronta a diventare ancora più meravigliosa"
+    "message": "è pronto a diventare ancora più marvellous"
   },
   "html_update_info": {
     "message": "Una nuova versione di The Marvellous Suspender verrà installata al prossimo riavvio del browser."
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANTE: non è stato possibile creare un punto di ripristino per le schede.<br>Salva subito un backup!"
+    "message": "IMPORTANTE: non siamo riusciti a creare un punto di ripristino per le tue schede.<br>Salva subito un backup!"
   },
   "html_update_info_nobackup_prefix": {
-    "message": "È caldamente raccomandato di esportare una copia della sessione attuale dalla pagina di "
+    "message": "Ti consigliamo vivamente di esportare una copia della sessione corrente da "
   },
   "html_update_info_nobackup_suffix": {
-    "message": " prima di proseguire con l'aggiornamento."
+    "message": " prima di procedere con l'aggiornamento."
   },
   "html_updated_title": {
     "message": "Aggiornato"
   },
   "html_updating_heading": {
-    "message": "si sta aggiornando"
+    "message": "aggiornamento in corso"
   },
   "html_updating_message": {
-    "message": "Attendi mentre ripristino le schede sospese..."
+    "message": "Attendi mentre ripristino le tue schede sospese..."
   },
   "html_updated_great_suspender_updated": {
     "message": "è stato aggiornato"
   },
   "html_updated_info_line1": {
-    "message": "È stato effettuato un backup automatico delle schede prima dell'aggiornamento."
+    "message": "Prima dell'aggiornamento è stato effettuato un backup automatico delle tue schede."
   },
   "html_updated_info_line2_prefix": {
-    "message": "Se hai incontrato problemi durante l'aggiornamento, è possibile recuperare le schede perse dalla pagina di "
+    "message": "Se hai riscontrato problemi durante l'aggiornamento, puoi recuperare le schede perse dalla pagina "
   },
   "html_updated_info_line2_suffix": {
     "message": "."
   },
   "html_updated_patch_message": {
-    "message": "Mi dispiace per il disturbo. Avevo solo bisogno di eseguire un po' di manutenzione."
+    "message": "Scusa il disturbo. Dovevo solo eseguire una piccola manutenzione."
   },
   "html_welcome_text_line1": {
-    "message": "Grazie per aver scelto di provare"
+    "message": "Grazie per aver provato"
   },
   "html_welcome_text_line2": {
-    "message": "Faccio funzionare il computer senza intoppi sospendendo le schede che non stai usando."
+    "message": "Faccio funzionare il tuo computer in modo più fluido sospendendo le schede che non stai usando."
   },
   "html_welcome_text_line3": {
-    "message": "Puoi mettere a punto le impostazioni qui sotto."
+    "message": "Puoi ottimizzare le impostazioni qui sotto."
   },
   "js_popup_normal": {
-    "message": "La scheda verrà sospesa automaticamente."
+    "message": "La scheda si sospenderà automaticamente."
   },
   "js_popup_normal_pause": {
     "message": "Non ora"
@@ -947,7 +947,7 @@
     "message": "Non sospendere"
   },
   "js_popup_whitelisted": {
-    "message": "Sito nell'elenco consentiti."
+    "message": "Sito consentito."
   },
   "js_popup_whitelisted_remove": {
     "message": "Rimuovi dall'elenco consentiti"
@@ -956,13 +956,13 @@
     "message": "La scheda sta riproducendo audio."
   },
   "js_popup_form_input": {
-    "message": "La scheda ha dei campi modulo non salvati."
+    "message": "La scheda sta ricevendo dati di modulo."
   },
   "js_popup_form_input_unpause": {
     "message": "Riprendi"
   },
   "js_popup_pinned": {
-    "message": "La scheda è stata fissata"
+    "message": "La scheda è stata appuntata"
   },
   "js_popup_app_window": {
     "message": "La scheda è aperta in una finestra app"
@@ -974,7 +974,7 @@
     "message": "La scheda è in un gruppo che non viene mai sospeso"
   },
   "js_popup_temp_whitelist": {
-    "message": "Sospensione della scheda disattivata."
+    "message": "Sospensione della scheda messa in pausa."
   },
   "js_popup_temp_whitelist_unpause": {
     "message": "Riprendi"
@@ -986,7 +986,7 @@
     "message": "Nessuna connessione di rete"
   },
   "js_popup_charging": {
-    "message": "Collegato all'alimentazione elettrica"
+    "message": "Collegato all'alimentazione"
   },
   "js_popup_blockedFile": {
     "message": "I file locali non possono essere sospesi."
@@ -995,16 +995,16 @@
     "message": "Abilita"
   },
   "js_popup_unknown": {
-    "message": "In attesa del caricamento della scheda..."
+    "message": "In attesa che la scheda si carichi..."
   },
   "js_popup_initialising": {
-    "message": "In attesa dell'avvio dell'estensione..."
+    "message": "In attesa dell'inizializzazione dell'estensione..."
   },
   "js_popup_error": {
     "message": "Sospensione automatica non disponibile per questa scheda"
   },
   "js_history_delete": {
-    "message": "cancella"
+    "message": "elimina"
   },
   "js_history_export": {
     "message": "esporta"
@@ -1037,13 +1037,13 @@
     "message": "Sei sicuro di voler eliminare questa sessione?"
   },
   "js_history_confirm_session_overwrite": {
-    "message": "C'è già una sessione salvata con questo nome. Sovrascrivere la sessione esistente?"
+    "message": "Esiste già una sessione salvata con questo nome. Sovrascrivere la sessione esistente?"
   },
   "js_history_import_fail": {
-    "message": "Caricamento del file non riuscito. Assicurati che il file sia composto da puro testo e che contenga un singolo indirizzo per riga."
+    "message": "Impossibile caricare il file. Assicurati che sia in testo semplice e contenga un URL per riga."
   },
   "js_history_migrate_fail": {
-    "message": "Devi inserire i 32 caratteri dell'id dell'estensione da cui migrare"
+    "message": "Serve un ID estensione di 32 caratteri da cui migrare"
   },
   "js_history_migrate_success": {
     "message": "Migrazione di $tabcount$ schede completata. Riavvia il browser se le schede migrate non si ricaricano automaticamente.",
@@ -1054,22 +1054,22 @@
     }
   },
   "js_suspended_hotkey_to_reload": {
-    "message": "Configura scorciatoie da tastiera"
+    "message": "Imposta le scorciatoie da tastiera"
   },
   "js_suspended_low_memory": {
-    "message": "Scheda sospesa a causa della bassa memoria di sistema"
+    "message": "Scheda sospesa per memoria di sistema insufficiente"
   },
   "js_options_incognito_warning": {
-    "message": "Sei in modalità incognito. Molte impostazioni non saranno disponibili."
+    "message": "Sei in modalità in incognito. Alcune funzioni non saranno disponibili."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Non ci sono schede aperte che corrispondono all'attuale elenco consentiti."
+    "message": "Non ci sono schede aperte che corrispondono all'elenco consentiti attuale."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Schede aperte nell'elenco consentiti:"
+    "message": "Schede aperte consentite:"
   },
   "js_options_always_suspend_no_matches": {
-    "message": "Non ci sono schede aperte che corrispondono all'attuale lista di sospensione forzata."
+    "message": "Non ci sono schede aperte che corrispondono all'elenco di sospensione sempre attivo."
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "corrisponde a $count$ gruppo/i aperto/i",
@@ -1080,37 +1080,37 @@
     }
   },
   "js_options_always_suspend_matches_heading": {
-    "message": "Schede aperte corrispondenti alla lista di sospensione forzata:"
+    "message": "Schede aperte che corrispondono all'elenco di sospensione sempre attivo:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
-    "message": "e"
+    "message": "e altre"
   },
   "js_options_whitelist_matches_overflow_suffix": {
-    "message": "altre."
+    "message": "."
   },
   "js_permissions_button_export": {
     "message": "Salva backup"
   },
   "js_permissions_button_set": {
-    "message": "Apri impostazioni dell'estensione"
+    "message": "Apri le impostazioni dell'estensione"
   },
   "js_update_confirm": {
-    "message": "Non hai ancora effettuato un backup. Vuoi aggiornare comunque l'estensione?"
+    "message": "Non hai ancora salvato un backup. Aggiornare comunque l'estensione?"
   },
   "js_update_button_export": {
     "message": "Salva backup"
   },
   "js_update_button_reload": {
-    "message": "Aggiorna l'estensione ora"
+    "message": "Aggiorna estensione ora"
   },
   "js_suspend_button_backup": {
     "message": "Salva un backup prima di aggiornare"
   },
   "js_shortcuts_default_command": {
-    "message": "Attiva l'estensione (mostra il popup)"
+    "message": "Attiva l'estensione (mostra popup)"
   },
   "js_shortcuts_not_set": {
-    "message": "non impostato"
+    "message": "non impostata"
   },
   "js_session_save_point": {
     "message": "Punto di salvataggio automatico per v"
@@ -1119,25 +1119,25 @@
     "message": "Backup automatico della sessione"
   },
   "html_backup_session_desc": {
-    "message": "A differenza delle sessioni, il backup salva le schede come file JSON fuori da Chrome: nella cartella Download o su Google Drive. Sopravvive a crash del browser, reset del profilo e reinstallazioni. Questa è la tua vera rete di sicurezza."
+    "message": "A differenza delle sessioni, i backup vengono salvati come file JSON fuori da Chrome: nella cartella Download o su Google Drive. Sopravvivono a crash del browser, ripristini del profilo e installazioni pulite. Questa è la tua vera rete di sicurezza."
   },
   "html_options_backup_enable": {
-    "message": "Salva automaticamente la sessione"
+    "message": "Esegui automaticamente il backup della sessione"
   },
   "html_options_backup_enable_tooltip_line1a": {
     "message": "Salva silenziosamente una copia della sessione corrente come file JSON."
   },
   "html_options_backup_enable_tooltip_line1b": {
-    "message": "Puoi scegliere di salvarla localmente (cartella tms-backups dentro i Download)"
+    "message": "Scegli di salvare in locale (cartella tms-backups dentro Download)"
   },
   "html_options_backup_enable_tooltip_line1c": {
-    "message": "oppure su Google Drive, nella cartella 'TMS Backups'."
+    "message": "oppure in una cartella 'TMS Backups' su Google Drive."
   },
   "html_options_backup_enable_tooltip_line2a": {
-    "message": "Per i backup locali, Chrome deve essere configurato per scaricare i file"
+    "message": "Per i backup locali, Chrome deve essere impostato per scaricare i file automaticamente"
   },
   "html_options_backup_enable_tooltip_line2b": {
-    "message": "automaticamente. Controlla chrome://settings/downloads."
+    "message": "(senza chiedere conferma). Controlla chrome://settings/downloads."
   },
   "html_options_backup_enable_tooltip_line2c": {
     "message": "I backup su Google Drive non hanno questo requisito."
@@ -1149,13 +1149,13 @@
     "message": "A che ora"
   },
   "html_backup_interval_warning": {
-    "message": "Attenzione: con un intervallo così lungo, può succedere molto tra un backup e l'altro. Considera un intervallo più breve per ridurre il rischio di perdita dati."
+    "message": "Attenzione: con un intervallo così lungo, può succedere molto tra un backup e l'altro. Valuta un intervallo più breve per ridurre il rischio di perdita di dati."
   },
   "html_options_backup_note": {
-    "message": "Sia i backup locali che quelli su Drive includono un identificatore di dispositivo (es. tms-session-a3f7b2c8-2026-06-18T14-30.json), così ogni installazione del browser mantiene un proprio pool indipendente di backup. In locale vengono conservati gli N backup più recenti per dispositivo; su Drive vengono conservati N backup per dispositivo, così le sessioni di macchine o browser diversi non si sovrascrivono mai.\n\n<strong>Anche con Google Drive selezionato, alla chiusura del browser viene comunque scritto un file locale come rete di sicurezza e caricato su Drive al riavvio successivo: vedere un file locale qui è normale, non un bug.</strong>"
+    "message": "Sia i backup locali che quelli su Drive includono un identificativo del dispositivo (es. tms-session-a3f7b2c8-2026-06-18T14-30.json), così ogni installazione del browser mantiene il proprio pool indipendente di backup. Vengono conservati gli N backup locali più recenti per dispositivo; anche i backup su Drive vengono conservati in N copie per dispositivo, così le sessioni di macchine o browser diversi non si sovrascrivono mai a vicenda.\n\n<strong>Anche selezionando Google Drive, alla chiusura del browser viene comunque scritto un file di sicurezza locale, che viene caricato su Drive al successivo avvio. È normale, non un bug, vedere qui un file locale.</strong>"
   },
   "html_backup_max_files_label": {
-    "message": "Backup massimi da conservare"
+    "message": "Numero massimo di backup da conservare"
   },
   "html_backup_device_name_label": {
     "message": "Nome dispositivo (opzionale)"
@@ -1167,16 +1167,16 @@
     "message": "Backup precedenti"
   },
   "html_options_backup_now": {
-    "message": "Esegui backup"
+    "message": "Esegui backup ora"
   },
   "html_options_back_to_top": {
-    "message": "↑ Su"
+    "message": "↑ Inizio"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Le sessioni sono memorizzate solo dentro Chrome: non sopravvivono a un crash del browser o al reset del profilo."
+    "message": "Le sessioni sono salvate solo dentro Chrome: non sopravvivono a un crash del browser o a un ripristino del profilo."
   },
   "html_history_backup_settings_link": {
-    "message": "Configura il Backup per salvare le schede al di fuori del browser →"
+    "message": "Configura il Backup per salvare le tue schede fuori dal browser →"
   },
   "js_options_backup_now_running": {
     "message": "Backup in corso…"
@@ -1188,57 +1188,53 @@
     "message": "Salvato"
   },
   "js_backup_permission_denied": {
-    "message": "Permesso negato: backup automatico non attivato."
+    "message": "Permesso negato: il backup automatico non è stato abilitato."
   },
   "html_options_other_enable_news_feed": {
-    "message": "Attiva feed news"
+    "message": "Abilita feed novità"
   },
   "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "Controlla periodicamente marvellouscode.works per le novità su TMS"
+    "message": "Controlla periodicamente marvellouscode.works per le novità su TMS e le mostra"
   },
   "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "e le mostra nella barra laterale."
+    "message": "nella barra laterale."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "Disattiva per evitare questa richiesta in background."
+    "message": "Disabilita per saltare questa richiesta in background."
   },
   "html_options_other_legacy_mascot": {
-    "message": "Usa la grafica classica di The Great Suspender al posto della nuova mascotte"
+    "message": "Usa la grafica classica di The Great Suspender invece della nuova mascotte"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Ripristina icone e illustrazioni nello stile originale di The Great"
+    "message": "Ripristina icone e illustrazioni allo stile originale di The Great"
   },
   "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "Suspender, dove è disponibile una versione legacy dell'immagine."
+    "message": "Suspender, dove è disponibile una versione precedente dell'immagine."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
-    "message": "Le immagini senza equivalente legacy usano comunque la nuova grafica."
+    "message": "Le immagini senza un equivalente precedente continuano a usare la nuova grafica."
   },
   "html_permissions_notice_text": {
-    "message": "Da questa versione, TMS richiede l'accesso al filesystem/account Google solo quando attivi davvero il backup locale o su Google Drive, invece di richiederlo subito."
+    "message": "A partire da questa versione, TMS richiede l'accesso al filesystem/account Google solo quando attivi effettivamente il backup locale o su Google Drive, invece di richiederlo in anticipo."
   },
   "html_permissions_notice_link": {
     "message": "Scopri di più sui permessi."
   },
   "html_permissions_notice_dismiss": {
-    "message": "Capito"
+    "message": "Ho capito"
   },
   "html_permissions_info_note": {
-    "message": "TMS richiede i permessi Download e account Google solo quando attivi il backup locale o su Google Drive qui sotto."
+    "message": "TMS richiede i permessi Download e account Google solo quando abiliti il backup locale o su Google Drive qui sotto."
   },
   "html_permissions_info_note_link": {
-    "message": "Vedi il dettaglio completo dei permessi."
+    "message": "Vedi il dettaglio completo dei permessi"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome sta chiedendo dove salvare i file, quindi i backup automatici non funzioneranno in silenzio. Disattiva \"Chiedi dove salvare\" in chrome://settings/downloads."
+    "message": "Chrome sta chiedendo dove salvare i file, quindi i backup automatici non funzioneranno in modo silenzioso. Disabilita \"Chiedi dove salvare\" in chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "Prossima esecuzione: $time$",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+    "placeholders": { "time": { "content": "$1" } }
   },
   "js_options_backup_last_local": {
     "message": "Ultimo backup: $date$",
@@ -1264,10 +1260,10 @@
     "message": "Scollega"
   },
   "html_popup_backup_drive_error": {
-    "message": "Backup automatico non riuscito: nessun account Google collegato. Clicca qui per rimediare."
+    "message": "Backup automatico non riuscito: nessun account Google collegato. Clicca qui per risolvere."
   },
   "html_popup_backup_downloads_error": {
-    "message": "Backup automatico non riuscito: permesso Download mancante. Clicca qui per rimediare."
+    "message": "Backup automatico non riuscito: il permesso Download è mancante. Clicca qui per risolvere."
   },
   "html_popup_backup_nudge_text": {
     "message": "Il backup automatico è disattivato. Proteggi le tue sessioni."
@@ -1276,10 +1272,10 @@
     "message": "Ricordamelo tra 10 giorni"
   },
   "html_backup_nudge_note_text": {
-    "message": "Il backup automatico è disattivato. Attivandolo proteggi le tue sessioni nel caso il profilo del browser venga mai azzerato o si corrompa."
+    "message": "Il backup automatico è disattivato. Attivandolo, proteggi le tue sessioni nel caso in cui questo profilo del browser venga mai ripristinato o corrotto."
   },
   "html_backup_nudge_optout": {
-    "message": "Non sono interessato, non ricordarmelo più"
+    "message": "Non mi interessa, non ricordarmelo più"
   },
   "html_backup_downloads_permission_missing": {
     "message": "Il backup automatico è attivo, ma il permesso Download non è concesso su questo dispositivo (può succedere dopo l'importazione delle impostazioni o la sincronizzazione da un altro browser). I backup non verranno eseguiti finché non lo concedi."
@@ -1297,10 +1293,10 @@
     "message": "Backup impostazioni"
   },
   "html_backup_settings_desc": {
-    "message": "Esporta tutte le impostazioni dell'estensione in un file JSON, utile come copia di sicurezza o per trasferire la configurazione su un altro profilo. L'importazione di un file sostituisce le impostazioni attuali."
+    "message": "Esporta tutte le impostazioni dell'estensione in un file JSON, utile come backup o per trasferire la configurazione su un altro profilo del browser. L'importazione di un file sostituisce le impostazioni correnti."
   },
   "html_backup_local_folder_hint": {
-    "message": "I backup locali vanno nella cartella tms-backups dentro i Download."
+    "message": "I backup locali vengono salvati nella cartella tms-backups dentro Download."
   },
   "html_backup_drive_folder_note": {
     "message": "I backup vengono salvati nella cartella 'TMS Backups' del tuo Google Drive."
@@ -1327,7 +1323,7 @@
     "message": "Ripristina impostazioni da Drive"
   },
   "js_backup_drive_settings_saving": {
-    "message": "Salvataggio su Drive in corso…"
+    "message": "Salvataggio su Drive…"
   },
   "js_backup_drive_settings_saved": {
     "message": "Impostazioni salvate su Drive."
@@ -1336,7 +1332,7 @@
     "message": "Impossibile salvare le impostazioni su Drive. Riprova."
   },
   "js_backup_cooldown": {
-    "message": "Attendi $seconds$s prima di avviare un altro backup.",
+    "message": "Attendi $seconds$s prima del prossimo backup.",
     "placeholders": {
       "seconds": {
         "content": "$1"
@@ -1344,13 +1340,13 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "Download impostazioni da Drive in corso…"
+    "message": "Download delle impostazioni da Drive…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "Nessun file impostazioni trovato su Drive. Salva prima le impostazioni su Drive."
+    "message": "Nessun file di impostazioni trovato su Drive. Salva prima le tue impostazioni su Drive."
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "Impostazioni ripristinate. Ricaricamento in corso…"
+    "message": "Impostazioni ripristinate. Ricaricamento…"
   },
   "js_backup_settings_drive_restore_error": {
     "message": "Impossibile ripristinare le impostazioni da Drive. Riprova."
@@ -1378,19 +1374,19 @@
     "message": "Importa impostazioni"
   },
   "js_options_settings_import_confirm": {
-    "message": "Questa operazione sovrascriverà le impostazioni attuali. Continuare?"
+    "message": "Questo sovrascriverà le tue impostazioni correnti. Continuare?"
   },
   "js_options_settings_import_success": {
-    "message": "Impostazioni importate. Ricaricamento in corso…"
+    "message": "Impostazioni importate. Ricaricamento…"
   },
   "js_options_settings_import_error": {
-    "message": "File impostazioni non valido."
+    "message": "File delle impostazioni non valido."
   },
   "html_history_migrate_nav": {
-    "message": "Migrazione"
+    "message": "Migra"
   },
   "html_backup_restore_title": {
-    "message": "Recupero da backup"
+    "message": "Ripristina da backup"
   },
   "html_backup_restore_desc": {
     "message": "Importa un file di backup per ripristinarlo come sessione salvata. Una volta importato, apri Sessioni per scegliere quali finestre ripristinare."
@@ -1411,10 +1407,10 @@
     "message": "Importa selezionato"
   },
   "js_backup_restore_importing": {
-    "message": "Importazione in corso…"
+    "message": "Importazione…"
   },
   "js_backup_restore_success": {
-    "message": "Importata come \"$name$\".",
+    "message": "Importato come \"$name$\".",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1428,16 +1424,16 @@
     "message": "File di backup non valido."
   },
   "js_backup_restore_error_drive": {
-    "message": "Impossibile scaricare il backup da Drive. Controlla la connessione e riprova."
+    "message": "Impossibile scaricare da Drive. Controlla la connessione e riprova."
   },
   "js_backup_restore_error_generic": {
-    "message": "Importazione fallita. Riprova."
+    "message": "Importazione non riuscita. Riprova."
   },
   "html_backup_drive_import_modal_title": {
-    "message": "Salvare il backup Drive prima di passare al locale?"
+    "message": "Salvare il backup su Drive prima di cambiare?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Il backup Drive più recente è del $date$. Vuoi salvarlo come sessione in Gestione sessioni, così puoi ripristinarlo anche senza Google Drive?",
+    "message": "Il tuo backup su Drive più recente è del $date$. Salvalo come sessione in Gestione sessioni così potrai ripristinarlo senza bisogno di Google Drive.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1445,7 +1441,7 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Salva nelle Sessioni"
+    "message": "Salva in Sessioni"
   },
   "html_backup_drive_import_modal_cancel": {
     "message": "Salta"
@@ -1460,16 +1456,16 @@
     "message": "Elimina"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Eliminare questo file di backup da Drive? L'operazione non è reversibile."
+    "message": "Eliminare questo file di backup da Drive? Questa azione non può essere annullata."
   },
   "html_backup_drive_delete_device_btn": {
     "message": "Elimina tutti"
   },
   "html_backup_drive_delete_device_modal_title": {
-    "message": "Eliminare tutti i backup di questo dispositivo?"
+    "message": "Eliminare tutti i backup per questo dispositivo?"
   },
   "html_backup_drive_delete_device_modal_body": {
-    "message": "Verranno eliminati definitivamente tutti i $count$ file di backup di \"$device$\" da Google Drive. L'operazione non è reversibile.",
+    "message": "Questo eliminerà permanentemente tutti i $count$ file di backup per \"$device$\" da Google Drive. Questa azione non può essere annullata.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1486,7 +1482,7 @@
     "message": "Annulla"
   },
   "js_backup_drive_delete_device_error": {
-    "message": "Alcuni file di backup non sono stati eliminati. Riprova."
+    "message": "Non è stato possibile eliminare alcuni file di backup. Riprova."
   },
   "html_backup_drive_no_files": {
     "message": "Nessun file di backup trovato su Drive."

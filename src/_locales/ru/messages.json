@@ -3,16 +3,16 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "Освободи память. Приостанови прямо сейчас вкладки, которые не нужны."
+    "message": "Освободите память. Приостанавливайте ненужные вкладки прямо сейчас."
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
   },
   "ext_cmd_toggle_tab_suspension_description": {
-    "message": "Приостановить/Возобновить активную вкладку"
+    "message": "Приостановить/возобновить активную вкладку"
   },
   "ext_cmd_toggle_tab_pause_description": {
-    "message": "Поставить на паузу/Возобновить приостановку активной вкладки"
+    "message": "Остановить/возобновить приостановку активной вкладки"
   },
   "ext_cmd_suspend_selected_tabs_description": {
     "message": "Приостановить выбранные вкладки"
@@ -21,10 +21,10 @@
     "message": "Возобновить выбранные вкладки"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "Приостановить все вкладки в группе активной вкладки"
+    "message": "Приостановить все вкладки группы активной вкладки"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "Возобновить все вкладки в группе активной вкладки"
+    "message": "Возобновить все вкладки группы активной вкладки"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
     "message": "Приостановить все вкладки вне групп в активном окне"
@@ -33,13 +33,13 @@
     "message": "Возобновить все вкладки вне групп в активном окне"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Переключить «никогда не приостанавливать» для группы активной вкладки"
+    "message": "Включить/выключить «никогда не приостанавливать» для группы активной вкладки"
   },
   "ext_cmd_soft_suspend_active_window_description": {
     "message": "Приостановить все остальные вкладки в активном окне"
   },
   "ext_cmd_force_suspend_active_window_description": {
-    "message": "Принудительно приостановить все остальные вкладки в активном окне"
+    "message": "Принудительно приостановить остальные вкладки в активном окне"
   },
   "ext_cmd_unsuspend_active_window_description": {
     "message": "Возобновить все вкладки в активном окне"
@@ -57,10 +57,10 @@
     "message": "Открыть ссылку в новой приостановленной вкладке"
   },
   "js_context_toggle_suspend_state": {
-    "message": "Приостановить/Возобновить эту вкладку"
+    "message": "Приостановить/возобновить эту вкладку"
   },
   "js_context_toggle_pause_suspension": {
-    "message": "Поставить на паузу/Возобновить приостановку этой вкладки"
+    "message": "Остановить/возобновить приостановку этой вкладки"
   },
   "js_context_never_suspend_domain": {
     "message": "Никогда не приостанавливать этот домен"
@@ -75,10 +75,10 @@
     "message": "Возобновить выбранные вкладки"
   },
   "js_context_suspend_tab_group": {
-    "message": "Приостановить все вкладки в этой группе"
+    "message": "Приостановить все вкладки этой группы"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "Возобновить все вкладки в этой группе"
+    "message": "Возобновить все вкладки этой группы"
   },
   "js_context_suspend_ungrouped_tabs": {
     "message": "Приостановить все вкладки вне групп"
@@ -93,16 +93,16 @@
     "message": "Разрешить приостановку этой группы"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Никогда не приостанавливать эту группу (только группы с названием)"
+    "message": "Никогда не приостанавливать эту группу (только именованные группы)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
-    "message": "Приостановить все остальные вкладки в этом окне"
+    "message": "Приостановить все остальные вкладки этого окна"
   },
   "js_context_force_suspend_other_tabs_in_window": {
-    "message": "Принудительно приостановить все остальные вкладки в этом окне"
+    "message": "Принудительно приостановить остальные вкладки этого окна"
   },
   "js_context_unsuspend_all_tabs_in_window": {
-    "message": "Возобновить все вкладки в этом окне"
+    "message": "Возобновить все вкладки этого окна"
   },
   "js_context_soft_suspend_all_tabs": {
     "message": "Приостановить все вкладки во всех окнах"
@@ -114,25 +114,25 @@
     "message": "Возобновить все вкладки во всех окнах"
   },
   "html_health_title": {
-    "message": "Состояние вкладок (Бета)"
+    "message": "Состояние вкладок (бета)"
   },
   "html_health_title_intro": {
-    "message": "Если у вас проблемы с приостановленными вкладками, особенно со значками сайтов, нажмите «Сканировать вкладки», чтобы узнать, можем ли мы их исправить."
+    "message": "Если у вас проблемы с приостановленными вкладками, особенно со значками сайтов, нажмите «Сканировать вкладки», чтобы попробовать их исправить."
   },
   "html_health_all_good": {
-    "message": "Мы не нашли проблем с вашими приостановленными вкладками. Если вы всё ещё видите ошибку, сообщите нам об этом ниже, и мы постараемся расширить эту проверку."
+    "message": "Мы не нашли проблем с вашими приостановленными вкладками. Если вы всё же видите что-то не так, сообщите нам об этом ниже, и мы попробуем расширить эту проверку."
   },
   "html_health_reload_intro": {
-    "message": "Некоторые из ваших приостановленных вкладок загружены не полностью. Мы можем перезагрузить их, чтобы всё исправить."
+    "message": "У вас есть приостановленные вкладки, которые не загрузились полностью. Мы можем перезагрузить их, чтобы всё исправить."
   },
   "html_health_restore_intro": {
-    "message": "Некоторые из ваших приостановленных вкладок используют значок сайта по умолчанию из браузера. Это значит, что кэш TMS их не сохранил. Мы можем восстановить и снова приостановить минимальное количество вкладок, чтобы получить недостающие значки."
+    "message": "У некоторых приостановленных вкладок используется значок сайта по умолчанию из браузера. Это значит, что в кэше TMS его нет. Мы можем восстановить и снова приостановить минимальное количество вкладок, чтобы получить недостающие значки."
   },
   "html_health_scan_button": {
     "message": "Сканировать вкладки"
   },
   "html_health_copy_button": {
-    "message": "Скопировать результаты"
+    "message": "Копировать результаты"
   },
   "html_health_scan_label": {
     "message": "Сканирование вкладок..."
@@ -141,10 +141,10 @@
     "message": "Вкладок приостановлено TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "значков в кэше TMS"
+    "message": "значков сайтов в кэше TMS"
   },
   "html_health_num_tabs_empty": {
-    "message": "вкладок не загружено"
+    "message": "вкладок не загрузились"
   },
   "html_health_num_tabs_extension": {
     "message": "вкладок со значком TMS"
@@ -153,10 +153,10 @@
     "message": "вкладок со значком по умолчанию"
   },
   "html_health_num_hostnames": {
-    "message": "уникальных имён хостов"
+    "message": "уникальных хостов вкладок"
   },
   "html_health_small_cache": {
-    "message": "Локальный кэш значков TMS может не охватывать все вкладки. Если кэш браузера будет очищен, TMS может не показать некоторые значки."
+    "message": "Локальный кэш значков TMS может охватывать не все вкладки. Если кэш браузера будет очищен, TMS может не суметь показать некоторые значки."
   },
   "html_health_reload_button": {
     "message": "Далее: перезагрузить $count$ вкладок",
@@ -167,7 +167,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Далее: восстановить $count$ вкладок, чтобы кэшировать значки",
+    "message": "Далее: восстановить $count$ вкладок для получения значков",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -178,22 +178,22 @@
     "message": "Восстановление значков..."
   },
   "html_health_after_reload": {
-    "message": "Как только вкладки завершат загрузку в фоновом режиме, вы можете снова нажать «Сканировать вкладки», чтобы проверить, стало ли лучше."
+    "message": "Когда вкладки закончат загружаться в фоне, снова нажмите «Сканировать вкладки», чтобы проверить, улучшилась ли ситуация."
   },
   "html_health_after_restore": {
-    "message": "Вы можете снова нажать «Сканировать вкладки», чтобы проверить, стало ли лучше."
+    "message": "Снова нажмите «Сканировать вкладки», чтобы проверить, улучшилась ли ситуация."
   },
   "html_health_need_help1": {
-    "message": "Если проблемы с вкладками или значками сохраняются, вы можете нажать «Скопировать результаты» и вставить их в новый"
+    "message": "Если проблемы со вкладками или значками сохраняются, нажмите «Копировать результаты» и вставьте их в новый"
   },
   "html_health_need_help2": {
-    "message": "Issue на GitHub."
+    "message": "issue на GitHub."
   },
   "html_health_num_grouped_broken": {
-    "message": "сгруппированных вкладок в неисправном состоянии (ошибка групп вкладок)"
+    "message": "сгруппированных вкладок в некорректном состоянии (баг групп вкладок)"
   },
   "html_health_repair_intro": {
-    "message": "Некоторые вкладки в группах находятся в неисправном состоянии: после перезапуска браузера они отображаются как новая вкладка вместо корректной загрузки. TMS может попытаться их восстановить."
+    "message": "Некоторые вкладки в группах находятся в некорректном состоянии: после перезапуска браузера они отображаются как новая вкладка вместо корректной загрузки. TMS может попытаться восстановить их."
   },
   "html_health_repair_button": {
     "message": "Восстановить $count$ сгруппированных вкладок",
@@ -204,7 +204,7 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Готово. Повторите сканирование, чтобы убедиться, что сгруппированные вкладки вернулись в приостановленное состояние."
+    "message": "Готово. Выполните повторное сканирование, чтобы убедиться, что сгруппированные вкладки вернулись в приостановленное состояние."
   },
   "html_about_title": {
     "message": "О расширении"
@@ -213,7 +213,7 @@
     "message": "Версия"
   },
   "html_about_tagline": {
-    "message": "Духовный преемник современного приостановления вкладок: заменяет неактивные вкладки лёгкой страницей гибернации, давая вам точный контроль над тем, когда они «просыпаются»."
+    "message": "Духовный преемник современной приостановки вкладок: заменяет неактивные вкладки лёгкой страницей гибернации, давая вам точный контроль над тем, когда их пробуждать."
   },
   "html_about_section_credits": {
     "message": "Благодарности"
@@ -225,40 +225,40 @@
     "message": "всем участникам на GitHub"
   },
   "html_about_fork_beginning": {
-    "message": "На основе оригинала"
+    "message": "Основано на оригинальном"
   },
   "html_about_fork_mid": {
-    "message": "доступно на GitHub, без рекламных трекеров"
+    "message": "доступном на GitHub, без отслеживания рекламой"
   },
   "html_about_fork_end": {
-    "message": "Дополнительная информация доступна на"
+    "message": "Подробнее можно узнать на"
   },
   "html_about_contributors": {
-    "message": "Разработано для вас"
+    "message": "Создано благодаря"
   },
   "html_about_report_issues_prefix": {
-    "message": "Связаться с нами или сообщить о баге можно на"
+    "message": "Если у вас есть отзыв или вы хотите сообщить о проблеме, сделайте это на"
   },
   "html_about_report_issues_suffix": {
-    "message": ". Пожалуйста, убедитесь, что Ваша идея или предложение не были опубликованы ранее. Спасибо!"
+    "message": ". Перед созданием новой issue проверьте, нет ли уже такой же. Спасибо!"
   },
   "html_about_debugging_prefix": {
-    "message": "Чтобы собрать журналы и создать диагностический отчёт, перейдите на "
+    "message": "Чтобы собрать логи и создать диагностический отчёт, перейдите на "
   },
   "html_about_debugging_suffix": {
     "message": "страницу диагностики."
   },
   "html_about_the_github_issues_page": {
-    "message": "странице предложений GitHub"
+    "message": "странице issues на GitHub"
   },
   "html_about_section_support": {
     "message": "Поддержать разработку"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender бесплатен и имеет открытый исходный код. Если он оказался полезным, рассмотрите возможность небольшого пожертвования: это помогает проекту жить и развиваться."
+    "message": "The Marvellous Suspender бесплатен и имеет открытый исходный код. Если он вам полезен, рассмотрите небольшой вклад: это помогает проекту жить и развиваться."
   },
   "html_broken_title": {
-    "message": "сломан"
+    "message": "не работает"
   },
   "html_broken_ruh_roh": {
     "message": "Ой-ой!"
@@ -267,16 +267,16 @@
     "message": "не удалось запустить. Возможно, вы используете несовместимый браузер?"
   },
   "html_broken_line2": {
-    "message": "Попробуйте перезапустить расширение. Если проблема не устранена, попросите помощи в"
+    "message": "Попробуйте перезапустить расширение. Если проблема сохраняется, обратитесь за помощью на"
   },
   "html_broken_line2_github_page": {
-    "message": "Страница проекта на GitHub"
+    "message": "странице проекта на GitHub"
   },
   "html_broken_line3": {
-    "message": "Вы можете восстановить потерянные вкладки из"
+    "message": "Вы можете восстановить потерянные вкладки на"
   },
   "html_broken_line3_session_management": {
-    "message": "страница управления сессиями"
+    "message": "странице управления сессиями"
   },
   "html_broken_button_restart_extension": {
     "message": "Перезапустить расширение"
@@ -285,19 +285,19 @@
     "message": "Управление сессиями"
   },
   "html_history_page_desc": {
-    "message": "TMS постоянно хранит снимок ваших открытых вкладок, настройка не требуется. Сессии обновляются автоматически во время просмотра, но существуют только внутри Chrome: если профиль браузера будет утерян или повреждён, они будут потеряны вместе с ним."
+    "message": "TMS автоматически хранит актуальный снимок ваших открытых вкладок — настройка не требуется. Сессии обновляются автоматически по мере просмотра, но живут внутри Chrome: если профиль браузера потеряется или повредится, они пропадут вместе с ним."
   },
   "html_history_current_session": {
     "message": "Текущая сессия"
   },
   "html_history_recent_sessions": {
-    "message": "Предыдущие сессии"
+    "message": "Недавние сессии"
   },
   "html_history_saved_sessions": {
     "message": "Сохранённые сессии"
   },
   "html_history_import_session": {
-    "message": "Импорт сессии"
+    "message": "Импортировать сессию"
   },
   "html_history_migrate_tabs": {
     "message": "Перенести вкладки"
@@ -309,7 +309,7 @@
     "message": "Перенос вкладок"
   },
   "html_history_migrate_section_desc": {
-    "message": "Восстановите вкладки, приостановленные предыдущей версией или другим форком этого расширения. Введите старый ID расширения ниже и нажмите «Перенести вкладки», чтобы преобразовать приостановленные URL-адреса."
+    "message": "Восстановите вкладки, приостановленные предыдущей версией или другим форком этого расширения. Введите старый ID расширения ниже и нажмите «Перенести вкладки», чтобы преобразовать приостановленные URL."
   },
   "html_options_title": {
     "message": "Настройки"
@@ -330,10 +330,10 @@
     "message": "браузера для приостановленных страниц."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "Это позволяет находить приостановленные вкладки по имени хоста"
+    "message": "Это позволяет находить приостановленные вкладки по имени хоста через"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "с помощью функции Chrome \"Поиск по вкладкам\" (Ctrl+Shift+A)."
+    "message": "«Поиск по вкладкам» в Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Сохранять позицию воспроизведения YouTube при приостановке"
@@ -345,43 +345,43 @@
     "message": "Язык"
   },
   "html_options_language_auto": {
-    "message": "По умолчанию для системы"
+    "message": "Системный по умолчанию"
   },
   "html_options_suspend_automatically_after": {
-    "message": "Автоматически приостанавливать вкладки после"
+    "message": "Автоматически приостанавливать вкладки через"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "Приостанавливать вкладки от батареи через"
+    "message": "Приостанавливать вкладки при питании от батареи через"
   },
   "html_options_suspend_same_as_ac": {
     "message": "Так же, как при питании от сети"
   },
   "html_options_suspend_never": {
-    "message": "никогда"
+    "message": "Никогда"
   },
   "html_options_suspend_seconds": {
-    "message": "секунд"
+    "message": "сек."
   },
   "html_options_suspend_minute": {
-    "message": "минуты"
+    "message": "мин"
   },
   "html_options_suspend_minutes": {
-    "message": "минут"
+    "message": "мин"
   },
   "html_options_suspend_hour": {
-    "message": "часа"
+    "message": "час"
   },
   "html_options_suspend_hours": {
-    "message": "часов"
+    "message": "ч."
   },
   "html_options_suspend_day": {
-    "message": "дня"
+    "message": "день"
   },
   "html_options_suspend_days": {
     "message": "дней"
   },
   "html_options_suspend_week": {
-    "message": "недели"
+    "message": "неделя"
   },
   "html_options_suspend_weeks": {
     "message": "недель"
@@ -393,97 +393,97 @@
     "message": "Никогда не приостанавливать вкладки, открытые в окнах приложений"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Никогда не приостанавливать вкладки в группе вкладок"
+    "message": "Никогда не приостанавливать вкладки в группе"
   },
   "html_options_suspend_no_forms": {
-    "message": "Никогда не приостанавливать вкладки с несохранёнными полями ввода"
+    "message": "Никогда не приостанавливать вкладки с несохранёнными данными форм"
   },
   "html_options_suspend_no_audio": {
-    "message": "Никогда не приостанавливать вкладки с проигрывающимся аудио"
+    "message": "Никогда не приостанавливать вкладки, воспроизводящие звук"
   },
   "html_options_suspend_only_connected": {
-    "message": "Никогда не приостанавливать вкладки в режиме оффлайн"
+    "message": "Никогда не приостанавливать вкладки в офлайне"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Принимать по умолчанию"
+    "message": "Перехватывать вкладки, приостановленные другими расширениями"
   },
   "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Автоматически принимает вкладки, уже приостановленные другим совместимым расширением"
+    "message": "Автоматически берёт под контроль вкладки, уже приостановленные другим совместимым"
   },
   "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "(например, The Great Suspender или другой установкой этого расширения)."
+    "message": "расширением (например, The Great Suspender или другой установкой этого расширения)."
   },
   "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "Вкладка считается \"приостановленной\", если её URL содержит 'suspended.html'."
+    "message": "Вкладка считается «приостановленной», если её URL содержит 'suspended.html'."
   },
   "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "При включении этот URL переписывается на текущую установку,"
+    "message": "Включение этой опции переписывает URL на эту установку, чтобы TMS могло"
   },
   "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "чтобы TMS мог управлять вкладкой в дальнейшем."
+    "message": "управлять вкладкой в дальнейшем."
   },
   "html_options_suspend_only_on_battery": {
-    "message": "Никогда не приостанавливать вкладки, когда подключён источник питания"
+    "message": "Никогда не приостанавливать вкладки при подключении к питанию"
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Никогда не приостанавливать активную вкладку в каждом окне"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "Всегда открывать приостановленные вкладки в самом верху страницы"
+    "message": "Всегда открывать приостановленные вкладки прокрученными в начало"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "Вкладка открывается заново с самого верха страницы, а не с"
+    "message": "Вкладка открывается в начале страницы, а не там, где была"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "того места, где была при приостановке."
+    "message": "прокрутка на момент приостановки."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Применяется как к автоматической, так и к ручной приостановке,"
+    "message": "Применяется как к автоматической, так и к ручной приостановке, и имеет приоритет над"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "и имеет приоритет над ссылками, ведущими к разделу (#) при загрузке."
+    "message": "ссылками, ведущими к #разделу при загрузке."
   },
   "html_options_suspend_automatically_unsuspend": {
-    "message": "Автоматически возобновлять приостановленную вкладку при переходе на неё"
+    "message": "Автоматически возобновлять вкладку при её просмотре"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Перезагрузка также возобновляет вкладки в фоновом режиме (не только активную вкладку)"
+    "message": "Перезагрузка также возобновляет вкладки в фоне (не только активную)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Если включено, перезагрузка приостановленной вкладки (Ctrl+R"
+    "message": "Если включено, перезагрузка приостановленной вкладки (Ctrl+R или правый клик"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "или ПКМ > Перезагрузить) возобновляет её, даже если это не"
+    "message": "> Перезагрузить) также возобновляет её, даже если она не"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "текущая активная вкладка."
+    "message": "активна в данный момент."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Полезно при перезагрузке нескольких приостановленных вкладок"
+    "message": "Полезно для перезагрузки нескольких приостановленных вкладок сразу, например после"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "сразу, например после выделения нескольких вкладок и Ctrl+R."
+    "message": "выделения нескольких вкладок и нажатия Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "Применять встроенную экономию памяти браузера при приостановке"
+    "message": "Применять встроенное в браузер сбережение памяти при приостановке"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Ещё больше уменьшает потребление памяти для приостановленных вкладок, используя"
+    "message": "Ещё сильнее снижает использование памяти приостановленной вкладкой за счёт"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "встроенную функцию браузера «выгрузка вкладок». Это может дать экономию памяти до"
+    "message": "встроенной функции браузера «выгрузка вкладок». Это может дать до"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "потребление памяти до 500% (при работе с большим количеством вкладок)."
+    "message": "500% экономии памяти при работе с большим числом вкладок."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Однако, это может привести к небольшой задержке прорисовки приостановленной"
+    "message": "Однако это также вызовет небольшую задержку отрисовки при выборе"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "вкладки при переходе на неё."
+    "message": "приостановленной вкладки."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "Подробнее о выгрузке вкладок см.:"
+    "message": "Подробнее о выгрузке вкладок читайте здесь:"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -501,130 +501,130 @@
     "message": "Системная"
   },
   "html_options_suspend_screen_capturing": {
-    "message": "Скриншот страницы"
+    "message": "Захват экрана"
   },
   "html_options_suspend_screen_capturing_disabled": {
-    "message": "Отключено"
+    "message": "Отключён"
   },
   "html_options_suspend_screen_capturing_screen_only": {
-    "message": "Захватывать только верх страницы"
+    "message": "Захватывать только верх экрана"
   },
   "html_options_suspend_screen_capturing_entire_page": {
     "message": "Захватывать всю страницу"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "На приостановленной вкладке расширение будет отображать скриншот страницы"
+    "message": "На приостановленной вкладке расширение может показать превью того, как выглядела вкладка"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "до её приостановки."
+    "message": "непосредственно перед приостановкой."
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "Скриншот страницы является экспериментальной функцией и может привести к значительной"
+    "message": "Захват экрана — экспериментальная функция и может значительно нагружать процессор,"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "нагрузке на процессор, а также к повышенному потреблению памяти."
+    "message": "а также немного увеличивать использование памяти."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "Если вы заметили странное поведение, например, вкладки долго приостанавливаются, или браузер"
+    "message": "Если вы заметили странности, например долгую приостановку вкладок или"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "внезапные вылеты Chrome, попробуйте отключить эту функцию."
+    "message": "неожиданные сбои браузера, попробуйте отключить эту функцию."
   },
   "html_options_suspend_screen_capture_method": {
-    "message": "Способ захвата"
+    "message": "Метод захвата"
   },
   "html_options_suspend_screen_capture_method_auto": {
     "message": "Автоматически (рекомендуется)"
   },
   "html_options_suspend_screen_capture_method_native": {
-    "message": "Только снимок браузера"
+    "message": "Только скриншот браузера"
   },
   "html_options_suspend_screen_capture_method_renderer": {
-    "message": "Только отрисовка страницы"
+    "message": "Только рендерер страницы"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "В автоматическом режиме делается настоящий снимок браузера, если приостанавливаемая вкладка сейчас открыта перед вами."
+    "message": "Автоматически делает настоящий скриншот браузера, если приостанавливаемая вкладка — та, на которую вы сейчас смотрите."
   },
   "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "Это происходит мгновенно и работает на любом сайте. Остальные вкладки перерисовываются отрисовщиком страницы, что медленнее."
+    "message": "Это происходит мгновенно и работает на любом сайте. Любая другая вкладка перерисовывается рендерером страницы, что медленнее."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Режим «Только снимок браузера» никогда не запускает отрисовщик страницы, поэтому вкладки, приостановленные в фоне, остаются без предпросмотра."
+    "message": "«Только скриншот браузера» никогда не использует рендерер страницы, поэтому вкладки, приостановленные в фоне, не получают превью."
   },
   "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Снимок браузера охватывает только видимую часть страницы, даже если выбран захват всей страницы."
+    "message": "Скриншот браузера захватывает только видимую часть страницы, даже если выбрано «Захватывать всю страницу»."
   },
   "html_options_suspend_screen_capture_precapture": {
-    "message": "Keep a recent screenshot of tabs as I use them"
+    "message": "Хранить свежий скриншот вкладок по мере их использования"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Takes a browser screenshot of a tab about a second after you switch to it or it finishes loading,"
+    "message": "Делает скриншот браузера вкладки примерно через секунду после переключения на неё или завершения загрузки,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "so tabs that are later suspended in the background still get a preview."
+    "message": "чтобы вкладки, позже приостановленные в фоне, всё равно получили превью."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome only lets an extension screenshot a tab you haven't clicked its button on if it has access to all sites,"
+    "message": "Chrome разрешает расширению делать скриншот вкладки, по которой вы не нажимали его кнопку, только если у расширения есть доступ ко всем сайтам,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "so turning this on asks for that permission. It is only used to take these screenshots, which stay on this computer."
+    "message": "поэтому включение этой опции запрашивает такое разрешение. Оно используется только для съёмки этих скриншотов, которые остаются на этом компьютере."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Only the latest screenshot of each open tab is kept, and it is deleted when the tab closes."
+    "message": "Хранится только последний скриншот каждой открытой вкладки, и он удаляется при её закрытии."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Incognito tabs and whitelisted sites are never captured."
+    "message": "Вкладки в режиме инкогнито и сайты из белого списка никогда не захватываются."
   },
   "html_options_suspend_force_screen_capture": {
-    "message": "Использовать более высокое качество скриншотов страниц"
+    "message": "Включить режим захвата экрана в высоком качестве"
   },
   "html_options_suspend_force_screen_capture_tooltip_line1": {
-    "message": "Когда отключено, снимки экрана имеют следующие ограничения:"
+    "message": "Когда отключено, захват экрана имеет следующие ограничения для повышения производительности:"
   },
   "html_options_suspend_force_screen_capture_tooltip_line2": {
-    "message": "- Низкое качество скриншота страницы"
+    "message": "- Низкое качество захвата экрана"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Скриншота страницы не будет, если для генерации изображения требуется более 1 минуты"
+    "message": "- Не будет захватывать экран, если создание изображения занимает больше 1 минуты"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
-    "message": "- Максимальная высота скриншота страницы 5000px"
+    "message": "- Максимальная высота захвата экрана ограничена 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Использование скриншотов страниц высокого качества может значительно увеличить"
+    "message": "Включение режима захвата экрана в высоком качестве может значительно увеличить нагрузку на процессор"
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "нагрузку на процессор и потребление памяти."
+    "message": "и использование памяти."
   },
   "html_options_whitelist_title": {
-    "message": "Никогда не приостанавливать вкладки с URL-адресами из следующего списка:"
+    "message": "Никогда не приостанавливать вкладки с URL из следующего списка:"
   },
   "html_options_always_suspend_title": {
     "message": "Всегда приостанавливать вкладки с URL из следующего списка:"
   },
   "html_options_always_suspend_tooltip_line1a": {
-    "message": "Вкладки, соответствующие этому списку, всегда приостанавливаются после"
+    "message": "Вкладки, соответствующие этому списку, всегда приостанавливаются по истечении обычного тайм-аута,"
   },
   "html_options_always_suspend_tooltip_line1b": {
-    "message": "обычного тайм-аута, независимо от звука, ввода в форму или закрепления."
+    "message": "независимо от звука, ввода в формы или закреплённого состояния."
   },
   "html_options_always_suspend_tooltip_line2a": {
-    "message": "Одна запись на строку, те же правила соответствия, что и для списка выше"
+    "message": "По одной записи на строку, те же правила сопоставления, что и в списке выше (обычный текст"
   },
   "html_options_always_suspend_tooltip_line2b": {
-    "message": "(обычный текст в любом месте URL или /regex/ между слэшами)."
+    "message": "совпадает в любом месте URL, либо /регулярное выражение/ между слэшами)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Добавьте URL-адрес каждой страницы, которую хотите разрешить, на новой строке. Например:"
+    "message": "Добавьте URL каждой страницы, которую хотите разрешить, на новой строке. Например:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "Чтобы не перечислять несколько сайтов, Вы можете указать совпадающую часть URL:"
+    "message": "Чтобы разрешить несколько сайтов одной строкой, можно указать часть URL:"
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "Вы также можете использовать регулярные выражения, используя в тексте косые черты:"
+    "message": "Можно также указывать регулярные выражения, заключив текст в слэши:"
   },
   "html_options_changelog_modal_title": {
-    "message": "Что нового в версии v$version$",
+    "message": "Что нового в v$version$",
     "placeholders": {
       "version": {
         "content": "$1"
@@ -647,13 +647,13 @@
     "message": "Никогда не приостанавливать вкладки в следующих группах:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Вкладки в этих группах никогда не приостанавливаются автоматически и пропускаются при массовой приостановке."
+    "message": "Вкладки в этих группах никогда не приостанавливаются автоматически и пропускаются массовыми действиями приостановки."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Добавьте группу с помощью пункта «Никогда не приостанавливать эту группу» в контекстном меню. Добавить можно только группы, у которых есть название."
+    "message": "Добавьте группу через «Никогда не приостанавливать эту группу» в контекстном меню. Добавлять можно только именованные группы."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Группы определяются по названию и цвету и следуют за переименованием, пока браузер остаётся открытым."
+    "message": "Группы сопоставляются по имени и цвету и сохраняются при переименовании, пока браузер открыт."
   },
   "html_options_never_suspend_groups_empty": {
     "message": "Группы вкладок ещё не добавлены."
@@ -662,52 +662,52 @@
     "message": "Удалить"
   },
   "html_options_other_enable_context_menu": {
-    "message": "Добавить The Marvellous Suspender в контекстное меню правой кнопки мыши"
+    "message": "Добавить The Marvellous Suspender в контекстное меню"
   },
   "html_options_other_enable_context_menu_tooltip_line1": {
-    "message": "Добавить элементы управления для этого расширения в контекстное меню веб-страницы."
+    "message": "Добавляет элементы управления этим расширением в контекстное меню веб-страницы."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Это даст Вам доступ к дополнительным действиям с вкладками, которые"
+    "message": "Это даст доступ к расширенным действиям приостановки, недоступным"
   },
   "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "недоступны в другом месте расширения."
+    "message": "в других местах расширения."
   },
   "html_options_other_enable_sync": {
     "message": "Синхронизировать настройки с профилем браузера"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Настройки расширения будут синхронизированы во всех браузерах, которые"
+    "message": "Настройки расширения будут синхронизированы на всех браузерах,"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "всеми браузерами Chrome."
+    "message": "где выполнен вход с тем же профилем."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Это также синхронизирует настройки в режиме инкогнито."
   },
   "html_options_other_enable_sync_warning": {
-    "message": "Включение этой функции перезапишет настройки во всех других браузерах, вошедших в тот же профиль"
+    "message": "Включение этой опции перезапишет настройки на всех других браузерах, авторизованных в том же профиле"
   },
   "html_options_suspend_on_low_memory": {
-    "message": "Приостанавливать вкладки при нехватке системной памяти"
+    "message": "Мгновенно приостанавливать при очень низком уровне памяти системы"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Эта опция переопределит функцию автоматической выгрузки вкладок."
+    "message": "Эта опция переопределяет автоматическую выгрузку вкладок."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
     "message": "Если включено, вкладка будет принудительно приостановлена вместо выгрузки."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Обычно браузер выгружает вкладки только тогда, когда системной памяти становится очень мало."
+    "message": "Обычно браузер выгружает вкладки только при очень низком уровне памяти системы."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Обратите внимание: это может привести к приостановке вкладок раньше, чем выбрано"
+    "message": "Обратите внимание: это может привести к более ранней приостановке вкладок, чем указано"
   },
   "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "в настройке \"Автоматически приостанавливать вкладки после\"."
+    "message": "в настройках автоматической приостановки вкладок."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "Подробнее о выгрузке вкладок см.:"
+    "message": "Подробнее о выгрузке вкладок читайте здесь:"
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -716,7 +716,7 @@
     "message": "Возобновить эту вкладку"
   },
   "html_popup_suspend_tab": {
-    "message": "Приостановить эту вкладку"
+    "message": "Приостановить эту вкладку сейчас"
   },
   "html_popup_never_suspend_domain": {
     "message": "Никогда не приостанавливать этот домен"
@@ -743,10 +743,10 @@
     "message": "Настройки"
   },
   "html_popup_backup_now_local": {
-    "message": "Создать резервную копию сессии сейчас (Локально)"
+    "message": "Создать резервную копию сессии сейчас (локально)"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Создать резервную копию сессии сейчас (Облако)"
+    "message": "Создать резервную копию сессии сейчас (облако)"
   },
   "html_restoring_title": {
     "message": "Восстановление окна"
@@ -755,7 +755,7 @@
     "message": "Восстановление вкладок"
   },
   "html_restoring_detail": {
-    "message": "Пожалуйста, подождите, пока я восстановлю это окно..."
+    "message": "Пожалуйста, подождите, пока восстанавливается это окно..."
   },
   "html_recovery_title": {
     "message": "Восстановление"
@@ -764,37 +764,37 @@
     "message": "Ой-ой!"
   },
   "html_recovery_description_line1": {
-    "message": "Кажется, расширение завершило работу некорректно."
+    "message": "Похоже, вы восстанавливаетесь после сбоя расширения."
   },
   "html_recovery_description_line2": {
-    "message": "Ваши приостановленные вкладки могли пропасть."
+    "message": "Ваши приостановленные вкладки могли сбойнуть или исчезнуть."
   },
   "html_recovery_restore_tabs_automatically": {
-    "message": "Автоматическое восстановление вкладок"
+    "message": "Восстановить вкладки автоматически"
   },
   "html_recovery_go_to_session_manager": {
-    "message": "Перейти к управлению сессиями"
+    "message": "Перейти к менеджеру сессий"
   },
   "html_recovery_important_message": {
-    "message": "У Вас включена функция скриншота страницы. Рекомендуется отключить её, если наблюдаются проблемы с расширением."
+    "message": "У вас сейчас включён захват экрана. Если расширение постоянно сбоит, рекомендуется отключить эту опцию."
   },
   "html_recovery_disable_screen_capturing": {
-    "message": "Выключить функцию скриншота страницы"
+    "message": "Отключить захват экрана"
   },
   "html_recovery_tabs_to_restore": {
-    "message": "Восстановить вкладки"
+    "message": "Вкладки для восстановления"
   },
   "html_shortcuts_title": {
-    "message": "Горячие клавиши"
+    "message": "Комбинации клавиш"
   },
   "html_shortcuts_keyboard_shortcuts": {
-    "message": "Горячие клавиши"
+    "message": "Комбинации клавиш"
   },
   "html_shortcuts_context_menu_note": {
-    "message": "Примечание: эти действия также доступны из контекстного меню правой кнопки мыши."
+    "message": "Примечание: эти действия также доступны через контекстное меню."
   },
   "html_shortcuts_remap_keys": {
-    "message": "Изменить горячие клавиши"
+    "message": "Изменить комбинации"
   },
   "html_sidebar_general_settings": {
     "message": "Настройки"
@@ -806,7 +806,7 @@
     "message": "Состояние вкладок"
   },
   "html_sidebar_shortcuts": {
-    "message": "Горячие клавиши"
+    "message": "Комбинации клавиш"
   },
   "html_sidebar_support": {
     "message": "О расширении"
@@ -821,7 +821,7 @@
     "message": "Новости и обновления"
   },
   "html_news_desc": {
-    "message": "Следите за последними релизами, известными проблемами и объявлениями в блоге Marvellous Codeworks."
+    "message": "Следите за последними релизами, известными проблемами и анонсами из блога Marvellous Codeworks."
   },
   "html_news_loading": {
     "message": "Загрузка новостей…"
@@ -839,52 +839,52 @@
     "message": "Резервное копирование и восстановление"
   },
   "html_success_great_success": {
-    "message": "Отлично!"
+    "message": "Потрясающий успех!"
   },
   "html_success_all_tabs_restored": {
-    "message": "Все Ваши вкладки были восстановлены."
+    "message": "Все ваши вкладки восстановлены."
   },
   "html_success_goto_advanced_prefix": {
-    "message": "Более продвинутое управление сессиями доступно в разделе "
+    "message": "Для расширенного управления сессиями посетите"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "страница"
+    "message": ""
   },
   "html_session_manager": {
-    "message": "управление сессиями"
+    "message": "страницу управления сессиями"
   },
   "html_suspended_title": {
     "message": "Приостановленная вкладка"
   },
   "html_suspended_click_to_reload": {
-    "message": "Обновите или нажмите для обновления"
+    "message": "Обновите или нажмите, чтобы перезагрузить"
   },
   "html_suspended_toast_not_connected": {
-    "message": "Нет подключения к интернету"
+    "message": "Вы не подключены к интернету"
   },
   "html_suspended_toast_reload_disabled": {
-    "message": "Автоматическое обновление вкладок временно отключено."
+    "message": "Автоматическая перезагрузка вкладок временно отключена."
   },
   "html_permissions_title": {
     "message": "Разрешения"
   },
   "html_permissions_heading": {
-    "message": "Пожалуйста, разрешите доступ к локальным файлам"
+    "message": "Пожалуйста, предоставьте доступ к локальным file URL"
   },
   "html_permissions_info": {
-    "message": "У расширения в данный момент нет разрешения приостанавливать вкладки с URL-адресами, начинающимися со слова \"file\".\nЧтобы это изменить, включите \"Разрешить открывать локальные файлы по ссылкам\" со страницы настроек расширения."
+    "message": "В настоящее время расширению не разрешено приостанавливать URL, начинающиеся с «file».\nЧтобы изменить это, включите «Разрешить доступ к URL файлов» на странице настроек расширения."
   },
   "html_permissions_backup": {
-    "message": "Примечание: изменение этой опции приведет к временному исчезновению всех приостановленных вкладок.\nНа всякий случай рекомендуем сделать резервную копию вкладок текущей сессии в разделе \"Управление сессиями\"."
+    "message": "Обратите внимание: изменение этой опции приведёт к тому, что все приостановленные вкладки на короткое время исчезнут.\nНа всякий случай сейчас хороший момент, чтобы сохранить резервную копию текущей сессии."
   },
   "html_permissions_return_hint": {
-    "message": "С возвращением: нажмите кнопку ещё раз, чтобы завершить предоставление доступа к локальным файлам."
+    "message": "С возвращением — нажмите кнопку ещё раз, чтобы завершить предоставление доступа к локальным файлам."
   },
   "html_update_title": {
     "message": "Обновление"
   },
   "html_update_heading2": {
-    "message": "готов стать ещё <i>чудеснее</i>"
+    "message": "готов стать ещё более <i>marvellous</i>"
   },
   "html_update_info": {
     "message": "Новая версия The Marvellous Suspender будет установлена при следующем перезапуске браузера."
@@ -893,10 +893,10 @@
     "message": "ВАЖНО: не удалось создать точку восстановления для ваших вкладок.<br>Сохраните резервную копию СЕЙЧАС!"
   },
   "html_update_info_nobackup_prefix": {
-    "message": "Рекомендуется сделать экспорт текущей сессии"
+    "message": "Настоятельно рекомендуется экспортировать копию текущей сессии из "
   },
   "html_update_info_nobackup_suffix": {
-    "message": " перед обновлением расширения."
+    "message": " перед продолжением обновления."
   },
   "html_updated_title": {
     "message": "Обновлено"
@@ -905,31 +905,31 @@
     "message": "обновляется"
   },
   "html_updating_message": {
-    "message": "Восстанавливаются приостановленные вкладки..."
+    "message": "Пожалуйста, подождите, пока восстанавливаются ваши приостановленные вкладки..."
   },
   "html_updated_great_suspender_updated": {
-    "message": "успешно обновлён"
+    "message": "обновлён"
   },
   "html_updated_info_line1": {
-    "message": "Перед обновлением была создана резервная копия Ваших вкладок."
+    "message": "Перед обновлением была автоматически создана резервная копия ваших вкладок."
   },
   "html_updated_info_line2_prefix": {
-    "message": "Если во время обновления возникли проблемы, то Вы можете восстановить потерянные вкладки из резервной копии в разделе "
+    "message": "Если во время обновления возникли проблемы, вы можете восстановить потерянные вкладки на странице "
   },
   "html_updated_info_line2_suffix": {
     "message": "."
   },
   "html_updated_patch_message": {
-    "message": "Извините за беспокойство. Мне просто нужно было выполнить небольшое техобслуживание."
+    "message": "Извините за беспокойство. Просто потребовалось небольшое обслуживание."
   },
   "html_welcome_text_line1": {
-    "message": "Спасибо за использование"
+    "message": "Спасибо, что попробовали"
   },
   "html_welcome_text_line2": {
-    "message": "Я ускорю Ваш компьютер, приостанавливая неиспользуемые вкладки."
+    "message": "Я делаю работу компьютера более плавной, приостанавливая вкладки, которые вы не используете."
   },
   "html_welcome_text_line3": {
-    "message": "Вы можете настроить параметры ниже."
+    "message": "Вы можете точнее настроить параметры ниже."
   },
   "js_popup_normal": {
     "message": "Вкладка будет приостановлена автоматически."
@@ -938,7 +938,7 @@
     "message": "Не сейчас"
   },
   "js_popup_special": {
-    "message": "Вкладка не может быть приостановлена"
+    "message": "Эту вкладку нельзя приостановить"
   },
   "js_popup_suspended": {
     "message": "Вкладка приостановлена"
@@ -947,19 +947,19 @@
     "message": "Не приостанавливать"
   },
   "js_popup_whitelisted": {
-    "message": "Сайт добавлен в список разрешённых."
+    "message": "Сайт разрешён."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Удалить из списка разрешённых"
+    "message": "Удалить из разрешённых"
   },
   "js_popup_audible": {
-    "message": "Вкладка проигрывает аудио."
+    "message": "Вкладка воспроизводит звук."
   },
   "js_popup_form_input": {
-    "message": "Вкладка имеет несохранённые поля ввода."
+    "message": "В вкладке идёт ввод данных в форму."
   },
   "js_popup_form_input_unpause": {
-    "message": "Снять с паузы"
+    "message": "Возобновить"
   },
   "js_popup_pinned": {
     "message": "Вкладка закреплена"
@@ -968,46 +968,46 @@
     "message": "Вкладка открыта в окне приложения"
   },
   "js_popup_grouped_tab": {
-    "message": "Вкладка находится в группе вкладок"
+    "message": "Вкладка находится в группе"
   },
   "js_popup_tab_group": {
-    "message": "Вкладка находится в группе, которая никогда не приостанавливается"
+    "message": "Вкладка в группе, которая никогда не приостанавливается"
   },
   "js_popup_temp_whitelist": {
-    "message": "Приостановка вкладки поставлена на паузу."
+    "message": "Приостановка вкладки на паузе."
   },
   "js_popup_temp_whitelist_unpause": {
-    "message": "Снять с паузы"
+    "message": "Возобновить"
   },
   "js_popup_never": {
     "message": "Автоматическая приостановка вкладок отключена."
   },
   "js_popup_no_connectivity": {
-    "message": "Нет соединения"
+    "message": "Нет подключения к сети"
   },
   "js_popup_charging": {
     "message": "Подключено к источнику питания"
   },
   "js_popup_blockedFile": {
-    "message": "Локальные файлы не могут быть приостановлены."
+    "message": "Локальные файлы нельзя приостановить."
   },
   "js_popup_blockedFile_enable": {
-    "message": "Разрешить"
+    "message": "Включить"
   },
   "js_popup_unknown": {
-    "message": "Вкладка загружается..."
+    "message": "Ожидание загрузки вкладки..."
   },
   "js_popup_initialising": {
-    "message": "Расширение запускается..."
+    "message": "Ожидание инициализации расширения..."
   },
   "js_popup_error": {
-    "message": "Авто-приостановка недоступна для этой вкладки"
+    "message": "Автоприостановка недоступна для этой вкладки"
   },
   "js_history_delete": {
     "message": "удалить"
   },
   "js_history_export": {
-    "message": "экспортировать"
+    "message": "экспорт"
   },
   "js_history_reload": {
     "message": "открыть и загрузить"
@@ -1031,19 +1031,19 @@
     "message": "Вкладки"
   },
   "js_history_enter_name_for_session": {
-    "message": "Введите имя для сессии"
+    "message": "Введите название для этой сессии"
   },
   "js_history_confirm_delete": {
-    "message": "Вы точно хотите удалить эту сессию?"
+    "message": "Вы уверены, что хотите удалить эту сессию?"
   },
   "js_history_confirm_session_overwrite": {
-    "message": "Сессия с таким именем уже существует. Перезаписать?"
+    "message": "Сессия с таким названием уже сохранена. Перезаписать существующую сессию?"
   },
   "js_history_import_fail": {
-    "message": "Ошибка при загрузке файла. Убедитесь, что это текстовый файл, и что он содержит не более одного URL-адреса в каждой строке."
+    "message": "Не удалось загрузить файл. Убедитесь, что это обычный текст и содержит один URL на строку."
   },
   "js_history_migrate_fail": {
-    "message": "Для миграции требуется 32-символьный идентификатор расширения"
+    "message": "Для переноса нужен 32-символьный ID расширения"
   },
   "js_history_migrate_success": {
     "message": "Успешно перенесено вкладок: $tabcount$. Перезапустите браузер, если перенесённые вкладки не перезагружаются автоматически.",
@@ -1054,25 +1054,25 @@
     }
   },
   "js_suspended_hotkey_to_reload": {
-    "message": "Назначить горячие клавиши"
+    "message": "Настроить комбинации клавиш"
   },
   "js_suspended_low_memory": {
-    "message": "Вкладка приостановлена из-за нехватки памяти"
+    "message": "Вкладка приостановлена из-за нехватки памяти системы"
   },
   "js_options_incognito_warning": {
-    "message": "Вы находитесь в режиме инкогнито. Некоторые функции будут недоступны."
+    "message": "Вы в режиме инкогнито. Некоторые функции будут недоступны."
   },
   "js_options_whitelist_no_matches": {
-    "message": "Нет открытых вкладок, подходящих под текущий список разрешённых."
+    "message": "Нет открытых вкладок, соответствующих текущему списку разрешённых."
   },
   "js_options_whitelist_matches_heading": {
     "message": "Открытые вкладки из списка разрешённых:"
   },
   "js_options_always_suspend_no_matches": {
-    "message": "Нет открытых вкладок, соответствующих текущему списку принудительного приостановления."
+    "message": "Нет открытых вкладок, соответствующих текущему списку постоянной приостановки."
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "совпадений среди открытых групп: $count$",
+    "message": "совпадает с $count$ открытыми группами",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1080,13 +1080,13 @@
     }
   },
   "js_options_always_suspend_matches_heading": {
-    "message": "Открытые вкладки, соответствующие списку принудительного приостановления:"
+    "message": "Открытые вкладки из списка постоянной приостановки:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
-    "message": "и"
+    "message": "и ещё"
   },
   "js_options_whitelist_matches_overflow_suffix": {
-    "message": "ещё."
+    "message": "."
   },
   "js_permissions_button_export": {
     "message": "Сохранить резервную копию"
@@ -1095,13 +1095,13 @@
     "message": "Открыть настройки расширения"
   },
   "js_update_confirm": {
-    "message": "Вы ещё не сделали резервную копию. Всё равно обновить?"
+    "message": "Вы ещё не сохранили резервную копию. Всё равно обновить расширение?"
   },
   "js_update_button_export": {
     "message": "Сохранить резервную копию"
   },
   "js_update_button_reload": {
-    "message": "Обновить расширение"
+    "message": "Обновить расширение сейчас"
   },
   "js_suspend_button_backup": {
     "message": "Сохранить резервную копию перед обновлением"
@@ -1113,34 +1113,34 @@
     "message": "не задано"
   },
   "js_session_save_point": {
-    "message": "Автоматическая точка восстановления для версии "
+    "message": "Автоматическая точка сохранения для v"
   },
   "html_options_backup_title": {
     "message": "Автоматическое резервное копирование сессии"
   },
   "html_backup_session_desc": {
-    "message": "В отличие от сессий, резервные копии сохраняются как JSON-файлы вне Chrome: в папку «Загрузки» или на Google Диск. Они переживают сбои браузера, сброс профиля и новые установки. Это ваша настоящая страховка."
+    "message": "В отличие от сессий, резервные копии сохраняются как JSON-файлы вне Chrome: в папку «Загрузки» или на Google Диск. Они переживают сбои браузера, сброс профиля и переустановку. Это ваша настоящая подстраховка."
   },
   "html_options_backup_enable": {
     "message": "Автоматически создавать резервную копию сессии"
   },
   "html_options_backup_enable_tooltip_line1a": {
-    "message": "Незаметно сохраняет копию текущей сессии в виде файла JSON."
+    "message": "Незаметно сохраняет копию текущей сессии в виде JSON-файла."
   },
   "html_options_backup_enable_tooltip_line1b": {
-    "message": "Можно сохранять локально (папка tms-backups внутри папки «Загрузки»)"
+    "message": "Выберите сохранение локально (папка tms-backups внутри «Загрузок»)"
   },
   "html_options_backup_enable_tooltip_line1c": {
-    "message": "или в папку 'TMS Backups' на Google Диске."
+    "message": "или в папку «TMS Backups» на Google Диске."
   },
   "html_options_backup_enable_tooltip_line2a": {
-    "message": "Для локальных резервных копий Chrome должен быть настроен на автоматическую загрузку файлов (без запроса)."
+    "message": "Для локальных резервных копий в Chrome должна быть включена автоматическая загрузка файлов"
   },
   "html_options_backup_enable_tooltip_line2b": {
-    "message": "Проверьте chrome://settings/downloads."
+    "message": "(без запроса подтверждения). Проверьте chrome://settings/downloads."
   },
   "html_options_backup_enable_tooltip_line2c": {
-    "message": "Для резервных копий на Google Диске это не требуется."
+    "message": "Для резервных копий на Google Диске такое требование не нужно."
   },
   "html_options_backup_interval": {
     "message": "Резервное копирование каждые"
@@ -1149,16 +1149,16 @@
     "message": "В какое время"
   },
   "html_backup_interval_warning": {
-    "message": "Обратите внимание: при таком длинном интервале между резервными копиями многое может произойти. Рассмотрите более короткий интервал, чтобы снизить риск потери данных."
+    "message": "Внимание: при таком длинном интервале между резервными копиями может многое произойти. Рассмотрите более короткий интервал, чтобы снизить риск потери данных."
   },
   "html_options_backup_note": {
-    "message": "И локальные, и резервные копии на Диске включают идентификатор устройства (например, tms-session-a3f7b2c8-2026-06-18T14-30.json), поэтому каждая установка браузера ведёт собственный независимый набор резервных копий. Хранятся N последних локальных копий на устройство; на Диске также хранится N копий на устройство, поэтому сессии с разных устройств или браузеров никогда не перезаписывают друг друга.\n\n<strong>Даже если выбран Google Диск, при закрытии браузера всё равно записывается локальный страховочный файл, который загружается на Диск при следующем запуске. Появление здесь локального файла — ожидаемое поведение, а не ошибка.</strong>"
+    "message": "И локальные, и резервные копии на Диске включают идентификатор устройства (например, tms-session-a3f7b2c8-2026-06-18T14-30.json), поэтому у каждой установки браузера свой независимый пул резервных копий. Для каждого устройства хранятся N самых свежих локальных копий; резервные копии на Диске также хранятся по N на устройство, так что сессии с разных машин или браузеров никогда не перезаписывают друг друга.\n\n<strong>Даже при выборе Google Диска локальный файл подстраховки всё равно создаётся при закрытии браузера и загружается на Диск при следующем запуске. Появление здесь локального файла — это ожидаемое поведение, а не ошибка.</strong>"
   },
   "html_backup_max_files_label": {
     "message": "Максимум резервных копий для хранения"
   },
   "html_backup_device_name_label": {
-    "message": "Имя устройства (необязательно)"
+    "message": "Название устройства (необязательно)"
   },
   "html_backup_device_name_save": {
     "message": "Сохранить"
@@ -1188,34 +1188,34 @@
     "message": "Сохранено"
   },
   "js_backup_permission_denied": {
-    "message": "Доступ запрещён: автоматическое резервное копирование не было включено."
+    "message": "Доступ отклонён: автоматическое резервное копирование не было включено."
   },
   "html_options_other_enable_news_feed": {
     "message": "Включить ленту новостей"
   },
   "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "Периодически проверяет marvellouscode.works на наличие новостей TMS"
+    "message": "Периодически проверяет marvellouscode.works на наличие новостей TMS и показывает их"
   },
   "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "и показывает их на боковой панели."
+    "message": "в боковой панели."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "Отключите, чтобы избежать этого фонового запроса."
+    "message": "Отключите, чтобы пропустить этот фоновый запрос."
   },
   "html_options_other_legacy_mascot": {
-    "message": "Использовать классическую графику The Great Suspender вместо нового талисмана"
+    "message": "Использовать классическую графику The Great Suspender вместо нового маскота"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Возвращает значки и иллюстрации к исходному стилю The Great"
+    "message": "Возвращает значки и иллюстрации к оригинальному стилю The Great"
   },
   "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "Suspender там, где доступна старая версия изображения."
+    "message": "Suspender там, где доступна классическая версия изображения."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
-    "message": "Изображения без старого варианта используют новую графику."
+    "message": "Изображения без классического аналога по-прежнему используют новую графику."
   },
   "html_permissions_notice_text": {
-    "message": "Начиная с этой версии TMS запрашивает доступ к файловой системе/аккаунту Google только тогда, когда вы действительно включаете локальное резервное копирование или резервное копирование на Google Диск, а не заранее."
+    "message": "Начиная с этой версии, TMS запрашивает доступ к файловой системе/аккаунту Google только когда вы действительно включаете локальное резервное копирование или копирование на Google Диск, а не заранее."
   },
   "html_permissions_notice_link": {
     "message": "Подробнее о разрешениях."
@@ -1224,21 +1224,17 @@
     "message": "Понятно"
   },
   "html_permissions_info_note": {
-    "message": "TMS запрашивает разрешения «Загрузки» и аккаунт Google только при включении локального резервного копирования или резервного копирования на Google Диск ниже."
+    "message": "TMS запрашивает разрешения на «Загрузки» и аккаунт Google только при включении локального резервного копирования или копирования на Google Диск ниже."
   },
   "html_permissions_info_note_link": {
-    "message": "Полный список разрешений."
+    "message": "Полный список разрешений"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome спрашивает, куда сохранять файлы, поэтому автоматические резервные копии не будут работать незаметно. Отключите «Спрашивать, куда сохранять каждый файл» в chrome://settings/downloads."
+    "message": "Chrome запрашивает, куда сохранять файлы, поэтому автоматические резервные копии не будут работать незаметно. Отключите «Всегда спрашивать, куда сохранять файлы» в chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "Следующий запуск: $time$",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+    "placeholders": { "time": { "content": "$1" } }
   },
   "js_options_backup_last_local": {
     "message": "Последняя резервная копия: $date$",
@@ -1264,10 +1260,10 @@
     "message": "Отключить"
   },
   "html_popup_backup_drive_error": {
-    "message": "Ошибка автоматического резервного копирования: аккаунт Google не подключён. Нажмите здесь, чтобы исправить."
+    "message": "Автоматическое резервное копирование не удалось: аккаунт Google не подключён. Нажмите здесь, чтобы исправить."
   },
   "html_popup_backup_downloads_error": {
-    "message": "Не удалось выполнить автоматическое резервное копирование: отсутствует разрешение «Загрузки». Нажмите здесь, чтобы это исправить."
+    "message": "Автоматическое резервное копирование не удалось: отсутствует разрешение «Загрузки». Нажмите здесь, чтобы исправить."
   },
   "html_popup_backup_nudge_text": {
     "message": "Автоматическое резервное копирование отключено. Защитите свои сессии."
@@ -1276,13 +1272,13 @@
     "message": "Напомнить через 10 дней"
   },
   "html_backup_nudge_note_text": {
-    "message": "Автоматическое резервное копирование отключено. Его включение защитит ваши сессии на случай сброса или повреждения профиля браузера."
+    "message": "Автоматическое резервное копирование отключено. Включив его, вы защитите сессии на случай сброса или повреждения этого профиля браузера."
   },
   "html_backup_nudge_optout": {
     "message": "Мне не интересно, больше не напоминать"
   },
   "html_backup_downloads_permission_missing": {
-    "message": "Автоматическое резервное копирование включено, но разрешение «Загрузки» не предоставлено на этом устройстве (это может произойти после импорта настроек или синхронизации с другим браузером). Резервное копирование не будет выполняться, пока вы не предоставите разрешение."
+    "message": "Автоматическое резервное копирование включено, но разрешение «Загрузки» не предоставлено на этом устройстве (это может произойти после импорта настроек или синхронизации из другого браузера). Резервные копии не будут создаваться, пока вы не предоставите его."
   },
   "html_backup_downloads_permission_grant": {
     "message": "Предоставить разрешение"
@@ -1291,19 +1287,19 @@
     "message": "Подключение…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "Не удалось подключиться к Google. Попробуйте ещё раз."
+    "message": "Не удалось подключиться к Google. Попробуйте снова."
   },
   "html_options_settings_backup": {
-    "message": "Резервное копирование настроек"
+    "message": "Резервная копия настроек"
   },
   "html_backup_settings_desc": {
-    "message": "Экспортируйте все настройки расширения в JSON-файл — полезно как резервная копия или для переноса конфигурации в другой профиль браузера. Импорт файла заменяет текущие настройки."
+    "message": "Экспортируйте все настройки расширения в JSON-файл — удобно для резервного копирования или переноса конфигурации на другой профиль браузера. Импорт файла заменяет текущие настройки."
   },
   "html_backup_local_folder_hint": {
-    "message": "Локальные резервные копии сохраняются в папку tms-backups внутри «Загрузок»."
+    "message": "Локальные резервные копии сохраняются в папке tms-backups внутри «Загрузок»."
   },
   "html_backup_drive_folder_note": {
-    "message": "Резервные копии сохраняются в папку 'TMS Backups' на вашем Google Диске."
+    "message": "Резервные копии сохраняются в папке «TMS Backups» на вашем Google Диске."
   },
   "html_backup_drive_open_folder": {
     "message": "Открыть папку TMS Backups на Диске ↗"
@@ -1333,7 +1329,7 @@
     "message": "Настройки сохранены на Диск."
   },
   "js_backup_drive_settings_error": {
-    "message": "Не удалось сохранить настройки на Диск. Попробуйте ещё раз."
+    "message": "Не удалось сохранить настройки на Диск. Попробуйте снова."
   },
   "js_backup_cooldown": {
     "message": "Подождите $seconds$ с до следующей резервной копии.",
@@ -1347,13 +1343,13 @@
     "message": "Загрузка настроек с Диска…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "Файл настроек на Диске не найден. Сначала сохраните настройки на Диск."
+    "message": "На Диске не найден файл настроек. Сначала сохраните настройки на Диск."
   },
   "js_backup_settings_drive_restore_success": {
     "message": "Настройки восстановлены. Перезагрузка…"
   },
   "js_backup_settings_drive_restore_error": {
-    "message": "Не удалось восстановить настройки с Диска. Попробуйте ещё раз."
+    "message": "Не удалось восстановить настройки с Диска. Попробуйте снова."
   },
   "js_backup_settings_drive_last_backup": {
     "message": "Последняя резервная копия: $date$",
@@ -1364,7 +1360,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "Уже есть резервная копия настроек от $date$. Перезаписать?",
+    "message": "Уже существует резервная копия настроек от $date$. Перезаписать?",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1372,13 +1368,13 @@
     }
   },
   "html_options_settings_export": {
-    "message": "Экспорт настроек"
+    "message": "Экспортировать настройки"
   },
   "html_options_settings_import": {
-    "message": "Импорт настроек"
+    "message": "Импортировать настройки"
   },
   "js_options_settings_import_confirm": {
-    "message": "Это перезапишет текущие настройки. Продолжить?"
+    "message": "Это перезапишет ваши текущие настройки. Продолжить?"
   },
   "js_options_settings_import_success": {
     "message": "Настройки импортированы. Перезагрузка…"
@@ -1387,7 +1383,7 @@
     "message": "Недопустимый файл настроек."
   },
   "html_history_migrate_nav": {
-    "message": "Перенести"
+    "message": "Перенос"
   },
   "html_backup_restore_title": {
     "message": "Восстановить из резервной копии"
@@ -1428,10 +1424,10 @@
     "message": "Недопустимый файл резервной копии."
   },
   "js_backup_restore_error_drive": {
-    "message": "Не удалось скачать с Диска. Проверьте подключение и попробуйте снова."
+    "message": "Не удалось скачать с Диска. Проверьте соединение и попробуйте снова."
   },
   "js_backup_restore_error_generic": {
-    "message": "Ошибка импорта. Попробуйте ещё раз."
+    "message": "Не удалось выполнить импорт. Попробуйте снова."
   },
   "html_backup_drive_import_modal_title": {
     "message": "Сохранить резервную копию с Диска перед переключением?"
@@ -1445,7 +1441,7 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "Сохранить в «Сессии»"
+    "message": "Сохранить в сессии"
   },
   "html_backup_drive_import_modal_cancel": {
     "message": "Пропустить"
@@ -1463,13 +1459,13 @@
     "message": "Удалить этот файл резервной копии с Диска? Это действие нельзя отменить."
   },
   "html_backup_drive_delete_device_btn": {
-    "message": "Удалить всё"
+    "message": "Удалить все"
   },
   "html_backup_drive_delete_device_modal_title": {
-    "message": "Удалить все резервные копии этого устройства?"
+    "message": "Удалить все резервные копии для этого устройства?"
   },
   "html_backup_drive_delete_device_modal_body": {
-    "message": "Все $count$ файлов резервных копий для «$device$» будут безвозвратно удалены с Google Диска. Это действие нельзя отменить.",
+    "message": "Это навсегда удалит все $count$ файлов резервных копий для «$device$» с Google Диска. Это действие нельзя отменить.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1480,7 +1476,7 @@
     }
   },
   "html_backup_drive_delete_device_modal_confirm": {
-    "message": "Удалить всё"
+    "message": "Удалить все"
   },
   "html_backup_drive_delete_device_modal_cancel": {
     "message": "Отмена"

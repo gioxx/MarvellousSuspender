@@ -9,124 +9,124 @@
     "message": "The Marvellous Suspender"
   },
   "ext_cmd_toggle_tab_suspension_description": {
-    "message": "Suspender/Anular suspensión de la pestaña activa"
+    "message": "Suspender/Reactivar la pestaña activa"
   },
   "ext_cmd_toggle_tab_pause_description": {
-    "message": "Pausar/Reanudar suspensión de la pestaña activa"
+    "message": "Pausar/Reanudar la suspensión de la pestaña activa"
   },
   "ext_cmd_suspend_selected_tabs_description": {
-    "message": "Suspender pestañas seleccionadas"
+    "message": "Suspender las pestañas seleccionadas"
   },
   "ext_cmd_unsuspend_selected_tabs_description": {
-    "message": "Anular suspensión de las pestañas seleccionadas"
+    "message": "Reactivar las pestañas seleccionadas"
   },
   "ext_cmd_suspend_tab_group_description": {
     "message": "Suspender todas las pestañas del grupo de la pestaña activa"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "Anular suspensión de todas las pestañas del grupo de la pestaña activa"
+    "message": "Reactivar todas las pestañas del grupo de la pestaña activa"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "Suspender todas las pestañas que no están en un grupo en la ventana activa"
+    "message": "Suspender todas las pestañas sin grupo en la ventana activa"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "Anular suspensión de todas las pestañas que no están en un grupo en la ventana activa"
+    "message": "Reactivar todas las pestañas sin grupo en la ventana activa"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "Alternar nunca suspender para el grupo de la pestaña activa"
+    "message": "Activar o desactivar «no suspender nunca» para el grupo de la pestaña activa"
   },
   "ext_cmd_soft_suspend_active_window_description": {
-    "message": "Suspender todas las demás pestañas en la ventana activa"
+    "message": "Suspender todas las demás pestañas de la ventana activa"
   },
   "ext_cmd_force_suspend_active_window_description": {
-    "message": "Forzar suspensión de todas las otras pestañas en la ventana activa"
+    "message": "Forzar la suspensión de las demás pestañas de la ventana activa"
   },
   "ext_cmd_unsuspend_active_window_description": {
-    "message": "Anular suspensión de todas las pestañas en la ventana activa"
+    "message": "Reactivar todas las pestañas de la ventana activa"
   },
   "ext_cmd_soft_suspend_all_windows_description": {
     "message": "Suspender todas las pestañas en todas las ventanas"
   },
   "ext_cmd_force_suspend_all_windows_description": {
-    "message": "Forzar suspensión de todas las pestañas en todas las ventanas"
+    "message": "Forzar la suspensión de todas las pestañas en todas las ventanas"
   },
   "ext_cmd_unsuspend_all_windows_description": {
-    "message": "Anular suspensión de todas las pestañas en todas las ventanas"
+    "message": "Reactivar todas las pestañas en todas las ventanas"
   },
   "js_context_open_link_in_suspended_tab": {
-    "message": "Abrir Enlace en una Nueva Pestaña Suspendida"
+    "message": "Abrir enlace en una nueva pestaña suspendida"
   },
   "js_context_toggle_suspend_state": {
-    "message": "Suspender/Anular suspensión de esta pestaña"
+    "message": "Suspender/Reactivar esta pestaña"
   },
   "js_context_toggle_pause_suspension": {
-    "message": "Pausar/Reanudar suspensión de esta pestaña"
+    "message": "Pausar/Reanudar la suspensión de esta pestaña"
   },
   "js_context_never_suspend_domain": {
-    "message": "Nunca suspender este dominio"
+    "message": "No suspender nunca este dominio"
   },
   "js_context_never_suspend_page": {
-    "message": "Nunca suspenda esta URL"
+    "message": "No suspender nunca esta URL"
   },
   "js_context_suspend_selected_tabs": {
-    "message": "Suspender pestañas seleccionadas"
+    "message": "Suspender las pestañas seleccionadas"
   },
   "js_context_unsuspend_selected_tabs": {
-    "message": "Anular suspensión de las pestañas seleccionadas"
+    "message": "Reactivar las pestañas seleccionadas"
   },
   "js_context_suspend_tab_group": {
     "message": "Suspender todas las pestañas de este grupo"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "Anular suspensión de todas las pestañas de este grupo"
+    "message": "Reactivar todas las pestañas de este grupo"
   },
   "js_context_suspend_ungrouped_tabs": {
-    "message": "Suspender todas las pestañas que no están en un grupo"
+    "message": "Suspender todas las pestañas sin grupo"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "Anular suspensión de todas las pestañas que no están en un grupo"
+    "message": "Reactivar todas las pestañas sin grupo"
   },
   "js_context_never_suspend_group": {
-    "message": "Nunca suspender este grupo"
+    "message": "No suspender nunca este grupo"
   },
   "js_context_allow_suspending_group": {
-    "message": "Permitir suspender este grupo"
+    "message": "Permitir la suspensión de este grupo"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "Nunca suspender este grupo (solo grupos con nombre)"
+    "message": "No suspender nunca este grupo (solo grupos con nombre)"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
-    "message": "Suspender todas las demás pestañas en esta ventana"
+    "message": "Suspender todas las demás pestañas de esta ventana"
   },
   "js_context_force_suspend_other_tabs_in_window": {
-    "message": "Forzar suspensión de todas las otras pestañas en esta ventana"
+    "message": "Forzar la suspensión de las demás pestañas de esta ventana"
   },
   "js_context_unsuspend_all_tabs_in_window": {
-    "message": "Anular suspensión de todas las pestañas en esta ventana"
+    "message": "Reactivar todas las pestañas de esta ventana"
   },
   "js_context_soft_suspend_all_tabs": {
     "message": "Suspender todas las pestañas en todas las ventanas"
   },
   "js_context_force_suspend_all_tabs": {
-    "message": "Forzar suspensión de todas las pestañas en todas las ventanas"
+    "message": "Forzar la suspensión de todas las pestañas en todas las ventanas"
   },
   "js_context_unsuspend_all_tabs": {
-    "message": "Anular suspensión de todas las pestañas en todas las ventanas"
+    "message": "Reactivar todas las pestañas en todas las ventanas"
   },
   "html_health_title": {
     "message": "Estado de las pestañas (Beta)"
   },
   "html_health_title_intro": {
-    "message": "Si tienes problemas con tus pestañas suspendidas, especialmente con los favicons, haz clic en \"Escanear pestañas\" para ver si podemos repararlas."
+    "message": "Si tienes problemas con tus pestañas suspendidas, sobre todo con los favicones, haz clic en Escanear pestañas para ver si podemos repararlos."
   },
   "html_health_all_good": {
-    "message": "No hemos encontrado ningún problema con tus pestañas suspendidas. Si sigues viendo algo raro, avísanos abajo e intentaremos ampliar esta comprobación."
+    "message": "No encontramos ningún problema con tus pestañas suspendidas. Si sigues viendo algo raro, avísanos abajo e intentaremos ampliar esta revisión."
   },
   "html_health_reload_intro": {
-    "message": "Algunas de tus pestañas suspendidas no se han cargado por completo. Podemos recargarlas para solucionarlo."
+    "message": "Tienes pestañas suspendidas que no se cargaron por completo. Podemos volver a cargarlas para dejar todo en orden."
   },
   "html_health_restore_intro": {
-    "message": "Algunas de tus pestañas suspendidas usan el favicon predeterminado del navegador. Eso significa que la caché de TMS no las tiene. Podemos restaurar y volver a suspender un número mínimo de pestañas para obtener esos favicons que faltan."
+    "message": "Algunas de tus pestañas suspendidas usan el favicon predeterminado del navegador. Eso significa que la caché de TMS no los tiene. Podemos restaurar y volver a suspender un número mínimo de pestañas para recuperar esos favicones que faltan."
   },
   "html_health_scan_button": {
     "message": "Escanear pestañas"
@@ -141,22 +141,22 @@
     "message": "Pestañas suspendidas por TMS"
   },
   "html_health_num_tms_cache": {
-    "message": "favicons en la caché de TMS"
+    "message": "favicones en la caché de TMS"
   },
   "html_health_num_tabs_empty": {
-    "message": "pestañas no se han cargado"
+    "message": "pestañas sin cargar"
   },
   "html_health_num_tabs_extension": {
-    "message": "pestañas tienen el favicon de TMS"
+    "message": "pestañas con el favicon de TMS"
   },
   "html_health_num_tabs_default": {
-    "message": "pestañas tienen un favicon predeterminado"
+    "message": "pestañas con favicon predeterminado"
   },
   "html_health_num_hostnames": {
-    "message": "nombres de host únicos"
+    "message": "nombres de host de pestañas únicos"
   },
   "html_health_small_cache": {
-    "message": "Es posible que la caché local de favicons de TMS no cubra todas las pestañas. Si se borra la caché del navegador, TMS podría no mostrar algunos favicons."
+    "message": "La caché local de favicones de TMS puede no cubrir todas las pestañas. Si se borra la caché del navegador, TMS podría no mostrar algunos favicones."
   },
   "html_health_reload_button": {
     "message": "Siguiente: recargar $count$ pestañas",
@@ -167,7 +167,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "Siguiente: restaurar $count$ pestañas para almacenar favicons",
+    "message": "Siguiente: restaurar $count$ pestañas para recuperar los favicones",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -175,25 +175,25 @@
     }
   },
   "html_health_action_label": {
-    "message": "Restaurando favicons..."
+    "message": "Restaurando favicones..."
   },
   "html_health_after_reload": {
-    "message": "Cuando tus pestañas terminen de cargarse en segundo plano, puedes volver a hacer clic en \"Escanear pestañas\" para ver si algo ha mejorado."
+    "message": "Cuando tus pestañas terminen de cargarse en segundo plano, puedes volver a hacer clic en \"Escanear pestañas\" para ver si mejoramos las cosas."
   },
   "html_health_after_restore": {
-    "message": "Puedes volver a hacer clic en \"Escanear pestañas\" para ver si algo ha mejorado."
+    "message": "Puedes volver a hacer clic en \"Escanear pestañas\" para ver si mejoramos las cosas."
   },
   "html_health_need_help1": {
-    "message": "Si sigues teniendo problemas con las pestañas o los favicons, puedes hacer clic en \"Copiar resultados\" y pegarlo en un nuevo"
+    "message": "Si sigues teniendo problemas con las pestañas o los favicones, puedes hacer clic en Copiar resultados y pegarlos en un nuevo"
   },
   "html_health_need_help2": {
     "message": "Issue en GitHub."
   },
   "html_health_num_grouped_broken": {
-    "message": "pestañas agrupadas en estado defectuoso (error de grupos de pestañas)"
+    "message": "pestañas agrupadas en estado roto (error de Grupos de pestañas)"
   },
   "html_health_repair_intro": {
-    "message": "Algunas pestañas en grupos están en un estado defectuoso: se muestran como una nueva pestaña en lugar de cargarse correctamente tras reiniciar el navegador. TMS puede intentar restaurarlas."
+    "message": "Algunas pestañas en Grupos de pestañas están en estado roto: aparecen como una pestaña nueva en lugar de cargarse correctamente tras reiniciar el navegador. TMS puede intentar restaurarlas."
   },
   "html_health_repair_button": {
     "message": "Reparar $count$ pestaña(s) agrupada(s)",
@@ -204,7 +204,7 @@
     }
   },
   "html_health_after_repair": {
-    "message": "Listo. Vuelve a escanear para verificar que las pestañas agrupadas volvieron a su estado suspendido."
+    "message": "Listo. Vuelve a escanear para comprobar que las pestañas agrupadas hayan vuelto a su estado suspendido."
   },
   "html_about_title": {
     "message": "Acerca de"
@@ -213,7 +213,7 @@
     "message": "Versión"
   },
   "html_about_tagline": {
-    "message": "El sucesor espiritual de la suspensión moderna de pestañas: sustituye las pestañas inactivas por una ligera página de hibernación, dándote un control preciso sobre cuándo despiertan."
+    "message": "El sucesor espiritual de la suspensión moderna de pestañas: reemplaza las pestañas inactivas con una página de hibernación ligera, dándote control granular sobre cuándo despertarlas."
   },
   "html_about_section_credits": {
     "message": "Créditos"
@@ -228,7 +228,7 @@
     "message": "Basado en el original"
   },
   "html_about_fork_mid": {
-    "message": "disponible en GitHub, sin seguimiento ADS"
+    "message": "disponible en GitHub, sin seguimiento publicitario"
   },
   "html_about_fork_end": {
     "message": "Más información disponible en"
@@ -237,55 +237,55 @@
     "message": "Creado por"
   },
   "html_about_report_issues_prefix": {
-    "message": "Si tiene comentarios o desea reportar un problema, puede hacerlo en el"
+    "message": "Si tienes comentarios o quieres reportar un problema, puedes hacerlo en la"
   },
   "html_about_report_issues_suffix": {
-    "message": ". Por favor, compruebe si su idea o problema ya existe antes de crear una nueva. ¡Gracias!"
+    "message": ". Comprueba antes si tu idea o problema ya existe antes de crear uno nuevo. ¡Gracias!"
   },
   "html_about_debugging_prefix": {
-    "message": "Para capturar registros y generar un informe de diagnóstico, ve a la "
+    "message": "Para capturar registros y generar un informe de diagnóstico, ve a la página "
   },
   "html_about_debugging_suffix": {
-    "message": "página de diagnóstico."
+    "message": "de diagnóstico."
   },
   "html_about_the_github_issues_page": {
-    "message": "Página de incidencias de GitHub"
+    "message": "página de issues de GitHub"
   },
   "html_about_section_support": {
-    "message": "Apoyar el desarrollo"
+    "message": "Apoya el desarrollo"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender es gratuito y de código abierto. Si te resulta útil, considera hacer una pequeña contribución: ayuda a mantener el proyecto vivo y en crecimiento."
+    "message": "The Marvellous Suspender es gratuito y de código abierto. Si lo encuentras útil, considera hacer una pequeña contribución: ayuda a mantener vivo y en crecimiento el proyecto."
   },
   "html_broken_title": {
     "message": "está roto"
   },
   "html_broken_ruh_roh": {
-    "message": "¡Oh oh!"
+    "message": "¡Vaya!"
   },
   "html_broken_line1": {
-    "message": "no se pudo iniciar. ¿Quizás estás usando un navegador incompatible?"
+    "message": "no pudo iniciarse. ¿Quizás estás usando un navegador incompatible?"
   },
   "html_broken_line2": {
-    "message": "Intente reiniciar la extensión. Si el problema persiste, pida ayuda en la"
+    "message": "Intenta reiniciar la extensión. Si el problema persiste, pide ayuda en la"
   },
   "html_broken_line2_github_page": {
-    "message": "Página del proyecto en GitHub"
+    "message": "página del proyecto en GitHub"
   },
   "html_broken_line3": {
-    "message": "Puede recuperar las pestañas perdidas de la"
+    "message": "Puedes recuperar las pestañas perdidas desde la"
   },
   "html_broken_line3_session_management": {
-    "message": "página de gestión de sesión"
+    "message": "página de gestión de sesiones"
   },
   "html_broken_button_restart_extension": {
     "message": "Reiniciar extensión"
   },
   "html_history_title": {
-    "message": "Administración de sesión"
+    "message": "Gestión de sesiones"
   },
   "html_history_page_desc": {
-    "message": "TMS mantiene una instantánea continua de tus pestañas abiertas, sin necesidad de configuración. Las sesiones se actualizan automáticamente mientras navegas, pero viven dentro de Chrome: si el perfil del navegador se pierde o se corrompe, se pierden con él."
+    "message": "TMS mantiene una instantánea actualizada de tus pestañas abiertas, sin necesidad de configuración. Las sesiones se actualizan automáticamente mientras navegas, pero viven dentro de Chrome: si el perfil del navegador se pierde o se corrompe, se pierden con él."
   },
   "html_history_current_session": {
     "message": "Sesión actual"
@@ -309,13 +309,13 @@
     "message": "Migración de pestañas"
   },
   "html_history_migrate_section_desc": {
-    "message": "Recupera pestañas suspendidas por una versión anterior u otro fork de esta extensión. Introduce abajo el ID de la extensión antigua y haz clic en \"Migrar pestañas\" para convertir las URL suspendidas."
+    "message": "Recupera las pestañas suspendidas por una versión anterior u otro fork de esta extensión. Ingresa abajo el ID de la extensión anterior y haz clic en Migrar pestañas para convertir las URL suspendidas."
   },
   "html_options_title": {
     "message": "Configuración"
   },
   "html_options_suspend_title": {
-    "message": "Suspensión automática de pestaña"
+    "message": "Suspensión automática de pestañas"
   },
   "html_options_suspended_title": {
     "message": "Pestañas suspendidas"
@@ -324,16 +324,16 @@
     "message": "Añadir la URL original al título de la pestaña suspendida"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "Si está activado, la URL original se añade al título de la pestaña"
+    "message": "Cuando está habilitado, la URL original se añade al título de la pestaña"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "del navegador en las páginas suspendidas."
+    "message": "del navegador de las páginas suspendidas."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "Esto permite encontrar pestañas suspendidas por nombre de host"
+    "message": "Esto permite encontrar pestañas suspendidas por nombre de host usando"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "usando \"Buscar pestañas\" de Chrome (Ctrl+Shift+A)."
+    "message": "\"Buscar pestañas\" de Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Conservar la posición de reproducción de YouTube al suspender"
@@ -348,13 +348,13 @@
     "message": "Predeterminado del sistema"
   },
   "html_options_suspend_automatically_after": {
-    "message": "Suspender automáticamente las pestañas después de"
+    "message": "Suspender pestañas automáticamente después de"
   },
   "html_options_suspend_on_battery_after": {
     "message": "Suspender pestañas con batería después de"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "Igual que con corriente"
+    "message": "Igual que conectado a la corriente"
   },
   "html_options_suspend_never": {
     "message": "Nunca"
@@ -366,7 +366,7 @@
     "message": "min"
   },
   "html_options_suspend_minutes": {
-    "message": "minutos"
+    "message": "min"
   },
   "html_options_suspend_hour": {
     "message": "hora"
@@ -387,100 +387,100 @@
     "message": "semanas"
   },
   "html_options_suspend_no_pinned": {
-    "message": "Nunca suspender pestañas fijadas"
+    "message": "No suspender nunca las pestañas fijadas"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "Nunca suspender pestañas abiertas en ventanas de aplicaciones"
+    "message": "No suspender nunca las pestañas abiertas en ventanas de aplicación"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "Nunca suspender pestañas de un grupo de pestañas"
+    "message": "No suspender nunca las pestañas en un grupo"
   },
   "html_options_suspend_no_forms": {
-    "message": "Nunca suspender pestañas que contengan entradas de formulario no guardadas"
+    "message": "No suspender nunca pestañas con datos de formulario sin guardar"
   },
   "html_options_suspend_no_audio": {
-    "message": "Nunca suspender pestañas que estén reproduciendo audio"
+    "message": "No suspender nunca las pestañas que están reproduciendo audio"
   },
   "html_options_suspend_only_connected": {
-    "message": "Nunca suspender pestañas cuando estén fuera de línea"
+    "message": "No suspender nunca pestañas cuando estés sin conexión"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "Reclamar de forma predeterminada"
+    "message": "Tomar el control de las pestañas suspendidas por otras extensiones"
   },
   "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Toma automáticamente el control de las pestañas ya suspendidas por otra extensión compatible"
+    "message": "Toma automáticamente el control de las pestañas ya suspendidas por otra extensión"
   },
   "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "(p. ej. The Great Suspender, u otra instalación de esta)."
+    "message": "compatible (p. ej. The Great Suspender, u otra instalación de esta)."
   },
   "html_options_suspend_claim_by_default_tooltip_line2a": {
     "message": "Una pestaña se considera \"suspendida\" si su URL contiene 'suspended.html'."
   },
   "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "Activar esto reescribe esa URL hacia esta instalación"
+    "message": "Al habilitar esta opción, esa URL se reescribe a esta instalación para que"
   },
   "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "para que TMS pueda gestionar la pestaña en adelante."
+    "message": "TMS pueda gestionar la pestaña de ahí en adelante."
   },
   "html_options_suspend_only_on_battery": {
-    "message": "Nunca suspender pestañas cuando esté conectado a la fuente de alimentación"
+    "message": "No suspender nunca pestañas cuando estés conectado a la corriente"
   },
   "html_options_suspend_no_active_tabs": {
-    "message": "Nunca suspender la pestaña activa en cada ventana"
+    "message": "No suspender nunca la pestaña activa de cada ventana"
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Reabrir siempre las pestañas suspendidas desplazadas hasta arriba"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "La pestaña se reabre desde la parte superior de la página en"
+    "message": "La pestaña se reabre en la parte superior de la página en lugar de donde"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "lugar del punto donde se suspendió."
+    "message": "estaba desplazada al momento de suspenderse."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Se aplica tanto a la suspensión automática como a la manual, y"
+    "message": "Se aplica tanto a la suspensión automática como a la manual, y tiene prioridad sobre"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "anula los enlaces que saltan a una sección (#) al cargar."
+    "message": "los enlaces que saltan a una #sección al cargar."
   },
   "html_options_suspend_automatically_unsuspend": {
-    "message": "Anular suspensión automáticamente de la pestaña cuando sea vista"
+    "message": "Reactivar automáticamente la pestaña al visualizarla"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "Recargar también reactiva las pestañas en segundo plano (no solo la pestaña activa)"
+    "message": "Recargar también reactiva las pestañas en segundo plano (no solo la activa)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Si está activado, recargar una pestaña suspendida (Ctrl+R o"
+    "message": "Cuando está habilitado, recargar una pestaña suspendida (Ctrl+R o clic derecho"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "clic derecho > Recargar) también la reactiva aunque no sea"
+    "message": "> Recargar) también la reactiva aunque no sea la pestaña"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "la pestaña activa en ese momento."
+    "message": "que tiene el foco actualmente."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Útil para recargar varias pestañas suspendidas a la vez, por"
+    "message": "Útil para recargar varias pestañas suspendidas a la vez, por ejemplo tras"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "ejemplo tras seleccionar varias pestañas y pulsar Ctrl+R."
+    "message": "seleccionar varias pestañas y pulsar Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar el ahorro de memoria integrado del navegador al suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Reduce el uso de memoria de una pestaña suspendida aún más, mediante la utilización"
+    "message": "Reduce aún más el uso de memoria de una pestaña suspendida, utilizando"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "la función integrada de \"descarte de pestañas\" de tu navegador. Esto puede suponer hasta"
+    "message": "la función integrada del navegador de 'descarte de pestañas'. Esto puede lograr hasta"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "al 500% de ahorro de memoria cuando se trabaja con un gran número de pestañas."
+    "message": "un 500% de ahorro de memoria al trabajar con muchas pestañas."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Sin embargo, también causará un ligero retraso al seleccionar"
+    "message": "Sin embargo, también causará un ligero retraso al renderizar cuando selecciones"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "pestañas suspendidas"
+    "message": "una pestaña suspendida."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Para más información sobre el descarte de pestañas, consulta:"
@@ -510,25 +510,25 @@
     "message": "Capturar solo la parte superior de la pantalla"
   },
   "html_options_suspend_screen_capturing_entire_page": {
-    "message": "Capturar toda la página"
+    "message": "Capturar la página completa"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "En una pestaña suspendida, la extensión puede mostrar una vista previa de la imagen de lo que la pestaña"
+    "message": "En una pestaña suspendida, la extensión puede mostrar una vista previa de cómo se veía la pestaña"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "parecía justo antes de que se suspendiera."
+    "message": "justo antes de suspenderse."
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "La función de captura de pantalla es experimental y puede causar un uso significativo de la CPU como"
+    "message": "La captura de pantalla es una función experimental y puede causar un uso significativo de la CPU,"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "así como un uso de memoria ligeramente mayor."
+    "message": "además de un ligero aumento en el uso de memoria."
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "Si notas un comportamiento extraño, como que las pestañas tardan mucho en suspenderse o que el navegador"
+    "message": "Si notas un comportamiento extraño, como pestañas que tardan mucho en suspenderse o el navegador"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "falla inesperadamente, intente deshabilitar esta función."
+    "message": "que se cierra inesperadamente, prueba a desactivar esta función."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Método de captura"
@@ -537,49 +537,49 @@
     "message": "Automático (recomendado)"
   },
   "html_options_suspend_screen_capture_method_native": {
-    "message": "Solo captura del navegador"
+    "message": "Solo captura de pantalla del navegador"
   },
   "html_options_suspend_screen_capture_method_renderer": {
     "message": "Solo renderizador de página"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automático toma una captura real del navegador cuando la pestaña que se suspende es la que estás viendo."
+    "message": "Automático toma una captura de pantalla real del navegador cuando la pestaña que se está suspendiendo es la que estás viendo."
   },
   "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "Es instantáneo y funciona en todos los sitios. Las demás pestañas las redibuja el renderizador de página, que es más lento."
+    "message": "Es instantáneo y funciona en cualquier sitio. Cualquier otra pestaña se vuelve a dibujar mediante el renderizador de página, que es más lento."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Solo captura del navegador nunca ejecuta el renderizador de página, así que las pestañas suspendidas en segundo plano no tienen vista previa."
+    "message": "Solo captura de pantalla del navegador nunca ejecuta el renderizador de página, así que las pestañas suspendidas en segundo plano no tienen vista previa."
   },
   "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "La captura del navegador solo cubre la parte visible de la página, aunque esté seleccionado 'Capturar toda la página'."
+    "message": "Una captura de pantalla del navegador solo cubre la parte visible de la página, incluso con 'Capturar la página completa' seleccionado."
   },
   "html_options_suspend_screen_capture_precapture": {
-    "message": "Keep a recent screenshot of tabs as I use them"
+    "message": "Mantener una captura reciente de las pestañas mientras las uso"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Takes a browser screenshot of a tab about a second after you switch to it or it finishes loading,"
+    "message": "Toma una captura de pantalla del navegador de una pestaña un segundo después de que cambias a ella o termina de cargarse,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "so tabs that are later suspended in the background still get a preview."
+    "message": "así las pestañas que luego se suspenden en segundo plano igual tienen una vista previa."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome only lets an extension screenshot a tab you haven't clicked its button on if it has access to all sites,"
+    "message": "Chrome solo permite que una extensión capture una pestaña en la que no has hecho clic en su botón si tiene acceso a todos los sitios,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "so turning this on asks for that permission. It is only used to take these screenshots, which stay on this computer."
+    "message": "así que activar esto solicita ese permiso. Solo se usa para tomar estas capturas, que permanecen en este equipo."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Only the latest screenshot of each open tab is kept, and it is deleted when the tab closes."
+    "message": "Solo se conserva la última captura de cada pestaña abierta, y se elimina al cerrar la pestaña."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Incognito tabs and whitelisted sites are never captured."
+    "message": "Las pestañas de incógnito y los sitios en la lista blanca nunca se capturan."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Habilitar el modo de captura de pantalla de alta calidad"
   },
   "html_options_suspend_force_screen_capture_tooltip_line1": {
-    "message": "Cuando están deshabilitadas, las capturas de pantalla tienen las siguientes limitaciones para ayudar en el rendimiento:"
+    "message": "Cuando está deshabilitado, las capturas de pantalla tienen las siguientes limitaciones para mejorar el rendimiento:"
   },
   "html_options_suspend_force_screen_capture_tooltip_line2": {
     "message": "- Captura de pantalla de baja calidad"
@@ -588,43 +588,43 @@
     "message": "- No capturará la pantalla si tarda más de 1 minuto en generar la imagen"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
-    "message": "- Altura máxima de captura de pantalla limitada a 5000px"
+    "message": "- Altura máxima de la captura de pantalla limitada a 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
     "message": "Habilitar el modo de captura de pantalla de alta calidad puede aumentar significativamente la carga de la CPU"
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "y uso de memoria."
+    "message": "y el uso de memoria."
   },
   "html_options_whitelist_title": {
-    "message": "Nunca suspenda pestañas con URL de la siguiente lista:"
+    "message": "No suspender nunca las pestañas con URL de la siguiente lista:"
   },
   "html_options_always_suspend_title": {
-    "message": "Suspender siempre las pestañas con URLs de la siguiente lista:"
+    "message": "Suspender siempre las pestañas con URL de la siguiente lista:"
   },
   "html_options_always_suspend_tooltip_line1a": {
-    "message": "Las pestañas que coincidan con esta lista siempre se suspenden tras"
+    "message": "Las pestañas que coincidan con esta lista siempre se suspenden después del tiempo normal,"
   },
   "html_options_always_suspend_tooltip_line1b": {
-    "message": "el tiempo de espera normal, sin importar el audio, la entrada de formularios o si están fijadas."
+    "message": "sin importar el audio, la entrada de formulario o el estado de fijado."
   },
   "html_options_always_suspend_tooltip_line2a": {
-    "message": "Una entrada por línea, mismas reglas de coincidencia que la lista anterior"
+    "message": "Una entrada por línea, con las mismas reglas de coincidencia que la lista de arriba (texto plano"
   },
   "html_options_always_suspend_tooltip_line2b": {
-    "message": "(coincidencia de texto plano en cualquier parte de la URL, o /regex/ entre barras)."
+    "message": "que coincida en cualquier parte de la URL, o /regex/ entre barras)."
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "Agregue la URL de cada página que desea permitir en una nueva línea. Por ejemplo:"
+    "message": "Añade la URL de cada página que quieras permitir en una línea nueva. Por ejemplo:"
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "Para incluir múltiples sitios en una línea, puede especificar parte de la url en su lugar:"
+    "message": "Para permitir varios sitios en una línea, puedes especificar parte de la URL:"
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "También puede especificar expresiones regulares adjuntando el texto en las barras delanteras:"
+    "message": "También puedes especificar expresiones regulares encerrando el texto entre barras:"
   },
   "html_options_changelog_modal_title": {
-    "message": "Novedades de la versión v$version$",
+    "message": "Novedades en la v$version$",
     "placeholders": {
       "version": {
         "content": "$1"
@@ -644,43 +644,43 @@
     "message": "Suspender ahora las pestañas coincidentes"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "Nunca suspender las pestañas de los siguientes grupos:"
+    "message": "No suspender nunca las pestañas en los siguientes grupos:"
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "Las pestañas de estos grupos nunca se suspenden automáticamente y las acciones de suspensión masiva las omiten."
+    "message": "Las pestañas de estos grupos nunca se suspenden automáticamente y se omiten en las acciones de suspensión masiva."
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "Añada un grupo con «Nunca suspender este grupo» en el menú contextual. Solo se pueden añadir grupos que tengan nombre."
+    "message": "Añade un grupo con \"No suspender nunca este grupo\" en el menú del clic derecho. Solo se pueden añadir grupos con nombre."
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "Los grupos se identifican por nombre y color, y siguen los cambios de nombre mientras el navegador siga abierto."
+    "message": "Los grupos se identifican por nombre y color, y siguen los cambios de nombre mientras el navegador permanece abierto."
   },
   "html_options_never_suspend_groups_empty": {
     "message": "Todavía no se ha añadido ningún grupo de pestañas."
   },
   "html_options_never_suspend_groups_remove": {
-    "message": "Eliminar"
+    "message": "Quitar"
   },
   "html_options_other_enable_context_menu": {
-    "message": "Añadir The Marvellous Suspender al menú contextual del clic derecho"
+    "message": "Añadir The Marvellous Suspender al menú del clic derecho"
   },
   "html_options_other_enable_context_menu_tooltip_line1": {
-    "message": "Añadir controles para esta extensión al menú de clic derecho de una página web."
+    "message": "Añade controles de esta extensión al menú del clic derecho de una página web."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Esto le dará acceso a acciones avanzadas de suspensión no disponibles"
+    "message": "Esto te dará acceso a acciones de suspensión avanzadas no disponibles"
   },
   "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "en otra parte de la extensión."
+    "message": "en otras partes de la extensión."
   },
   "html_options_other_enable_sync": {
     "message": "Sincronizar la configuración con tu perfil del navegador"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "La configuración de la extensión se sincronizará en todos los navegadores que estén"
+    "message": "La configuración de la extensión se sincronizará en todos los navegadores"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "conectado con el mismo perfil."
+    "message": "que hayan iniciado sesión con el mismo perfil."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Esto también sincronizará la configuración en modo incógnito."
@@ -689,22 +689,22 @@
     "message": "Activar esto sobrescribirá la configuración en todos los demás navegadores conectados con el mismo perfil"
   },
   "html_options_suspend_on_low_memory": {
-    "message": "Suspender instantáneamente cuando la memoria del sistema es muy baja"
+    "message": "Suspender instantáneamente cuando la memoria del sistema esté muy baja"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Esta opción anulará la función de descarte automático de pestañas."
+    "message": "Esta opción anulará la función automática de descarte de pestañas."
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "Si está activada, forzará la suspensión de una pestaña en lugar de descartarla."
+    "message": "Si está habilitada, forzará la suspensión de una pestaña en lugar de descartarla."
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Normalmente, tu navegador solo descarta pestañas cuando la memoria del sistema es muy baja."
+    "message": "Normalmente, tu navegador solo descarta pestañas cuando la memoria del sistema está muy baja."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Tenga en cuenta: Esto puede causar que las pestañas se suspendan antes del tiempo que ha"
+    "message": "Ten en cuenta: esto puede hacer que las pestañas se suspendan antes del tiempo que"
   },
   "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "especificado en las opciones de suspensión Automática de pestañas."
+    "message": "hayas especificado en las opciones de suspensión automática de pestañas."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Para más información sobre el descarte de pestañas, consulta:"
@@ -713,40 +713,40 @@
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_popup_unsuspend_tab": {
-    "message": "Anular suspensión de esta pestaña"
+    "message": "Reactivar esta pestaña"
   },
   "html_popup_suspend_tab": {
     "message": "Suspender esta pestaña ahora"
   },
   "html_popup_never_suspend_domain": {
-    "message": "Nunca suspenda este dominio"
+    "message": "No suspender nunca este dominio"
   },
   "html_popup_never_suspend_page": {
-    "message": "Nunca suspenda esta URL"
+    "message": "No suspender nunca esta URL"
   },
   "html_popup_suspend_other_tabs": {
-    "message": "Suspender el resto de pestañas"
+    "message": "Suspender todas las demás pestañas"
   },
   "html_popup_unsuspend_all_tabs": {
-    "message": "Anular suspensión de todas las pestañas"
+    "message": "Reactivar todas las pestañas"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
     "message": "Despertar ahora las pestañas coincidentes"
   },
   "html_popup_suspend_selected_tabs": {
-    "message": "Suspender pestañas seleccionadas"
+    "message": "Suspender las pestañas seleccionadas"
   },
   "html_popup_unsuspend_selected_tabs": {
-    "message": "Anular suspensión de las pestañas seleccionadas"
+    "message": "Reactivar las pestañas seleccionadas"
   },
   "html_popup_settings": {
     "message": "Configuración"
   },
   "html_popup_backup_now_local": {
-    "message": "Hacer copia de la sesión ahora (Local)"
+    "message": "Respaldar sesión ahora (Local)"
   },
   "html_popup_backup_now_cloud": {
-    "message": "Hacer copia de la sesión ahora (Nube)"
+    "message": "Respaldar sesión ahora (Nube)"
   },
   "html_restoring_title": {
     "message": "Restaurando ventana"
@@ -755,19 +755,19 @@
     "message": "Restaurando pestañas"
   },
   "html_restoring_detail": {
-    "message": "Por favor, espere mientras restauro esta ventana..."
+    "message": "Espera mientras restauro esta ventana..."
   },
   "html_recovery_title": {
     "message": "Recuperación"
   },
   "html_recovery_ruh_roh": {
-    "message": "¡Oh oh!"
+    "message": "¡Vaya!"
   },
   "html_recovery_description_line1": {
-    "message": "Parece que está recuperando de un fallo de extensión."
+    "message": "Parece que te estás recuperando de un fallo de la extensión."
   },
   "html_recovery_description_line2": {
-    "message": "Es posible que las pestañas suspendidas hayan fallado o desaparecido."
+    "message": "Tus pestañas suspendidas pueden haberse bloqueado o desaparecido."
   },
   "html_recovery_restore_tabs_automatically": {
     "message": "Restaurar pestañas automáticamente"
@@ -776,22 +776,22 @@
     "message": "Ir al gestor de sesiones"
   },
   "html_recovery_important_message": {
-    "message": "Actualmente tiene activada la captura de pantalla. Si esta extensión se bloquea repetidamente, se recomienda desactivar esta opción."
+    "message": "Actualmente tienes activada la captura de pantalla. Si esta extensión falla repetidamente, te recomendamos desactivar esta opción."
   },
   "html_recovery_disable_screen_capturing": {
-    "message": "Desactivar captura de pantalla"
+    "message": "Desactivar la captura de pantalla"
   },
   "html_recovery_tabs_to_restore": {
     "message": "Pestañas a restaurar"
   },
   "html_shortcuts_title": {
-    "message": "Atajos del teclado"
+    "message": "Atajos de teclado"
   },
   "html_shortcuts_keyboard_shortcuts": {
-    "message": "Atajos del teclado"
+    "message": "Atajos de teclado"
   },
   "html_shortcuts_context_menu_note": {
-    "message": "Nota: Estas acciones también están disponibles a través del menú contextual del clic derecho."
+    "message": "Nota: estas acciones también están disponibles en el menú del clic derecho."
   },
   "html_shortcuts_remap_keys": {
     "message": "Cambiar atajos"
@@ -806,7 +806,7 @@
     "message": "Estado de las pestañas"
   },
   "html_sidebar_shortcuts": {
-    "message": "Atajos del teclado"
+    "message": "Atajos de teclado"
   },
   "html_sidebar_support": {
     "message": "Acerca de"
@@ -821,13 +821,13 @@
     "message": "Novedades y actualizaciones"
   },
   "html_news_desc": {
-    "message": "Mantente al día de los últimos lanzamientos, problemas conocidos y anuncios del blog de Marvellous Codeworks."
+    "message": "Mantente al día con los últimos lanzamientos, problemas conocidos y anuncios del blog de Marvellous Codeworks."
   },
   "html_news_loading": {
     "message": "Cargando novedades…"
   },
   "html_news_empty": {
-    "message": "Aún no hay novedades. ¡Vuelve pronto!"
+    "message": "Todavía no hay novedades. ¡Vuelve pronto!"
   },
   "html_news_new_pill": {
     "message": "NUEVO"
@@ -839,61 +839,61 @@
     "message": "Copia de seguridad y restauración"
   },
   "html_success_great_success": {
-    "message": "¡Maravilloso éxito!"
+    "message": "¡Éxito marvellous!"
   },
   "html_success_all_tabs_restored": {
-    "message": "Todas sus pestañas se han restaurado."
+    "message": "Todas tus pestañas han sido restauradas."
   },
   "html_success_goto_advanced_prefix": {
-    "message": "Para la gestión avanzada de sesiones, visite el"
+    "message": "Para la gestión avanzada de sesiones, visita la"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "página"
+    "message": ""
   },
   "html_session_manager": {
-    "message": "gestión de sesiones"
+    "message": "página de gestión de sesiones"
   },
   "html_suspended_title": {
-    "message": "Pestañas suspendidos"
+    "message": "Pestaña suspendida"
   },
   "html_suspended_click_to_reload": {
-    "message": "Actualizar o hacer clic para recargar"
+    "message": "Actualiza o haz clic para recargar"
   },
   "html_suspended_toast_not_connected": {
-    "message": "No estás conectado a internet"
+    "message": "No estás conectado a Internet"
   },
   "html_suspended_toast_reload_disabled": {
-    "message": "La recarga automática de pestañas está temporalmente desactivada."
+    "message": "La recarga automática de pestañas está temporalmente deshabilitada."
   },
   "html_permissions_title": {
     "message": "Permisos"
   },
   "html_permissions_heading": {
-    "message": "Por favor, dame acceso a las URL del archivo local"
+    "message": "Concédeme acceso a las URL de archivos locales"
   },
   "html_permissions_info": {
-    "message": "Actualmente, esta extensión no puede suspender las URL que comienzan con la palabra \"archivo\".\nPara cambiar esto, marque \"Permitir el acceso a las URL de archivos\" en la página de configuración de la extensión."
+    "message": "Actualmente esta extensión no tiene permiso para suspender URL que empiecen con \"file\".\nPara cambiar esto, activa \"Permitir el acceso a URL de archivos\" en la página de configuración de la extensión."
   },
   "html_permissions_backup": {
-    "message": "Tenga en cuenta: si cambia esta opción, todas las pestañas suspendidas desaparecerán brevemente.\nPor si acaso, ahora podría ser un buen momento para guardar una copia de seguridad de su sesión de pestañas actual."
+    "message": "Ten en cuenta: cambiar esta opción hará que todas tus pestañas suspendidas desaparezcan brevemente.\nPor si acaso, este podría ser un buen momento para guardar una copia de seguridad de tu sesión actual."
   },
   "html_permissions_return_hint": {
-    "message": "Bienvenido de nuevo: haz clic de nuevo en el botón para terminar de conceder el acceso a archivos locales."
+    "message": "Bienvenido de nuevo — vuelve a hacer clic en el botón ahora para terminar de conceder el acceso a archivos locales."
   },
   "html_update_title": {
-    "message": "Actualizar"
+    "message": "Actualización"
   },
   "html_update_heading2": {
-    "message": "está listo para ser aún más marav<i>illoso</i>"
+    "message": "está listo para ser aún más marvellous"
   },
   "html_update_info": {
-    "message": "Se instalará una nueva versión de The Marvellous Suspender la próxima vez que reinicies tu navegador."
+    "message": "Se instalará una nueva versión de The Marvellous Suspender la próxima vez que reinicies el navegador."
   },
   "html_update_info_withbackup": {
-    "message": "IMPORTANTE: No pudimos crear un punto de restauración para tus pestañas.<br>¡Guarda una copia de seguridad AHORA!"
+    "message": "IMPORTANTE: no pudimos crear un punto de restauración para tus pestañas.<br>¡Guarda una copia de seguridad AHORA!"
   },
   "html_update_info_nobackup_prefix": {
-    "message": "Se recomienda encarecidamente que exporte una copia de su sesión actual desde "
+    "message": "Se recomienda encarecidamente exportar una copia de tu sesión actual desde "
   },
   "html_update_info_nobackup_suffix": {
     "message": " antes de continuar con la actualización."
@@ -902,46 +902,46 @@
     "message": "Actualizado"
   },
   "html_updating_heading": {
-    "message": "actualizando"
+    "message": "se está actualizando"
   },
   "html_updating_message": {
-    "message": "Espere mientras restauro sus pestañas suspendidas..."
+    "message": "Espera mientras restauro tus pestañas suspendidas..."
   },
   "html_updated_great_suspender_updated": {
-    "message": "ha sido actualizado"
+    "message": "se ha actualizado"
   },
   "html_updated_info_line1": {
-    "message": "Se realizó una copia de seguridad automática de sus pestañas antes de la actualización."
+    "message": "Se hizo una copia de seguridad automática de tus pestañas antes de la actualización."
   },
   "html_updated_info_line2_prefix": {
-    "message": "Si encontró algún problema durante la actualización, puede recuperar las pestañas perdidas del "
+    "message": "Si tuviste algún problema durante la actualización, puedes recuperar las pestañas perdidas desde la página "
   },
   "html_updated_info_line2_suffix": {
-    "message": " página."
+    "message": "."
   },
   "html_updated_patch_message": {
-    "message": "Perdone la molestia. Solo necesitaba realizar un pequeño mantenimiento."
+    "message": "Disculpa las molestias. Solo necesitaba hacer un pequeño mantenimiento."
   },
   "html_welcome_text_line1": {
-    "message": "Gracias por intentarlo"
+    "message": "Gracias por probar"
   },
   "html_welcome_text_line2": {
-    "message": "Hago que su computadora funcione sin problemas al suspender las pestañas que no está usando."
+    "message": "Hago que tu ordenador funcione sin problemas suspendiendo las pestañas que no estás usando."
   },
   "html_welcome_text_line3": {
-    "message": "Puede ajustar cualquiera de las configuraciones a continuación."
+    "message": "Puedes ajustar la configuración de abajo."
   },
   "js_popup_normal": {
-    "message": "Tab se suspenderá automáticamente."
+    "message": "La pestaña se suspenderá automáticamente."
   },
   "js_popup_normal_pause": {
-    "message": "No ahora"
+    "message": "Ahora no"
   },
   "js_popup_special": {
     "message": "La pestaña no se puede suspender"
   },
   "js_popup_suspended": {
-    "message": "Tab suspendidos"
+    "message": "Pestaña suspendida"
   },
   "js_popup_suspended_pause": {
     "message": "No suspender"
@@ -950,19 +950,19 @@
     "message": "Sitio permitido."
   },
   "js_popup_whitelisted_remove": {
-    "message": "Eliminar de la lista de permitidos"
+    "message": "Quitar de la lista de permitidos"
   },
   "js_popup_audible": {
-    "message": "Tab está reproduciendo audio."
+    "message": "La pestaña está reproduciendo audio."
   },
   "js_popup_form_input": {
-    "message": "Tab está recibiendo entrada de formulario."
+    "message": "La pestaña está recibiendo entrada de formulario."
   },
   "js_popup_form_input_unpause": {
     "message": "Reanudar"
   },
   "js_popup_pinned": {
-    "message": "Se ha fijado la pestaña"
+    "message": "La pestaña ha sido fijada"
   },
   "js_popup_app_window": {
     "message": "La pestaña está abierta en una ventana de aplicación"
@@ -974,34 +974,34 @@
     "message": "La pestaña está en un grupo que nunca se suspende"
   },
   "js_popup_temp_whitelist": {
-    "message": "Suspensión de pestaña pausa."
+    "message": "Suspensión de la pestaña en pausa."
   },
   "js_popup_temp_whitelist_unpause": {
     "message": "Reanudar"
   },
   "js_popup_never": {
-    "message": "Suspensión automática de pestañas desactivada."
+    "message": "Suspensión automática de pestañas deshabilitada."
   },
   "js_popup_no_connectivity": {
-    "message": "No hay conexion de red"
+    "message": "Sin conexión de red"
   },
   "js_popup_charging": {
-    "message": "Conectado a fuente de energía"
+    "message": "Conectado a la corriente"
   },
   "js_popup_blockedFile": {
-    "message": "Los archivos locales no pueden ser suspendidos."
+    "message": "Los archivos locales no se pueden suspender."
   },
   "js_popup_blockedFile_enable": {
     "message": "Habilitar"
   },
   "js_popup_unknown": {
-    "message": "Esperando a que la pestaña se cargue..."
+    "message": "Esperando a que se cargue la pestaña..."
   },
   "js_popup_initialising": {
-    "message": "Esperando a que la extensión se inicialice..."
+    "message": "Esperando a que se inicialice la extensión..."
   },
   "js_popup_error": {
-    "message": "Auto-suspensión no disponible para esta pestaña"
+    "message": "Suspensión automática no disponible para esta pestaña"
   },
   "js_history_delete": {
     "message": "eliminar"
@@ -1031,22 +1031,22 @@
     "message": "Pestañas"
   },
   "js_history_enter_name_for_session": {
-    "message": "Introduzca un nombre para esta sesión"
+    "message": "Ingresa un nombre para esta sesión"
   },
   "js_history_confirm_delete": {
-    "message": "¿Está seguro de que desea eliminar esta sesión?"
+    "message": "¿Seguro que quieres eliminar esta sesión?"
   },
   "js_history_confirm_session_overwrite": {
-    "message": "Ya hay una sesión guardada con este nombre. ¿Sobrescribir sesión existente?"
+    "message": "Ya existe una sesión guardada con este nombre. ¿Sobrescribir la sesión existente?"
   },
   "js_history_import_fail": {
-    "message": "Error al cargar el archivo. Asegúrese de que el archivo es de texto plano y contiene una única url por línea."
+    "message": "No se pudo cargar el archivo. Asegúrate de que sea texto plano y contenga una URL por línea."
   },
   "js_history_migrate_fail": {
-    "message": "Necesita un id de extensión de 32 caracteres para migrar desde"
+    "message": "Se necesita un ID de extensión de 32 caracteres para migrar desde"
   },
   "js_history_migrate_success": {
-    "message": "Se migraron correctamente $tabcount$ pestañas. Reinicia el navegador si las pestañas migradas no se recargan automáticamente.",
+    "message": "Se migraron $tabcount$ pestañas correctamente. Reinicia el navegador si las pestañas migradas no se recargan automáticamente.",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -1054,22 +1054,22 @@
     }
   },
   "js_suspended_hotkey_to_reload": {
-    "message": "Definir los atajos del teclado"
+    "message": "Configurar atajos de teclado"
   },
   "js_suspended_low_memory": {
-    "message": "Pestaña suspendida debido a poca memoria del sistema"
+    "message": "Pestaña suspendida por memoria del sistema baja"
   },
   "js_options_incognito_warning": {
-    "message": "Está en modo incógnito. Algunas características no estarán disponibles."
+    "message": "Estás en modo incógnito. Algunas funciones no estarán disponibles."
   },
   "js_options_whitelist_no_matches": {
     "message": "No hay pestañas abiertas que coincidan con la lista de permitidos actual."
   },
   "js_options_whitelist_matches_heading": {
-    "message": "Pestañas abiertas de la lista de permitidos:"
+    "message": "Pestañas abiertas en la lista de permitidos:"
   },
   "js_options_always_suspend_no_matches": {
-    "message": "No hay pestañas abiertas que coincidan con la lista de suspensión forzada actual."
+    "message": "No hay pestañas abiertas que coincidan con la lista de suspensión permanente actual."
   },
   "js_options_never_suspend_groups_open_count": {
     "message": "coincide con $count$ grupo(s) abierto(s)",
@@ -1080,7 +1080,7 @@
     }
   },
   "js_options_always_suspend_matches_heading": {
-    "message": "Pestañas abiertas que coinciden con la lista de suspensión forzada:"
+    "message": "Pestañas abiertas que coinciden con la lista de suspensión permanente:"
   },
   "js_options_whitelist_matches_overflow_prefix": {
     "message": "y"
@@ -1089,16 +1089,16 @@
     "message": "más."
   },
   "js_permissions_button_export": {
-    "message": "Hacer copia de seguridad"
+    "message": "Guardar copia de seguridad"
   },
   "js_permissions_button_set": {
-    "message": "Abrir ajustes de extensión"
+    "message": "Abrir configuración de la extensión"
   },
   "js_update_confirm": {
-    "message": "Aún no ha guardado una copia de seguridad. ¿Actualizar la extensión de todos modos?"
+    "message": "Todavía no has guardado una copia de seguridad. ¿Actualizar la extensión de todos modos?"
   },
   "js_update_button_export": {
-    "message": "Hacer copia de seguridad"
+    "message": "Guardar copia de seguridad"
   },
   "js_update_button_reload": {
     "message": "Actualizar extensión ahora"
@@ -1116,46 +1116,46 @@
     "message": "Punto de guardado automático para v"
   },
   "html_options_backup_title": {
-    "message": "Copia de seguridad automática de la sesión"
+    "message": "Copia de seguridad automática de sesión"
   },
   "html_backup_session_desc": {
-    "message": "A diferencia de las sesiones, las copias de seguridad se guardan como archivos JSON fuera de Chrome: en tu carpeta de descargas o en Google Drive. Sobreviven a bloqueos del navegador, restablecimientos de perfil e instalaciones nuevas. Esta es tu verdadera red de seguridad."
+    "message": "A diferencia de las sesiones, las copias de seguridad se guardan como archivos JSON fuera de Chrome: en tu carpeta Descargas o en Google Drive. Sobreviven a fallos del navegador, restablecimientos de perfil e instalaciones nuevas. Esta es tu verdadera red de seguridad."
   },
   "html_options_backup_enable": {
-    "message": "Hacer copia de seguridad de tu sesión automáticamente"
+    "message": "Respaldar tu sesión automáticamente"
   },
   "html_options_backup_enable_tooltip_line1a": {
     "message": "Guarda silenciosamente una copia de tu sesión actual como archivo JSON."
   },
   "html_options_backup_enable_tooltip_line1b": {
-    "message": "Elige guardarla localmente (carpeta tms-backups dentro de tus Descargas)"
+    "message": "Elige guardar localmente (carpeta tms-backups dentro de Descargas)"
   },
   "html_options_backup_enable_tooltip_line1c": {
     "message": "o en una carpeta 'TMS Backups' en Google Drive."
   },
   "html_options_backup_enable_tooltip_line2a": {
-    "message": "Para copias de seguridad locales, Chrome debe estar configurado para descargar archivos automáticamente (sin preguntar)."
+    "message": "Para copias de seguridad locales, Chrome debe estar configurado para descargar archivos automáticamente"
   },
   "html_options_backup_enable_tooltip_line2b": {
-    "message": "Consulta chrome://settings/downloads."
+    "message": "(sin preguntar). Revisa chrome://settings/downloads."
   },
   "html_options_backup_enable_tooltip_line2c": {
-    "message": "Las copias en Google Drive no tienen este requisito."
+    "message": "Las copias de seguridad en Google Drive no tienen ese requisito."
   },
   "html_options_backup_interval": {
-    "message": "Copia de seguridad cada"
+    "message": "Respaldar cada"
   },
   "html_options_backup_daily_time": {
     "message": "A qué hora"
   },
   "html_backup_interval_warning": {
-    "message": "Aviso: con un intervalo tan largo, puede pasar mucho entre copias de seguridad. Considera un intervalo más corto para reducir el riesgo de pérdida de datos."
+    "message": "Aviso: con un intervalo tan largo, puede pasar mucho entre una copia de seguridad y otra. Considera un intervalo más corto para reducir el riesgo de pérdida de datos."
   },
   "html_options_backup_note": {
-    "message": "Tanto las copias locales como las de Drive incluyen un identificador de dispositivo (p. ej., tms-session-a3f7b2c8-2026-06-18T14-30.json), de modo que cada instalación del navegador mantiene su propio conjunto independiente de copias de seguridad. Se conservan las N copias locales más recientes por dispositivo; las copias en Drive también conservan N por dispositivo, de modo que las sesiones de diferentes equipos o navegadores nunca se sobrescriben entre sí.\n\n<strong>Incluso con Google Drive seleccionado, al cerrar el navegador se sigue escribiendo un archivo local de seguridad, que se sube a Drive en el siguiente inicio. Que aparezca aquí un archivo local es normal, no un error.</strong>"
+    "message": "Tanto las copias de seguridad locales como las de Drive incluyen un identificador de dispositivo (p. ej. tms-session-a3f7b2c8-2026-06-18T14-30.json), de modo que cada instalación del navegador mantiene su propio conjunto independiente de copias de seguridad. Se conservan las N copias locales más recientes por dispositivo; las copias en Drive también se conservan en N por dispositivo, así que las sesiones de distintos equipos o navegadores nunca se sobrescriben entre sí.\n\n<strong>Incluso con Google Drive seleccionado, se sigue escribiendo un archivo de seguridad local al cerrar el navegador, que se sube a Drive en el siguiente inicio. Que aparezca aquí un archivo local es normal, no un error.</strong>"
   },
   "html_backup_max_files_label": {
-    "message": "Máximo de copias de seguridad a conservar"
+    "message": "Número máximo de copias de seguridad a conservar"
   },
   "html_backup_device_name_label": {
     "message": "Nombre del dispositivo (opcional)"
@@ -1164,22 +1164,22 @@
     "message": "Guardar"
   },
   "js_backup_restore_legacy_group": {
-    "message": "Copias de seguridad antiguas"
+    "message": "Copias de seguridad anteriores"
   },
   "html_options_backup_now": {
-    "message": "Hacer copia de seguridad ahora"
+    "message": "Respaldar ahora"
   },
   "html_options_back_to_top": {
     "message": "↑ Arriba"
   },
   "html_history_backup_hint_prefix": {
-    "message": "Las sesiones se almacenan solo dentro de Chrome: no sobrevivirán a un bloqueo del navegador ni a un restablecimiento de perfil."
+    "message": "Las sesiones se guardan solo dentro de Chrome: no sobreviven a un fallo del navegador ni a un restablecimiento de perfil."
   },
   "html_history_backup_settings_link": {
-    "message": "Configura una copia de seguridad para guardar tus pestañas fuera del navegador →"
+    "message": "Configura Copia de seguridad para guardar tus pestañas fuera del navegador →"
   },
   "js_options_backup_now_running": {
-    "message": "Ejecutando copia de seguridad…"
+    "message": "Copia de seguridad en curso…"
   },
   "js_options_backup_now_done": {
     "message": "Copia de seguridad guardada."
@@ -1188,34 +1188,34 @@
     "message": "Guardado"
   },
   "js_backup_permission_denied": {
-    "message": "Permiso denegado: la copia de seguridad automática no se activó."
+    "message": "Permiso denegado: la copia de seguridad automática no se habilitó."
   },
   "html_options_other_enable_news_feed": {
-    "message": "Activar feed de noticias"
+    "message": "Habilitar feed de novedades"
   },
   "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "Comprueba periódicamente marvellouscode.works en busca de novedades"
+    "message": "Comprueba periódicamente marvellouscode.works en busca de novedades de TMS y las muestra"
   },
   "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "de TMS y las muestra en la barra lateral."
+    "message": "en la barra lateral."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "Desactívalo para evitar esta solicitud en segundo plano."
+    "message": "Deshabilita para omitir esta solicitud en segundo plano."
   },
   "html_options_other_legacy_mascot": {
-    "message": "Usar la gráfica clásica de The Great Suspender en lugar de la nueva mascota"
+    "message": "Usar los gráficos clásicos de The Great Suspender en lugar de la nueva mascota"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Vuelve a mostrar iconos e ilustraciones con el estilo original de The"
+    "message": "Vuelve a los iconos e ilustraciones del estilo original de The Great"
   },
   "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "Great Suspender, cuando existe una versión antigua de la imagen."
+    "message": "Suspender, donde haya disponible una versión anterior de la imagen."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
-    "message": "Las imágenes sin equivalente antiguo siguen usando la gráfica nueva."
+    "message": "Las imágenes sin equivalente anterior siguen usando los gráficos nuevos."
   },
   "html_permissions_notice_text": {
-    "message": "A partir de esta versión, TMS solo solicita acceso al sistema de archivos/cuenta de Google cuando activas realmente la copia de seguridad local o en Google Drive, en lugar de pedirlo por adelantado."
+    "message": "A partir de esta versión, TMS solo solicita acceso al sistema de archivos/cuenta de Google cuando realmente activas la copia de seguridad local o en Google Drive, en lugar de pedirlo de antemano."
   },
   "html_permissions_notice_link": {
     "message": "Más información sobre los permisos."
@@ -1224,21 +1224,17 @@
     "message": "Entendido"
   },
   "html_permissions_info_note": {
-    "message": "TMS solicita los permisos de Descargas y cuenta de Google solo cuando activas la copia de seguridad local o en Google Drive a continuación."
+    "message": "TMS solicita los permisos de Descargas y cuenta de Google solo cuando habilitas la copia de seguridad local o en Google Drive abajo."
   },
   "html_permissions_info_note_link": {
-    "message": "Ver el desglose completo de permisos."
+    "message": "Ver el detalle completo de permisos"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome está preguntando dónde guardar los archivos, por lo que las copias de seguridad automáticas no funcionarán en silencio. Desactiva \"Preguntar dónde guardar cada archivo\" en chrome://settings/downloads."
+    "message": "Chrome está preguntando dónde guardar los archivos, así que las copias de seguridad automáticas no funcionarán en silencio. Desactiva \"Preguntar dónde guardar\" en chrome://settings/downloads."
   },
   "js_options_backup_next_run": {
     "message": "Próxima ejecución: $time$",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+    "placeholders": { "time": { "content": "$1" } }
   },
   "js_options_backup_last_local": {
     "message": "Última copia de seguridad: $date$",
@@ -1252,7 +1248,7 @@
     "message": "Destino de la copia de seguridad"
   },
   "html_options_backup_dest_local": {
-    "message": "Local (carpeta de descargas)"
+    "message": "Local (carpeta Descargas)"
   },
   "html_options_backup_dest_drive": {
     "message": "Google Drive"
@@ -1267,22 +1263,22 @@
     "message": "Error en la copia de seguridad automática: no hay ninguna cuenta de Google conectada. Haz clic aquí para solucionarlo."
   },
   "html_popup_backup_downloads_error": {
-    "message": "Copia de seguridad automática fallida: falta el permiso de Descargas. Haz clic aquí para solucionarlo."
+    "message": "Error en la copia de seguridad automática: falta el permiso de Descargas. Haz clic aquí para solucionarlo."
   },
   "html_popup_backup_nudge_text": {
     "message": "La copia de seguridad automática está desactivada. Protege tus sesiones."
   },
   "html_backup_nudge_dismiss": {
-    "message": "Recordármelo en 10 días"
+    "message": "Recuérdamelo en 10 días"
   },
   "html_backup_nudge_note_text": {
-    "message": "La copia de seguridad automática está desactivada. Activarla protege tus sesiones si este perfil del navegador llega a restablecerse o corromperse."
+    "message": "La copia de seguridad automática está desactivada. Activarla protege tus sesiones si alguna vez se restablece o corrompe este perfil del navegador."
   },
   "html_backup_nudge_optout": {
     "message": "No me interesa, deja de recordármelo"
   },
   "html_backup_downloads_permission_missing": {
-    "message": "La copia de seguridad automática está activada, pero el permiso de Descargas no está concedido en este dispositivo (puede ocurrir tras importar configuración o sincronizar desde otro navegador). Las copias no se ejecutarán hasta que lo concedas."
+    "message": "La copia de seguridad automática está activada, pero el permiso de Descargas no está concedido en este dispositivo (esto puede pasar tras importar configuración o sincronizar desde otro navegador). Las copias de seguridad no se ejecutarán hasta que lo concedas."
   },
   "html_backup_downloads_permission_grant": {
     "message": "Conceder permiso"
@@ -1297,10 +1293,10 @@
     "message": "Copia de seguridad de la configuración"
   },
   "html_backup_settings_desc": {
-    "message": "Exporta toda la configuración de la extensión a un archivo JSON, útil como copia de seguridad o para transferir tu configuración a otro perfil del navegador. Al importar un archivo se reemplaza la configuración actual."
+    "message": "Exporta toda la configuración de la extensión a un archivo JSON, útil como copia de seguridad o para transferir tu configuración a otro perfil del navegador. Importar un archivo reemplaza la configuración actual."
   },
   "html_backup_local_folder_hint": {
-    "message": "Las copias locales se guardan en la carpeta tms-backups dentro de tus descargas."
+    "message": "Las copias de seguridad locales van a la carpeta tms-backups dentro de Descargas."
   },
   "html_backup_drive_folder_note": {
     "message": "Las copias de seguridad se guardan en la carpeta 'TMS Backups' de tu Google Drive."
@@ -1390,7 +1386,7 @@
     "message": "Migrar"
   },
   "html_backup_restore_title": {
-    "message": "Restaurar desde una copia de seguridad"
+    "message": "Restaurar desde copia de seguridad"
   },
   "html_backup_restore_desc": {
     "message": "Importa un archivo de copia de seguridad para restaurarlo como sesión guardada. Una vez importado, abre Sesiones para elegir qué ventanas restaurar."
@@ -1437,7 +1433,7 @@
     "message": "¿Guardar la copia de seguridad de Drive antes de cambiar?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "Tu copia de seguridad de Drive más reciente es del $date$. Guárdala como sesión en el Administrador de sesiones para poder restaurarla sin necesitar Google Drive.",
+    "message": "Tu copia de seguridad más reciente en Drive es del $date$. Guárdala como sesión en el Gestor de sesiones para poder restaurarla sin necesitar Google Drive.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1451,7 +1447,7 @@
     "message": "Omitir"
   },
   "html_backup_drive_files_title": {
-    "message": "Archivos de copia de seguridad de Drive"
+    "message": "Archivos de copia de seguridad en Drive"
   },
   "html_backup_drive_download_btn": {
     "message": "Descargar"
@@ -1460,16 +1456,16 @@
     "message": "Eliminar"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "¿Eliminar este archivo de copia de seguridad de Drive? Esto no se puede deshacer."
+    "message": "¿Eliminar este archivo de copia de seguridad de Drive? Esta acción no se puede deshacer."
   },
   "html_backup_drive_delete_device_btn": {
     "message": "Eliminar todo"
   },
   "html_backup_drive_delete_device_modal_title": {
-    "message": "¿Eliminar todos los backups de este dispositivo?"
+    "message": "¿Eliminar todas las copias de seguridad de este dispositivo?"
   },
   "html_backup_drive_delete_device_modal_body": {
-    "message": "Esto eliminará permanentemente los $count$ archivos de backup de \"$device$\" en Google Drive. Esta acción no se puede deshacer.",
+    "message": "Esto eliminará permanentemente los $count$ archivo(s) de copia de seguridad de \"$device$\" de Google Drive. Esta acción no se puede deshacer.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1486,7 +1482,7 @@
     "message": "Cancelar"
   },
   "js_backup_drive_delete_device_error": {
-    "message": "No se pudieron eliminar algunos archivos de backup. Inténtalo de nuevo."
+    "message": "No se pudieron eliminar algunos archivos de copia de seguridad. Inténtalo de nuevo."
   },
   "html_backup_drive_no_files": {
     "message": "No se encontraron archivos de copia de seguridad en Drive."
