@@ -276,7 +276,8 @@ export const gsTabSuspendManager = (function() {
           gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled just before native suspension. Ignoring.',);
           return;
         }
-        const success = await executeTabSuspension(tab, suspendedUrl);
+        const isStillCurrent = () => getQueuedTabDetails(tab)?.executionProps === executionProps;
+        const success = await executeTabSuspension(tab, suspendedUrl, isStillCurrent);
         resolve(success);
         return;
       }
@@ -407,6 +408,7 @@ export const gsTabSuspendManager = (function() {
     const success = await executeTabSuspension(
       tab,
       queuedTabDetails.executionProps.suspendedUrl,
+      () => getQueuedTabDetails(tab)?.executionProps === expectedExecutionProps,
     );
     queuedTabDetails.executionProps.resolveFn(success);
   }
@@ -446,7 +448,13 @@ export const gsTabSuspendManager = (function() {
     }
   }
 
-  function executeTabSuspension(tab, suspendedUrl) {
+  // isStillCurrent: an optional, cheap (synchronous, no await) cancellation check run
+  // immediately before the actual tabsUpdate() call -- this function's own awaits (settings
+  // read, session-state write) are themselves an unsuspend-all race window none of the
+  // caller-side checks before calling this can cover, since they all run before it, not after
+  // its internal awaits. Callers that don't pass one (e.g. the force-suspend-on-timeout path,
+  // which intentionally suspends regardless) get the previous unconditional behaviour.
+  function executeTabSuspension(tab, suspendedUrl, isStillCurrent = () => true) {
     return new Promise(async (resolve) => {
       // Remove any existing queued tab checks (this can happen if we try to suspend
       // a tab immediately after it gains focus)
@@ -474,6 +482,11 @@ export const gsTabSuspendManager = (function() {
 
       gsUtils.log(tab.id, 'Suspending tab');
       await tgs.setTabStatePropForTabId(tab.id, tgs.STATE_INITIALISE_SUSPENDED_TAB, true);
+      if (!isStillCurrent()) {
+        gsUtils.log(tab.id, 'Suspension cancelled just before tabsUpdate. Ignoring.');
+        resolve(false);
+        return;
+      }
       gsChrome.tabsUpdate(tab.id, { url: suspendedUrl }).then(updatedTab => {
         resolve(updatedTab !== null);
       });

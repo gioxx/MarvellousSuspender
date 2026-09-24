@@ -62,20 +62,20 @@ export const gsPrecapture = (function() {
     // YouTube timestamp) without ever navigating the real tab, and the tab can also be dragged
     // into another window entirely while this call awaits -- either way the original snapshot
     // is unreliable. This instead pins both as read on the first successful check (url so a
-    // real navigation is still caught, windowId so a captureVisibleTab() call several awaits
-    // later still targets the window this tab is actually in, not wherever it started).
-    let startUrl, liveWindowId;
+    // real navigation is still caught) and never updates windowId again after that: the actual
+    // chrome.tabs.captureVisibleTab() call below always targets this pinned window, so a later
+    // check must reject a window change rather than silently follow the tab to its new one,
+    // which would otherwise validate a capture that was actually taken of the wrong window.
+    let startUrl, pinnedWindowId;
     const isCapturable = async () => {
       const _tab = await gsChrome.tabsGet(tab.id);
       if (!_tab || !_tab.active || gsUtils.isSuspendedTab(_tab)) return false;
       if (startUrl === undefined) {
         startUrl = _tab.url;
-        liveWindowId = _tab.windowId;
+        pinnedWindowId = _tab.windowId;
         return true;
       }
-      if (_tab.url !== startUrl) return false;
-      liveWindowId = _tab.windowId;
-      return true;
+      return _tab.url === startUrl && _tab.windowId === pinnedWindowId;
     };
     if (!await isCapturable()) {
       return null;
@@ -97,7 +97,7 @@ export const gsPrecapture = (function() {
     try {
       // captureVisibleTab never settles for a window that isn't painting (occluded, display asleep)
       const dataUrl = await Promise.race([
-        chrome.tabs.captureVisibleTab(liveWindowId, options),
+        chrome.tabs.captureVisibleTab(pinnedWindowId, options),
         new Promise((resolve, reject) => {
           timer = setTimeout(() => reject(new Error('Timed out')), CAPTURE_TIMEOUT);
         }),
