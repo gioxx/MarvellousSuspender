@@ -848,7 +848,7 @@
     "message": "Pour une gestion avancée des sessions, consultez la page"
   },
   "html_success_goto_advanced_suffix": {
-    "message": ""
+    "message": "page"
   },
   "html_session_manager": {
     "message": "de gestion des sessions"
@@ -1234,7 +1234,11 @@
   },
   "js_options_backup_next_run": {
     "message": "Prochaine exécution : $time$",
-    "placeholders": { "time": { "content": "$1" } }
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_backup_last_local": {
     "message": "Dernière sauvegarde : $date$",
