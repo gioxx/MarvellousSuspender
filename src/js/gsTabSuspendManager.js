@@ -375,12 +375,25 @@ export const gsTabSuspendManager = (function() {
         return;
       }
     }
-    // Unconditional, not folded into the block above: when both the renderer and the fallback
-    // capture fail, previewUrl stays null and execution reaches here with no await, and
-    // therefore no recheck, since the eligibility check further up. This closes that gap too.
+    // One comprehensive check right before the actual suspension, unconditionally, rather than
+    // another narrow one scoped to whichever branch was just taken: identity (an unsuspend-all
+    // racing any of the awaits above), url (a navigation during the renderer's own round trip,
+    // which the checks above never covered at all for the renderer-succeeded case), and
+    // eligibility (the tab becoming audible/pinned/grouped during any of those same awaits).
     const stillQueuedBeforeSuspend = getQueuedTabDetails(tab);
     if (!stillQueuedBeforeSuspend || stillQueuedBeforeSuspend.executionProps !== expectedExecutionProps) {
       gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled just before suspension. Ignoring.',);
+      return;
+    }
+    const liveTabBeforeSuspend = await gsChrome.tabsGet(tab.id);
+    if (!liveTabBeforeSuspend || liveTabBeforeSuspend.url !== queuedTabDetails.executionProps.precaptureUrl) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab navigated just before suspension. Ignoring.',);
+      queuedTabDetails.executionProps.resolveFn(false);
+      return;
+    }
+    if (!await checkTabEligibilityForSuspension(liveTabBeforeSuspend, suspensionForceLevel)) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.',);
+      queuedTabDetails.executionProps.resolveFn(false);
       return;
     }
 
