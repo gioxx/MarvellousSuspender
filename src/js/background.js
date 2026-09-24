@@ -748,6 +748,14 @@ import  { tgs }                   from './tgs.js';
     chrome.windows.onFocusChanged.addListener(async (windowId) => {
       tgs.refreshNeverSuspendGroupMenuItems();
       await tgs.handleWindowFocusChanged(windowId);
+      // Switching between windows without changing either one's active tab fires this,
+      // not tabs.onActivated, so the precapture scheduler would otherwise never see it.
+      if (windowId !== chrome.windows.WINDOW_ID_NONE) {
+        const [activeTab] = await gsChrome.tabsQuery({ active: true, windowId });
+        if (activeTab) {
+          gsPrecapture.schedule(activeTab.id);
+        }
+      }
     });
     chrome.tabs.onActivated.addListener(async (activeInfo) => {
       gsUtils.log(activeInfo.tabId, 'tab onActivated');

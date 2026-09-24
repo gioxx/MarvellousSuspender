@@ -184,6 +184,14 @@ export const gsPrecapture = (function() {
 
   async function clear() {
     _generation++;
+    // Cancel timers scheduled before the disable click: the generation check alone only
+    // catches a capture already past isEnabled() when this runs, not one whose timer fires
+    // afterwards -- options.js doesn't persist the setting as off until this call returns,
+    // so a freshly-fired timer's own isEnabled() would still read the stale 'true' value.
+    for (const timer of _timers.values()) {
+      clearTimeout(timer);
+    }
+    _timers.clear();
     const db = await getDb();
     await db.clear(DB_STORE);
   }
