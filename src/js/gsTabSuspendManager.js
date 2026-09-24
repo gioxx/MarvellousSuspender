@@ -396,6 +396,13 @@ export const gsTabSuspendManager = (function() {
       queuedTabDetails.executionProps.resolveFn(false);
       return;
     }
+    // checkTabEligibilityForSuspension() awaits too -- the identity check above it doesn't
+    // cover a cancellation landing inside that specific await.
+    const stillQueuedAfterEligibility = getQueuedTabDetails(tab);
+    if (!stillQueuedAfterEligibility || stillQueuedAfterEligibility.executionProps !== expectedExecutionProps) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled during the eligibility check. Ignoring.',);
+      return;
+    }
 
     const success = await executeTabSuspension(
       tab,

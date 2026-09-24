@@ -58,19 +58,24 @@ export const gsPrecapture = (function() {
   }
 
   async function doCaptureVisibleTab(tab) {
-    // Not tab.url: the suspension flow mutates its own in-memory tab.url (e.g. a YouTube
-    // timestamp) without ever navigating the real tab, so comparing against that would
-    // false-positive on every such job. This instead pins the tab's *actual* url as read on
-    // the first successful check, so a real navigation while this call awaits is still caught.
-    let startUrl;
+    // Not tab.url/tab.windowId: the suspension flow mutates its own in-memory tab.url (e.g. a
+    // YouTube timestamp) without ever navigating the real tab, and the tab can also be dragged
+    // into another window entirely while this call awaits -- either way the original snapshot
+    // is unreliable. This instead pins both as read on the first successful check (url so a
+    // real navigation is still caught, windowId so a captureVisibleTab() call several awaits
+    // later still targets the window this tab is actually in, not wherever it started).
+    let startUrl, liveWindowId;
     const isCapturable = async () => {
       const _tab = await gsChrome.tabsGet(tab.id);
       if (!_tab || !_tab.active || gsUtils.isSuspendedTab(_tab)) return false;
       if (startUrl === undefined) {
         startUrl = _tab.url;
+        liveWindowId = _tab.windowId;
         return true;
       }
-      return _tab.url === startUrl;
+      if (_tab.url !== startUrl) return false;
+      liveWindowId = _tab.windowId;
+      return true;
     };
     if (!await isCapturable()) {
       return null;
@@ -92,7 +97,7 @@ export const gsPrecapture = (function() {
     try {
       // captureVisibleTab never settles for a window that isn't painting (occluded, display asleep)
       const dataUrl = await Promise.race([
-        chrome.tabs.captureVisibleTab(tab.windowId, options),
+        chrome.tabs.captureVisibleTab(liveWindowId, options),
         new Promise((resolve, reject) => {
           timer = setTimeout(() => reject(new Error('Timed out')), CAPTURE_TIMEOUT);
         }),
