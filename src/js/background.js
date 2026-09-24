@@ -3,6 +3,7 @@ import  { gsBackup }              from './gsBackup.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsNewsFeed }            from './gsNewsFeed.js';
+import  { gsPrecapture }          from './gsPrecapture.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsTabSuspendManager }   from './gsTabSuspendManager.js';
@@ -747,9 +748,18 @@ import  { tgs }                   from './tgs.js';
     chrome.windows.onFocusChanged.addListener(async (windowId) => {
       tgs.refreshNeverSuspendGroupMenuItems();
       await tgs.handleWindowFocusChanged(windowId);
+      // Switching between windows without changing either one's active tab fires this,
+      // not tabs.onActivated, so the precapture scheduler would otherwise never see it.
+      if (windowId !== chrome.windows.WINDOW_ID_NONE) {
+        const [activeTab] = await gsChrome.tabsQuery({ active: true, windowId });
+        if (activeTab) {
+          gsPrecapture.schedule(activeTab.id);
+        }
+      }
     });
     chrome.tabs.onActivated.addListener(async (activeInfo) => {
       gsUtils.log(activeInfo.tabId, 'tab onActivated');
+      gsPrecapture.schedule(activeInfo.tabId);
       tgs.refreshNeverSuspendGroupMenuItems();
       await tgs.handleTabFocusChanged(activeInfo.tabId, activeInfo.windowId); // async. unhandled promise
 
@@ -767,6 +777,13 @@ import  { tgs }                   from './tgs.js';
     });
     chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
       gsUtils.log(removedTabId, 'tab onReplaced', addedTabId, removedTabId);
+      gsPrecapture.remove(removedTabId);
+      // Prerender/instant-tab promotion keeps the tab on screen but changes its id without
+      // necessarily also firing onActivated, so the promoted tab would otherwise go unscheduled.
+      const addedTab = await gsChrome.tabsGet(addedTabId);
+      if (addedTab?.active) {
+        gsPrecapture.schedule(addedTabId);
+      }
       tgs.queueSessionTimer();
       await tgs.removeTabIdReferences(removedTabId);
     });
@@ -784,6 +801,7 @@ import  { tgs }                   from './tgs.js';
     });
     chrome.tabs.onRemoved.addListener(async (tabId, removeInfo) => {
       gsUtils.log(tabId, 'tab removed.');
+      gsPrecapture.remove(tabId);
       tgs.queueSessionTimer();
       await tgs.removeTabIdReferences(tabId);
     });
@@ -826,6 +844,13 @@ import  { tgs }                   from './tgs.js';
         return;
       }
       gsUtils.log(tabId, 'tab onUpdated', changeInfo, tab.url);
+
+      if (changeInfo.url) {
+        gsPrecapture.remove(tabId);
+      }
+      if (tab.active && (changeInfo.url || changeInfo.status === 'complete')) {
+        gsPrecapture.schedule(tabId);
+      }
 
       if (changeInfo.status === 'complete' && await gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT)) {
         await claimTab(tabId);

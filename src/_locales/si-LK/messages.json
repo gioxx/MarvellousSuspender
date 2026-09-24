@@ -530,6 +530,51 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "අනපේක්ෂිත ලෙස බිඳ වැටීම, මෙම විශේෂාංගය අක්‍රිය කිරීමට උත්සාහ කරන්න."
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "ග්‍රහණ ක්‍රමය"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "ස්වයංක්‍රීය (නිර්දේශිත)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "බ්‍රවුසර තිර රුව පමණි"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "පිටු විදැහුම්කරු පමණි"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "අත්හිටුවන පටිත්ත ඔබ දැන් බලන පටිත්ත නම්, ස්වයංක්‍රීය ක්‍රමය සැබෑ බ්‍රවුසර තිර රුවක් ගනී."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "එය ක්ෂණික වන අතර සෑම අඩවියකම ක්‍රියා කරයි. අනෙක් පටිති වඩා මන්දගාමී පිටු විදැහුම්කරු මගින් නැවත අඳිනු ලැබේ."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "බ්‍රවුසර තිර රුව පමණි යන්න කිසිවිටෙක පිටු විදැහුම්කරු ධාවනය නොකරයි, එබැවින් පසුබිමේ අත්හිටුවන පටිති සඳහා පෙරදසුනක් නොලැබේ."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "'සම්පූර්ණ පිටුව ග්‍රහණය කරන්න' තෝරා තිබුණත්, බ්‍රවුසර තිර රුවකට ඇතුළත් වන්නේ පිටුවේ දෘශ්‍යමාන කොටස පමණි."
+  },
+  "html_options_suspend_screen_capture_precapture": {
+    "message": "මම ටැබ් භාවිත කරන අතරතුර ඒවායේ මෑත තිර රුවක් තබා ගන්න"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line1": {
+    "message": "ඔබ ටැබයකට මාරු වූ විට හෝ එය පූරණය වී අවසන් වූ විට තත්පරයක් පමණ ගතවී එහි බ්‍රවුසර තිර රුවක් ගනී,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
+    "message": "එමගින් පසුව පසුබිමින් අත්හිටුවන ලද ටැබ්වලටද පෙරදසුනක් ලැබේ."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line3": {
+    "message": "ඔබ බොත්තම ක්ලික් නොකළ ටැබයක තිර රුවක් ගැනීමට දිගුවකට ඉඩ දෙන්නේ එයට සියලුම අඩවි වෙත ප්‍රවේශය ඇත්නම් පමණක් බව Chrome සලකයි,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
+    "message": "එබැවින් මෙය සක්‍රීය කිරීම එම අවසරය ඉල්ලයි. එය මෙම තිර රූ ගැනීමට පමණක් භාවිතා වන අතර, ඒවා මෙම පරිගණකයේම රැඳී පවතී."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line5": {
+    "message": "විවෘත සෑම ටැබයකම නවතම තිර රුව පමණක් තබා ගනු ලැබේ, ටැබය වසන විට එය මකා දමනු ලැබේ."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
+    "message": "අඥාත (incognito) ටැබ් සහ ඉඩ දුන් ලැයිස්තුවේ අඩවි කිසිවිටෙක ග්‍රහණය නොකෙරේ."
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "උසස් තත්ත්වයේ තිර ග්‍රහණ මාදිලිය සබල කරන්න"
   },

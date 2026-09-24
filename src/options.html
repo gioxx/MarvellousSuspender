@@ -402,18 +402,7 @@ __MSG_html_options_suspend_discard_after_suspend_tooltip_line3b__">
       </div>
       <div class="formRow">
         <label id="previewLbl" class="topLabel" for="preview"
-               data-i18n="__MSG_html_options_suspend_screen_capturing__:&nbsp;&nbsp;">
-          <span data-i18n-tooltip="__MSG_html_options_suspend_screen_capturing_tooltip_line1a__
-__MSG_html_options_suspend_screen_capturing_tooltip_line1b__
-
-__MSG_html_options_suspend_screen_capturing_tooltip_line2a__
-__MSG_html_options_suspend_screen_capturing_tooltip_line2b__
-
-__MSG_html_options_suspend_screen_capturing_tooltip_line3a__
-__MSG_html_options_suspend_screen_capturing_tooltip_line3b__">
-            <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
-          </span>
-        </label>
+               data-i18n="__MSG_html_options_suspend_screen_capturing__:"></label>
         <div class="select-wrapper">
           <select id="preview" class="option">
             <option value="0" data-i18n="__MSG_html_options_suspend_screen_capturing_disabled__"></option>
@@ -421,6 +410,48 @@ __MSG_html_options_suspend_screen_capturing_tooltip_line3b__">
             <option value="2" data-i18n="__MSG_html_options_suspend_screen_capturing_entire_page__"></option>
           </select>
         </div>
+        <span data-i18n-tooltip="__MSG_html_options_suspend_screen_capturing_tooltip_line1a__
+__MSG_html_options_suspend_screen_capturing_tooltip_line1b__
+
+__MSG_html_options_suspend_screen_capturing_tooltip_line2a__
+__MSG_html_options_suspend_screen_capturing_tooltip_line2b__
+
+__MSG_html_options_suspend_screen_capturing_tooltip_line3a__
+__MSG_html_options_suspend_screen_capturing_tooltip_line3b__">
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
+        </span>
+      </div>
+      <div class="formRow" id="screenCaptureMethodContainer">
+        <label id="screenCaptureMethodLbl" class="topLabel" for="screenCaptureMethod"
+               data-i18n="__MSG_html_options_suspend_screen_capture_method__:"></label>
+        <div class="select-wrapper">
+          <select id="screenCaptureMethod" class="option">
+            <option value="auto" data-i18n="__MSG_html_options_suspend_screen_capture_method_auto__"></option>
+            <option value="native" data-i18n="__MSG_html_options_suspend_screen_capture_method_native__"></option>
+            <option value="renderer" data-i18n="__MSG_html_options_suspend_screen_capture_method_renderer__"></option>
+          </select>
+        </div>
+        <span data-i18n-tooltip="__MSG_html_options_suspend_screen_capture_method_tooltip_line1__
+__MSG_html_options_suspend_screen_capture_method_tooltip_line2__
+
+__MSG_html_options_suspend_screen_capture_method_tooltip_line3__
+__MSG_html_options_suspend_screen_capture_method_tooltip_line4__">
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
+        </span>
+      </div>
+      <div class="formRow" id="screenCapturePrecaptureContainer">
+        <input type="checkbox" id="screenCapturePrecapture" class="option" />
+        <label for="screenCapturePrecapture" class="cbLabel" data-i18n="__MSG_html_options_suspend_screen_capture_precapture__"></label>
+        <span data-i18n-tooltip="__MSG_html_options_suspend_screen_capture_precapture_tooltip_line1__
+__MSG_html_options_suspend_screen_capture_precapture_tooltip_line2__
+
+__MSG_html_options_suspend_screen_capture_precapture_tooltip_line3__
+__MSG_html_options_suspend_screen_capture_precapture_tooltip_line4__
+
+__MSG_html_options_suspend_screen_capture_precapture_tooltip_line5__
+__MSG_html_options_suspend_screen_capture_precapture_tooltip_line6__">
+          <svg class="tooltipIcon icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#circle-help"></use></svg>
+        </span>
       </div>
       <div class="formRow" id="forceScreenCaptureContainer">
         <input type="checkbox" id="forceScreenCapture" class="option" />

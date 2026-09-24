@@ -9,124 +9,124 @@
     "message": "The Marvellous Suspender"
   },
   "ext_cmd_toggle_tab_suspension_description": {
-    "message": "冻结/恢复当前标签页"
+    "message": "挂起/恢复当前标签页"
   },
   "ext_cmd_toggle_tab_pause_description": {
-    "message": "暂停/取消暂停当前标签页的冻结"
+    "message": "暂停/取消暂停当前标签页的挂起"
   },
   "ext_cmd_suspend_selected_tabs_description": {
-    "message": "冻结已选择标签页"
+    "message": "挂起选定的标签页"
   },
   "ext_cmd_unsuspend_selected_tabs_description": {
-    "message": "恢复已选择标签页"
+    "message": "恢复选定的标签页"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "冻结当前标签页所在组中所有的标签页"
+    "message": "挂起当前标签页所在标签组中的所有标签页"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "恢复当前标签页所在组中所有的标签页"
+    "message": "恢复当前标签页所在标签组中的所有标签页"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "冻结当前窗口中所有不在组中的标签页"
+    "message": "挂起当前窗口中未分组的所有标签页"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "恢复当前窗口中所有不在组中的标签页"
+    "message": "恢复当前窗口中未分组的所有标签页"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "切换活动标签页所在组的“永不冻结”设置"
+    "message": "切换当前标签页所在标签组的“永不挂起”状态"
   },
   "ext_cmd_soft_suspend_active_window_description": {
-    "message": "冻结当前窗口中所有的标签页"
+    "message": "挂起当前窗口中的所有其他标签页"
   },
   "ext_cmd_force_suspend_active_window_description": {
-    "message": "强制冻结当前窗口中的所有标签页"
+    "message": "强制挂起当前窗口中的所有其他标签页"
   },
   "ext_cmd_unsuspend_active_window_description": {
-    "message": "恢复当前窗口中所有的标签页"
+    "message": "恢复当前窗口中的所有标签页"
   },
   "ext_cmd_soft_suspend_all_windows_description": {
-    "message": "冻结所有窗口的所有标签页"
+    "message": "挂起所有窗口中的所有标签页"
   },
   "ext_cmd_force_suspend_all_windows_description": {
-    "message": "强制冻结所有窗口的所有标签页"
+    "message": "强制挂起所有窗口中的所有标签页"
   },
   "ext_cmd_unsuspend_all_windows_description": {
-    "message": "恢复所有窗口的所有标签页"
+    "message": "恢复所有窗口中的所有标签页"
   },
   "js_context_open_link_in_suspended_tab": {
-    "message": "在新的冻结标签页打开链接"
+    "message": "在新的挂起标签页中打开链接"
   },
   "js_context_toggle_suspend_state": {
-    "message": "冻结/恢复此标签页"
+    "message": "挂起/恢复此标签页"
   },
   "js_context_toggle_pause_suspension": {
-    "message": "暂停/取消暂停此标签页的冻结"
+    "message": "暂停/取消暂停此标签页的挂起"
   },
   "js_context_never_suspend_domain": {
-    "message": "永远不要冻结此域名"
+    "message": "永不挂起此域名"
   },
   "js_context_never_suspend_page": {
-    "message": "永远不要冻结此页面"
+    "message": "永不挂起此网址"
   },
   "js_context_suspend_selected_tabs": {
-    "message": "冻结已选择标签页"
+    "message": "挂起选定的标签页"
   },
   "js_context_unsuspend_selected_tabs": {
-    "message": "恢复已选择标签页"
+    "message": "恢复选定的标签页"
   },
   "js_context_suspend_tab_group": {
-    "message": "冻结此组中所有的标签页"
+    "message": "挂起此标签组中的所有标签页"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "恢复此组中所有的标签页"
+    "message": "恢复此标签组中的所有标签页"
   },
   "js_context_suspend_ungrouped_tabs": {
-    "message": "冻结所有不在组中的标签页"
+    "message": "挂起所有未分组的标签页"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "恢复所有不在组中的标签页"
+    "message": "恢复所有未分组的标签页"
   },
   "js_context_never_suspend_group": {
-    "message": "永远不冻结此组"
+    "message": "永不挂起此标签组"
   },
   "js_context_allow_suspending_group": {
-    "message": "允许冻结此组"
+    "message": "允许挂起此标签组"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "永远不冻结此组（仅限已命名的组）"
+    "message": "永不挂起此标签组（仅限已命名的标签组）"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
-    "message": "冻结当前窗口中所有的标签页"
+    "message": "挂起此窗口中的所有其他标签页"
   },
   "js_context_force_suspend_other_tabs_in_window": {
-    "message": "强制冻结当前窗口中的所有标签页"
+    "message": "强制挂起此窗口中的所有其他标签页"
   },
   "js_context_unsuspend_all_tabs_in_window": {
-    "message": "恢复当前窗口中所有的标签页"
+    "message": "恢复此窗口中的所有标签页"
   },
   "js_context_soft_suspend_all_tabs": {
-    "message": "冻结所有窗口的所有标签页"
+    "message": "挂起所有窗口中的所有标签页"
   },
   "js_context_force_suspend_all_tabs": {
-    "message": "强制冻结所有窗口的所有标签页"
+    "message": "强制挂起所有窗口中的所有标签页"
   },
   "js_context_unsuspend_all_tabs": {
-    "message": "恢复所有窗口的所有标签页"
+    "message": "恢复所有窗口中的所有标签页"
   },
   "html_health_title": {
     "message": "标签页健康检查（测试版）"
   },
   "html_health_title_intro": {
-    "message": "如果挂起的标签页出现问题（尤其是网站图标问题），请点击「扫描标签页」，看看是否可以修复。"
+    "message": "如果挂起的标签页出现问题，尤其是网站图标方面的问题，请点击“扫描标签页”，看看我们能否修复它们。"
   },
   "html_health_all_good": {
-    "message": "未发现挂起标签页存在任何问题。如果仍然发现异常，请在下方告诉我们，我们会尝试扩展此项检查。"
+    "message": "我们没有发现挂起标签页存在任何问题。如果仍然遇到异常情况，请在下方告诉我们，我们会尝试扩展此健康检查。"
   },
   "html_health_reload_intro": {
-    "message": "部分挂起的标签页未完全加载。我们可以重新加载这些标签页以解决问题。"
+    "message": "有些挂起的标签页尚未完全加载。我们可以重新加载这些挂起的标签页以解决此问题。"
   },
   "html_health_restore_intro": {
-    "message": "部分挂起的标签页正在使用浏览器默认图标，这说明 TMS 缓存中没有它们的图标。我们可以恢复并重新挂起最少数量的标签页，以获取这些缺失的图标。"
+    "message": "部分挂起标签页正在使用浏览器默认的网站图标，这说明 TMS 缓存中没有保存它们的图标。我们可以恢复并重新挂起最少数量的标签页，以获取这些缺失的图标。"
   },
   "html_health_scan_button": {
     "message": "扫描标签页"
@@ -135,16 +135,16 @@
     "message": "复制结果"
   },
   "html_health_scan_label": {
-    "message": "正在扫描标签页..."
+    "message": "正在扫描标签页……"
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS 已挂起的标签页"
+    "message": "个 TMS 挂起的标签页"
   },
   "html_health_num_tms_cache": {
-    "message": "TMS 缓存中的图标"
+    "message": "个 TMS 缓存中的网站图标"
   },
   "html_health_num_tabs_empty": {
-    "message": "个标签页未加载"
+    "message": "个标签页尚未加载"
   },
   "html_health_num_tabs_extension": {
     "message": "个标签页使用 TMS 图标"
@@ -153,10 +153,10 @@
     "message": "个标签页使用默认图标"
   },
   "html_health_num_hostnames": {
-    "message": "个唯一主机名"
+    "message": "个唯一的标签页主机名"
   },
   "html_health_small_cache": {
-    "message": "本地 TMS 图标缓存可能未覆盖所有标签页。如果浏览器缓存被清除，TMS 可能无法显示某些图标。"
+    "message": "本地 TMS 网站图标缓存可能无法覆盖所有标签页。如果浏览器缓存被清除，TMS 可能无法显示部分网站图标。"
   },
   "html_health_reload_button": {
     "message": "下一步：重新加载 $count$ 个标签页",
@@ -175,25 +175,25 @@
     }
   },
   "html_health_action_label": {
-    "message": "正在恢复图标..."
+    "message": "正在恢复网站图标……"
   },
   "html_health_after_reload": {
-    "message": "标签页在后台加载完成后，可以再次点击「扫描标签页」，查看情况是否有所改善。"
+    "message": "等标签页在后台加载完成后，可以再次点击“扫描标签页”，看看情况是否有所改善。"
   },
   "html_health_after_restore": {
-    "message": "可以再次点击「扫描标签页」，查看情况是否有所改善。"
+    "message": "你可以再次点击“扫描标签页”，看看情况是否有所改善。"
   },
   "html_health_need_help1": {
-    "message": "如果标签页或图标问题仍然存在，可以点击「复制结果」并粘贴到一个新的"
+    "message": "如果标签页或网站图标问题仍未解决，可以点击“复制结果”，并将其粘贴到新的"
   },
   "html_health_need_help2": {
     "message": "GitHub Issue 中。"
   },
   "html_health_num_grouped_broken": {
-    "message": "个分组标签页处于损坏状态（标签组错误）"
+    "message": "个标签组中处于异常状态的标签页（标签组功能的已知缺陷）"
   },
   "html_health_repair_intro": {
-    "message": "部分标签组中的标签页处于损坏状态：浏览器重启后它们显示为新标签页，而不是正常加载。TMS 可以尝试恢复它们。"
+    "message": "部分标签组中的标签页处于异常状态：浏览器重启后它们会显示为新标签页，而不是正常加载。TMS 可以尝试恢复它们。"
   },
   "html_health_repair_button": {
     "message": "修复 $count$ 个分组标签页",
@@ -204,7 +204,7 @@
     }
   },
   "html_health_after_repair": {
-    "message": "完成。请重新扫描以确认分组标签页已恢复挂起状态。"
+    "message": "完成。请重新扫描以确认分组标签页已恢复为挂起状态。"
   },
   "html_about_title": {
     "message": "关于"
@@ -213,94 +213,94 @@
     "message": "版本"
   },
   "html_about_tagline": {
-    "message": "现代标签页挂起的精神继承者：用轻量级休眠页面替换非活动标签页，让您精细掌控它们何时唤醒。"
+    "message": "现代标签页挂起功能的精神续作：用轻量级的休眠页面替换不活动的标签页，让你可以精细控制它们的唤醒时机。"
   },
   "html_about_section_credits": {
     "message": "鸣谢"
   },
   "html_about_contributors_and": {
-    "message": " 和 "
+    "message": "和"
   },
   "html_about_community_thanks_link": {
     "message": "GitHub 上的所有贡献者"
   },
   "html_about_fork_beginning": {
-    "message": "基于最初的"
+    "message": "基于原始的"
   },
   "html_about_fork_mid": {
-    "message": "在 GitHub 上可用，没有 ADS 跟踪"
+    "message": "（在 GitHub 上提供，不含广告追踪）"
   },
   "html_about_fork_end": {
-    "message": "更多信息请见"
+    "message": "更多信息请访问"
   },
   "html_about_contributors": {
-    "message": "由以下贡献者呈现"
+    "message": "由以下人员提供"
   },
   "html_about_report_issues_prefix": {
-    "message": "如果您有反馈意见或者想报告问题，可以在"
+    "message": "如果你有反馈或想报告问题，可以前往"
   },
   "html_about_report_issues_suffix": {
-    "message": ". 在提出新的想法或问题之前，请检查相关想法或问题是否已存在。谢谢！"
+    "message": "。新建之前请先确认该想法或问题是否已经存在。谢谢！"
   },
   "html_about_debugging_prefix": {
-    "message": "如需采集日志并生成诊断报告，请前往"
+    "message": "要采集日志并生成诊断报告，请前往"
   },
   "html_about_debugging_suffix": {
     "message": "诊断页面。"
   },
   "html_about_the_github_issues_page": {
-    "message": "GitHub 上进行"
+    "message": "GitHub Issues 页面"
   },
   "html_about_section_support": {
     "message": "支持开发"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender 是免费开源软件。如果您觉得它有用，欢迎小额赞助：这有助于项目持续维护和发展。"
+    "message": "The Marvellous Suspender 是免费开源软件。如果你觉得它有用，欢迎小额赞助，这有助于让项目持续维护和发展。"
   },
   "html_broken_title": {
     "message": "已损坏"
   },
   "html_broken_ruh_roh": {
-    "message": "哦吼！"
+    "message": "哎呀！"
   },
   "html_broken_line1": {
-    "message": "启动失败。您使用的可能是不兼容的浏览器？"
+    "message": "启动失败。也许你使用的浏览器不兼容？"
   },
   "html_broken_line2": {
-    "message": "请尝试重新启动扩展。如果问题仍然存在，请在下面寻求帮助"
+    "message": "请尝试重启扩展程序。如果问题仍然存在，可以到"
   },
   "html_broken_line2_github_page": {
-    "message": "GitHub 项目页"
+    "message": "GitHub 项目页面"
   },
   "html_broken_line3": {
-    "message": "您可以从这里恢复丢失的标签页:"
+    "message": "你可以从"
   },
   "html_broken_line3_session_management": {
     "message": "会话管理页面"
   },
   "html_broken_button_restart_extension": {
-    "message": "重启扩展"
+    "message": "重启扩展程序"
   },
   "html_history_title": {
     "message": "会话管理"
   },
   "html_history_page_desc": {
-    "message": "TMS 会持续记录已打开标签页的快照，无需任何设置。会话会在浏览时自动更新，但仅存在于 Chrome 内部：如果浏览器配置文件丢失或损坏，会话数据也会随之丢失。"
+    "message": "TMS 会自动记录你打开的标签页快照，无需任何设置。浏览时会话会自动更新，但它们保存在 Chrome 内部：如果浏览器配置文件丢失或损坏，这些会话也会随之丢失。"
   },
   "html_history_current_session": {
     "message": "当前会话"
   },
   "html_history_recent_sessions": {
-    "message": "最近会话"
+    "message": "最近的会话"
   },
   "html_history_saved_sessions": {
-    "message": "已储存会话"
+    "message": "已保存的会话"
   },
   "html_history_import_session": {
     "message": "导入会话"
   },
   "html_history_migrate_tabs": {
-    "message": "迁移标签"
+    "message": "迁移标签页"
   },
   "html_history_migrate_old_id": {
     "message": "扩展程序 ID"
@@ -309,34 +309,34 @@
     "message": "标签页迁移"
   },
   "html_history_migrate_section_desc": {
-    "message": "恢复由旧版本或此扩展程序的其他分支挂起的标签页。请在下方输入旧扩展程序 ID，然后点击「迁移标签页」以转换已挂起的 URL。"
+    "message": "恢复由旧版本或本扩展程序的其他分支挂起的标签页。请在下方输入旧的扩展程序 ID，然后点击“迁移标签页”以转换挂起的网址。"
   },
   "html_options_title": {
     "message": "设置"
   },
   "html_options_suspend_title": {
-    "message": "标签页自动冻结"
+    "message": "自动挂起标签页"
   },
   "html_options_suspended_title": {
-    "message": "冻结的标签页"
+    "message": "挂起的标签页"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "将原始 URL 附加到挂起标签页的标题"
+    "message": "在挂起标签页的标题后附加原始网址"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "启用后，原始网址会附加到挂起页面的"
+    "message": "启用后，挂起页面的浏览器标签页标题后"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "浏览器标签页标题中。"
+    "message": "会附加原始网址。"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "这样就可以使用 Chrome 的\"搜索标签页\"功能"
+    "message": "这样便可以使用 Chrome 的"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "（Ctrl+Shift+A）按主机名查找已挂起的标签页。"
+    "message": "“搜索标签页”（Ctrl+Shift+A）按主机名查找挂起的标签页。"
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "挂起时保留 YouTube 播放位置"
+    "message": "挂起时保留 YouTube 播放进度"
   },
   "html_options_other_title": {
     "message": "常规"
@@ -348,16 +348,16 @@
     "message": "系统默认"
   },
   "html_options_suspend_automatically_after": {
-    "message": "多久后自动冻结标签页"
+    "message": "以下时间后自动挂起标签页"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "使用电池供电时，多久后冻结标签页"
+    "message": "使用电池供电时，以下时间后挂起标签页"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "与使用电源时相同"
+    "message": "与接通电源时相同"
   },
   "html_options_suspend_never": {
-    "message": "永不"
+    "message": "从不"
   },
   "html_options_suspend_seconds": {
     "message": "秒"
@@ -387,100 +387,100 @@
     "message": "周"
   },
   "html_options_suspend_no_pinned": {
-    "message": "不要冻结已固定的标签页"
+    "message": "永不挂起固定的标签页"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "不要冻结应用窗口中打开的标签页"
+    "message": "永不挂起应用窗口中打开的标签页"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "不要冻结标签组中的标签页"
+    "message": "永不挂起标签组中的标签页"
   },
   "html_options_suspend_no_forms": {
-    "message": "不要冻结输入框有文字且尚未储存的标签页"
+    "message": "永不挂起含有未保存表单内容的标签页"
   },
   "html_options_suspend_no_audio": {
-    "message": "不要冻结正在播放声音的标签页"
+    "message": "永不挂起正在播放音频的标签页"
   },
   "html_options_suspend_only_connected": {
-    "message": "只在联网时才自动冻结"
+    "message": "离线时永不挂起标签页"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "默认接管"
+    "message": "接管由其他扩展程序挂起的标签页"
   },
   "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "自动接管已被其他兼容扩展（例如 The Great Suspender，"
+    "message": "自动接管已被其他兼容扩展程序（例如"
   },
   "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "或本扩展的另一次安装）挂起的标签页。"
+    "message": "The Great Suspender，或本扩展程序的另一次安装）挂起的标签页。"
   },
   "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "如果标签页的网址包含 'suspended.html'，则视为\"已挂起\"。"
+    "message": "如果标签页的网址包含 “suspended.html”，则视为“已挂起”。"
   },
   "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "启用此选项会将该网址重写到此安装，"
+    "message": "启用此选项后，该网址会被重写为指向本次安装，以便 TMS"
   },
   "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "以便 TMS 此后可以管理该标签页。"
+    "message": "此后可以对该标签页进行管理。"
   },
   "html_options_suspend_only_on_battery": {
-    "message": "只在未充电时才自动冻结"
+    "message": "连接电源时永不挂起标签页"
   },
   "html_options_suspend_no_active_tabs": {
-    "message": "不要冻结每个窗口中的正在使用中的标签页"
+    "message": "永不挂起每个窗口中的当前活动标签页"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "重新打开已冻结的标签页时始终滚动到页面顶部"
+    "message": "重新打开挂起标签页时始终滚动到顶部"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "标签页会从页面顶部重新打开，"
+    "message": "标签页会在页面顶部重新打开，而不是挂起时"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "而不是挂起时所在的位置。"
+    "message": "所处的滚动位置。"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "适用于自动和手动挂起，"
+    "message": "此设置适用于自动和手动挂起，并会覆盖"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "并会覆盖加载时跳转到 #小节 的链接。"
+    "message": "加载时跳转到某个 #锚点的链接。"
   },
   "html_options_suspend_automatically_unsuspend": {
-    "message": "当标签页被浏览就自动恢复标签页"
+    "message": "查看标签页时自动恢复挂起"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "重新加载也会恢复后台标签页(不仅仅是活动标签页)"
+    "message": "重新加载时同时恢复后台标签页（而不仅是当前活动标签页）"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "启用后,重新加载已挂起的标签页(Ctrl+R 或右键"
+    "message": "启用后，重新加载挂起的标签页（Ctrl+R 或右键"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "菜单中的“重新加载”)会将其恢复,即使它不是"
+    "message": "菜单中的“重新加载”）会将其恢复，即使它当前"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "当前活动的标签页。"
+    "message": "并非处于活动状态。"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "适合一次性重新加载多个已挂起的标签页,例如选中"
+    "message": "适用于一次性重新加载多个挂起的标签页，例如"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "多个标签页后按 Ctrl+R。"
+    "message": "选中多个标签页后按下 Ctrl+R。"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "挂起时应用浏览器内置的内存节省功能"
+    "message": "挂起时同时应用浏览器内置的省内存功能"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "通过启用 Chrome 内置的内存节省功能，可以更多的降低内存使用。"
+    "message": "通过利用浏览器内置的“标签页丢弃”功能，"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "浏览器内置的「标签页丢弃」功能。在处理大量标签页时，最多可节省"
+    "message": "进一步降低挂起标签页的内存占用。在标签页"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "在处理大量标签页时可节省高达 500% 的内存。"
+    "message": "数量较多时，最多可节省 500% 的内存。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "但是，当重新打开一个被冻结/暂停的标签页时，会导致页面有微小的加载延时。"
+    "message": "但是，在选择某个挂起的标签页时，也会导致"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "已挂起的标签页时会略有延迟。"
+    "message": "轻微的渲染延迟。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "有关标签页丢弃的更多信息，请参阅："
@@ -504,82 +504,127 @@
     "message": "屏幕截图"
   },
   "html_options_suspend_screen_capturing_disabled": {
-    "message": "停用"
+    "message": "已禁用"
   },
   "html_options_suspend_screen_capturing_screen_only": {
-    "message": "只截取可见的画面"
+    "message": "仅截取屏幕顶部"
   },
   "html_options_suspend_screen_capturing_entire_page": {
     "message": "截取整个页面"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "在暂停的标签页上，扩展会显示该标签页在被冻结时的图像预览"
+    "message": "在挂起的标签页上，扩展程序可以显示该标签页"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "挂起前的样子。"
+    "message": "挂起前的画面预览。"
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "屏幕截图功能是实验性的，可能会导致明显的 CPU 占用以及内存使用量略微增加。"
+    "message": "屏幕截图功能为实验性功能，可能会显著增加 CPU 占用，"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "以及略微增加内存使用量。"
+    "message": "并略微增加内存占用。"
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "如果发现异常情况，例如标签页挂起耗时过长，或浏览器"
+    "message": "如果你发现异常情况，例如标签页挂起耗时过长，或浏览器"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "意外崩溃，请尝试关闭此功能。"
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "截图方式"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "自动（推荐）"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "仅浏览器截图"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "仅页面渲染截图"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "当被挂起的标签页正是你正在查看的标签页时，“自动”会使用真实的浏览器截图。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "该方式即时生成，适用于所有网站。其他标签页则由页面渲染器重新绘制，速度较慢。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "“仅浏览器截图”从不使用页面渲染器，因此在后台被挂起的标签页不会生成预览。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "即使选择了“截取整个页面”，浏览器截图也只能覆盖页面的可见部分。"
+  },
+  "html_options_suspend_screen_capture_precapture": {
+    "message": "在使用标签页时保留其最新截图"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line1": {
+    "message": "在你切换到某个标签页或其加载完成大约一秒后，对其进行一次浏览器截图，"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
+    "message": "这样，之后在后台被挂起的标签页仍然能够显示预览。"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line3": {
+    "message": "只有在拥有访问所有网站权限的情况下，Chrome 才允许扩展程序对你未点击过其按钮的标签页进行截图，"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
+    "message": "因此开启此选项会请求该权限。它仅用于获取这些截图，且截图只保存在本机上。"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line5": {
+    "message": "系统只会保留每个打开标签页的最新一张截图，标签页关闭后该截图会被删除。"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
+    "message": "隐身标签页和白名单站点永远不会被截图。"
+  },
   "html_options_suspend_force_screen_capture": {
-    "message": "启用高质量的屏幕截图模式"
+    "message": "启用高质量截图模式"
   },
   "html_options_suspend_force_screen_capture_tooltip_line1": {
-    "message": "禁用时，屏幕截图具有以下限制以帮助提高性能："
+    "message": "禁用时，为提升性能，截图会有以下限制："
   },
   "html_options_suspend_force_screen_capture_tooltip_line2": {
-    "message": "- 低质量的屏幕截图"
+    "message": "- 低质量截图"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- 如果生成图像需要 1 分钟以上，将不会使用屏幕截图"
+    "message": "- 生成图片耗时超过 1 分钟时不会截图"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
-    "message": "- 图片的最大高度限制为 5000 像素"
+    "message": "- 截图最大高度限制为 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "启用高质量的屏幕截图模式可能会显着增加 CPU 负载和内存使用量。"
+    "message": "启用高质量截图模式可能会显著增加 CPU 负载"
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "以及内存使用量。"
+    "message": "以及内存占用。"
   },
   "html_options_whitelist_title": {
-    "message": "白名单"
+    "message": "永不挂起以下列表中网址的标签页："
   },
   "html_options_always_suspend_title": {
     "message": "始终挂起以下列表中网址的标签页："
   },
   "html_options_always_suspend_tooltip_line1a": {
-    "message": "匹配此列表的标签页会在正常超时后始终被挂起，"
+    "message": "匹配此列表的标签页总是会在正常超时后挂起，"
   },
   "html_options_always_suspend_tooltip_line1b": {
-    "message": "无论是否有音频、表单输入或固定状态。"
+    "message": "无论其是否播放音频、含有表单内容或已固定。"
   },
   "html_options_always_suspend_tooltip_line2a": {
-    "message": "每行一条，匹配规则与上面的列表相同"
+    "message": "每行一条，匹配规则与上方列表相同（纯文本"
   },
   "html_options_always_suspend_tooltip_line2b": {
-    "message": "（在网址任意位置匹配纯文本，或使用斜杠包裹的 /regex/）。"
+    "message": "匹配网址中任意位置，或使用 /正则表达式/ 用斜杠包裹）。"
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "在新的一行中添加要允许的每个页面的网址。例如："
+    "message": "在新的一行添加你想允许的每个页面的网址。例如："
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "要在一行中将多个网站列入白名单，可以指定 URL 的一部分:"
+    "message": "要在一行内允许多个站点，可以改为指定网址的一部分："
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "您还可以通过正则表达式将 URL 添加白名单:"
+    "message": "你也可以用斜杠将文本括起来指定正则表达式："
   },
   "html_options_changelog_modal_title": {
-    "message": "v$version$ 新增内容",
+    "message": "v$version$ 版本更新内容",
     "placeholders": {
       "version": {
         "content": "$1"
@@ -599,67 +644,67 @@
     "message": "立即挂起匹配的标签页"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "永远不要冻结以下标签页组中的标签页："
+    "message": "永不挂起以下标签组中的标签页："
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "这些组中的标签页永远不会自动冻结，批量冻结操作也会跳过它们。"
+    "message": "这些标签组中的标签页永远不会被自动挂起，并且会在批量挂起操作中被跳过。"
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "通过右键菜单中的“永远不冻结此组”添加组。只能添加已命名的组。"
+    "message": "在右键菜单中使用“永不挂起此标签组”来添加一个标签组。只能添加已命名的标签组。"
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "组按名称和颜色匹配，只要浏览器保持打开，重命名后仍会跟随。"
+    "message": "标签组通过名称和颜色进行匹配，只要浏览器保持打开状态，重命名后仍会被识别。"
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "尚未添加标签页组。"
+    "message": "尚未添加任何标签组。"
   },
   "html_options_never_suspend_groups_remove": {
     "message": "移除"
   },
   "html_options_other_enable_context_menu": {
-    "message": "把 The Marvellous Suspender 加到右键菜单"
+    "message": "将 The Marvellous Suspender 添加到右键菜单"
   },
   "html_options_other_enable_context_menu_tooltip_line1": {
-    "message": "将控件添加到网页的右键单击菜单。"
+    "message": "将本扩展程序的操作添加到网页的右键菜单中。"
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "这样，您就可以访问扩展中在其他地方无法使用的高级冻结操作了。"
+    "message": "这将让你可以使用扩展程序其他地方"
   },
   "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "扩展程序中其他位置不可用的操作。"
+    "message": "没有提供的高级挂起操作。"
   },
   "html_options_other_enable_sync": {
-    "message": "将设置与浏览器账号同步"
+    "message": "与浏览器配置文件同步设置"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "扩展程序设置将在所有满足以下条件的浏览器之间同步："
+    "message": "扩展程序的设置将在所有登录同一配置文件的"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "。"
+    "message": "浏览器之间同步。"
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "这也会同步无痕模式下的设置。"
+    "message": "这也会同步隐身模式下的设置。"
   },
   "html_options_other_enable_sync_warning": {
-    "message": "启用此选项将覆盖使用同一账号登录的其他浏览器中的设置"
+    "message": "启用此选项会覆盖登录同一配置文件的所有其他浏览器上的设置"
   },
   "html_options_suspend_on_low_memory": {
-    "message": "当系统内存变得非常低时冻结标签页"
+    "message": "系统内存严重不足时立即挂起"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
     "message": "此选项将覆盖自动标签页丢弃功能。"
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "启用后，标签页将被强制挂起，而不是被丢弃。"
+    "message": "启用后，会强制挂起标签页，而不是将其丢弃。"
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "通常，浏览器只有在系统内存非常不足时才会丢弃标签页。"
+    "message": "通常，只有当系统内存严重不足时，浏览器才会丢弃标签页。"
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "注意：这可能导致标签页在“标签页自动冻结”选项中指定的时间之前冻结。"
+    "message": "请注意：这可能会导致标签页比你在"
   },
   "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "在\"自动标签页挂起\"选项中指定的时间。"
+    "message": "自动挂起标签页选项中设置的时间更早地被挂起。"
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "有关标签页丢弃的更多信息，请参阅："
@@ -668,19 +713,19 @@
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_popup_unsuspend_tab": {
-    "message": "恢复当前标签页"
+    "message": "恢复此标签页"
   },
   "html_popup_suspend_tab": {
-    "message": "冻结此标签页"
+    "message": "立即挂起此标签页"
   },
   "html_popup_never_suspend_domain": {
-    "message": "永远不要冻结此域名"
+    "message": "永不挂起此域名"
   },
   "html_popup_never_suspend_page": {
-    "message": "永远不要冻结此网页"
+    "message": "永不挂起此网址"
   },
   "html_popup_suspend_other_tabs": {
-    "message": "冻结其他标签页"
+    "message": "挂起所有其他标签页"
   },
   "html_popup_unsuspend_all_tabs": {
     "message": "恢复所有标签页"
@@ -689,10 +734,10 @@
     "message": "立即唤醒匹配的标签页"
   },
   "html_popup_suspend_selected_tabs": {
-    "message": "冻结已选择标签页"
+    "message": "挂起选定的标签页"
   },
   "html_popup_unsuspend_selected_tabs": {
-    "message": "恢复已选择标签页"
+    "message": "恢复选定的标签页"
   },
   "html_popup_settings": {
     "message": "设置"
@@ -704,25 +749,25 @@
     "message": "立即备份会话（云端）"
   },
   "html_restoring_title": {
-    "message": "恢复窗口"
+    "message": "正在恢复窗口"
   },
   "html_restoring_heading": {
-    "message": "恢复标签页"
+    "message": "正在恢复标签页"
   },
   "html_restoring_detail": {
-    "message": "恢复此窗口中，请稍等..."
+    "message": "请稍候，正在恢复此窗口……"
   },
   "html_recovery_title": {
-    "message": "复原"
+    "message": "恢复"
   },
   "html_recovery_ruh_roh": {
-    "message": "噢！"
+    "message": "哎呀！"
   },
   "html_recovery_description_line1": {
-    "message": "看来你刚从崩溃的扩展恢复过来。"
+    "message": "看起来你正在从扩展程序崩溃中恢复。"
   },
   "html_recovery_description_line2": {
-    "message": "你之前冻结的标签页有可能无法还原。"
+    "message": "你挂起的标签页可能已崩溃或消失。"
   },
   "html_recovery_restore_tabs_automatically": {
     "message": "自动恢复标签页"
@@ -731,13 +776,13 @@
     "message": "前往会话管理器"
   },
   "html_recovery_important_message": {
-    "message": "你目前已开启屏幕截图，如果扩展多次崩溃，建议你取消勾选。"
+    "message": "你当前已开启屏幕截图功能。如果本扩展程序反复崩溃，建议你禁用此选项。"
   },
   "html_recovery_disable_screen_capturing": {
     "message": "关闭屏幕截图"
   },
   "html_recovery_tabs_to_restore": {
-    "message": "标签页恢复"
+    "message": "待恢复的标签页"
   },
   "html_shortcuts_title": {
     "message": "键盘快捷键"
@@ -746,10 +791,10 @@
     "message": "键盘快捷键"
   },
   "html_shortcuts_context_menu_note": {
-    "message": "注意：您也可以通过右键单击上下文菜单来使用这些操作。"
+    "message": "注意：这些操作也可以通过右键菜单使用。"
   },
   "html_shortcuts_remap_keys": {
-    "message": "修改键盘快捷键"
+    "message": "修改快捷键"
   },
   "html_sidebar_general_settings": {
     "message": "设置"
@@ -770,19 +815,19 @@
     "message": "备份"
   },
   "html_sidebar_news": {
-    "message": "资讯"
+    "message": "新闻"
   },
   "html_news_title": {
-    "message": "资讯与更新"
+    "message": "新闻与更新"
   },
   "html_news_desc": {
-    "message": "随时了解 Marvellous Codeworks 博客发布的最新版本、已知问题和公告。"
+    "message": "了解 Marvellous Codeworks 博客发布的最新版本、已知问题和公告动态。"
   },
   "html_news_loading": {
-    "message": "正在加载资讯…"
+    "message": "正在加载新闻……"
   },
   "html_news_empty": {
-    "message": "暂无资讯，请稍后再来查看！"
+    "message": "暂无新闻，请稍后再来看看！"
   },
   "html_news_new_pill": {
     "message": "新"
@@ -794,169 +839,169 @@
     "message": "备份与恢复"
   },
   "html_success_great_success": {
-    "message": "成功！"
+    "message": "太棒了！"
   },
   "html_success_all_tabs_restored": {
-    "message": "你所有的标签页均已恢复完成。"
+    "message": "所有标签页均已恢复。"
   },
   "html_success_goto_advanced_prefix": {
-    "message": "进阶的会话管理，请前往"
+    "message": "如需高级会话管理，请访问"
   },
   "html_success_goto_advanced_suffix": {
     "message": "页面"
   },
   "html_session_manager": {
-    "message": "会话管理页面"
+    "message": "会话管理"
   },
   "html_suspended_title": {
-    "message": "冻结标签页"
+    "message": "已挂起的标签页"
   },
   "html_suspended_click_to_reload": {
-    "message": "刷新页面或点击此处重新加载"
+    "message": "刷新或点击以重新加载"
   },
   "html_suspended_toast_not_connected": {
-    "message": "您未连接网络"
+    "message": "你尚未连接到互联网"
   },
   "html_suspended_toast_reload_disabled": {
-    "message": "暂时禁用标签页自动重新加载。"
+    "message": "标签页自动重新加载已暂时禁用。"
   },
   "html_permissions_title": {
-    "message": "许可权限"
+    "message": "权限"
   },
   "html_permissions_heading": {
-    "message": "请授予允许访问本地文件 URL 的权限"
+    "message": "请授予访问本地文件网址的权限"
   },
   "html_permissions_info": {
-    "message": "这个扩展目前不允许冻结那些以 \"file\" 开头的 URL 链接。\n要想改变这个设置， 可以在扩展设置页面打开允许访问文件 URL 的设置。"
+    "message": "本扩展程序目前无权挂起以“file”开头的网址。\n如需更改此设置，请在扩展程序设置页面中开启“允许访问文件网址”。"
   },
   "html_permissions_backup": {
-    "message": "请注意：改变这个设置可能会使你当前所有的冻结标签页短暂的消失。\n为了以防万一，最好对当前标签页的会话的做备份。"
+    "message": "请注意：更改此选项会导致你所有挂起的标签页短暂消失。\n为保险起见，现在或许是保存当前标签页会话备份的好时机。"
   },
   "html_permissions_return_hint": {
-    "message": "欢迎回来:请再次点击按钮以完成本地文件访问权限的授予。"
+    "message": "欢迎回来——现在请再次点击按钮，以完成本地文件访问权限的授予。"
   },
   "html_update_title": {
     "message": "更新"
   },
   "html_update_heading2": {
-    "message": "已准备好变得更加奇<i>妙</i>"
+    "message": "即将变得更加 marvellous"
   },
   "html_update_info": {
     "message": "下次重启浏览器时将安装 The Marvellous Suspender 的新版本。"
   },
   "html_update_info_withbackup": {
-    "message": "重要提示：我们无法为您的标签页创建还原点。<br>请立即保存备份！"
+    "message": "重要提示：我们未能为你的标签页创建还原点。<br>请立即保存备份！"
   },
   "html_update_info_nobackup_prefix": {
-    "message": "强烈建议您在继续更新之前在 "
+    "message": "强烈建议你在继续更新之前，先从"
   },
   "html_update_info_nobackup_suffix": {
-    "message": " 导出当前标签页会话的备份。"
+    "message": "导出当前会话的副本。"
   },
   "html_updated_title": {
-    "message": "更新"
+    "message": "已更新"
   },
   "html_updating_heading": {
     "message": "正在更新"
   },
   "html_updating_message": {
-    "message": "恢复冻结的标签页中，请稍等..."
+    "message": "请稍候，正在恢复你挂起的标签页……"
   },
   "html_updated_great_suspender_updated": {
     "message": "已更新"
   },
   "html_updated_info_line1": {
-    "message": "更新之前，您的标签页已被自动保存。"
+    "message": "更新前已自动备份你的标签页。"
   },
   "html_updated_info_line2_prefix": {
-    "message": "如果在更新过程中遇到任何问题，可以从 "
+    "message": "如果更新过程中遇到问题，可以从"
   },
   "html_updated_info_line2_suffix": {
-    "message": " 页面中恢复丢失的标签页。"
+    "message": "页面恢复丢失的标签页。"
   },
   "html_updated_patch_message": {
-    "message": "很抱歉打扰你。我们需要做一些小维护。"
+    "message": "抱歉打扰了，只是进行了一些小维护。"
   },
   "html_welcome_text_line1": {
-    "message": "感谢你安装"
+    "message": "感谢你试用"
   },
   "html_welcome_text_line2": {
-    "message": "我能把你暂时不用的标签页冻结起来，希望这会让你的电脑运行地更流畅一些。"
+    "message": "我会通过挂起你未使用的标签页，让你的电脑运行得更流畅。"
   },
   "html_welcome_text_line3": {
-    "message": "您可以在下面更改设置"
+    "message": "你可以在下方微调相关设置。"
   },
   "js_popup_normal": {
-    "message": "标签页将会自动被冻结。"
+    "message": "标签页将自动挂起。"
   },
   "js_popup_normal_pause": {
-    "message": "暂时不要冻结"
+    "message": "暂不"
   },
   "js_popup_special": {
-    "message": "标签页无法被冻结"
+    "message": "此标签页无法挂起"
   },
   "js_popup_suspended": {
-    "message": "标签页已经被冻结"
+    "message": "标签页已挂起"
   },
   "js_popup_suspended_pause": {
-    "message": "暂时不要冻结"
+    "message": "不要挂起"
   },
   "js_popup_whitelisted": {
-    "message": "已允许该网站。"
+    "message": "已允许该站点。"
   },
   "js_popup_whitelisted_remove": {
     "message": "从允许列表中移除"
   },
   "js_popup_audible": {
-    "message": "标签页正在播放声音。"
+    "message": "标签页正在播放音频。"
   },
   "js_popup_form_input": {
-    "message": "标签页有文字还在输入。"
+    "message": "标签页正在接收表单输入。"
   },
   "js_popup_form_input_unpause": {
     "message": "取消暂停"
   },
   "js_popup_pinned": {
-    "message": "标签页已经被固定"
+    "message": "标签页已固定"
   },
   "js_popup_app_window": {
-    "message": "标签页已在应用窗口中打开"
+    "message": "标签页在应用窗口中打开"
   },
   "js_popup_grouped_tab": {
-    "message": "标签页在标签组中"
+    "message": "标签页位于某个标签组中"
   },
   "js_popup_tab_group": {
-    "message": "标签页位于永不冻结的组中"
+    "message": "标签页所在的标签组永不挂起"
   },
   "js_popup_temp_whitelist": {
-    "message": "页面冻结暂停。"
+    "message": "标签页挂起已暂停。"
   },
   "js_popup_temp_whitelist_unpause": {
     "message": "取消暂停"
   },
   "js_popup_never": {
-    "message": "禁止自动冻结标签页。"
+    "message": "自动挂起标签页已禁用。"
   },
   "js_popup_no_connectivity": {
-    "message": "网络未连接"
+    "message": "无网络连接"
   },
   "js_popup_charging": {
-    "message": "已接上电源"
+    "message": "已连接电源"
   },
   "js_popup_blockedFile": {
-    "message": "无法冻结本地文件。"
+    "message": "本地文件无法挂起。"
   },
   "js_popup_blockedFile_enable": {
     "message": "启用"
   },
   "js_popup_unknown": {
-    "message": "等待页面加载..."
+    "message": "正在等待标签页加载……"
   },
   "js_popup_initialising": {
-    "message": "等待扩展初始化..."
+    "message": "正在等待扩展程序初始化……"
   },
   "js_popup_error": {
-    "message": "自动冻结在此页面上不可用"
+    "message": "此标签页无法使用自动挂起功能"
   },
   "js_history_delete": {
     "message": "删除"
@@ -965,40 +1010,40 @@
     "message": "导出"
   },
   "js_history_reload": {
-    "message": "重新加载"
+    "message": "打开并加载"
   },
   "js_history_resuspend": {
-    "message": "重新冻结"
+    "message": "打开并挂起"
   },
   "js_history_save": {
     "message": "保存"
   },
   "js_history_window": {
-    "message": " 个窗口"
+    "message": "窗口"
   },
   "js_history_windows": {
-    "message": "个窗口"
+    "message": "窗口"
   },
   "js_history_tab": {
-    "message": " 个标签页"
+    "message": "标签页"
   },
   "js_history_tabs": {
     "message": "标签页"
   },
   "js_history_enter_name_for_session": {
-    "message": "为此会话命名"
+    "message": "为此会话输入一个名称"
   },
   "js_history_confirm_delete": {
-    "message": "你确定要删除此会话吗？"
+    "message": "确定要删除此会话吗？"
   },
   "js_history_confirm_session_overwrite": {
-    "message": "已经保存有同名的会话。要覆盖现有会话吗？"
+    "message": "已存在同名的已保存会话。是否覆盖现有会话？"
   },
   "js_history_import_fail": {
-    "message": "无法导入文件。确保文件是纯文本，并且每行只有一条 URL。"
+    "message": "文件加载失败。请确保文件为纯文本，且每行只包含一个网址。"
   },
   "js_history_migrate_fail": {
-    "message": "需要32个字符扩展ID进行迁移"
+    "message": "需要 32 位的扩展程序 ID 才能进行迁移"
   },
   "js_history_migrate_success": {
     "message": "已成功迁移 $tabcount$ 个标签页。如果迁移的标签页未自动重新加载，请重启浏览器。",
@@ -1012,22 +1057,22 @@
     "message": "设置键盘快捷键"
   },
   "js_suspended_low_memory": {
-    "message": "由于系统内存不足而冻结的页面"
+    "message": "因系统内存不足，标签页已被挂起"
   },
   "js_options_incognito_warning": {
-    "message": "您现在处于无痕模式。某些功能将无法使用。"
+    "message": "你正处于隐身模式。部分功能将无法使用。"
   },
   "js_options_whitelist_no_matches": {
-    "message": "没有与当前允许列表匹配的打开标签页。"
+    "message": "没有打开的标签页与当前允许列表匹配。"
   },
   "js_options_whitelist_matches_heading": {
-    "message": "允许列表中已打开的标签页："
+    "message": "已允许的打开标签页："
   },
   "js_options_always_suspend_no_matches": {
-    "message": "没有打开的标签页匹配当前的强制挂起列表。"
+    "message": "没有打开的标签页与当前始终挂起列表匹配。"
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "匹配 $count$ 个打开的标签页组",
+    "message": "匹配 $count$ 个已打开的标签组",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1035,31 +1080,31 @@
     }
   },
   "js_options_always_suspend_matches_heading": {
-    "message": "匹配强制挂起列表的已打开标签页："
+    "message": "与始终挂起列表匹配的打开标签页："
   },
   "js_options_whitelist_matches_overflow_prefix": {
-    "message": "和另外"
+    "message": "以及另外"
   },
   "js_options_whitelist_matches_overflow_suffix": {
     "message": "个。"
   },
   "js_permissions_button_export": {
-    "message": "导出备份"
+    "message": "保存备份"
   },
   "js_permissions_button_set": {
-    "message": "打开扩展设置"
+    "message": "打开扩展程序设置"
   },
   "js_update_confirm": {
-    "message": "您尚未保存备份。即使如此也要更新扩展吗？"
+    "message": "你尚未保存备份。仍要更新扩展程序吗？"
   },
   "js_update_button_export": {
-    "message": "导出备份"
+    "message": "保存备份"
   },
   "js_update_button_reload": {
-    "message": "现在更新扩展"
+    "message": "立即更新扩展程序"
   },
   "js_suspend_button_backup": {
-    "message": "更新前先保存备份"
+    "message": "更新前保存备份"
   },
   "js_shortcuts_default_command": {
     "message": "激活扩展程序（显示弹出窗口）"
@@ -1068,31 +1113,31 @@
     "message": "未设置"
   },
   "js_session_save_point": {
-    "message": "自动保存点 v"
+    "message": "v 版本的自动保存点"
   },
   "html_options_backup_title": {
     "message": "自动会话备份"
   },
   "html_backup_session_desc": {
-    "message": "与会话不同，备份以 JSON 文件形式保存在 Chrome 之外：存放在下载文件夹或 Google 云端硬盘中。它们可以在浏览器崩溃、配置文件重置和全新安装后依然保留，是您真正的安全保障。"
+    "message": "与会话不同，备份以 JSON 文件的形式保存在 Chrome 之外：保存到你的下载文件夹或 Google 云端硬盘。它们能在浏览器崩溃、配置文件重置和全新安装后依然保留，是你真正的安全网。"
   },
   "html_options_backup_enable": {
-    "message": "自动备份您的会话"
+    "message": "自动备份你的会话"
   },
   "html_options_backup_enable_tooltip_line1a": {
-    "message": "在后台静默保存当前会话的副本为 JSON 文件。"
+    "message": "静默保存当前会话的副本为 JSON 文件。"
   },
   "html_options_backup_enable_tooltip_line1b": {
-    "message": "可选择保存到本地（下载文件夹中的 tms-backups 文件夹）"
+    "message": "可以选择保存到本地（下载文件夹中的 tms-backups 文件夹）"
   },
   "html_options_backup_enable_tooltip_line1c": {
-    "message": "或 Google 云端硬盘中的 'TMS Backups' 文件夹。"
+    "message": "或保存到 Google 云端硬盘中的“TMS Backups”文件夹。"
   },
   "html_options_backup_enable_tooltip_line2a": {
-    "message": "对于本地备份，Chrome 必须设置为自动下载文件（不询问）。"
+    "message": "对于本地备份，Chrome 必须设置为自动下载文件"
   },
   "html_options_backup_enable_tooltip_line2b": {
-    "message": "请检查 chrome://settings/downloads。"
+    "message": "（无需询问）。请检查 chrome://settings/downloads。"
   },
   "html_options_backup_enable_tooltip_line2c": {
     "message": "Google 云端硬盘备份没有此要求。"
@@ -1101,16 +1146,16 @@
     "message": "备份间隔"
   },
   "html_options_backup_daily_time": {
-    "message": "具体时间"
+    "message": "备份时间"
   },
   "html_backup_interval_warning": {
-    "message": "请注意：间隔时间过长时，两次备份之间可能会发生较多变化。建议缩短间隔以降低数据丢失的风险。"
+    "message": "提醒：间隔时间过长时，两次备份之间可能会发生很多变化。建议缩短间隔时间，以降低数据丢失的风险。"
   },
   "html_options_backup_note": {
-    "message": "本地和云端硬盘备份都包含设备标识符（例如 tms-session-a3f7b2c8-2026-06-18T14-30.json），因此每个浏览器安装都会维护独立的备份集。每台设备会保留最近的 N 个本地备份；云端硬盘备份同样按设备保留 N 个，因此不同设备或浏览器的会话永远不会相互覆盖。\n\n<strong>即使选择了 Google 云端硬盘，浏览器关闭时仍会写入一个本地安全文件，并在下次启动时上传到云端硬盘。此处出现本地文件是正常现象，不是错误。</strong>"
+    "message": "本地和云端硬盘备份都包含设备标识符（例如 tms-session-a3f7b2c8-2026-06-18T14-30.json），因此每个浏览器安装都会维护各自独立的备份池。系统会为每台设备保留最近的 N 个本地备份；云端硬盘备份同样会为每台设备保留 N 个，因此不同机器或浏览器的会话永远不会相互覆盖。\n\n<strong>即使选择了 Google 云端硬盘，浏览器关闭时仍会写入本地安全备份文件，并在下次启动时上传到云端硬盘。看到本地文件属于正常现象，并非错误。</strong>"
   },
   "html_backup_max_files_label": {
-    "message": "保留备份的最大数量"
+    "message": "保留的最大备份数量"
   },
   "html_backup_device_name_label": {
     "message": "设备名称（可选）"
@@ -1128,13 +1173,13 @@
     "message": "↑ 顶部"
   },
   "html_history_backup_hint_prefix": {
-    "message": "会话仅存储在 Chrome 内部：无法在浏览器崩溃或配置文件重置后保留。"
+    "message": "会话仅保存在 Chrome 内部：无法在浏览器崩溃或配置文件重置后保留。"
   },
   "html_history_backup_settings_link": {
     "message": "设置备份，将标签页保存到浏览器之外 →"
   },
   "js_options_backup_now_running": {
-    "message": "正在备份…"
+    "message": "正在备份……"
   },
   "js_options_backup_now_done": {
     "message": "备份已保存。"
@@ -1143,60 +1188,56 @@
     "message": "已保存"
   },
   "js_backup_permission_denied": {
-    "message": "权限被拒绝：自动备份未启用。"
+    "message": "权限被拒绝：未能启用自动备份。"
   },
   "html_options_other_enable_news_feed": {
     "message": "启用新闻推送"
   },
   "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "定期检查 marvellouscode.works 获取 TMS 新闻，"
+    "message": "定期检查 marvellouscode.works 上的 TMS 新闻，并将其显示"
   },
   "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "并在侧边栏中显示。"
+    "message": "在侧边栏中。"
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "禁用以跳过此后台请求。"
+    "message": "禁用可跳过此后台请求。"
   },
   "html_options_other_legacy_mascot": {
-    "message": "使用经典的 The Great Suspender 图案，而非新吉祥物"
+    "message": "使用经典的 The Great Suspender 图案，而非新版吉祥物"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "在提供旧版图片的情况下，将图标和插图恢复为最初的"
+    "message": "在有旧版图片可用的情况下，将图标和插图"
   },
   "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "The Great Suspender 风格。"
+    "message": "切换回原始的 The Great Suspender 风格。"
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
-    "message": "没有旧版对应图片的图像将继续使用新图案。"
+    "message": "没有旧版对应图片的图像将继续使用新版图案。"
   },
   "html_permissions_notice_text": {
-    "message": "从此版本开始，TMS 仅在您实际开启本地或 Google 云端硬盘备份时才请求文件系统/Google 账号访问权限，而不是提前请求。"
+    "message": "从本版本开始，TMS 仅在你实际开启本地或 Google 云端硬盘备份时才会请求文件系统/Google 账号访问权限，而不是提前请求。"
   },
   "html_permissions_notice_link": {
-    "message": "了解更多权限信息。"
+    "message": "了解更多有关权限的信息。"
   },
   "html_permissions_notice_dismiss": {
     "message": "知道了"
   },
   "html_permissions_info_note": {
-    "message": "TMS 仅在您在下方启用本地或 Google 云端硬盘备份时才请求“下载内容”和 Google 账号权限。"
+    "message": "只有在下方启用本地或 Google 云端硬盘备份时，TMS 才会请求下载和 Google 账号权限。"
   },
   "html_permissions_info_note_link": {
-    "message": "查看完整的权限说明。"
+    "message": "查看完整的权限说明"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome 正在询问文件保存位置，因此自动备份将无法静默完成。请在 chrome://settings/downloads 中关闭「下载前询问每个文件的保存位置」。"
+    "message": "Chrome 正在询问文件保存位置，因此自动备份无法静默运行。请在 chrome://settings/downloads 中关闭“下载前询问保存位置”。"
   },
   "js_options_backup_next_run": {
-    "message": "下次运行：$time$",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+    "message": "下次运行时间：$time$",
+    "placeholders": { "time": { "content": "$1" } }
   },
   "js_options_backup_last_local": {
-    "message": "上次备份：$date$",
+    "message": "上次备份时间：$date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1204,7 +1245,7 @@
     }
   },
   "html_options_backup_destination": {
-    "message": "备份目标"
+    "message": "备份目标位置"
   },
   "html_options_backup_dest_local": {
     "message": "本地（下载文件夹）"
@@ -1222,28 +1263,28 @@
     "message": "自动备份失败：未连接 Google 账号。点击此处修复。"
   },
   "html_popup_backup_downloads_error": {
-    "message": "自动备份失败：缺少“下载内容”权限。点击此处修复。"
+    "message": "自动备份失败：缺少下载权限。点击此处修复。"
   },
   "html_popup_backup_nudge_text": {
-    "message": "自动备份已关闭。保护您的会话。"
+    "message": "自动备份已关闭，请保护你的会话。"
   },
   "html_backup_nudge_dismiss": {
-    "message": "10 天后提醒我"
+    "message": "10 天后再提醒我"
   },
   "html_backup_nudge_note_text": {
-    "message": "自动备份已关闭。启用后，即使此浏览器配置文件被重置或损坏，也能保护您的会话。"
+    "message": "自动备份已关闭。启用它可以在此浏览器配置文件被重置或损坏时保护你的会话。"
   },
   "html_backup_nudge_optout": {
-    "message": "不感兴趣，不再提醒我"
+    "message": "不感兴趣，不要再提醒我"
   },
   "html_backup_downloads_permission_missing": {
-    "message": "自动备份已开启，但此设备未授予“下载内容”权限（在导入设置或从其他浏览器同步后可能出现这种情况）。在您授予权限之前，备份不会运行。"
+    "message": "自动备份已开启，但本设备上尚未授予下载权限（这可能发生在导入设置或从其他浏览器同步之后）。在你授予权限之前，备份不会执行。"
   },
   "html_backup_downloads_permission_grant": {
     "message": "授予权限"
   },
   "js_options_backup_drive_connecting": {
-    "message": "正在连接…"
+    "message": "正在连接……"
   },
   "js_options_backup_drive_auth_error": {
     "message": "无法连接到 Google，请重试。"
@@ -1252,13 +1293,13 @@
     "message": "设置备份"
   },
   "html_backup_settings_desc": {
-    "message": "将所有扩展程序设置导出为 JSON 文件，可用作备份，也可用于将配置转移到另一个浏览器配置文件。导入文件将替换当前设置。"
+    "message": "将所有扩展程序设置导出为 JSON 文件，可用作备份，或将配置转移到其他浏览器配置文件。导入文件将替换当前设置。"
   },
   "html_backup_local_folder_hint": {
-    "message": "本地备份将保存到下载文件夹内的 tms-backups 目录。"
+    "message": "本地备份会保存到下载文件夹中的 tms-backups 文件夹。"
   },
   "html_backup_drive_folder_note": {
-    "message": "备份将保存在您 Google 云端硬盘的 'TMS Backups' 文件夹中。"
+    "message": "备份会保存到你 Google 云端硬盘中的“TMS Backups”文件夹。"
   },
   "html_backup_drive_open_folder": {
     "message": "在云端硬盘中打开 TMS Backups 文件夹 ↗"
@@ -1282,7 +1323,7 @@
     "message": "从云端硬盘恢复设置"
   },
   "js_backup_drive_settings_saving": {
-    "message": "正在保存到云端硬盘…"
+    "message": "正在保存到云端硬盘……"
   },
   "js_backup_drive_settings_saved": {
     "message": "设置已保存到云端硬盘。"
@@ -1299,19 +1340,19 @@
     }
   },
   "js_backup_settings_drive_downloading": {
-    "message": "正在从云端硬盘下载设置…"
+    "message": "正在从云端硬盘下载设置……"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "未在云端硬盘中找到设置文件。请先将设置保存到云端硬盘。"
+    "message": "在云端硬盘中未找到设置文件，请先将设置保存到云端硬盘。"
   },
   "js_backup_settings_drive_restore_success": {
-    "message": "设置已恢复，正在重新加载…"
+    "message": "设置已恢复，正在重新加载……"
   },
   "js_backup_settings_drive_restore_error": {
     "message": "无法从云端硬盘恢复设置，请重试。"
   },
   "js_backup_settings_drive_last_backup": {
-    "message": "上次备份：$date$",
+    "message": "上次备份时间：$date$",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1333,10 +1374,10 @@
     "message": "导入设置"
   },
   "js_options_settings_import_confirm": {
-    "message": "此操作将覆盖当前设置，是否继续？"
+    "message": "这将覆盖你当前的设置，是否继续？"
   },
   "js_options_settings_import_success": {
-    "message": "设置已导入，正在重新加载…"
+    "message": "设置已导入，正在重新加载……"
   },
   "js_options_settings_import_error": {
     "message": "设置文件无效。"
@@ -1348,7 +1389,7 @@
     "message": "从备份恢复"
   },
   "html_backup_restore_desc": {
-    "message": "导入备份文件，将其恢复为已保存的会话。导入后，打开「会话」以选择要恢复的窗口。"
+    "message": "导入备份文件，将其恢复为已保存的会话。导入后，打开“会话”选择要恢复的窗口。"
   },
   "html_backup_restore_local_title": {
     "message": "本地文件"
@@ -1360,16 +1401,16 @@
     "message": "选择备份文件"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "选择云端硬盘备份"
+    "message": "选择一个云端硬盘备份"
   },
   "html_backup_restore_import": {
     "message": "导入所选内容"
   },
   "js_backup_restore_importing": {
-    "message": "正在导入…"
+    "message": "正在导入……"
   },
   "js_backup_restore_success": {
-    "message": "已导入为「$name$」。",
+    "message": "已导入为“$name$”。",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1377,13 +1418,13 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ 打开会话进行恢复"
+    "message": "→ 打开“会话”以进行恢复"
   },
   "js_backup_restore_error_invalid": {
     "message": "备份文件无效。"
   },
   "js_backup_restore_error_drive": {
-    "message": "无法从云端硬盘下载，请检查网络连接后重试。"
+    "message": "无法从云端硬盘下载，请检查你的网络连接后重试。"
   },
   "js_backup_restore_error_generic": {
     "message": "导入失败，请重试。"
@@ -1392,7 +1433,7 @@
     "message": "切换前是否保存云端硬盘备份？"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "您最近的云端硬盘备份来自 $date$。将其保存为会话管理器中的会话，即可在无需 Google 云端硬盘的情况下恢复它。",
+    "message": "你最近一次的云端硬盘备份来自 $date$。将其保存为“会话管理器”中的一个会话，即可在不使用 Google 云端硬盘的情况下恢复它。",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1415,7 +1456,7 @@
     "message": "删除"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "确定要删除云端硬盘中的这个备份文件吗？此操作无法撤销。"
+    "message": "要从云端硬盘中删除此备份文件吗？此操作无法撤销。"
   },
   "html_backup_drive_delete_device_btn": {
     "message": "全部删除"
@@ -1424,7 +1465,7 @@
     "message": "删除此设备的所有备份？"
   },
   "html_backup_drive_delete_device_modal_body": {
-    "message": "此操作将从 Google 云端硬盘永久删除\"$device$\"的全部 $count$ 个备份文件，且无法撤销。",
+    "message": "这将从 Google 云端硬盘中永久删除“$device$”的全部 $count$ 个备份文件。此操作无法撤销。",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1444,9 +1485,9 @@
     "message": "部分备份文件删除失败，请重试。"
   },
   "html_backup_drive_no_files": {
-    "message": "未在云端硬盘中找到备份文件。"
+    "message": "未找到云端硬盘中的备份文件。"
   },
   "html_backup_drive_files_loading": {
-    "message": "正在加载…"
+    "message": "正在加载……"
   }
 }

@@ -3,130 +3,130 @@
     "message": "The Marvellous Suspender"
   },
   "ext_extension_description": {
-    "message": "釋放記憶體。立即暫停不需要的分頁。"
+    "message": "釋放記憶體。立即凍結不需要的分頁。"
   },
   "ext_default_title": {
     "message": "The Marvellous Suspender"
   },
   "ext_cmd_toggle_tab_suspension_description": {
-    "message": "凍結/回復目前分頁"
+    "message": "凍結/解除凍結目前分頁"
   },
   "ext_cmd_toggle_tab_pause_description": {
     "message": "暫停/取消暫停目前分頁的凍結"
   },
   "ext_cmd_suspend_selected_tabs_description": {
-    "message": "凍結已選擇分頁"
+    "message": "凍結已選取的分頁"
   },
   "ext_cmd_unsuspend_selected_tabs_description": {
-    "message": "回復已選擇分頁"
+    "message": "解除凍結已選取的分頁"
   },
   "ext_cmd_suspend_tab_group_description": {
-    "message": "凍結目前分頁所屬群組中所有的分頁"
+    "message": "凍結目前分頁所在群組中的所有分頁"
   },
   "ext_cmd_unsuspend_tab_group_description": {
-    "message": "回復目前分頁所屬群組中所有的分頁"
+    "message": "解除凍結目前分頁所在群組中的所有分頁"
   },
   "ext_cmd_suspend_ungrouped_tabs_description": {
-    "message": "凍結目前視窗中所有不在群組中的分頁"
+    "message": "凍結目前視窗中不在任何群組的所有分頁"
   },
   "ext_cmd_unsuspend_ungrouped_tabs_description": {
-    "message": "回復目前視窗中所有不在群組中的分頁"
+    "message": "解除凍結目前視窗中不在任何群組的所有分頁"
   },
   "ext_cmd_toggle_never_suspend_group_description": {
-    "message": "切換使用中分頁所屬群組的「永不凍結」設定"
+    "message": "切換目前分頁所在群組的「永不凍結」設定"
   },
   "ext_cmd_soft_suspend_active_window_description": {
-    "message": "凍結目前視窗中所有的分頁"
+    "message": "凍結目前視窗中的所有其他分頁"
   },
   "ext_cmd_force_suspend_active_window_description": {
-    "message": "強制凍結當前視窗中的所有分頁"
+    "message": "強制凍結目前視窗中的所有其他分頁"
   },
   "ext_cmd_unsuspend_active_window_description": {
-    "message": "凍結目前視窗中所有的分頁"
+    "message": "解除凍結目前視窗中的所有分頁"
   },
   "ext_cmd_soft_suspend_all_windows_description": {
-    "message": "凍結所有視窗的所有分頁"
+    "message": "凍結所有視窗中的所有分頁"
   },
   "ext_cmd_force_suspend_all_windows_description": {
-    "message": "強制凍結所有視窗的所有分頁"
+    "message": "強制凍結所有視窗中的所有分頁"
   },
   "ext_cmd_unsuspend_all_windows_description": {
-    "message": "回復所有視窗的所有分頁"
+    "message": "解除凍結所有視窗中的所有分頁"
   },
   "js_context_open_link_in_suspended_tab": {
-    "message": "在新的凍結分頁打開連結"
+    "message": "在新的凍結分頁中開啟連結"
   },
   "js_context_toggle_suspend_state": {
-    "message": "凍結/回復此分頁"
+    "message": "凍結/解除凍結這個分頁"
   },
   "js_context_toggle_pause_suspension": {
-    "message": "暫停/取消暫停此分頁的凍結"
+    "message": "暫停/取消暫停這個分頁的凍結"
   },
   "js_context_never_suspend_domain": {
-    "message": "永遠不要凍結此網域"
+    "message": "永不凍結此網域"
   },
   "js_context_never_suspend_page": {
-    "message": "永遠不要凍結此網頁"
+    "message": "永不凍結此網址"
   },
   "js_context_suspend_selected_tabs": {
-    "message": "凍結已選擇分頁"
+    "message": "凍結已選取的分頁"
   },
   "js_context_unsuspend_selected_tabs": {
-    "message": "回復已選擇分頁"
+    "message": "解除凍結已選取的分頁"
   },
   "js_context_suspend_tab_group": {
-    "message": "凍結此群組中所有的分頁"
+    "message": "凍結此群組中的所有分頁"
   },
   "js_context_unsuspend_tab_group": {
-    "message": "回復此群組中所有的分頁"
+    "message": "解除凍結此群組中的所有分頁"
   },
   "js_context_suspend_ungrouped_tabs": {
     "message": "凍結所有不在群組中的分頁"
   },
   "js_context_unsuspend_ungrouped_tabs": {
-    "message": "回復所有不在群組中的分頁"
+    "message": "解除凍結所有不在群組中的分頁"
   },
   "js_context_never_suspend_group": {
-    "message": "永遠不凍結此群組"
+    "message": "永不凍結此群組"
   },
   "js_context_allow_suspending_group": {
     "message": "允許凍結此群組"
   },
   "js_context_never_suspend_group_unnamed": {
-    "message": "永遠不凍結此群組（僅限已命名的群組）"
+    "message": "永不凍結此群組（僅限已命名的群組）"
   },
   "js_context_soft_suspend_other_tabs_in_window": {
-    "message": "凍結目前視窗中所有的分頁"
+    "message": "凍結此視窗中的所有其他分頁"
   },
   "js_context_force_suspend_other_tabs_in_window": {
-    "message": "強制凍結當前視窗中的所有分頁"
+    "message": "強制凍結此視窗中的所有其他分頁"
   },
   "js_context_unsuspend_all_tabs_in_window": {
-    "message": "回復目前視窗中所有的分頁"
+    "message": "解除凍結此視窗中的所有分頁"
   },
   "js_context_soft_suspend_all_tabs": {
-    "message": "凍結所有視窗的所有分頁"
+    "message": "凍結所有視窗中的所有分頁"
   },
   "js_context_force_suspend_all_tabs": {
-    "message": "強制凍結所有視窗的所有分頁"
+    "message": "強制凍結所有視窗中的所有分頁"
   },
   "js_context_unsuspend_all_tabs": {
-    "message": "回復所有視窗的所有分頁"
+    "message": "解除凍結所有視窗中的所有分頁"
   },
   "html_health_title": {
-    "message": "分頁健康檢查（Beta）"
+    "message": "分頁健康狀態（Beta）"
   },
   "html_health_title_intro": {
-    "message": "如果您的暫停分頁出現問題，尤其是網站圖示方面，請點選「掃描分頁」，看看我們是否能修復它們。"
+    "message": "如果凍結的分頁出現問題，特別是網站圖示，請按一下「掃描分頁」看看我們能否修復它們。"
   },
   "html_health_all_good": {
-    "message": "我們沒有發現您的暫停分頁有任何問題。如果您仍然發現異常，請在下方告訴我們，我們會嘗試擴充此項檢查。"
+    "message": "我們沒有在你凍結的分頁中發現任何問題。如果你仍看到異常狀況，請在下方告訴我們，我們會嘗試擴充這項健康檢查。"
   },
   "html_health_reload_intro": {
-    "message": "您有一些暫停分頁尚未完全載入。我們可以重新載入這些分頁以解決問題。"
+    "message": "有些凍結的分頁尚未完全載入。我們可以重新載入這些分頁來清理狀況。"
   },
   "html_health_restore_intro": {
-    "message": "您有一些暫停分頁正在使用瀏覽器預設圖示，這表示 TMS 快取中沒有它們的圖示。我們可以還原並重新暫停最少數量的分頁，以取得這些遺失的圖示。"
+    "message": "有些凍結的分頁使用瀏覽器預設的網站圖示，代表 TMS 的快取中沒有它們。我們可以還原並重新凍結最少數量的分頁，以取得這些遺失的網站圖示。"
   },
   "html_health_scan_button": {
     "message": "掃描分頁"
@@ -138,25 +138,25 @@
     "message": "正在掃描分頁..."
   },
   "html_health_num_tms_tabs": {
-    "message": "TMS 已暫停的分頁"
+    "message": "TMS 凍結的分頁"
   },
   "html_health_num_tms_cache": {
-    "message": "TMS 快取中的圖示"
+    "message": "個 TMS 快取中的網站圖示"
   },
   "html_health_num_tabs_empty": {
     "message": "個分頁尚未載入"
   },
   "html_health_num_tabs_extension": {
-    "message": "個分頁使用 TMS 圖示"
+    "message": "個分頁使用 TMS 網站圖示"
   },
   "html_health_num_tabs_default": {
-    "message": "個分頁使用預設圖示"
+    "message": "個分頁使用預設網站圖示"
   },
   "html_health_num_hostnames": {
-    "message": "個不重複主機名稱"
+    "message": "個不重複的分頁主機名稱"
   },
   "html_health_small_cache": {
-    "message": "本機 TMS 圖示快取可能未涵蓋所有分頁。如果瀏覽器快取被清除，TMS 可能無法顯示部分圖示。"
+    "message": "本機的 TMS 網站圖示快取可能無法涵蓋所有分頁。如果瀏覽器快取被清除，TMS 可能無法顯示部分網站圖示。"
   },
   "html_health_reload_button": {
     "message": "下一步：重新載入 $count$ 個分頁",
@@ -167,7 +167,7 @@
     }
   },
   "html_health_restore_button": {
-    "message": "下一步：還原 $count$ 個分頁以快取圖示",
+    "message": "下一步：還原 $count$ 個分頁以取得網站圖示",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -175,25 +175,25 @@
     }
   },
   "html_health_action_label": {
-    "message": "正在還原圖示..."
+    "message": "正在還原網站圖示..."
   },
   "html_health_after_reload": {
-    "message": "分頁在背景載入完成後，您可以再次點選「掃描分頁」，查看情況是否有所改善。"
+    "message": "等分頁在背景載入完成後，你可以再次按一下「掃描分頁」看看狀況是否有改善。"
   },
   "html_health_after_restore": {
-    "message": "您可以再次點選「掃描分頁」，查看情況是否有所改善。"
+    "message": "你可以再次按一下「掃描分頁」看看狀況是否有改善。"
   },
   "html_health_need_help1": {
-    "message": "如果分頁或圖示問題仍然存在，您可以點選「複製結果」並貼到一個新的"
+    "message": "如果分頁或網站圖示的問題仍未解決，你可以按一下「複製結果」並貼到一個新的"
   },
   "html_health_need_help2": {
     "message": "GitHub Issue 中。"
   },
   "html_health_num_grouped_broken": {
-    "message": "個群組分頁處於損壞狀態（分頁群組錯誤）"
+    "message": "個處於異常狀態的群組分頁（分頁群組錯誤）"
   },
   "html_health_repair_intro": {
-    "message": "部分分頁群組中的分頁處於損壞狀態：瀏覽器重新啟動後它們顯示為新分頁，而非正常載入。TMS 可以嘗試還原它們。"
+    "message": "分頁群組中有部分分頁處於異常狀態：瀏覽器重新啟動後，它們顯示為新分頁而非正常載入。TMS 可以嘗試還原它們。"
   },
   "html_health_repair_button": {
     "message": "修復 $count$ 個群組分頁",
@@ -204,7 +204,7 @@
     }
   },
   "html_health_after_repair": {
-    "message": "完成。請重新掃描以確認群組分頁已恢復暫停狀態。"
+    "message": "完成。請重新掃描以確認群組分頁已恢復凍結狀態。"
   },
   "html_about_title": {
     "message": "關於"
@@ -213,94 +213,94 @@
     "message": "版本"
   },
   "html_about_tagline": {
-    "message": "現代分頁暫停功能的精神繼承者：以輕量的休眠頁面取代非使用中分頁，讓您精確掌控它們何時喚醒。"
+    "message": "現代分頁凍結功能的精神延續：以輕量的休眠頁面取代閒置分頁，讓你能精細控制它們何時甦醒。"
   },
   "html_about_section_credits": {
-    "message": "致謝"
+    "message": "感謝名單"
   },
   "html_about_contributors_and": {
-    "message": " 和 "
+    "message": "以及"
   },
   "html_about_community_thanks_link": {
     "message": "GitHub 上的所有貢獻者"
   },
   "html_about_fork_beginning": {
-    "message": "基於 GitHub 上的原版"
+    "message": "此分支基於原始的"
   },
   "html_about_fork_mid": {
-    "message": "，去除廣告追蹤"
+    "message": "（可在 GitHub 上取得，不含廣告追蹤）"
   },
   "html_about_fork_end": {
     "message": "更多資訊請參閱"
   },
   "html_about_contributors": {
-    "message": "由以下貢獻者提供"
+    "message": "由"
   },
   "html_about_report_issues_prefix": {
-    "message": "如果您有建議或想回報問題，可以在"
+    "message": "如果你有意見回饋或想回報問題，可以到"
   },
   "html_about_report_issues_suffix": {
-    "message": ". 在建立新的想法或問題之前，請檢查您的想法或問題是否存在。謝謝！"
+    "message": "。建立新項目前，請先確認你的想法或問題是否已經存在。謝謝！"
   },
   "html_about_debugging_prefix": {
-    "message": "如需擷取記錄並產生診斷報告，請前往"
+    "message": "若要擷取記錄並產生診斷報告，請前往"
   },
   "html_about_debugging_suffix": {
     "message": "診斷頁面。"
   },
   "html_about_the_github_issues_page": {
-    "message": "GitHub issues 網頁上提問"
+    "message": "GitHub Issues 頁面"
   },
   "html_about_section_support": {
     "message": "支持開發"
   },
   "html_about_support_text": {
-    "message": "The Marvellous Suspender 是免費且開放原始碼的軟體。如果您覺得它有用，歡迎小額贊助：這有助於維持專案的持續發展。"
+    "message": "The Marvellous Suspender 是免費且開源的軟體。如果你覺得它有用，歡迎給予小額贊助：這有助於讓這個專案持續發展。"
   },
   "html_broken_title": {
-    "message": "故障了"
+    "message": "發生問題"
   },
   "html_broken_ruh_roh": {
-    "message": "噢！"
+    "message": "糟糕！"
   },
   "html_broken_line1": {
-    "message": "啟動失敗。您使用的可能是不相容的瀏覽器？"
+    "message": "啟動失敗。你使用的瀏覽器可能不相容？"
   },
   "html_broken_line2": {
-    "message": "請嘗試重新啟動擴充功能。若問題持續發生，請您透過此連結尋求協助："
+    "message": "請嘗試重新啟動擴充功能。如果問題持續發生，請到"
   },
   "html_broken_line2_github_page": {
     "message": "GitHub 專案頁面"
   },
   "html_broken_line3": {
-    "message": "您可以在這裡找到遺失的分頁："
+    "message": "尋求協助。你可以從"
   },
   "html_broken_line3_session_management": {
-    "message": "記錄管理頁面"
+    "message": "工作階段管理頁面"
   },
   "html_broken_button_restart_extension": {
     "message": "重新啟動擴充功能"
   },
   "html_history_title": {
-    "message": "記錄管理"
+    "message": "工作階段管理"
   },
   "html_history_page_desc": {
-    "message": "TMS 會持續記錄您已開啟分頁的快照，無需任何設定。工作階段會在瀏覽時自動更新，但僅存在於 Chrome 內部：如果瀏覽器設定檔遺失或損毀，資料也會一併遺失。"
+    "message": "TMS 會持續保存已開啟分頁的快照，無需任何設定。你瀏覽時工作階段會自動更新，但這些資料儲存在 Chrome 內部：如果瀏覽器設定檔遺失或損毀，資料也會一併遺失。"
   },
   "html_history_current_session": {
-    "message": "目前記錄"
+    "message": "目前工作階段"
   },
   "html_history_recent_sessions": {
-    "message": "最近記錄"
+    "message": "最近的工作階段"
   },
   "html_history_saved_sessions": {
-    "message": "已儲存記錄"
+    "message": "已儲存的工作階段"
   },
   "html_history_import_session": {
-    "message": "匯入記錄"
+    "message": "匯入工作階段"
   },
   "html_history_migrate_tabs": {
-    "message": "移轉分頁"
+    "message": "遷移分頁"
   },
   "html_history_migrate_old_id": {
     "message": "擴充功能 ID"
@@ -309,7 +309,7 @@
     "message": "分頁遷移"
   },
   "html_history_migrate_section_desc": {
-    "message": "還原由舊版本或此擴充功能的其他分支所暫停的分頁。請在下方輸入舊擴充功能 ID，然後點選「遷移分頁」以轉換已暫停的網址。"
+    "message": "從舊版本或本擴充功能的其他分支中復原已凍結的分頁。請在下方輸入舊的擴充功能 ID，然後按一下「遷移分頁」以轉換凍結的網址。"
   },
   "html_options_title": {
     "message": "設定"
@@ -318,25 +318,25 @@
     "message": "自動凍結分頁"
   },
   "html_options_suspended_title": {
-    "message": "凍結的分頁"
+    "message": "已凍結的分頁"
   },
   "html_options_suspended_append_url_to_title": {
-    "message": "在暫停分頁標題後附加原始網址"
+    "message": "在凍結分頁的標題附加原始網址"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "啟用後，原始網址會附加到暫停頁面的"
+    "message": "啟用後，凍結頁面的瀏覽器分頁標題會附加"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "瀏覽器分頁標題中。"
+    "message": "原始網址。"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "這樣就可以使用 Chrome 的「搜尋分頁」功能"
+    "message": "這樣就能使用 Chrome 的「搜尋分頁」"
   },
   "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "（Ctrl+Shift+A）依主機名稱尋找已暫停的分頁。"
+    "message": "（Ctrl+Shift+A）依主機名稱找到凍結的分頁。"
   },
   "html_options_suspended_add_youtube_timestamp": {
-    "message": "暫停時保留 YouTube 播放位置"
+    "message": "凍結時保留 YouTube 播放位置"
   },
   "html_options_other_title": {
     "message": "一般"
@@ -348,13 +348,13 @@
     "message": "系統預設"
   },
   "html_options_suspend_automatically_after": {
-    "message": "多久後自動凍結"
+    "message": "在以下時間後自動凍結分頁"
   },
   "html_options_suspend_on_battery_after": {
-    "message": "使用電池供電時，多久後凍結分頁"
+    "message": "使用電池電力時，在以下時間後凍結分頁"
   },
   "html_options_suspend_same_as_ac": {
-    "message": "與使用電源時相同"
+    "message": "與插電時相同"
   },
   "html_options_suspend_never": {
     "message": "永不"
@@ -387,103 +387,103 @@
     "message": "週"
   },
   "html_options_suspend_no_pinned": {
-    "message": "不要凍結已固定的分頁"
+    "message": "永不凍結已釘選的分頁"
   },
   "html_options_suspend_no_app_windows": {
-    "message": "不要凍結在應用程式視窗中開啟的分頁"
+    "message": "永不凍結在應用程式視窗中開啟的分頁"
   },
   "html_options_suspend_no_grouped_tabs": {
-    "message": "不要凍結分頁群組中的分頁"
+    "message": "永不凍結群組中的分頁"
   },
   "html_options_suspend_no_forms": {
-    "message": "不要凍結輸入框有文字且尚未儲存的分頁"
+    "message": "永不凍結含有未儲存表單輸入內容的分頁"
   },
   "html_options_suspend_no_audio": {
-    "message": "不要凍結正在播放聲音的分頁"
+    "message": "永不凍結正在播放音訊的分頁"
   },
   "html_options_suspend_only_connected": {
-    "message": "只在網路連接下才自動凍結"
+    "message": "離線時永不凍結分頁"
   },
   "html_options_suspend_claim_by_default": {
-    "message": "預設接管"
+    "message": "接管由其他擴充功能凍結的分頁"
   },
   "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "自動接管已被其他相容擴充功能（例如 The Great Suspender，"
+    "message": "自動接管已由其他相容擴充功能凍結的分頁"
   },
   "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "或本擴充功能的另一次安裝）暫停的分頁。"
+    "message": "（例如 The Great Suspender，或另一個安裝的本擴充功能）。"
   },
   "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "如果分頁的網址包含 'suspended.html'，則視為「已暫停」。"
+    "message": "如果分頁網址包含「suspended.html」，就會被視為「已凍結」。"
   },
   "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "啟用此選項會將該網址重寫至此安裝，"
+    "message": "啟用此選項會將該網址改寫為本次安裝的網址，讓 TMS"
   },
   "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "以便 TMS 之後可以管理該分頁。"
+    "message": "之後可以管理這個分頁。"
   },
   "html_options_suspend_only_on_battery": {
-    "message": "只在電腦未接上電源時才自動凍結"
+    "message": "連接電源時永不凍結分頁"
   },
   "html_options_suspend_no_active_tabs": {
-    "message": "不要凍結每個視窗的正在使用中的分頁"
+    "message": "永不凍結每個視窗中的目前使用中分頁"
   },
   "html_options_suspend_no_scroll_pos": {
-    "message": "重新開啟已凍結的分頁時永遠捲動到頁面頂端"
+    "message": "重新開啟凍結分頁時一律捲動到頁面頂端"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "分頁會從頁面頂端重新開啟，"
+    "message": "分頁重新開啟時會顯示在頁面頂端，而不是凍結時"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "而不是凍結時所在的位置。"
+    "message": "所在的捲動位置。"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "適用於自動與手動凍結，"
+    "message": "此設定同時適用於自動與手動凍結，並會覆寫"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "並會覆蓋載入時跳轉到 #區段 的連結。"
+    "message": "載入時跳至 #章節 的連結。"
   },
   "html_options_suspend_automatically_unsuspend": {
-    "message": "當分頁被瀏覽就自動回復分頁"
+    "message": "檢視分頁時自動解除凍結"
   },
   "html_options_suspend_reload_unsuspend_background": {
-    "message": "重新載入也會恢復背景分頁(不僅僅是使用中的分頁)"
+    "message": "重新載入也會解除凍結背景中的分頁（不只是使用中的分頁）"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "啟用後,重新載入已暫停的分頁(Ctrl+R 或右鍵"
+    "message": "啟用後，重新載入凍結的分頁（按 Ctrl+R 或按右鍵選擇"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "選單中的「重新載入」)會將其恢復,即使它不是"
+    "message": "「重新載入」）也會解除其凍結，即使該分頁目前"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "目前使用中的分頁。"
+    "message": "並非使用中的分頁。"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "適合一次重新載入多個已暫停的分頁,例如選取多個"
+    "message": "適用於一次重新載入多個凍結分頁的情況，例如"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "分頁後按下 Ctrl+R。"
+    "message": "選取多個分頁後按下 Ctrl+R。"
   },
   "html_options_suspend_discard_after_suspend": {
-    "message": "暫停時套用瀏覽器內建的省記憶體功能"
+    "message": "凍結時套用瀏覽器內建的省記憶體功能"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "通過利用 Chrome 內建的分頁凍結功能，"
+    "message": "利用瀏覽器內建的「捨棄分頁」功能，進一步降低"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "瀏覽器內建的「捨棄分頁」功能。在處理大量分頁時，最多可節省"
+    "message": "凍結分頁的記憶體用量。在大量分頁的情況下，最高"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "可以降低500%的系統記憶體消耗。"
+    "message": "可節省 500% 的記憶體。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "盡管如此，當重新打開一個凍結的分頁時，"
+    "message": "不過，這也會導致選取凍結分頁時"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "將會有微小的分頁加載延時。"
+    "message": "出現些微的畫面延遲。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "如需捨棄分頁的更多資訊，請參閱："
+    "message": "如需更多關於分頁捨棄的資訊，請參閱："
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3b": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
@@ -492,13 +492,13 @@
     "message": "主題"
   },
   "html_options_suspend_theme_light": {
-    "message": "明亮"
+    "message": "亮色"
   },
   "html_options_suspend_theme_dark": {
-    "message": "深色"
+    "message": "暗色"
   },
   "html_options_suspend_theme_system": {
-    "message": "跟隨系統"
+    "message": "系統"
   },
   "html_options_suspend_screen_capturing": {
     "message": "螢幕擷取"
@@ -507,79 +507,124 @@
     "message": "停用"
   },
   "html_options_suspend_screen_capturing_screen_only": {
-    "message": "只擷取可見的畫面"
+    "message": "僅擷取畫面上方"
   },
   "html_options_suspend_screen_capturing_entire_page": {
-    "message": "擷取整個分頁"
+    "message": "擷取整個頁面"
   },
   "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "在凍結的分頁上，"
+    "message": "在凍結的分頁上，本擴充功能可以顯示分頁凍結前"
   },
   "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "顯示分頁被凍結前的最後畫面。"
+    "message": "畫面的預覽圖。"
   },
   "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "螢幕擷取功能是實驗性的，"
+    "message": "螢幕擷取功能為實驗性功能，可能會顯著增加 CPU 使用率，"
   },
   "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "可能會讓 CPU 使用率大幅提高，並讓記憶體使用量些微地提高。"
+    "message": "並略微增加記憶體用量。"
   },
   "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "如果您發現異常狀況，例如分頁暫停耗時過長，或瀏覽器"
+    "message": "如果你發現異常狀況，例如分頁凍結需要很長時間，或瀏覽器"
   },
   "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "或者 Chrome 意外當機，請嘗試關閉此功能。"
+    "message": "意外當機，請嘗試關閉此功能。"
+  },
+  "html_options_suspend_screen_capture_method": {
+    "message": "擷取方式"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "自動（建議）"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "僅限瀏覽器截圖"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "僅限頁面重繪"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "「自動」會在你正在檢視即將凍結的分頁時，拍攝一張真實的瀏覽器截圖。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "這個方式是即時的，且適用於所有網站。其他分頁則由頁面重繪功能重新繪製，速度較慢。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "「僅限瀏覽器截圖」永遠不會執行頁面重繪，因此在背景凍結的分頁不會有預覽圖。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "即使選擇了「擷取整個頁面」，瀏覽器截圖也只會涵蓋頁面可見的部分。"
+  },
+  "html_options_suspend_screen_capture_precapture": {
+    "message": "在使用分頁時保留其最新的螢幕截圖"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line1": {
+    "message": "在你切換到某個分頁或該分頁載入完成後約一秒，拍攝一張瀏覽器截圖，"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
+    "message": "這樣之後在背景被凍結的分頁仍然會有預覽圖。"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line3": {
+    "message": "只有在擴充功能擁有存取所有網站的權限時，Chrome 才允許擴充功能對你尚未點擊過按鈕的分頁進行截圖，"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
+    "message": "因此開啟此選項需要要求該權限。此權限僅用於拍攝這些截圖，且截圖只會保留在這台電腦上。"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line5": {
+    "message": "每個開啟中的分頁只會保留最新一張截圖，分頁關閉時該截圖也會一併刪除。"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
+    "message": "無痕分頁與允許清單中的網站永遠不會被擷取。"
   },
   "html_options_suspend_force_screen_capture": {
-    "message": "啟用高畫質的螢幕擷取模式"
+    "message": "啟用高品質螢幕擷取模式"
   },
   "html_options_suspend_force_screen_capture_tooltip_line1": {
-    "message": "禁用時，螢幕擷取具有以下限制以幫助提高效能："
+    "message": "停用時，螢幕擷取會有以下限制以提升效能："
   },
   "html_options_suspend_force_screen_capture_tooltip_line2": {
-    "message": "- 低品質的螢幕擷取"
+    "message": "－低畫質螢幕擷取"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- 如果產生圖片需要 1 分鐘以上，將不會螢幕擷取"
+    "message": "－若產生圖片需要超過 1 分鐘，則不會擷取畫面"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
-    "message": "- 圖片的最大高度限制為 5000 像素"
+    "message": "－螢幕擷取的最大高度限制為 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "啟用高品質的畫面捕捉模式可能會讓 CPU 使用率"
+    "message": "啟用高品質螢幕擷取模式可能會大幅增加 CPU 負載"
   },
   "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "和記憶體使用量明顯提高。"
+    "message": "與記憶體用量。"
   },
   "html_options_whitelist_title": {
-    "message": "白名單"
+    "message": "永不凍結網址符合以下清單的分頁："
   },
   "html_options_always_suspend_title": {
-    "message": "始終暫停以下清單中網址的分頁："
+    "message": "一律凍結網址符合以下清單的分頁："
   },
   "html_options_always_suspend_tooltip_line1a": {
-    "message": "符合此清單的分頁會在正常逾時後始終被暫停，"
+    "message": "符合此清單的分頁，過了一般逾時時間後一律會被凍結，"
   },
   "html_options_always_suspend_tooltip_line1b": {
-    "message": "無論是否有音訊、表單輸入或固定狀態。"
+    "message": "不論是否有音訊、表單輸入或釘選狀態。"
   },
   "html_options_always_suspend_tooltip_line2a": {
-    "message": "每行一條，比對規則與上面的清單相同"
+    "message": "每行一個項目，比對規則與上方清單相同（純文字"
   },
   "html_options_always_suspend_tooltip_line2b": {
-    "message": "（在網址任意位置比對純文字，或使用斜線包裹的 /regex/）。"
+    "message": "比對網址中任何位置，或以斜線包住的 /正規表示式/）。"
   },
   "html_options_whitelist_tooltip_line1": {
-    "message": "在新的一列中新增要允許的每個頁面的網址。例如："
+    "message": "在新的一行新增你想允許的每個頁面網址。例如："
   },
   "html_options_whitelist_tooltip_line2": {
-    "message": "要在一列中將多個網站列入白名單，可以指定網址的一部分："
+    "message": "若要在同一行允許多個網站，可以改為指定網址的一部分："
   },
   "html_options_whitelist_tooltip_line3": {
-    "message": "您還可以使用斜線包起來的文字來指定正規表示式："
+    "message": "你也可以將文字放在斜線之間，以指定正規表示式："
   },
   "html_options_changelog_modal_title": {
-    "message": "v$version$ 新增內容",
+    "message": "v$version$ 有哪些新功能",
     "placeholders": {
       "version": {
         "content": "$1"
@@ -596,103 +641,103 @@
     "message": "測試清單"
   },
   "html_options_always_suspend_force": {
-    "message": "立即暫停符合的分頁"
+    "message": "立即凍結符合的分頁"
   },
   "html_options_never_suspend_groups_title": {
-    "message": "永遠不要凍結以下分頁群組中的分頁："
+    "message": "永不凍結以下分頁群組中的分頁："
   },
   "html_options_never_suspend_groups_tooltip_line1": {
-    "message": "這些群組中的分頁永遠不會自動凍結，批次凍結操作也會略過它們。"
+    "message": "這些群組中的分頁永遠不會自動凍結，也會被批次凍結動作略過。"
   },
   "html_options_never_suspend_groups_tooltip_line2": {
-    "message": "透過右鍵選單中的「永遠不凍結此群組」新增群組。只能新增已命名的群組。"
+    "message": "在右鍵選單中選擇「永不凍結此群組」即可新增群組。只有具有名稱的群組才能新增。"
   },
   "html_options_never_suspend_groups_tooltip_line3": {
-    "message": "群組依名稱與顏色比對，只要瀏覽器保持開啟，重新命名後仍會跟隨。"
+    "message": "群組會依名稱與顏色比對，並在瀏覽器保持開啟期間跟隨重新命名。"
   },
   "html_options_never_suspend_groups_empty": {
-    "message": "尚未新增分頁群組。"
+    "message": "尚未新增任何分頁群組。"
   },
   "html_options_never_suspend_groups_remove": {
     "message": "移除"
   },
   "html_options_other_enable_context_menu": {
-    "message": "把 The Marvellous Suspender 加到右鍵選單"
+    "message": "在右鍵選單中加入 The Marvellous Suspender"
   },
   "html_options_other_enable_context_menu_tooltip_line1": {
-    "message": "將擴充套件新增到網頁的右鍵選單。"
+    "message": "在網頁的右鍵選單中加入本擴充功能的控制項目。"
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "這樣，您就可以使用擴充功能中其他位置無法使用的"
+    "message": "這樣你就能使用擴充功能其他地方沒有提供的"
   },
   "html_options_other_enable_context_menu_tooltip_line3": {
     "message": "進階凍結操作。"
   },
   "html_options_other_enable_sync": {
-    "message": "將設定與您的瀏覽器設定檔同步"
+    "message": "與瀏覽器設定檔同步設定"
   },
   "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "擴充功能設定將在所有符合以下條件的瀏覽器之間同步："
+    "message": "擴充功能設定會在所有以同一個設定檔登入的"
   },
   "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "登入相同帳號的 Chrome。"
+    "message": "瀏覽器之間同步。"
   },
   "html_options_other_enable_sync_tooltip_line2": {
-    "message": "這也會同步無痕模式下的設定。"
+    "message": "這也會同步無痕模式中的設定。"
   },
   "html_options_other_enable_sync_warning": {
-    "message": "啟用此選項將覆寫使用同一設定檔登入的所有其他瀏覽器中的設定"
+    "message": "開啟此選項會覆寫使用同一設定檔登入的所有其他瀏覽器上的設定"
   },
   "html_options_suspend_on_low_memory": {
-    "message": "當系統記憶體非常少時凍結分頁"
+    "message": "系統記憶體嚴重不足時立即凍結"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "此選項將覆寫自動捨棄分頁功能。"
+    "message": "此選項會覆寫自動捨棄分頁的功能。"
   },
   "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "啟用後，分頁將被強制暫停，而非被捨棄。"
+    "message": "啟用後，分頁會被強制凍結，而不是被捨棄。"
   },
   "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "通常，瀏覽器只有在系統記憶體非常不足時才會捨棄分頁。"
+    "message": "一般來說，瀏覽器只會在系統記憶體嚴重不足時才捨棄分頁。"
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "注意："
+    "message": "請注意：此選項可能會讓分頁比你在「自動凍結分頁」"
   },
   "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "這可能導致分頁在「自動分頁凍結」選項中指定的時間到達之前凍結。"
+    "message": "選項中設定的時間更早凍結。"
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
-    "message": "如需捨棄分頁的更多資訊，請參閱："
+    "message": "如需更多關於分頁捨棄的資訊，請參閱："
   },
   "html_options_suspend_on_low_memory_tooltip_discarding_link": {
     "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_popup_unsuspend_tab": {
-    "message": "回復目前分頁"
+    "message": "解除凍結這個分頁"
   },
   "html_popup_suspend_tab": {
-    "message": "凍結此分頁"
+    "message": "立即凍結這個分頁"
   },
   "html_popup_never_suspend_domain": {
-    "message": "永遠不要凍結此網域"
+    "message": "永不凍結此網域"
   },
   "html_popup_never_suspend_page": {
-    "message": "永遠不要凍結此網頁"
+    "message": "永不凍結此網址"
   },
   "html_popup_suspend_other_tabs": {
-    "message": "凍結其他分頁"
+    "message": "凍結所有其他分頁"
   },
   "html_popup_unsuspend_all_tabs": {
-    "message": "回復所有分頁"
+    "message": "解除凍結所有分頁"
   },
   "html_popup_unsuspend_whitelisted_tabs": {
     "message": "立即喚醒符合的分頁"
   },
   "html_popup_suspend_selected_tabs": {
-    "message": "凍結已選擇分頁"
+    "message": "凍結已選取的分頁"
   },
   "html_popup_unsuspend_selected_tabs": {
-    "message": "回復已選擇分頁"
+    "message": "解除凍結已選取的分頁"
   },
   "html_popup_settings": {
     "message": "設定"
@@ -704,40 +749,40 @@
     "message": "立即備份工作階段（雲端）"
   },
   "html_restoring_title": {
-    "message": "回復視窗"
+    "message": "正在還原視窗"
   },
   "html_restoring_heading": {
-    "message": "回復分頁"
+    "message": "正在還原分頁"
   },
   "html_restoring_detail": {
-    "message": "請等待回復此視窗"
+    "message": "請稍候，正在還原這個視窗..."
   },
   "html_recovery_title": {
-    "message": "回復"
+    "message": "復原"
   },
   "html_recovery_ruh_roh": {
-    "message": "噢！"
+    "message": "糟糕！"
   },
   "html_recovery_description_line1": {
-    "message": "看來你剛從當掉的擴充功能回復過來。"
+    "message": "看起來你正在從擴充功能當機中復原。"
   },
   "html_recovery_description_line2": {
-    "message": "之前凍結的分頁可能無法還原。"
+    "message": "你凍結的分頁可能已經當機或消失。"
   },
   "html_recovery_restore_tabs_automatically": {
-    "message": "自動回復分頁"
+    "message": "自動還原分頁"
   },
   "html_recovery_go_to_session_manager": {
-    "message": "前往記錄管理器"
+    "message": "前往工作階段管理員"
   },
   "html_recovery_important_message": {
-    "message": "你目前已開啟螢幕擷取，如果擴充功能多次發生故障，建議你取消勾選。"
+    "message": "你目前已開啟螢幕擷取功能。如果本擴充功能反覆當機，建議你停用此選項。"
   },
   "html_recovery_disable_screen_capturing": {
     "message": "關閉螢幕擷取"
   },
   "html_recovery_tabs_to_restore": {
-    "message": "分頁回復"
+    "message": "待還原的分頁"
   },
   "html_shortcuts_title": {
     "message": "鍵盤快速鍵"
@@ -746,10 +791,10 @@
     "message": "鍵盤快速鍵"
   },
   "html_shortcuts_context_menu_note": {
-    "message": "注意：您也可以通過右鍵選單來使用這些操作。"
+    "message": "注意：這些操作也可以透過右鍵選單使用。"
   },
   "html_shortcuts_remap_keys": {
-    "message": "修改鍵盤快速鍵"
+    "message": "變更快速鍵"
   },
   "html_sidebar_general_settings": {
     "message": "設定"
@@ -758,7 +803,7 @@
     "message": "工作階段"
   },
   "html_sidebar_tab_health": {
-    "message": "分頁健康檢查"
+    "message": "分頁健康狀態"
   },
   "html_sidebar_shortcuts": {
     "message": "鍵盤快速鍵"
@@ -776,187 +821,187 @@
     "message": "消息與更新"
   },
   "html_news_desc": {
-    "message": "隨時掌握 Marvellous Codeworks 部落格發布的最新版本、已知問題與公告。"
+    "message": "掌握 Marvellous Codeworks 部落格中最新的版本發佈、已知問題與公告。"
   },
   "html_news_loading": {
     "message": "正在載入消息…"
   },
   "html_news_empty": {
-    "message": "目前尚無消息，請稍後再回來查看！"
+    "message": "目前尚無消息，請稍後再回來看看！"
   },
   "html_news_new_pill": {
-    "message": "新"
+    "message": "最新"
   },
   "html_news_mark_all_read": {
-    "message": "全部標示為已讀"
+    "message": "全部標為已讀"
   },
   "html_backup_page_title": {
     "message": "備份與還原"
   },
   "html_success_great_success": {
-    "message": "成功！"
+    "message": "太棒了，成功了！"
   },
   "html_success_all_tabs_restored": {
-    "message": "你的所有分頁已經回復完成。"
+    "message": "你的所有分頁都已還原。"
   },
   "html_success_goto_advanced_prefix": {
-    "message": "進階的記錄管理，請前往"
+    "message": "如需進階工作階段管理，請前往"
   },
   "html_success_goto_advanced_suffix": {
     "message": "頁面"
   },
   "html_session_manager": {
-    "message": "記錄管理分頁"
+    "message": "工作階段管理"
   },
   "html_suspended_title": {
-    "message": "分頁已經被凍結"
+    "message": "已凍結的分頁"
   },
   "html_suspended_click_to_reload": {
-    "message": "點擊此處重新載入"
+    "message": "重新整理或按一下以重新載入"
   },
   "html_suspended_toast_not_connected": {
-    "message": "您沒有連接到網絡"
+    "message": "你目前未連接到網際網路"
   },
   "html_suspended_toast_reload_disabled": {
-    "message": "禁用自動重新載入。"
+    "message": "分頁自動重新載入功能已暫時停用。"
   },
   "html_permissions_title": {
-    "message": "許可權限"
+    "message": "權限"
   },
   "html_permissions_heading": {
-    "message": "請提供允許存取本機檔案 URL 的權限"
+    "message": "請授予存取本機檔案網址的權限"
   },
   "html_permissions_info": {
-    "message": "這個擴充功能目前不允許暫停那些以 file（檔案）開頭的 URL 連結。\n想要改變這個設定， 可以在擴充功能設定分頁打開允許存取檔案URL的設定。"
+    "message": "本擴充功能目前無法凍結開頭為「file」的網址。\n若要變更此設定，請在擴充功能設定頁面中開啟「允許存取檔案網址」。"
   },
   "html_permissions_backup": {
-    "message": "請註意：改變這個設定可能會使你當前所有的暫停分頁短暫的消失。\n以防萬一，最好對當前分頁的瀏覽階段的做備份。"
+    "message": "請注意：變更此選項會讓你所有凍結的分頁暫時消失。\n為保險起見，現在或許是個儲存目前分頁工作階段備份的好時機。"
   },
   "html_permissions_return_hint": {
-    "message": "歡迎回來:請再次點擊按鈕以完成本機檔案存取權限的授予。"
+    "message": "歡迎回來 — 請再次按一下按鈕，以完成本機檔案存取權限的授予。"
   },
   "html_update_title": {
     "message": "更新"
   },
   "html_update_heading2": {
-    "message": "已準備好變得更加奇<i>妙</i>"
+    "message": "準備好變得更 marvellous"
   },
   "html_update_info": {
-    "message": "下次重新啟動瀏覽器時將安裝 The Marvellous Suspender 的新版本。"
+    "message": "下次重新啟動瀏覽器時，將會安裝 The Marvellous Suspender 的新版本。"
   },
   "html_update_info_withbackup": {
-    "message": "重要提示：我們無法為您的分頁建立還原點。<br>請立即儲存備份！"
+    "message": "重要：我們無法為你的分頁建立還原點。<br>請立即儲存備份！"
   },
   "html_update_info_nobackup_prefix": {
-    "message": "強烈建議您在繼續之前從"
+    "message": "強烈建議你先從 "
   },
   "html_update_info_nobackup_suffix": {
-    "message": " 儲存目前瀏覽階段的備份。"
+    "message": " 匯出目前工作階段的副本，再繼續進行更新。"
   },
   "html_updated_title": {
-    "message": "更新"
+    "message": "已更新"
   },
   "html_updating_heading": {
     "message": "正在更新"
   },
   "html_updating_message": {
-    "message": "請等我回復被暫停的分頁..."
+    "message": "請稍候，正在還原你凍結的分頁..."
   },
   "html_updated_great_suspender_updated": {
     "message": "已更新"
   },
   "html_updated_info_line1": {
-    "message": "更新之前，您的分頁已被自動儲存。"
+    "message": "更新前已自動備份你的分頁。"
   },
   "html_updated_info_line2_prefix": {
-    "message": "如果在更新過程中遇到任何問題，可以從 "
+    "message": "如果你在更新期間遇到任何問題，可以從 "
   },
   "html_updated_info_line2_suffix": {
-    "message": " 分頁中回復遺失的分頁。"
+    "message": " 頁面復原遺失的分頁。"
   },
   "html_updated_patch_message": {
-    "message": "很抱歉打擾你。我們做了一些維護。"
+    "message": "抱歉造成困擾，只是進行了一些小維護。"
   },
   "html_welcome_text_line1": {
-    "message": "謝謝你安裝"
+    "message": "感謝你試用"
   },
   "html_welcome_text_line2": {
-    "message": "通過暫停不使用的分頁，可以讓您的電腦減少記憶體的使用。"
+    "message": "我透過凍結你沒在使用的分頁，讓你的電腦運作更順暢。"
   },
   "html_welcome_text_line3": {
-    "message": "您可以在下面更改設定"
+    "message": "你可以在下方微調設定。"
   },
   "js_popup_normal": {
-    "message": "分頁將會自動被凍結。"
+    "message": "分頁將會自動凍結。"
   },
   "js_popup_normal_pause": {
-    "message": "暫時不要凍結"
+    "message": "現在先不要"
   },
   "js_popup_special": {
-    "message": "分頁無法被凍結"
+    "message": "此分頁無法凍結"
   },
   "js_popup_suspended": {
-    "message": "分頁已經被凍結"
+    "message": "分頁已凍結"
   },
   "js_popup_suspended_pause": {
-    "message": "暫時不要凍結"
+    "message": "不要凍結"
   },
   "js_popup_whitelisted": {
-    "message": "已允許該網站。"
+    "message": "已允許此網站。"
   },
   "js_popup_whitelisted_remove": {
     "message": "從允許清單中移除"
   },
   "js_popup_audible": {
-    "message": "分頁正在播放聲音。"
+    "message": "分頁正在播放音訊。"
   },
   "js_popup_form_input": {
-    "message": "分頁有文字還在輸入。"
+    "message": "分頁正在接收表單輸入。"
   },
   "js_popup_form_input_unpause": {
     "message": "取消暫停"
   },
   "js_popup_pinned": {
-    "message": "分頁已經被固定"
+    "message": "分頁已被釘選"
   },
   "js_popup_app_window": {
     "message": "分頁已在應用程式視窗中開啟"
   },
   "js_popup_grouped_tab": {
-    "message": "分頁在分頁群組中"
+    "message": "分頁位於分頁群組中"
   },
   "js_popup_tab_group": {
-    "message": "分頁位於永不凍結的群組中"
+    "message": "分頁所在群組永不凍結"
   },
   "js_popup_temp_whitelist": {
-    "message": "分頁凍結暫停。"
+    "message": "分頁凍結已暫停。"
   },
   "js_popup_temp_whitelist_unpause": {
     "message": "取消暫停"
   },
   "js_popup_never": {
-    "message": "禁止自動凍結分頁。"
+    "message": "自動凍結分頁功能已停用。"
   },
   "js_popup_no_connectivity": {
-    "message": "未連接網路"
+    "message": "沒有網路連線"
   },
   "js_popup_charging": {
-    "message": "已接上電源"
+    "message": "已連接電源"
   },
   "js_popup_blockedFile": {
-    "message": "本機檔案無法暫停。"
+    "message": "本機檔案無法凍結。"
   },
   "js_popup_blockedFile_enable": {
     "message": "啟用"
   },
   "js_popup_unknown": {
-    "message": "等待分頁載入..."
+    "message": "正在等待分頁載入..."
   },
   "js_popup_initialising": {
-    "message": "等待擴充功能初始化..."
+    "message": "正在等待擴充功能初始化..."
   },
   "js_popup_error": {
-    "message": "自動凍結在此分頁上不可用"
+    "message": "此分頁無法使用自動凍結功能"
   },
   "js_history_delete": {
     "message": "刪除"
@@ -965,43 +1010,43 @@
     "message": "匯出"
   },
   "js_history_reload": {
-    "message": "讀取和載入"
+    "message": "開啟並載入"
   },
   "js_history_resuspend": {
-    "message": "重新凍結"
+    "message": "開啟並凍結"
   },
   "js_history_save": {
     "message": "儲存"
   },
   "js_history_window": {
-    "message": "個視窗"
+    "message": "視窗"
   },
   "js_history_windows": {
-    "message": "個視窗"
+    "message": "視窗"
   },
   "js_history_tab": {
-    "message": "個分頁"
+    "message": "分頁"
   },
   "js_history_tabs": {
-    "message": "個分頁"
+    "message": "分頁"
   },
   "js_history_enter_name_for_session": {
-    "message": "命名這個記錄"
+    "message": "輸入這個工作階段的名稱"
   },
   "js_history_confirm_delete": {
-    "message": "您確定要刪除此記錄嗎？"
+    "message": "你確定要刪除這個工作階段嗎？"
   },
   "js_history_confirm_session_overwrite": {
-    "message": "已經有儲存的名稱的記錄。要覆蓋現有記錄嗎？"
+    "message": "已經有相同名稱的已儲存工作階段。要覆寫現有的工作階段嗎？"
   },
   "js_history_import_fail": {
-    "message": "無法匯入文件。確保文件是純文字檔案，並且每列只有一個 URL。"
+    "message": "無法載入檔案。請確認檔案為純文字，且每行只有一個網址。"
   },
   "js_history_migrate_fail": {
-    "message": "需要長度 32 個字的擴充元件 ID 以供移轉"
+    "message": "遷移來源需要一組 32 個字元的擴充功能 ID"
   },
   "js_history_migrate_success": {
-    "message": "已成功遷移 $tabcount$ 個分頁。如果遷移的分頁未自動重新載入，請重新啟動瀏覽器。",
+    "message": "已成功遷移 $tabcount$ 個分頁。如果遷移後的分頁未自動重新載入，請重新啟動瀏覽器。",
     "placeholders": {
       "tabcount": {
         "content": "$1"
@@ -1009,25 +1054,25 @@
     }
   },
   "js_suspended_hotkey_to_reload": {
-    "message": "設定鍵盤快捷鍵"
+    "message": "設定鍵盤快速鍵"
   },
   "js_suspended_low_memory": {
-    "message": "由於系統記憶體不足而凍結的分頁"
+    "message": "因系統記憶體不足而凍結分頁"
   },
   "js_options_incognito_warning": {
-    "message": "你目前使用隱私模式。某些功能將無法使用。"
+    "message": "你正在使用無痕模式，部分功能將無法使用。"
   },
   "js_options_whitelist_no_matches": {
-    "message": "沒有與目前允許清單相符的已開啟分頁。"
+    "message": "沒有符合目前允許清單的已開啟分頁。"
   },
   "js_options_whitelist_matches_heading": {
     "message": "允許清單中已開啟的分頁："
   },
   "js_options_always_suspend_no_matches": {
-    "message": "沒有開啟的分頁符合目前的強制暫停清單。"
+    "message": "沒有符合目前一律凍結清單的已開啟分頁。"
   },
   "js_options_never_suspend_groups_open_count": {
-    "message": "符合 $count$ 個開啟的分頁群組",
+    "message": "符合 $count$ 個已開啟的群組",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1035,10 +1080,10 @@
     }
   },
   "js_options_always_suspend_matches_heading": {
-    "message": "符合強制暫停清單的已開啟分頁："
+    "message": "符合一律凍結清單的已開啟分頁："
   },
   "js_options_whitelist_matches_overflow_prefix": {
-    "message": "和另外"
+    "message": "以及另外"
   },
   "js_options_whitelist_matches_overflow_suffix": {
     "message": "個。"
@@ -1047,16 +1092,16 @@
     "message": "儲存備份"
   },
   "js_permissions_button_set": {
-    "message": "打開擴充套件設定"
+    "message": "開啟擴充功能設定"
   },
   "js_update_confirm": {
-    "message": "您尚未匯出備份。確定要更新擴充功能嗎？"
+    "message": "你尚未儲存備份，仍要更新擴充功能嗎？"
   },
   "js_update_button_export": {
-    "message": "匯出備份"
+    "message": "儲存備份"
   },
   "js_update_button_reload": {
-    "message": "現在更新擴充功能"
+    "message": "立即更新擴充功能"
   },
   "js_suspend_button_backup": {
     "message": "更新前先儲存備份"
@@ -1065,52 +1110,52 @@
     "message": "啟用擴充功能（顯示彈出視窗）"
   },
   "js_shortcuts_not_set": {
-    "message": "沒有設定"
+    "message": "未設定"
   },
   "js_session_save_point": {
-    "message": "自動保存點 v"
+    "message": "v 版本的自動儲存點"
   },
   "html_options_backup_title": {
     "message": "自動工作階段備份"
   },
   "html_backup_session_desc": {
-    "message": "與工作階段不同，備份會以 JSON 檔案形式儲存在 Chrome 之外：存放於下載資料夾或 Google 雲端硬碟。它們能在瀏覽器當機、設定檔重設及全新安裝後仍然保留，是您真正的安全網。"
+    "message": "與工作階段不同，備份會以 JSON 檔案的形式儲存在 Chrome 之外：儲存在你的下載資料夾或 Google 雲端硬碟中。它們能在瀏覽器當機、設定檔重設或全新安裝後依然保留，是你真正的安全網。"
   },
   "html_options_backup_enable": {
-    "message": "自動備份您的工作階段"
+    "message": "自動備份你的工作階段"
   },
   "html_options_backup_enable_tooltip_line1a": {
-    "message": "在背景靜默儲存目前工作階段的副本為 JSON 檔案。"
+    "message": "以無聲方式將目前工作階段的副本儲存為 JSON 檔案。"
   },
   "html_options_backup_enable_tooltip_line1b": {
-    "message": "可選擇儲存到本機（下載資料夾中的 tms-backups 資料夾）"
+    "message": "你可以選擇儲存至本機（下載資料夾中的 tms-backups 資料夾）"
   },
   "html_options_backup_enable_tooltip_line1c": {
-    "message": "或 Google 雲端硬碟中的 'TMS Backups' 資料夾。"
+    "message": "或儲存至 Google 雲端硬碟中的「TMS Backups」資料夾。"
   },
   "html_options_backup_enable_tooltip_line2a": {
-    "message": "對於本機備份，Chrome 必須設定為自動下載檔案（不詢問）。"
+    "message": "若要使用本機備份，Chrome 必須設定為自動下載檔案"
   },
   "html_options_backup_enable_tooltip_line2b": {
-    "message": "請檢查 chrome://settings/downloads。"
+    "message": "（不詢問）。請檢查 chrome://settings/downloads。"
   },
   "html_options_backup_enable_tooltip_line2c": {
-    "message": "Google 雲端硬碟備份沒有此要求。"
+    "message": "Google 雲端硬碟備份則沒有此需求。"
   },
   "html_options_backup_interval": {
-    "message": "備份間隔"
+    "message": "備份頻率"
   },
   "html_options_backup_daily_time": {
-    "message": "於何時執行"
+    "message": "備份時間"
   },
   "html_backup_interval_warning": {
-    "message": "請注意：間隔時間過長時，兩次備份之間可能會發生較多變化。建議縮短間隔以降低資料遺失的風險。"
+    "message": "提醒：間隔時間這麼長，備份之間可能會發生很多變化。建議縮短間隔時間以降低資料遺失的風險。"
   },
   "html_options_backup_note": {
-    "message": "本機與雲端硬碟備份都包含裝置識別碼（例如 tms-session-a3f7b2c8-2026-06-18T14-30.json），因此每個瀏覽器安裝都會維護獨立的備份集。每台裝置會保留最近的 N 份本機備份；雲端硬碟備份同樣依裝置保留 N 份，因此不同裝置或瀏覽器的工作階段永遠不會互相覆寫。\n\n<strong>即使選擇了 Google 雲端硬碟，瀏覽器關閉時仍會寫入一個本機安全檔案，並於下次啟動時上傳至雲端硬碟。這裡出現本機檔案是正常現象，並非錯誤。</strong>"
+    "message": "本機與雲端硬碟備份都包含裝置識別碼（例如 tms-session-a3f7b2c8-2026-06-18T14-30.json），因此每個瀏覽器安裝都會維護自己獨立的備份集合。系統會為每個裝置保留最近的 N 個本機備份；雲端硬碟備份同樣會為每個裝置保留 N 份，因此不同電腦或瀏覽器的工作階段絕不會互相覆寫。\n\n<strong>即使選擇了 Google 雲端硬碟，瀏覽器關閉時仍會寫入一份本機安全備份檔案，並在下次啟動時上傳至雲端硬碟。看到這裡出現本機檔案是正常現象，並非錯誤。</strong>"
   },
   "html_backup_max_files_label": {
-    "message": "保留備份的最大數量"
+    "message": "保留的最大備份數量"
   },
   "html_backup_device_name_label": {
     "message": "裝置名稱（選填）"
@@ -1128,13 +1173,13 @@
     "message": "↑ 回到頂端"
   },
   "html_history_backup_hint_prefix": {
-    "message": "工作階段僅儲存於 Chrome 內部：無法在瀏覽器當機或設定檔重設後保留。"
+    "message": "工作階段僅儲存在 Chrome 內部，無法在瀏覽器當機或設定檔重設後保留。"
   },
   "html_history_backup_settings_link": {
-    "message": "設定備份，將分頁儲存於瀏覽器之外 →"
+    "message": "設定備份，將分頁儲存到瀏覽器外部 →"
   },
   "js_options_backup_now_running": {
-    "message": "正在執行備份…"
+    "message": "正在備份…"
   },
   "js_options_backup_now_done": {
     "message": "備份已儲存。"
@@ -1146,54 +1191,50 @@
     "message": "權限遭拒：自動備份未啟用。"
   },
   "html_options_other_enable_news_feed": {
-    "message": "啟用消息來源"
+    "message": "啟用消息動態"
   },
   "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "定期檢查 marvellouscode.works 取得 TMS 消息，"
+    "message": "定期檢查 marvellouscode.works 上的 TMS 消息，並"
   },
   "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "並在側邊欄中顯示。"
+    "message": "顯示在側邊欄中。"
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
-    "message": "停用以略過此背景請求。"
+    "message": "停用可跳過此背景要求。"
   },
   "html_options_other_legacy_mascot": {
-    "message": "使用經典的 The Great Suspender 圖案，而非新吉祥物"
+    "message": "使用經典的 The Great Suspender 圖像，而非新版吉祥物"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "在提供舊版圖片的情況下，將圖示和插圖還原為原始的"
+    "message": "在有舊版圖像可用的情況下，將圖示與插圖"
   },
   "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "The Great Suspender 風格。"
+    "message": "切換回原本的 The Great Suspender 風格。"
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
-    "message": "沒有舊版對應圖片的圖像將繼續使用新圖案。"
+    "message": "沒有舊版對應圖像的圖片會繼續使用新版圖像。"
   },
   "html_permissions_notice_text": {
-    "message": "自本版本起，TMS 僅在您實際開啟本機或 Google 雲端硬碟備份時才要求檔案系統/Google 帳戶存取權，而非事先要求。"
+    "message": "從這個版本開始，TMS 只會在你實際開啟本機或 Google 雲端硬碟備份時，才要求檔案系統／Google 帳戶存取權限，而不會事先要求。"
   },
   "html_permissions_notice_link": {
-    "message": "深入了解權限。"
+    "message": "深入瞭解權限。"
   },
   "html_permissions_notice_dismiss": {
     "message": "知道了"
   },
   "html_permissions_info_note": {
-    "message": "TMS 僅在您於下方啟用本機或 Google 雲端硬碟備份時，才要求下載與 Google 帳戶權限。"
+    "message": "只有在你於下方啟用本機或 Google 雲端硬碟備份時，TMS 才會要求下載與 Google 帳戶權限。"
   },
   "html_permissions_info_note_link": {
-    "message": "查看完整的權限明細。"
+    "message": "查看完整的權限說明"
   },
   "js_options_backup_now_error": {
-    "message": "Chrome 正在詢問檔案儲存位置，因此自動備份將無法在背景靜默完成。請在 chrome://settings/downloads 中關閉「下載前詢問每個檔案的儲存位置」。"
+    "message": "Chrome 目前會詢問檔案儲存位置，因此自動備份無法在背景無聲執行。請在 chrome://settings/downloads 中停用「下載前詢問每個檔案的儲存位置」。"
   },
   "js_options_backup_next_run": {
     "message": "下次執行：$time$",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+    "placeholders": { "time": { "content": "$1" } }
   },
   "js_options_backup_last_local": {
     "message": "上次備份：$date$",
@@ -1219,25 +1260,25 @@
     "message": "中斷連結"
   },
   "html_popup_backup_drive_error": {
-    "message": "自動備份失敗：未連結 Google 帳戶。點選此處進行修復。"
+    "message": "自動備份失敗：尚未連結 Google 帳戶。按一下這裡即可修正。"
   },
   "html_popup_backup_downloads_error": {
     "message": "自動備份失敗：缺少下載權限。按一下這裡即可修正。"
   },
   "html_popup_backup_nudge_text": {
-    "message": "自動備份已關閉。保護您的工作階段。"
+    "message": "自動備份目前已關閉，請保護你的工作階段。"
   },
   "html_backup_nudge_dismiss": {
-    "message": "10 天後提醒我"
+    "message": "10 天後再提醒我"
   },
   "html_backup_nudge_note_text": {
-    "message": "自動備份已關閉。啟用後，即使此瀏覽器設定檔遭重設或損毀，也能保護您的工作階段。"
+    "message": "自動備份目前已關閉。啟用後，即使這個瀏覽器設定檔遭重設或損毀，也能保護你的工作階段。"
   },
   "html_backup_nudge_optout": {
-    "message": "沒興趣，不要再提醒我"
+    "message": "我沒興趣，不要再提醒我"
   },
   "html_backup_downloads_permission_missing": {
-    "message": "自動備份已開啟，但此裝置未授予下載權限（在匯入設定或從其他瀏覽器同步後可能發生此情況）。在您授予權限之前，備份不會執行。"
+    "message": "自動備份已啟用，但這台裝置尚未授予下載權限（在匯入設定或從其他瀏覽器同步後可能發生此情況）。在你授予權限之前，備份不會執行。"
   },
   "html_backup_downloads_permission_grant": {
     "message": "授予權限"
@@ -1246,22 +1287,22 @@
     "message": "正在連線…"
   },
   "js_options_backup_drive_auth_error": {
-    "message": "無法連線至 Google，請再試一次。"
+    "message": "無法連線到 Google，請再試一次。"
   },
   "html_options_settings_backup": {
     "message": "設定備份"
   },
   "html_backup_settings_desc": {
-    "message": "將所有擴充功能設定匯出為 JSON 檔案，可作為備份，或用於將您的設定轉移至其他瀏覽器設定檔。匯入檔案將取代目前的設定。"
+    "message": "將所有擴充功能設定匯出為 JSON 檔案，可用於備份或將設定轉移到其他瀏覽器設定檔。匯入檔案會取代目前的設定。"
   },
   "html_backup_local_folder_hint": {
-    "message": "本機備份會存放於下載資料夾內的 tms-backups 目錄。"
+    "message": "本機備份會儲存到下載資料夾中的 tms-backups 資料夾。"
   },
   "html_backup_drive_folder_note": {
-    "message": "備份會儲存於您 Google 雲端硬碟中的 'TMS Backups' 資料夾。"
+    "message": "備份會儲存到你 Google 雲端硬碟中的「TMS Backups」資料夾。"
   },
   "html_backup_drive_open_folder": {
-    "message": "在雲端硬碟開啟 TMS Backups 資料夾 ↗"
+    "message": "在雲端硬碟中開啟 TMS Backups 資料夾 ↗"
   },
   "html_backup_drive_label_account": {
     "message": "帳戶"
@@ -1276,19 +1317,19 @@
     "message": "Google 雲端硬碟"
   },
   "html_backup_drive_save_settings": {
-    "message": "將設定儲存至雲端硬碟"
+    "message": "將設定儲存到雲端硬碟"
   },
   "html_backup_settings_drive_restore": {
     "message": "從雲端硬碟還原設定"
   },
   "js_backup_drive_settings_saving": {
-    "message": "正在儲存至雲端硬碟…"
+    "message": "正在儲存到雲端硬碟…"
   },
   "js_backup_drive_settings_saved": {
-    "message": "設定已儲存至雲端硬碟。"
+    "message": "設定已儲存到雲端硬碟。"
   },
   "js_backup_drive_settings_error": {
-    "message": "無法將設定儲存至雲端硬碟，請再試一次。"
+    "message": "無法將設定儲存到雲端硬碟，請再試一次。"
   },
   "js_backup_cooldown": {
     "message": "請等待 $seconds$ 秒後再進行下一次備份。",
@@ -1302,7 +1343,7 @@
     "message": "正在從雲端硬碟下載設定…"
   },
   "js_backup_settings_drive_not_found": {
-    "message": "在雲端硬碟中找不到設定檔案。請先將設定儲存至雲端硬碟。"
+    "message": "在雲端硬碟上找不到設定檔案，請先將設定儲存到雲端硬碟。"
   },
   "js_backup_settings_drive_restore_success": {
     "message": "設定已還原，正在重新載入…"
@@ -1319,7 +1360,7 @@
     }
   },
   "js_backup_settings_drive_overwrite_confirm": {
-    "message": "已存在 $date$ 的設定備份，是否覆寫？",
+    "message": "已有來自 $date$ 的設定備份，要覆寫嗎？",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1333,7 +1374,7 @@
     "message": "匯入設定"
   },
   "js_options_settings_import_confirm": {
-    "message": "此操作將覆寫您目前的設定，是否繼續？"
+    "message": "這會覆寫你目前的設定，要繼續嗎？"
   },
   "js_options_settings_import_success": {
     "message": "設定已匯入，正在重新載入…"
@@ -1348,7 +1389,7 @@
     "message": "從備份還原"
   },
   "html_backup_restore_desc": {
-    "message": "匯入備份檔案，將其還原為已儲存的工作階段。匯入後，開啟「工作階段」以選擇要還原的視窗。"
+    "message": "匯入備份檔案，將其還原為已儲存的工作階段。匯入完成後，請開啟「工作階段」選擇要還原的視窗。"
   },
   "html_backup_restore_local_title": {
     "message": "本機檔案"
@@ -1360,7 +1401,7 @@
     "message": "選擇備份檔案"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "選擇雲端硬碟備份"
+    "message": "選擇一個雲端硬碟備份"
   },
   "html_backup_restore_import": {
     "message": "匯入所選項目"
@@ -1377,22 +1418,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ 開啟工作階段以進行還原"
+    "message": "→ 前往「工作階段」進行還原"
   },
   "js_backup_restore_error_invalid": {
     "message": "備份檔案無效。"
   },
   "js_backup_restore_error_drive": {
-    "message": "無法從雲端硬碟下載，請檢查網路連線後再試一次。"
+    "message": "無法從雲端硬碟下載，請檢查你的網路連線後再試一次。"
   },
   "js_backup_restore_error_generic": {
     "message": "匯入失敗，請再試一次。"
   },
   "html_backup_drive_import_modal_title": {
-    "message": "切換前是否要儲存雲端硬碟備份？"
+    "message": "切換前要先將雲端硬碟備份儲存起來嗎？"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "您最近的雲端硬碟備份來自 $date$。將其儲存為工作階段管理員中的工作階段，即可在不需要 Google 雲端硬碟的情況下還原它。",
+    "message": "你最近一次的雲端硬碟備份是在 $date$。將其另存為「工作階段管理員」中的工作階段，就能在不需要 Google 雲端硬碟的情況下還原。",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1400,7 +1441,7 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "儲存至工作階段"
+    "message": "儲存到工作階段"
   },
   "html_backup_drive_import_modal_cancel": {
     "message": "略過"
@@ -1415,16 +1456,16 @@
     "message": "刪除"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "確定要刪除雲端硬碟中的這個備份檔案嗎？此操作無法復原。"
+    "message": "要從雲端硬碟刪除這個備份檔案嗎？此操作無法復原。"
   },
   "html_backup_drive_delete_device_btn": {
     "message": "全部刪除"
   },
   "html_backup_drive_delete_device_modal_title": {
-    "message": "刪除此裝置的所有備份？"
+    "message": "要刪除這台裝置的所有備份嗎？"
   },
   "html_backup_drive_delete_device_modal_body": {
-    "message": "此操作將從 Google 雲端硬碟永久刪除「$device$」的全部 $count$ 個備份檔案，且無法復原。",
+    "message": "這會從 Google 雲端硬碟永久刪除「$device$」的全部 $count$ 個備份檔案。此操作無法復原。",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -1441,10 +1482,10 @@
     "message": "取消"
   },
   "js_backup_drive_delete_device_error": {
-    "message": "部分備份檔案刪除失敗，請重試。"
+    "message": "有些備份檔案無法刪除，請再試一次。"
   },
   "html_backup_drive_no_files": {
-    "message": "在雲端硬碟中找不到備份檔案。"
+    "message": "在雲端硬碟上找不到任何備份檔案。"
   },
   "html_backup_drive_files_loading": {
     "message": "正在載入…"

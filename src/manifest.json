@@ -5,6 +5,7 @@
   "default_locale": "en",
   "permissions": [
     "tabs",
+    "activeTab",
     "storage",
     "history",
     "unlimitedStorage",
@@ -20,7 +21,8 @@
     "identity"
   ],
   "optional_host_permissions": [
-    "file:///*"
+    "file:///*",
+    "<all_urls>"
   ],
   "oauth2": {
     "client_id": "630779328171-1ijjbqo2n5k675q4rdp3q55fjuk0dnhh.apps.googleusercontent.com",
