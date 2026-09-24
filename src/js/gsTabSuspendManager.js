@@ -301,6 +301,10 @@ export const gsTabSuspendManager = (function() {
     queuedTabDetails.executionProps.resolveFn(success);
   }
 
+  function isSuspensionInProgress(tab) {
+    return getQueuedTabDetails(tab)?.status === _suspensionQueue?.STATUS_IN_PROGRESS;
+  }
+
   function getQueuedTabDetails(tab) {
     if (!_suspensionQueue) {
       gsUtils.warning(tab.id, QUEUE_ID, 'getQueuedTabDetails', 'Queue not initialized.  This should never fire.');
@@ -686,5 +690,6 @@ export const gsTabSuspendManager = (function() {
     checkTabEligibilityForSuspension,
     executeTabSuspension,
     getQueuedTabDetails,
+    isSuspensionInProgress,
   };
 })();
