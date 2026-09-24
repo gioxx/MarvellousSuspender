@@ -530,6 +530,30 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "或者 Chrome 意外當機，請嘗試關閉此功能。"
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "擷取方式"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "自動（建議）"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "僅使用瀏覽器螢幕截圖"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "僅使用頁面轉譯器"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "自動模式下，如果被暫停的分頁正是您目前檢視的分頁，就會使用瀏覽器原生螢幕截圖。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "原生截圖瞬間完成，而且適用於所有網站。其他分頁則由速度較慢的頁面轉譯器重新繪製。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "「僅使用瀏覽器螢幕截圖」不會執行頁面轉譯器，因此在背景暫停的分頁沒有預覽圖。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "即使選擇了「擷取整個頁面」，瀏覽器螢幕截圖也只包含頁面的可見部分。"
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "啟用高畫質的螢幕擷取模式"
   },

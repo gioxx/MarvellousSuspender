@@ -530,6 +530,30 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "crashing unexpectedly, try turning this feature off."
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "Capture method"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "Automatic (recommended)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "Browser screenshot only"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "Page renderer only"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "Automatic takes a real browser screenshot when the tab being suspended is the one you are looking at."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "That is instant and works on every site. Any other tab is redrawn by the page renderer, which is slower."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "Browser screenshot only never runs the page renderer, so tabs suspended in the background get no preview."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "A browser screenshot only covers the visible part of the page, even with 'Capture entire page' selected."
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "Enable high quality screen capture mode"
   },

@@ -530,6 +530,30 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "予期せずクラッシュする場合は、この機能をオフにしてみてください。"
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "キャプチャ方法"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "自動（推奨）"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "ブラウザのスクリーンショットのみ"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "ページレンダラーのみ"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "自動では、サスペンドするタブが現在表示中のタブである場合に、ブラウザ本来のスクリーンショットを撮影します。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "これは一瞬で完了し、すべてのサイトで動作します。それ以外のタブは、より低速なページレンダラーで再描画されます。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "「ブラウザのスクリーンショットのみ」ではページレンダラーを一切実行しないため、バックグラウンドでサスペンドされたタブにはプレビューがありません。"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "ブラウザのスクリーンショットは、「ページ全体をキャプチャ」を選択していても、ページの表示部分のみが対象です。"
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "高品質スクリーンキャプチャモードを有効にする"
   },

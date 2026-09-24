@@ -14,6 +14,7 @@ export const gsTabSuspendManager = (function() {
 
   const DEFAULT_CONCURRENT_SUSPENSIONS = 3;
   const DEFAULT_SUSPENSION_TIMEOUT = 60 * 1000;
+  const NATIVE_CAPTURE_TIMEOUT = 1500;
 
   const QUEUE_ID = 'suspensionQueue';
 
@@ -161,6 +162,7 @@ export const gsTabSuspendManager = (function() {
     // not be set?
     // Do not bypass loading state if screen capture is required
     let screenCaptureMode = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
+    const screenCaptureMethod = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_METHOD);
     if (tab.status === 'loading') {
       const savedTabInfo = await gsIndexedDb.fetchTabInfo(tab.url);
       if (screenCaptureMode === '0' && savedTabInfo) {
@@ -213,6 +215,21 @@ export const gsTabSuspendManager = (function() {
       const success = await executeTabSuspension(tab, suspendedUrl);
       resolve(success);
       return;
+    }
+
+    // captureVisibleTab can only ever see the viewport, so 'entire page' goes to the renderer first
+    const nativeFirst = screenCaptureMethod === 'native' || (screenCaptureMethod === 'auto' && screenCaptureMode === '1');
+    if (nativeFirst) {
+      executionProps.nativeCaptureTried = true;
+      const previewUrl = await captureVisibleTabPreview(tab);
+      if (previewUrl) {
+        await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
+      }
+      if (previewUrl || screenCaptureMethod === 'native') {
+        const success = await executeTabSuspension(tab, suspendedUrl);
+        resolve(success);
+        return;
+      }
     }
 
     // Hack. Save handle to resolve function so we can call it later
@@ -268,8 +285,12 @@ export const gsTabSuspendManager = (function() {
 
     if (!previewUrl) {
       gsUtils.warning(tab.id, QUEUE_ID, 'savePreviewData reported an error: ', errorMsg,);
+      const screenCaptureMethod = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_METHOD);
+      if (screenCaptureMethod === 'auto' && !queuedTabDetails.executionProps.nativeCaptureTried) {
+        previewUrl = await captureVisibleTabPreview(tab);
+      }
     }
-    else {
+    if (previewUrl) {
       await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
     }
 
@@ -495,6 +516,45 @@ export const gsTabSuspendManager = (function() {
     // if (faviconMeta) {
     //   await gsFavicon.saveFaviconMetaToCache(tab.url, faviconMeta);
     // }
+  }
+
+  // Resolves with a data url, or null whenever the tab can't be captured natively:
+  // not the active tab of its window, no activeTab grant, window minimized, protected page
+  async function captureVisibleTabPreview(tab) {
+    const isCapturable = async () => {
+      const _tab = await gsChrome.tabsGet(tab.id);
+      return !!_tab && _tab.active && !gsUtils.isSuspendedTab(_tab);
+    };
+    if (!await isCapturable()) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab is not visible. Skipping native capture.');
+      return null;
+    }
+
+    const forceScreenCapture = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_FORCE);
+    const options = { format: 'jpeg', quality: forceScreenCapture ? 92 : 50 };
+    let timer;
+    try {
+      // captureVisibleTab never settles for a window that isn't painting (occluded, display asleep)
+      const previewUrl = await Promise.race([
+        chrome.tabs.captureVisibleTab(tab.windowId, options),
+        new Promise((resolve, reject) => {
+          timer = setTimeout(() => reject(new Error('Timed out')), NATIVE_CAPTURE_TIMEOUT);
+        }),
+      ]);
+      // The capture is of whichever tab is active at that instant, so make sure it was still ours
+      if (!await isCapturable()) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Tab lost visibility during native capture. Discarding.');
+        return null;
+      }
+      return previewUrl ?? null;
+    }
+    catch (e) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Native capture failed', e.message);
+      return null;
+    }
+    finally {
+      clearTimeout(timer);
+    }
   }
 
   async function requestGeneratePreviewImage(tab, previewToken) {

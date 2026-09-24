@@ -530,6 +530,30 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "або раптовий збій у роботі браузера, спробуйте вимкнути цю функцію."
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "Спосіб захоплення"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "Автоматично (рекомендовано)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "Лише знімок браузера"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "Лише відмальовування сторінки"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "В автоматичному режимі робиться справжній знімок браузера, якщо вкладка, що призупиняється, зараз відкрита перед вами."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "Це відбувається миттєво і працює на будь-якому сайті. Решту вкладок перемальовує відмальовувач сторінки, що повільніше."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "Режим «Лише знімок браузера» ніколи не запускає відмальовувач сторінки, тому вкладки, призупинені у фоні, залишаються без попереднього перегляду."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "Знімок браузера охоплює лише видиму частину сторінки, навіть якщо вибрано захоплення всієї сторінки."
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "Увімкнути режим високої якості знімків екрана"
   },

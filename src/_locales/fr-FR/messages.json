@@ -422,6 +422,30 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "plantant inopinément, essayez de désactiver cette fonctionnalité."
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "Méthode de capture"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "Automatique (recommandé)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "Capture du navigateur uniquement"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "Moteur de rendu de page uniquement"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "Automatique prend une vraie capture du navigateur lorsque l'onglet suspendu est celui que vous regardez."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "C'est instantané et cela fonctionne sur tous les sites. Les autres onglets sont redessinés par le moteur de rendu de page, plus lent."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "Capture du navigateur uniquement n'exécute jamais le moteur de rendu de page : les onglets suspendus en arrière-plan n'ont donc pas d'aperçu."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "Une capture du navigateur ne couvre que la partie visible de la page, même si 'Capturer la page entière' est sélectionné."
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "Activer le mode de capture d'écran haute qualité"
   },

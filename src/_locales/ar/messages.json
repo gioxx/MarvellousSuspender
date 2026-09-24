@@ -530,6 +530,30 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "تعطل بشكل غير متوقع، حاول إيقاف تشغيل هذه الميزة."
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "طريقة الالتقاط"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "تلقائي (موصى به)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "لقطة شاشة المتصفح فقط"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "عارض الصفحة فقط"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "يلتقط الوضع التلقائي لقطة شاشة حقيقية من المتصفح عندما تكون علامة التبويب المراد تعليقها هي التي تنظر إليها."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "يتم ذلك فورًا ويعمل على جميع المواقع. أما علامات التبويب الأخرى فيعيد عارض الصفحة رسمها، وهو أبطأ."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "وضع لقطة شاشة المتصفح فقط لا يشغّل عارض الصفحة أبدًا، لذا لا تحصل علامات التبويب المعلّقة في الخلفية على معاينة."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "لقطة شاشة المتصفح تغطي الجزء المرئي من الصفحة فقط، حتى عند اختيار التقاط الصفحة بأكملها."
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "تمكين وضع التقاط الشاشة بجودة عالية"
   },

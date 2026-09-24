@@ -530,6 +530,30 @@
   "html_options_suspend_screen_capturing_tooltip_line3b": {
     "message": "unerwartet abstürzt, solltest du diese Einstellung deaktivieren."
   },
+  "html_options_suspend_screen_capture_method": {
+    "message": "Aufnahmemethode"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "Automatisch (empfohlen)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "Nur Browser-Screenshot"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "Nur Seiten-Renderer"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "Automatisch erstellt einen echten Browser-Screenshot, wenn der zu suspendierende Tab gerade sichtbar ist."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "Das geschieht sofort und funktioniert auf jeder Website. Alle anderen Tabs werden vom langsameren Seiten-Renderer nachgezeichnet."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "Nur Browser-Screenshot führt den Seiten-Renderer nie aus, daher erhalten im Hintergrund suspendierte Tabs keine Vorschau."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "Ein Browser-Screenshot erfasst nur den sichtbaren Teil der Seite, auch wenn 'Gesamte Seite aufnehmen' gewählt ist."
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "Hochwertige Bildschirmaufnahmen aktivieren"
   },
