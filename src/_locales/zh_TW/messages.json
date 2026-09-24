@@ -832,6 +832,9 @@
   "html_permissions_backup": {
     "message": "請註意：改變這個設定可能會使你當前所有的暫停分頁短暫的消失。\n以防萬一，最好對當前分頁的瀏覽階段的做備份。"
   },
+  "html_permissions_return_hint": {
+    "message": "歡迎回來:請再次點擊按鈕以完成本機檔案存取權限的授予。"
+  },
   "html_update_title": {
     "message": "更新"
   },

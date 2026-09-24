@@ -832,6 +832,9 @@
   "html_permissions_backup": {
     "message": "Upozornění: Změnou tohoto nastavení dočasně zmizí všechny vaše pozastavené karty.\nPro jistotu je nyní vhodná chvíle uložit zálohu aktuální relace karet."
   },
+  "html_permissions_return_hint": {
+    "message": "Vítejte zpět: klikněte znovu na tlačítko a dokončete udělení přístupu k místním souborům."
+  },
   "html_update_title": {
     "message": "Aktualizace"
   },

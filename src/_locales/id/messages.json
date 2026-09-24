@@ -832,6 +832,9 @@
   "html_permissions_backup": {
     "message": "Harap diperhatikan: Mengubah opsi ini akan menyebabkan semua tab yang ditangguhkan milik Anda akan menghilang secara singkat.\nJika, sekarang mungkin adalah satu waktu yang tepat untuk menyimpan cadangan sesi tab Anda saat ini."
   },
+  "html_permissions_return_hint": {
+    "message": "Selamat datang kembali: klik tombolnya lagi sekarang untuk menyelesaikan pemberian akses file lokal."
+  },
   "html_update_title": {
     "message": "Perbarui"
   },

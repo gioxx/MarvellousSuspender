@@ -832,6 +832,9 @@
   "html_permissions_backup": {
     "message": "Observação: a alteração dessa opção fará com que todas as suas guias suspensas desapareçam brevemente.\nNeste caso, agora pode ser um bom momento para fazer um backup da sua sessão de guias atuais."
   },
+  "html_permissions_return_hint": {
+    "message": "Bem-vindo de volta: clique no botão novamente agora para concluir a concessão de acesso a ficheiros locais."
+  },
   "html_update_title": {
     "message": "Atualização"
   },

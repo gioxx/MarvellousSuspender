@@ -723,6 +723,18 @@ a.btn.btnNeg:hover {
   color: var(--foreground);
 }
 
+/* permissions.html: draws the eye back to a button whose next click needs a real user
+   gesture (chrome.permissions.request()), after the user returns from a detour to
+   chrome://extensions where nothing else prompts them to come back (#514). */
+.pulse-attention {
+  animation: pulseAttention 0.6s ease-in-out 2;
+}
+
+@keyframes pulseAttention {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.08); }
+}
+
 /* ── Whitelist test: result modal ────────────────────────────────────────── */
 
 .modalOverlay {

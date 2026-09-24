@@ -832,6 +832,9 @@
   "html_permissions_backup": {
     "message": "Remarque : changer cette option fera disparaître brièvement tous vos onglets suspendus.\nAu cas où, le moment est peut-être bien choisi pour enregistrer une sauvegarde de votre session d'onglets en cours."
   },
+  "html_permissions_return_hint": {
+    "message": "Bienvenue de retour : cliquez de nouveau sur le bouton pour terminer l'octroi de l'accès aux fichiers locaux."
+  },
   "html_update_title": {
     "message": "Mis à jour"
   },

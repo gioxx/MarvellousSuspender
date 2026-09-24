@@ -2,6 +2,7 @@
 import  { gsChrome }              from './gsChrome.js';
 import  { gsIndexedDb }           from './gsIndexedDb.js';
 import  { gsMessages }            from './gsMessages.js';
+import  { gsSession }             from './gsSession.js';
 import  { gsStorage }             from './gsStorage.js';
 import  { gsTabCheckManager }     from './gsTabCheckManager.js';
 import  { gsTabDiscardManager }   from './gsTabDiscardManager.js';
@@ -366,6 +367,14 @@ export const gsTabSuspendManager = (function() {
       // actually allow suspended tabs to attempt suspension in case they are
       // in the process of being reloaded and we have changed our mind and
       // want to suspend them again.
+      // isSpecialTab()'s isBlockedFileTab() check reads gsSession's cached file-access
+      // state synchronously; refresh it first so a long-lived background worker started
+      // before the user enabled file access doesn't keep rejecting file:// tabs as
+      // special after a freshly opened popup would already show them as suspendable
+      // (Codex review, #514).
+      if (gsUtils.isFileTab(tab)) {
+        await gsSession.ensureFileUrlsStateReady();
+      }
       if (gsUtils.isSpecialTab(tab)) {
         return false;
       }

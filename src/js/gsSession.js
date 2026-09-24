@@ -16,7 +16,35 @@ export const gsSession = (function() {
   const updateUrl   = chrome.runtime.getURL('update.html');
   const updatedUrl  = chrome.runtime.getURL('updated.html');
 
-  let fileUrlsAccessAllowed = false;
+  let fileUrlsAccessAllowed  = false;
+  let fileHostPermissionGranted = false;
+  const FILE_HOST_ORIGIN = 'file:///*';
+
+  // fileUrlsAccessAllowed/fileHostPermissionGranted are per-context module state: each
+  // extension page (popup, debug.html, options.html, ...) that imports this module gets
+  // its own separate instance, and only background.js's instance ever runs
+  // initAsPromised(). tgs.js's calculateTabStatus() is also called directly - not just
+  // via message to the background - from popup.js and debug.js, so their own instances
+  // need this resolved too (#514 Codex review). Kicked off once at module load, in every
+  // context, rather than only inside initAsPromised(); callers that gate on file:// tabs
+  // await fileUrlsStateReadyPromise first so they never read the pre-resolution default.
+  const fileUrlsStateReadyPromise = initFileUrlsState();
+
+  async function refreshFileUrlsAccessAllowed() {
+    await new Promise((resolve) => {
+      chrome.extension.isAllowedFileSchemeAccess((isAllowedAccess) => {
+        fileUrlsAccessAllowed = isAllowedAccess;
+        resolve(null);
+      });
+    });
+  }
+
+  async function initFileUrlsState() {
+    await refreshFileUrlsAccessAllowed();
+    await refreshFileHostPermissionGranted();
+    chrome.permissions.onAdded.addListener(refreshFileHostPermissionGranted);
+    chrome.permissions.onRemoved.addListener(refreshFileHostPermissionGranted);
+  }
 
   // Favicon-repair backstop (#474). The startup favicon pass (runStartupChecks ->
   // performTabChecks) can be skipped or cut short on Chromium forks whose onStartup is
@@ -47,13 +75,9 @@ export const gsSession = (function() {
   let _faviconRepairLastFinishedAt = 0; // Date.now() of the last completed cycle, for the gap above
 
   async function initAsPromised() {
-    // Set fileUrlsAccessAllowed to determine if extension can work on file:// URLs
-    await new Promise((resolve) => {
-      chrome.extension.isAllowedFileSchemeAccess((isAllowedAccess) => {
-        fileUrlsAccessAllowed = isAllowedAccess;
-        resolve(null);
-      });
-    });
+    // fileUrlsAccessAllowed/fileHostPermissionGranted are already being resolved by the
+    // module-load initFileUrlsState() above; just wait for it here too.
+    await fileUrlsStateReadyPromise;
 
     //remove any update screens
     await Promise.all([
@@ -146,6 +170,42 @@ export const gsSession = (function() {
 
   function isFileUrlsAccessAllowed() {
     return fileUrlsAccessAllowed;
+  }
+
+  async function refreshFileHostPermissionGranted() {
+    fileHostPermissionGranted = await chrome.permissions.contains({ origins: [FILE_HOST_ORIGIN] });
+  }
+
+  // Whether file:// tabs are actually suspendable right now: both the browser-level
+  // "Allow access to file URLs" toggle and the file:///* host permission grant are
+  // required (#514 - having only the toggle on is not enough).
+  function isFileUrlsUsable() {
+    return fileUrlsAccessAllowed && fileHostPermissionGranted;
+  }
+
+  // Await this before a call that gates on isFileUrlsUsable/isFileUrlsAccessAllowed: it
+  // both makes sure this context's own copy of the two flags above has resolved at least
+  // once (e.g. tgs.calculateTabStatus() called directly from popup.js/debug.js, whose own
+  // gsSession instance never runs initAsPromised()), and re-checks the toggle live every
+  // call, not only the first. Unlike fileHostPermissionGranted, which chrome.permissions'
+  // onAdded/onRemoved keep fresh, there is no change event for the "Allow access to file
+  // URLs" toggle - a long-lived context (the background service worker, or this same
+  // permissions.html tab left open across a trip to chrome://extensions) would otherwise
+  // keep reading a stale snapshot from module load for its entire lifetime (Codex review,
+  // #514). The check itself is a cheap local call, so re-running it on every await here
+  // costs nothing worth caching against.
+  function ensureFileUrlsStateReady() {
+    // Refresh both flags here, rather than leaving fileHostPermissionGranted to the
+    // separate chrome.permissions.onAdded/onRemoved listeners registered by
+    // initFileUrlsState(): those fire independently for the same event with no
+    // guaranteed ordering against a caller's own onAdded listener (e.g. background.js's,
+    // arming auto-suspend timers for already-open file:// tabs), which could otherwise
+    // read fileHostPermissionGranted before that separate listener's own
+    // chrome.permissions.contains() call has resolved (Codex review, #514).
+    return fileUrlsStateReadyPromise.then(() => Promise.all([
+      refreshFileUrlsAccessAllowed(),
+      refreshFileHostPermissionGranted(),
+    ]));
   }
 
   async function getUpdateType() {
@@ -978,6 +1038,8 @@ export const gsSession = (function() {
     isInitialising,
     isUpdated,
     isFileUrlsAccessAllowed,
+    isFileUrlsUsable,
+    ensureFileUrlsStateReady,
     setSynchedSettingsOnInit,
     recoverLostTabs,
     triggerDiscardOfAllTabs,

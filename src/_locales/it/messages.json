@@ -832,6 +832,9 @@
   "html_permissions_backup": {
     "message": "Nota: la modifica di questa opzione causerà la scomparsa di tutte le schede sospese.\nPer l'evenienza, ora potrebbe essere un buon momento per salvare un backup della sessione di schede correnti."
   },
+  "html_permissions_return_hint": {
+    "message": "Bentornato: clicca di nuovo il pulsante ora per completare la concessione dell'accesso ai file locali."
+  },
   "html_update_title": {
     "message": "Aggiorna"
   },

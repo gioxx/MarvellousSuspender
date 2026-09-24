@@ -268,7 +268,8 @@ export const gsTabCheckManager = (function() {
     // frozen-tab shortcut below because this only navigates the tab (no message to the
     // page), so it must still run for a frozen blocked-file tab rather than being
     // pre-empted by that shortcut reporting it as a healthy suspended tab.
-    if (!gsSession.isFileUrlsAccessAllowed()) {
+    await gsSession.ensureFileUrlsStateReady();
+    if (!gsSession.isFileUrlsUsable()) {
       const url = tab.url || tab.pendingUrl;
       const originalUrl = gsUtils.getOriginalUrl(url);
       if (originalUrl && originalUrl.indexOf('file') === 0) {
