@@ -1234,7 +1234,11 @@
   },
   "js_options_backup_next_run": {
     "message": "下次執行：$time$",
-    "placeholders": { "time": { "content": "$1" } }
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_backup_last_local": {
     "message": "上次備份：$date$",
