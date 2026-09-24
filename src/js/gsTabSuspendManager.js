@@ -227,10 +227,22 @@ export const gsTabSuspendManager = (function() {
       executionProps.nativeCaptureTried = true;
       const previewUrl = await gsPrecapture.captureVisibleTab(tab)
         ?? await gsPrecapture.take(tab.id, executionProps.precaptureUrl);
+      // The capture above awaits, so this job could have been unqueued (a focus/unsuspend-all
+      // racing the native capture) while it was in flight -- check it's still the queue's
+      // current job for this tab before suspending it, same as handlePreviewImageResponse does.
+      const queuedTabDetails = getQueuedTabDetails(tab);
+      if (!queuedTabDetails || queuedTabDetails.executionProps !== executionProps) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while awaiting native capture. Ignoring.',);
+        return;
+      }
       if (previewUrl) {
         await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
       }
       if (previewUrl || screenCaptureMethod === 'native') {
+        if (!await checkTabEligibilityForSuspension(tab, executionProps.forceLevel)) {
+          gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.',);
+          return;
+        }
         const success = await executeTabSuspension(tab, suspendedUrl);
         resolve(success);
         return;
