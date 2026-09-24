@@ -282,6 +282,9 @@ import  { tgs }                   from './tgs.js';
         }
         else {
           await gsPrecapture.clear();
+          // Least-privilege: don't leave the broad host permission granted once the feature
+          // it was requested for is switched off. Re-enabling asks for it again.
+          await chrome.permissions.remove(gsPrecapture.ALL_URLS).catch(() => {});
         }
       }
       else if (pref === gsStorage.SUSPEND_TIME) {
