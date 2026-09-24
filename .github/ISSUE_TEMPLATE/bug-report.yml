@@ -120,8 +120,11 @@ body:
     attributes:
       label: Diagnostic report
       description: >
-        Strongly recommended. Paste a debug.html captureLogs report and/or a Tab Health report.
-        See [how to get one](https://kb.marvellouscode.works/docs/TMS/pages/diagnostic-page).
+        Strongly recommended. A Tab Health report can be pasted directly here.
+        A debug.html captureLogs report can include tab titles/URLs, so upload it to
+        [logdrop](https://logdrop.marvellouscode.works) instead and paste the link it gives you here,
+        only the maintainer can read it, and it expires on its own.
+        See [how to get a report](https://kb.marvellouscode.works/docs/TMS/pages/diagnostic-page).
         For intermittent or long-idle bugs this is often the only way to find the cause.
       render: text
     validations:
