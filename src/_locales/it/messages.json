@@ -832,6 +832,9 @@
   "html_permissions_backup": {
     "message": "Nota: la modifica di questa opzione causerà la scomparsa di tutte le tab sospese.\nPer l'evenienza, ora potrebbe essere un buon momento per salvare un backup della sessione di tab correnti."
   },
+  "html_permissions_return_hint": {
+    "message": "Welcome back — click the button again now to finish granting local file access."
+  },
   "html_update_title": {
     "message": "Aggiorna"
   },
