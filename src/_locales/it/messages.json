@@ -554,6 +554,27 @@
   "html_options_suspend_screen_capture_method_tooltip_line4": {
     "message": "Lo screenshot del browser copre solo la parte visibile della pagina, anche se è selezionato 'Cattura l'intera pagina'."
   },
+  "html_options_suspend_screen_capture_precapture": {
+    "message": "Mantieni una schermata recente delle schede man mano che le uso"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line1": {
+    "message": "Cattura uno screenshot del browser di una scheda circa un secondo dopo che vi passi sopra o dopo che ha finito di caricarsi,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
+    "message": "cosicché le schede sospese successivamente in background ottengano comunque un'anteprima."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line3": {
+    "message": "Chrome consente a un'estensione di fotografare una scheda su cui non hai cliccato il suo pulsante solo se ha accesso a tutti i siti,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
+    "message": "quindi attivando questa opzione viene richiesto tale permesso. Viene usato solo per acquisire questi screenshot, che restano su questo computer."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line5": {
+    "message": "Viene conservato solo l'ultimo screenshot di ciascuna scheda aperta, ed eliminato alla chiusura della scheda."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
+    "message": "Le schede in incognito e i siti in whitelist non vengono mai catturati."
+  },
   "html_options_suspend_force_screen_capture": {
     "message": "Abilita la modalità di cattura dello schermo in alta qualità"
   },
