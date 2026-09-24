@@ -268,6 +268,14 @@ export const gsTabSuspendManager = (function() {
           resolve(false);
           return;
         }
+        // One more check immediately before the actual suspension: tabsGet() and the
+        // eligibility check above both await too, and an unsuspend-all racing either of them
+        // still passes eligibility for e.g. a force-level-1 job even though the job was removed.
+        const stillQueuedBeforeSuspend = getQueuedTabDetails(tab);
+        if (!stillQueuedBeforeSuspend || stillQueuedBeforeSuspend.executionProps !== executionProps) {
+          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled just before native suspension. Ignoring.',);
+          return;
+        }
         const success = await executeTabSuspension(tab, suspendedUrl);
         resolve(success);
         return;
@@ -366,6 +374,14 @@ export const gsTabSuspendManager = (function() {
         gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while saving preview. Ignoring.',);
         return;
       }
+    }
+    // Unconditional, not folded into the block above: when both the renderer and the fallback
+    // capture fail, previewUrl stays null and execution reaches here with no await, and
+    // therefore no recheck, since the eligibility check further up. This closes that gap too.
+    const stillQueuedBeforeSuspend = getQueuedTabDetails(tab);
+    if (!stillQueuedBeforeSuspend || stillQueuedBeforeSuspend.executionProps !== expectedExecutionProps) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled just before suspension. Ignoring.',);
+      return;
     }
 
     const success = await executeTabSuspension(

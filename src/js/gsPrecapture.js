@@ -223,6 +223,11 @@ export const gsPrecapture = (function() {
     const isOn = changes.gsSettings.newValue?.[gsStorage.SCREEN_CAPTURE_PRECAPTURE];
     if (!wasOn || isOn) return;
     await clear();
+    // Re-read rather than trusting the isOn captured above: a quick re-enable racing this
+    // whole handler could already have turned it back on and re-requested the permission by
+    // the time clear() resolves, and revoking it now would leave the checkbox checked with
+    // isEnabled() permanently false until the user toggles the setting again.
+    if (await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_PRECAPTURE)) return;
     await chrome.permissions.remove(ALL_URLS).catch(() => {});
   });
 
