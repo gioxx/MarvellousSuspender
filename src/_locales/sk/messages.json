@@ -848,7 +848,7 @@
     "message": "Pre pokročilú správu relácií navštívte stránku"
   },
   "html_success_goto_advanced_suffix": {
-    "message": ""
+    "message": "."
   },
   "html_session_manager": {
     "message": "správy relácií"
@@ -1234,7 +1234,11 @@
   },
   "js_options_backup_next_run": {
     "message": "Ďalšie spustenie: $time$",
-    "placeholders": { "time": { "content": "$1" } }
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_backup_last_local": {
     "message": "Posledná záloha: $date$",
