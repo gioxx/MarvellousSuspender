@@ -778,6 +778,12 @@ import  { tgs }                   from './tgs.js';
     chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
       gsUtils.log(removedTabId, 'tab onReplaced', addedTabId, removedTabId);
       gsPrecapture.remove(removedTabId);
+      // Prerender/instant-tab promotion keeps the tab on screen but changes its id without
+      // necessarily also firing onActivated, so the promoted tab would otherwise go unscheduled.
+      const addedTab = await gsChrome.tabsGet(addedTabId);
+      if (addedTab?.active) {
+        gsPrecapture.schedule(addedTabId);
+      }
       tgs.queueSessionTimer();
       await tgs.removeTabIdReferences(removedTabId);
     });

@@ -50,6 +50,7 @@ export const gsTabSuspendManager = (function() {
   function _clearPendingPreview(tabId, executionProps) {
     const pending = _pendingPreviewExecutionPropsByTabId.get(tabId);
     if (pending && pending.executionProps === executionProps) {
+      clearTimeout(pending.renderTimeoutTimer);
       _pendingPreviewExecutionPropsByTabId.delete(tabId);
     }
   }
@@ -273,6 +274,7 @@ export const gsTabSuspendManager = (function() {
       gsUtils.log(tab.id, QUEUE_ID, 'Preview response is for a superseded suspension job. Ignoring.',);
       return;
     }
+    clearTimeout(pending.renderTimeoutTimer);
     _pendingPreviewExecutionPropsByTabId.delete(tab.id);
     const expectedExecutionProps = pending.executionProps;
 
@@ -568,9 +570,15 @@ export const gsTabSuspendManager = (function() {
     // its main thread is busy rendering, so an in-page deadline fires late or not at all.
     // If the page answers first this call is dropped as stale by the token check.
     const renderTimeout = forceScreenCapture ? PREVIEW_RENDER_TIMEOUT_HIGH_QUALITY : PREVIEW_RENDER_TIMEOUT;
-    setTimeout(() => {
+    const renderTimeoutTimer = setTimeout(() => {
       handlePreviewImageResponse(tab, null, `Preview render timed out after ${renderTimeout}ms`, previewToken); // async. unhandled promise.
     }, renderTimeout);
+    // The map entry already exists -- performSuspension() sets it just before calling this --
+    // so a normal response can clearTimeout this instead of it always running to term.
+    const pending = _pendingPreviewExecutionPropsByTabId.get(tab.id);
+    if (pending && pending.token === previewToken) {
+      pending.renderTimeoutTimer = renderTimeoutTimer;
+    }
 
     gsMessages.executeScriptOnTab(tab.id, screenCaptureLib, error => {
       if (error) {

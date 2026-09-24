@@ -58,9 +58,19 @@ export const gsPrecapture = (function() {
   }
 
   async function doCaptureVisibleTab(tab) {
+    // Not tab.url: the suspension flow mutates its own in-memory tab.url (e.g. a YouTube
+    // timestamp) without ever navigating the real tab, so comparing against that would
+    // false-positive on every such job. This instead pins the tab's *actual* url as read on
+    // the first successful check, so a real navigation while this call awaits is still caught.
+    let startUrl;
     const isCapturable = async () => {
       const _tab = await gsChrome.tabsGet(tab.id);
-      return !!_tab && _tab.active && !gsUtils.isSuspendedTab(_tab);
+      if (!_tab || !_tab.active || gsUtils.isSuspendedTab(_tab)) return false;
+      if (startUrl === undefined) {
+        startUrl = _tab.url;
+        return true;
+      }
+      return _tab.url === startUrl;
     };
     if (!await isCapturable()) {
       return null;
@@ -182,16 +192,32 @@ export const gsPrecapture = (function() {
     }
   }
 
-  async function clear() {
+  // Bumps the generation and cancels pending timers in *this context's own* module instance.
+  // Each extension context (background, options page, popup, ...) that imports this file gets
+  // its own separate copy of this whole IIFE's state, so this alone does nothing for the other
+  // contexts -- the chrome.storage.onChanged listener below is what makes every context react,
+  // regardless of which one the setting was actually flipped from.
+  function invalidate() {
     _generation++;
-    // Cancel timers scheduled before the disable click: the generation check alone only
-    // catches a capture already past isEnabled() when this runs, not one whose timer fires
-    // afterwards -- options.js doesn't persist the setting as off until this call returns,
-    // so a freshly-fired timer's own isEnabled() would still read the stale 'true' value.
     for (const timer of _timers.values()) {
       clearTimeout(timer);
     }
     _timers.clear();
+  }
+
+  // The background service worker is normally the only context that ever schedules or runs a
+  // capture, but the setting can be flipped off from options.js's own separate module instance,
+  // whose local generation/timers are irrelevant to the worker's in-flight work. Reacting to the
+  // storage write itself, rather than only to a local clear() call, reaches every context.
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName !== 'local' || !changes.gsSettings) return;
+    const wasOn = changes.gsSettings.oldValue?.[gsStorage.SCREEN_CAPTURE_PRECAPTURE];
+    const isOn = changes.gsSettings.newValue?.[gsStorage.SCREEN_CAPTURE_PRECAPTURE];
+    if (wasOn && !isOn) invalidate();
+  });
+
+  async function clear() {
+    invalidate();
     const db = await getDb();
     await db.clear(DB_STORE);
   }
