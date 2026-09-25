@@ -676,7 +676,10 @@ export const tgs = (function() {
     });
   }
 
-  // Nothing else brings open tabs back in line.
+  // Nothing else brings open tabs back in line. All tabs at once, since each step touches only
+  // its own tab's alarm and state. That is no heavier on page loads (#282): unsuspendTab()
+  // resolves when the navigation starts, not when the page has loaded, so awaiting it tab by
+  // tab never staggered the loads, it only held the lock longer.
   async function _reconcileTabGroupTabs(groupKey, exempt) {
     // like every other writer here: nothing was saved in incognito, so change no tabs either
     if (IS_INCOGNITO_CONTEXT) {
@@ -684,22 +687,27 @@ export const tgs = (function() {
     }
     const groups = await gsChrome.tabGroupsGetAll();
     const cache = await _getTabGroupKeyCache();
-    for (const group of groups) {
-      if (gsUtils.resolveTabGroupKey(group, _lastTabGroupKey(cache, group.id)) !== groupKey) {
-        continue;
-      }
-      for (const groupTab of await gsChrome.tabsQuery({ groupId: group.id })) {
-        if (exempt) {
-          gsTabSuspendManager.unqueueTabForSuspension(groupTab);
-          if (gsUtils.isSuspendedTab(groupTab)) {
-            await unsuspendTab(groupTab);
-          }
-        }
-        else if (gsUtils.isNormalTab(groupTab, true)) {
-          await resetAutoSuspendTimerForTab(groupTab);
+    const matchingGroups = groups.filter(
+      (group) => gsUtils.resolveTabGroupKey(group, _lastTabGroupKey(cache, group.id)) === groupKey,
+    );
+    const groupTabs = (await Promise.all(
+      matchingGroups.map((group) => gsChrome.tabsQuery({ groupId: group.id })),
+    )).flat();
+    const steps = groupTabs.map(async (groupTab) => {
+      if (exempt) {
+        gsTabSuspendManager.unqueueTabForSuspension(groupTab);
+        if (gsUtils.isSuspendedTab(groupTab)) {
+          await unsuspendTab(groupTab);
         }
       }
-    }
+      else if (gsUtils.isNormalTab(groupTab, true)) {
+        await resetAutoSuspendTimerForTab(groupTab);
+      }
+    });
+    // every step settles before the lock is released, and the first failure still reaches
+    // the caller, as it did from the loop
+    await Promise.allSettled(steps);
+    await Promise.all(steps);
     setIconStatusForActiveTab();
   }
 
