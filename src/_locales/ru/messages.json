@@ -848,7 +848,7 @@
     "message": "Для расширенного управления сессиями посетите"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "страница"
+    "message": ""
   },
   "html_session_manager": {
     "message": "страницу управления сессиями"
