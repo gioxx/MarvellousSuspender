@@ -468,19 +468,19 @@
     "message": "凍結時套用瀏覽器內建的省記憶體功能"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "利用瀏覽器內建的「捨棄分頁」功能，進一步降低"
+    "message": "分頁凍結後，也讓 Chrome 將其從記憶體中"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "凍結分頁的記憶體用量。在大量分頁的情況下，最高"
+    "message": "完全卸載。這會為每個分頁釋放更多系統資源"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "可節省 500% 的記憶體。"
+    "message": "（如果你同時開啟數百個分頁會很有用）。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "不過，這也會導致選取凍結分頁時"
+    "message": "這樣做的代價是分頁的狀態會遺失，直到該分頁"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "出現些微的畫面延遲。"
+    "message": "重新載入。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "如需更多關於分頁捨棄的資訊，請參閱："

@@ -468,19 +468,19 @@
     "message": "Застосовувати вбудовану економію пам'яті браузера під час призупинення"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Додатково зменшує використання пам'яті призупиненою вкладкою завдяки"
+    "message": "Після призупинення вкладки дозвольте Chrome також повністю"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "використанню вбудованої функції браузера з вивантаження вкладок (вивантаження вкладок)"
+    "message": "вивантажити її з пам'яті. Це звільняє більше системних ресурсів"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "це може забезпечити до 500% економії пам'яті під час роботи з великою кількістю вкладок."
+    "message": "на вкладку (корисно, якщо у вас відкриті сотні вкладок)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Однак це також спричинить незначну затримку рендерингу "
+    "message": "Це відбувається за рахунок втрати стану вкладки, доки вона"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "під час вибору призупиненої вкладки."
+    "message": "не буде перезавантажена."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Детальніше про вивантаження вкладок див.:"

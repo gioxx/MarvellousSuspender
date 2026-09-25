@@ -468,19 +468,19 @@
     "message": "Aplicar a poupança de memória integrada do navegador ao suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Reduz ainda mais o uso de memória de um separador suspenso, utilizando"
+    "message": "Depois de um separador ser suspenso, permite também que o Chrome o"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "a funcionalidade integrada do navegador de 'descarte de separadores'. Isto pode resultar em"
+    "message": "descarregue totalmente da memória. Isto liberta mais recursos do"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "até 500% de poupança de memória ao trabalhar com um grande número de separadores."
+    "message": "sistema por separador (útil se mantiveres centenas de separadores abertos)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "No entanto, também causará um ligeiro atraso na renderização ao selecionar"
+    "message": "Isto tem o custo de perder o estado do separador até este ser"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "um separador suspenso."
+    "message": "recarregado."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Para mais informações sobre o descarte de separadores, consulte:"

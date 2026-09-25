@@ -468,19 +468,19 @@
     "message": "挂起时同时应用浏览器内置的省内存功能"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "通过利用浏览器内置的“标签页丢弃”功能，"
+    "message": "标签页挂起后，还会让 Chrome 将其从内存中"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "进一步降低挂起标签页的内存占用。在标签页"
+    "message": "完全卸载。这会为每个标签页释放更多系统资源"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "数量较多时，最多可节省 500% 的内存。"
+    "message": "（如果你同时打开数百个标签页会很有用）。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "但是，在选择某个挂起的标签页时，也会导致"
+    "message": "这样做的代价是标签页的状态会丢失，直到该标签页"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "轻微的渲染延迟。"
+    "message": "重新加载。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "有关标签页丢弃的更多信息，请参阅："

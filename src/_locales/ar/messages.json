@@ -468,19 +468,19 @@
     "message": "تطبيق ميزة توفير الذاكرة المدمجة في المتصفح عند التعليق"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "يقلل استهلاك الذاكرة لعلامة التبويب المعلّقة أكثر، عبر استخدام"
+    "message": "بعد تعليق علامة التبويب، اسمح أيضًا لمتصفح Chrome بإلغاء تحميلها"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "وظيفة \"إلغاء تحميل علامات التبويب\" المدمجة في المتصفح. قد يؤدي هذا إلى توفير"
+    "message": "بالكامل من الذاكرة. هذا يوفر مزيدًا من موارد النظام لكل علامة تبويب"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "يصل إلى 500% في الذاكرة عند العمل مع عدد كبير من علامات التبويب."
+    "message": "(مفيد إذا كنت تحتفظ بمئات علامات التبويب مفتوحة)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "مع ذلك، سيتسبب أيضًا في تأخير طفيف في العرض عند تحديد"
+    "message": "هذا يأتي على حساب فقدان حالة علامة التبويب حتى يتم"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "علامة تبويب معلّقة."
+    "message": "إعادة تحميلها."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "لمزيد من المعلومات حول إلغاء تحميل علامات التبويب، راجع:"

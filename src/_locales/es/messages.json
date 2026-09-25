@@ -468,19 +468,19 @@
     "message": "Aplicar el ahorro de memoria integrado del navegador al suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Reduce aún más el uso de memoria de una pestaña suspendida, utilizando"
+    "message": "Después de suspender una pestaña, permite también que Chrome la"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "la función integrada del navegador de 'descarte de pestañas'. Esto puede lograr hasta"
+    "message": "descargue por completo de la memoria. Esto libera más recursos del"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "un 500% de ahorro de memoria al trabajar con muchas pestañas."
+    "message": "sistema por pestaña (útil si mantienes cientos de pestañas abiertas)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Sin embargo, también causará un ligero retraso al renderizar cuando selecciones"
+    "message": "Esto tiene el coste de perder el estado de la pestaña hasta que"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "una pestaña suspendida."
+    "message": "se vuelva a cargar."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Para más información sobre el descarte de pestañas, consulta:"

@@ -468,19 +468,19 @@
     "message": "Terapkan penghematan memori bawaan browser saat menangguhkan"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Mengurangi penggunaan memori tab tertangguh lebih jauh lagi, dengan memanfaatkan"
+    "message": "Setelah tab ditangguhkan, izinkan juga Chrome membongkarnya"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "fungsi 'pembuangan tab' bawaan browser. Ini dapat menghasilkan hingga"
+    "message": "sepenuhnya dari memori. Ini membebaskan lebih banyak resource sistem"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "500% penghematan memori saat bekerja dengan banyak tab."
+    "message": "per tab (berguna jika Anda membuka ratusan tab sekaligus)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Namun, ini juga akan menyebabkan sedikit penundaan rendering saat Anda memilih"
+    "message": "Ini mengorbankan status tab hingga tab tersebut"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "tab tertangguh."
+    "message": "dimuat ulang."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Untuk informasi lebih lanjut tentang pembuangan tab, lihat:"
