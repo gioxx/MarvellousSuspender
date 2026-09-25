@@ -468,19 +468,19 @@
     "message": "Appliquer l'économie de mémoire intégrée du navigateur lors de la suspension"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Réduit encore davantage l'utilisation de la mémoire d'un onglet suspendu, en utilisant"
+    "message": "Une fois un onglet suspendu, laissez aussi Chrome le décharger"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "la fonctionnalité intégrée de « décharge d'onglets » du navigateur. Cela peut permettre jusqu'à"
+    "message": "complètement de la mémoire. Cela libère plus de ressources système par"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "500 % d'économie de mémoire avec un grand nombre d'onglets."
+    "message": "onglet (utile si vous gardez des centaines d'onglets ouverts)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Cependant, cela provoquera aussi un léger délai d'affichage lorsque vous sélectionnez"
+    "message": "Cela se fait au prix de la perte de l'état de l'onglet jusqu'à"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "un onglet suspendu."
+    "message": "son rechargement."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Pour plus d'informations sur la décharge d'onglets, consultez :"

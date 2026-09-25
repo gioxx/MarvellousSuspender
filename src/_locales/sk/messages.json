@@ -468,19 +468,19 @@
     "message": "Pri uspávaní použiť vstavané šetrenie pamäte prehliadača"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Ďalej znižuje spotrebu pamäte uspatej karty využitím"
+    "message": "Po uspaní karty nechajte Chrome, aby ju aj úplne uvoľnil"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "vstavanej funkcie „zahadzovania kariet“ prehliadača. Pri veľkom počte kariet"
+    "message": "z pamäte. To uvoľní viac systémových prostriedkov na kartu"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "to môže priniesť až 500 % úsporu pamäte."
+    "message": "(užitočné, ak máte otvorené stovky kariet)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Spôsobí to však aj mierne oneskorenie pri vykresľovaní, keď vyberiete"
+    "message": "To má za následok stratu stavu karty, kým nebude znova"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "uspatú kartu."
+    "message": "načítaná."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Viac informácií o zahadzovaní kariet nájdete na:"

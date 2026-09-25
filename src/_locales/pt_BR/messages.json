@@ -468,19 +468,19 @@
     "message": "Aplicar a economia de memória integrada do navegador ao suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Reduz ainda mais o uso de memória de uma guia suspensa, utilizando"
+    "message": "Depois que uma guia é suspensa, permita também que o Chrome a"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "a funcionalidade nativa de 'descarte de guias' do navegador. Isso pode gerar até"
+    "message": "descarregue totalmente da memória. Isso libera mais recursos do"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "500% de economia de memória ao trabalhar com muitas guias."
+    "message": "sistema por guia (útil se você mantiver centenas de guias abertas)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "No entanto, também causará um leve atraso na renderização ao selecionar"
+    "message": "Isso tem o custo de perder o estado da guia até que ela seja"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "uma guia suspensa."
+    "message": "recarregada."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Para mais informações sobre o descarte de guias, consulte:"
