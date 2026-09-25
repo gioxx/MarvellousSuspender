@@ -848,7 +848,7 @@
     "message": "Pour une gestion avancée des sessions, consultez la page"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "page"
+    "message": ""
   },
   "html_session_manager": {
     "message": "de gestion des sessions"
