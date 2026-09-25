@@ -677,7 +677,7 @@ export const tgs = (function() {
   }
 
   // Nothing else brings open tabs back in line.
-  async function _reconcileTabGroupTabs(groupKeys, exempt) {
+  async function _reconcileTabGroupTabs(groupKey, exempt) {
     // like every other writer here: nothing was saved in incognito, so change no tabs either
     if (IS_INCOGNITO_CONTEXT) {
       return;
@@ -685,7 +685,7 @@ export const tgs = (function() {
     const groups = await gsChrome.tabGroupsGetAll();
     const cache = await _getTabGroupKeyCache();
     for (const group of groups) {
-      if (!groupKeys.includes(gsUtils.resolveTabGroupKey(group, _lastTabGroupKey(cache, group.id)))) {
+      if (gsUtils.resolveTabGroupKey(group, _lastTabGroupKey(cache, group.id)) !== groupKey) {
         continue;
       }
       for (const groupTab of await gsChrome.tabsQuery({ groupId: group.id })) {
@@ -703,27 +703,25 @@ export const tgs = (function() {
     setIconStatusForActiveTab();
   }
 
-  // Adds or removes whole keys, the ones a gesture points at.
-  async function _setTabGroupNeverSuspend(groupKeys, exempt, reconcile = true) {
+  // Adds or removes the whole key a gesture points at.
+  async function _setTabGroupNeverSuspend(groupKey, exempt) {
     if (IS_INCOGNITO_CONTEXT) {
       // an incognito group's title must not reach chrome.storage.sync
-      gsUtils.warning('tgs', 'setTabGroupNeverSuspend', 'ignored in the incognito context', groupKeys);
+      gsUtils.warning('tgs', 'setTabGroupNeverSuspend', 'ignored in the incognito context', groupKey);
       return false;
     }
     const oldList = (await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS)) ?? '';
-    const listedKeys = groupKeys.filter((key) => gsUtils.checkSpecificNeverSuspendGroups(key, oldList));
-    if (exempt ? listedKeys.length === groupKeys.length : listedKeys.length === 0) {
+    const listed = gsUtils.checkSpecificNeverSuspendGroups(groupKey, oldList);
+    if (exempt ? listed : !listed) {
       return false;
     }
     const newList = exempt
-      ? gsUtils.cleanupTabGroupList([oldList, ...groupKeys].join('\n'))
+      ? gsUtils.cleanupTabGroupList([oldList, groupKey].join('\n'))
       : gsUtils.cleanupTabGroupList(
-        oldList.split('\n').filter((item) => !groupKeys.includes(item.trim())).join('\n'),
+        oldList.split('\n').filter((item) => item.trim() !== groupKey).join('\n'),
       );
     await gsStorage.setOptionAndSync(gsStorage.NEVER_SUSPEND_GROUPS, newList);
-    if (reconcile) {
-      await _reconcileTabGroupTabs(groupKeys, exempt);
-    }
+    await _reconcileTabGroupTabs(groupKey, exempt);
     return true;
   }
 
@@ -743,7 +741,7 @@ export const tgs = (function() {
 
   // exactly one key, which is what an Options remove link means
   function setTabGroupNeverSuspend(groupKey, exempt) {
-    return withTabGroupLock(() => _setTabGroupNeverSuspend([groupKey], exempt));
+    return withTabGroupLock(() => _setTabGroupNeverSuspend(groupKey, exempt));
   }
 
   // The two context menu items name their direction instead of flipping whatever they find:
@@ -781,7 +779,7 @@ export const tgs = (function() {
       return;
     }
     // the name the group wears, or its last one when the title has been cleared
-    await _setTabGroupNeverSuspend([groupKey], exempt);
+    await _setTabGroupNeverSuspend(groupKey, exempt);
   }
 
   // Page items only. chrome.contextMenus has no tooltip, so the reason the pair is unavailable
