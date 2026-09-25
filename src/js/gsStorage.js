@@ -324,6 +324,32 @@ export const gsStorage = {
     await gsStorage.syncSettings();
   },
 
+  // For a value computed from the current one, like a list gaining an entry. getOption() then
+  // setOption() builds on a snapshot, possibly the cached one, and writes it back over whatever
+  // landed in between, a change synced from another device included. `update` (synchronous)
+  // instead gets the value as stored, read under the lock every settings write takes, and
+  // returning it unchanged skips the write. Resolves to whether anything was written.
+  updateOption: async (prop, update) => {
+    return withSettingsLock(async () => {
+      const { settings } = await readSettings();
+      const value = update(settings[prop]);
+      if (value === settings[prop]) {
+        return false;
+      }
+      settings[prop] = value;
+      await gsStorage.saveSettings(settings);
+      return true;
+    });
+  },
+
+  updateOptionAndSync: async (prop, update) => {
+    const changed = await gsStorage.updateOption(prop, update);
+    if (changed) {
+      await gsStorage.syncSettings();
+    }
+    return changed;
+  },
+
   /**
    * @param {'session'|'local'} store
    * @param {string}            name

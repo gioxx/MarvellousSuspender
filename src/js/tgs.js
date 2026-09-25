@@ -651,15 +651,15 @@ export const tgs = (function() {
       return;
     }
     await _rememberTabGroupKey(groupId, newGroupKey);
-    const neverSuspendGroups = await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS);
-    if (oldGroupKey === null || !gsUtils.checkSpecificNeverSuspendGroups(oldGroupKey, neverSuspendGroups)) {
+    if (oldGroupKey === null) {
       return;
     }
     // Move, don't copy: a leftover old key brought a turned-off exemption back after a restart.
     // The accepted #133 collision, both ways: a group wearing the old name loses the exemption,
     // one wearing the new name gains it, as any group renamed onto a listed name does.
-    gsUtils.log('tgs', 'tab group renamed, moving exemption from', oldGroupKey, 'to', newGroupKey);
-    await _replaceTabGroupKey(oldGroupKey, newGroupKey);
+    if (await _replaceTabGroupKey(oldGroupKey, newGroupKey)) {
+      gsUtils.log('tgs', 'tab group renamed, moved exemption from', oldGroupKey, 'to', newGroupKey);
+    }
   }
 
   function handleTabGroupRemoved(group) {
@@ -703,6 +703,10 @@ export const tgs = (function() {
     setIconStatusForActiveTab();
   }
 
+  // Both list writers below decide and compute on the list as stored, via updateOptionAndSync().
+  // Built from a getOption() snapshot instead, a write put the older list back over a change
+  // synced from another device in between (#501).
+
   // Adds or removes the whole key a gesture points at.
   async function _setTabGroupNeverSuspend(groupKey, exempt) {
     if (IS_INCOGNITO_CONTEXT) {
@@ -710,33 +714,39 @@ export const tgs = (function() {
       gsUtils.warning('tgs', 'setTabGroupNeverSuspend', 'ignored in the incognito context', groupKey);
       return false;
     }
-    const oldList = (await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS)) ?? '';
-    const listed = gsUtils.checkSpecificNeverSuspendGroups(groupKey, oldList);
-    if (exempt ? listed : !listed) {
-      return false;
+    const changed = await gsStorage.updateOptionAndSync(gsStorage.NEVER_SUSPEND_GROUPS, (list) => {
+      const oldList = list ?? '';
+      const listed = gsUtils.checkSpecificNeverSuspendGroups(groupKey, oldList);
+      if (exempt ? listed : !listed) {
+        return list;
+      }
+      return exempt
+        ? gsUtils.cleanupTabGroupList([oldList, groupKey].join('\n'))
+        : gsUtils.cleanupTabGroupList(
+          oldList.split('\n').filter((item) => item.trim() !== groupKey).join('\n'),
+        );
+    });
+    if (changed) {
+      await _reconcileTabGroupTabs(groupKey, exempt);
     }
-    const newList = exempt
-      ? gsUtils.cleanupTabGroupList([oldList, groupKey].join('\n'))
-      : gsUtils.cleanupTabGroupList(
-        oldList.split('\n').filter((item) => item.trim() !== groupKey).join('\n'),
-      );
-    await gsStorage.setOptionAndSync(gsStorage.NEVER_SUSPEND_GROUPS, newList);
-    await _reconcileTabGroupTabs(groupKey, exempt);
-    return true;
+    return changed;
   }
 
-  // One write, so a rename never leaves the list without either key. No reconcile: a rename
-  // is bookkeeping, and a pass would wake tabs suspended by hand inside the group.
+  // One write, so a rename never leaves the list without either key, and only while the old
+  // key is still on it. No reconcile: a rename is bookkeeping, and a pass would wake tabs
+  // suspended by hand inside the group.
   async function _replaceTabGroupKey(oldKey, newKey) {
     if (IS_INCOGNITO_CONTEXT) {
-      return;
+      return false;
     }
-    const oldList = (await gsStorage.getOption(gsStorage.NEVER_SUSPEND_GROUPS)) ?? '';
-    const kept = oldList.split('\n').filter((item) => item.trim() !== oldKey);
-    await gsStorage.setOptionAndSync(
-      gsStorage.NEVER_SUSPEND_GROUPS,
-      gsUtils.cleanupTabGroupList([...kept, newKey].join('\n')),
-    );
+    return gsStorage.updateOptionAndSync(gsStorage.NEVER_SUSPEND_GROUPS, (list) => {
+      const oldList = list ?? '';
+      if (!gsUtils.checkSpecificNeverSuspendGroups(oldKey, oldList)) {
+        return list;
+      }
+      const kept = oldList.split('\n').filter((item) => item.trim() !== oldKey);
+      return gsUtils.cleanupTabGroupList([...kept, newKey].join('\n'));
+    });
   }
 
   // exactly one key, which is what an Options remove link means
