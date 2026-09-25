@@ -523,25 +523,27 @@ export const tgs = (function() {
   const withTabGroupLock = createAsyncLock();
 
   // A browser restart leaves the cache empty until the worker seeds it, so reads and group
-  // events wait for that, at most 3s. A page context never seeds, so it never waits.
+  // events wait for that, each for at most 3s. Only the seed marks it done: one caller giving
+  // up must not stop the next from waiting on a seed that is merely slow (#501). The first
+  // caller starts the seed if init has not, so nobody waits on the rest of init, and a caller
+  // that then takes the lock queues behind the seed, not ahead of it. A page context never
+  // seeds, so it never waits.
   let _cacheIsSeeded = typeof ServiceWorkerGlobalScope === 'undefined';
-  let _markCacheSeeded;
-  const _cacheSeeded = new Promise((resolve) => {
-    _markCacheSeeded = () => {
-      _cacheIsSeeded = true;
-      resolve();
-    };
-  });
-  if (_cacheIsSeeded) {
-    _markCacheSeeded();
-  }
+  let _cacheSeeding = null;
 
   async function _waitForSeededCache() {
     if (_cacheIsSeeded) {
       return;
     }
-    await Promise.race([_cacheSeeded, new Promise((resolve) => setTimeout(resolve, 3000))]);
-    _markCacheSeeded();
+    let timer;
+    await Promise.race([
+      // a failed seed marks the cache seeded all the same
+      (_cacheSeeding ?? initTabGroupKeyCache()).catch(() => {}),
+      new Promise((resolve) => {
+        timer = setTimeout(resolve, 3000);
+      }),
+    ]);
+    clearTimeout(timer);
   }
 
   // Resolve-on-error like the gsChrome wrappers: initTabGroupKeyCache() is awaited from
@@ -589,13 +591,14 @@ export const tgs = (function() {
   }
 
   // Seeds the mapping for groups that already existed, so an extension reload mid-session
-  // does not lose them.
+  // does not lose them. Run from init, and earlier by the first wait above if that comes
+  // first; a second pass only merges, so it is harmless.
   function initTabGroupKeyCache() {
     if (IS_INCOGNITO_CONTEXT) {
-      _markCacheSeeded();
+      _cacheIsSeeded = true;
       return Promise.resolve();
     }
-    return withTabGroupLock(async () => {
+    const seeding = withTabGroupLock(async () => {
       const groups = await gsChrome.tabGroupsGetAll();
       const cache = await _getTabGroupKeyCache();
       let changed = false;
@@ -611,7 +614,11 @@ export const tgs = (function() {
       if (changed) {
         await _setTabGroupKeyCache(cache);
       }
-    }).finally(_markCacheSeeded);
+    }).finally(() => {
+      _cacheIsSeeded = true;
+    });
+    _cacheSeeding ??= seeding;
+    return seeding;
   }
 
   // for a group that arrives already named: a reopened saved group, or another extension
