@@ -468,19 +468,19 @@
     "message": "Appliquer l'économie de mémoire intégrée du navigateur lors de la suspension"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Une fois un onglet suspendu, laissez aussi Chrome le décharger"
+    "message": "After a tab is suspended, also let Chrome fully unload it from"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "complètement de la mémoire. Cela libère plus de ressources système par"
+    "message": "memory. This frees up more system resources per tab (useful if"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "onglet (utile si vous gardez des centaines d'onglets ouverts)."
+    "message": "you keep hundreds of tabs open)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Cela se fait au prix de la perte de l'état de l'onglet jusqu'à"
+    "message": "This comes at the cost of losing tab state until the tab is"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "son rechargement."
+    "message": "reloaded."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Pour plus d'informations sur la décharge d'onglets, consultez :"
