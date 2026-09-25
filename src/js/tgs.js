@@ -1914,6 +1914,13 @@ export const tgs = (function() {
   //change the icon to either active or inactive
   async function setIconStatus(status, tabId) {
     // gsUtils.log(tabId, 'Setting icon status', status);
+    // 'loading' says nothing about whether the tab can be suspended, so leave the icon
+    // alone: Chrome already reset it to the default (active) one when the navigation
+    // committed, and the 'complete' handler paints the real status once loading ends.
+    // Painting the paused badge here showed "paused" for the whole page load (#450).
+    if (status === gsUtils.STATUS_LOADING) {
+      return;
+    }
     var basePath = ![gsUtils.STATUS_NORMAL, gsUtils.STATUS_ACTIVE].includes(status)
       ? ICON_SUSPENSION_PAUSED
       : ICON_SUSPENSION_ACTIVE;

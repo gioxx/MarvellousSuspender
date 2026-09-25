@@ -12,7 +12,7 @@ For the full technical changelog (every fix, every review round, every detail), 
 
 ### Fixed
 
-- **Paused tabs are easy to spot again in the toolbar**: when a tab won't be suspended (paused, whitelisted, pinned and so on), the extension icon now shows a small orange pause badge instead of turning a slightly different shade of grey, so you can tell at a glance without clicking. The classic artwork option keeps its original grey icon.
+- **Paused tabs are easy to spot again in the toolbar**: when a tab won't be suspended (paused, allowed, pinned and so on), the extension icon now shows a small orange pause badge instead of turning a slightly different shade of grey, so you can tell at a glance without clicking. You'll also see the badge on pages that can't be suspended at all, such as Chrome's own pages (like the New Tab page) or a tab that's already suspended. The classic artwork option keeps its original grey icon.
 
 ## [9.0.3]
 
