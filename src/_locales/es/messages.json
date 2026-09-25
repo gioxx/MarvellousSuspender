@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "No suspender nunca las pestañas que están reproduciendo audio"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Protege frente a la suspensión automática y las acciones normales de suspensión masiva."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Aún puedes suspender una pestaña manualmente o con una acción de \"Forzar la suspensión\"."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Una pestaña cuya URL esté en la lista de suspensión permanente se suspenderá de todos modos."
+  },
   "html_options_suspend_only_connected": {
     "message": "No suspender nunca pestañas cuando estés sin conexión"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "No suspender nunca la pestaña activa de cada ventana"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "La lista de suspensión permanente no anula esta opción."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Reabrir siempre las pestañas suspendidas desplazadas hasta arriba"

@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "永不凍結正在播放音訊的分頁"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "防止自動凍結及一般的批次凍結動作。"
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "你仍可自行凍結分頁，或使用「強制凍結」動作。"
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "網址在一律凍結清單中的分頁仍會被凍結。"
+  },
   "html_options_suspend_only_connected": {
     "message": "離線時永不凍結分頁"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "永不凍結每個視窗中的目前使用中分頁"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "一律凍結清單不會覆寫此選項。"
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "重新開啟凍結分頁時一律捲動到頁面頂端"

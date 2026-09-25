@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Nikdy neuspávať karty, ktoré prehrávajú zvuk"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Chráni pred automatickým uspatím a bežnými hromadnými akciami uspávania."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Kartu môžete stále uspať ručne alebo akciou „Vynútiť uspatie“."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Karta, ktorej URL je v zozname vždy uspávaných, sa uspí aj tak."
+  },
   "html_options_suspend_only_connected": {
     "message": "Nikdy neuspávať karty, keď ste offline"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Nikdy neuspávať aktívnu kartu v každom okne"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "Zoznam vždy uspávaných túto možnosť neprepíše."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Uspaté karty vždy znova otvárať posunuté na začiatok"

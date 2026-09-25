@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "永不挂起正在播放音频的标签页"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "防止自动挂起和常规的批量挂起操作。"
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "你仍可以手动挂起标签页，或使用“强制挂起”操作。"
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "网址在始终挂起列表中的标签页仍会被挂起。"
+  },
   "html_options_suspend_only_connected": {
     "message": "离线时永不挂起标签页"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "永不挂起每个窗口中的当前活动标签页"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "始终挂起列表不会覆盖此选项。"
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "重新打开挂起标签页时始终滚动到顶部"

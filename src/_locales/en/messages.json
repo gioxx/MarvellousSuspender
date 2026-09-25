@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Never suspend tabs that are playing audio"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Protects against automatic suspension and the regular bulk suspend actions."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "You can still suspend a tab yourself or with a \"Force suspend\" action."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "A tab whose URL is on the \"Always suspend\" list is suspended anyway."
+  },
   "html_options_suspend_only_connected": {
     "message": "Never suspend tabs when offline"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Never suspend active tab in each window"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "The \"Always suspend\" list does not override this option."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Always reopen suspended tabs scrolled to the top"

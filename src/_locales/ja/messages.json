@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "音声を再生中のタブを一時停止しない"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "自動一時停止と、通常の一括一時停止操作から保護します。"
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "タブは引き続き手動で、または「強制的に一時停止」操作で一時停止できます。"
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "URLが常時一時停止リストにあるタブは、それでも一時停止されます。"
+  },
   "html_options_suspend_only_connected": {
     "message": "オフライン時はタブを一時停止しない"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "各ウィンドウのアクティブなタブを一時停止しない"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "常時一時停止リストはこのオプションより優先されません。"
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "一時停止したタブを常に一番上までスクロールした状態で再度開く"

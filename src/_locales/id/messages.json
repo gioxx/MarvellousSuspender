@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Jangan pernah tangguhkan tab yang sedang memutar audio"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Melindungi dari penangguhan otomatis dan tindakan penangguhan massal biasa."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Anda tetap dapat menangguhkan tab secara manual atau dengan tindakan \"Paksa tangguhkan\"."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Tab yang URL-nya ada di daftar selalu-tangguhkan tetap akan ditangguhkan."
+  },
   "html_options_suspend_only_connected": {
     "message": "Jangan pernah tangguhkan tab saat offline"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Jangan pernah tangguhkan tab aktif di setiap jendela"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "Daftar selalu-tangguhkan tidak mengesampingkan opsi ini."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Selalu buka kembali tab tertangguh tergulir ke atas"

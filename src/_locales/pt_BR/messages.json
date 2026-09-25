@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Nunca suspender guias que estão reproduzindo áudio"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Protege contra a suspensão automática e as ações normais de suspensão em massa."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Você ainda pode suspender uma guia manualmente ou com uma ação \"Forçar a suspensão\"."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Uma guia cujo URL esteja na lista de suspensão sempre ativa será suspensa mesmo assim."
+  },
   "html_options_suspend_only_connected": {
     "message": "Nunca suspender guias quando estiver offline"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Nunca suspender a guia ativa em cada janela"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "A lista de suspensão sempre ativa não se sobrepõe a esta opção."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Sempre reabrir guias suspensas com a rolagem no topo"

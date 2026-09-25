@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Никогда не приостанавливать вкладки, воспроизводящие звук"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Защищает от автоматической приостановки и обычных массовых действий приостановки."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Вы по-прежнему можете приостановить вкладку вручную или действием «Принудительно приостановить»."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Вкладка, URL которой есть в списке постоянной приостановки, всё равно будет приостановлена."
+  },
   "html_options_suspend_only_connected": {
     "message": "Никогда не приостанавливать вкладки в офлайне"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Никогда не приостанавливать активную вкладку в каждом окне"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "Список постоянной приостановки не отменяет этот параметр."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Всегда открывать приостановленные вкладки прокрученными в начало"
