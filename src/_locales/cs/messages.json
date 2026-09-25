@@ -146,11 +146,11 @@
   "html_health_num_tabs_empty": {
     "message": "karet se nenačetlo"
   },
-  "html_health_num_tabs_default": {
-    "message": "karet má výchozí favikonu"
-  },
   "html_health_num_tabs_extension": {
     "message": "karet má favikonu TMS"
+  },
+  "html_health_num_tabs_default": {
+    "message": "karet má výchozí favikonu"
   },
   "html_health_num_hostnames": {
     "message": "unikátních hostitelských jmen karet"
@@ -1234,7 +1234,11 @@
   },
   "js_options_backup_next_run": {
     "message": "Příští spuštění: $time$",
-    "placeholders": { "time": { "content": "$1" } }
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
   },
   "js_options_backup_last_local": {
     "message": "Poslední záloha: $date$",
