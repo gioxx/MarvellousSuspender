@@ -468,19 +468,19 @@
     "message": "Применять встроенное в браузер сбережение памяти при приостановке"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "После того как вкладка приостановлена, разрешите Chrome полностью"
+    "message": "After a tab is suspended, also let Chrome fully unload it from"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "выгрузить её из памяти. Это освобождает больше системных ресурсов"
+    "message": "memory. This frees up more system resources per tab (useful if"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "на вкладку (полезно, если у вас открыты сотни вкладок)."
+    "message": "you keep hundreds of tabs open)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Это происходит за счёт потери состояния вкладки до её"
+    "message": "This comes at the cost of losing tab state until the tab is"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "перезагрузки."
+    "message": "reloaded."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Подробнее о выгрузке вкладок читайте здесь:"
