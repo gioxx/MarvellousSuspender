@@ -1,3 +1,4 @@
+import  { createAsyncLock }       from './gsAsyncLock.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsUtils }               from './gsUtils.js';
 
@@ -12,13 +13,8 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 
 // Every write of the settings object is a read-modify-write of the whole object, so two
 // overlapping ones could write back a stale copy. Per context: a page has its own chain.
-let _settingsWriteChain = Promise.resolve();
-
-function withSettingsLock(fn) {
-  const result = _settingsWriteChain.then(fn, fn);
-  _settingsWriteChain = result.then(() => {}, () => {});
-  return result;
-}
+// Its own lock, not tgs.js's: tab group writes take this one while holding theirs.
+const withSettingsLock = createAsyncLock();
 
 //defaults filled in, not saved. Use this inside the lock: getSettings() would deadlock there
 async function readSettings() {
@@ -326,6 +322,38 @@ export const gsStorage = {
   setOptionAndSync: async (prop, value) => {
     await gsStorage.setOption(prop, value);
     await gsStorage.syncSettings();
+  },
+
+  /**
+   * For a value computed from the current one, like a list gaining an entry. getOption() then
+   * setOption() builds on a snapshot, possibly the cached one, and writes it back over whatever
+   * landed in between, a change synced from another device included. `update` instead gets the
+   * value as stored, read under the lock every settings write takes.
+   * `update` must be synchronous, and must return a new value rather than mutate the one it is
+   * given: a result identical (===) to the stored value skips the write.
+   * @param   {string}              prop
+   * @param   {(value: any) => any} update
+   * @returns {Promise<boolean>}    whether anything was written
+   */
+  updateOption: async (prop, update) => {
+    return withSettingsLock(async () => {
+      const { settings } = await readSettings();
+      const value = update(settings[prop]);
+      if (value === settings[prop]) {
+        return false;
+      }
+      settings[prop] = value;
+      await gsStorage.saveSettings(settings);
+      return true;
+    });
+  },
+
+  updateOptionAndSync: async (prop, update) => {
+    const changed = await gsStorage.updateOption(prop, update);
+    if (changed) {
+      await gsStorage.syncSettings();
+    }
+    return changed;
   },
 
   /**
