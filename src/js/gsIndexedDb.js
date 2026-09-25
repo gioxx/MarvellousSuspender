@@ -81,6 +81,34 @@ export const gsIndexedDb = {
     }
   },
 
+  // Replaces every row indexed under `url` in one of the url-indexed stores with `record`,
+  // all inside one readwrite transaction (#520). The previous getAllKeysFromIndex() ->
+  // delete() -> add() sequence ran each step in its own auto-committing transaction, so
+  // two concurrent writers for the same url (duplicate tabs suspended together, or the
+  // native and renderer preview paths overlapping) could both read the same stale key
+  // list before either had added its row, and both add — leaving duplicate rows that
+  // nothing ever removed. IndexedDB serialises readwrite transactions with overlapping
+  // scope (across connections too, so across contexts), so here the second writer's read
+  // only starts after the first writer's add has committed. Deleting *all* matching keys,
+  // not just one, also cleans up any duplicates already left on disk by the old code the
+  // next time that url is written. The deletes and add are issued from the read's own
+  // .then() callback, which runs as a microtask of that request's success event, while
+  // the transaction is still active — never await anything that isn't an IDB request of
+  // this same transaction in between, or it auto-commits first. One Promise.all() over
+  // the whole chain plus tx.done means a failure anywhere rejects to the caller (which
+  // logs it) without leaving tx.done as an unhandled rejection.
+  async _replaceByUrl(storeName, url, record) {
+    const db = await gsIndexedDb.getDb();
+    const tx = db.transaction(storeName, 'readwrite');
+    await Promise.all([
+      tx.store.index('url').getAllKeys(url).then((existingKeys) => Promise.all([
+        ...existingKeys.map((key) => tx.store.delete(key)),
+        tx.store.add(record),
+      ])),
+      tx.done,
+    ]);
+  },
+
   fetchPreviewImage: async function(tabUrl) {
     try {
       const db = await gsIndexedDb.getDb();
@@ -94,12 +122,7 @@ export const gsIndexedDb = {
 
   addPreviewImage: async function(tabUrl, previewUrl) {
     try {
-      const db = await gsIndexedDb.getDb();
-      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
-      for (const key of existingKeys) {
-        await db.delete(gsIndexedDb.DB_PREVIEWS, key);
-      }
-      await db.add(gsIndexedDb.DB_PREVIEWS, { url: tabUrl, img: previewUrl });
+      await gsIndexedDb._replaceByUrl(gsIndexedDb.DB_PREVIEWS, tabUrl, { url: tabUrl, img: previewUrl });
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
@@ -111,12 +134,7 @@ export const gsIndexedDb = {
         gsUtils.error('gsIndexedDb', 'tabProperties.url not set.');
         return;
       }
-      const db = await gsIndexedDb.getDb();
-      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabProperties.url);
-      for (const key of existingKeys) {
-        await db.delete(gsIndexedDb.DB_SUSPENDED_TABINFO, key);
-      }
-      await db.add(gsIndexedDb.DB_SUSPENDED_TABINFO, tabProperties);
+      await gsIndexedDb._replaceByUrl(gsIndexedDb.DB_SUSPENDED_TABINFO, tabProperties.url, tabProperties);
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
@@ -146,12 +164,7 @@ export const gsIndexedDb = {
         return;
       }
       const faviconMetaWithUrl = Object.assign(faviconMeta, { url });
-      const db = await gsIndexedDb.getDb();
-      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url);
-      for (const key of existingKeys) {
-        await db.delete(gsIndexedDb.DB_FAVICON_META, key);
-      }
-      await db.add(gsIndexedDb.DB_FAVICON_META, faviconMetaWithUrl);
+      await gsIndexedDb._replaceByUrl(gsIndexedDb.DB_FAVICON_META, url, faviconMetaWithUrl);
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
