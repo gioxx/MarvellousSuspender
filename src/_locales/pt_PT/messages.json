@@ -408,7 +408,7 @@
     "message": "Pode continuar a suspender um separador manualmente ou com uma ação \"Forçar a suspensão\"."
   },
   "html_options_suspend_never_tooltip_line3": {
-    "message": "Um separador cujo URL esteja na lista de suspensão sempre ativa é suspenso na mesma."
+    "message": "Um separador cujo URL esteja na lista \"Suspender sempre\" é suspenso na mesma."
   },
   "html_options_suspend_only_connected": {
     "message": "Nunca suspender separadores quando estiver offline"
@@ -438,7 +438,7 @@
     "message": "Nunca suspender o separador ativo em cada janela"
   },
   "html_options_suspend_no_active_tabs_tooltip_line3": {
-    "message": "A lista de suspensão sempre ativa não se sobrepõe a esta opção."
+    "message": "A lista \"Suspender sempre\" não se sobrepõe a esta opção."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Reabrir sempre separadores suspensos com a posição no topo"

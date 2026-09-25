@@ -408,7 +408,7 @@
     "message": "Vous pouvez toujours suspendre un onglet vous-même ou avec une action « Forcer la suspension »."
   },
   "html_options_suspend_never_tooltip_line3": {
-    "message": "Un onglet dont l'URL figure dans la liste de suspension permanente est tout de même suspendu."
+    "message": "Un onglet dont l'URL figure dans la liste « Toujours suspendre » est tout de même suspendu."
   },
   "html_options_suspend_only_connected": {
     "message": "Ne jamais suspendre les onglets hors ligne"
@@ -438,7 +438,7 @@
     "message": "Ne jamais suspendre l'onglet actif de chaque fenêtre"
   },
   "html_options_suspend_no_active_tabs_tooltip_line3": {
-    "message": "La liste de suspension permanente ne prévaut pas sur cette option."
+    "message": "La liste « Toujours suspendre » ne prévaut pas sur cette option."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Toujours rouvrir les onglets suspendus défilés en haut de page"
