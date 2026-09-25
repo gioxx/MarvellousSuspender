@@ -16,8 +16,8 @@ export const tgs = (function() {
     '32': '/img/ic_suspendy_32x32.png',
   };
   const ICON_SUSPENSION_PAUSED = {
-    '16': '/img/ic_suspendy_16x16_grey.png',
-    '32': '/img/ic_suspendy_32x32_grey.png',
+    '16': '/img/ic_suspendy_16x16_paused.png',
+    '32': '/img/ic_suspendy_32x32_paused.png',
   };
 
   // Suspended tab props

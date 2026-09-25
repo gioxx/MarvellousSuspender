@@ -10,6 +10,10 @@ For the full technical changelog (every fix, every review round, every detail), 
 
 - **Never suspend this group**: mark a tab group and its tabs are left alone however long you leave them, which is handy for monitoring or dashboard tabs. Only named groups can be marked, so name the group first (in the page right-click menu the items stay greyed out until you do), then pick "Never suspend this group" from either right-click menu, and "Allow suspending this group" to undo it; review the list in Options. Groups are matched by name and colour, so two groups sharing both count as one.
 
+### Fixed
+
+- **Paused tabs are easy to spot again in the toolbar**: when a tab won't be suspended (paused, whitelisted, pinned and so on), the extension icon now shows a small orange pause badge instead of turning a slightly different shade of grey, so you can tell at a glance without clicking. The classic artwork option keeps its original grey icon.
+
 ## [9.0.3]
 
 ### New
