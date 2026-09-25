@@ -1,3 +1,4 @@
+import  { createAsyncLock }       from './gsAsyncLock.js';
 import  { gsSession }             from './gsSession.js';
 import  { gsUtils }               from './gsUtils.js';
 
@@ -12,13 +13,8 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 
 // Every write of the settings object is a read-modify-write of the whole object, so two
 // overlapping ones could write back a stale copy. Per context: a page has its own chain.
-let _settingsWriteChain = Promise.resolve();
-
-function withSettingsLock(fn) {
-  const result = _settingsWriteChain.then(fn, fn);
-  _settingsWriteChain = result.then(() => {}, () => {});
-  return result;
-}
+// Its own lock, not tgs.js's: tab group writes take this one while holding theirs.
+const withSettingsLock = createAsyncLock();
 
 //defaults filled in, not saved. Use this inside the lock: getSettings() would deadlock there
 async function readSettings() {

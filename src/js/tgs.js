@@ -1,4 +1,5 @@
 // @ts-check
+import  { createAsyncLock }       from './gsAsyncLock.js';
 import  { gsChrome }              from './gsChrome.js';
 import  { gsMascot }              from './gsMascot.js';
 import  { gsMessages }            from './gsMessages.js';
@@ -517,13 +518,9 @@ export const tgs = (function() {
   // Chrome does not await an async listener, so overlapping onUpdated chains each
   // read-modify-write the list and can drop an entry outright. Every write goes through this
   // chain. Underscore-prefixed bodies below assume it is held; reads deliberately skip it.
-  let _tabGroupWriteChain = Promise.resolve();
-
-  function withTabGroupLock(fn) {
-    const result = _tabGroupWriteChain.then(fn, fn);
-    _tabGroupWriteChain = result.then(() => {}, () => {});
-    return result;
-  }
+  // Not gsStorage.js's settings lock: the list writes take that one while holding this one,
+  // so on a shared chain they would queue behind themselves and never run.
+  const withTabGroupLock = createAsyncLock();
 
   // A browser restart leaves the cache empty until the worker seeds it, so reads and group
   // events wait for that, at most 3s. A page context never seeds, so it never waits.
