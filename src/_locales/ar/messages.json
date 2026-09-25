@@ -848,7 +848,7 @@
     "message": "للحصول على إدارة متقدمة للجلسات، تفضل بزيارة صفحة"
   },
   "html_success_goto_advanced_suffix": {
-    "message": "الصفحة"
+    "message": ""
   },
   "html_session_manager": {
     "message": "إدارة الجلسات"
