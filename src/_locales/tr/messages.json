@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Ses çalan sekmeleri asla askıya alma"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Otomatik askıya almaya ve normal toplu askıya alma eylemlerine karşı korur."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Bir sekmeyi yine de kendin veya \"Askıya almayı zorla\" eylemiyle askıya alabilirsin."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "URL'si her zaman askıya al listesinde olan bir sekme yine de askıya alınır."
+  },
   "html_options_suspend_only_connected": {
     "message": "Çevrimdışıyken sekmeleri asla askıya alma"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Her penceredeki etkin sekmeyi asla askıya alma"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "Her zaman askıya al listesi bu seçeneği geçersiz kılmaz."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Askıya alınmış sekmeleri her zaman en üste kaydırılmış şekilde yeniden aç"

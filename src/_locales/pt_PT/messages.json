@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Nunca suspender separadores a reproduzir áudio"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Protege contra a suspensão automática e as ações habituais de suspensão em massa."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Pode continuar a suspender um separador manualmente ou com uma ação \"Forçar a suspensão\"."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Um separador cujo URL esteja na lista \"Suspender sempre\" é suspenso na mesma."
+  },
   "html_options_suspend_only_connected": {
     "message": "Nunca suspender separadores quando estiver offline"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Nunca suspender o separador ativo em cada janela"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "A lista \"Suspender sempre\" não se sobrepõe a esta opção."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Reabrir sempre separadores suspensos com a posição no topo"

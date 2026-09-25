@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Tabs, die Audio wiedergeben, nie aussetzen"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Schützt vor automatischem Aussetzen und den regulären Massenaussetzungsaktionen."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Sie können einen Tab trotzdem selbst oder mit „Aussetzung erzwingen“ aussetzen."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Ein Tab, dessen URL auf der Immer-aussetzen-Liste steht, wird trotzdem ausgesetzt."
+  },
   "html_options_suspend_only_connected": {
     "message": "Tabs bei fehlender Internetverbindung nie aussetzen"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Den aktiven Tab in jedem Fenster nie aussetzen"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "Die Immer-aussetzen-Liste setzt diese Option nicht außer Kraft."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Ausgesetzte Tabs immer nach oben gescrollt wieder öffnen"

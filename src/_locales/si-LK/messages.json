@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "ශ්‍රව්‍ය වාදනය කරන ටැබ් කිසිවිටෙක අත්හිටුවන්න එපා"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "ස්වයංක්‍රීය අත්හිටුවීමෙන් සහ සාමාන්‍ය තොග අත්හිටුවීම් ක්‍රියාවලින් ආරක්ෂා කරයි."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "ඔබට තවමත් ටැබයක් ඔබම හෝ \"බලහත්කාරයෙන් අත්හිටුවන්න\" ක්‍රියාවකින් අත්හිටුවිය හැක."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "URL එක සැමවිට-අත්හිටුවන ලැයිස්තුවේ ඇති ටැබයක් කෙසේ වෙතත් අත්හිටුවනු ලැබේ."
+  },
   "html_options_suspend_only_connected": {
     "message": "නොබැඳි විට කිසිවිටෙක ටැබ් අත්හිටුවන්න එපා"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "සෑම කවුළුවකම සක්‍රිය ටැබය කිසිවිටෙක අත්හිටුවන්න එපා"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "සැමවිට-අත්හිටුවන ලැයිස්තුව මෙම විකල්පය අභිබවා නොයයි."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "අත්හිටුවූ ටැබ් සැමවිටම පිටුවේ මුදුනට නැවත විවෘත කරන්න"

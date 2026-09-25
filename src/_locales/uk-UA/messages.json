@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Ніколи не призупиняти вкладки, які відтворюють аудіо"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Захищає від автоматичного призупинення та звичайних масових дій призупинення."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Ви все одно можете призупинити вкладку вручну або дією «Примусово призупинити»."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Вкладку, URL-адреса якої є у списку «Завжди призупиняти», все одно буде призупинено."
+  },
   "html_options_suspend_only_connected": {
     "message": "Ніколи не призупиняти вкладки в режимі офлайн"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Ніколи не призупиняти активну вкладку в кожному вікні"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "Список «Завжди призупиняти» не скасовує цей параметр."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Завжди відкривати призупинені вкладки на початку сторінки"

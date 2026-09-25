@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Non sospendere mai le schede che riproducono audio"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Protegge dalla sospensione automatica e dalle normali azioni di sospensione in blocco."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Puoi comunque sospendere una scheda manualmente o con un'azione \"Forza la sospensione\"."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Una scheda il cui URL è nell'elenco \"Sospendi sempre\" viene sospesa comunque."
+  },
   "html_options_suspend_only_connected": {
     "message": "Non sospendere mai le schede quando sei offline"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Non sospendere mai la scheda attiva in ogni finestra"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "L'elenco \"Sospendi sempre\" non prevale su questa opzione."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Riapri sempre le schede sospese con lo scroll all'inizio"

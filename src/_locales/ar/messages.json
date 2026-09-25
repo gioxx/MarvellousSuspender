@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "عدم تعليق علامات التبويب التي تشغّل صوتًا أبدًا"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "تحمي من التعليق التلقائي ومن إجراءات التعليق الجماعي العادية."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "لا يزال بإمكانك تعليق علامة التبويب بنفسك أو باستخدام إجراء \"فرض التعليق\"."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "تُعلَّق علامة التبويب رغم ذلك إذا كان رابطها ضمن قائمة التعليق الدائم."
+  },
   "html_options_suspend_only_connected": {
     "message": "عدم تعليق علامات التبويب عند عدم الاتصال بالإنترنت أبدًا"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "عدم تعليق علامة التبويب النشطة في كل نافذة أبدًا"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "لا تتجاوز قائمة التعليق الدائم هذا الخيار."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "إعادة فتح علامات التبويب المعلّقة دائمًا مع التمرير إلى الأعلى"
