@@ -468,19 +468,19 @@
     "message": "Применять встроенное в браузер сбережение памяти при приостановке"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Ещё сильнее снижает использование памяти приостановленной вкладкой за счёт"
+    "message": "После того как вкладка приостановлена, разрешите Chrome полностью"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "встроенной функции браузера «выгрузка вкладок». Это может дать до"
+    "message": "выгрузить её из памяти. Это освобождает больше системных ресурсов"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "500% экономии памяти при работе с большим числом вкладок."
+    "message": "на вкладку (полезно, если у вас открыты сотни вкладок)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Однако это также вызовет небольшую задержку отрисовки при выборе"
+    "message": "Это происходит за счёт потери состояния вкладки до её"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "приостановленной вкладки."
+    "message": "перезагрузки."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Подробнее о выгрузке вкладок читайте здесь:"

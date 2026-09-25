@@ -468,19 +468,19 @@
     "message": "අත්හිටුවීමේදී බ්‍රවුසරයේ අන්තර්ගත මතක ඉතිරි කිරීම යොදන්න"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "භාවිතය මගින් අත්හිටුවන ලද ටැබ් එකක මතක භාවිතය තවත් අඩු කරයි"
+    "message": "ටැබ් එකක් අත්හිටුවූ පසු, Chrome හට එය මතකයෙන්"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "ඔබේ බ්‍රවුසරයේ අන්තර්ගත 'ටැබ් ඉවත දැමීමේ' කාර්යභාරය. විශාල ටැබ් ගණනක් සමඟ වැඩ කරන විට මෙය"
+    "message": "සම්පූර්ණයෙන් ඉවත් කිරීමට ද ඉඩ දෙන්න. මෙය එක් ටැබ් එකකට"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "ටැබ් විශාල සංඛ්‍යාවක් සමඟ වැඩ කරන විට 500% මතක ඉතිරියක් දක්වා."
+    "message": "වැඩි පද්ධති සම්පත් නිදහස් කරයි (ටැබ් සිය ගණනක් විවෘතව තිබේ නම් ප්‍රයෝජනවත්)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "කෙසේ වෙතත්, එය තෝරාගැනීමේදී සුළු විදැහුම් ප්‍රමාදයක් ද ඇති කරයි"
+    "message": "මෙය ටැබ් එක නැවත පූරණය වන තෙක් එහි තත්ත්වය"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "අත්හිටුවන ලද ටැබ් එකක්."
+    "message": "අහිමි වීමේ පිරිවැයෙන් සිදු වේ."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "ටැබ් ඉවත දැමීම පිළිබඳ වැඩිදුර තොරතුරු සඳහා බලන්න:"
