@@ -468,19 +468,19 @@
     "message": "Askıya alırken tarayıcının yerleşik bellek tasarrufu özelliğini uygula"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Tarayıcının yerleşik 'sekme atma' işlevinden yararlanarak askıya alınmış"
+    "message": "Bir sekme askıya alındıktan sonra, Chrome'un onu bellekten"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "bir sekmenin bellek kullanımını daha da azaltır. Bu, çok sayıda sekmeyle"
+    "message": "tamamen kaldırmasına da izin verin. Bu, sekme başına daha fazla"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "çalışırken %500'e varan bellek tasarrufu sağlayabilir."
+    "message": "sistem kaynağı serbest bırakır (yüzlerce sekme açık tutuyorsanız faydalıdır)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Ancak, askıya alınmış bir sekme seçildiğinde hafif bir render gecikmesine"
+    "message": "Bunun bedeli, sekme yeniden yüklenene kadar sekme durumunun"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "de neden olur."
+    "message": "kaybolmasıdır."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Sekme atma hakkında daha fazla bilgi için:"

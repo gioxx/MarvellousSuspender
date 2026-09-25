@@ -468,19 +468,19 @@
     "message": "Beim Aussetzen die eingebaute Speicherersparnis des Browsers anwenden"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Reduziert den Speicherverbrauch eines ausgesetzten Tabs noch weiter, indem"
+    "message": "Sobald ein Tab ausgesetzt wurde, lässt dies Chrome ihn zusätzlich vollständig"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "die eingebaute Funktion „Tab-Entladung“ des Browsers genutzt wird. Dies kann bis zu"
+    "message": "aus dem Speicher entladen. Das gibt mehr Systemressourcen pro Tab frei"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "500 % Speicherersparnis bei vielen offenen Tabs bringen."
+    "message": "(nützlich, wenn Sie Hunderte von Tabs offen halten)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Es verursacht jedoch auch eine leichte Verzögerung beim Rendern, wenn Sie"
+    "message": "Das hat zur Folge, dass der Tab-Zustand verloren geht, bis der"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "einen ausgesetzten Tab auswählen."
+    "message": "Tab neu geladen wird."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Weitere Informationen zur Tab-Entladung finden Sie hier:"
