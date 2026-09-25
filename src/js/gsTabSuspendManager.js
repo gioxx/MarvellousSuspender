@@ -323,7 +323,14 @@ export const gsTabSuspendManager = (function() {
 
     const suspensionForceLevel = queuedTabDetails.executionProps.forceLevel;
     if (!await checkTabEligibilityForSuspension(tab, suspensionForceLevel)) {
+      // Settle the job rather than just returning, same as performSuspension()'s own
+      // eligibility checks (#511): the map entry was already deleted above, so nothing else
+      // would ever settle it, and the queue's jobTimeout would then reach
+      // handleSuspensionException()'s EXCEPTION_TIMEOUT branch and force-suspend the very tab
+      // this check just rejected. Safe even if the job was unqueued or superseded during the
+      // await: resolveFn is bound to this job's own tabDetails and the queue ignores it then.
       gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.',);
+      queuedTabDetails.executionProps.resolveFn(false);
       return;
     }
 
