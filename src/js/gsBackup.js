@@ -149,7 +149,7 @@ export const gsBackup = (() => {
 
       const toRemove = ids.slice(0, ids.length - maxFiles); // oldest first
       for (const id of toRemove) {
-        try { await chrome.downloads.removeFile(id); } catch (_) {}
+        try { await chrome.downloads.removeFile(id); } catch (_) { /* file already gone */ }
         await chrome.downloads.erase({ id });
       }
       ids = ids.slice(ids.length - maxFiles);
