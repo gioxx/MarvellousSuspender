@@ -1067,15 +1067,39 @@ export const gsUtils = {
     return reloadOk;
   },
 
+  // The only schemes a tab can have had before this extension suspended it. suspended.html
+  // is web-accessible, so any web page can open one with an arbitrary "uri=" in the hash and
+  // the extension treats it as its own; whatever comes back out of getOriginalUrl() then goes
+  // to chrome.tabs.update() / chrome.tabs.create(), which an extension may point at chrome://
+  // and data: urls that web content cannot reach by itself. Anything outside this list did
+  // not come from us and is dropped.
+  SUSPENDABLE_SCHEMES: ['http:', 'https:', 'file:'],
+
   /**
+   * @param {string | undefined} url
+   * @returns {boolean}
+   */
+  isSuspendableUrl(url) {
+    if (!url) return false;
+    try {
+      return gsUtils.SUSPENDABLE_SCHEMES.includes(new URL(url).protocol);
+    }
+    catch (e) {
+      return false;
+    }
+  },
+
+  /**
+   * The url a suspended tab was suspended from, or '' when the suspended url carries none
+   * or carries one this extension could never have produced (see SUSPENDABLE_SCHEMES).
    * @param {string} urlStr
    * @returns {string}
    */
   getOriginalUrl(urlStr) {
-    return (
+    const original =
       gsUtils.getHashVariable('uri', urlStr) ||
-      gsUtils.decodeString(gsUtils.getHashVariable('url', urlStr) || '')
-    );
+      gsUtils.decodeString(gsUtils.getHashVariable('url', urlStr) || '');
+    return gsUtils.isSuspendableUrl(original) ? original : '';
   },
   getCleanTabTitle(tab) {
     let cleanedTitle = gsUtils.decodeString(tab.title);
