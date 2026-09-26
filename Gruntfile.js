@@ -14,12 +14,12 @@ module.exports = function(grunt) {
     copy: {
       main: {
         expand: true,
-        // src/js/gsOauthSecrets.local.js is a maintainer-local override file, never
-        // tracked by git, that predates the OAuth proxy migration. Untracked files
-        // survive git operations untouched, so removing it from .gitignore alone
-        // doesn't stop a maintainer's leftover copy (potentially still holding the
-        // old embedded client secret) from being packaged — exclude it here too.
-        src: ['src/**', '!src/tests.html', '!src/js/tests/**', '!src/img/*.xcf', '!src/js/gsOauthSecrets.local.js'],
+        // *.local.js files are maintainer-local overrides, never tracked by git (the
+        // historical one, src/js/gsOauthSecrets.local.js, once held the embedded OAuth
+        // client secret), and *.pem is a signing key. Untracked files survive git
+        // operations untouched, so the .gitignore entries alone don't stop a leftover
+        // copy from being packaged: exclude both patterns here too.
+        src: ['src/**', '!src/tests.html', '!src/js/tests/**', '!src/img/*.xcf', '!src/**/*.local.js', '!src/**/*.pem'],
         dest: '<%= config.tempDir %>',
       },
     },
