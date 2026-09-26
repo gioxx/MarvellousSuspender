@@ -1,0 +1,3 @@
+# Auto-requests these reviewers on every PR. Making their review required is a
+# branch-protection setting on master, not something this file can enforce.
+*   @gioxx @rkodey
