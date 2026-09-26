@@ -425,13 +425,11 @@ export const gsUtils = {
       return false;
     }
     const url = gsUtils.getTabUrl(tab);
-    // chrome-extension:// pages (TMS own pages or other extensions) cannot receive
-    // content scripts and must never be suspended — isBrowserInternalURL misses them
-    // because its regex matches "chrome:" but not "chrome-extension:".
-    if (url?.startsWith(`${chrome.runtime.getURL('').split(':')[0]}://`)) {
-      return true;
-    }
-    return ( this.isBrowserInternalURL(url) || gsUtils.isBlockedFileTab(tab) );
+    // Only what getOriginalUrl() will hand back later may be suspended: browser-internal
+    // pages, chrome-extension:// pages (ours or other extensions'), data:, blob:,
+    // view-source: and the like are all "special". Sharing isSuspendableUrl() with
+    // getOriginalUrl() is what keeps suspension and unsuspension from disagreeing.
+    return ( !gsUtils.isSuspendableUrl(url) || gsUtils.isBlockedFileTab(tab) );
   },
 
   isFileTab(tab) {
@@ -1067,12 +1065,19 @@ export const gsUtils = {
     return reloadOk;
   },
 
-  // The only schemes a tab can have had before this extension suspended it. suspended.html
-  // is web-accessible, so any web page can open one with an arbitrary "uri=" in the hash and
-  // the extension treats it as its own; whatever comes back out of getOriginalUrl() then goes
-  // to chrome.tabs.update() / chrome.tabs.create(), which an extension may point at chrome://
-  // and data: urls that web content cannot reach by itself. Anything outside this list did
-  // not come from us and is dropped.
+  // The only schemes a tab may have when this extension suspends it, and therefore the only
+  // ones getOriginalUrl() hands back. suspended.html is web-accessible, so any web page can
+  // open one with an arbitrary "uri=" in the hash and the extension treats it as its own;
+  // whatever comes back out of getOriginalUrl() then goes to chrome.tabs.update() /
+  // chrome.tabs.create(), which an extension may point at chrome:// and data: urls that web
+  // content cannot reach by itself. Anything outside this list is dropped.
+  //
+  // file: stays in deliberately: suspending file:// tabs is a feature (permissions.html
+  // walks users through granting file access). The residual risk is a forged placeholder
+  // taking a click to a local file, only for users who granted that access, and only to
+  // display it: no read-back to the page. Closing that needs an ownership marker on the
+  // suspended urls we generate, which would also break adopting other suspenders' tabs
+  // (background.js claimTab), so it is a separate decision.
   SUSPENDABLE_SCHEMES: ['http:', 'https:', 'file:'],
 
   /**
@@ -1081,12 +1086,7 @@ export const gsUtils = {
    */
   isSuspendableUrl(url) {
     if (!url) return false;
-    try {
-      return gsUtils.SUSPENDABLE_SCHEMES.includes(new URL(url).protocol);
-    }
-    catch (e) {
-      return false;
-    }
+    return gsUtils.SUSPENDABLE_SCHEMES.includes(gsUtils.getNewURL(url)?.protocol);
   },
 
   /**
@@ -1379,13 +1379,18 @@ export const gsUtils = {
     return window;
   },
 
+  // Drops the tabs a session cannot restore: this extension's own pages, and suspended
+  // entries whose original url getOriginalUrl() refuses (forged, or from a scheme that is
+  // no longer suspendable). Without the second half those would become blank tabs on
+  // restore and dead rows on the recovery page.
   removeInternalUrlsFromSession(session) {
     if (!session?.windows) { return; }
     for (let i = session.windows.length - 1; i >= 0; i--) {
       const curWindow = session.windows[i];
       for (let j = curWindow.tabs.length - 1; j >= 0; j--) {
         const curTab = curWindow.tabs[j];
-        if (gsUtils.isInternalTab(curTab)) {
+        const unrecoverable = gsUtils.isSuspendedTab(curTab) && gsUtils.getOriginalUrl(curTab.url) === '';
+        if (gsUtils.isInternalTab(curTab) || unrecoverable) {
           curWindow.tabs.splice(j, 1);
         }
       }

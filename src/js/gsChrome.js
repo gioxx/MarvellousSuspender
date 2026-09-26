@@ -14,10 +14,8 @@ export const gsChrome = {
    */
   tabsCreate(details) {
     return new Promise((resolve) => {
-      if (
-        !details ||
-        (typeof details !== 'string' && typeof details.url !== 'string')
-      ) {
+      const url = typeof details === 'string' ? details : details?.url;
+      if (typeof url !== 'string' || url === '') {
         gsUtils.warning('chromeTabs', 'url not specified');
         resolve(null);
         return;

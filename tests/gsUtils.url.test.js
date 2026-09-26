@@ -86,6 +86,17 @@ describe('gsUtils.isSpecialTab', () => {
   it('is false for an ordinary https page', () => {
     expect(gsUtils.isSpecialTab({ id: 1, url: 'https://example.com/' })).toBe(false);
   });
+
+  // Whatever is eligible for suspension must be recoverable by getOriginalUrl() later;
+  // the two sides share gsUtils.isSuspendableUrl() so they cannot drift apart.
+  it.each([
+    'data:text/html,<h1>hello</h1>',
+    'blob:https://example.com/3f1c-uuid',
+    'view-source:https://example.com/',
+    'filesystem:https://example.com/temporary/x.txt',
+  ])('is true for %s, which could never be unsuspended', (url) => {
+    expect(gsUtils.isSpecialTab({ id: 1, url })).toBe(true);
+  });
 });
 
 describe('gsUtils.isFileTab', () => {
