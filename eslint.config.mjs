@@ -13,7 +13,8 @@ export default defineConfig(
   {
     ignores: [
       'node_modules',
-      'src/js/db.js',
+      'build',
+      'src/js/idb.js',
       'src/js/snapdom.js',
     ],
   },
@@ -155,4 +156,16 @@ export default defineConfig(
 
     }
   },
+
+  // Last on purpose: flat config lets a later block override the rules above for its files.
+  {
+    name: '--- node scripts (CommonJS, console is the output)',
+    files: ['scripts/**/*.js', 'Gruntfile.js'],
+    languageOptions: { sourceType: 'commonjs' },
+    rules: {
+      'no-console': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+
 );

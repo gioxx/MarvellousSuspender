@@ -304,13 +304,6 @@ import  { tgs }                   from './tgs.js';
         // Instead of reloading the page, just update the CSS directly
         gsUtils.setPageTheme(window, getOptionValue(element));
       }
-      else if (pref === gsStorage.AUTO_BACKUP_ENABLED) {
-        setAutoBackupOptionsVisibility(getOptionValue(element));
-      }
-      else if (pref === gsStorage.AUTO_BACKUP_DESTINATION) {
-        setDriveDestinationVisibility(getOptionValue(element) === 'drive');
-        await updateDriveAuthUI();
-      }
 
       const [oldValue, newValue] = await saveChange(element);
       if (oldValue !== newValue) {
@@ -485,7 +478,7 @@ import  { tgs }                   from './tgs.js';
       for (const tab of tabs) {
         const url    = gsUtils.isSuspendedTab(tab) ? gsUtils.getOriginalUrl(tab.url) : tab.url;
         if (!(gsUtils.isSpecialTab(tab)) && (await gsUtils.checkWhiteList(url))) {
-          const label = url.length > 55 ? `${url.substr(0, 52)}...` : url;
+          const label = url.length > 55 ? `${url.substring(0, 52)}...` : url;
           matches.push({ tabId: tab.id, windowId: tab.windowId, label });
         }
       }
@@ -540,7 +533,7 @@ import  { tgs }                   from './tgs.js';
       for (const tab of tabs) {
         const url = gsUtils.isSuspendedTab(tab) ? gsUtils.getOriginalUrl(tab.url) : tab.url;
         if (!(gsUtils.isSpecialTab(tab)) && (await gsUtils.checkAlwaysSuspendList(url))) {
-          const label = url.length > 55 ? `${url.substr(0, 52)}...` : url;
+          const label = url.length > 55 ? `${url.substring(0, 52)}...` : url;
           matches.push({ tabId: tab.id, windowId: tab.windowId, label });
         }
       }
