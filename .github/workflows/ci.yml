@@ -44,10 +44,6 @@ jobs:
     name: Build store zip
     runs-on: ubuntu-latest
     needs: checks
-    permissions:
-      contents: read
-      id-token: write
-      attestations: write
     steps:
       - uses: actions/checkout@v7
 
@@ -69,9 +65,24 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-      # Provenance needs an OIDC token, which pull requests from forks do not get.
-      - name: Attest build provenance
-        if: github.event_name != 'pull_request'
-        uses: actions/attest-build-provenance@v4
+  # Separate job so the OIDC and attestation write scopes never sit in a run that
+  # executes code from a pull request (npm lifecycle scripts, grunt). Pull requests
+  # from forks would not get the token anyway; this keeps same-repo ones clean too.
+  attest:
+    name: Attest build provenance
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name != 'pull_request'
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: tms-zip
+          path: build/zip
+
+      - uses: actions/attest-build-provenance@v4
         with:
           subject-path: build/zip/*.zip
