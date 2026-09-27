@@ -50,7 +50,7 @@ The "welcome" page will open indicating successful installation.
 Dependencies: `openssl`, `npm`.
 
 ```sh
-npm install
+npm ci
 npm run generate-key
 npm run build
 ```
@@ -68,17 +68,23 @@ The extension in `.crx` format will be inside `build/crx/`. You can drag it into
 ### Run the tests
 
 ```sh
-npm install
+npm ci
 npm test
 ```
 
-Unit tests live in `tests/` and run with [Vitest](https://vitest.dev/) under Node: `tests/setup/chrome-stub.js` stands in for the `chrome.*` API so the modules in `src/js` can be imported outside the browser. `npm run lint` and `npm run check-locales` cover style and translations.
+Unit tests live in `tests/` and run with [Vitest](https://vitest.dev/) under Node. Setup, lint, locale check and the keyless build are described in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ---
 
 ## Contributing
 
 Contributions are very welcome. Feel free to submit pull requests for new features and bug fixes. For new features, please raise an issue first so we can discuss the approach - this will go a long way to ensuring your pull request is accepted.
+
+The rules every change has to meet are in [`AGENTS.md`](AGENTS.md); the practical guide (setup, branches, commits, what a PR needs) is in [`CONTRIBUTING.md`](CONTRIBUTING.md). Security issues go through [`SECURITY.md`](SECURITY.md), never a public issue.
+
+### Contributing with AI tools
+
+You can use AI tools to write code, tests or docs for TMS. The person opening the pull request is still its author: read what was produced, run the tests, load the extension and try it, and be ready to explain any line. Say in the PR which parts were AI-assisted. `AGENTS.md` is written so that coding agents read the same rules you do; if you use one, point it there.
 
 ### Localization (l10n)
 
