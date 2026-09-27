@@ -34,6 +34,32 @@ version and would work on the same settings, saved sessions and suspended tabs.
 In that profile: `chrome://extensions`, enable Developer mode, "Load unpacked",
 pick the `src/` folder.
 
+## End-to-end tests
+
+`npm test` runs the unit tests under Node and needs no browser. `npm run test:e2e`
+loads the packaged zip in a real browser and drives it: install, suspend and
+unsuspend, forged suspended-page urls, framing, the context menu.
+
+```sh
+npm run test:e2e                          # builds the zip, then tests it
+TMS_E2E_ZIP=build/zip/tms-9.0.3.zip npm run test:e2e   # tests a zip you already have
+```
+
+It needs [Chrome for Testing](https://googlechromelabs.github.io/chrome-for-testing/),
+because branded Chrome ignores `--load-extension`. The run uses the one `CHROME_BIN`
+points at, otherwise the newest version it finds in the Puppeteer or Playwright
+cache. It starts headless, with a profile of its own in the system temp directory,
+and serves its pages from `tests/e2e/fixtures/` on `127.0.0.1`. The browser is
+started so that no other host resolves, which keeps the run off the network: the
+extension's own news feed request fails, as it would offline. Your browser and
+your profile are not touched. The temp directories are deleted at the end of a
+run; one that is killed halfway leaves them behind (`tms-e2e-*`).
+
+CI runs it on every pull request against the zip it built, on the Chrome for
+Testing version pinned in `.github/workflows/ci.yml`. For now it reports and does
+not block. If your change is about behaviour in the browser, add a case to
+`tests/e2e/`; wait for a condition with `waitFor()`, never for a fixed time.
+
 ## Branches, commits, pull requests
 
 - Work on a branch in your fork, named `type/short-description-<issue>` when there
