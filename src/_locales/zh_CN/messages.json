@@ -468,19 +468,19 @@
     "message": "挂起时同时应用浏览器内置的省内存功能"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "标签页挂起后，还会让 Chrome 将其从内存中"
+    "message": "After a tab is suspended, also let Chrome fully unload it from"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "完全卸载。这会为每个标签页释放更多系统资源"
+    "message": "memory. This frees up more system resources per tab (useful if"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "（如果你同时打开数百个标签页会很有用）。"
+    "message": "you keep hundreds of tabs open)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "这样做的代价是标签页的状态会丢失，直到该标签页"
+    "message": "This comes at the cost of losing tab state until the tab is"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "重新加载。"
+    "message": "reloaded."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "有关标签页丢弃的更多信息，请参阅："

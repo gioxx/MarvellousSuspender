@@ -468,19 +468,19 @@
     "message": "Pri uspávaní použiť vstavané šetrenie pamäte prehliadača"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Po uspaní karty nechajte Chrome, aby ju aj úplne uvoľnil"
+    "message": "After a tab is suspended, also let Chrome fully unload it from"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "z pamäte. To uvoľní viac systémových prostriedkov na kartu"
+    "message": "memory. This frees up more system resources per tab (useful if"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "(užitočné, ak máte otvorené stovky kariet)."
+    "message": "you keep hundreds of tabs open)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "To má za následok stratu stavu karty, kým nebude znova"
+    "message": "This comes at the cost of losing tab state until the tab is"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "načítaná."
+    "message": "reloaded."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Viac informácií o zahadzovaní kariet nájdete na:"
