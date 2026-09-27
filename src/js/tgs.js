@@ -16,8 +16,8 @@ export const tgs = (function() {
     '32': '/img/ic_suspendy_32x32.png',
   };
   const ICON_SUSPENSION_PAUSED = {
-    '16': '/img/ic_suspendy_16x16_grey.png',
-    '32': '/img/ic_suspendy_32x32_grey.png',
+    '16': '/img/ic_suspendy_16x16_paused.png',
+    '32': '/img/ic_suspendy_32x32_paused.png',
   };
 
   // Suspended tab props
@@ -1914,6 +1914,13 @@ export const tgs = (function() {
   //change the icon to either active or inactive
   async function setIconStatus(status, tabId) {
     // gsUtils.log(tabId, 'Setting icon status', status);
+    // 'loading' says nothing about whether the tab can be suspended, so leave the icon
+    // alone: Chrome already reset it to the default (active) one when the navigation
+    // committed, and the 'complete' handler paints the real status once loading ends.
+    // Painting the paused badge here showed "paused" for the whole page load (#450).
+    if (status === gsUtils.STATUS_LOADING) {
+      return;
+    }
     var basePath = ![gsUtils.STATUS_NORMAL, gsUtils.STATUS_ACTIVE].includes(status)
       ? ICON_SUSPENSION_PAUSED
       : ICON_SUSPENSION_ACTIVE;
