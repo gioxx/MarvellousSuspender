@@ -109,6 +109,13 @@ module.exports = function(grunt) {
     'crx:private',
     'clean',
   ]);
+  // Keyless build for CI and contributors: the store-ready zip only, no .crx signing.
+  grunt.registerTask('zip', [
+    'copy',
+    'string-replace:debugoff',
+    'crx:public',
+    'clean',
+  ]);
   grunt.registerTask('tgut', [
     'copy',
     'string-replace:debugon',

@@ -65,6 +65,15 @@ The extension in `.crx` format will be inside `build/crx/`. You can drag it into
 
 > **"This extension is not listed in the Chrome Web Store"** - if Chrome prevents you from enabling the `.crx`, extract the `.zip` from `build/zip/`, navigate to `chrome://extensions`, click <kbd>Load unpacked extension...</kbd>, browse to the extracted folder, and confirm.
 
+### Run the tests
+
+```sh
+npm install
+npm test
+```
+
+Unit tests live in `tests/` and run with [Vitest](https://vitest.dev/) under Node: `tests/setup/chrome-stub.js` stands in for the `chrome.*` API so the modules in `src/js` can be imported outside the browser. `npm run lint` and `npm run check-locales` cover style and translations.
+
 ---
 
 ## Contributing
