@@ -96,6 +96,8 @@ export function createChromeStub() {
       onClicked: event(),
     },
     tabGroups: {
+      // what the browser gives as the groupId of a tab that is in no group
+      TAB_GROUP_ID_NONE: -1,
       onUpdated: event(),
       onRemoved: event(),
     },

@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "generate-key": "openssl genrsa -out key.pem",
     "test": "vitest run",
+    "test:e2e": "vitest run --config vitest.e2e.config.mjs",
     "check-locales": "node scripts/check-locales.js",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
   },
