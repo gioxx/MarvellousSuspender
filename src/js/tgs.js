@@ -2339,7 +2339,16 @@ export const tgs = (function() {
       }
       catch (error) {
         tabStripMenuAvailable = false;
-        gsUtils.log('tgs', 'Tab strip context menu not available on this browser:', error?.message ?? error);
+        const reason = String(error?.message ?? error);
+        if (reason.includes("property 'contexts'")) {
+          // the refusal this is here for, in Chrome's own words
+          gsUtils.log('tgs', 'Tab strip context menu not available on this browser:', reason);
+        }
+        else {
+          // anything else is a defect in this item, not an old browser: say so at a level
+          // that gets read, and still leave the page menu standing
+          gsUtils.warning('tgs', 'Could not create the tab strip context menu:', reason);
+        }
       }
       if (tabStripMenuAvailable) {
         for (const item of otherTabStripItems) {

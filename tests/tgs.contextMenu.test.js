@@ -20,7 +20,10 @@ function installContextMenus({ tabContext, holdCallbacks = false, failingId = nu
   chrome.contextMenus.create = vi.fn((properties, callback) => {
     for (const context of properties.contexts) {
       if (!known.includes(context)) {
-        throw new TypeError(`Error in invocation of contextMenus.create: Value must be one of ${known.join(', ')}.`);
+        // the browser's own wording, as Chrome 146 gives it
+        throw new TypeError('Error in invocation of contextMenus.create(contextMenus.CreateProperties createProperties, '
+          + "optional function callback): Error at parameter 'createProperties': Error at property 'contexts': "
+          + `Error at index 0: Value must be one of ${known.join(', ')}.`);
       }
     }
     if (properties.id === throwOnId) {
@@ -76,6 +79,8 @@ describe('tgs.rebuildContextMenu', () => {
     // the refresh of the never-suspend-group items looks the active tab up: an ungrouped one
     originalTabsQuery = chrome.tabs.query;
     chrome.tabs.query = vi.fn((queryInfo, callback) => callback([{ id: 1, windowId: 1, groupId: -1, url: 'https://example.com/' }]));
+    // the constant the browser gives for "in no group"; the stub has none
+    chrome.tabGroups.TAB_GROUP_ID_NONE = -1;
     vi.spyOn(gsStorage, 'getOption').mockImplementation(async (option) => option === gsStorage.ADD_CONTEXT);
     vi.spyOn(gsUtils, 'warning').mockImplementation(() => {});
   });
@@ -86,6 +91,7 @@ describe('tgs.rebuildContextMenu', () => {
       if (original[name] === undefined) delete chrome.contextMenus[name];
       else chrome.contextMenus[name] = original[name];
     }
+    delete chrome.tabGroups.TAB_GROUP_ID_NONE;
     if (originalTabsQuery === undefined) delete chrome.tabs.query;
     else chrome.tabs.query = originalTabsQuery;
     vi.restoreAllMocks();
@@ -142,6 +148,22 @@ describe('tgs.rebuildContextMenu', () => {
     menus.releaseAll();
     await expect(result).resolves.toBeUndefined();
     expect(menus.created[menus.created.length - 1].id).toBe(tabContext ? 'tab_unsuspend_all' : 'open_session_history');
+  });
+
+  it('says nothing louder than a log line when the refusal is the expected one', async () => {
+    const log = vi.spyOn(gsUtils, 'log').mockImplementation(() => {});
+    installContextMenus({ tabContext: false });
+    await rebuild();
+    expect(log).toHaveBeenCalledWith('tgs', expect.stringContaining('not available'), expect.stringContaining("property 'contexts'"));
+    expect(gsUtils.warning).not.toHaveBeenCalled();
+  });
+
+  it('warns when the first tab item throws for any other reason, and goes without the tab strip menu', async () => {
+    const { created } = installContextMenus({ tabContext: true, throwOnId: 'tab_toggle_suspend' });
+    await expect(rebuild()).resolves.toBeUndefined();
+    expect(idsFor(created, 'tab')).toEqual([]);
+    expect(idsFor(created, 'page')).toContain('open_session_history');
+    expect(gsUtils.warning).toHaveBeenCalledWith('tgs', expect.stringContaining('tab strip'), expect.stringContaining('tab_toggle_suspend'));
   });
 
   it('does not hide a create() that throws on a later tab item', async () => {
