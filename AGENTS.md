@@ -1,13 +1,15 @@
 # AGENTS.md
 
 Policy for anyone, human or coding agent, changing this repository. It says what
-is mandatory, what is out of bounds, and what "done" means. How to do things is in
-`CONTRIBUTING.md` and in the code; this file does not repeat it.
+is mandatory, what is out of bounds, and what "done" means. What a change has to
+meet is stated here, once. `CONTRIBUTING.md` covers the process around it (issues,
+branches, review) and how to set up; the pull request template turns part of this
+file into a checklist.
 
 The Marvellous Suspender is a Chrome extension (Manifest V3, plain JavaScript ES
 modules under `src/js`, no bundler, no framework). It runs inside 100,000+ people's
-browsers with the `tabs`, `history`, `scripting` and broad host permissions. Every
-change is held to that standard.
+browsers with the `tabs`, `history`, `scripting` and broad host permissions, and an
+update reaches all of them at once.
 
 ## Definition of done
 
@@ -20,7 +22,8 @@ A change is done only when all of these are true and the PR says so:
       `master` today until the flagged locales catch up on Crowdin.
 - [ ] `npx grunt zip` builds.
 - [ ] A change to anything a user sees or clicks was loaded unpacked in Chrome and
-      exercised by hand; the PR says what was tried.
+      exercised by hand, in a profile kept for that (`CONTRIBUTING.md` says why);
+      the PR says what was tried.
 - [ ] The PR body states what changed, why, and how it was tested.
 
 ## Mandatory
@@ -50,11 +53,13 @@ A change is done only when all of these are true and the PR says so:
   `*.local.js` and OAuth client secrets stay out; `.gitignore` and the Gruntfile
   copy task exclude both patterns, and `tests/build.test.js` holds the copy task
   to it. A new kind of local override goes into those three places first.
+- **A vulnerability is reported in private**, the way `SECURITY.md` describes, never
+  in a public issue, discussion or pull request.
 - **One pull request, one logical change.** Refactors and drive-by cleanups go in
   their own PR.
 - **Commits:** `type(scope): imperative subject` or `type: imperative subject`,
-  subject at most 72 characters, English. Types in use: `feat`, `fix`, `perf`,
-  `refactor`, `test`, `docs`, `ci`, `chore`.
+  subject at most 72 characters, English, and a body that says why. Types in use:
+  `feat`, `fix`, `perf`, `refactor`, `test`, `docs`, `ci`, `chore`.
 - **Every user-visible change gets a line under `## [Unreleased]` in
   `CHANGELOG.md`.** `src/CHANGELOG_USER.md` is rewritten by the maintainer at
   release time; do not edit it in a feature PR.
@@ -66,7 +71,8 @@ Contributions produced with AI assistance are welcome under one condition: the
 person opening the PR has read every line, has run the tests and the extension
 themselves, and can answer review questions about it. The PR body says which
 parts were AI-assisted. A PR whose author cannot explain it will be closed
-without review.
+without review. One already in review will be closed if its comments get answers
+pasted from a chat window without being checked.
 
 ## Not yours to edit
 
