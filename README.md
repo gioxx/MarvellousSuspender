@@ -80,11 +80,11 @@ Unit tests live in `tests/` and run with [Vitest](https://vitest.dev/) under Nod
 
 Contributions are very welcome. Feel free to submit pull requests for new features and bug fixes. For new features, please raise an issue first so we can discuss the approach - this will go a long way to ensuring your pull request is accepted.
 
-The rules every change has to meet are in [`AGENTS.md`](AGENTS.md); the practical guide (setup, branches, commits, what a PR needs) is in [`CONTRIBUTING.md`](CONTRIBUTING.md). Security issues go through [`SECURITY.md`](SECURITY.md), never a public issue.
+The rules every change has to meet are in [`AGENTS.md`](AGENTS.md); the practical guide (setup, branches, how review goes) is in [`CONTRIBUTING.md`](CONTRIBUTING.md). Security issues go through [`SECURITY.md`](SECURITY.md), never a public issue.
 
 ### Contributing with AI tools
 
-You can use AI tools to write code, tests or docs for TMS. The person opening the pull request is still its author: read what was produced, run the tests, load the extension and try it, and be ready to explain any line. Say in the PR which parts were AI-assisted. `AGENTS.md` is written so that coding agents read the same rules you do; if you use one, point it there.
+You can use AI tools to write code, tests or docs for TMS. What is expected of the person who opens the pull request is in [`AGENTS.md`](AGENTS.md), under "Working with AI tools". That file is written for coding agents as well as for people, so that a tool pointed at the repository reads the same rules you do.
 
 ### Localization (l10n)
 
