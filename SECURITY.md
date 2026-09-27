@@ -8,7 +8,7 @@ If you find a way to abuse that, we want to hear from you first.
 Use GitHub's private reporting:
 **https://github.com/gioxx/MarvellousSuspender/security/advisories/new**
 
-If you cannot use GitHub, email **giovanni@solone.it** with "TMS security" in the
+If you cannot use GitHub, email **gioxx@marvellouscode.works** with "TMS security" in the
 subject.
 
 Both channels are private: an advisory is visible to the repository maintainers,
