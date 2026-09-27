@@ -10,6 +10,10 @@ For the full technical changelog (every fix, every review round, every detail), 
 
 - **Never suspend this group**: mark a tab group and its tabs are left alone however long you leave them, which is handy for monitoring or dashboard tabs. Only named groups can be marked, so name the group first (in the page right-click menu the items stay greyed out until you do), then pick "Never suspend this group" from either right-click menu, and "Allow suspending this group" to undo it; review the list in Options. Groups are matched by name and colour, so two groups sharing both count as one.
 
+### Fixed
+
+- **Tabs that shouldn't be suspended were sometimes suspended a minute later anyway**: with screen capturing on, if a tab started playing sound, got pinned or was whitelisted while its screenshot was being taken, the extension correctly skipped it at first but then suspended it about a minute later. It now leaves the tab alone.
+
 ## [9.0.3]
 
 ### New
