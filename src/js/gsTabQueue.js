@@ -78,10 +78,10 @@ export const gsTabQueue = (function() {
       // Returns the delay when it is a whole number of milliseconds greater than 0,
       // undefined otherwise. No delay at all (undefined, null, 0) is a normal call; any
       // other rejected value is a caller's mistake and is logged.
-      function getValidDelay(delay) {
+      function getValidDelay(delay, tabId) {
         if (isValidInteger(delay, 1)) return delay;
         if (delay !== undefined && delay !== null && delay !== 0) {
-          gsUtils.warning(_queueId, `Ignoring invalid delay: ${delay}`);
+          gsUtils.warning(tabId, _queueId, `Ignoring invalid delay: ${delay}`);
         }
         return undefined;
       }
@@ -131,7 +131,7 @@ export const gsTabQueue = (function() {
           // behaviour below for a merely-queued (not in-progress) entry: getTabUpdatedListener()
           // queuing with delay 0 to continue right away must not inherit a stale 5s delay
           // from an earlier onCreated-style follow-up call for the same tab.
-          followUp.delay = getValidDelay(delay);
+          followUp.delay = getValidDelay(delay, tab.id);
           gsUtils.log(tab.id, _queueId, 'Tab check in progress. Queueing as follow-up.');
           return followUp.deferredPromise;
         }
@@ -153,7 +153,7 @@ export const gsTabQueue = (function() {
           gsUtils.log(tab.id, _queueId, 'Tab already queued.');
         }
 
-        const validDelay = getValidDelay(delay);
+        const validDelay = getValidDelay(delay, tab.id);
         if (validDelay) {
           gsUtils.log(tab.id, _queueId, `Sleeping tab for ${validDelay}ms`);
           sleepTab(tabDetails, validDelay);
@@ -408,7 +408,7 @@ export const gsTabQueue = (function() {
       }
 
       function requeueTab(tabDetails, requeueDelay, executionProps) {
-        requeueDelay = getValidDelay(requeueDelay) || DEFAULT_REQUEUE_DELAY;
+        requeueDelay = getValidDelay(requeueDelay, tabDetails.tab.id) || DEFAULT_REQUEUE_DELAY;
         if (executionProps) {
           applyExecutionProps(tabDetails, executionProps);
         }
