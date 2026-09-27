@@ -6,15 +6,15 @@ const grunt = require('grunt');
 const gruntfile = require('../Gruntfile.js');
 
 // Runs the Gruntfile against a recording stand-in, so the test reads the real
-// configuration without loading plugins or touching the disk.
+// configuration and task lists without loading plugins or touching the disk.
 function loadBuild() {
-  const build = { config: null };
+  const build = { config: null, tasks: {} };
   gruntfile({
     cli: { tasks: [] },
     file: { readJSON: () => ({ version: '0.0.0' }) },
     initConfig: (config) => { build.config = config; },
     loadNpmTasks: () => {},
-    registerTask: () => {},
+    registerTask: (name, steps) => { build.tasks[name] = steps; },
   });
   return build;
 }
@@ -41,5 +41,18 @@ describe('build: what the copy step packages', () => {
     'src/js/signing.pem',
   ])('leaves the key file %s out', (path) => {
     expect(packaged([path])).toEqual([]);
+  });
+});
+
+describe('build: every packaging task starts from an empty temp dir', () => {
+  it.each(['default', 'zip', 'tgut'])('%s cleans before it copies', (task) => {
+    const steps = build.tasks[task];
+    expect(steps[0]).toBe('clean');
+    expect(steps.indexOf('copy')).toBeGreaterThan(0);
+    expect(steps[steps.length - 1]).toBe('clean');
+  });
+
+  it('cleans only the temp dir', () => {
+    expect(build.config.clean).toEqual(['<%= config.tempDir %>']);
   });
 });

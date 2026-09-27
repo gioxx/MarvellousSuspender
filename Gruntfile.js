@@ -102,7 +102,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-crx');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
+  // Every task cleans first as well as last: a run that failed midway leaves its temp
+  // dir behind, and copy only adds files, so whatever an earlier run put there would
+  // be packaged by the next one regardless of the exclusions above.
   grunt.registerTask('default', [
+    'clean',
     'copy',
     'string-replace:debugoff',
     'crx:public',
@@ -111,12 +115,14 @@ module.exports = function(grunt) {
   ]);
   // Keyless build for CI and contributors: the store-ready zip only, no .crx signing.
   grunt.registerTask('zip', [
+    'clean',
     'copy',
     'string-replace:debugoff',
     'crx:public',
     'clean',
   ]);
   grunt.registerTask('tgut', [
+    'clean',
     'copy',
     'string-replace:debugon',
     'string-replace:localesTgut',
