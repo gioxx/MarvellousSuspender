@@ -118,6 +118,29 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(chrome.tabs.sendMessage).toHaveBeenCalledWith(1, expect.objectContaining({ action: 'getSuspendInfo' }));
   });
 
+  it('recovers a restored page with no receiver even when a context fallback claims one', async () => {
+    // Lazily restored placeholder: status complete, not discarded or frozen, but its
+    // document never ran. The Vivaldi URL fallback still reports a context for it.
+    let reloaded = false;
+    chrome.tabs.sendMessage.mockImplementation(async () => {
+      if (!reloaded) throw new Error('Could not establish connection. Receiving end does not exist.');
+      return { sessionId: 'session', isVisible: true };
+    });
+    gsUtils.resuspendSuspendedTab.mockImplementation(async () => { reloaded = true; return true; });
+    const result = gsTabCheckManager.performInitialisationTabChecks([suspendedTab(1, { favIconUrl: '' })]);
+    await vi.runAllTimersAsync();
+    expect(await result).toEqual([gsUtils.STATUS_SUSPENDED]);
+    expect(gsUtils.resuspendSuspendedTab).toHaveBeenCalledTimes(1);
+  });
+
+  it('reloads a page with no receiver only once', async () => {
+    chrome.tabs.sendMessage.mockRejectedValue(new Error('Could not establish connection. Receiving end does not exist.'));
+    const result = gsTabCheckManager.performInitialisationTabChecks([suspendedTab(1)]);
+    await vi.runAllTimersAsync();
+    expect(await result).toEqual([gsUtils.STATUS_UNKNOWN]);
+    expect(gsUtils.resuspendSuspendedTab).toHaveBeenCalledTimes(1);
+  });
+
   it('finishes permanently loading checks within a bounded retry window', async () => {
     let result;
     gsTabCheckManager.performInitialisationTabChecks([suspendedTab(1, { status: 'loading' })])

@@ -342,7 +342,19 @@ export const gsTabCheckManager = (function() {
         resolve(gsUtils.STATUS_UNKNOWN);
         return;
       }
-      gsUtils.log(tab.id, QUEUE_ID, 'Failed to get suspendInfo from tab. Will requeue with refetching.', error);
+      // No listener in the page: a lazily restored placeholder whose document never ran
+      // (status 'complete', not discarded or frozen) looks like this. The Vivaldi URL
+      // fallback in contextGetByTabId() still reports a view for it, so the missing-view
+      // branch above is skipped and requeuing alone would never set title/favicon.
+      // Reload it once, like that branch does; the queue's three slots bound the burst (#523).
+      if (!executionProps.resuspended && isNoReceiverError(error)) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Suspended tab has no message receiver. Resuspending.');
+        if (await gsUtils.resuspendSuspendedTab(tab)) {
+          requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { resuspended: true, refetchTab: true });
+          return;
+        }
+      }
+      gsUtils.log(tab.id, QUEUE_ID, 'Failed to get suspendInfo from tab. Will requeue with refetching.', error?.message ?? error);
       requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
       return;
     }
@@ -401,6 +413,10 @@ export const gsTabCheckManager = (function() {
       discarded = await gsTabDiscardManager.queueTabForDiscardAsPromise(tab);
     }
     resolve(discarded ? gsUtils.STATUS_DISCARDED : gsUtils.STATUS_SUSPENDED);
+  }
+
+  function isNoReceiverError(error) {
+    return /Receiving end does not exist/i.test(error?.message ?? '');
   }
 
   async function sendSuspendedTabMessage(tabId, message) {
