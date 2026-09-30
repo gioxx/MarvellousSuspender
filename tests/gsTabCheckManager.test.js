@@ -197,6 +197,7 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(discard).not.toHaveBeenCalled();
     expect(lateDiscard).toHaveBeenCalledTimes(1);
     expect(lateDiscard.mock.calls[0][0].id).toBe(1);
+    expect(lateDiscard.mock.calls[0][1]).toEqual({ expectedUrl: lateDiscard.mock.calls[0][0].url });
     expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(2);
   });
 

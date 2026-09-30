@@ -91,6 +91,11 @@ export const gsTabDiscardManager = (function() {
     }
     tab = _tab;
 
+    if (executionProps.expectedUrl && tab.url !== executionProps.expectedUrl) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab navigated since it was queued. Aborting discard.');
+      resolve(false);
+      return;
+    }
     if (gsUtils.isSuspendedTab(tab) && tab.status === 'loading') {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab is still loading');
       requeue();

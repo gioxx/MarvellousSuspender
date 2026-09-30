@@ -430,6 +430,7 @@ export const gsTabCheckManager = (function() {
   // post-reinitialise requeue does, so the favicon can settle before the discard.
   function discardAfterLateInit(tab) {
     setTimeout(async () => {
+      if (!(await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND))) return;
       const _tab = await gsChrome.tabsGet(tab.id);
       if (
         !_tab ||
@@ -438,13 +439,13 @@ export const gsTabCheckManager = (function() {
         gsUtils.isDiscardedTab(_tab) ||
         getQueuedTabDetails(_tab) ||
         // suspended.js answers even when initTab() failed; a blank page must not be discarded.
-        !ensureSuspendedTabTitleAndFaviconSet(_tab) ||
-        !(await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND))
+        !ensureSuspendedTabTitleAndFaviconSet(_tab)
       ) {
         return;
       }
       gsUtils.log(_tab.id, QUEUE_ID, 'Late initTab reply. Discarding suspended tab.');
-      gsTabDiscardManager.queueTabForDiscard(_tab);
+      // The discard runs later: let it abort if the tab has navigated since this check.
+      gsTabDiscardManager.queueTabForDiscard(_tab, { expectedUrl: _tab.url });
     }, DEFAULT_TAB_CHECK_REQUEUE_DELAY);
   }
 
