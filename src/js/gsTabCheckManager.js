@@ -420,8 +420,23 @@ export const gsTabCheckManager = (function() {
       // Reload it once, like that branch does; the queue's three slots bound the burst (#523).
       if (!executionProps.resuspended && isNoReceiverError(error)) {
         if (abandoned()) return;
+        // The same error comes back if the tab navigated or was discarded after the refetch
+        // above: only reload the page this check was looking at, still live and suspended.
+        const latestTab = await gsChrome.tabsGet(tab.id);
+        if (
+          !latestTab ||
+          latestTab.url !== tab.url ||
+          !gsUtils.isSuspendedTab(latestTab) ||
+          latestTab.discarded ||
+          latestTab.frozen
+        ) {
+          gsUtils.log(tab.id, QUEUE_ID, 'Receiverless tab changed before reload. Requeueing.');
+          requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
+          return;
+        }
+        if (abandoned()) return;
         gsUtils.log(tab.id, QUEUE_ID, 'Suspended tab has no message receiver. Resuspending.');
-        if (await gsUtils.resuspendSuspendedTab(tab)) {
+        if (await gsUtils.resuspendSuspendedTab(latestTab)) {
           requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { resuspended: true, refetchTab: true });
           return;
         }

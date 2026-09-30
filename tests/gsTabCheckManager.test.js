@@ -141,6 +141,19 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(gsUtils.resuspendSuspendedTab).toHaveBeenCalledTimes(1);
   });
 
+  it('does not reload a receiverless tab that navigated away before the reload', async () => {
+    const tab = suspendedTab(1);
+    chrome.tabs.sendMessage.mockImplementation(async () => {
+      // The page navigates while getSuspendInfo is in flight, so nobody answers.
+      tabs.set(1, { ...tab, url: 'https://example.com/1' });
+      throw new Error('Could not establish connection. Receiving end does not exist.');
+    });
+    const result = gsTabCheckManager.performInitialisationTabChecks([tab]);
+    await vi.runAllTimersAsync();
+    expect(await result).toEqual([gsUtils.STATUS_UNKNOWN]);
+    expect(gsUtils.resuspendSuspendedTab).not.toHaveBeenCalled();
+  });
+
   it('finishes permanently loading checks within a bounded retry window', async () => {
     let result;
     gsTabCheckManager.performInitialisationTabChecks([suspendedTab(1, { status: 'loading' })])
