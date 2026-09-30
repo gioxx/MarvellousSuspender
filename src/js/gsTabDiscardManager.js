@@ -114,6 +114,15 @@ export const gsTabDiscardManager = (function() {
       resolve(false);
       return;
     }
+    // The checks above await; confirm the url again right before discarding.
+    if (executionProps.expectedUrl) {
+      const latestTab = await gsChrome.tabsGet(tab.id);
+      if (latestTab?.url !== executionProps.expectedUrl) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Tab navigated during discard checks. Aborting discard.');
+        resolve(false);
+        return;
+      }
+    }
     gsUtils.log(tab.id, QUEUE_ID, 'Forcing discarding of tab.');
     chrome.tabs.discard(tab.id, () => {
       if (chrome.runtime.lastError) {

@@ -39,4 +39,14 @@ describe('discard queue expectedUrl guard', () => {
     expect(await result).toBe(false);
     expect(chrome.tabs.discard).not.toHaveBeenCalled();
   });
+
+  it('aborts when the tab navigates while the discard checks are running', async () => {
+    vi.spyOn(gsChrome, 'tabsGet')
+      .mockResolvedValueOnce(tab)
+      .mockResolvedValue({ ...tab, url: 'https://example.com/' });
+    const result = gsTabDiscardManager.queueTabForDiscardAsPromise(tab, { expectedUrl: suspendedUrl });
+    await vi.runAllTimersAsync();
+    expect(await result).toBe(false);
+    expect(chrome.tabs.discard).not.toHaveBeenCalled();
+  });
 });

@@ -44,4 +44,15 @@ describe('suspended page initialisation (#523)', () => {
     expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(1);
     expect(queue).not.toHaveBeenCalled();
   });
+
+  it('skips the check when a startup check was pending as the page loaded', async () => {
+    // The startup check settles (dropping its reservation) while initTab is in flight.
+    let pending = true;
+    vi.spyOn(gsTabCheckManager, 'hasPendingTabCheck').mockImplementation(() => pending);
+    chrome.tabs.sendMessage.mockImplementation(async () => { pending = false; return {}; });
+    const queue = vi.spyOn(gsTabCheckManager, 'queueTabCheck').mockImplementation(() => {});
+    await tgs.handleSuspendedTabStateChanged(tab, { status: 'complete' });
+    expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(1);
+    expect(queue).not.toHaveBeenCalled();
+  });
 });
