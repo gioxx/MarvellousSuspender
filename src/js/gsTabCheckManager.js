@@ -109,7 +109,14 @@ export const gsTabCheckManager = (function() {
       }
       gsUtils.log(_tab.id, 'suspended tab loaded. status === complete');
       const tabQueueDetails = getQueuedTabDetails(_tab);
-      if (tabQueueDetails) {
+      // Only wake a check waiting between attempts. Queueing against an executing check
+      // spawns a follow-up job outside the startup worker's budget and deadline (#523);
+      // the running attempt refetches or requeues on its own.
+      if (
+        tabQueueDetails &&
+        tabQueueDetails.status !== _tabCheckQueue.STATUS_IN_PROGRESS &&
+        !tabQueueDetails.pendingFollowUp
+      ) {
         // If tab is in check queue, then force it to continue processing immediately
         // This allows us to prevent a timeout -> fetch tab cycle
         tabQueueDetails.tab = _tab;
