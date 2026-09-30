@@ -16,6 +16,7 @@ export const gsTabCheckManager = (function() {
   const DEFAULT_TAB_CHECK_REQUEUE_DELAY = 3 * 1000;
   const INITIAL_TAB_CHECK_BUDGET = 15 * 1000;
   const SUSPENDED_MESSAGE_TIMEOUT = 5 * 1000;
+  const LATE_DISCARD_ATTEMPTS = 3;
   // An attempt started just before the startup deadline can still await two page messages.
   const INITIAL_TAB_CHECK_WAIT_GRACE = 2 * SUSPENDED_MESSAGE_TIMEOUT;
   const MESSAGE_TIMED_OUT = Symbol('suspended tab message timed out');
@@ -521,7 +522,9 @@ export const gsTabCheckManager = (function() {
   // Discards directly rather than queueing another check: a check here would run outside
   // the startup budget that already gave up on this page (#523). Waits like the
   // post-reinitialise requeue does, so the favicon can settle before the discard.
-  function discardAfterLateInit(tab) {
+  // Chrome can lag behind the page in reporting the new title/favicon, so a blank snapshot
+  // is retried a few times before the discard is given up.
+  function discardAfterLateInit(tab, attempt = 1) {
     setTimeout(async () => {
       if (!(await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND))) return;
       const _tab = await gsChrome.tabsGet(tab.id);
@@ -530,10 +533,13 @@ export const gsTabCheckManager = (function() {
         _tab.url !== tab.url ||
         !gsUtils.isSuspendedTab(_tab) ||
         gsUtils.isDiscardedTab(_tab) ||
-        hasPendingTabCheck(_tab) ||
-        // suspended.js answers even when initTab() failed; a blank page must not be discarded.
-        !ensureSuspendedTabTitleAndFaviconSet(_tab)
+        hasPendingTabCheck(_tab)
       ) {
+        return;
+      }
+      // suspended.js answers even when initTab() failed; a blank page must not be discarded.
+      if (!ensureSuspendedTabTitleAndFaviconSet(_tab)) {
+        if (attempt < LATE_DISCARD_ATTEMPTS) discardAfterLateInit(tab, attempt + 1);
         return;
       }
       gsUtils.log(_tab.id, QUEUE_ID, 'Late initTab reply. Discarding suspended tab.');
