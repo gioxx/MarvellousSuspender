@@ -163,7 +163,8 @@ export const gsTabCheckManager = (function() {
         // If tab is in check queue, then force it to continue processing immediately
         // This allows us to prevent a timeout -> fetch tab cycle
         tabQueueDetails.tab = _tab;
-        queueTabCheck(_tab, { refetchTab: false }, 0);
+        // Only a wake-up: keep the queued check's own startup flags.
+        queueTabCheck(_tab, { refetchTab: false, initialCheck: tabQueueDetails.executionProps.initialCheck }, 0);
       }
     };
   }
@@ -182,6 +183,12 @@ export const gsTabCheckManager = (function() {
     }
     gsUtils.log(tab.id, QUEUE_ID, 'Queueing tab for responsiveness check.');
     executionProps = executionProps || {};
+    // An ordinary request merging into a startup one (queued, or parked as a follow-up
+    // behind a running check) must not inherit its startup budget: once expired, that
+    // would resolve the merged request, e.g. a focus check, as unknown untried (#523).
+    if (!executionProps.initialCheck) {
+      executionProps = { ...executionProps, initialCheck: false, initialDeadline: undefined };
+    }
     return _tabCheckQueue.queueTabAsPromise(tab, executionProps, processingDelay);
   }
 

@@ -196,6 +196,26 @@ describe('startup suspended-tab checks (#523)', () => {
     gsTabCheckManager.unqueueTabCheck(tab);
   });
 
+  it('still runs a focus check that merges into an expired parked startup request', async () => {
+    const tab = suspendedTab(1);
+    let loading = true;
+    // The ordinary check keeps requeueing while the page loads, outliving the startup wait.
+    gsChrome.tabsGet.mockImplementation((id) => new Promise((resolve) => {
+      setTimeout(() => resolve({ ...tabs.get(id), status: loading ? 'loading' : 'complete' }), 1000);
+    }));
+    gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 0);
+    await vi.advanceTimersByTimeAsync(100);
+    let startup;
+    gsTabCheckManager.performInitialisationTabChecks([tab]).then((value) => { startup = value; });
+    await vi.advanceTimersByTimeAsync(30000);
+    expect(startup).toEqual([gsUtils.STATUS_UNKNOWN]);
+    // The user focuses the tab: this request joins the stale startup follow-up.
+    const focus = gsTabCheckManager.queueTabCheckAsPromise(tab, {}, 0);
+    loading = false;
+    await vi.runAllTimersAsync();
+    expect(await focus).toBe(gsUtils.STATUS_SUSPENDED);
+  });
+
   it('cancels an expired startup check stalled on a browser API before admitting more', async () => {
     const tab = suspendedTab(1);
     // The view lookup stalls well past the startup budget, then reports no view (reload path).
