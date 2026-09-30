@@ -180,24 +180,42 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(1);
   });
 
-  it('discards through a fresh check once a slow init finishes past the message deadline', async () => {
+  it('discards without a new check once a slow init finishes past the message deadline', async () => {
     let finishInit;
-    let sessionId = 'old-session';
     chrome.tabs.sendMessage.mockImplementation(async (id, message) => message.action === 'initTab'
       ? new Promise((resolve) => { finishInit = resolve; })
-      : { sessionId, isVisible: false });
+      : { sessionId: 'old-session', isVisible: false });
     gsStorage.getOption.mockResolvedValue(true);
     vi.spyOn(tgs, 'isCurrentActiveTab').mockResolvedValue(false);
     const discard = vi.spyOn(gsTabDiscardManager, 'queueTabForDiscardAsPromise').mockResolvedValue(true);
+    const lateDiscard = vi.spyOn(gsTabDiscardManager, 'queueTabForDiscard').mockImplementation(() => {});
     const result = gsTabCheckManager.performInitialisationTabChecks([suspendedTab(1)]);
     await vi.advanceTimersByTimeAsync(6000);
     expect(await result).toEqual([gsUtils.STATUS_UNKNOWN]);
-    expect(discard).not.toHaveBeenCalled();
-    sessionId = 'session';
     finishInit();
     await vi.runAllTimersAsync();
-    expect(discard).toHaveBeenCalledTimes(1);
-    expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(3);
+    expect(discard).not.toHaveBeenCalled();
+    expect(lateDiscard).toHaveBeenCalledTimes(1);
+    expect(lateDiscard.mock.calls[0][0].id).toBe(1);
+    expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(2);
+  });
+
+  it('skips the late discard when the page changed meanwhile', async () => {
+    let finishInit;
+    chrome.tabs.sendMessage.mockImplementation(async (id, message) => message.action === 'initTab'
+      ? new Promise((resolve) => { finishInit = resolve; })
+      : { sessionId: 'old-session', isVisible: false });
+    gsStorage.getOption.mockResolvedValue(true);
+    vi.spyOn(tgs, 'isCurrentActiveTab').mockResolvedValue(false);
+    const lateDiscard = vi.spyOn(gsTabDiscardManager, 'queueTabForDiscard').mockImplementation(() => {});
+    const tab = suspendedTab(1);
+    const result = gsTabCheckManager.performInitialisationTabChecks([tab]);
+    await vi.advanceTimersByTimeAsync(6000);
+    await result;
+    tabs.set(1, { ...tab, url: 'https://example.com/1' });
+    finishInit();
+    await vi.runAllTimersAsync();
+    expect(lateDiscard).not.toHaveBeenCalled();
   });
 
   it('does not re-check after a slow init when discarding is off', async () => {

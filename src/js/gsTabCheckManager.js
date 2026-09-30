@@ -395,10 +395,8 @@ export const gsTabCheckManager = (function() {
         // If we know that we will discard tab, then just perform a quick init
         const quickInit = attemptDiscarding && !tab.active;
         // initTab can legitimately outlast the deadline (settings, favicon storage). When
-        // discarding is due, re-check once it finishes so the page doesn't stay loaded.
-        const onLateInit = attemptDiscarding
-          ? () => queueTabCheck(tab, { refetchTab: true }, DEFAULT_TAB_CHECK_REQUEUE_DELAY)
-          : undefined;
+        // discarding is due, discard once it finishes so the page doesn't stay loaded.
+        const onLateInit = attemptDiscarding ? () => discardAfterLateInit(tab) : undefined;
         await sendSuspendedTabMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() }, onLateInit);
         reinitialised = true;
       }
@@ -425,6 +423,27 @@ export const gsTabCheckManager = (function() {
       discarded = await gsTabDiscardManager.queueTabForDiscardAsPromise(tab);
     }
     resolve(discarded ? gsUtils.STATUS_DISCARDED : gsUtils.STATUS_SUSPENDED);
+  }
+
+  // Discards directly rather than queueing another check: a check here would run outside
+  // the startup budget that already gave up on this page (#523). Waits like the
+  // post-reinitialise requeue does, so the favicon can settle before the discard.
+  function discardAfterLateInit(tab) {
+    setTimeout(async () => {
+      const _tab = await gsChrome.tabsGet(tab.id);
+      if (
+        !_tab ||
+        _tab.url !== tab.url ||
+        !gsUtils.isSuspendedTab(_tab) ||
+        gsUtils.isDiscardedTab(_tab) ||
+        getQueuedTabDetails(_tab) ||
+        !(await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND))
+      ) {
+        return;
+      }
+      gsUtils.log(_tab.id, QUEUE_ID, 'Late initTab reply. Discarding suspended tab.');
+      gsTabDiscardManager.queueTabForDiscard(_tab);
+    }, DEFAULT_TAB_CHECK_REQUEUE_DELAY);
   }
 
   function isNoReceiverError(error) {
