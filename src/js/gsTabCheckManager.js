@@ -394,7 +394,12 @@ export const gsTabCheckManager = (function() {
         gsUtils.log(tab.id, QUEUE_ID, 'Reinitialising suspendedTab: ', tab);
         // If we know that we will discard tab, then just perform a quick init
         const quickInit = attemptDiscarding && !tab.active;
-        await sendSuspendedTabMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() });
+        // initTab can legitimately outlast the deadline (settings, favicon storage). When
+        // discarding is due, re-check once it finishes so the page doesn't stay loaded.
+        const onLateInit = attemptDiscarding
+          ? () => queueTabCheck(tab, { refetchTab: true }, DEFAULT_TAB_CHECK_REQUEUE_DELAY)
+          : undefined;
+        await sendSuspendedTabMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() }, onLateInit);
         reinitialised = true;
       }
       catch (error) {
@@ -426,13 +431,17 @@ export const gsTabCheckManager = (function() {
     return /Receiving end does not exist/i.test(error?.message ?? '');
   }
 
-  async function sendSuspendedTabMessage(tabId, message) {
+  // onLateResponse runs if the page answers after the deadline has already deferred the check.
+  async function sendSuspendedTabMessage(tabId, message, onLateResponse) {
     let timer;
+    let timedOut = false;
+    const request = chrome.tabs.sendMessage(tabId, message);
     try {
       return await Promise.race([
-        chrome.tabs.sendMessage(tabId, message),
+        request,
         new Promise((resolve, reject) => {
           timer = setTimeout(() => {
+            timedOut = true;
             gsUtils.warning(tabId, QUEUE_ID, 'Suspended tab message timed out; deferring check.', message.action);
             reject(MESSAGE_TIMED_OUT);
           }, SUSPENDED_MESSAGE_TIMEOUT);
@@ -441,6 +450,9 @@ export const gsTabCheckManager = (function() {
     }
     finally {
       clearTimeout(timer);
+      if (timedOut && onLateResponse) {
+        request.then(onLateResponse, () => {});
+      }
     }
   }
 

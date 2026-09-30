@@ -1386,6 +1386,10 @@ export const tgs = (function() {
       // second, fully duplicate 'initTab', exactly the concurrent-work multiplication
       // treating the timeout as terminal was meant to prevent in the first place.
       if (token.cancelled || sendFailed) return;
+      // A check already queued or running (e.g. a startup check that reloaded this page)
+      // verifies it itself. Queueing here would attach a follow-up job outside that
+      // check's startup budget (#523).
+      if (gsTabCheckManager.getQueuedTabDetails(freshTab)) return;
       gsTabCheckManager.queueTabCheck(freshTab, { refetchTab: true }, 3000);
     });
   }
