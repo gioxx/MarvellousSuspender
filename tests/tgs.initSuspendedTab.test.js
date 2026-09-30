@@ -31,14 +31,14 @@ afterEach(() => {
 
 describe('suspended page initialisation (#523)', () => {
   it('queues a responsiveness check after initTab', async () => {
-    vi.spyOn(gsTabCheckManager, 'getQueuedTabDetails').mockReturnValue(undefined);
+    vi.spyOn(gsTabCheckManager, 'hasPendingTabCheck').mockReturnValue(false);
     const queue = vi.spyOn(gsTabCheckManager, 'queueTabCheck').mockImplementation(() => {});
     await tgs.handleSuspendedTabStateChanged(tab, { status: 'complete' });
     expect(queue).toHaveBeenCalledWith(tab, { refetchTab: true }, 3000);
   });
 
-  it('leaves verification to a check already queued or running for the page', async () => {
-    vi.spyOn(gsTabCheckManager, 'getQueuedTabDetails').mockReturnValue({ status: 'inProgress' });
+  it('leaves verification to a pending or reserved check for the page', async () => {
+    vi.spyOn(gsTabCheckManager, 'hasPendingTabCheck').mockReturnValue(true);
     const queue = vi.spyOn(gsTabCheckManager, 'queueTabCheck').mockImplementation(() => {});
     await tgs.handleSuspendedTabStateChanged(tab, { status: 'complete' });
     expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(1);

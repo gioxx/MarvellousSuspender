@@ -167,6 +167,17 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(removeListener).toHaveBeenCalledWith(addListener.mock.calls[0][0]);
   });
 
+  it('reserves every restored tab until its startup worker picks it up', async () => {
+    const restored = Array.from({ length: 5 }, (_, i) => suspendedTab(i + 1));
+    chrome.tabs.sendMessage.mockImplementation(() => new Promise(() => {}));
+    const result = gsTabCheckManager.performInitialisationTabChecks(restored);
+    await vi.advanceTimersByTimeAsync(100);
+    expect(gsTabCheckManager.hasPendingTabCheck(restored[4])).toBe(true);
+    await vi.runAllTimersAsync();
+    await result;
+    expect(restored.some((tab) => gsTabCheckManager.hasPendingTabCheck(tab))).toBe(false);
+  });
+
   it('does not spawn follow-up checks when a page completes during an executing check', async () => {
     const addListener = vi.spyOn(chrome.tabs.onUpdated, 'addListener');
     const tab = suspendedTab(1);

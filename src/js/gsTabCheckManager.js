@@ -22,6 +22,8 @@ export const gsTabCheckManager = (function() {
   const _defaultTabTitle = chrome.i18n.getMessage('html_suspended_title');
 
   let   _tabCheckQueue;
+  // Suspended tabs a running startup pass will still check itself (#523).
+  const _startupReservedTabIds = new Set();
   const INIT_RESOLVERS = [];
 
   // NOTE: This mainly checks suspended tabs
@@ -68,6 +70,9 @@ export const gsTabCheckManager = (function() {
     const suspendedTabs = tabs.filter((tab) => gsUtils.isSuspendedTab(tab));
     const results = new Array(suspendedTabs.length);
     const pending = suspendedTabs.map((tab, index) => ({ tab, index }));
+    // Reserve the whole set up front: a restored page loading before its worker reaches it
+    // must not get an ordinary check from tgs.initialiseSuspendedTab() outside this budget.
+    suspendedTabs.forEach((tab) => _startupReservedTabIds.add(tab.id));
     // Recover visible pages first, retaining input order in the returned results.
     pending.sort((a, b) => Number(b.tab.active) - Number(a.tab.active));
     let next = 0;
@@ -84,6 +89,9 @@ export const gsTabCheckManager = (function() {
           gsUtils.log(tab.id, QUEUE_ID, 'Initial tab check cancelled.', error);
           results[index] = gsUtils.STATUS_UNKNOWN;
         }
+        finally {
+          _startupReservedTabIds.delete(tab.id);
+        }
       }
     }
     const tabUpdatedListener = getTabUpdatedListener();
@@ -93,6 +101,7 @@ export const gsTabCheckManager = (function() {
     }
     finally {
       chrome.tabs.onUpdated.removeListener(tabUpdatedListener);
+      suspendedTabs.forEach((tab) => _startupReservedTabIds.delete(tab.id));
     }
     return results;
   }
@@ -151,6 +160,11 @@ export const gsTabCheckManager = (function() {
     if (removed) {
       gsUtils.log(tab.id, QUEUE_ID, 'Removed tab from check queue.');
     }
+  }
+
+  // True when a check is queued or running for the tab, or a startup pass will check it.
+  function hasPendingTabCheck(tab) {
+    return _startupReservedTabIds.has(tab.id) || Boolean(getQueuedTabDetails(tab));
   }
 
   function getQueuedTabDetails(tab) {
@@ -437,7 +451,7 @@ export const gsTabCheckManager = (function() {
         _tab.url !== tab.url ||
         !gsUtils.isSuspendedTab(_tab) ||
         gsUtils.isDiscardedTab(_tab) ||
-        getQueuedTabDetails(_tab) ||
+        hasPendingTabCheck(_tab) ||
         // suspended.js answers even when initTab() failed; a blank page must not be discarded.
         !ensureSuspendedTabTitleAndFaviconSet(_tab)
       ) {
@@ -615,6 +629,7 @@ export const gsTabCheckManager = (function() {
     queueTabCheckAsPromise,
     unqueueTabCheck,
     getQueuedTabDetails,
+    hasPendingTabCheck,
     // ensureSuspendedTabVisible,
   };
 })();
