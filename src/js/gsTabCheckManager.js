@@ -89,7 +89,14 @@ export const gsTabCheckManager = (function() {
           results[index] = await waitUntil(
             queueTabCheckAsPromise(tab, { refetchTab: true, initialCheck: true, initialDeadline }),
             initialDeadline + INITIAL_TAB_CHECK_WAIT_GRACE,
-            tab
+            () => {
+              gsUtils.log(tab.id, QUEUE_ID, 'Initial check still pending after its budget. Cancelling.');
+              // Free its queue slot before admitting another tab. An executor still awaiting
+              // a stalled API stops at its next isStartupCheckAbandoned() guard.
+              if (getQueuedTabDetails(tab)?.executionProps.initialDeadline === initialDeadline) {
+                unqueueTabCheck(tab);
+              }
+            }
           );
         }
         catch (error) {
@@ -113,7 +120,7 @@ export const gsTabCheckManager = (function() {
     return results;
   }
 
-  async function waitUntil(promise, deadline, tab) {
+  async function waitUntil(promise, deadline, onTimeout) {
     let timer;
     promise.catch(() => {}); // may settle after this wait has given up
     try {
@@ -121,7 +128,7 @@ export const gsTabCheckManager = (function() {
         promise,
         new Promise((resolve) => {
           timer = setTimeout(() => {
-            gsUtils.log(tab.id, QUEUE_ID, 'Initial check still pending after its budget. Moving on.');
+            onTimeout();
             resolve(gsUtils.STATUS_UNKNOWN);
           }, Math.max(0, deadline - Date.now()));
         }),
@@ -258,9 +265,24 @@ export const gsTabCheckManager = (function() {
     }
   }
 
+  // A startup check its worker has given up on (and unqueued) may still be awaiting a
+  // stalled browser API. It must not reload, navigate, initialise or discard the tab once
+  // it resumes (#523).
+  function isStartupCheckAbandoned(executionProps) {
+    return Boolean(executionProps.initialCheck) &&
+      Date.now() >= executionProps.initialDeadline + INITIAL_TAB_CHECK_WAIT_GRACE;
+  }
+
   async function checkSuspendedTab(tab, executionProps, resolve, reject, requeue) {
     gsUtils.log(tab.id, QUEUE_ID, 'checkSuspendedTab', tab.url);
+    const abandoned = () => {
+      if (!isStartupCheckAbandoned(executionProps)) return false;
+      gsUtils.log(tab.id, QUEUE_ID, 'Startup check abandoned. Skipping recovery work.');
+      resolve(gsUtils.STATUS_UNKNOWN);
+      return true;
+    };
     if (executionProps.resuspend && !executionProps.resuspended) {
+      if (abandoned()) return;
       await gsUtils.resuspendSuspendedTab(tab);
       // refetchTab so the next pass re-reads the tab after the resuspend reload rather
       // than trusting this now-stale snapshot (status, frozen, groupId can all have
@@ -299,6 +321,7 @@ export const gsTabCheckManager = (function() {
       const url = tab.url || tab.pendingUrl;
       const originalUrl = gsUtils.getOriginalUrl(url);
       if (originalUrl && originalUrl.indexOf('file') === 0) {
+        if (abandoned()) return;
         gsUtils.log(tab.id, QUEUE_ID, 'Unsuspending blocked local file tab.');
         await gsChrome.tabsUpdate(tab.id, { url: originalUrl });
         requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
@@ -344,6 +367,7 @@ export const gsTabCheckManager = (function() {
     // Make sure tab is registered as a 'view' of the extension
     if (!(await gsChrome.contextGetByTabId(tab.id))) {
       gsUtils.log(tab.id, QUEUE_ID, 'Could not find an internal view for suspended tab.', tab);
+      if (abandoned()) return;
       if (!executionProps.resuspended) {
         const resuspendOk = await gsUtils.resuspendSuspendedTab(tab);
         if (resuspendOk) {
@@ -395,6 +419,7 @@ export const gsTabCheckManager = (function() {
       // branch above is skipped and requeuing alone would never set title/favicon.
       // Reload it once, like that branch does; the queue's three slots bound the burst (#523).
       if (!executionProps.resuspended && isNoReceiverError(error)) {
+        if (abandoned()) return;
         gsUtils.log(tab.id, QUEUE_ID, 'Suspended tab has no message receiver. Resuspending.');
         if (await gsUtils.resuspendSuspendedTab(tab)) {
           requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { resuspended: true, refetchTab: true });
@@ -430,6 +455,7 @@ export const gsTabCheckManager = (function() {
         resolve(gsUtils.STATUS_UNKNOWN);
         return;
       }
+      if (abandoned()) return;
       try {
         gsUtils.log(tab.id, QUEUE_ID, 'Reinitialising suspendedTab: ', tab);
         // If we know that we will discard tab, then just perform a quick init
@@ -460,6 +486,7 @@ export const gsTabCheckManager = (function() {
         requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
         return;
       }
+      if (abandoned()) return;
       discarded = await gsTabDiscardManager.queueTabForDiscardAsPromise(tab);
     }
     resolve(discarded ? gsUtils.STATUS_DISCARDED : gsUtils.STATUS_SUSPENDED);

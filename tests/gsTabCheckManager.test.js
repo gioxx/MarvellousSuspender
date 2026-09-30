@@ -183,6 +183,21 @@ describe('startup suspended-tab checks (#523)', () => {
     gsTabCheckManager.unqueueTabCheck(tab);
   });
 
+  it('cancels an expired startup check stalled on a browser API before admitting more', async () => {
+    const tab = suspendedTab(1);
+    // The view lookup stalls well past the startup budget, then reports no view (reload path).
+    gsChrome.contextGetByTabId.mockImplementation(() => new Promise((resolve) => {
+      setTimeout(() => resolve(null), 40000);
+    }));
+    let result;
+    gsTabCheckManager.performInitialisationTabChecks([tab]).then((value) => { result = value; });
+    await vi.advanceTimersByTimeAsync(26000);
+    expect(result).toEqual([gsUtils.STATUS_UNKNOWN]);
+    expect(gsTabCheckManager.hasPendingTabCheck(tab)).toBe(false);
+    await vi.runAllTimersAsync();
+    expect(gsUtils.resuspendSuspendedTab).not.toHaveBeenCalled();
+  });
+
   it('keeps waiting on a slow page for ordinary (non-startup) checks', async () => {
     const tab = suspendedTab(1);
     chrome.tabs.sendMessage.mockImplementation(() => new Promise((resolve) => {
