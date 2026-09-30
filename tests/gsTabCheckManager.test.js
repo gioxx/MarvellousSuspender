@@ -211,6 +211,22 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(gsUtils.resuspendSuspendedTab).not.toHaveBeenCalled();
   });
 
+  it('does not send initTab from an abandoned check whose session lookup stalled', async () => {
+    const tab = suspendedTab(1, { favIconUrl: '' });
+    chrome.tabs.sendMessage.mockResolvedValue({ sessionId: 'old-session', isVisible: true });
+    let lookups = 0;
+    // The first lookup (session comparison) answers; the one before initTab stalls 40s.
+    gsSession.getSessionId.mockImplementation(() => {
+      lookups += 1;
+      if (lookups === 1) return Promise.resolve('session');
+      return new Promise((resolve) => setTimeout(() => resolve('session'), 40000));
+    });
+    const result = gsTabCheckManager.performInitialisationTabChecks([tab]);
+    await vi.runAllTimersAsync();
+    expect(await result).toEqual([gsUtils.STATUS_UNKNOWN]);
+    expect(chrome.tabs.sendMessage).not.toHaveBeenCalledWith(1, expect.objectContaining({ action: 'initTab' }));
+  });
+
   it('keeps waiting on a slow page for ordinary (non-startup) checks', async () => {
     const tab = suspendedTab(1);
     chrome.tabs.sendMessage.mockImplementation(() => new Promise((resolve) => {

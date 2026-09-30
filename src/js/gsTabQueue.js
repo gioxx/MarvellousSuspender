@@ -212,14 +212,16 @@ export const gsTabQueue = (function() {
         }
       }
 
-      function unqueueTab(tab) {
+      // keepFollowUp cancels only the current job: a follow-up queued behind it is promoted
+      // by rejectTabPromise() as usual instead of being rejected with it.
+      function unqueueTab(tab, { keepFollowUp = false } = {}) {
         const tabDetails = _tabDetailsByTabId.get(tab.id);
         if (tabDetails) {
           // gsUtils.log(tab.id, _queueId, 'Unqueueing tab.');
           // An explicit external cancellation means the caller wants nothing further to
           // happen for this tab (e.g. removeTabIdReferences() on tab close/replace) — a
           // pending follow-up must not survive to spawn a fresh job afterwards.
-          if (tabDetails.pendingFollowUp) {
+          if (tabDetails.pendingFollowUp && !keepFollowUp) {
             tabDetails.pendingFollowUp.deferredPromise.reject('Queued tab job cancelled externally');
             delete tabDetails.pendingFollowUp;
           }

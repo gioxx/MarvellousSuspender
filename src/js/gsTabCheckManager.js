@@ -92,9 +92,10 @@ export const gsTabCheckManager = (function() {
             () => {
               gsUtils.log(tab.id, QUEUE_ID, 'Initial check still pending after its budget. Cancelling.');
               // Free its queue slot before admitting another tab. An executor still awaiting
-              // a stalled API stops at its next isStartupCheckAbandoned() guard.
+              // a stalled API stops at its next isStartupCheckAbandoned() guard. A newer
+              // request parked behind it (e.g. a focus check) is promoted, not dropped.
               if (getQueuedTabDetails(tab)?.executionProps.initialDeadline === initialDeadline) {
-                unqueueTabCheck(tab);
+                _tabCheckQueue.unqueueTab(tab, { keepFollowUp: true });
               }
             }
           );
@@ -470,6 +471,9 @@ export const gsTabCheckManager = (function() {
         resolve(gsUtils.STATUS_UNKNOWN);
         return;
       }
+      // Read before the guard: a stalled storage lookup here must not let an abandoned
+      // check send initTab once it resumes.
+      const sessionId = await gsSession.getSessionId();
       if (abandoned()) return;
       try {
         gsUtils.log(tab.id, QUEUE_ID, 'Reinitialising suspendedTab: ', tab);
@@ -478,7 +482,7 @@ export const gsTabCheckManager = (function() {
         // initTab can legitimately outlast the deadline (settings, favicon storage). When
         // discarding is due, discard once it finishes so the page doesn't stay loaded.
         const onLateInit = attemptDiscarding ? () => discardAfterLateInit(tab) : undefined;
-        await sendSuspendedTabMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() }, executionProps.initialCheck, onLateInit);
+        await sendSuspendedTabMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId }, executionProps.initialCheck, onLateInit);
         reinitialised = true;
       }
       catch (error) {

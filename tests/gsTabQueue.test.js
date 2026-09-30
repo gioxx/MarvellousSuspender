@@ -97,6 +97,21 @@ describe('gsTabQueue', () => {
     expect(seen).toEqual(['first', 'second']);
   });
 
+  it('promotes a follow-up when only the current job is unqueued', async () => {
+    const queue = makeQueue({
+      executorFn: (tab, props, resolve) => {
+        if (props.marker === 'stalled') return; // never settles on its own
+        resolve(props.marker);
+      },
+    });
+    const stalled = queue.queueTabAsPromise({ id: 12 }, { marker: 'stalled' });
+    await tick(60);
+    const followUp = queue.queueTabAsPromise({ id: 12 }, { marker: 'focus' });
+    expect(queue.unqueueTab({ id: 12 }, { keepFollowUp: true })).toBe(true);
+    await expect(stalled).rejects.toBe('Queued tab job cancelled externally');
+    await expect(followUp).resolves.toBe('focus');
+  });
+
   it('re-runs the executor after a requeue and resolves with the final result', async () => {
     let attempts = 0;
     const queue = makeQueue({
