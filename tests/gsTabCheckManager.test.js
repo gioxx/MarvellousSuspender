@@ -167,6 +167,22 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(removeListener).toHaveBeenCalledWith(addListener.mock.calls[0][0]);
   });
 
+  it('bounds a startup check parked behind an ordinary check already running', async () => {
+    const tab = suspendedTab(1);
+    // The ordinary check keeps finding a page still loading, so it requeues for minutes;
+    // the slow refetch keeps it in progress when the startup request arrives.
+    gsChrome.tabsGet.mockImplementation((id) => new Promise((resolve) => {
+      setTimeout(() => resolve({ ...tabs.get(id), status: 'loading' }), 1000);
+    }));
+    gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 0);
+    await vi.advanceTimersByTimeAsync(100);
+    let result;
+    gsTabCheckManager.performInitialisationTabChecks([tab]).then((value) => { result = value; });
+    await vi.advanceTimersByTimeAsync(30000);
+    expect(result).toEqual([gsUtils.STATUS_UNKNOWN]);
+    gsTabCheckManager.unqueueTabCheck(tab);
+  });
+
   it('reserves every restored tab until its startup worker picks it up', async () => {
     const restored = Array.from({ length: 5 }, (_, i) => suspendedTab(i + 1));
     chrome.tabs.sendMessage.mockImplementation(() => new Promise(() => {}));

@@ -16,6 +16,8 @@ export const gsTabCheckManager = (function() {
   const DEFAULT_TAB_CHECK_REQUEUE_DELAY = 3 * 1000;
   const INITIAL_TAB_CHECK_BUDGET = 15 * 1000;
   const SUSPENDED_MESSAGE_TIMEOUT = 5 * 1000;
+  // An attempt started just before the startup deadline can still await two page messages.
+  const INITIAL_TAB_CHECK_WAIT_GRACE = 2 * SUSPENDED_MESSAGE_TIMEOUT;
   const MESSAGE_TIMED_OUT = Symbol('suspended tab message timed out');
 
   const QUEUE_ID = 'checkQueue';
@@ -80,10 +82,15 @@ export const gsTabCheckManager = (function() {
       while (next < pending.length) {
         const { tab, index } = pending[next++];
         try {
-          results[index] = await queueTabCheckAsPromise(tab, {
-            refetchTab: true,
-            initialCheck: true,
-          });
+          // The deadline starts at admission, not first execution: a request parked behind
+          // an ordinary check already running for this tab must not get a fresh budget
+          // when it is eventually promoted, nor hold this worker past it (#523).
+          const initialDeadline = Date.now() + INITIAL_TAB_CHECK_BUDGET;
+          results[index] = await waitUntil(
+            queueTabCheckAsPromise(tab, { refetchTab: true, initialCheck: true, initialDeadline }),
+            initialDeadline + INITIAL_TAB_CHECK_WAIT_GRACE,
+            tab
+          );
         }
         catch (error) {
           gsUtils.log(tab.id, QUEUE_ID, 'Initial tab check cancelled.', error);
@@ -104,6 +111,25 @@ export const gsTabCheckManager = (function() {
       suspendedTabs.forEach((tab) => _startupReservedTabIds.delete(tab.id));
     }
     return results;
+  }
+
+  async function waitUntil(promise, deadline, tab) {
+    let timer;
+    promise.catch(() => {}); // may settle after this wait has given up
+    try {
+      return await Promise.race([
+        promise,
+        new Promise((resolve) => {
+          timer = setTimeout(() => {
+            gsUtils.log(tab.id, QUEUE_ID, 'Initial check still pending after its budget. Moving on.');
+            resolve(gsUtils.STATUS_UNKNOWN);
+          }, Math.max(0, deadline - Date.now()));
+        }),
+      ]);
+    }
+    finally {
+      clearTimeout(timer);
+    }
   }
 
   function getTabUpdatedListener() {
