@@ -183,6 +183,16 @@ describe('startup suspended-tab checks (#523)', () => {
     gsTabCheckManager.unqueueTabCheck(tab);
   });
 
+  it('keeps waiting on a slow page for ordinary (non-startup) checks', async () => {
+    const tab = suspendedTab(1);
+    chrome.tabs.sendMessage.mockImplementation(() => new Promise((resolve) => {
+      setTimeout(() => resolve({ sessionId: 'session', isVisible: true }), 8000);
+    }));
+    const result = gsTabCheckManager.queueTabCheckAsPromise(tab, { refetchTab: true }, 0);
+    await vi.runAllTimersAsync();
+    expect(await result).toBe(gsUtils.STATUS_SUSPENDED);
+  });
+
   it('reserves every restored tab until its startup worker picks it up', async () => {
     const restored = Array.from({ length: 5 }, (_, i) => suspendedTab(i + 1));
     chrome.tabs.sendMessage.mockImplementation(() => new Promise(() => {}));

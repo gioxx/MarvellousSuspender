@@ -383,7 +383,7 @@ export const gsTabCheckManager = (function() {
       !(await tgs.isCurrentActiveTab(tab));
     let suspendInfo;
     try {
-      suspendInfo = await sendSuspendedTabMessage(tab.id, { action: 'getSuspendInfo', tab });
+      suspendInfo = await sendSuspendedTabMessage(tab.id, { action: 'getSuspendInfo', tab }, executionProps.initialCheck);
     } catch (error) {
       if (error === MESSAGE_TIMED_OUT) {
         resolve(gsUtils.STATUS_UNKNOWN);
@@ -437,7 +437,7 @@ export const gsTabCheckManager = (function() {
         // initTab can legitimately outlast the deadline (settings, favicon storage). When
         // discarding is due, discard once it finishes so the page doesn't stay loaded.
         const onLateInit = attemptDiscarding ? () => discardAfterLateInit(tab) : undefined;
-        await sendSuspendedTabMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() }, onLateInit);
+        await sendSuspendedTabMessage(tab.id, { action: 'initTab', tab, quickInit, sessionId: await gsSession.getSessionId() }, executionProps.initialCheck, onLateInit);
         reinitialised = true;
       }
       catch (error) {
@@ -494,7 +494,12 @@ export const gsTabCheckManager = (function() {
   }
 
   // onLateResponse runs if the page answers after the deadline has already deferred the check.
-  async function sendSuspendedTabMessage(tabId, message, onLateResponse) {
+  // Only startup checks get the short terminal deadline (#523). Ordinary checks (focus,
+  // discard) keep waiting on the page, bounded by the queue's own job timeout.
+  async function sendSuspendedTabMessage(tabId, message, bounded, onLateResponse) {
+    if (!bounded) {
+      return chrome.tabs.sendMessage(tabId, message);
+    }
     let timer;
     let timedOut = false;
     const request = chrome.tabs.sendMessage(tabId, message);
