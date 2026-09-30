@@ -218,6 +218,24 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(lateDiscard).not.toHaveBeenCalled();
   });
 
+  it('skips the late discard when the late init left the page without title or favicon', async () => {
+    let finishInit;
+    chrome.tabs.sendMessage.mockImplementation(async (id, message) => message.action === 'initTab'
+      ? new Promise((resolve) => { finishInit = resolve; })
+      : { sessionId: 'old-session', isVisible: false });
+    gsStorage.getOption.mockResolvedValue(true);
+    vi.spyOn(tgs, 'isCurrentActiveTab').mockResolvedValue(false);
+    const lateDiscard = vi.spyOn(gsTabDiscardManager, 'queueTabForDiscard').mockImplementation(() => {});
+    const tab = suspendedTab(1);
+    const result = gsTabCheckManager.performInitialisationTabChecks([tab]);
+    await vi.advanceTimersByTimeAsync(6000);
+    await result;
+    tabs.set(1, { ...tab, favIconUrl: undefined });
+    finishInit({ error: 'initTab failed' });
+    await vi.runAllTimersAsync();
+    expect(lateDiscard).not.toHaveBeenCalled();
+  });
+
   it('does not re-check after a slow init when discarding is off', async () => {
     let finishInit;
     chrome.tabs.sendMessage.mockImplementation(async (id, message) => message.action === 'initTab'

@@ -437,6 +437,8 @@ export const gsTabCheckManager = (function() {
         !gsUtils.isSuspendedTab(_tab) ||
         gsUtils.isDiscardedTab(_tab) ||
         getQueuedTabDetails(_tab) ||
+        // suspended.js answers even when initTab() failed; a blank page must not be discarded.
+        !ensureSuspendedTabTitleAndFaviconSet(_tab) ||
         !(await gsStorage.getOption(gsStorage.DISCARD_AFTER_SUSPEND))
       ) {
         return;
