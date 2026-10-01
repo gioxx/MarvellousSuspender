@@ -438,7 +438,7 @@
     "message": "Never suspend active tab in each window"
   },
   "html_options_suspend_no_active_tabs_tooltip_line3": {
-    "message": "The \"Always suspend\" list does not override this option."
+    "message": "The \"Always suspend\" list does not override this option for automatic and bulk suspension."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Always reopen suspended tabs scrolled to the top"
