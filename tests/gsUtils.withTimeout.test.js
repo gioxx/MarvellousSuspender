@@ -64,6 +64,14 @@ describe('gsUtils.withTimeout (#544)', () => {
     await assertion;
   });
 
+  it('keeps the timeout decided while a promise returned by onTimeout is pending', async () => {
+    const operation = new Promise((resolve) => setTimeout(() => resolve('operation'), 5));
+    const fallback = new Promise((resolve) => setTimeout(() => resolve('fallback'), 20));
+    const result = gsUtils.withTimeout(operation, 0, () => fallback);
+    await vi.advanceTimersByTimeAsync(20);
+    await expect(result).resolves.toBe('fallback');
+  });
+
   it('fires at once for a deadline already past', async () => {
     const result = gsUtils.withTimeout(new Promise(() => {}), -50, () => 'late');
     await vi.advanceTimersByTimeAsync(0);

@@ -236,13 +236,17 @@ export const gsUtils = {
 
   // Races promise against a timer (#544). If the timer fires first, the result is whatever
   // onTimeout() returns, or a rejection with whatever it throws. Nothing cancels the
-  // underlying work: a later rejection of promise is already handled by the race, so it is
-  // never reported as unhandled, and a caller that wants a late result keeps its own
-  // reference to promise.
+  // underlying work: a later rejection of promise is already handled here, so it is never
+  // reported as unhandled, and a caller that wants a late result keeps its own reference
+  // to promise.
   withTimeout(promise, ms, onTimeout) {
-    let timer;
-    const timeout = new Promise((resolve, reject) => {
-      timer = setTimeout(() => {
+    return new Promise((resolve, reject) => {
+      // Whichever side fires first decides the outcome, even if onTimeout() itself returns
+      // a promise that is still pending when the operation settles.
+      let decided = false;
+      const timer = setTimeout(() => {
+        if (decided) return;
+        decided = true;
         try {
           resolve(onTimeout?.());
         }
@@ -250,8 +254,21 @@ export const gsUtils = {
           reject(error);
         }
       }, Math.max(0, ms));
+      promise.then(
+        (value) => {
+          if (decided) return;
+          decided = true;
+          clearTimeout(timer);
+          resolve(value);
+        },
+        (error) => {
+          if (decided) return;
+          decided = true;
+          clearTimeout(timer);
+          reject(error);
+        }
+      );
     });
-    return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
   },
 
   dir(object) {
