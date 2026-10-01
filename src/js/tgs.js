@@ -1429,24 +1429,19 @@ export const tgs = (function() {
   // above what even a loaded page needs.
   const INIT_TAB_MESSAGE_TIMEOUT_MS = 10000;
 
-  // _withTimeout() below can only ever reject its own wrapper promise early — it has no
+  // gsUtils.withTimeout() can only ever settle its own wrapper promise early — it has no
   // way to actually cancel the underlying chrome.tabs.sendMessage() call or, more to the
   // point, whatever real work the receiving page's initTab() is already doing by the time
   // the timeout fires. Tagging the timeout's own Error lets the retry logic below tell
   // "this specific attempt's wrapper gave up waiting" apart from "the send itself failed
   // quickly" (no receiver yet, page still loading its own script) — the two need very
   // different handling just below.
-  function _withTimeout(promise, ms) {
-    return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => {
-        const error = new Error(`Timed out after ${ms}ms`);
-        error.isInitTabTimeout = true;
-        reject(error);
-      }, ms);
-      promise.then(
-        (value) => { clearTimeout(timer); resolve(value); },
-        (error) => { clearTimeout(timer); reject(error); }
-      );
+  function sendInitTabMessageOnce(tabId, payload) {
+    const ms = INIT_TAB_MESSAGE_TIMEOUT_MS;
+    return gsUtils.withTimeout(chrome.tabs.sendMessage(tabId, payload), ms, () => {
+      const error = new Error(`Timed out after ${ms}ms`);
+      error.isInitTabTimeout = true;
+      throw error;
     });
   }
 
@@ -1457,7 +1452,7 @@ export const tgs = (function() {
   // this loop itself.
   function sendInitTabMessageWithRetry(tabId, payload, token, attempt = 0) {
     if (token?.cancelled) return Promise.resolve();
-    return _withTimeout(chrome.tabs.sendMessage(tabId, payload), INIT_TAB_MESSAGE_TIMEOUT_MS).catch((error) => {
+    return sendInitTabMessageOnce(tabId, payload).catch((error) => {
       // A timeout here doesn't mean the send failed — it means this wrapper gave up
       // waiting on it. The real chrome.tabs.sendMessage() call, and whatever real work
       // (favicon decode, canvas, preview setup) the receiving page's initTab() started
