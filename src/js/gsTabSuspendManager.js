@@ -246,22 +246,10 @@ export const gsTabSuspendManager = (function() {
       const previewUrl = await gsPrecapture.captureVisibleTab(tab)
         ?? await gsPrecapture.take(tab.id, executionProps.precaptureUrl);
       // The capture above awaits, so this job could have been unqueued (a focus/unsuspend-all
-      // racing the native capture) while it was in flight -- check it's still the queue's
-      // current job for this tab before suspending it, same as handlePreviewImageResponse does.
-      const queuedTabDetails = getQueuedTabDetails(tab);
-      if (!queuedTabDetails || queuedTabDetails.executionProps !== executionProps) {
+      // racing the native capture) while it was in flight.
+      if (!isStillCurrent()) {
         gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while awaiting native capture. Ignoring.',);
         return;
-      }
-      if (previewUrl) {
-        await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
-        // This await too: an unsuspend-all racing it removes the queue entry checked above
-        // but leaves execution here able to fall through to executeTabSuspension() regardless.
-        const stillQueuedAfterSave = getQueuedTabDetails(tab);
-        if (!stillQueuedAfterSave || stillQueuedAfterSave.executionProps !== executionProps) {
-          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while saving native preview. Ignoring.',);
-          return;
-        }
       }
       if (previewUrl || screenCaptureMethod === 'native') {
         // Forced 'native' mode treats a null previewUrl as acceptable (no preview, still
@@ -285,15 +273,22 @@ export const gsTabSuspendManager = (function() {
           resolve(false);
           return;
         }
-        // One more check immediately before the actual suspension: tabsGet() and the
-        // eligibility check above both await too, and an unsuspend-all racing either of them
-        // still passes eligibility for e.g. a force-level-1 job even though the job was removed.
-        const stillQueuedBeforeSuspend = getQueuedTabDetails(tab);
-        if (!stillQueuedBeforeSuspend || stillQueuedBeforeSuspend.executionProps !== executionProps) {
-          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled just before native suspension. Ignoring.',);
+        // tabsGet() and the eligibility check above both await too, and an unsuspend-all
+        // racing either of them still passes eligibility for e.g. a force-level-1 job even
+        // though the job was removed.
+        if (!isStillCurrent()) {
+          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled before native suspension. Ignoring.',);
           return;
         }
-        const isStillCurrent = () => getQueuedTabDetails(tab)?.executionProps === executionProps;
+        // The preview is stored only now, once the live tab has been found on the page it was
+        // taken for and still eligible: a capture of a page the tab has left is dropped (#546).
+        if (previewUrl) {
+          await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
+          if (!isStillCurrent()) {
+            gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while saving native preview. Ignoring.',);
+            return;
+          }
+        }
         const success = await executeTabSuspension(tab, suspendedUrl, isStillCurrent);
         resolve(success);
         return;
@@ -347,6 +342,14 @@ export const gsTabSuspendManager = (function() {
       return;
     }
 
+    // checkTabEligibilityForSuspension() awaits: the job can have been unqueued meanwhile,
+    // and nothing of it must be stored then (#546).
+    const isStillCurrent = () => getQueuedTabDetails(tab)?.executionProps === expectedExecutionProps;
+    if (!isStillCurrent()) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled during the eligibility check. Ignoring.',);
+      return;
+    }
+
     // Temporarily change tab.url with that from the generated suspended url
     // This is because for youtube tabs we manually change the url to persist timestamp
     const timestampedUrl = gsUtils.getOriginalUrl(
@@ -363,46 +366,20 @@ export const gsTabSuspendManager = (function() {
           ?? await gsPrecapture.take(tab.id, queuedTabDetails.executionProps.precaptureUrl);
         // This fallback capture awaits too, so re-check the job identity again, same reason
         // as the check above this function's earlier await (the queue's savePreviewData round trip).
-        const stillQueued = getQueuedTabDetails(tab);
-        if (!stillQueued || stillQueued.executionProps !== expectedExecutionProps) {
+        // The live tab is read and judged below, before the preview is stored, for this
+        // path and the renderer-succeeded one alike.
+        if (!isStillCurrent()) {
           gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while awaiting fallback native capture. Ignoring.',);
           return;
         }
-        // Same stale-page hazard as the native-first path: a navigation during this capture
-        // would otherwise save the new page's screenshot and suspend it under the old one's url.
-        const liveTab = await gsChrome.tabsGet(tab.id);
-        if (!liveTab || liveTab.url !== queuedTabDetails.executionProps.precaptureUrl) {
-          gsUtils.log(tab.id, QUEUE_ID, 'Tab navigated while awaiting fallback native capture. Ignoring.',);
-          queuedTabDetails.executionProps.resolveFn(false);
-          return;
-        }
-        // Eligibility was already checked once above, before this second await -- it can
-        // just as easily have changed again during the fallback capture itself. liveTab, not
-        // tab: its snapshot is as stale as its url was.
-        if (!await checkTabEligibilityForSuspension(liveTab, suspensionForceLevel)) {
-          gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.',);
-          queuedTabDetails.executionProps.resolveFn(false);
-          return;
-        }
       }
     }
-    if (previewUrl) {
-      await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
-      // This save awaits too: an unsuspend-all racing it can still remove the queue entry
-      // checked above and leave execution here able to fall through regardless.
-      const stillQueuedAfterSave = getQueuedTabDetails(tab);
-      if (!stillQueuedAfterSave || stillQueuedAfterSave.executionProps !== expectedExecutionProps) {
-        gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while saving preview. Ignoring.',);
-        return;
-      }
-    }
-    // One comprehensive check right before the actual suspension, unconditionally, rather than
-    // another narrow one scoped to whichever branch was just taken: identity (an unsuspend-all
-    // racing any of the awaits above), url (a navigation during the renderer's own round trip,
-    // which the checks above never covered at all for the renderer-succeeded case), and
-    // eligibility (the tab becoming audible/pinned/grouped during any of those same awaits).
-    const stillQueuedBeforeSuspend = getQueuedTabDetails(tab);
-    if (!stillQueuedBeforeSuspend || stillQueuedBeforeSuspend.executionProps !== expectedExecutionProps) {
+    // One comprehensive check right before the preview is stored and the tab suspended,
+    // unconditionally, rather than another narrow one scoped to whichever branch was just
+    // taken: identity (an unsuspend-all racing any of the awaits above), url (a navigation
+    // during the renderer's own round trip, or during the fallback capture), and eligibility
+    // (the tab becoming audible/pinned/grouped during any of those same awaits).
+    if (!isStillCurrent()) {
       gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled just before suspension. Ignoring.',);
       return;
     }
@@ -419,16 +396,26 @@ export const gsTabSuspendManager = (function() {
     }
     // checkTabEligibilityForSuspension() awaits too -- the identity check above it doesn't
     // cover a cancellation landing inside that specific await.
-    const stillQueuedAfterEligibility = getQueuedTabDetails(tab);
-    if (!stillQueuedAfterEligibility || stillQueuedAfterEligibility.executionProps !== expectedExecutionProps) {
+    if (!isStillCurrent()) {
       gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled during the eligibility check. Ignoring.',);
       return;
+    }
+    // The preview is stored only now, once the live tab has been found on the page it was
+    // taken for and still eligible (#546).
+    if (previewUrl) {
+      await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
+      // This save awaits too: an unsuspend-all racing it can still remove the queue entry
+      // checked above and leave execution here able to fall through regardless.
+      if (!isStillCurrent()) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while saving preview. Ignoring.',);
+        return;
+      }
     }
 
     const success = await executeTabSuspension(
       tab,
       queuedTabDetails.executionProps.suspendedUrl,
-      () => getQueuedTabDetails(tab)?.executionProps === expectedExecutionProps,
+      isStillCurrent,
     );
     queuedTabDetails.executionProps.resolveFn(success);
   }
