@@ -257,6 +257,28 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(await result).toBe(gsUtils.STATUS_SUSPENDED);
   });
 
+  it('leaves restored tabs created while the startup pass is pending to that pass', async () => {
+    const restored = Array.from({ length: 10 }, (_, i) => suspendedTab(i + 1));
+    gsTabCheckManager.setStartupPending(true);
+    try {
+      restored.forEach((tab) => gsTabCheckManager.queueCreatedTabCheck(tab));
+      await vi.advanceTimersByTimeAsync(100);
+      expect(restored.some((tab) => gsTabCheckManager.getQueuedTabDetails(tab))).toBe(false);
+    }
+    finally {
+      gsTabCheckManager.setStartupPending(false);
+    }
+  });
+
+  it('checks a created suspended tab when no startup pass is pending', async () => {
+    const tab = suspendedTab(1);
+    gsTabCheckManager.queueCreatedTabCheck(tab);
+    await vi.advanceTimersByTimeAsync(100);
+    expect(gsTabCheckManager.getQueuedTabDetails(tab)).toBeTruthy();
+    await vi.runAllTimersAsync();
+    expect(chrome.tabs.sendMessage).toHaveBeenCalledWith(1, expect.objectContaining({ action: 'getSuspendInfo' }));
+  });
+
   it('reserves every restored tab until its startup worker picks it up', async () => {
     const restored = Array.from({ length: 5 }, (_, i) => suspendedTab(i + 1));
     chrome.tabs.sendMessage.mockImplementation(() => new Promise(() => {}));

@@ -27,6 +27,9 @@ export const gsTabCheckManager = (function() {
   let   _tabCheckQueue;
   // Suspended tabs a running startup pass will still check itself (#523).
   const _startupReservedTabIds = new Set();
+  // True from startupOnce() until the startup pass ends: it checks every restored tab
+  // itself, within its own limit, so per-tab onCreated checks are skipped meanwhile (#523).
+  let _startupPending = false;
   const INIT_RESOLVERS = [];
 
   // NOTE: This mainly checks suspended tabs
@@ -168,6 +171,23 @@ export const gsTabCheckManager = (function() {
         queueTabCheck(_tab, { refetchTab: false, initialCheck: tabQueueDetails.executionProps.initialCheck }, 0);
       }
     };
+  }
+
+  function setStartupPending(pending) {
+    _startupPending = pending;
+  }
+
+  // onCreated check for a suspended tab: usually a reopened closed tab. During a session
+  // restore every restored tab fires onCreated before the startup pass runs; queueing
+  // them all here bypassed the startup pass's three-check limit and reloaded the whole
+  // restored set in a burst (#523). A tab created after the pass has read the tab list is
+  // still initialised through tgs.initialiseSuspendedTab() when its page loads.
+  function queueCreatedTabCheck(tab) {
+    if (_startupPending) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Startup pass pending. Leaving the created tab to it.');
+      return;
+    }
+    queueTabCheck(tab, {}, 5000);
   }
 
   function queueTabCheck(tab, executionProps, processingDelay) {
@@ -715,8 +735,10 @@ export const gsTabCheckManager = (function() {
   return {
     initAsPromised,
     performInitialisationTabChecks,
+    queueCreatedTabCheck,
     queueTabCheck,
     queueTabCheckAsPromise,
+    setStartupPending,
     unqueueTabCheck,
     getQueuedTabDetails,
     hasPendingTabCheck,
