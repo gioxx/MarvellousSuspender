@@ -63,13 +63,16 @@ export const gsTabSuspendManager = (function() {
       // TODO: This should probably update when the screen capture mode changes
       const concurrentSuspensions = screenCaptureMode === '0' ? 5 : DEFAULT_CONCURRENT_SUSPENSIONS;
       const suspensionTimeout = forceScreenCapture ? 5 * 60 * 1000 : DEFAULT_SUSPENSION_TIMEOUT;
-      const queueProps = {
+      // The executor is told which queue runs it: a later init replaces _suspensionQueue
+      // while the jobs of this one run on, and a job checks that it is still current
+      // against the queue it belongs to (#546).
+      const queue = gsTabQueue.init(QUEUE_ID, {
         concurrentExecutors: concurrentSuspensions,
         jobTimeout: suspensionTimeout,
-        executorFn: performSuspension,
+        executorFn: (...args) => performSuspension(queue, ...args),
         exceptionFn: handleSuspensionException,
-      };
-      _suspensionQueue = gsTabQueue.init(QUEUE_ID, queueProps);
+      });
+      _suspensionQueue = queue;
       gsUtils.log(QUEUE_ID, 'init successful');
 
       let resolveFn;
@@ -132,7 +135,13 @@ export const gsTabSuspendManager = (function() {
     }
   }
 
-  async function performSuspension(tab, executionProps, resolve, reject, requeue,) {
+  async function performSuspension(queue, tab, executionProps, resolve, reject, requeue,) {
+    // Every await below is a window for the job to be unqueued (the tab focused, an
+    // unsuspend-all) or superseded by a newer job for the same tab. A job that is no longer
+    // the current one of its queue for this tab must not save or navigate anything; its
+    // promise has already been settled by whoever removed it (#546).
+    const isStillCurrent = () => queue.getQueuedTabDetails(tab)?.executionProps === executionProps;
+
     if (executionProps.refetchTab || gsUtils.isSuspendedTab(tab)) {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab refetch required. Getting updated tab..');
       const _tab = await gsChrome.tabsGet(tab.id);
@@ -174,7 +183,7 @@ export const gsTabSuspendManager = (function() {
           0,
         );
         gsUtils.log(tab.id, QUEUE_ID, 'Interrupting tab loading to resuspend tab');
-        const success = await executeTabSuspension(tab, suspendedUrl);
+        const success = await executeTabSuspension(tab, suspendedUrl, isStillCurrent);
         resolve(success);
       }
       else {
@@ -189,6 +198,10 @@ export const gsTabSuspendManager = (function() {
     }
 
     let tabInfo = await getContentScriptTabInfo(tab);
+    if (!isStillCurrent()) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while asking the content script. Ignoring.');
+      return;
+    }
 
     // If tabInfo is null this is usually due to tab loading, being discarded or 'parked' on chrome restart
     // Never reload the tab to get a screen capture. If the capture script can't run the tab is suspended without one
@@ -209,6 +222,10 @@ export const gsTabSuspendManager = (function() {
 
     // Temporarily change tab.url to append youtube timestamp
     const timestampedUrl = await generateUrlWithYouTubeTimestamp(tab);
+    if (!isStillCurrent()) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while fetching the YouTube timestamp. Ignoring.');
+      return;
+    }
     // NOTE: This does not actually change the tab url, just the current tab object
     tab.url = timestampedUrl;
     await saveSuspendData(tab);
@@ -217,7 +234,7 @@ export const gsTabSuspendManager = (function() {
     executionProps.suspendedUrl = suspendedUrl;
 
     if (screenCaptureMode === '0') {
-      const success = await executeTabSuspension(tab, suspendedUrl);
+      const success = await executeTabSuspension(tab, suspendedUrl, isStillCurrent);
       resolve(success);
       return;
     }

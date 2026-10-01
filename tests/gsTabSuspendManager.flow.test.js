@@ -481,10 +481,10 @@ describe('unqueueTabForSuspension during the flow', () => {
     expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
 
-  // With capture off nothing looks at the queue again after the content script has been
-  // asked: the executor of the cancelled job goes on when the answer comes, saves the tab
-  // info and navigates the tab. Only the capture paths check that the job is still queued.
-  it('still suspends the tab of a cancelled job when the content script answers afterwards (defect: see comment)', async () => {
+  // The executor of a cancelled job is still awaiting the content script when the job is
+  // unqueued; when the answer comes it must find the job gone and stop, saving nothing and
+  // navigating nowhere, as the capture paths already do (#546).
+  it('does not suspend the tab of a cancelled job when the content script answers afterwards', async () => {
     let answer;
     chrome.tabs.sendMessage.mockImplementation((tabId, message, options, callback) => { answer = callback; });
     const tab = makeTab();
@@ -497,10 +497,10 @@ describe('unqueueTabForSuspension during the flow', () => {
 
     answer({ status: 'normal', scrollPos: '340' });
     await flush();
-    expect(gsIndexedDb.addSuspendedTabInfo).toHaveBeenCalledTimes(1);
-    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
-    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(NORMAL_URL, 'Example', '340') }, expect.any(Function));
+    expect(gsIndexedDb.addSuspendedTabInfo).not.toHaveBeenCalled();
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
     expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
+    expect(vi.getTimerCount()).toBe(0);
   });
 
   it('returns undefined for a tab that is not queued', () => {
