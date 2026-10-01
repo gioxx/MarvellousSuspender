@@ -1322,6 +1322,9 @@ export const tgs = (function() {
 
   async function initialiseSuspendedTab(tab) {
     gsUtils.log( tab.id, 'tgs', 'initialiseSuspendedTab' );
+    // Captured now: a startup check pending when the page loaded covers it, even if that
+    // check settles (and drops its reservation) before this initTab finishes (#523).
+    const coveredByPendingCheck = gsTabCheckManager.hasPendingTabCheck(tab);
     const tabState = await getTabStateForTabId(tab.id);
     const unloadedUrl = tabState?.[STATE_UNLOADED_URL];
     const disableUnsuspendOnReload = tabState?.[STATE_DISABLE_UNSUSPEND_ON_RELOAD];
@@ -1386,6 +1389,10 @@ export const tgs = (function() {
       // second, fully duplicate 'initTab', exactly the concurrent-work multiplication
       // treating the timeout as terminal was meant to prevent in the first place.
       if (token.cancelled || sendFailed) return;
+      // A check already queued or running, or one a startup pass will still run (e.g. a
+      // restored page loading before its worker reaches it), verifies the page itself.
+      // Queueing here would add a job outside that startup budget (#523).
+      if (coveredByPendingCheck || gsTabCheckManager.hasPendingTabCheck(freshTab)) return;
       gsTabCheckManager.queueTabCheck(freshTab, { refetchTab: true }, 3000);
     });
   }
