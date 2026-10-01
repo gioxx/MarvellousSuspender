@@ -90,9 +90,9 @@ export const gsTabCheckManager = (function() {
           // an ordinary check already running for this tab must not get a fresh budget
           // when it is eventually promoted, nor hold this worker past it (#523).
           const initialDeadline = Date.now() + INITIAL_TAB_CHECK_BUDGET;
-          results[index] = await waitUntil(
+          results[index] = await gsUtils.withTimeout(
             queueTabCheckAsPromise(tab, { refetchTab: true, initialCheck: true, initialDeadline }),
-            initialDeadline + INITIAL_TAB_CHECK_WAIT_GRACE,
+            initialDeadline + INITIAL_TAB_CHECK_WAIT_GRACE - Date.now(),
             () => {
               gsUtils.log(tab.id, QUEUE_ID, 'Initial check still pending after its budget. Cancelling.');
               // Free its queue slot before admitting another tab. An executor still awaiting
@@ -101,6 +101,7 @@ export const gsTabCheckManager = (function() {
               if (getQueuedTabDetails(tab)?.executionProps.initialDeadline === initialDeadline) {
                 _tabCheckQueue.unqueueTab(tab, { keepFollowUp: true });
               }
+              return gsUtils.STATUS_UNKNOWN;
             }
           );
         }
@@ -123,25 +124,6 @@ export const gsTabCheckManager = (function() {
       suspendedTabs.forEach((tab) => _startupReservedTabIds.delete(tab.id));
     }
     return results;
-  }
-
-  async function waitUntil(promise, deadline, onTimeout) {
-    let timer;
-    promise.catch(() => {}); // may settle after this wait has given up
-    try {
-      return await Promise.race([
-        promise,
-        new Promise((resolve) => {
-          timer = setTimeout(() => {
-            onTimeout();
-            resolve(gsUtils.STATUS_UNKNOWN);
-          }, Math.max(0, deadline - Date.now()));
-        }),
-      ]);
-    }
-    finally {
-      clearTimeout(timer);
-    }
   }
 
   function getTabUpdatedListener() {
@@ -566,30 +548,17 @@ export const gsTabCheckManager = (function() {
   // Only startup checks get the short terminal deadline (#523). Ordinary checks (focus,
   // discard) keep waiting on the page, bounded by the queue's own job timeout.
   async function sendSuspendedTabMessage(tabId, message, bounded, onLateResponse) {
-    if (!bounded) {
-      return chrome.tabs.sendMessage(tabId, message);
-    }
-    let timer;
-    let timedOut = false;
     const request = chrome.tabs.sendMessage(tabId, message);
-    try {
-      return await Promise.race([
-        request,
-        new Promise((resolve, reject) => {
-          timer = setTimeout(() => {
-            timedOut = true;
-            gsUtils.warning(tabId, QUEUE_ID, 'Suspended tab message timed out; deferring check.', message.action);
-            reject(MESSAGE_TIMED_OUT);
-          }, SUSPENDED_MESSAGE_TIMEOUT);
-        }),
-      ]);
+    if (!bounded) {
+      return request;
     }
-    finally {
-      clearTimeout(timer);
-      if (timedOut && onLateResponse) {
+    return gsUtils.withTimeout(request, SUSPENDED_MESSAGE_TIMEOUT, () => {
+      gsUtils.warning(tabId, QUEUE_ID, 'Suspended tab message timed out; deferring check.', message.action);
+      if (onLateResponse) {
         request.then(onLateResponse, () => {});
       }
-    }
+      return Promise.reject(MESSAGE_TIMED_OUT);
+    });
   }
 
   // function ensureSuspendedTabVisible(tabView) {

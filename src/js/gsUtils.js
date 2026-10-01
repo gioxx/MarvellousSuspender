@@ -234,6 +234,26 @@ export const gsUtils = {
     return false;
   },
 
+  // Races promise against a timer (#544). If the timer fires first, the result is whatever
+  // onTimeout() returns, or a rejection with whatever it throws. Nothing cancels the
+  // underlying work: a later rejection of promise is already handled by the race, so it is
+  // never reported as unhandled, and a caller that wants a late result keeps its own
+  // reference to promise.
+  withTimeout(promise, ms, onTimeout) {
+    let timer;
+    const timeout = new Promise((resolve, reject) => {
+      timer = setTimeout(() => {
+        try {
+          resolve(onTimeout?.());
+        }
+        catch (error) {
+          reject(error);
+        }
+      }, Math.max(0, ms));
+    });
+    return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+  },
+
   dir(object) {
     if (gsUtils.debugInfo) {
       // eslint-disable-next-line no-console
