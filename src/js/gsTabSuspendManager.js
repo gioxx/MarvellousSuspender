@@ -346,22 +346,11 @@ export const gsTabSuspendManager = (function() {
       return;
     }
 
+    // Eligibility is judged on the live tab, below, not on `tab`: for a real response it is
+    // the sender's tab, but for a render timeout or an injection error it is the executor's
+    // snapshot, as stale as the job is old (#546).
     const suspensionForceLevel = queuedTabDetails.executionProps.forceLevel;
-    if (!await checkTabEligibilityForSuspension(tab, suspensionForceLevel)) {
-      // Settle the job, as the native path does: left unsettled it would run into the queue
-      // timeout, whose handler would then force the suspension this check just refused (#546).
-      gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.',);
-      queuedTabDetails.executionProps.resolveFn(false);
-      return;
-    }
-
-    // checkTabEligibilityForSuspension() awaits: the job can have been unqueued meanwhile,
-    // and nothing of it must be stored then (#546).
     const isStillCurrent = () => getQueuedTabDetails(tab)?.executionProps === expectedExecutionProps;
-    if (!isStillCurrent()) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled during the eligibility check. Ignoring.',);
-      return;
-    }
 
     // Temporarily change tab.url with that from the generated suspended url
     // This is because for youtube tabs we manually change the url to persist timestamp
@@ -377,14 +366,8 @@ export const gsTabSuspendManager = (function() {
       if (screenCaptureMethod === 'auto' && !queuedTabDetails.executionProps.nativeCaptureTried) {
         previewUrl = await gsPrecapture.captureVisibleTab(tab)
           ?? await gsPrecapture.take(tab.id, queuedTabDetails.executionProps.precaptureUrl);
-        // This fallback capture awaits too, so re-check the job identity again, same reason
-        // as the check above this function's earlier await (the queue's savePreviewData round trip).
-        // The live tab is read and judged below, before the preview is stored, for this
-        // path and the renderer-succeeded one alike.
-        if (!isStillCurrent()) {
-          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while awaiting fallback native capture. Ignoring.',);
-          return;
-        }
+        // This fallback capture awaits too: the identity, url and eligibility checks below
+        // come right after it, with no await in between, and cover it.
       }
     }
     // One comprehensive check right before the preview is stored and the tab suspended,
