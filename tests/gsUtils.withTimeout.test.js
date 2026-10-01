@@ -14,9 +14,10 @@ describe('gsUtils.withTimeout (#544)', () => {
     const onTimeout = vi.fn();
     const result = gsUtils.withTimeout(Promise.resolve('value'), 1000, onTimeout);
     await expect(result).resolves.toBe('value');
+    // Read before advancing: a stale timer left armed would still be counted here.
+    expect(vi.getTimerCount()).toBe(0);
     await vi.runAllTimersAsync();
     expect(onTimeout).not.toHaveBeenCalled();
-    expect(vi.getTimerCount()).toBe(0);
   });
 
   it('passes on a rejection that comes first', async () => {
@@ -70,6 +71,29 @@ describe('gsUtils.withTimeout (#544)', () => {
     const result = gsUtils.withTimeout(operation, 0, () => fallback);
     await vi.advanceTimersByTimeAsync(20);
     await expect(result).resolves.toBe('fallback');
+  });
+
+  it('settles a non-thenable input without arming a stray timer', async () => {
+    const onTimeout = vi.fn();
+    await expect(gsUtils.withTimeout('plain', 1000, onTimeout)).resolves.toBe('plain');
+    expect(vi.getTimerCount()).toBe(0);
+    await vi.runAllTimersAsync();
+    expect(onTimeout).not.toHaveBeenCalled();
+  });
+
+  it('caps a delay above the setTimeout range instead of firing at once', async () => {
+    const onTimeout = vi.fn(() => 'late');
+    const result = gsUtils.withTimeout(new Promise(() => {}), Infinity, onTimeout);
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(onTimeout).not.toHaveBeenCalled();
+    await vi.advanceTimersByTimeAsync(2 ** 31);
+    await expect(result).resolves.toBe('late');
+  });
+
+  it('rejects a NaN delay', async () => {
+    const onTimeout = vi.fn();
+    await expect(gsUtils.withTimeout(new Promise(() => {}), NaN, onTimeout)).rejects.toThrow(RangeError);
+    expect(vi.getTimerCount()).toBe(0);
   });
 
   it('fires at once for a deadline already past', async () => {

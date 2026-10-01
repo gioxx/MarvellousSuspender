@@ -92,7 +92,7 @@ export const gsTabCheckManager = (function() {
           const initialDeadline = Date.now() + INITIAL_TAB_CHECK_BUDGET;
           results[index] = await gsUtils.withTimeout(
             queueTabCheckAsPromise(tab, { refetchTab: true, initialCheck: true, initialDeadline }),
-            initialDeadline + INITIAL_TAB_CHECK_WAIT_GRACE - Date.now(),
+            INITIAL_TAB_CHECK_BUDGET + INITIAL_TAB_CHECK_WAIT_GRACE,
             () => {
               gsUtils.log(tab.id, QUEUE_ID, 'Initial check still pending after its budget. Cancelling.');
               // Free its queue slot before admitting another tab. An executor still awaiting

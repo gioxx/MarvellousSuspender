@@ -201,6 +201,9 @@ function _scheduleFlush() {
 }
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Largest delay setTimeout() honours; anything above it fires at once.
+const MAX_TIMER_DELAY_MS = 2 ** 31 - 1;
+
 export const gsUtils = {
   INTERNAL_MESSAGE_ACTIONS,
   STATUS_NORMAL         : 'normal',
@@ -238,32 +241,31 @@ export const gsUtils = {
   // onTimeout() returns, or a rejection with whatever it throws. Nothing cancels the
   // underlying work: a later rejection of promise is already handled here, so it is never
   // reported as unhandled, and a caller that wants a late result keeps its own reference
-  // to promise.
+  // to promise. ms is clamped to [0, 2^31-1], the range setTimeout() honours (above it the
+  // timer would fire at once); a NaN ms is a caller bug and rejects with a RangeError.
   withTimeout(promise, ms, onTimeout) {
+    if (Number.isNaN(ms)) {
+      return Promise.reject(new RangeError(`withTimeout: invalid ms ${ms}`));
+    }
     return new Promise((resolve, reject) => {
-      // Whichever side fires first decides the outcome, even if onTimeout() itself returns
-      // a promise that is still pending when the operation settles.
-      let decided = false;
+      // The first resolve()/reject() decides the outcome, even when onTimeout() returns a
+      // promise that is still pending; later calls are no-ops. Promise.resolve() makes a
+      // non-thenable input settle through the same path instead of throwing here with the
+      // timer already armed.
       const timer = setTimeout(() => {
-        if (decided) return;
-        decided = true;
         try {
           resolve(onTimeout?.());
         }
         catch (error) {
           reject(error);
         }
-      }, Math.max(0, ms));
-      promise.then(
+      }, Math.min(Math.max(0, ms), MAX_TIMER_DELAY_MS));
+      Promise.resolve(promise).then(
         (value) => {
-          if (decided) return;
-          decided = true;
           clearTimeout(timer);
           resolve(value);
         },
         (error) => {
-          if (decided) return;
-          decided = true;
           clearTimeout(timer);
           reject(error);
         }

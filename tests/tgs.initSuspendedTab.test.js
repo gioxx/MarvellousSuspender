@@ -55,4 +55,22 @@ describe('suspended page initialisation (#523)', () => {
     expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(1);
     expect(queue).not.toHaveBeenCalled();
   });
+
+  it('does not retry an initTab send that timed out', async () => {
+    // The page may still be running the first initTab: a retry would start a duplicate.
+    vi.useFakeTimers();
+    try {
+      vi.spyOn(gsTabCheckManager, 'hasPendingTabCheck').mockReturnValue(false);
+      const queue = vi.spyOn(gsTabCheckManager, 'queueTabCheck').mockImplementation(() => {});
+      chrome.tabs.sendMessage.mockImplementation(() => new Promise(() => {}));
+      const handled = tgs.handleSuspendedTabStateChanged(tab, { status: 'complete' });
+      await vi.runAllTimersAsync();
+      await handled;
+      expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(1);
+      expect(queue).not.toHaveBeenCalled();
+    }
+    finally {
+      vi.useRealTimers();
+    }
+  });
 });
