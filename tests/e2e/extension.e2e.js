@@ -250,6 +250,104 @@ describe('a placeholder url forged by a web page', () => {
   });
 });
 
+describe('the stores that keep one row per url', () => {
+  // Run inside an extension page, against the module the package ships and the browser's
+  // own IndexedDB: when a transaction commits, and what an abort rolls back, is the
+  // browser's to say. Each case writes under urls of its own.
+  const STORES_IN_PAGE = `
+    const { gsIndexedDb } = await import('/js/gsIndexedDb.js');
+    const db = await gsIndexedDb.getDb();
+    const stores = {
+      previews: {
+        name: gsIndexedDb.DB_PREVIEWS,
+        field: 'img',
+        write: (url, value) => gsIndexedDb.addPreviewImage(url, value),
+        read: (url) => gsIndexedDb.fetchPreviewImage(url),
+      },
+      tabInfo: {
+        name: gsIndexedDb.DB_SUSPENDED_TABINFO,
+        field: 'title',
+        write: (url, value) => gsIndexedDb.addSuspendedTabInfo({ url, title: value }),
+        read: (url) => gsIndexedDb.fetchTabInfo(url),
+      },
+      faviconMeta: {
+        name: gsIndexedDb.DB_FAVICON_META,
+        field: 'favIconUrl',
+        write: (url, value) => gsIndexedDb.addFaviconMeta(url, { favIconUrl: value }),
+        read: (url) => gsIndexedDb.fetchFaviconMeta(url),
+      },
+    };
+    const { name, field, write } = stores[key];
+    // a row as an earlier version left it, written past the module
+    const seed = (url, value) => db.add(name, { url, [field]: value });
+    // what is stored for the url, oldest first
+    const stored = async (url) => (await db.getAllFromIndex(name, 'url', url)).map((row) => row[field]);
+    // what the extension is given when it asks for the url
+    const read = async (url) => (await stores[key].read(url))?.[field] ?? null;
+  `;
+  const STORES = ['previews', 'tabInfo', 'faviconMeta'];
+
+  let urls = 0;
+  const newUrl = () => `https://stores.e2e.invalid/${urls += 1}`;
+
+  async function inStore(key, body) {
+    const page = await openExtensionPage('about.html');
+    return cdp.evaluate(page.sessionId, `(async () => {
+      const key = ${JSON.stringify(key)};
+      const { url, other } = ${JSON.stringify({ url: newUrl(), other: newUrl() })};
+      ${STORES_IN_PAGE}
+      ${body}
+    })()`);
+  }
+
+  it.each(STORES)('keep a single row in %s, the last one, when a url is written ten times at once', async (key) => {
+    const result = await inStore(key, `
+      await seed(other, 'other');
+      await Promise.all(Array.from({ length: 10 }, (_, n) => write(url, 'write ' + n)));
+      return { stored: await stored(url), read: await read(url), other: await stored(other) };
+    `);
+    expect(result).toEqual({ stored: ['write 9'], read: 'write 9', other: ['other'] });
+  });
+
+  it.each(STORES)('read the newest of the duplicates left in %s, which the next write removes', async (key) => {
+    const result = await inStore(key, `
+      await seed(url, 'older');
+      await seed(url, 'newer');
+      await seed(other, 'other');
+      const readBefore = await read(url);
+      await write(url, 'fresh');
+      return { readBefore, stored: await stored(url), read: await read(url), other: await stored(other) };
+    `);
+    expect(result).toEqual({ readBefore: 'newer', stored: ['fresh'], read: 'fresh', other: ['other'] });
+  });
+
+  // A function cannot be cloned, so add() throws where it is called, and that by itself
+  // does not abort the transaction the deletes were issued in.
+  it.each(STORES)('keep the row in %s when the one replacing it cannot be stored', async (key) => {
+    const result = await inStore(key, `
+      await write(url, 'kept');
+      await write(url, () => {});
+      return { stored: await stored(url), read: await read(url) };
+    `);
+    expect(result).toEqual({ stored: ['kept'], read: 'kept' });
+  });
+
+  // A query for no url at all matches every row: of the three writers, the one for
+  // previews is the one that does not check its url before it gets here.
+  it.each([
+    ['undefined', 'undefined'],
+    ['null', 'null'],
+  ])('keep every preview when one is written or read for an url that is %s', async (_, missing) => {
+    const result = await inStore('previews', `
+      await write(url, 'one');
+      await write(other, 'another');
+      await write(${missing}, 'no url');
+      return { stored: await stored(url), other: await stored(other), read: await read(${missing}) };
+    `);
+    expect(result).toEqual({ stored: ['one'], other: ['another'], read: null });
+  });
+});
+
 // Uncaught exceptions the extension is known to throw today. Each entry is a defect waiting
 // for its own fix: remove it here in the change that fixes it.
 const KNOWN_EXCEPTIONS = [
