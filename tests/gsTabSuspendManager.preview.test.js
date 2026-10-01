@@ -497,23 +497,25 @@ describe('renderer path', () => {
     expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
 
-  // Reached here by building the queue a second time, which drops the first queue without
-  // touching the request that is in flight: the manager then looks for the tab in the new
-  // queue. The job of the first queue is left to its timeout.
-  it('ignores a response with the right token when the tab is not in the queue, the queue having been rebuilt', async () => {
-    const outcome = await suspend(makeTab(), 1);
+  // Building the queue a second time (a settings change) drops the first queue without
+  // touching the request in flight; the manager no longer sees the job, but the response
+  // finds it on the queue that runs it and settles it (#546).
+  it('settles the job of a replaced queue when its response arrives, the manager no longer seeing it', async () => {
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
     const token = injectedToken();
     await manager.initAsPromised();
+    expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
+
     await expect(respond(makeTab(), PREVIEW, undefined, token)).resolves.toBeUndefined();
-    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
-    expect(chrome.tabs.update).not.toHaveBeenCalled();
-    expect(outcome.state).toBe('pending');
+    expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(NORMAL_URL, PREVIEW);
+    expectSuspended(outcome);
   });
 
-  // As above, with the tab queued again in the new queue: the token is the one of the
-  // request in flight, the job found under the tab id is another one.
-  it('ignores a response with the right token when the job queued for the tab is another one, the queue having been rebuilt', async () => {
+  // As above, with the tab queued again in the new queue: the job of the old queue is the
+  // one the response belongs to, and it is the one settled; the new job keeps waiting its
+  // turn, and will find the tab suspended.
+  it('settles the job of a replaced queue when its response arrives, the tab being queued again', async () => {
     const first = await suspend(makeTab(), 1);
     const token = injectedToken();
     await manager.initAsPromised();

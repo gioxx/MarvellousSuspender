@@ -348,30 +348,26 @@ export const gsTabSuspendManager = (function() {
     _pendingPreviewExecutionPropsByTabId.delete(tab.id);
     const expectedExecutionProps = pending.executionProps;
 
-    const queuedTabDetails = getQueuedTabDetails(tab);
-    if (!queuedTabDetails) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Tab missing from suspensionQueue. Assuming suspension cancelled for this tab.',);
-      return;
-    }
     // Identity, not just presence: belt-and-suspenders alongside the token check above --
-    // a late preview response whose job has since been superseded (a different
-    // executionProps object now occupies this tab id's slot) must not be applied to, or
-    // resolve, that newer job.
-    if (queuedTabDetails.executionProps !== expectedExecutionProps) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Preview response is for a superseded suspension job. Ignoring.',);
+    // a late preview response whose job has since been cancelled, or superseded (a
+    // different executionProps object now occupies this tab id's slot), must not be
+    // applied to, or resolve, anything. The job's own queue is asked (#546).
+    const isStillCurrent = () => isCurrentJob(tab, expectedExecutionProps);
+    if (!isStillCurrent()) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Preview response is for a cancelled or superseded suspension job. Ignoring.',);
       return;
     }
+    const executionProps = expectedExecutionProps;
 
     // Eligibility is judged on the live tab, below, not on `tab`: for a real response it is
     // the sender's tab, but for a render timeout or an injection error it is the executor's
     // snapshot, as stale as the job is old (#546).
-    const suspensionForceLevel = queuedTabDetails.executionProps.forceLevel;
-    const isStillCurrent = () => isCurrentJob(tab, expectedExecutionProps);
+    const suspensionForceLevel = executionProps.forceLevel;
 
     // Temporarily change tab.url with that from the generated suspended url
     // This is because for youtube tabs we manually change the url to persist timestamp
     const timestampedUrl = gsUtils.getOriginalUrl(
-      queuedTabDetails.executionProps.suspendedUrl,
+      executionProps.suspendedUrl,
     );
     // NOTE: This does not actually change the tab url, just the current tab object
     tab.url = timestampedUrl;
@@ -379,9 +375,9 @@ export const gsTabSuspendManager = (function() {
     if (!previewUrl) {
       gsUtils.warning(tab.id, QUEUE_ID, 'savePreviewData reported an error: ', errorMsg,);
       const screenCaptureMethod = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_METHOD);
-      if (screenCaptureMethod === 'auto' && !queuedTabDetails.executionProps.nativeCaptureTried) {
+      if (screenCaptureMethod === 'auto' && !executionProps.nativeCaptureTried) {
         previewUrl = await gsPrecapture.captureVisibleTab(tab)
-          ?? await gsPrecapture.take(tab.id, queuedTabDetails.executionProps.precaptureUrl);
+          ?? await gsPrecapture.take(tab.id, executionProps.precaptureUrl);
         // This fallback capture awaits too: the identity, url and eligibility checks below
         // come right after it, with no await in between, and cover it.
       }
@@ -395,8 +391,8 @@ export const gsTabSuspendManager = (function() {
       gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled just before suspension. Ignoring.',);
       return;
     }
-    if (!await liveTabIfStillSuspendable(tab, queuedTabDetails.executionProps.precaptureUrl, suspensionForceLevel)) {
-      queuedTabDetails.executionProps.resolveFn(false);
+    if (!await liveTabIfStillSuspendable(tab, executionProps.precaptureUrl, suspensionForceLevel)) {
+      executionProps.resolveFn(false);
       return;
     }
     // checkTabEligibilityForSuspension() awaits too -- the identity check above it doesn't
@@ -419,10 +415,10 @@ export const gsTabSuspendManager = (function() {
 
     const success = await executeTabSuspension(
       tab,
-      queuedTabDetails.executionProps.suspendedUrl,
+      executionProps.suspendedUrl,
       isStillCurrent,
     );
-    queuedTabDetails.executionProps.resolveFn(success);
+    executionProps.resolveFn(success);
   }
 
   function isSuspensionInProgress(tab) {
