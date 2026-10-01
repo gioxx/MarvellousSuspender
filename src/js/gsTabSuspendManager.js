@@ -445,6 +445,9 @@ export const gsTabSuspendManager = (function() {
       // The job has hung for a while: the tab as queued is stale. Suspend the live tab, and
       // only if it is still the page the job was queued for and still eligible at the job's
       // force level (#546). precaptureUrl is the url before any YouTube timestamp.
+      // The job is still the queue's until this handler settles it, so a cancellation
+      // during the awaits below is seen the same way the executor sees one.
+      const isStillCurrent = () => _suspensionQueue.getQueuedTabDetails(tab)?.executionProps === executionProps;
       const liveTab = await gsChrome.tabsGet(tab.id);
       if (!liveTab || liveTab.url !== (executionProps.precaptureUrl ?? tab.url)) {
         gsUtils.log(tab.id, QUEUE_ID, 'Tab gone or navigated since it was queued. Will not force suspension.');
@@ -456,7 +459,11 @@ export const gsTabSuspendManager = (function() {
         resolve(false);
         return;
       }
-      const success = await executeTabSuspension(liveTab, executionProps.suspendedUrl,);
+      if (!isStillCurrent()) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while reading the live tab. Ignoring.');
+        return;
+      }
+      const success = await executeTabSuspension(liveTab, executionProps.suspendedUrl, isStillCurrent);
       resolve(success);
     }
     else {
@@ -465,12 +472,12 @@ export const gsTabSuspendManager = (function() {
     }
   }
 
-  // isStillCurrent: an optional, cheap (synchronous, no await) cancellation check run
-  // immediately before the actual tabsUpdate() call -- this function's own awaits (settings
-  // read, session-state write) are themselves an unsuspend-all race window none of the
-  // caller-side checks before calling this can cover, since they all run before it, not after
-  // its internal awaits. Callers that don't pass one (e.g. the force-suspend-on-timeout path,
-  // which intentionally suspends regardless) get the previous unconditional behaviour.
+  // isStillCurrent: a cheap (synchronous, no await) cancellation check run immediately
+  // before the discard or the actual tabsUpdate() call -- this function's own awaits
+  // (settings read, timer clear, session-state write) are themselves an unsuspend-all race
+  // window none of the caller-side checks can cover, since they all run before it, not after
+  // its internal awaits. Every path of the suspension flow passes one; the default is for
+  // callers outside it.
   function executeTabSuspension(tab, suspendedUrl, isStillCurrent = () => true) {
     return new Promise(async (resolve) => {
       // Remove any existing queued tab checks (this can happen if we try to suspend
@@ -481,6 +488,11 @@ export const gsTabSuspendManager = (function() {
       const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
       if (discardInPlaceOfSuspend) {
         await tgs.clearAutoSuspendTimerForTabId(tab.id);
+        if (!isStillCurrent()) {
+          gsUtils.log(tab.id, 'Suspension cancelled just before the discard. Ignoring.');
+          resolve(false);
+          return;
+        }
         gsTabDiscardManager.queueTabForDiscard(tab);
         resolve(true);
         return;

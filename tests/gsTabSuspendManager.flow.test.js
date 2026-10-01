@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createChromeStub } from './setup/chrome-stub.js';
 import {
   NORMAL_URL, QUEUE_CHECK_INTERVAL, JOB_TIMEOUT, CANCELLED,
-  makeTab, suspendedUrlOf, installFakeTimers, installSuspensionFakes, flush, track, advance, setOptions, queueAndRun, withLastError,
+  makeTab, suspendedUrlOf, installFakeTimers, installSuspensionFakes, flush, track, deferred, advance, setOptions, queueAndRun, withLastError,
 } from './setup/suspend-manager-harness.js';
 
 // Characterisation of the suspension flow of gsTabSuspendManager with screen capture off:
@@ -357,6 +357,23 @@ describe('suspension flow with discard in place of suspend', () => {
     expect(gsTabDiscardManager.queueTabForDiscard).toHaveBeenCalledWith(tab);
     expect(chrome.tabs.update).not.toHaveBeenCalled();
     expect(outcome).toEqual({ state: 'resolved', value: true });
+  });
+
+  // The discard has awaits of its own; a job unqueued during them must not discard the tab.
+  it('does not discard a tab unqueued while the discard is being prepared', async () => {
+    await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true });
+    const held = deferred();
+    chrome.alarms.clear.mockReturnValue(held.promise);
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    expect(chrome.alarms.clear).toHaveBeenCalledTimes(1);
+    expect(outcome.state).toBe('pending');
+
+    manager.unqueueTabForSuspension(tab);
+    held.resolve(true);
+    await flush();
+    expect(gsTabDiscardManager.queueTabForDiscard).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
   });
 
   it('does not discard a tab the content script reports as paused at level 2', async () => {
