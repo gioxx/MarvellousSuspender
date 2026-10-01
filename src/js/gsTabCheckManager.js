@@ -226,7 +226,8 @@ export const gsTabCheckManager = (function() {
 
   // True when a check is queued or running for the tab, or a startup pass will check it.
   function hasPendingTabCheck(tab) {
-    return _startupReservedTabIds.has(tab.id) || Boolean(getQueuedTabDetails(tab));
+    // Before the queue exists nothing can be queued; answer without its warning.
+    return _startupReservedTabIds.has(tab.id) || Boolean(_tabCheckQueue?.getQueuedTabDetails(tab));
   }
 
   function getQueuedTabDetails(tab) {
@@ -310,19 +311,6 @@ export const gsTabCheckManager = (function() {
       resolve(gsUtils.STATUS_UNKNOWN);
       return true;
     };
-    if (executionProps.resuspend && !executionProps.resuspended) {
-      if (abandoned()) return;
-      await gsUtils.resuspendSuspendedTab(tab);
-      // refetchTab so the next pass re-reads the tab after the resuspend reload rather
-      // than trusting this now-stale snapshot (status, frozen, groupId can all have
-      // changed). Matches the resuspend requeue in the missing-view branch below.
-      requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, {
-        resuspended: true,
-        refetchTab: true,
-      });
-      return;
-    }
-
     if (executionProps.refetchTab) {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab refetch requested. Getting updated tab..');
       tab = await getUpdatedTab(tab);
@@ -413,6 +401,7 @@ export const gsTabCheckManager = (function() {
       if (tab.groupId > 0) {
         const suspendedUrl = tab.url; // original URL before any reload
         const latestTab = await gsChrome.tabsGet(tab.id);
+        if (abandoned()) return;
         if (latestTab && !gsUtils.isSuspendedTab(latestTab)) {
           const targetGroupId = latestTab.groupId > 0 ? latestTab.groupId : tab.groupId;
           const { windowId, index, pinned, active } = latestTab;
@@ -456,7 +445,8 @@ export const gsTabCheckManager = (function() {
           !latestTab ||
           latestTab.url !== tab.url ||
           !gsUtils.isSuspendedTab(latestTab) ||
-          latestTab.discarded ||
+          // A discarded active tab (selected in a background window) still needs the reload.
+          (latestTab.discarded && !latestTab.active) ||
           latestTab.frozen
         ) {
           gsUtils.log(tab.id, QUEUE_ID, 'Receiverless tab changed before reload. Requeueing.');
@@ -487,7 +477,10 @@ export const gsTabCheckManager = (function() {
       requeue(DEFAULT_TAB_CHECK_REQUEUE_DELAY, { refetchTab: true });
       return;
     }
-    const tabSessionOk = suspendInfo.sessionId === (await gsSession.getSessionId());
+    // Read once, here: the initTab below reuses it, so no storage read sits between the
+    // abandonment guard and that message.
+    const sessionId = await gsSession.getSessionId();
+    const tabSessionOk = suspendInfo.sessionId === sessionId;
     const tabBasicsOk = ensureSuspendedTabTitleAndFaviconSet(tab);
     const tabVisibleOk = attemptDiscarding || suspendInfo.isVisible;
     const tabChecksOk = tabSessionOk && tabBasicsOk && tabVisibleOk;
@@ -499,9 +492,6 @@ export const gsTabCheckManager = (function() {
         resolve(gsUtils.STATUS_UNKNOWN);
         return;
       }
-      // Read before the guard: a stalled storage lookup here must not let an abandoned
-      // check send initTab once it resumes.
-      const sessionId = await gsSession.getSessionId();
       if (abandoned()) return;
       try {
         gsUtils.log(tab.id, QUEUE_ID, 'Reinitialising suspendedTab: ', tab);

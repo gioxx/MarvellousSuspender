@@ -39,7 +39,7 @@ export const gsTabDiscardManager = (function() {
   /** @returns { Promise<void> } */
   async function queueInitialized() {
     return new Promise((resolve) => {
-      if (_discardQueue) resolve();     // resolve immediately if the queue exists
+      if (_discardQueue) { resolve(); return; }     // resolve immediately if the queue exists
       INIT_RESOLVERS.push(resolve);     // otherwise, push our resolve function into a queue that will be processed after initialization
     });
   }

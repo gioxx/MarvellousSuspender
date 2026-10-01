@@ -154,6 +154,36 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(gsUtils.resuspendSuspendedTab).not.toHaveBeenCalled();
   });
 
+  it('reloads a receiverless discarded tab that is active in its window', async () => {
+    // The selected tab of a background window, restored lazily: discarded but active.
+    const tab = suspendedTab(1, { discarded: true, active: true });
+    chrome.tabs.sendMessage.mockRejectedValue(new Error('Could not establish connection. Receiving end does not exist.'));
+    const result = gsTabCheckManager.performInitialisationTabChecks([tab]);
+    await vi.runAllTimersAsync();
+    await result;
+    expect(gsUtils.resuspendSuspendedTab).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not recreate a grouped tab from a check abandoned while it stalled', async () => {
+    // Already reloaded once, still no view, in a group: the recreate path refetches the tab.
+    const tab = suspendedTab(1, { groupId: 7 });
+    gsChrome.contextGetByTabId.mockResolvedValue(null);
+    let calls = 0;
+    gsChrome.tabsGet.mockImplementation((id) => {
+      calls += 1;
+      if (calls === 1) return Promise.resolve(tabs.get(id));
+      // The recreate path's lookup stalls past the startup budget, then reports a new tab page.
+      return new Promise((resolve) => setTimeout(() => resolve({ ...tabs.get(id), url: 'chrome://newtab/' }), 40000));
+    });
+    const create = vi.spyOn(gsChrome, 'tabsCreate').mockResolvedValue({ id: 99 });
+    const result = gsTabCheckManager.queueTabCheckAsPromise(tab, {
+      refetchTab: true, resuspended: true, initialCheck: true, initialDeadline: Date.now() + 15000,
+    }, 0);
+    await vi.runAllTimersAsync();
+    await result;
+    expect(create).not.toHaveBeenCalled();
+  });
+
   it('finishes permanently loading checks within a bounded retry window', async () => {
     let result;
     gsTabCheckManager.performInitialisationTabChecks([suspendedTab(1, { status: 'loading' })])
@@ -234,13 +264,10 @@ describe('startup suspended-tab checks (#523)', () => {
   it('does not send initTab from an abandoned check whose session lookup stalled', async () => {
     const tab = suspendedTab(1, { favIconUrl: '' });
     chrome.tabs.sendMessage.mockResolvedValue({ sessionId: 'old-session', isVisible: true });
-    let lookups = 0;
-    // The first lookup (session comparison) answers; the one before initTab stalls 40s.
-    gsSession.getSessionId.mockImplementation(() => {
-      lookups += 1;
-      if (lookups === 1) return Promise.resolve('session');
-      return new Promise((resolve) => setTimeout(() => resolve('session'), 40000));
-    });
+    // The session lookup (shared by the comparison and initTab) stalls 40s.
+    gsSession.getSessionId.mockImplementation(() => new Promise((resolve) => {
+      setTimeout(() => resolve('session'), 40000);
+    }));
     const result = gsTabCheckManager.performInitialisationTabChecks([tab]);
     await vi.runAllTimersAsync();
     expect(await result).toEqual([gsUtils.STATUS_UNKNOWN]);
