@@ -468,19 +468,19 @@
     "message": "一時停止時にブラウザ標準のメモリ節約機能を適用"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "ブラウザ標準の「タブの破棄」機能を利用することで、一時停止したタブの"
+    "message": "After a tab is suspended, also let Chrome fully unload it from"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "メモリ使用量をさらに削減します。多数のタブを扱う場合、"
+    "message": "memory. This frees up more system resources per tab (useful if"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "最大500%のメモリ節約につながることがあります。"
+    "message": "you keep hundreds of tabs open)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "ただし、一時停止したタブを選択した際に、描画に若干の"
+    "message": "This comes at the cost of losing tab state until the tab is"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "遅延が発生することもあります。"
+    "message": "reloaded."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "タブの破棄についての詳細は以下を参照してください:"

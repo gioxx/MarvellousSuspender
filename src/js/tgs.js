@@ -16,8 +16,8 @@ export const tgs = (function() {
     '32': '/img/ic_suspendy_32x32.png',
   };
   const ICON_SUSPENSION_PAUSED = {
-    '16': '/img/ic_suspendy_16x16_grey.png',
-    '32': '/img/ic_suspendy_32x32_grey.png',
+    '16': '/img/ic_suspendy_16x16_paused.png',
+    '32': '/img/ic_suspendy_32x32_paused.png',
   };
 
   // Suspended tab props
@@ -1914,6 +1914,13 @@ export const tgs = (function() {
   //change the icon to either active or inactive
   async function setIconStatus(status, tabId) {
     // gsUtils.log(tabId, 'Setting icon status', status);
+    // 'loading' says nothing about whether the tab can be suspended, so leave the icon
+    // alone: Chrome already reset it to the default (active) one when the navigation
+    // committed, and the 'complete' handler paints the real status once loading ends.
+    // Painting the paused badge here showed "paused" for the whole page load (#450).
+    if (status === gsUtils.STATUS_LOADING) {
+      return;
+    }
     var basePath = ![gsUtils.STATUS_NORMAL, gsUtils.STATUS_ACTIVE].includes(status)
       ? ICON_SUSPENSION_PAUSED
       : ICON_SUSPENSION_ACTIVE;
@@ -2054,6 +2061,22 @@ export const tgs = (function() {
       }
     })();
     return _rebuildContextMenuPromise;
+  }
+
+  // Issues the create() and resolves once the browser has dealt with it. A rejected
+  // property throws here, synchronously, exactly as chrome.contextMenus.create() does.
+  function createContextMenuItem(properties) {
+    let resolveCreated;
+    const created = new Promise((resolve) => {
+      resolveCreated = resolve;
+    });
+    chrome.contextMenus.create(properties, () => {
+      if (chrome.runtime.lastError) {
+        gsUtils.warning('tgs', 'contextMenus.create', properties.id, chrome.runtime.lastError.message);
+      }
+      resolveCreated();
+    });
+    return created;
   }
 
   function _buildContextMenuImpl(showContextMenu) {
@@ -2210,105 +2233,135 @@ export const tgs = (function() {
         type: 'separator',
         contexts: allContexts,
       });
-      chrome.contextMenus.create({
+
+      // Tab strip context menu items (right-click on tab in tab bar)
+      const tabStripItems = [
+        {
+          id: 'tab_toggle_suspend',
+          title: gsUtils.getMessage('js_context_toggle_suspend_state'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_toggle_pause',
+          title: gsUtils.getMessage('js_context_toggle_pause_suspension'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_never_suspend_domain',
+          title: gsUtils.getMessage('js_context_never_suspend_domain'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_never_suspend_page',
+          title: gsUtils.getMessage('js_context_never_suspend_page'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_suspend_group',
+          title: gsUtils.getMessage('js_context_suspend_tab_group'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_unsuspend_group',
+          title: gsUtils.getMessage('js_context_unsuspend_tab_group'),
+          contexts: ['tab'],
+        },
+        // enabled always: they act on the right-clicked tab, so gating on the active one would
+        // grey them out on valid targets. See refreshNeverSuspendGroupMenuItems().
+        {
+          id: 'tab_never_suspend_group',
+          title: gsUtils.getMessage('js_context_never_suspend_group'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_allow_suspending_group',
+          title: gsUtils.getMessage('js_context_allow_suspending_group'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_suspend_ungrouped',
+          title: gsUtils.getMessage('js_context_suspend_ungrouped_tabs'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_unsuspend_ungrouped',
+          title: gsUtils.getMessage('js_context_unsuspend_ungrouped_tabs'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_separator1',
+          type: 'separator',
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_soft_suspend_other_tabs',
+          title: gsUtils.getMessage('js_context_soft_suspend_other_tabs_in_window'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_unsuspend_all_in_window',
+          title: gsUtils.getMessage('js_context_unsuspend_all_tabs_in_window'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_separator2',
+          type: 'separator',
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_soft_suspend_all',
+          title: gsUtils.getMessage('js_context_soft_suspend_all_tabs'),
+          contexts: ['tab'],
+        },
+        {
+          id: 'tab_unsuspend_all',
+          title: gsUtils.getMessage('js_context_unsuspend_all_tabs'),
+          contexts: ['tab'],
+        },
+      ];
+
+      // Every create() from here on reports back, and the build resolves with the last
+      // one issued (mc-triage review round 3, PR #500): chrome.contextMenus.create() calls
+      // are processed by the browser in the order issued, so that one settling means every
+      // create() before it is done too. Without this, buildContextMenu(true) used to
+      // resolve as soon as JS finished issuing the create() calls, not once Chrome
+      // actually finished creating them — the next queued call on _contextMenuChain (e.g.
+      // a settings-toggle's own removeAll()) could then start while these were still
+      // landing in the browser process.
+      let lastCreate = createContextMenuItem({
         id: 'open_session_history',
         title: gsUtils.getMessage('html_recovery_go_to_session_manager'),
         contexts: allContexts,
       });
 
-      // Tab strip context menu items (right-click on tab in tab bar)
-      chrome.contextMenus.create({
-        id: 'tab_toggle_suspend',
-        title: gsUtils.getMessage('js_context_toggle_suspend_state'),
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_toggle_pause',
-        title: gsUtils.getMessage('js_context_toggle_pause_suspension'),
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_never_suspend_domain',
-        title: gsUtils.getMessage('js_context_never_suspend_domain'),
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_never_suspend_page',
-        title: gsUtils.getMessage('js_context_never_suspend_page'),
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_suspend_group',
-        title: gsUtils.getMessage('js_context_suspend_tab_group'),
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_unsuspend_group',
-        title: gsUtils.getMessage('js_context_unsuspend_tab_group'),
-        contexts: ['tab'],
-      });
-      // enabled always: they act on the right-clicked tab, so gating on the active one would
-      // grey them out on valid targets. See refreshNeverSuspendGroupMenuItems().
-      chrome.contextMenus.create({
-        id: 'tab_never_suspend_group',
-        title: gsUtils.getMessage('js_context_never_suspend_group'),
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_allow_suspending_group',
-        title: gsUtils.getMessage('js_context_allow_suspending_group'),
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_suspend_ungrouped',
-        title: gsUtils.getMessage('js_context_suspend_ungrouped_tabs'),
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_unsuspend_ungrouped',
-        title: gsUtils.getMessage('js_context_unsuspend_ungrouped_tabs'),
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_separator1',
-        type: 'separator',
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_soft_suspend_other_tabs',
-        title: gsUtils.getMessage('js_context_soft_suspend_other_tabs_in_window'),
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_unsuspend_all_in_window',
-        title: gsUtils.getMessage('js_context_unsuspend_all_tabs_in_window'),
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_separator2',
-        type: 'separator',
-        contexts: ['tab'],
-      });
-      chrome.contextMenus.create({
-        id: 'tab_soft_suspend_all',
-        title: gsUtils.getMessage('js_context_soft_suspend_all_tabs'),
-        contexts: ['tab'],
-      });
-      // Resolved only once this, the LAST create() call's callback fires (mc-triage
-      // review round 3, PR #500) — chrome.contextMenus.create() calls are processed by
-      // the browser in the order issued, so this one settling after the browser is done
-      // with it means every create() before it is done too. Without this, buildContextMenu(true)
-      // used to resolve as soon as JS finished issuing the create() calls, not once Chrome
-      // actually finished creating them — the next queued call on _contextMenuChain (e.g.
-      // a settings-toggle's own removeAll()) could then start while these were still
-      // landing in the browser process.
-      const lastCreate = new Promise((resolve) => {
-        chrome.contextMenus.create({
-          id: 'tab_unsuspend_all',
-          title: gsUtils.getMessage('js_context_unsuspend_all_tabs'),
-          contexts: ['tab'],
-        }, resolve);
-      });
+      // The 'tab' context is recent: Chrome 147 and older throw on it in create(), and
+      // manifest.json's minimum_chrome_version is 110. The tab strip menu is an extra, so
+      // a browser that refuses it keeps the page menu built above and goes without.
+      // Only the first item is tried that way: it tells whether the browser takes the
+      // context at all. A throw on a later one is a defect in that item and is not caught.
+      const [firstTabStripItem, ...otherTabStripItems] = tabStripItems;
+      let tabStripMenuAvailable = true;
+      try {
+        lastCreate = createContextMenuItem(firstTabStripItem);
+      }
+      catch (error) {
+        tabStripMenuAvailable = false;
+        const reason = String(error?.message ?? error);
+        if (reason.includes("property 'contexts'")) {
+          // the refusal this is here for, in Chrome's own words
+          gsUtils.log('tgs', 'Tab strip context menu not available on this browser:', reason);
+        }
+        else {
+          // anything else is a defect in this item, not an old browser: say so at a level
+          // that gets read, and still leave the page menu standing
+          gsUtils.warning('tgs', 'Could not create the tab strip context menu:', reason);
+        }
+      }
+      if (tabStripMenuAvailable) {
+        for (const item of otherTabStripItems) {
+          lastCreate = createContextMenuItem(item);
+        }
+      }
 
       // enable the page item above if the tab in front of the user is in a named group (#133)
       // Debounced/fire-and-forget (own internal setTimeout), so it doesn't need to be

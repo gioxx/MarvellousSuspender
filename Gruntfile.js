@@ -14,12 +14,12 @@ module.exports = function(grunt) {
     copy: {
       main: {
         expand: true,
-        // src/js/gsOauthSecrets.local.js is a maintainer-local override file, never
-        // tracked by git, that predates the OAuth proxy migration. Untracked files
-        // survive git operations untouched, so removing it from .gitignore alone
-        // doesn't stop a maintainer's leftover copy (potentially still holding the
-        // old embedded client secret) from being packaged — exclude it here too.
-        src: ['src/**', '!src/tests.html', '!src/js/tests/**', '!src/img/*.xcf', '!src/js/gsOauthSecrets.local.js'],
+        // *.local.js files are maintainer-local overrides, never tracked by git (the
+        // historical one, src/js/gsOauthSecrets.local.js, once held the embedded OAuth
+        // client secret), and *.pem is a signing key. Untracked files survive git
+        // operations untouched, so the .gitignore entries alone don't stop a leftover
+        // copy from being packaged: exclude both patterns here too.
+        src: ['src/**', '!src/tests.html', '!src/js/tests/**', '!src/img/*.xcf', '!src/**/*.local.js', '!src/**/*.pem'],
         dest: '<%= config.tempDir %>',
       },
     },
@@ -102,14 +102,27 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-crx');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
+  // Every task cleans first as well as last: a run that failed midway leaves its temp
+  // dir behind, and copy only adds files, so whatever an earlier run put there would
+  // be packaged by the next one regardless of the exclusions above.
   grunt.registerTask('default', [
+    'clean',
     'copy',
     'string-replace:debugoff',
     'crx:public',
     'crx:private',
     'clean',
   ]);
+  // Keyless build for CI and contributors: the store-ready zip only, no .crx signing.
+  grunt.registerTask('zip', [
+    'clean',
+    'copy',
+    'string-replace:debugoff',
+    'crx:public',
+    'clean',
+  ]);
   grunt.registerTask('tgut', [
+    'clean',
     'copy',
     'string-replace:debugon',
     'string-replace:localesTgut',
