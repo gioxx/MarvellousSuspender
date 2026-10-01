@@ -135,11 +135,20 @@ export const gsIndexedDb = {
     ]);
   },
 
+  // Newest row for the url, walking the index backward like fetchTabInfo() and
+  // fetchFaviconMeta() below. getFromIndex() returned the *oldest* one (rows sharing an
+  // index key are ordered by primary key), so installs still holding duplicate rows from
+  // before #520 kept being served a stale preview until that url was next written. The
+  // explicit null check matters more here than it did with getFromIndex(), which threw on
+  // an undefined key: openCursor(undefined) matches every row, so it would hand back some
+  // other page's preview instead.
   fetchPreviewImage: async function(tabUrl) {
+    if (tabUrl === null || tabUrl === undefined) return null;
     try {
       const db = await gsIndexedDb.getDb();
-      const result = await db.getFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
-      return result ?? null;
+      const index = db.transaction(gsIndexedDb.DB_PREVIEWS).store.index('url');
+      const cursor = await index.openCursor(tabUrl, 'prev');
+      return cursor?.value ?? null;
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
