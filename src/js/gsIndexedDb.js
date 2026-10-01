@@ -97,14 +97,40 @@ export const gsIndexedDb = {
   // this same transaction in between, or it auto-commits first. One Promise.all() over
   // the whole chain plus tx.done means a failure anywhere rejects to the caller (which
   // logs it) without leaving tx.done as an unhandled rejection.
+  // A null/undefined url is refused outright: getAllKeys(undefined) matches *every* row,
+  // so it would wipe the whole store in one committed transaction.
+  // An asynchronous request failure aborts the transaction by itself, rolling back the
+  // deletes. A *synchronous* throw (add() raising DataCloneError for a record that can't
+  // be cloned, or DataError) doesn't, so the deletes already issued would commit and leave
+  // the url with no row at all — hence the explicit abort, swallowing the InvalidStateError
+  // abort() throws when the transaction is already aborting so it can't mask the original
+  // error, and marking the requests already issued as handled, since the abort rejects
+  // each of them with an AbortError nothing else is waiting on.
   async _replaceByUrl(storeName, url, record) {
+    if (url === null || url === undefined) {
+      throw new Error(`_replaceByUrl(${storeName}): url not set.`);
+    }
     const db = await gsIndexedDb.getDb();
     const tx = db.transaction(storeName, 'readwrite');
     await Promise.all([
-      tx.store.index('url').getAllKeys(url).then((existingKeys) => Promise.all([
-        ...existingKeys.map((key) => tx.store.delete(key)),
-        tx.store.add(record),
-      ])),
+      tx.store.index('url').getAllKeys(url).then((existingKeys) => {
+        const requests = [];
+        try {
+          for (const key of existingKeys) requests.push(tx.store.delete(key));
+          requests.push(tx.store.add(record));
+        }
+        catch (e) {
+          requests.forEach((request) => request.catch(() => {}));
+          try {
+            tx.abort();
+          }
+          catch {
+            // Already aborting or finished: the original error below is the one to report.
+          }
+          throw e;
+        }
+        return Promise.all(requests);
+      }),
       tx.done,
     ]);
   },
