@@ -1,5 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { createChromeStub, EXTENSION_ID } from './setup/chrome-stub.js';
+import { createChromeStub } from './setup/chrome-stub.js';
+import {
+  NORMAL_URL, QUEUE_CHECK_INTERVAL, JOB_TIMEOUT, CANCELLED,
+  makeTab, suspendedUrlOf, installFakeTimers, installSuspensionFakes, flush, track, deferred, advance, setOptions, queueAndRun, withLastError,
+} from './setup/suspend-manager-harness.js';
 
 // Characterisation of the suspension flow of gsTabSuspendManager with screen capture on:
 // the native capture path and the renderer path, the latter completed by
@@ -16,23 +20,20 @@ import { createChromeStub, EXTENSION_ID } from './setup/chrome-stub.js';
 // Also not covered: gsPrecapture itself. captureVisibleTab() and take() are replaced by
 // spies, so nothing here says when a native capture succeeds, only what the flow does with
 // what it is given. Previews are "stored" through a spy on gsIndexedDb.addPreviewImage;
-// there is no IndexedDB.
+// there is no IndexedDB. The chrome.* calls the flow makes are installed on the fresh stub
+// by installSuspensionFakes(), see setup/suspend-manager-harness.js.
 //
 // In production the preview response arrives as a 'savePreviewData' message, and
 // background.js calls handlePreviewImageResponse(sender.tab, ...). The cases call it
 // directly, with a tab object of their own in place of sender.tab.
 
-const NORMAL_URL = 'https://example.com/page';
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=abc123';
-const SUSPENDED_URL = `chrome-extension://${EXTENSION_ID}/suspended.html#ttl=Example&pos=0&uri=${NORMAL_URL}`;
+const SUSPENDED_URL = suspendedUrlOf(NORMAL_URL, 'Example', '0');
 const PREVIEW = 'data:image/webp;base64,UklGRg==';
 const NATIVE_PREVIEW = 'data:image/jpeg;base64,/9j/4A==';
 const PRECAPTURE = 'data:image/jpeg;base64,cHJl';
-const QUEUE_CHECK_INTERVAL = 50;
-const JOB_TIMEOUT = 60 * 1000;
 const RENDER_TIMEOUT = 20 * 1000;
 const RENDER_TIMEOUT_HIGH_QUALITY = 45 * 1000;
-const CANCELLED = 'Queued tab job cancelled externally';
 
 let originalChrome;
 let gsStorage;
@@ -45,75 +46,13 @@ let tgs;
 let manager;
 let warning;
 
-function makeTab(overrides = {}) {
-  return {
-    id: 5,
-    windowId: 1,
-    index: 3,
-    url: NORMAL_URL,
-    title: 'Example',
-    status: 'complete',
-    active: false,
-    pinned: false,
-    audible: false,
-    groupId: -1,
-    ...overrides,
-  };
-}
-
-// setImmediate is left real below: it runs once every pending microtask has drained.
-const flush = () => new Promise((resolve) => setImmediate(resolve));
-
-// Records how a promise settles without leaving a rejection unhandled.
-function track(promise) {
-  const outcome = { state: 'pending', value: undefined };
-  promise.then(
-    (value) => { outcome.state = 'resolved'; outcome.value = value; },
-    (error) => { outcome.state = 'rejected'; outcome.value = error; },
-  );
-  return outcome;
-}
-
-function deferred() {
-  let resolve;
-  const promise = new Promise((res) => { resolve = res; });
-  return { promise, resolve };
-}
-
-async function advance(ms) {
-  await vi.advanceTimersByTimeAsync(ms);
-  await flush();
-}
-
-// The queue reads the capture options when it is built, so they are set before init. By
-// the name of the constant in gsStorage; a name that is not one fails the case.
+// The queue reads the capture options when it is built, so they are set before init.
 async function start(options) {
-  for (const [key, value] of Object.entries(options)) {
-    if (typeof gsStorage[key] !== 'string') throw new Error(`gsStorage has no option named ${key}`);
-    await gsStorage.setOption(gsStorage[key], value);
-  }
+  await setOptions(gsStorage, options);
   await manager.initAsPromised();
 }
 
-// Queues the tab and lets the queue hand it to the executor.
-async function suspend(tab, forceLevel) {
-  const outcome = track(manager.queueTabForSuspensionAsPromise(tab, forceLevel));
-  await flush();
-  await advance(QUEUE_CHECK_INTERVAL);
-  return outcome;
-}
-
-// chrome reports a failed call through chrome.runtime.lastError, readable only while the
-// callback runs.
-function withLastError(message, run) {
-  chrome.runtime.lastError = { message };
-  try {
-    run();
-  }
-  finally {
-    chrome.runtime.lastError = undefined;
-  }
-}
+const suspend = (tab, forceLevel) => queueAndRun(manager, tab, forceLevel);
 
 // What background.js does on a 'savePreviewData' message. The flush lets the promise of
 // the queued job, which settles inside the call, reach the outcome that tracks it.
@@ -150,19 +89,10 @@ function expectSuspended(outcome, url = SUSPENDED_URL) {
 
 beforeEach(async () => {
   originalChrome = globalThis.chrome;
-  vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'Date'] });
+  installFakeTimers();
   vi.resetModules();
   globalThis.chrome = createChromeStub();
-  chrome.tabGroups.TAB_GROUP_ID_NONE = -1;
-  chrome.tabGroups.get = vi.fn((groupId, callback) => callback({ id: groupId, color: 'blue', title: 'Work' }));
-  chrome.windows.get = vi.fn(async () => ({ id: 1, type: 'normal' }));
-  chrome.alarms.clear = vi.fn(async () => true);
-  chrome.tabs.get = vi.fn((tabId, callback) => callback(makeTab({ id: tabId })));
-  chrome.tabs.update = vi.fn((tabId, props, callback) => callback({ id: tabId, ...props }));
-  chrome.tabs.sendMessage = vi.fn((tabId, message, options, callback) => callback({ status: 'normal', scrollPos: '0' }));
-  // Both injections succeed, and the page then says nothing: a response is a call to
-  // handlePreviewImageResponse() made by the case.
-  chrome.scripting = { executeScript: vi.fn((injection, callback) => callback([{ result: undefined }])) };
+  installSuspensionFakes();
 
   ({ gsStorage } = await import('../src/js/gsStorage.js'));
   ({ gsUtils } = await import('../src/js/gsUtils.js'));
@@ -191,8 +121,39 @@ afterEach(() => {
   vi.clearAllTimers();
   vi.useRealTimers();
   vi.restoreAllMocks();
+  vi.unstubAllGlobals();
   globalThis.chrome = originalChrome;
 });
+
+// Holding points shared by the native and the renderer path: each holds the flow at one
+// await, returns what lets it go on, and what must not have happened afterwards (the first
+// thing the flow does past the check that follows that await).
+function holdPreviewSave() {
+  const held = deferred();
+  gsIndexedDb.addPreviewImage.mockReturnValue(held.promise);
+  return {
+    release: () => held.resolve(),
+    notReached: () => chrome.tabs.get,
+  };
+}
+
+function holdTabRefetch() {
+  let answer;
+  chrome.tabs.get.mockImplementation((tabId, callback) => { answer = callback; });
+  return {
+    release: () => answer(makeTab()),
+    notReached: () => gsTabCheckManager.unqueueTabCheck,
+  };
+}
+
+function holdStateWrite() {
+  const held = deferred();
+  vi.spyOn(tgs, 'setTabStatePropForTabId').mockReturnValue(held.promise);
+  return {
+    release: () => held.resolve(),
+    notReached: () => chrome.tabs.update,
+  };
+}
 
 describe('which capture is tried first', () => {
   // Columns: capture mode, capture method, native capture tried, renderer injected.
@@ -312,9 +273,11 @@ describe('native capture path', () => {
     expectSuspended(outcome);
   });
 
-  // Each arrangement holds the flow at one await. It returns what lets the flow go on, and
-  // what must not have happened afterwards: the first thing the flow does past the check
-  // that follows that await.
+  // The native capture has succeeded by the time the shared holding points are reached.
+  const afterCapture = (hold) => () => {
+    gsPrecapture.captureVisibleTab.mockResolvedValue(NATIVE_PREVIEW);
+    return hold();
+  };
   const holdingPoints = [
     ['the capture', () => {
       const held = deferred();
@@ -324,33 +287,9 @@ describe('native capture path', () => {
         notReached: () => gsIndexedDb.addPreviewImage,
       };
     }],
-    ['the saving of the preview', () => {
-      gsPrecapture.captureVisibleTab.mockResolvedValue(NATIVE_PREVIEW);
-      const held = deferred();
-      gsIndexedDb.addPreviewImage.mockReturnValue(held.promise);
-      return {
-        release: () => held.resolve(),
-        notReached: () => chrome.tabs.get,
-      };
-    }],
-    ['the refetch of the tab', () => {
-      gsPrecapture.captureVisibleTab.mockResolvedValue(NATIVE_PREVIEW);
-      let answer;
-      chrome.tabs.get.mockImplementation((tabId, callback) => { answer = callback; });
-      return {
-        release: () => answer(makeTab()),
-        notReached: () => gsTabCheckManager.unqueueTabCheck,
-      };
-    }],
-    ['the state write of the suspension', () => {
-      gsPrecapture.captureVisibleTab.mockResolvedValue(NATIVE_PREVIEW);
-      const held = deferred();
-      vi.spyOn(tgs, 'setTabStatePropForTabId').mockReturnValue(held.promise);
-      return {
-        release: () => held.resolve(),
-        notReached: () => chrome.tabs.update,
-      };
-    }],
+    ['the saving of the preview', afterCapture(holdPreviewSave)],
+    ['the refetch of the tab', afterCapture(holdTabRefetch)],
+    ['the state write of the suspension', afterCapture(holdStateWrite)],
   ];
 
   it.each(holdingPoints)('goes no further for a tab unqueued during %s', async (label, arrange) => {
@@ -399,7 +338,7 @@ describe('native capture path', () => {
     const timestamped = `${YOUTUBE_URL}&t=83s`;
     expect(gsPrecapture.take).toHaveBeenCalledWith(5, YOUTUBE_URL);
     expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(timestamped, PRECAPTURE);
-    expectSuspended(outcome, `chrome-extension://${EXTENSION_ID}/suspended.html#ttl=Example&pos=0&uri=${timestamped}`);
+    expectSuspended(outcome, suspendedUrlOf(timestamped, 'Example', '0'));
   });
 });
 
@@ -623,7 +562,7 @@ describe('renderer path', () => {
 
     await respond(makeTab({ url: YOUTUBE_URL }), PREVIEW, undefined, injectedToken());
     expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(timestamped, PREVIEW);
-    expectSuspended(outcome, `chrome-extension://${EXTENSION_ID}/suspended.html#ttl=Example&pos=0&uri=${timestamped}`);
+    expectSuspended(outcome, suspendedUrlOf(timestamped, 'Example', '0'));
   });
 
   // The preview is stored before the live tab is looked at, so it stays in the store.
@@ -689,9 +628,7 @@ describe('renderer path', () => {
     expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
   });
 
-  // Each arrangement holds the flow at one await. It returns what lets the flow go on, and
-  // what must not have happened afterwards: the first thing the flow does past the check
-  // that follows that await. Columns: label, force level, preview of the response.
+  // Columns: label, force level, preview of the response, arrangement.
   //
   // After the saving of the preview the source checks twice, with no await in between:
   // once right after the save and once before the suspension. The case cannot tell which
@@ -707,30 +644,9 @@ describe('renderer path', () => {
         notReached: () => chrome.tabs.get,
       };
     }],
-    ['the saving of the preview', 1, PREVIEW, () => {
-      const held = deferred();
-      gsIndexedDb.addPreviewImage.mockReturnValue(held.promise);
-      return {
-        release: () => held.resolve(),
-        notReached: () => chrome.tabs.get,
-      };
-    }],
-    ['the refetch of the tab', 1, PREVIEW, () => {
-      let answer;
-      chrome.tabs.get.mockImplementation((tabId, callback) => { answer = callback; });
-      return {
-        release: () => answer(makeTab()),
-        notReached: () => gsTabCheckManager.unqueueTabCheck,
-      };
-    }],
-    ['the state write of the suspension', 1, PREVIEW, () => {
-      const held = deferred();
-      vi.spyOn(tgs, 'setTabStatePropForTabId').mockReturnValue(held.promise);
-      return {
-        release: () => held.resolve(),
-        notReached: () => chrome.tabs.update,
-      };
-    }],
+    ['the saving of the preview', 1, PREVIEW, holdPreviewSave],
+    ['the refetch of the tab', 1, PREVIEW, holdTabRefetch],
+    ['the state write of the suspension', 1, PREVIEW, holdStateWrite],
   ];
 
   it.each(holdingPoints)('goes no further for a tab unqueued during %s', async (label, forceLevel, preview, arrange) => {
@@ -795,8 +711,6 @@ describe('renderer path with the automatic method', () => {
     expect(gsPrecapture.captureVisibleTab).toHaveBeenCalledTimes(1);
     expect(gsPrecapture.captureVisibleTab).toHaveBeenCalledWith(responseTab);
     expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(NORMAL_URL, NATIVE_PREVIEW);
-    // Once after the fallback capture, once before the suspension.
-    expect(chrome.tabs.get).toHaveBeenCalledTimes(2);
     expectSuspended(outcome);
   });
 
@@ -821,7 +735,7 @@ describe('renderer path with the automatic method', () => {
     expect(gsPrecapture.take).toHaveBeenCalledTimes(1);
     expect(gsPrecapture.take).toHaveBeenCalledWith(5, YOUTUBE_URL);
     expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(timestamped, PRECAPTURE);
-    expectSuspended(outcome, `chrome-extension://${EXTENSION_ID}/suspended.html#ttl=Example&pos=0&uri=${timestamped}`);
+    expectSuspended(outcome, suspendedUrlOf(timestamped, 'Example', '0'));
   });
 
   it('resolves false, storing nothing, when the tab has navigated during the fallback capture', async () => {

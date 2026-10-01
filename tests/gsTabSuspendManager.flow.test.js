@@ -1,5 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { createChromeStub, EXTENSION_ID } from './setup/chrome-stub.js';
+import { createChromeStub } from './setup/chrome-stub.js';
+import {
+  NORMAL_URL, QUEUE_CHECK_INTERVAL, JOB_TIMEOUT, CANCELLED,
+  makeTab, suspendedUrlOf, installFakeTimers, installSuspensionFakes, flush, track, advance, setOptions, queueAndRun, withLastError,
+} from './setup/suspend-manager-harness.js';
 
 // Characterisation of the suspension flow of gsTabSuspendManager with screen capture off:
 // the private performSuspension() and handleSuspensionException() are run for real, inside
@@ -7,9 +11,9 @@ import { createChromeStub, EXTENSION_ID } from './setup/chrome-stub.js';
 // whose name ends in "(defect: see comment)" or "(oddity: see comment)" is expected to
 // change when the behaviour it describes is fixed.
 //
-// What is faked: the chrome.* calls the flow makes (installed on the fresh stub below, in
-// the callback or promise form the source uses), and the gsIndexedDb methods, which are
-// spied on. There is no IndexedDB.
+// What is faked: the chrome.* calls the flow makes (installed on the fresh stub by
+// installSuspensionFakes(), see setup/suspend-manager-harness.js), and the gsIndexedDb
+// methods, which are spied on. There is no IndexedDB.
 //
 // handleSuspensionException() is private. It is observed through a wrapper: gsTabQueue.init
 // is replaced by an implementation that hands the real init the same properties, with the
@@ -19,13 +23,9 @@ import { createChromeStub, EXTENSION_ID } from './setup/chrome-stub.js';
 // stubbed `document`. That says what the function computes, not that it finds the player
 // of a real YouTube page: that belongs to the end-to-end suite.
 
-const NORMAL_URL = 'https://example.com/page';
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=abc123';
 const START_TIME = new Date('2026-01-01T00:00:00.000Z');
-const QUEUE_CHECK_INTERVAL = 50;
-const JOB_TIMEOUT = 60 * 1000;
 const REQUEUE_DELAY = 3000;
-const CANCELLED = 'Queued tab job cancelled externally';
 
 let originalChrome;
 let gsStorage;
@@ -36,81 +36,16 @@ let tgs;
 let manager;
 let exceptionSpy;
 
-function makeTab(overrides = {}) {
-  return {
-    id: 5,
-    windowId: 1,
-    index: 3,
-    url: NORMAL_URL,
-    title: 'Example',
-    favIconUrl: 'https://example.com/favicon.ico',
-    status: 'complete',
-    active: false,
-    pinned: false,
-    audible: false,
-    groupId: -1,
-    ...overrides,
-  };
-}
+const suspend = (tab, forceLevel) => queueAndRun(manager, tab, forceLevel);
 
-function suspendedUrlOf(url, title, scrollPos) {
-  return `chrome-extension://${EXTENSION_ID}/suspended.html#ttl=${title}&pos=${scrollPos}&uri=${url}`;
-}
-
-// By the name of the constant in gsStorage. A name that is not one fails the case: a
-// setting written under `undefined` would leave the default in place and prove nothing.
-async function setOptions(options) {
-  for (const [key, value] of Object.entries(options)) {
-    if (typeof gsStorage[key] !== 'string') throw new Error(`gsStorage has no option named ${key}`);
-    await gsStorage.setOption(gsStorage[key], value);
-  }
-}
-
-// setImmediate is left real below: it runs once every pending microtask has drained.
-const flush = () => new Promise((resolve) => setImmediate(resolve));
-
-// Records how a promise settles without leaving a rejection unhandled.
-function track(promise) {
-  const outcome = { state: 'pending', value: undefined };
-  promise.then(
-    (value) => { outcome.state = 'resolved'; outcome.value = value; },
-    (error) => { outcome.state = 'rejected'; outcome.value = error; },
-  );
-  return outcome;
-}
-
-async function advance(ms) {
-  await vi.advanceTimersByTimeAsync(ms);
-  await flush();
-}
-
-// Queues the tab and lets the queue hand it to the executor.
-async function suspend(tab, forceLevel) {
-  const outcome = track(manager.queueTabForSuspensionAsPromise(tab, forceLevel));
-  await flush();
-  await advance(QUEUE_CHECK_INTERVAL);
-  return outcome;
-}
-
+// The callback is the last argument, whether gsMessages passes options or not.
 function contentScriptAnswers(tabInfo) {
-  chrome.tabs.sendMessage.mockImplementation((tabId, message, options, callback) => callback(tabInfo));
-}
-
-// chrome reports a failed call through chrome.runtime.lastError, readable only while the
-// callback runs.
-function withLastError(message, run) {
-  chrome.runtime.lastError = { message };
-  try {
-    run();
-  }
-  finally {
-    chrome.runtime.lastError = undefined;
-  }
+  chrome.tabs.sendMessage.mockImplementation((...args) => args.at(-1)(tabInfo));
 }
 
 function contentScriptFails(message) {
-  chrome.tabs.sendMessage.mockImplementation((tabId, request, options, callback) => {
-    withLastError(message, () => callback(undefined));
+  chrome.tabs.sendMessage.mockImplementation((...args) => {
+    withLastError(message, () => args.at(-1)(undefined));
   });
 }
 
@@ -122,19 +57,11 @@ function tabsGetGives(...tabs) {
 
 beforeEach(async () => {
   originalChrome = globalThis.chrome;
-  vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'Date'] });
+  installFakeTimers();
   vi.setSystemTime(START_TIME);
   vi.resetModules();
   globalThis.chrome = createChromeStub();
-  chrome.tabGroups.TAB_GROUP_ID_NONE = -1;
-  chrome.tabGroups.get = vi.fn((groupId, callback) => callback({ id: groupId, color: 'blue', title: 'Work' }));
-  chrome.windows.get = vi.fn(async () => ({ id: 1, type: 'normal' }));
-  chrome.alarms.clear = vi.fn(async () => true);
-  chrome.tabs.get = vi.fn((tabId, callback) => callback(makeTab({ id: tabId })));
-  chrome.tabs.update = vi.fn((tabId, props, callback) => callback({ id: tabId, ...props }));
-  chrome.tabs.sendMessage = vi.fn();
-  chrome.scripting = { executeScript: vi.fn() };
-  contentScriptAnswers({ status: 'normal', scrollPos: '0' });
+  installSuspensionFakes();
 
   ({ gsStorage } = await import('../src/js/gsStorage.js'));
   ({ gsUtils } = await import('../src/js/gsUtils.js'));
@@ -213,10 +140,11 @@ describe('suspension flow with screen capture off', () => {
     expect(outcome).toEqual({ state: 'resolved', value: true });
   });
 
+  // Columns: what the content script does, how to arrange it, whether a warning is logged.
   it.each([
-    ['fails with lastError', () => contentScriptFails('Could not establish connection. Receiving end does not exist.')],
-    ['answers nothing', () => contentScriptAnswers(undefined)],
-  ])('assumes status unknown and scroll position 0 when the content script %s, and suspends at level 2', async (label, arrange) => {
+    ['fails with lastError', () => contentScriptFails('Could not establish connection. Receiving end does not exist.'), true],
+    ['answers nothing', () => contentScriptAnswers(undefined), false],
+  ])('assumes status unknown and scroll position 0 when the content script %s, and suspends at level 2', async (label, arrange, warns) => {
     arrange();
     const warning = vi.spyOn(gsUtils, 'warning');
     const outcome = await suspend(makeTab(), 2);
@@ -224,7 +152,7 @@ describe('suspension flow with screen capture off', () => {
     expect(gsIndexedDb.addSuspendedTabInfo).toHaveBeenCalledTimes(1);
     expect(outcome).toEqual({ state: 'resolved', value: true });
     const warned = warning.mock.calls.some((call) => call[2] === 'Failed to get content script info');
-    expect(warned).toBe(label === 'fails with lastError');
+    expect(warned).toBe(warns);
   });
 
   // gsMessages retries without the frame option when the first call throws.
@@ -267,7 +195,7 @@ describe('suspension flow and the status the content script reports', () => {
   });
 
   it('suspends on formInput at level 2 when the url is on the always suspend list', async () => {
-    await setOptions({ ALWAYS_SUSPEND_LIST: 'example.com' });
+    await setOptions(gsStorage, { ALWAYS_SUSPEND_LIST: 'example.com' });
     contentScriptAnswers({ status: 'formInput', scrollPos: '0' });
     const outcome = await suspend(makeTab(), 2);
     expect(outcome).toEqual({ state: 'resolved', value: true });
@@ -275,7 +203,7 @@ describe('suspension flow and the status the content script reports', () => {
   });
 
   it('still stops on tempWhitelist at level 2 when the url is on the always suspend list', async () => {
-    await setOptions({ ALWAYS_SUSPEND_LIST: 'example.com' });
+    await setOptions(gsStorage, { ALWAYS_SUSPEND_LIST: 'example.com' });
     contentScriptAnswers({ status: 'tempWhitelist', scrollPos: '0' });
     const outcome = await suspend(makeTab(), 2);
     expect(outcome).toEqual({ state: 'resolved', value: false });
@@ -332,22 +260,22 @@ describe('suspension flow for a tab that is loading', () => {
   // Every requeue gives the job a fresh 60 s timeout, so what ends it is the overall
   // deadline of the queue, five job timeouts after the job was first run. The queue then
   // reports a timeout, and the timeout handler suspends the tab while it is still loading,
-  // from the tab as it was queued.
+  // from the tab as it was queued. The queue's other bound, 100 requeues, falls one cycle
+  // later with the source's 3 s requeue delay: the case pins when the tab is suspended,
+  // not which of the two bounds does it.
   it('suspends a tab that never stops loading after 5 job timeouts (oddity: see comment)', async () => {
     const tab = makeTab({ status: 'loading', title: 'As queued' });
     chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ status: 'loading', title: 'As refetched' })));
     const outcome = await suspend(tab, 1);
 
-    // The job runs every 3050 ms from 50 ms on: run 100 is at 302000 ms, the first past the
-    // deadline of 300050 ms. It asks for its 100th requeue, which the limit of 100 would
-    // still allow; the deadline is what refuses it.
-    const cycle = REQUEUE_DELAY + QUEUE_CHECK_INTERVAL;
-    await advance(99 * cycle - 1);
+    // The deadline is 5 job timeouts after the first run. The job is still sleeping when it
+    // passes; the next run is the one the queue refuses to requeue.
+    await advance(5 * JOB_TIMEOUT);
     expect(outcome.state).toBe('pending');
     expect(chrome.tabs.update).not.toHaveBeenCalled();
-    expect(manager.getQueuedTabDetails(tab).requeues).toBe(99);
+    expect(manager.getQueuedTabDetails(tab)).toMatchObject({ status: 'sleeping' });
 
-    await advance(1);
+    await advance(REQUEUE_DELAY + QUEUE_CHECK_INTERVAL);
     expect(exceptionSpy).toHaveBeenCalledTimes(1);
     expect(exceptionSpy.mock.calls[0][2]).toBe('timeout');
     expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
@@ -416,7 +344,7 @@ describe('suspension flow with discard in place of suspend', () => {
   // The flow up to the suspension itself is the one of a real suspension: the content
   // script is asked and the tab info is saved, for a tab that keeps its url.
   it('queues the tab for discard, saving tab info for a tab that is not suspended (oddity: see comment)', async () => {
-    await setOptions({ DISCARD_IN_PLACE_OF_SUSPEND: true });
+    await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true });
     const tab = makeTab();
     const outcome = await suspend(tab, 1);
     expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(1);
@@ -429,7 +357,7 @@ describe('suspension flow with discard in place of suspend', () => {
   });
 
   it('does not discard a tab the content script reports as paused at level 2', async () => {
-    await setOptions({ DISCARD_IN_PLACE_OF_SUSPEND: true });
+    await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true });
     contentScriptAnswers({ status: 'tempWhitelist', scrollPos: '0' });
     const outcome = await suspend(makeTab(), 2);
     expect(gsTabDiscardManager.queueTabForDiscard).not.toHaveBeenCalled();
@@ -487,7 +415,7 @@ describe('suspension flow for a YouTube tab', () => {
     ['the option is off', YOUTUBE_URL, false],
     ['the url is not a watch page of www.youtube.com over https', 'https://m.youtube.com/watch?v=abc123', true],
   ])('does not ask the page when %s', async (label, url, option) => {
-    await setOptions({ ADD_YOUTUBE_TIMESTAMP: option });
+    await setOptions(gsStorage, { ADD_YOUTUBE_TIMESTAMP: option });
     const outcome = await suspend(makeTab({ url }), 1);
     expect(chrome.scripting.executeScript).not.toHaveBeenCalled();
     expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(url, 'Example', '0') }, expect.any(Function));
@@ -590,7 +518,7 @@ describe('suspension flow when the queue times the job out', () => {
     const outcome = await suspend(tab, 2);
     expect(manager.isSuspensionInProgress(tab)).toBe(true);
 
-    await setOptions({ WHITELIST: 'example.com' });
+    await setOptions(gsStorage, { WHITELIST: 'example.com' });
     tgs.isCurrentFocusedTab.mockResolvedValue(true);
     await expect(manager.checkTabEligibilityForSuspension(tab, 2)).resolves.toBe(false);
     tgs.isCurrentFocusedTab.mockClear();
@@ -601,14 +529,7 @@ describe('suspension flow when the queue times the job out', () => {
 
     await advance(1);
     expect(exceptionSpy).toHaveBeenCalledTimes(1);
-    expect(exceptionSpy).toHaveBeenCalledWith(
-      tab,
-      { forceLevel: 2 },
-      'timeout',
-      expect.any(Function),
-      expect.any(Function),
-      expect.any(Function),
-    );
+    expect(exceptionSpy.mock.calls[0].slice(0, 3)).toEqual([tab, { forceLevel: 2 }, 'timeout']);
     expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
     expect(outcome).toEqual({ state: 'resolved', value: true });
     expect(tgs.isCurrentFocusedTab).not.toHaveBeenCalled();
@@ -667,14 +588,7 @@ describe('suspension flow when the executor throws', () => {
     const outcome = await suspend(tab, 1);
 
     expect(exceptionSpy).toHaveBeenCalledTimes(1);
-    expect(exceptionSpy).toHaveBeenCalledWith(
-      tab,
-      { forceLevel: 1, precaptureUrl: NORMAL_URL },
-      boom,
-      expect.any(Function),
-      expect.any(Function),
-      expect.any(Function),
-    );
+    expect(exceptionSpy.mock.calls[0].slice(0, 3)).toEqual([tab, { forceLevel: 1, precaptureUrl: NORMAL_URL }, boom]);
     expect(warning).toHaveBeenCalledWith(5, 'suspensionQueue', 'Failed to suspend tab: Error: boom');
     expect(outcome).toEqual({ state: 'resolved', value: false });
     expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
