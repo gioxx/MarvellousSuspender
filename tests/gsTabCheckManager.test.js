@@ -306,6 +306,38 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(chrome.tabs.sendMessage).toHaveBeenCalledWith(1, expect.objectContaining({ action: 'getSuspendInfo' }));
   });
 
+  it('reports a pending check for any tab until the startup pass reads its list', () => {
+    gsTabCheckManager.setStartupPending(true);
+    try {
+      expect(gsTabCheckManager.hasPendingTabCheck(suspendedTab(1))).toBe(true);
+    }
+    finally {
+      gsTabCheckManager.setStartupPending(false);
+    }
+    expect(gsTabCheckManager.hasPendingTabCheck(suspendedTab(1))).toBe(false);
+  });
+
+  it('checks a tab created after the startup pass has read its list, but not a reserved one', async () => {
+    const restored = Array.from({ length: 5 }, (_, i) => suspendedTab(i + 1));
+    const late = suspendedTab(99);
+    chrome.tabs.sendMessage.mockImplementation(() => new Promise(() => {}));
+    gsTabCheckManager.setStartupPending(true);
+    const result = gsTabCheckManager.performInitialisationTabChecks(restored);
+    try {
+      await vi.advanceTimersByTimeAsync(100);
+      gsTabCheckManager.queueCreatedTabCheck(restored[4]);
+      gsTabCheckManager.queueCreatedTabCheck(late);
+      await vi.advanceTimersByTimeAsync(100);
+      expect(gsTabCheckManager.getQueuedTabDetails(restored[4])).toBeFalsy();
+      expect(gsTabCheckManager.getQueuedTabDetails(late)).toBeTruthy();
+    }
+    finally {
+      gsTabCheckManager.setStartupPending(false);
+      await vi.runAllTimersAsync();
+      await result;
+    }
+  });
+
   it('reserves every restored tab until its startup worker picks it up', async () => {
     const restored = Array.from({ length: 5 }, (_, i) => suspendedTab(i + 1));
     chrome.tabs.sendMessage.mockImplementation(() => new Promise(() => {}));

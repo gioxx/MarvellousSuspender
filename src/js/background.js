@@ -71,14 +71,10 @@ import  { tgs }                   from './tgs.js';
     Promise.resolve()
       .then(gsStorage.initSettingsAsPromised)   // ensure settings have been loaded and synced
       .then(async () => { await gsStorage.saveStorage('session', 'gsInitialisationMode', true); })
-      .then(async () => {                       // performs crash check (and maybe recovery) and tab responsiveness checks
-        try {
-          await gsSession.runStartupChecks();
-        }
-        finally {
-          gsTabCheckManager.setStartupPending(false);
-        }
-      })
+      .then(gsSession.runStartupChecks)         // performs crash check (and maybe recovery) and tab responsiveness checks
+      // Released on every path: a rejection in any step above must not leave created tabs
+      // waiting for a startup pass that is not coming (#523).
+      .finally(() => gsTabCheckManager.setStartupPending(false))
       .then(gsBackup.retryPendingDriveBackup)   // upload any Drive backup queued by an emergency onSuspend
       .then(gsBackup.reconcileDownloadsPermission) // catch AUTO_BACKUP_ENABLED arriving via sync/import without the downloads grant
       .then(gsBackup.syncBackupNudgeBadge)      // keep the icon badge (nudge, Drive-auth, or missing-permission error) in sync on every restart

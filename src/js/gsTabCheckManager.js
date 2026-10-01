@@ -27,8 +27,9 @@ export const gsTabCheckManager = (function() {
   let   _tabCheckQueue;
   // Suspended tabs a running startup pass will still check itself (#523).
   const _startupReservedTabIds = new Set();
-  // True from startupOnce() until the startup pass ends: it checks every restored tab
-  // itself, within its own limit, so per-tab onCreated checks are skipped meanwhile (#523).
+  // True from startupOnce() until the startup pass has read its tab list: every tab existing
+  // by then is checked by that pass, within its own limit, so per-tab checks wait (#523).
+  // Afterwards only the ids in _startupReservedTabIds are left to the pass.
   let _startupPending = false;
   const INIT_RESOLVERS = [];
 
@@ -79,6 +80,8 @@ export const gsTabCheckManager = (function() {
     // Reserve the whole set up front: a restored page loading before its worker reaches it
     // must not get an ordinary check from tgs.initialiseSuspendedTab() outside this budget.
     suspendedTabs.forEach((tab) => _startupReservedTabIds.add(tab.id));
+    // The list is read: a tab created from now on is not in it and needs its own check.
+    _startupPending = false;
     // Recover visible pages first, retaining input order in the returned results.
     pending.sort((a, b) => Number(b.tab.active) - Number(a.tab.active));
     let next = 0;
@@ -181,9 +184,9 @@ export const gsTabCheckManager = (function() {
   // restore every restored tab fires onCreated before the startup pass runs; queueing
   // them all here bypassed the startup pass's three-check limit and reloaded the whole
   // restored set in a burst (#523). A tab created after the pass has read the tab list is
-  // still initialised through tgs.initialiseSuspendedTab() when its page loads.
+  // not in it, so it gets its own check unless the pass reserved it.
   function queueCreatedTabCheck(tab) {
-    if (_startupPending) {
+    if (_startupPending || _startupReservedTabIds.has(tab.id)) {
       gsUtils.log(tab.id, QUEUE_ID, 'Startup pass pending. Leaving the created tab to it.');
       return;
     }
@@ -224,10 +227,11 @@ export const gsTabCheckManager = (function() {
     }
   }
 
-  // True when a check is queued or running for the tab, or a startup pass will check it.
+  // True when a check is queued or running for the tab, or a startup pass will check it
+  // (including a pass that has not read its tab list yet).
   function hasPendingTabCheck(tab) {
     // Before the queue exists nothing can be queued; answer without its warning.
-    return _startupReservedTabIds.has(tab.id) || Boolean(_tabCheckQueue?.getQueuedTabDetails(tab));
+    return _startupPending || _startupReservedTabIds.has(tab.id) || Boolean(_tabCheckQueue?.getQueuedTabDetails(tab));
   }
 
   function getQueuedTabDetails(tab) {
