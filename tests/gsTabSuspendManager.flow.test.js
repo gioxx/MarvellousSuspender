@@ -259,11 +259,12 @@ describe('suspension flow for a tab that is loading', () => {
 
   // Every requeue gives the job a fresh 60 s timeout, so what ends it is the overall
   // deadline of the queue, five job timeouts after the job was first run. The queue then
-  // reports a timeout, and the timeout handler suspends the tab while it is still loading,
-  // from the tab as it was queued. The queue's other bound, 100 requeues, falls one cycle
-  // later with the source's 3 s requeue delay: the case pins when the tab is suspended,
-  // not which of the two bounds does it.
-  it('suspends a tab that never stops loading after 5 job timeouts (oddity: see comment)', async () => {
+  // reports a timeout, and the timeout handler suspends the tab while it is still loading.
+  // Kept on purpose (#546): a page that never finishes loading is what the deadline is
+  // for, and the handler now suspends the live tab after its url and eligibility checks.
+  // The queue's other bound, 100 requeues, falls one cycle later with the source's 3 s
+  // requeue delay: the case pins when the tab is suspended, not which bound does it.
+  it('suspends a tab that never stops loading after 5 job timeouts, from the live tab', async () => {
     const tab = makeTab({ status: 'loading', title: 'As queued' });
     chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ status: 'loading', title: 'As refetched' })));
     const outcome = await suspend(tab, 1);
@@ -279,7 +280,7 @@ describe('suspension flow for a tab that is loading', () => {
     expect(exceptionSpy).toHaveBeenCalledTimes(1);
     expect(exceptionSpy.mock.calls[0][2]).toBe('timeout');
     expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
-    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(NORMAL_URL, 'As%20queued', '0') }, expect.any(Function));
+    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(NORMAL_URL, 'As%20refetched', '0') }, expect.any(Function));
     expect(outcome).toEqual({ state: 'resolved', value: true });
     expect(chrome.tabs.sendMessage).not.toHaveBeenCalled();
   });
@@ -509,10 +510,10 @@ describe('unqueueTabForSuspension during the flow', () => {
 });
 
 describe('suspension flow when the queue times the job out', () => {
-  // The handler is given the tab as it was queued and suspends it: it does not refetch the
-  // tab, does not look at its url and does not ask whether it is still eligible. Here the
-  // tab has become the focused tab and its url has been put on the whitelist meanwhile.
-  it('suspends the tab with no eligibility check and no refetch (defect: see comment)', async () => {
+  // The handler looks at the live tab before suspending: gone, navigated away from the url
+  // the job was queued for, or no longer eligible at the job's force level, and the job
+  // resolves false instead of suspending from a stale snapshot (#546).
+  it('resolves false at the timeout when the tab is no longer eligible, judged on the live tab', async () => {
     chrome.tabs.sendMessage.mockImplementation(() => {});
     const tab = makeTab();
     const outcome = await suspend(tab, 2);
@@ -520,7 +521,6 @@ describe('suspension flow when the queue times the job out', () => {
 
     await setOptions(gsStorage, { WHITELIST: 'example.com' });
     tgs.isCurrentFocusedTab.mockResolvedValue(true);
-    await expect(manager.checkTabEligibilityForSuspension(tab, 2)).resolves.toBe(false);
     tgs.isCurrentFocusedTab.mockClear();
 
     await advance(JOB_TIMEOUT - 1);
@@ -530,17 +530,44 @@ describe('suspension flow when the queue times the job out', () => {
     await advance(1);
     expect(exceptionSpy).toHaveBeenCalledTimes(1);
     expect(exceptionSpy.mock.calls[0].slice(0, 3)).toEqual([tab, { forceLevel: 2 }, 'timeout']);
-    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
-    expect(outcome).toEqual({ state: 'resolved', value: true });
-    expect(tgs.isCurrentFocusedTab).not.toHaveBeenCalled();
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
+    expect(chrome.tabs.get).toHaveBeenCalledWith(5, expect.any(Function));
+    expect(tgs.isCurrentFocusedTab).toHaveBeenCalled();
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
     expect(gsIndexedDb.addSuspendedTabInfo).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'resolved', value: false });
+    expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
+  });
+
+  it.each([
+    ['has navigated', makeTab({ url: 'https://example.com/other' })],
+    ['is gone', undefined],
+  ])('resolves false at the timeout when the live tab %s', async (label, liveTab) => {
+    chrome.tabs.sendMessage.mockImplementation(() => {});
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(liveTab));
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    await advance(JOB_TIMEOUT);
+    expect(exceptionSpy).toHaveBeenCalledTimes(1);
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'resolved', value: false });
+  });
+
+  // The live tab is the one suspended: its title is the one the placeholder shows.
+  it('suspends the live tab at the timeout when it is still eligible and on the same url', async () => {
+    chrome.tabs.sendMessage.mockImplementation(() => {});
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ title: 'Live title' })));
+    const outcome = await suspend(makeTab(), 2);
+    await advance(JOB_TIMEOUT);
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(NORMAL_URL, 'Live%20title', '0') }, expect.any(Function));
+    expect(outcome).toEqual({ state: 'resolved', value: true });
   });
 
   // No suspended url had been computed when the job hung, so one is rebuilt from the tab
   // as queued: scroll position 0 and no YouTube timestamp.
   it('uses a url rebuilt from the queued tab when none had been computed', async () => {
     chrome.tabs.sendMessage.mockImplementation(() => {});
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ url: YOUTUBE_URL })));
     const outcome = await suspend(makeTab({ url: YOUTUBE_URL }), 1);
     await advance(JOB_TIMEOUT);
     expect(exceptionSpy.mock.calls[0][1].suspendedUrl).toBeUndefined();

@@ -624,7 +624,8 @@ describe('renderer path', () => {
     await advance(1);
     expectSuspended(outcome);
     expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
+    // the timeout handler judges the live tab, which the default fake reports as eligible
+    expect(chrome.tabs.get).toHaveBeenCalledTimes(1);
     expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
   });
 

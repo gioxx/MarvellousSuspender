@@ -456,7 +456,21 @@ export const gsTabSuspendManager = (function() {
     _clearPendingPreview(tab.id, executionProps);
     if (exceptionType === _suspensionQueue.EXCEPTION_TIMEOUT) {
       gsUtils.log(tab.id, QUEUE_ID, `Tab took more than ${ _suspensionQueue.getQueueProperties().jobTimeout }ms to suspend. Will force suspension.`);
-      const success = await executeTabSuspension(tab, executionProps.suspendedUrl,);
+      // The job has hung for a while: the tab as queued is stale. Suspend the live tab, and
+      // only if it is still the page the job was queued for and still eligible at the job's
+      // force level (#546). precaptureUrl is the url before any YouTube timestamp.
+      const liveTab = await gsChrome.tabsGet(tab.id);
+      if (!liveTab || liveTab.url !== (executionProps.precaptureUrl ?? tab.url)) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Tab gone or navigated since it was queued. Will not force suspension.');
+        resolve(false);
+        return;
+      }
+      if (!await checkTabEligibilityForSuspension(liveTab, executionProps.forceLevel)) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Will not force suspension.');
+        resolve(false);
+        return;
+      }
+      const success = await executeTabSuspension(liveTab, executionProps.suspendedUrl,);
       resolve(success);
     }
     else {
