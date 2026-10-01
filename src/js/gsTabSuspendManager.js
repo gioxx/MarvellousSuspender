@@ -158,7 +158,7 @@ export const gsTabSuspendManager = (function() {
       return null;
     }
     if (!await checkTabEligibilityForSuspension(liveTab, forceLevel)) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.');
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension.');
       return null;
     }
     return liveTab;
@@ -376,6 +376,20 @@ export const gsTabSuspendManager = (function() {
       gsUtils.warning(tab.id, QUEUE_ID, 'savePreviewData reported an error: ', errorMsg,);
       const screenCaptureMethod = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_METHOD);
       if (screenCaptureMethod === 'auto' && !executionProps.nativeCaptureTried) {
+        // Judged before the capture as well: a tab that is not eligible any more is not
+        // captured only to have the capture dropped. The option read above awaited.
+        if (!isStillCurrent()) {
+          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled before the fallback capture. Ignoring.',);
+          return;
+        }
+        if (!await liveTabIfStillSuspendable(tab, executionProps.precaptureUrl, suspensionForceLevel)) {
+          executionProps.resolveFn(false);
+          return;
+        }
+        if (!isStillCurrent()) {
+          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled before the fallback capture. Ignoring.',);
+          return;
+        }
         previewUrl = await gsPrecapture.captureVisibleTab(tab)
           ?? await gsPrecapture.take(tab.id, executionProps.precaptureUrl);
         // This fallback capture awaits too: the identity, url and eligibility checks below

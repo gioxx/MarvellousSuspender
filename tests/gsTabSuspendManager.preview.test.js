@@ -525,10 +525,7 @@ describe('renderer path', () => {
     expect(manager.getQueuedTabDetails(tab)).toMatchObject({ status: 'queued' });
 
     await expect(respond(makeTab(), PREVIEW, undefined, token)).resolves.toBeUndefined();
-    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
-    expect(chrome.tabs.update).not.toHaveBeenCalled();
-    expect(first.state).toBe('pending');
+    expectSuspended(first);
     expect(second.state).toBe('pending');
 
     manager.unqueueTabForSuspension(tab);
@@ -708,6 +705,19 @@ describe('renderer path with the automatic method', () => {
     expectSuspended(outcome);
   });
 
+  // The live tab is judged before the fallback capture too: a tab that is not eligible
+  // any more is not captured only to have the capture dropped (#546).
+  it('resolves false without a fallback capture when the live tab is not eligible at the response', async () => {
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ pinned: true })));
+    const outcome = await suspend(makeTab(), 2);
+    await respond(makeTab(), undefined, 'Failed to generate dataUrl', injectedToken());
+    expect(gsPrecapture.captureVisibleTab).not.toHaveBeenCalled();
+    expect(gsPrecapture.take).not.toHaveBeenCalled();
+    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'resolved', value: false });
+  });
+
   it('takes the pre-capture when the fallback capture gives nothing, and suspends without a preview when neither does', async () => {
     const outcome = await suspend(makeTab(), 1);
     await respond(makeTab(), undefined, 'Failed to generate dataUrl', injectedToken());
@@ -766,7 +776,8 @@ describe('renderer path with the automatic method', () => {
     held.resolve(NATIVE_PREVIEW);
     await handled;
     expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
+    // the one read is the judgement before the capture; none after it for a cancelled job
+    expect(chrome.tabs.get).toHaveBeenCalledTimes(1);
     expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
