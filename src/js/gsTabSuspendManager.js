@@ -340,7 +340,10 @@ export const gsTabSuspendManager = (function() {
 
     const suspensionForceLevel = queuedTabDetails.executionProps.forceLevel;
     if (!await checkTabEligibilityForSuspension(tab, suspensionForceLevel)) {
+      // Settle the job, as the native path does: left unsettled it would run into the queue
+      // timeout, whose handler would then force the suspension this check just refused (#546).
       gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.',);
+      queuedTabDetails.executionProps.resolveFn(false);
       return;
     }
 

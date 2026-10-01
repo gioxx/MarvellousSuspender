@@ -588,45 +588,28 @@ describe('renderer path', () => {
     expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
   });
 
-  // This first eligibility check is made on the tab that came with the response. When it
-  // fails the function logs "Removing tab from suspensionQueue" and returns: it removes
-  // nothing and settles nothing. The request is forgotten, so a later response is ignored
-  // as well, and the job stays in progress until the queue times it out, 60 seconds after
-  // it started. The timeout handler then suspends the tab with no eligibility check: here
-  // the tab as queued is not eligible either by then, and chrome is not asked for the tab.
-  // Compare with the case above, where the same finding on the live tab resolves false.
-  it('leaves the job unsettled when the tab of the response is not eligible, and the job timeout then suspends the tab (defect: see comment)', async () => {
+  // The first eligibility check is made on the tab that came with the response. When it
+  // fails the job is settled, false, as the native path does on the same finding: nothing
+  // is stored, the tab is not touched, and the queue timeout has nothing left to force (#546).
+  it('resolves false when the tab of the response is not eligible, storing nothing', async () => {
     const tab = makeTab();
     const outcome = await suspend(tab, 2);
     const token = injectedToken();
     const pinned = makeTab({ pinned: true });
-    tab.pinned = true;
     await expect(manager.checkTabEligibilityForSuspension(pinned, 2)).resolves.toBe(false);
-    await expect(manager.checkTabEligibilityForSuspension(tab, 2)).resolves.toBe(false);
 
     await expect(respond(pinned, PREVIEW, undefined, token)).resolves.toBeUndefined();
-    expect(outcome.state).toBe('pending');
-    expect(manager.isSuspensionInProgress(tab)).toBe(true);
-    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
-    expect(chrome.tabs.update).not.toHaveBeenCalled();
-
-    // The render timeout was cleared and the request forgotten.
-    await respond(makeTab(), PREVIEW, undefined, token);
-    await advance(RENDER_TIMEOUT);
-    expect(outcome.state).toBe('pending');
-    expect(chrome.tabs.update).not.toHaveBeenCalled();
-
-    await advance(JOB_TIMEOUT - RENDER_TIMEOUT - 1);
-    expect(outcome.state).toBe('pending');
-    expect(chrome.tabs.update).not.toHaveBeenCalled();
-
-    await advance(1);
-    expectSuspended(outcome);
-    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
-    // the timeout handler judges the live tab, which the default fake reports as eligible
-    expect(chrome.tabs.get).toHaveBeenCalledTimes(1);
+    expect(outcome).toEqual({ state: 'resolved', value: false });
     expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
+    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
+
+    // The request is forgotten: a second response does nothing, and no timer is left.
+    await respond(makeTab(), PREVIEW, undefined, token);
+    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
+    expect(vi.getTimerCount()).toBe(0);
+    await advance(JOB_TIMEOUT);
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
 
   // Columns: label, force level, preview of the response, arrangement.
