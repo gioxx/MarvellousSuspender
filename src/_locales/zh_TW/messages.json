@@ -480,19 +480,19 @@
     "message": "凍結時套用瀏覽器內建的省記憶體功能"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "利用瀏覽器內建的「捨棄分頁」功能，進一步降低"
+    "message": "After a tab is suspended, also let Chrome fully unload it from"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "凍結分頁的記憶體用量。在大量分頁的情況下，最高"
+    "message": "memory. This frees up more system resources per tab (useful if"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "可節省 500% 的記憶體。"
+    "message": "you keep hundreds of tabs open)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "不過，這也會導致選取凍結分頁時"
+    "message": "This comes at the cost of losing tab state until the tab is"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "出現些微的畫面延遲。"
+    "message": "reloaded."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "如需更多關於分頁捨棄的資訊，請參閱："

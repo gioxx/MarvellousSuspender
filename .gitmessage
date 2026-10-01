@@ -1,0 +1,11 @@
+
+
+# type(scope): imperative subject, at most 72 characters (scope optional)
+#
+# Why this change, not what (the diff shows what). Wrap at 72.
+# Reference issues: Fixes #123 / Refs #123
+#
+# Types: feat, fix, perf, refactor, test, docs, ci, chore
+# Scope: the module or area, e.g. gsUtils, options, manifest, ci
+#
+# Enable once: git config commit.template .gitmessage

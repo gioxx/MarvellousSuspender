@@ -43,7 +43,7 @@ const KNOWN_COGNATES = {
 
 function loadMessages(locale) {
   const file = path.join(LOCALES_DIR, locale, "messages.json");
-  const raw = fs.readFileSync(file, "utf8").replace(/^﻿/, "");
+  const raw = fs.readFileSync(file, "utf8").replace(/^\uFEFF/, "");
   return JSON.parse(raw);
 }
 

@@ -480,19 +480,19 @@
     "message": "Aplicar a economia de memória integrada do navegador ao suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Reduz ainda mais o uso de memória de uma guia suspensa, utilizando"
+    "message": "After a tab is suspended, also let Chrome fully unload it from"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "a funcionalidade nativa de 'descarte de guias' do navegador. Isso pode gerar até"
+    "message": "memory. This frees up more system resources per tab (useful if"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "500% de economia de memória ao trabalhar com muitas guias."
+    "message": "you keep hundreds of tabs open)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "No entanto, também causará um leve atraso na renderização ao selecionar"
+    "message": "This comes at the cost of losing tab state until the tab is"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "uma guia suspensa."
+    "message": "reloaded."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Para mais informações sobre o descarte de guias, consulte:"

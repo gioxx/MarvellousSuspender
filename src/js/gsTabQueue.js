@@ -44,32 +44,46 @@ export const gsTabQueue = (function() {
       setQueueProperties(queueProps);
 
       function setQueueProperties(queueProps) {
-        for (const propName of Object.keys(queueProps)) {
-          _queueProperties[propName] = queueProps[propName];
-        }
-        if (!isValidInteger(_queueProperties.concurrentExecutors, 1)) {
+        // Validate the merged result before touching the live properties: a rejected
+        // update must leave a running queue exactly as it was.
+        const newProperties = { ..._queueProperties, ...queueProps };
+        if (!isValidInteger(newProperties.concurrentExecutors, 1)) {
           throw new Error('concurrentExecutors must be an integer greater than 0');
         }
-        if (!isValidInteger(_queueProperties.jobTimeout, 1)) {
+        if (!isValidInteger(newProperties.jobTimeout, 1)) {
           throw new Error('jobTimeout must be an integer greater than 0');
         }
-        if (!isValidInteger(_queueProperties.processingDelay, 0)) {
+        if (!isValidInteger(newProperties.processingDelay, 0)) {
           throw new Error('processingDelay must be an integer of at least 0');
         }
-        if (!(typeof _queueProperties.executorFn === 'function')) {
+        if (!(typeof newProperties.executorFn === 'function')) {
           throw new Error('executorFn must be a function');
         }
-        if (!(typeof _queueProperties.exceptionFn === 'function')) {
-          throw new Error('executorFn must be a function');
+        if (!(typeof newProperties.exceptionFn === 'function')) {
+          throw new Error('exceptionFn must be a function');
         }
+        Object.assign(_queueProperties, newProperties);
       }
 
+      // A copy: the live properties only change through setQueueProperties(), which
+      // validates them.
       function getQueueProperties() {
-        return _queueProperties;
+        return { ..._queueProperties };
       }
 
       function isValidInteger(value, minimum) {
-        return value !== null && !isNaN(Number(value) && value >= minimum);
+        return Number.isInteger(value) && value >= minimum;
+      }
+
+      // Returns the delay when it is a whole number of milliseconds greater than 0,
+      // undefined otherwise. No delay at all (undefined, null, 0) is a normal call; any
+      // other rejected value is a caller's mistake and is logged.
+      function getValidDelay(delay, tabId) {
+        if (isValidInteger(delay, 1)) return delay;
+        if (delay !== undefined && delay !== null && delay !== 0) {
+          gsUtils.warning(tabId, _queueId, `Ignoring invalid delay: ${delay}`);
+        }
+        return undefined;
       }
 
       function getTotalQueueSize() {
@@ -117,7 +131,7 @@ export const gsTabQueue = (function() {
           // behaviour below for a merely-queued (not in-progress) entry: getTabUpdatedListener()
           // queuing with delay 0 to continue right away must not inherit a stale 5s delay
           // from an earlier onCreated-style follow-up call for the same tab.
-          followUp.delay = (delay && isValidInteger(delay, 1)) ? delay : undefined;
+          followUp.delay = getValidDelay(delay, tab.id);
           gsUtils.log(tab.id, _queueId, 'Tab check in progress. Queueing as follow-up.');
           return followUp.deferredPromise;
         }
@@ -139,9 +153,10 @@ export const gsTabQueue = (function() {
           gsUtils.log(tab.id, _queueId, 'Tab already queued.');
         }
 
-        if (delay && isValidInteger(delay, 1)) {
-          gsUtils.log(tab.id, _queueId, `Sleeping tab for ${delay}ms`);
-          sleepTab(tabDetails, delay);
+        const validDelay = getValidDelay(delay, tab.id);
+        if (validDelay) {
+          gsUtils.log(tab.id, _queueId, `Sleeping tab for ${validDelay}ms`);
+          sleepTab(tabDetails, validDelay);
         }
         else {
           // If tab is already marked as sleeping then wake it up
@@ -182,7 +197,7 @@ export const gsTabQueue = (function() {
           requeues: 0,
         };
         addTabToQueue(newTabDetails);
-        if (followUp.delay && isValidInteger(followUp.delay, 1)) {
+        if (followUp.delay) {
           sleepTab(newTabDetails, followUp.delay);
           return false;
         }
@@ -393,7 +408,7 @@ export const gsTabQueue = (function() {
       }
 
       function requeueTab(tabDetails, requeueDelay, executionProps) {
-        requeueDelay = requeueDelay || DEFAULT_REQUEUE_DELAY;
+        requeueDelay = getValidDelay(requeueDelay, tabDetails.tab.id) || DEFAULT_REQUEUE_DELAY;
         if (executionProps) {
           applyExecutionProps(tabDetails, executionProps);
         }

@@ -480,19 +480,19 @@
     "message": "Застосовувати вбудовану економію пам'яті браузера під час призупинення"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Додатково зменшує використання пам'яті призупиненою вкладкою завдяки"
+    "message": "After a tab is suspended, also let Chrome fully unload it from"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "використанню вбудованої функції браузера з вивантаження вкладок (вивантаження вкладок)"
+    "message": "memory. This frees up more system resources per tab (useful if"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "це може забезпечити до 500% економії пам'яті під час роботи з великою кількістю вкладок."
+    "message": "you keep hundreds of tabs open)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Однак це також спричинить незначну затримку рендерингу "
+    "message": "This comes at the cost of losing tab state until the tab is"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "під час вибору призупиненої вкладки."
+    "message": "reloaded."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Детальніше про вивантаження вкладок див.:"

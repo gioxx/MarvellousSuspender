@@ -480,19 +480,19 @@
     "message": "අත්හිටුවීමේදී බ්‍රවුසරයේ අන්තර්ගත මතක ඉතිරි කිරීම යොදන්න"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "භාවිතය මගින් අත්හිටුවන ලද ටැබ් එකක මතක භාවිතය තවත් අඩු කරයි"
+    "message": "After a tab is suspended, also let Chrome fully unload it from"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "ඔබේ බ්‍රවුසරයේ අන්තර්ගත 'ටැබ් ඉවත දැමීමේ' කාර්යභාරය. විශාල ටැබ් ගණනක් සමඟ වැඩ කරන විට මෙය"
+    "message": "memory. This frees up more system resources per tab (useful if"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "ටැබ් විශාල සංඛ්‍යාවක් සමඟ වැඩ කරන විට 500% මතක ඉතිරියක් දක්වා."
+    "message": "you keep hundreds of tabs open)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "කෙසේ වෙතත්, එය තෝරාගැනීමේදී සුළු විදැහුම් ප්‍රමාදයක් ද ඇති කරයි"
+    "message": "This comes at the cost of losing tab state until the tab is"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "අත්හිටුවන ලද ටැබ් එකක්."
+    "message": "reloaded."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "ටැබ් ඉවත දැමීම පිළිබඳ වැඩිදුර තොරතුරු සඳහා බලන්න:"
