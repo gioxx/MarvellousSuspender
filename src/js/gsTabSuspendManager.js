@@ -205,7 +205,11 @@ export const gsTabSuspendManager = (function() {
 
     // If tabInfo is null this is usually due to tab loading, being discarded or 'parked' on chrome restart
     // Never reload the tab to get a screen capture. If the capture script can't run the tab is suspended without one
-    tabInfo = tabInfo || {
+    if (tabInfo && typeof tabInfo !== 'object') {
+      gsUtils.warning(tab.id, QUEUE_ID, 'Unexpected content script answer', tabInfo);
+      tabInfo = null;
+    }
+    tabInfo = tabInfo ?? {
       status: 'unknown',
       scrollPos: '0',
     };
