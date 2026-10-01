@@ -135,12 +135,38 @@ export const gsTabSuspendManager = (function() {
     }
   }
 
+  // The queue each running job belongs to, recorded when its executor starts: a later init
+  // replaces _suspensionQueue while the jobs of the old one run on (#546).
+  const _queueByExecutionProps = new WeakMap();
+
+  // Whether the job is still the current one of its queue for this tab. Every await of the
+  // flow is a window for the job to be unqueued (the tab focused, an unsuspend-all) or
+  // superseded by a newer job for the same tab; a job that is not current any more must
+  // not store or navigate anything, its promise having been settled by whoever removed it.
+  function isCurrentJob(tab, executionProps) {
+    const queue = _queueByExecutionProps.get(executionProps) ?? _suspensionQueue;
+    return queue?.getQueuedTabDetails(tab)?.executionProps === executionProps;
+  }
+
+  // The live tab, read from chrome, when it is still on `expectedUrl` and still eligible at
+  // `forceLevel`; null otherwise, the reason logged. The one judgement every path makes
+  // before it stores a preview or suspends (#546).
+  async function liveTabIfStillSuspendable(tab, expectedUrl, forceLevel) {
+    const liveTab = await gsChrome.tabsGet(tab.id);
+    if (!liveTab || liveTab.url !== expectedUrl) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab gone or navigated since it was queued. Ignoring.');
+      return null;
+    }
+    if (!await checkTabEligibilityForSuspension(liveTab, forceLevel)) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.');
+      return null;
+    }
+    return liveTab;
+  }
+
   async function performSuspension(queue, tab, executionProps, resolve, reject, requeue,) {
-    // Every await below is a window for the job to be unqueued (the tab focused, an
-    // unsuspend-all) or superseded by a newer job for the same tab. A job that is no longer
-    // the current one of its queue for this tab must not save or navigate anything; its
-    // promise has already been settled by whoever removed it (#546).
-    const isStillCurrent = () => queue.getQueuedTabDetails(tab)?.executionProps === executionProps;
+    _queueByExecutionProps.set(executionProps, queue);
+    const isStillCurrent = () => isCurrentJob(tab, executionProps);
 
     if (executionProps.refetchTab || gsUtils.isSuspendedTab(tab)) {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab refetch required. Getting updated tab..');
@@ -268,21 +294,11 @@ export const gsTabSuspendManager = (function() {
         // Forced 'native' mode treats a null previewUrl as acceptable (no preview, still
         // suspend), which also swallows the specific case of captureVisibleTab() rejecting a
         // stale-page capture on navigation -- re-check the tab is still on the page suspendedUrl
-        // was generated for, not just that it's still active/eligible, before using it.
-        const liveTab = await gsChrome.tabsGet(tab.id);
-        if (!liveTab || liveTab.url !== executionProps.precaptureUrl) {
-          gsUtils.log(tab.id, QUEUE_ID, 'Tab navigated while awaiting native capture. Ignoring.',);
-          resolve(false);
-          return;
-        }
-        // liveTab, not tab: the queued snapshot's audible/pinned/groupId fields are as stale
-        // as its url was -- checkTabEligibilityForSuspension() needs the same freshly-fetched
-        // tab the url check above just confirmed is still the right page.
-        if (!await checkTabEligibilityForSuspension(liveTab, executionProps.forceLevel)) {
-          // Settle the job rather than just returning: an unsettled promise leaves this job's
-          // queue timeout armed, and handleSuspensionException() would later force-suspend the
-          // tab anyway despite this check having just rejected it.
-          gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.',);
+        // was generated for, and still eligible (the queued snapshot's audible/pinned/groupId
+        // fields are as stale as its url), before using it. Settle the job on a refusal: an
+        // unsettled promise leaves the queue timeout armed, and handleSuspensionException()
+        // would later force the suspension this check just refused.
+        if (!await liveTabIfStillSuspendable(tab, executionProps.precaptureUrl, executionProps.forceLevel)) {
           resolve(false);
           return;
         }
@@ -350,7 +366,7 @@ export const gsTabSuspendManager = (function() {
     // the sender's tab, but for a render timeout or an injection error it is the executor's
     // snapshot, as stale as the job is old (#546).
     const suspensionForceLevel = queuedTabDetails.executionProps.forceLevel;
-    const isStillCurrent = () => getQueuedTabDetails(tab)?.executionProps === expectedExecutionProps;
+    const isStillCurrent = () => isCurrentJob(tab, expectedExecutionProps);
 
     // Temporarily change tab.url with that from the generated suspended url
     // This is because for youtube tabs we manually change the url to persist timestamp
@@ -379,14 +395,7 @@ export const gsTabSuspendManager = (function() {
       gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled just before suspension. Ignoring.',);
       return;
     }
-    const liveTabBeforeSuspend = await gsChrome.tabsGet(tab.id);
-    if (!liveTabBeforeSuspend || liveTabBeforeSuspend.url !== queuedTabDetails.executionProps.precaptureUrl) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Tab navigated just before suspension. Ignoring.',);
-      queuedTabDetails.executionProps.resolveFn(false);
-      return;
-    }
-    if (!await checkTabEligibilityForSuspension(liveTabBeforeSuspend, suspensionForceLevel)) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.',);
+    if (!await liveTabIfStillSuspendable(tab, queuedTabDetails.executionProps.precaptureUrl, suspensionForceLevel)) {
       queuedTabDetails.executionProps.resolveFn(false);
       return;
     }
@@ -447,15 +456,9 @@ export const gsTabSuspendManager = (function() {
       // force level (#546). precaptureUrl is the url before any YouTube timestamp.
       // The job is still the queue's until this handler settles it, so a cancellation
       // during the awaits below is seen the same way the executor sees one.
-      const isStillCurrent = () => _suspensionQueue.getQueuedTabDetails(tab)?.executionProps === executionProps;
-      const liveTab = await gsChrome.tabsGet(tab.id);
-      if (!liveTab || liveTab.url !== (executionProps.precaptureUrl ?? tab.url)) {
-        gsUtils.log(tab.id, QUEUE_ID, 'Tab gone or navigated since it was queued. Will not force suspension.');
-        resolve(false);
-        return;
-      }
-      if (!await checkTabEligibilityForSuspension(liveTab, executionProps.forceLevel)) {
-        gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Will not force suspension.');
+      const isStillCurrent = () => isCurrentJob(tab, executionProps);
+      const liveTab = await liveTabIfStillSuspendable(tab, executionProps.precaptureUrl ?? tab.url, executionProps.forceLevel);
+      if (!liveTab) {
         resolve(false);
         return;
       }
