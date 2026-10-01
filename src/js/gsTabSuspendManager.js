@@ -490,12 +490,15 @@ export const gsTabSuspendManager = (function() {
       // If we want tabs to be discarded instead of suspending them
       const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
       if (discardInPlaceOfSuspend) {
-        await tgs.clearAutoSuspendTimerForTabId(tab.id);
+        // Before the alarm is cleared: a job cancelled here must leave the tab's auto-suspend
+        // timer alone, since nothing would set it again. The clear itself awaits too; a
+        // cancellation landing in it is not seen, and the discard goes ahead as it always did.
         if (!isStillCurrent()) {
           gsUtils.log(tab.id, 'Suspension cancelled just before the discard. Ignoring.');
           resolve(false);
           return;
         }
+        await tgs.clearAutoSuspendTimerForTabId(tab.id);
         gsTabDiscardManager.queueTabForDiscard(tab);
         resolve(true);
         return;
