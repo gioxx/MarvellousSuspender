@@ -152,6 +152,10 @@ export const gsTabSuspendManager = (function() {
       }
       tab = _tab;
     }
+    // The url the job works on, before any YouTube timestamp: pre-captures are keyed on it,
+    // and the live tab is compared with it before a preview is stored or the tab suspended,
+    // by this executor and by the timeout handler alike (#546).
+    executionProps.precaptureUrl = tab.url;
 
     if (gsUtils.isSuspendedTab(tab)) {
       if (!executionProps.refetchTab) {
@@ -228,9 +232,6 @@ export const gsTabSuspendManager = (function() {
       resolve(success);
       return;
     }
-
-    // Pre-captures are keyed on the url the tab really has, not the timestamped one below
-    executionProps.precaptureUrl = tab.url;
 
     // Temporarily change tab.url to append youtube timestamp
     const timestampedUrl = await generateUrlWithYouTubeTimestamp(tab);
