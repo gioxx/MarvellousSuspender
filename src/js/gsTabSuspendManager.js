@@ -610,8 +610,19 @@ export const gsTabSuspendManager = (function() {
     });
   }
 
+  // A watch page of www.youtube.com itself, not any url that happens to contain one (#546).
+  function isYouTubeWatchUrl(url) {
+    try {
+      const parsed = new URL(url);
+      return parsed.origin === 'https://www.youtube.com' && parsed.pathname === '/watch';
+    }
+    catch {
+      return false;
+    }
+  }
+
   async function generateUrlWithYouTubeTimestamp(tab) {
-    if (!tab.url.includes('https://www.youtube.com/watch')) {
+    if (!isYouTubeWatchUrl(tab.url)) {
       return tab.url;
     }
 

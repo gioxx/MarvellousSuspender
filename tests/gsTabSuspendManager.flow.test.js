@@ -395,7 +395,9 @@ describe('suspension flow for a YouTube tab', () => {
     expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(`${YOUTUBE_URL}&t=83s`, 'Example', '0') }, expect.any(Function));
   });
 
-  // The answer is tested with `!response`, so a playback time of 0 reads as no answer.
+  // The answer is tested with `!response`, so a playback time of 0 reads as no answer and
+  // a timestamp the url already carries stays. Kept (#546): a video at 0 has nothing to
+  // persist, and the stale timestamp costs a user one seek.
   it.each([
     ['the page answers 0', () => injectionGives(0)],
     ['the page answers nothing', () => injectionGives(undefined)],
@@ -423,15 +425,17 @@ describe('suspension flow for a YouTube tab', () => {
     expect(outcome).toEqual({ state: 'resolved', value: true });
   });
 
-  // The test is `includes`, so the text anywhere in the url is enough. Setting the
-  // parameter also writes the whole query again, which encodes what was not encoded.
-  it('asks the page of any url that contains the watch url of YouTube, and rewrites its query (oddity: see comment)', async () => {
+  // Only a page of www.youtube.com at /watch is asked; a url that merely contains the
+  // watch url, or a watch page of another host, is left as it is (#546).
+  it.each([
+    ['contains the watch url', `https://example.com/redirect?to=${YOUTUBE_URL}`],
+    ['is a watch path on another host', 'https://www.youtube.com.example.com/watch?v=abc123'],
+    ['is the YouTube origin on another path', 'https://www.youtube.com/playlist?list=abc'],
+  ])('leaves alone a url that %s, asking the page nothing', async (label, url) => {
     injectionGives(7);
-    const url = `https://example.com/redirect?to=${YOUTUBE_URL}`;
     await suspend(makeTab({ url }), 1);
-    expect(chrome.scripting.executeScript).toHaveBeenCalledTimes(1);
-    const rewritten = 'https://example.com/redirect?to=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dabc123&t=7s';
-    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(rewritten, 'Example', '0') }, expect.any(Function));
+    expect(chrome.scripting.executeScript).not.toHaveBeenCalled();
+    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(url, 'Example', '0') }, expect.any(Function));
   });
 
   // Run against a stubbed document: see the header comment.
