@@ -634,12 +634,18 @@ describe('suspension flow when the executor throws', () => {
 
   // An answer that is not an object counts as no answer: status unknown, scroll position
   // 0, and a warning naming what came back, so that it can be seen in the logs (#546).
-  it('treats a content script answer that is not an object as no answer, warns, and suspends', async () => {
-    contentScriptAnswers('busy');
+  it.each([
+    ['a string', 'busy'],
+    ['an empty string', ''],
+    ['the number 0', 0],
+    ['false', false],
+    ['an array', []],
+  ])('treats a content script answer that is %s as no answer, warns, and suspends', async (label, answer) => {
+    contentScriptAnswers(answer);
     const warning = vi.spyOn(gsUtils, 'warning');
     const outcome = await suspend(makeTab(), 2);
     expect(exceptionSpy).not.toHaveBeenCalled();
-    expect(warning).toHaveBeenCalledWith(5, 'suspensionQueue', 'Unexpected content script answer', 'busy');
+    expect(warning).toHaveBeenCalledWith(5, 'suspensionQueue', 'Unexpected content script answer', answer);
     expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(NORMAL_URL, 'Example', '0') }, expect.any(Function));
     expect(outcome).toEqual({ state: 'resolved', value: true });
   });
