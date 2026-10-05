@@ -522,28 +522,24 @@ export const tgs = (function() {
   // so on a shared chain they would queue behind themselves and never run.
   const withTabGroupLock = createAsyncLock();
 
-  // A browser restart leaves the cache empty until the worker seeds it, so reads and group
-  // events wait for that, each for at most 3s. Only the seed marks it done: one caller giving
-  // up must not stop the next from waiting on a seed that is merely slow (#501). The first
-  // caller starts the seed if init has not, so nobody waits on the rest of init, and a caller
-  // that then takes the lock queues behind the seed, not ahead of it. A page context never
-  // seeds, so it never waits.
-  let _cacheIsSeeded = typeof ServiceWorkerGlobalScope === 'undefined';
+  // A browser restart, or an extension reload or update, leaves the cache empty until the
+  // worker seeds it. The first caller that needs it starts the seed if init has not yet
+  // (#501), and nothing waits for the seed on a timer:
+  // - a caller that then takes the lock, a group event or a toggle, is queued behind the
+  //   seed, so it reads the seeded cache however long the lock is held ahead of both;
+  // - a read has nothing to wait for: the seed only records groups that have a name, a named
+  //   group is matched by its live name, and the one entry a read can use, an untitled
+  //   group's last name, was recorded earlier in the session or not at all.
+  // A page context never seeds.
+  const IS_PAGE_CONTEXT = typeof ServiceWorkerGlobalScope === 'undefined';
   let _cacheSeeding = null;
 
-  async function _waitForSeededCache() {
-    if (_cacheIsSeeded) {
-      return;
+  function _startSeedingCache() {
+    if (!IS_PAGE_CONTEXT) {
+      // the seed's own calls resolve on error; this only keeps a rejection from going
+      // unhandled until init awaits the same promise
+      initTabGroupKeyCache().catch(() => {});
     }
-    let timer;
-    await Promise.race([
-      // a failed seed marks the cache seeded all the same
-      initTabGroupKeyCache().catch(() => {}),
-      new Promise((resolve) => {
-        timer = setTimeout(resolve, 3000);
-      }),
-    ]);
-    clearTimeout(timer);
   }
 
   // Resolve-on-error like the gsChrome wrappers: initTabGroupKeyCache() is awaited from
@@ -586,19 +582,18 @@ export const tgs = (function() {
 
   // read-only, so it does not take the lock
   async function getLastTabGroupKey(groupId) {
-    await _waitForSeededCache();
+    _startSeedingCache();
     return _lastTabGroupKey(await _getTabGroupKeyCache(), groupId);
   }
 
   // Seeds the mapping for groups that already existed, so an extension reload mid-session
-  // does not lose them. Once per worker: init and the first wait above share one run,
-  // whichever of them starts it.
+  // does not lose them. Once per worker: init and the first caller that needs the cache
+  // share one run, whichever of them starts it.
   function initTabGroupKeyCache() {
     if (_cacheSeeding) {
       return _cacheSeeding;
     }
     if (IS_INCOGNITO_CONTEXT) {
-      _cacheIsSeeded = true;
       _cacheSeeding = Promise.resolve();
       return _cacheSeeding;
     }
@@ -618,8 +613,6 @@ export const tgs = (function() {
       if (changed) {
         await _setTabGroupKeyCache(cache);
       }
-    }).finally(() => {
-      _cacheIsSeeded = true;
     });
     return _cacheSeeding;
   }
@@ -630,7 +623,7 @@ export const tgs = (function() {
     if (IS_INCOGNITO_CONTEXT || groupKey === null) {
       return;
     }
-    await _waitForSeededCache();
+    _startSeedingCache();
     await withTabGroupLock(() => _rememberTabGroupKey(group.id, groupKey));
   }
 
@@ -641,7 +634,7 @@ export const tgs = (function() {
     if (IS_INCOGNITO_CONTEXT) {
       return;
     }
-    await _waitForSeededCache();
+    _startSeedingCache();
     await withTabGroupLock(() => _applyTabGroupUpdate(group.id));
     refreshNeverSuspendGroupMenuItems();
   }
@@ -777,12 +770,12 @@ export const tgs = (function() {
   // the active one, so a label that claimed which way it goes would be read off the wrong tab
   // whenever those differ. The 2g shortcut has no label to misread and stays a toggle.
   async function setNeverSuspendTabGroup(tab, exempt) {
-    await _waitForSeededCache();
+    _startSeedingCache();
     return withTabGroupLock(() => _applyNeverSuspendTabGroup(tab, exempt));
   }
 
   async function toggleNeverSuspendTabGroup(tab) {
-    await _waitForSeededCache();
+    _startSeedingCache();
     return withTabGroupLock(() => _applyNeverSuspendTabGroup(tab, null));
   }
 

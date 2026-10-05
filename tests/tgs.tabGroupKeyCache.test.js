@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // tgs.js only seeds its tab group key cache in the service worker, which it tells apart by
 // this global, and the seed runs once per worker: each test loads a fresh copy of the modules
@@ -26,6 +26,12 @@ async function loadWorker({ incognito = false } = {}) {
   });
 }
 
+function deferred() {
+  let resolve;
+  const promise = new Promise((r) => { resolve = r; });
+  return { promise, resolve };
+}
+
 // Runs whatever is queued, timers aside, until `done()` or for long enough that anything
 // not waiting on a timer has finished: the storage stub settles in microtasks.
 async function drain(done = () => false) {
@@ -41,6 +47,17 @@ async function stateOf(promise) {
   await drain(() => state !== 'pending');
   return state;
 }
+
+async function storedList() {
+  const { gsSettings } = await chrome.storage.local.get(['gsSettings']);
+  return gsSettings[gsStorage.NEVER_SUSPEND_GROUPS];
+}
+
+// The first import transforms the whole module graph: done once here, outside any test's
+// timeout, so loadWorker() only has to evaluate it again.
+beforeAll(async () => {
+  await import('../src/js/tgs.js');
+}, 30000);
 
 beforeEach(() => {
   vi.useFakeTimers();
@@ -66,6 +83,42 @@ afterEach(async () => {
 });
 
 describe('tab group key cache seed (#501)', () => {
+  it('lets reads through while the seed is queued behind a long lock holder', async () => {
+    await loadWorker();
+    // an Options "remove" holding the tab group lock for as long as its write takes
+    const holder = deferred();
+    vi.spyOn(gsStorage, 'updateOptionAndSync').mockImplementationOnce(() => holder.promise);
+    const removing = tgs.setTabGroupNeverSuspend('red:Inbox', false);
+
+    // one exemption check after another, as a pass over many grouped tabs makes them
+    const reads = (async () => {
+      for (let i = 0; i < 20; i++) {
+        await tgs.getLastTabGroupKey(groups[i % groups.length].id);
+      }
+    })();
+    expect(await stateOf(reads)).toBe('settled');
+    // the seed has been started, and is still waiting for its lock turn
+    expect(chrome.tabGroups.query).not.toHaveBeenCalled();
+
+    holder.resolve(false);
+    await removing;
+    await drain();
+    expect(chrome.tabGroups.query).toHaveBeenCalledTimes(1);
+  });
+
+  it('follows a rename once a read has started the seed, though init has not run', async () => {
+    await loadWorker();
+    const read = tgs.getLastTabGroupKey(7);
+    await vi.advanceTimersByTimeAsync(3000);
+    await read;
+
+    groups[0].title = 'Research 2';
+    const renaming = tgs.handleTabGroupUpdated({ id: 7 });
+    await vi.advanceTimersByTimeAsync(3000);
+    await renaming;
+    expect(await storedList()).toBe('blue:Research 2');
+  });
+
   it('seeds once when a read starts the seed before init gets to it', async () => {
     await loadWorker();
     await tgs.getLastTabGroupKey(7);
