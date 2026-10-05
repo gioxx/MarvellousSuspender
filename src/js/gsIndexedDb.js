@@ -81,11 +81,74 @@ export const gsIndexedDb = {
     }
   },
 
+  // Replaces every row indexed under `url` in one of the url-indexed stores with `record`,
+  // all inside one readwrite transaction (#520). The previous getAllKeysFromIndex() ->
+  // delete() -> add() sequence ran each step in its own auto-committing transaction, so
+  // two concurrent writers for the same url (duplicate tabs suspended together, or the
+  // native and renderer preview paths overlapping) could both read the same stale key
+  // list before either had added its row, and both add — leaving duplicate rows that
+  // nothing ever removed. IndexedDB serialises readwrite transactions with overlapping
+  // scope (across connections too, so across contexts), so here the second writer's read
+  // only starts after the first writer's add has committed. Deleting *all* matching keys,
+  // not just one, also cleans up any duplicates already left on disk by the old code the
+  // next time that url is written. The deletes and add are issued from the read's own
+  // .then() callback, which runs as a microtask of that request's success event, while
+  // the transaction is still active — never await anything that isn't an IDB request of
+  // this same transaction in between, or it auto-commits first. One Promise.all() over
+  // the whole chain plus tx.done means a failure anywhere rejects to the caller (which
+  // logs it) without leaving tx.done as an unhandled rejection.
+  // A null/undefined url is refused outright: getAllKeys(undefined) matches *every* row,
+  // so it would wipe the whole store in one committed transaction.
+  // An asynchronous request failure aborts the transaction by itself, rolling back the
+  // deletes. A *synchronous* throw (add() raising DataCloneError for a record that can't
+  // be cloned, or DataError) doesn't, so the deletes already issued would commit and leave
+  // the url with no row at all — hence the explicit abort, swallowing the InvalidStateError
+  // abort() throws when the transaction is already aborting so it can't mask the original
+  // error, and marking the requests already issued as handled, since the abort rejects
+  // each of them with an AbortError nothing else is waiting on.
+  async _replaceByUrl(storeName, url, record) {
+    if (url === null || url === undefined) {
+      throw new Error(`_replaceByUrl(${storeName}): url not set.`);
+    }
+    const db = await gsIndexedDb.getDb();
+    const tx = db.transaction(storeName, 'readwrite');
+    await Promise.all([
+      tx.store.index('url').getAllKeys(url).then((existingKeys) => {
+        const requests = [];
+        try {
+          for (const key of existingKeys) requests.push(tx.store.delete(key));
+          requests.push(tx.store.add(record));
+        }
+        catch (e) {
+          requests.forEach((request) => request.catch(() => {}));
+          try {
+            tx.abort();
+          }
+          catch {
+            // Already aborting or finished: the original error below is the one to report.
+          }
+          throw e;
+        }
+        return Promise.all(requests);
+      }),
+      tx.done,
+    ]);
+  },
+
+  // Newest row for the url, walking the index backward like fetchTabInfo() and
+  // fetchFaviconMeta() below. getFromIndex() returned the *oldest* one (rows sharing an
+  // index key are ordered by primary key), so installs still holding duplicate rows from
+  // before #520 kept being served a stale preview until that url was next written. The
+  // explicit null check matters more here than it did with getFromIndex(), which threw on
+  // an undefined key: openCursor(undefined) matches every row, so it would hand back some
+  // other page's preview instead.
   fetchPreviewImage: async function(tabUrl) {
+    if (tabUrl === null || tabUrl === undefined) return null;
     try {
       const db = await gsIndexedDb.getDb();
-      const result = await db.getFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
-      return result ?? null;
+      const index = db.transaction(gsIndexedDb.DB_PREVIEWS).store.index('url');
+      const cursor = await index.openCursor(tabUrl, 'prev');
+      return cursor?.value ?? null;
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
@@ -94,12 +157,7 @@ export const gsIndexedDb = {
 
   addPreviewImage: async function(tabUrl, previewUrl) {
     try {
-      const db = await gsIndexedDb.getDb();
-      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_PREVIEWS, 'url', tabUrl);
-      for (const key of existingKeys) {
-        await db.delete(gsIndexedDb.DB_PREVIEWS, key);
-      }
-      await db.add(gsIndexedDb.DB_PREVIEWS, { url: tabUrl, img: previewUrl });
+      await gsIndexedDb._replaceByUrl(gsIndexedDb.DB_PREVIEWS, tabUrl, { url: tabUrl, img: previewUrl });
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
@@ -111,12 +169,7 @@ export const gsIndexedDb = {
         gsUtils.error('gsIndexedDb', 'tabProperties.url not set.');
         return;
       }
-      const db = await gsIndexedDb.getDb();
-      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_SUSPENDED_TABINFO, 'url', tabProperties.url);
-      for (const key of existingKeys) {
-        await db.delete(gsIndexedDb.DB_SUSPENDED_TABINFO, key);
-      }
-      await db.add(gsIndexedDb.DB_SUSPENDED_TABINFO, tabProperties);
+      await gsIndexedDb._replaceByUrl(gsIndexedDb.DB_SUSPENDED_TABINFO, tabProperties.url, tabProperties);
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
@@ -146,12 +199,7 @@ export const gsIndexedDb = {
         return;
       }
       const faviconMetaWithUrl = Object.assign(faviconMeta, { url });
-      const db = await gsIndexedDb.getDb();
-      const existingKeys = await db.getAllKeysFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', url);
-      for (const key of existingKeys) {
-        await db.delete(gsIndexedDb.DB_FAVICON_META, key);
-      }
-      await db.add(gsIndexedDb.DB_FAVICON_META, faviconMetaWithUrl);
+      await gsIndexedDb._replaceByUrl(gsIndexedDb.DB_FAVICON_META, url, faviconMetaWithUrl);
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
