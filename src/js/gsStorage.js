@@ -20,6 +20,11 @@ function withSettingsLock(fn) {
   return result;
 }
 
+// Language codes the Options selector used to save, mapped to the _locales folder that
+// replaced them. Chrome only loads folders named with its own locale codes, so these three
+// were never picked up for the "auto" language.
+const LEGACY_LANGUAGE_CODES = { 'fr-FR': 'fr', 'si-LK': 'si', 'uk-UA': 'uk' };
+
 //defaults filled in, not saved. Use this inside the lock: getSettings() would deadlock there
 async function readSettings() {
   const settings = await gsStorage.getStorage('local', 'gsSettings');
@@ -33,6 +38,11 @@ async function readSettings() {
       settings[prop] = defaults[prop];
       backfilled = true;
     }
+  }
+  const language = settings[gsStorage.LANGUAGE];
+  if (Object.hasOwn(LEGACY_LANGUAGE_CODES, language)) {
+    settings[gsStorage.LANGUAGE] = LEGACY_LANGUAGE_CODES[language];
+    backfilled = true;
   }
   return { settings, backfilled };
 }

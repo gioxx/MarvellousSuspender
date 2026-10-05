@@ -28,12 +28,6 @@ const KNOWN_COGNATES = {
     "html_updated_info_line2_suffix",
     "html_backup_settings_local_title",
   ]),
-  "fr-FR": new Set([
-    "html_about_version_label",
-    "html_success_goto_advanced_suffix",
-    "html_updated_info_line2_suffix",
-    "html_backup_settings_local_title",
-  ]),
   id: new Set(["js_history_tab", "html_backup_drive_label_folder"]),
   pt_BR: new Set(["html_options_suspend_minute", "html_backup_settings_local_title"]),
   pt_PT: new Set(["html_options_suspend_minute", "html_backup_settings_local_title"]),
