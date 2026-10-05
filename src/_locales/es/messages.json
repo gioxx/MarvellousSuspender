@@ -468,19 +468,19 @@
     "message": "Aplicar el ahorro de memoria integrado del navegador al suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Reduce aún más el uso de memoria de una pestaña suspendida, utilizando"
+    "message": "After a tab is suspended, also let Chrome fully unload it from"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "la función integrada del navegador de 'descarte de pestañas'. Esto puede lograr hasta"
+    "message": "memory. This frees up more system resources per tab (useful if"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "un 500% de ahorro de memoria al trabajar con muchas pestañas."
+    "message": "you keep hundreds of tabs open)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Sin embargo, también causará un ligero retraso al renderizar cuando selecciones"
+    "message": "This comes at the cost of losing tab state until the tab is"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "una pestaña suspendida."
+    "message": "reloaded."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Para más información sobre el descarte de pestañas, consulta:"

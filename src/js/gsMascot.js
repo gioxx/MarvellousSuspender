@@ -21,9 +21,9 @@ export const gsMascot = (() => {
     // Toolbar/action icons: chrome.action.setIcon requires raster PNG, so these
     // stay PNG on both sides, same as the current (non-legacy) icon set.
     'img/ic_suspendy_16x16.png'          : 'img/legacy/ic_suspendy_16x16.png',
-    'img/ic_suspendy_16x16_grey.png'     : 'img/legacy/ic_suspendy_16x16_grey.png',
+    'img/ic_suspendy_16x16_paused.png'   : 'img/legacy/ic_suspendy_16x16_grey.png',
     'img/ic_suspendy_32x32.png'          : 'img/legacy/ic_suspendy_32x32.png',
-    'img/ic_suspendy_32x32_grey.png'     : 'img/legacy/ic_suspendy_32x32_grey.png',
+    'img/ic_suspendy_32x32_paused.png'   : 'img/legacy/ic_suspendy_32x32_grey.png',
     'img/ic_suspendy_48x48.png'          : 'img/legacy/ic_suspendy_48x48.png',
     'img/ic_suspendy_128x128.png'        : 'img/legacy/ic_suspendy_128x128.png',
     // Vector art: already format-matched, no conversion needed.

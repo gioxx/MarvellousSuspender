@@ -62,6 +62,8 @@ import  { tgs }                   from './tgs.js';
     gsUtils.log('startupOnce');
     if (startupDone) return;
     startupDone = true;
+    // Set synchronously, before any restored tab's onCreated can queue its own check (#523).
+    gsTabCheckManager.setStartupPending(true);
 
     tgs.resetAutoSuspendTimerForAllTabs();
     tgs.refreshDefaultIcon();
@@ -70,6 +72,9 @@ import  { tgs }                   from './tgs.js';
       .then(gsStorage.initSettingsAsPromised)   // ensure settings have been loaded and synced
       .then(async () => { await gsStorage.saveStorage('session', 'gsInitialisationMode', true); })
       .then(gsSession.runStartupChecks)         // performs crash check (and maybe recovery) and tab responsiveness checks
+      // Released on every path: a rejection in any step above must not leave created tabs
+      // waiting for a startup pass that is not coming (#523).
+      .finally(() => gsTabCheckManager.setStartupPending(false))
       .then(gsBackup.retryPendingDriveBackup)   // upload any Drive backup queued by an emergency onSuspend
       .then(gsBackup.reconcileDownloadsPermission) // catch AUTO_BACKUP_ENABLED arriving via sync/import without the downloads grant
       .then(gsBackup.syncBackupNudgeBadge)      // keep the icon badge (nudge, Drive-auth, or missing-permission error) in sync on every restart
@@ -232,7 +237,8 @@ import  { tgs }                   from './tgs.js';
   // fire it after a normal restart, see #397). chrome.storage.session is cleared at the
   // browser-session boundary, so a missing sentinel here means this is the first service
   // worker wake of a new browser session, regardless of whether onStartup fired.
-  gsStorage.getStorage('session', 'gsStartupOnceRun').then((alreadyRun) => {
+  // Kept so onCreated can wait for this decision before queueing a check of its own.
+  const startupSentinelRead = gsStorage.getStorage('session', 'gsStartupOnceRun').then((alreadyRun) => {
     if (!alreadyRun) {
       gsUtils.log('sentinel: first SW wake of a new browser session, running startupOnce');
       gsStorage.saveStorage('session', 'gsStartupOnceRun', true);
@@ -794,9 +800,12 @@ import  { tgs }                   from './tgs.js';
       // It's unusual for a suspended tab to be created. Usually they are updated
       // from a normal tab. This usually happens when using 'reopen closed tab'.
       if (gsUtils.isSuspendedTab(tab) && !tab.active) {
+        // A session restore fires this for every restored tab before the startup pass
+        // runs; wait until this wake knows whether that pass is starting (#523).
+        await startupSentinelRead.catch(() => {});
         // Queue tab for check but mark it as sleeping for 5 seconds to give
         // a chance for the tab to load
-        gsTabCheckManager.queueTabCheck(tab, {}, 5000);
+        gsTabCheckManager.queueCreatedTabCheck(tab);
       }
     });
     chrome.tabs.onRemoved.addListener(async (tabId, removeInfo) => {

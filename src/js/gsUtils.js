@@ -201,6 +201,9 @@ function _scheduleFlush() {
 }
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Largest delay setTimeout() honours; anything above it fires at once.
+const MAX_TIMER_DELAY_MS = 2 ** 31 - 1;
+
 export const gsUtils = {
   INTERNAL_MESSAGE_ACTIONS,
   STATUS_NORMAL         : 'normal',
@@ -232,6 +235,42 @@ export const gsUtils = {
       if (array[i] === value) return true;
     }
     return false;
+  },
+
+  // Races promise against a timer (#544). If the timer fires first, the result is whatever
+  // onTimeout() returns, or a rejection with whatever it throws. Nothing cancels the
+  // underlying work: a later rejection of promise is already handled here, so it is never
+  // reported as unhandled, and a caller that wants a late result keeps its own reference
+  // to promise. ms is clamped to [0, 2^31-1], the range setTimeout() honours (above it the
+  // timer would fire at once); a NaN ms is a caller bug and rejects with a RangeError.
+  withTimeout(promise, ms, onTimeout) {
+    if (Number.isNaN(ms)) {
+      return Promise.reject(new RangeError(`withTimeout: invalid ms ${ms}`));
+    }
+    return new Promise((resolve, reject) => {
+      // The first resolve()/reject() decides the outcome, even when onTimeout() returns a
+      // promise that is still pending; later calls are no-ops. Promise.resolve() makes a
+      // non-thenable input settle through the same path instead of throwing here with the
+      // timer already armed.
+      const timer = setTimeout(() => {
+        try {
+          resolve(onTimeout?.());
+        }
+        catch (error) {
+          reject(error);
+        }
+      }, Math.min(Math.max(0, ms), MAX_TIMER_DELAY_MS));
+      Promise.resolve(promise).then(
+        (value) => {
+          clearTimeout(timer);
+          resolve(value);
+        },
+        (error) => {
+          clearTimeout(timer);
+          reject(error);
+        }
+      );
+    });
   },
 
   dir(object) {
@@ -425,13 +464,11 @@ export const gsUtils = {
       return false;
     }
     const url = gsUtils.getTabUrl(tab);
-    // chrome-extension:// pages (TMS own pages or other extensions) cannot receive
-    // content scripts and must never be suspended — isBrowserInternalURL misses them
-    // because its regex matches "chrome:" but not "chrome-extension:".
-    if (url?.startsWith(`${chrome.runtime.getURL('').split(':')[0]}://`)) {
-      return true;
-    }
-    return ( this.isBrowserInternalURL(url) || gsUtils.isBlockedFileTab(tab) );
+    // Only what getOriginalUrl() will hand back later may be suspended: browser-internal
+    // pages, chrome-extension:// pages (ours or other extensions'), data:, blob:,
+    // view-source: and the like are all "special". Sharing isSuspendableUrl() with
+    // getOriginalUrl() is what keeps suspension and unsuspension from disagreeing.
+    return ( !gsUtils.isSuspendableUrl(url) || gsUtils.isBlockedFileTab(tab) );
   },
 
   isFileTab(tab) {
@@ -1067,15 +1104,41 @@ export const gsUtils = {
     return reloadOk;
   },
 
+  // The only schemes a tab may have when this extension suspends it, and therefore the only
+  // ones getOriginalUrl() hands back. suspended.html is web-accessible, so any web page can
+  // open one with an arbitrary "uri=" in the hash and the extension treats it as its own;
+  // whatever comes back out of getOriginalUrl() then goes to chrome.tabs.update() /
+  // chrome.tabs.create(), which an extension may point at chrome:// and data: urls that web
+  // content cannot reach by itself. Anything outside this list is dropped.
+  //
+  // file: stays in deliberately: suspending file:// tabs is a feature (permissions.html
+  // walks users through granting file access). The residual risk is a forged placeholder
+  // taking a click to a local file, only for users who granted that access, and only to
+  // display it: no read-back to the page. Closing that needs an ownership marker on the
+  // suspended urls we generate, which would also break adopting other suspenders' tabs
+  // (background.js claimTab), so it is a separate decision.
+  SUSPENDABLE_SCHEMES: ['http:', 'https:', 'file:'],
+
   /**
+   * @param {string | undefined} url
+   * @returns {boolean}
+   */
+  isSuspendableUrl(url) {
+    if (!url) return false;
+    return gsUtils.SUSPENDABLE_SCHEMES.includes(gsUtils.getNewURL(url)?.protocol);
+  },
+
+  /**
+   * The url a suspended tab was suspended from, or '' when the suspended url carries none
+   * or carries one this extension could never have produced (see SUSPENDABLE_SCHEMES).
    * @param {string} urlStr
    * @returns {string}
    */
   getOriginalUrl(urlStr) {
-    return (
+    const original =
       gsUtils.getHashVariable('uri', urlStr) ||
-      gsUtils.decodeString(gsUtils.getHashVariable('url', urlStr) || '')
-    );
+      gsUtils.decodeString(gsUtils.getHashVariable('url', urlStr) || '');
+    return gsUtils.isSuspendableUrl(original) ? original : '';
   },
   getCleanTabTitle(tab) {
     let cleanedTitle = gsUtils.decodeString(tab.title);
@@ -1355,13 +1418,18 @@ export const gsUtils = {
     return window;
   },
 
+  // Drops the tabs a session cannot restore: this extension's own pages, and suspended
+  // entries whose original url getOriginalUrl() refuses (forged, or from a scheme that is
+  // no longer suspendable). Without the second half those would become blank tabs on
+  // restore and dead rows on the recovery page.
   removeInternalUrlsFromSession(session) {
     if (!session?.windows) { return; }
     for (let i = session.windows.length - 1; i >= 0; i--) {
       const curWindow = session.windows[i];
       for (let j = curWindow.tabs.length - 1; j >= 0; j--) {
         const curTab = curWindow.tabs[j];
-        if (gsUtils.isInternalTab(curTab)) {
+        const unrecoverable = gsUtils.isSuspendedTab(curTab) && gsUtils.getOriginalUrl(curTab.url) === '';
+        if (gsUtils.isInternalTab(curTab) || unrecoverable) {
           curWindow.tabs.splice(j, 1);
         }
       }

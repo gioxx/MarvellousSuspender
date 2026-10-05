@@ -39,7 +39,7 @@ export const gsTabDiscardManager = (function() {
   /** @returns { Promise<void> } */
   async function queueInitialized() {
     return new Promise((resolve) => {
-      if (_discardQueue) resolve();     // resolve immediately if the queue exists
+      if (_discardQueue) { resolve(); return; }     // resolve immediately if the queue exists
       INIT_RESOLVERS.push(resolve);     // otherwise, push our resolve function into a queue that will be processed after initialization
     });
   }
@@ -91,6 +91,11 @@ export const gsTabDiscardManager = (function() {
     }
     tab = _tab;
 
+    if (executionProps.expectedUrl && tab.url !== executionProps.expectedUrl) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab navigated since it was queued. Aborting discard.');
+      resolve(false);
+      return;
+    }
     if (gsUtils.isSuspendedTab(tab) && tab.status === 'loading') {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab is still loading');
       requeue();
@@ -108,6 +113,15 @@ export const gsTabDiscardManager = (function() {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab already discarded');
       resolve(false);
       return;
+    }
+    // The checks above await; confirm the url again right before discarding.
+    if (executionProps.expectedUrl) {
+      const latestTab = await gsChrome.tabsGet(tab.id);
+      if (latestTab?.url !== executionProps.expectedUrl) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Tab navigated during discard checks. Aborting discard.');
+        resolve(false);
+        return;
+      }
     }
     gsUtils.log(tab.id, QUEUE_ID, 'Forcing discarding of tab.');
     chrome.tabs.discard(tab.id, () => {

@@ -1,0 +1,131 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Lint, locales, tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # Locale drift is expected between Crowdin syncs, so this step reports but does
+      # not block. Flip continue-on-error off once the flagged locales are caught up.
+      - name: Check locales
+        run: npm run check-locales
+        continue-on-error: true
+
+      - name: Unit tests
+        run: npm test
+
+  build:
+    name: Build store zip
+    runs-on: ubuntu-latest
+    needs: checks
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build keyless zip
+        run: npx grunt zip
+
+      - name: Upload zip
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: tms-zip
+          path: build/zip/*.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  # The packaged zip, loaded in a real browser. Reported, not blocking, until the suite
+  # has proved stable: drop continue-on-error then. Chrome for Testing is pinned by
+  # version and checked against the sha256 of the archive; to move to a newer one, change
+  # both (versions: https://googlechromelabs.github.io/chrome-for-testing/).
+  e2e:
+    name: End-to-end tests (reported, not blocking)
+    runs-on: ubuntu-latest
+    needs: build
+    continue-on-error: true
+    env:
+      CHROME_FOR_TESTING_VERSION: 154.0.8037.57
+      CHROME_FOR_TESTING_SHA256: ceee2972074d441ea7c4ba8bcc0eaab77e7e87680f6653d73d3065851fe10302
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: tms-zip
+          path: build/zip
+
+      - name: Install Chrome for Testing
+        run: |
+          curl -sSfL -o "$RUNNER_TEMP/chrome.zip" \
+            "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_FOR_TESTING_VERSION}/linux64/chrome-linux64.zip"
+          echo "${CHROME_FOR_TESTING_SHA256}  $RUNNER_TEMP/chrome.zip" | sha256sum --check
+          unzip -q "$RUNNER_TEMP/chrome.zip" -d "$RUNNER_TEMP"
+          echo "CHROME_BIN=$RUNNER_TEMP/chrome-linux64/chrome" >> "$GITHUB_ENV"
+
+      # The runner does not allow the user namespaces Chrome's sandbox needs. The browser
+      # loads the extension and pages from a local server, and resolves no other host.
+      - name: End-to-end tests
+        env:
+          TMS_E2E_NO_SANDBOX: '1'
+        run: |
+          TMS_E2E_ZIP="$(ls build/zip/tms-*.zip)" npm run test:e2e
+
+  # Separate job so the OIDC and attestation write scopes never sit in a run that
+  # executes code from a pull request (npm lifecycle scripts, grunt). Pull requests
+  # from forks would not get the token anyway; this keeps same-repo ones clean too.
+  attest:
+    name: Attest build provenance
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name != 'pull_request'
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: tms-zip
+          path: build/zip
+
+      - uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: build/zip/*.zip
