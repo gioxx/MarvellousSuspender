@@ -480,19 +480,19 @@
     "message": "Beim Aussetzen die eingebaute Speicherersparnis des Browsers anwenden"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "Sobald ein Tab ausgesetzt wurde, lässt dies Chrome ihn zusätzlich vollständig"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "aus dem Speicher entladen. Das gibt mehr Systemressourcen pro Tab frei"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "(nützlich, wenn Sie Hunderte von Tabs offen halten)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "Das hat zur Folge, dass der Tab-Zustand verloren geht, bis der"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "Tab neu geladen wird."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Weitere Informationen zur Tab-Entladung finden Sie hier:"
