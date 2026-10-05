@@ -480,19 +480,19 @@
     "message": "Při pozastavení použít vestavěné šetření pamětí prohlížeče"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "Po pozastavení karty nechte Chrome, aby ji také úplně uvolnil"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "z paměti. To uvolní více systémových prostředků na kartu"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "(užitečné, pokud máte otevřené stovky karet)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "To má za následek ztrátu stavu karty, dokud nebude znovu"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "načtena."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Více informací o uvolňování karet najdeš zde:"
