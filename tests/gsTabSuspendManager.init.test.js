@@ -150,11 +150,13 @@ describe('gsTabSuspendManager.initAsPromised', () => {
   });
 
   // Observed through behaviour: the content script never answers, so the job only ends
-  // when the queue times it out, and the timeout handler suspends the tab regardless.
+  // when the queue times it out, and the timeout handler suspends the live tab, here still
+  // the same page and eligible (#546).
   it.each([
     [false, 60 * 1000],
     [true, 5 * 60 * 1000],
   ])('with force %j forces the suspension of a stuck job after %i ms', async (force, timeout) => {
+    chrome.tabs.get = vi.fn((tabId, callback) => callback(makeTab()));
     await gsStorage.setOption(gsStorage.SCREEN_CAPTURE_FORCE, force);
     await manager.initAsPromised();
     const tab = makeTab();
