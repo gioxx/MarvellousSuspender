@@ -5,6 +5,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vite
 // with the global defined.
 let tgs;
 let gsStorage;
+let gsTabSuspendManager;
 let groups;
 
 async function loadWorker({ incognito = false } = {}) {
@@ -13,6 +14,7 @@ async function loadWorker({ incognito = false } = {}) {
   chrome.extension.inIncognitoContext = incognito;
   ({ tgs } = await import('../src/js/tgs.js'));
   ({ gsStorage } = await import('../src/js/gsStorage.js'));
+  ({ gsTabSuspendManager } = await import('../src/js/gsTabSuspendManager.js'));
   const { gsUtils } = await import('../src/js/gsUtils.js');
   vi.spyOn(gsUtils, 'log').mockImplementation(() => {});
   vi.spyOn(gsUtils, 'warning').mockImplementation(() => {});
@@ -78,6 +80,8 @@ afterEach(async () => {
   chrome.extension.inIncognitoContext = false;
   delete chrome.tabGroups.query;
   delete chrome.tabGroups.get;
+  delete chrome.tabs.query;
+  delete chrome.tabs.update;
   chrome.storage.local._reset();
   chrome.storage.session._reset();
 });
@@ -146,5 +150,28 @@ describe('tab group key cache seed (#501)', () => {
     await tgs.initTabGroupKeyCache();
     expect(chrome.tabGroups.query).not.toHaveBeenCalled();
     expect(await chrome.storage.session.get(null)).toEqual({});
+  });
+});
+
+describe('reconciling a group that was just exempted (#501)', () => {
+  it('tries every tab, then rejects with the first failure in tab order', async () => {
+    await loadWorker();
+    await chrome.storage.local.set({
+      gsSettings: { ...(await chrome.storage.local.get(['gsSettings'])).gsSettings, [gsStorage.NEVER_SUSPEND_GROUPS]: '' },
+    });
+    vi.spyOn(gsTabSuspendManager, 'unqueueTabForSuspension').mockImplementation(() => {});
+    const suspendedUrl = (n) => chrome.runtime.getURL(`suspended.html#ttl=Page&pos=0&uri=https://example.com/${n}`);
+    const tabs = [1, 2, 3, 4].map((id) => ({ id, windowId: 1, groupId: 7, url: suspendedUrl(id) }));
+    chrome.tabs.query = vi.fn((queryInfo, callback) => callback(tabs.filter((tab) => tab.groupId === queryInfo.groupId)));
+    chrome.tabs.update = vi.fn(async (tabId) => {
+      if (tabId === 2 || tabId === 3) {
+        throw new Error(`No tab with id: ${tabId}.`);
+      }
+      return {};
+    });
+
+    await expect(tgs.setTabGroupNeverSuspend('blue:Research', true)).rejects.toThrow('No tab with id: 2.');
+    expect(chrome.tabs.update.mock.calls.map(([tabId]) => tabId)).toEqual([1, 2, 3, 4]);
+    expect(await storedList()).toBe('blue:Research');
   });
 });

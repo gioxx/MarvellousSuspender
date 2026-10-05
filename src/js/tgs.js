@@ -707,10 +707,13 @@ export const tgs = (function() {
         await resetAutoSuspendTimerForTab(groupTab);
       }
     });
-    // every step settles before the lock is released, and the first failure still reaches
-    // the caller, as it did from the loop
-    await Promise.allSettled(steps);
-    await Promise.all(steps);
+    // every step settles before the lock is released, and the first failure in tab order still
+    // reaches the caller, as it did from the loop
+    const results = await Promise.allSettled(steps);
+    const failure = results.find((result) => result.status === 'rejected');
+    if (failure) {
+      throw failure.reason;
+    }
     setIconStatusForActiveTab();
   }
 
