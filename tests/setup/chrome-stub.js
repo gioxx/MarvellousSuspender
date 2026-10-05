@@ -21,19 +21,22 @@ function event() {
   };
 }
 
+// Values are copied in and out, as the browser serialises them: a caller that changes what
+// get() returned must not be changing what is stored, or a lost update can go unnoticed.
 function storageArea() {
   let data = {};
+  const read = (entries) => structuredClone(Object.fromEntries(entries));
   return {
     get: async (keys) => {
-      if (keys === null || keys === undefined) return { ...data };
-      if (typeof keys === 'string') return keys in data ? { [keys]: data[keys] } : {};
+      if (keys === null || keys === undefined) return read(Object.entries(data));
+      if (typeof keys === 'string') return read(keys in data ? [[keys, data[keys]]] : []);
       if (Array.isArray(keys)) {
-        return Object.fromEntries(keys.filter((k) => k in data).map((k) => [k, data[k]]));
+        return read(keys.filter((k) => k in data).map((k) => [k, data[k]]));
       }
       // object form: defaults
-      return Object.fromEntries(Object.keys(keys).map((k) => [k, k in data ? data[k] : keys[k]]));
+      return read(Object.keys(keys).map((k) => [k, k in data ? data[k] : keys[k]]));
     },
-    set: async (items) => { Object.assign(data, items); },
+    set: async (items) => { Object.assign(data, structuredClone(items)); },
     remove: async (keys) => { for (const k of [].concat(keys)) delete data[k]; },
     clear: async () => { data = {}; },
     // Test helper, not part of the real API.
