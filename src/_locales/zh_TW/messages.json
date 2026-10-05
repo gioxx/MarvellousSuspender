@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "永不凍結正在播放音訊的分頁"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "防止自動凍結及一般的批次凍結操作。"
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "你仍可手動凍結分頁，或使用「強制凍結」操作。"
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "網址列於「一律凍結」清單的分頁仍會被凍結。"
+  },
   "html_options_suspend_only_connected": {
     "message": "離線時永不凍結分頁"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "永不凍結每個視窗中的目前使用中分頁"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "對於自動凍結及批次凍結，「一律凍結」清單不會覆寫此選項。"
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "重新開啟凍結分頁時一律捲動到頁面頂端"
@@ -468,19 +480,19 @@
     "message": "凍結時套用瀏覽器內建的省記憶體功能"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "分頁凍結後，也讓 Chrome 將其從記憶體中"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "完全卸載。這會為每個分頁釋放更多系統資源"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "（如果你同時開啟數百個分頁會很有用）。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "這樣做的代價是分頁的狀態會遺失，直到該分頁"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "重新載入。"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "如需更多關於分頁捨棄的資訊，請參閱："

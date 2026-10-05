@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Tabs, die Audio wiedergeben, nie aussetzen"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Schützt vor der automatischen Aussetzung und den üblichen Aktionen zum Aussetzen mehrerer Tabs."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Sie können einen Tab trotzdem selbst oder mit einer Aktion „Aussetzung erzwingen“ aussetzen."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Ein Tab, dessen URL auf der Liste „Immer aussetzen“ steht, wird trotzdem ausgesetzt."
+  },
   "html_options_suspend_only_connected": {
     "message": "Tabs bei fehlender Internetverbindung nie aussetzen"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Den aktiven Tab in jedem Fenster nie aussetzen"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "Die Liste „Immer aussetzen“ setzt diese Option bei der automatischen Aussetzung und beim Aussetzen mehrerer Tabs nicht außer Kraft."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Ausgesetzte Tabs immer nach oben gescrollt wieder öffnen"
@@ -468,19 +480,19 @@
     "message": "Beim Aussetzen die eingebaute Speicherersparnis des Browsers anwenden"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "Sobald ein Tab ausgesetzt wurde, lässt dies Chrome ihn zusätzlich vollständig"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "aus dem Speicher entladen. Das gibt mehr Systemressourcen pro Tab frei"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "(nützlich, wenn Sie Hunderte von Tabs offen halten)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "Das hat zur Folge, dass der Tab-Zustand verloren geht, bis der"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "Tab neu geladen wird."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Weitere Informationen zur Tab-Entladung finden Sie hier:"

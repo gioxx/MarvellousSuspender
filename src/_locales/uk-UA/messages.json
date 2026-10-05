@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Ніколи не призупиняти вкладки, які відтворюють аудіо"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Захищає від автоматичного призупинення та звичайних дій масового призупинення."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Ви все одно можете призупинити вкладку вручну або за допомогою дії «Примусово призупинити»."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Вкладку, URL-адреса якої є у списку «Завжди призупиняти», буде призупинено в будь-якому разі."
+  },
   "html_options_suspend_only_connected": {
     "message": "Ніколи не призупиняти вкладки в режимі офлайн"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Ніколи не призупиняти активну вкладку в кожному вікні"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "Список «Завжди призупиняти» не скасовує цей параметр для автоматичного й масового призупинення."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Завжди відкривати призупинені вкладки на початку сторінки"
@@ -468,19 +480,19 @@
     "message": "Застосовувати вбудовану економію пам'яті браузера під час призупинення"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "Після призупинення вкладки дозвольте Chrome також повністю"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "вивантажити її з пам'яті. Це звільняє більше системних ресурсів"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "на вкладку (корисно, якщо у вас відкриті сотні вкладок)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "Це відбувається за рахунок втрати стану вкладки, доки вона"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "не буде перезавантажена."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Детальніше про вивантаження вкладок див.:"
@@ -555,25 +567,25 @@
     "message": "Знімок браузера охоплює лише видиму частину сторінки, навіть якщо вибрано захоплення всієї сторінки."
   },
   "html_options_suspend_screen_capture_precapture": {
-    "message": "Keep a recent screenshot of tabs as I use them"
+    "message": "Зберігати свіжий знімок вкладок, поки я ними користуюся"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Takes a browser screenshot of a tab about a second after you switch to it or it finishes loading,"
+    "message": "Робить знімок браузера вкладки приблизно через секунду після того, як ви на неї перейдете або вона завершить завантаження,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "so tabs that are later suspended in the background still get a preview."
+    "message": "тож вкладки, які згодом буде призупинено у фоні, все одно матимуть попередній перегляд."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome only lets an extension screenshot a tab you haven't clicked its button on if it has access to all sites,"
+    "message": "Chrome дозволяє розширенню робити знімок вкладки, на якій ви не натискали його кнопку, лише якщо воно має доступ до всіх сайтів,"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "so turning this on asks for that permission. It is only used to take these screenshots, which stay on this computer."
+    "message": "тому під час увімкнення цього параметра буде запитано цей дозвіл. Він використовується лише для цих знімків, які залишаються на цьому комп'ютері."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Only the latest screenshot of each open tab is kept, and it is deleted when the tab closes."
+    "message": "Зберігається лише останній знімок кожної відкритої вкладки, і його буде видалено, коли вкладку буде закрито."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Incognito tabs and whitelisted sites are never captured."
+    "message": "Вкладки в режимі анонімного перегляду та сайти з білого списку ніколи не захоплюються."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Увімкнути режим високої якості знімків екрана"

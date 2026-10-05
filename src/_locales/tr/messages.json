@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Ses çalan sekmeleri asla askıya alma"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Otomatik askıya almaya ve normal toplu askıya alma işlemlerine karşı korur."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Bir sekmeyi yine de kendiniz veya \"Askıya almayı zorla\" işlemiyle askıya alabilirsiniz."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "URL'si \"Her zaman askıya al\" listesinde olan bir sekme yine de askıya alınır."
+  },
   "html_options_suspend_only_connected": {
     "message": "Çevrimdışıyken sekmeleri asla askıya alma"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Her penceredeki etkin sekmeyi asla askıya alma"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "\"Her zaman askıya al\" listesi, otomatik ve toplu askıya almada bu seçeneği geçersiz kılmaz."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Askıya alınmış sekmeleri her zaman en üste kaydırılmış şekilde yeniden aç"
@@ -468,19 +480,19 @@
     "message": "Askıya alırken tarayıcının yerleşik bellek tasarrufu özelliğini uygula"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "Bir sekme askıya alındıktan sonra, Chrome'un onu bellekten"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "tamamen kaldırmasına da izin verin. Bu, sekme başına daha fazla"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "sistem kaynağı serbest bırakır (yüzlerce sekme açık tutuyorsanız faydalıdır)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "Bunun bedeli, sekme yeniden yüklenene kadar sekme durumunun"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "kaybolmasıdır."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Sekme atma hakkında daha fazla bilgi için:"

@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Jangan pernah tangguhkan tab yang sedang memutar audio"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Melindungi dari penangguhan otomatis dan tindakan penangguhan massal biasa."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Anda tetap dapat menangguhkan tab sendiri atau dengan tindakan \"Paksa tangguhkan\"."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Tab yang URL-nya ada di daftar \"Selalu tangguhkan\" tetap akan ditangguhkan."
+  },
   "html_options_suspend_only_connected": {
     "message": "Jangan pernah tangguhkan tab saat offline"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Jangan pernah tangguhkan tab aktif di setiap jendela"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "Daftar \"Selalu tangguhkan\" tidak mengesampingkan opsi ini untuk penangguhan otomatis dan massal."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Selalu buka kembali tab tertangguh tergulir ke atas"
@@ -468,19 +480,19 @@
     "message": "Terapkan penghematan memori bawaan browser saat menangguhkan"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "Setelah tab ditangguhkan, izinkan juga Chrome membongkarnya"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "sepenuhnya dari memori. Ini membebaskan lebih banyak resource sistem"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "per tab (berguna jika Anda membuka ratusan tab sekaligus)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "Ini mengorbankan status tab hingga tab tersebut"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "dimuat ulang."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Untuk informasi lebih lanjut tentang pembuangan tab, lihat:"
