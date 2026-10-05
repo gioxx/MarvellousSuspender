@@ -480,19 +480,19 @@
     "message": "تطبيق ميزة توفير الذاكرة المدمجة في المتصفح عند التعليق"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "بعد تعليق علامة التبويب، اسمح أيضًا لمتصفح Chrome بإلغاء تحميلها"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "بالكامل من الذاكرة. هذا يوفر مزيدًا من موارد النظام لكل علامة تبويب"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "(مفيد إذا كنت تحتفظ بمئات علامات التبويب مفتوحة)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "هذا يأتي على حساب فقدان حالة علامة التبويب حتى يتم"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "إعادة تحميلها."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "لمزيد من المعلومات حول إلغاء تحميل علامات التبويب، راجع:"
