@@ -538,7 +538,7 @@ export const tgs = (function() {
     let timer;
     await Promise.race([
       // a failed seed marks the cache seeded all the same
-      (_cacheSeeding ?? initTabGroupKeyCache()).catch(() => {}),
+      initTabGroupKeyCache().catch(() => {}),
       new Promise((resolve) => {
         timer = setTimeout(resolve, 3000);
       }),
@@ -591,14 +591,18 @@ export const tgs = (function() {
   }
 
   // Seeds the mapping for groups that already existed, so an extension reload mid-session
-  // does not lose them. Run from init, and earlier by the first wait above if that comes
-  // first; a second pass only merges, so it is harmless.
+  // does not lose them. Once per worker: init and the first wait above share one run,
+  // whichever of them starts it.
   function initTabGroupKeyCache() {
+    if (_cacheSeeding) {
+      return _cacheSeeding;
+    }
     if (IS_INCOGNITO_CONTEXT) {
       _cacheIsSeeded = true;
-      return Promise.resolve();
+      _cacheSeeding = Promise.resolve();
+      return _cacheSeeding;
     }
-    const seeding = withTabGroupLock(async () => {
+    _cacheSeeding = withTabGroupLock(async () => {
       const groups = await gsChrome.tabGroupsGetAll();
       const cache = await _getTabGroupKeyCache();
       let changed = false;
@@ -617,8 +621,7 @@ export const tgs = (function() {
     }).finally(() => {
       _cacheIsSeeded = true;
     });
-    _cacheSeeding ??= seeding;
-    return seeding;
+    return _cacheSeeding;
   }
 
   // for a group that arrives already named: a reopened saved group, or another extension
