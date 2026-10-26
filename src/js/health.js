@@ -340,7 +340,7 @@ import  { gsSession }             from './gsSession.js';
 
       // Tab Groups bug detection (Chrome/Edge and Brave paths).
       if (tab.groupId && tab.groupId > 0) {
-        if (tab.discarded && gsUtils.isSuspendedUrl(tab.url ?? '')) {
+        if (gsUtils.isBrokenGroupedDiscardedTab(tab)) {
           tabTypes.tabGroupsDiscarded.push(tab);
         } else if (tab.url === 'chrome://newtab/') {
           tabTypes.tabGroupsNewtab.push(tab);
@@ -385,6 +385,17 @@ import  { gsSession }             from './gsSession.js';
       count  += 1;
       await scanTab(tab, tabTypes, tabHosts);
       showProgress('scanProgress', count, tabs.length);
+    }
+
+    // A grouped New Tab page is only the Brave bug when a saved session had a suspended tab
+    // at its position; otherwise it is a real New Tab page with nothing to restore (#551).
+    if (tabTypes.tabGroupsNewtab.length) {
+      const currentWindowIds = [...new Set(tabs.map(t => t.windowId))].sort((a, b) => a - b);
+      const matched          = [];
+      for (const tab of tabTypes.tabGroupsNewtab) {
+        if (await findSuspendedUrlForBrokenTab(tab, currentWindowIds)) matched.push(tab);
+      }
+      tabTypes.tabGroupsNewtab = matched;
     }
 
     const db      = await gsIndexedDb.getDb();
