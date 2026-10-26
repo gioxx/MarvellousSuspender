@@ -423,8 +423,8 @@ export const gsUtils = {
    * @param {chrome.tabs.Tab} tab
    * @param {number|false} [chromeVersion]
    */
-  isBrokenGroupedDiscardedTab(tab, chromeVersion = this.getChromeVersion()) {
-    return tab.groupId > 0 && tab.discarded &&this.isSuspendedUrl(tab.url ?? '')
+  isBrokenGroupedDiscardedTab(tab, chromeVersion = gsUtils.getChromeVersion()) {
+    return tab.groupId > 0 && tab.discarded && gsUtils.isSuspendedUrl(tab.url ?? '')
       && !(chromeVersion && chromeVersion >= 150);
   },
 
