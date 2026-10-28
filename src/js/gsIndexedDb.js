@@ -198,7 +198,15 @@ export const gsIndexedDb = {
         gsUtils.error('gsIndexedDb', 'url not set.');
         return;
       }
-      const faviconMetaWithUrl = Object.assign(faviconMeta, { url });
+      if (!faviconMeta) {
+        gsUtils.error('gsIndexedDb', 'faviconMeta not set.');
+        return;
+      }
+      // A row read back from this store (the root-hostname fallback of gsFavicon saves
+      // one under the page url) carries the id the store gave it. The store assigns its
+      // own: kept, add() collides with the row it came from and the write fails (#549).
+      const faviconMetaWithUrl = Object.assign({}, faviconMeta, { url });
+      delete faviconMetaWithUrl.id;
       await gsIndexedDb._replaceByUrl(gsIndexedDb.DB_FAVICON_META, url, faviconMetaWithUrl);
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
