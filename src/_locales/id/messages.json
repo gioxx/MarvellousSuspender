@@ -609,7 +609,7 @@
     "message": "- Penangkapan layar kualitas rendah"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
+    "message": "- Tidak akan menangkap layar jika perlu lebih dari 20 detik untuk menghasilkan gambar (45 detik dalam mode kualitas tinggi)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Tinggi maksimum penangkapan layar dibatasi hingga 5000px"
