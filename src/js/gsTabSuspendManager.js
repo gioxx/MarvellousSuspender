@@ -151,28 +151,61 @@ export const gsTabSuspendManager = (function() {
   // flow is a window for the job to be unqueued (the tab focused, an unsuspend-all) or
   // superseded by a newer job for the same tab; a job that is not current any more must
   // not store or navigate anything, its promise having been settled by whoever removed it.
+  // A job the timeout handler has claimed is not the executor's any more: the two must
+  // not both suspend the tab (#546).
   function isCurrentJob(tab, executionProps) {
-    return _suspensionQueue?.getQueuedTabDetails(tab)?.executionProps === executionProps;
+    return isQueuedJob(tab, executionProps) && !executionProps.claimedByTimeout;
+  }
+
+  function isQueuedJob(tab, executionProps) {
+    return getQueuedTabDetails(tab)?.executionProps === executionProps;
   }
 
   // The live tab, read from chrome, when it is still on `expectedUrl` and still eligible at
   // `forceLevel`; null otherwise, the reason logged. The one judgement every path makes
   // before it stores a preview or suspends (#546).
   async function liveTabIfStillSuspendable(tab, expectedUrl, forceLevel) {
+    const liveTab = await liveTabIfStillOnUrl(tab, expectedUrl);
+    return liveTab && await isStillEligible(liveTab, forceLevel) ? liveTab : null;
+  }
+
+  // The cheap half of that judgement: the live tab, when it is still on `expectedUrl`.
+  async function liveTabIfStillOnUrl(tab, expectedUrl) {
     const liveTab = await gsChrome.tabsGet(tab.id);
+    return isStillOnUrl(tab, liveTab, expectedUrl) ? liveTab : null;
+  }
+
+  function isStillOnUrl(tab, liveTab, expectedUrl) {
     if (!liveTab || liveTab.url !== expectedUrl) {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab gone or navigated since it was queued. Ignoring.');
-      return null;
+      return false;
     }
+    return true;
+  }
+
+  async function isStillEligible(liveTab, forceLevel) {
     if (!await checkTabEligibilityForSuspension(liveTab, forceLevel)) {
-      gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension.');
-      return null;
+      gsUtils.log(liveTab.id, QUEUE_ID, 'Tab is no longer eligible for suspension.');
+      return false;
     }
-    return liveTab;
+    return true;
   }
 
   async function performSuspension(tab, executionProps, resolve, reject, requeue,) {
     const isStillCurrent = () => isCurrentJob(tab, executionProps);
+    // A job the timeout handler has claimed is the handler's to settle. An executor that
+    // resumes after the claim and finds the job not its own any more must not resolve or
+    // requeue it: the job would leave the queue, and the handler, finding it gone, would
+    // drop the suspension it was forcing (#546).
+    const unlessClaimed = (settle) => (...args) => {
+      if (executionProps.claimedByTimeout) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Job claimed by the timeout handler. Leaving it to the handler.');
+        return;
+      }
+      settle(...args);
+    };
+    resolve = unlessClaimed(resolve);
+    requeue = unlessClaimed(requeue);
 
     if (executionProps.refetchTab || gsUtils.isSuspendedTab(tab)) {
       gsUtils.log(tab.id, QUEUE_ID, 'Tab refetch required. Getting updated tab..');
@@ -184,11 +217,6 @@ export const gsTabSuspendManager = (function() {
       }
       tab = _tab;
     }
-    // The url the job works on, before any YouTube timestamp: pre-captures are keyed on it,
-    // and the live tab is compared with it before a preview is stored or the tab suspended,
-    // by this executor and by the timeout handler alike (#546).
-    executionProps.precaptureUrl = tab.url;
-
     if (gsUtils.isSuspendedTab(tab)) {
       if (!executionProps.refetchTab) {
         gsUtils.log(tab.id, QUEUE_ID, 'Tab is already suspended. Will check again in 3 seconds');
@@ -200,6 +228,12 @@ export const gsTabSuspendManager = (function() {
       }
       return;
     }
+
+    // The url the job works on, before any YouTube timestamp: pre-captures are keyed on it,
+    // and the live tab is compared with it before a preview is stored or the tab suspended,
+    // by this executor and by the timeout handler alike (#546). Not a suspended page's url,
+    // which no job is about; but a loading tab's, which the early suspension below uses.
+    executionProps.precaptureUrl = tab.url;
 
     // If tab is in loading state, try to suspend early if possible
     // Note: doing so will bypass a few checks below. Namely:
@@ -460,6 +494,13 @@ export const gsTabSuspendManager = (function() {
     return _suspensionQueue.getQueuedTabDetails(tab);
   }
 
+  // Whether the live tab is the suspended page of the url a job worked on, or is navigating
+  // to it: a navigation not yet committed shows as the pending url.
+  function isSuspendedFor(liveTab, expectedUrl, suspendedUrl) {
+    return [liveTab.url, liveTab.pendingUrl].some((url) => gsUtils.isSuspendedUrl(url) &&
+      (url === suspendedUrl || gsUtils.getOriginalUrl(url) === expectedUrl));
+  }
+
   async function handleSuspensionException(tab, executionProps, exceptionType, resolve, reject, requeue) {
     if (!_suspensionQueue) {
       gsUtils.warning(tab.id, QUEUE_ID, 'handleSuspensionException', 'Queue not initialized.  This should never fire.');
@@ -477,11 +518,28 @@ export const gsTabSuspendManager = (function() {
       // The job has hung for a while: the tab as queued is stale. Suspend the live tab, and
       // only if it is still the page the job was queued for and still eligible at the job's
       // force level (#546). precaptureUrl is the url before any YouTube timestamp.
-      // The job is still the queue's until this handler settles it, so a cancellation
-      // during the awaits below is seen the same way the executor sees one.
-      const isStillCurrent = () => isCurrentJob(tab, executionProps);
-      const liveTab = await liveTabIfStillSuspendable(tab, executionProps.precaptureUrl ?? tab.url, executionProps.forceLevel);
-      if (!liveTab) {
+      // Claimed before the first await: an executor still running (a capture outliving the
+      // timeout) sees the claim at its next check and stops, so one of the two suspends.
+      // The job stays the queue's until this handler settles it, so a cancellation during
+      // the awaits below is still seen.
+      executionProps.claimedByTimeout = true;
+      const isStillCurrent = () => isQueuedJob(tab, executionProps);
+      const expectedUrl = executionProps.precaptureUrl ?? tab.url;
+      const liveTab = await gsChrome.tabsGet(tab.id);
+      // The executor may have navigated already, with only chrome's answer late: a tab on
+      // this job's suspended url is suspended, and that is a success.
+      if (liveTab && isSuspendedFor(liveTab, expectedUrl, executionProps.suspendedUrl)) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Tab already on its suspended url at the timeout.');
+        resolve(true);
+        return;
+      }
+      // Any other pending url is a navigation the user started: the tab is leaving the page.
+      if (liveTab?.pendingUrl && liveTab.pendingUrl !== expectedUrl) {
+        gsUtils.log(tab.id, QUEUE_ID, 'Tab navigating away at the timeout. Ignoring.');
+        resolve(false);
+        return;
+      }
+      if (!isStillOnUrl(tab, liveTab, expectedUrl) || !await isStillEligible(liveTab, executionProps.forceLevel)) {
         resolve(false);
         return;
       }
@@ -491,6 +549,10 @@ export const gsTabSuspendManager = (function() {
       }
       const success = await executeTabSuspension(liveTab, executionProps.suspendedUrl, isStillCurrent);
       resolve(success);
+    }
+    else if (executionProps.claimedByTimeout) {
+      // The executor failed after the timeout handler claimed the job: the handler settles it.
+      gsUtils.warning(tab.id, QUEUE_ID, `Executor failed after the timeout claimed the job: ${exceptionType}`);
     }
     else {
       gsUtils.warning(tab.id, QUEUE_ID, `Failed to suspend tab: ${exceptionType}`);

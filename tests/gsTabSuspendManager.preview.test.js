@@ -896,3 +896,30 @@ describe('injection errors', () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 });
+
+describe('job timeout while the executor still runs', () => {
+  // The capture outlives the job timeout. The timeout handler claims the job before its
+  // first await, so the executor, resumed by the capture, finds the job no longer its own
+  // and leaves the suspension to the handler: one navigation, not two (#546).
+  it('suspends the tab once when the native capture returns after the timeout handler started', async () => {
+    await start({ SCREEN_CAPTURE: '1', SCREEN_CAPTURE_METHOD: 'native' });
+    const capture = deferred();
+    gsPrecapture.captureVisibleTab.mockReturnValue(capture.promise);
+    let answerUpdate;
+    chrome.tabs.update.mockImplementation((tabId, props, callback) => { answerUpdate = () => callback({ id: tabId, ...props }); });
+    const outcome = await suspend(makeTab(), 1);
+
+    await advance(JOB_TIMEOUT);
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    expect(outcome.state).toBe('pending');
+
+    capture.resolve(NATIVE_PREVIEW);
+    await flush();
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
+
+    answerUpdate();
+    await flush();
+    expect(outcome).toEqual({ state: 'resolved', value: true });
+  });
+});

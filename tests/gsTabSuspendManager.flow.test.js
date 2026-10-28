@@ -560,7 +560,8 @@ describe('suspension flow when the queue times the job out', () => {
 
     await advance(1);
     expect(exceptionSpy).toHaveBeenCalledTimes(1);
-    expect(exceptionSpy.mock.calls[0].slice(0, 3)).toEqual([tab, { forceLevel: 2, precaptureUrl: NORMAL_URL }, 'timeout']);
+    // The handler claims the job, marking the props it was given (#546).
+    expect(exceptionSpy.mock.calls[0].slice(0, 3)).toEqual([tab, { forceLevel: 2, precaptureUrl: NORMAL_URL, claimedByTimeout: true }, 'timeout']);
     expect(chrome.tabs.get).toHaveBeenCalledWith(5, expect.any(Function));
     expect(tgs.isCurrentFocusedTab).toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
@@ -654,10 +655,73 @@ describe('suspension flow when the queue times the job out', () => {
     expect(outcome.state).toBe('pending');
 
     await advance(JOB_TIMEOUT);
-    expect(exceptionSpy.mock.calls[0][1]).toEqual({ forceLevel: 1, precaptureUrl: NORMAL_URL, suspendedUrl: computed });
+    expect(exceptionSpy.mock.calls[0][1]).toEqual({ forceLevel: 1, precaptureUrl: NORMAL_URL, suspendedUrl: computed, claimedByTimeout: true });
     expect(chrome.tabs.update).toHaveBeenCalledTimes(2);
     expect(chrome.tabs.update).toHaveBeenNthCalledWith(1, 5, { url: computed }, expect.any(Function));
     expect(chrome.tabs.update).toHaveBeenNthCalledWith(2, 5, { url: computed }, expect.any(Function));
+    expect(outcome).toEqual({ state: 'resolved', value: true });
+  });
+
+  // The executor navigated and only chrome's answer is late: the live tab is already on
+  // this job's suspended url. That is the suspension succeeding, not a navigation away.
+  it('resolves true without navigating again when the live tab is already on its suspended url', async () => {
+    chrome.tabs.update.mockImplementationOnce(() => {});
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    const computed = suspendedUrlOf(NORMAL_URL, 'Example', '0');
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ url: computed })));
+
+    await advance(JOB_TIMEOUT);
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    expect(outcome).toEqual({ state: 'resolved', value: true });
+  });
+
+  // The executor's navigation has started and not committed yet: chrome reports the
+  // suspended url as the pending one. That is the suspension under way, and the handler
+  // does not navigate a second time (#546).
+  it('resolves true without navigating again when the live tab is navigating to its suspended url', async () => {
+    chrome.tabs.update.mockImplementationOnce(() => {});
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    const computed = suspendedUrlOf(NORMAL_URL, 'Example', '0');
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ pendingUrl: computed })));
+
+    await advance(JOB_TIMEOUT);
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    expect(outcome).toEqual({ state: 'resolved', value: true });
+  });
+
+  // A navigation the user started has not committed yet: chrome reports another page as
+  // the pending url. The tab is leaving the page the job is about, and is left alone (#546).
+  it('resolves false without navigating when the live tab is navigating to another page', async () => {
+    chrome.tabs.sendMessage.mockImplementation(() => {});
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ pendingUrl: 'https://example.com/other' })));
+    const outcome = await suspend(makeTab(), 1);
+    await advance(JOB_TIMEOUT);
+    expect(exceptionSpy).toHaveBeenCalledTimes(1);
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'resolved', value: false });
+  });
+
+  // A loading tab is suspended early from the url it was refetched with. When chrome is
+  // late to answer that navigation, the handler finds the live tab on the suspended page of
+  // that url, not of the one the job was queued with, and takes it for a success (#546).
+  it('resolves true at the timeout for a loading tab already suspended from its refetched url', async () => {
+    const redirected = 'https://example.com/after-redirect';
+    gsIndexedDb.fetchTabInfo.mockImplementation(async (url) => (url === redirected ? { title: 'Saved', url } : null));
+    chrome.tabs.update.mockImplementationOnce(() => {});
+    tabsGetGives(makeTab({ url: redirected, status: 'loading' }));
+    const outcome = await suspend(makeTab({ status: 'loading' }), 1);
+    await advance(REQUEUE_DELAY + QUEUE_CHECK_INTERVAL);
+    const computed = suspendedUrlOf(redirected, 'Saved', '0');
+    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: computed }, expect.any(Function));
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ url: computed })));
+
+    await advance(JOB_TIMEOUT);
+    expect(exceptionSpy).toHaveBeenCalledTimes(1);
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
     expect(outcome).toEqual({ state: 'resolved', value: true });
   });
 
@@ -669,6 +733,107 @@ describe('suspension flow when the queue times the job out', () => {
     const outcome = await suspend(makeTab(), 1);
     await advance(JOB_TIMEOUT);
     expect(outcome).toEqual({ state: 'resolved', value: false });
+  });
+});
+
+describe('suspension flow when the executor resumes after the timeout claimed the job', () => {
+  // The handler claims the job before its first await. From then on the job is the
+  // handler's to settle: an executor resuming afterwards does not resolve or requeue it,
+  // so the job stays queued and the forced suspension goes through (#546).
+  function holdLiveTabReads() {
+    const answers = [];
+    chrome.tabs.get.mockImplementation((tabId, callback) => { answers.push(callback); });
+    return {
+      count: () => answers.length,
+      answer: (tab) => answers.splice(0).forEach((callback) => callback(tab)),
+    };
+  }
+
+  it('suspends the tab when the executor resumes from its state write after the claim', async () => {
+    const held = deferred();
+    vi.spyOn(tgs, 'setTabStatePropForTabId').mockReturnValueOnce(held.promise);
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    expect(tgs.setTabStatePropForTabId).toHaveBeenCalledTimes(1);
+    const reads = holdLiveTabReads();
+
+    await advance(JOB_TIMEOUT);
+    expect(exceptionSpy).toHaveBeenCalledTimes(1);
+    held.resolve();
+    await flush();
+    expect(outcome.state).toBe('pending');
+    expect(manager.getQueuedTabDetails(tab)).toBeDefined();
+
+    reads.answer(makeTab());
+    await flush();
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(NORMAL_URL, 'Example', '0') }, expect.any(Function));
+    expect(outcome).toEqual({ state: 'resolved', value: true });
+  });
+
+  it('suspends the tab when the executor\'s navigation fails after the claim', async () => {
+    let failUpdate;
+    chrome.tabs.update.mockImplementationOnce((tabId, props, callback) => {
+      failUpdate = () => withLastError('Cannot navigate.', () => callback(undefined));
+    });
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    const reads = holdLiveTabReads();
+
+    await advance(JOB_TIMEOUT);
+    failUpdate();
+    await flush();
+    expect(outcome.state).toBe('pending');
+
+    reads.answer(makeTab());
+    await flush();
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(2);
+    expect(outcome).toEqual({ state: 'resolved', value: true });
+  });
+
+  it('does not requeue a loading tab the executor resumes on after the claim', async () => {
+    const held = deferred();
+    gsIndexedDb.fetchTabInfo.mockReturnValueOnce(held.promise);
+    const tab = makeTab({ status: 'loading' });
+    const outcome = await suspend(tab, 1);
+    expect(gsIndexedDb.fetchTabInfo).toHaveBeenCalledTimes(1);
+    const reads = holdLiveTabReads();
+
+    await advance(JOB_TIMEOUT);
+    expect(reads.count()).toBe(1);
+    held.resolve(null);
+    await advance(REQUEUE_DELAY + QUEUE_CHECK_INTERVAL);
+    // only the handler's read: the executor did not run again
+    expect(reads.count()).toBe(1);
+    expect(outcome.state).toBe('pending');
+
+    reads.answer(makeTab());
+    await flush();
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    expect(outcome).toEqual({ state: 'resolved', value: true });
+  });
+
+  // An executor that throws after the claim is reported to the exception handler, which
+  // leaves the job to the timeout handler instead of resolving it false.
+  it('suspends the tab when the executor throws after the claim', async () => {
+    let failSave;
+    gsIndexedDb.addSuspendedTabInfo.mockImplementationOnce(() => new Promise((resolve, reject) => { failSave = reject; }));
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    expect(gsIndexedDb.addSuspendedTabInfo).toHaveBeenCalledTimes(1);
+    const reads = holdLiveTabReads();
+
+    await advance(JOB_TIMEOUT);
+    failSave(new Error('QuotaExceededError'));
+    await flush();
+    expect(exceptionSpy).toHaveBeenCalledTimes(2);
+    expect(outcome.state).toBe('pending');
+
+    reads.answer(makeTab());
+    await flush();
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    expect(outcome).toEqual({ state: 'resolved', value: true });
   });
 });
 
