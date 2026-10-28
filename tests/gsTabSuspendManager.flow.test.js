@@ -342,14 +342,16 @@ describe('suspension flow for a tab that is already suspended', () => {
 });
 
 describe('suspension flow with discard in place of suspend', () => {
-  // The flow up to the suspension itself is the one of a real suspension: the content
-  // script is asked and the tab info is saved, for a tab that keeps its url.
-  it('queues the tab for discard, saving tab info for a tab that is not suspended (oddity: see comment)', async () => {
-    await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true });
-    const tab = makeTab();
+  // The content script is still asked, since its status decides whether the tab may be
+  // discarded, but nothing is saved for a tab that keeps its url, and no YouTube timestamp
+  // is fetched (#546).
+  it('queues the tab for discard, saving nothing for a tab that is not suspended', async () => {
+    await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true, ADD_YOUTUBE_TIMESTAMP: true });
+    const tab = makeTab({ url: YOUTUBE_URL });
     const outcome = await suspend(tab, 1);
     expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(1);
-    expect(gsIndexedDb.addSuspendedTabInfo).toHaveBeenCalledWith(expect.objectContaining({ url: NORMAL_URL }));
+    expect(gsIndexedDb.addSuspendedTabInfo).not.toHaveBeenCalled();
+    expect(chrome.scripting.executeScript).not.toHaveBeenCalled();
     expect(chrome.alarms.clear).toHaveBeenCalledWith('5');
     expect(gsTabDiscardManager.queueTabForDiscard).toHaveBeenCalledTimes(1);
     expect(gsTabDiscardManager.queueTabForDiscard).toHaveBeenCalledWith(tab);

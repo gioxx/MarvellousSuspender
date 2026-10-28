@@ -217,6 +217,14 @@ export const gsTabSuspendManager = (function() {
       return;
     }
 
+    if (discardInPlaceOfSuspend) {
+      // A discarded tab keeps its url: no timestamp to fetch, no tab info to save.
+      // executeTabSuspension() does the discard (#546).
+      const success = await executeTabSuspension(tab, undefined, isStillCurrent);
+      resolve(success);
+      return;
+    }
+
     // Pre-captures are keyed on the url the tab really has, not the timestamped one below
     executionProps.precaptureUrl = tab.url;
 
