@@ -193,6 +193,7 @@ export const gsTabSuspendManager = (function() {
 
   async function performSuspension(tab, executionProps, resolve, reject, requeue,) {
     const isStillCurrent = () => isCurrentJob(tab, executionProps);
+    const isClaimed = () => executionProps.claimedByTimeout === true;
     // A job the timeout handler has claimed is the handler's to settle. An executor that
     // resumes after the claim and finds the job not its own any more must not resolve or
     // requeue it: the job would leave the queue, and the handler, finding it gone, would
@@ -253,7 +254,7 @@ export const gsTabSuspendManager = (function() {
           0,
         );
         gsUtils.log(tab.id, QUEUE_ID, 'Interrupting tab loading to resuspend tab');
-        const success = await executeTabSuspension(tab, suspendedUrl, isStillCurrent);
+        const success = await executeTabSuspension(tab, suspendedUrl, isStillCurrent, undefined, isClaimed);
         resolve(success);
       }
       else {
@@ -294,7 +295,7 @@ export const gsTabSuspendManager = (function() {
     if (discardInPlaceOfSuspend) {
       // A discarded tab keeps its url: no timestamp to fetch, no tab info to save.
       // executeTabSuspension() does the discard (#546).
-      const success = await executeTabSuspension(tab, undefined, isStillCurrent);
+      const success = await executeTabSuspension(tab, undefined, isStillCurrent, true, isClaimed);
       resolve(success);
       return;
     }
@@ -313,7 +314,7 @@ export const gsTabSuspendManager = (function() {
     executionProps.suspendedUrl = suspendedUrl;
 
     if (screenCaptureMode === '0') {
-      const success = await executeTabSuspension(tab, suspendedUrl, isStillCurrent);
+      const success = await executeTabSuspension(tab, suspendedUrl, isStillCurrent, false);
       resolve(success);
       return;
     }
@@ -358,7 +359,7 @@ export const gsTabSuspendManager = (function() {
             return;
           }
         }
-        const success = await executeTabSuspension(tab, suspendedUrl, isStillCurrent);
+        const success = await executeTabSuspension(tab, suspendedUrl, isStillCurrent, false);
         resolve(success);
         return;
       }
@@ -472,10 +473,12 @@ export const gsTabSuspendManager = (function() {
       }
     }
 
+    // The renderer path is only taken when the executor decided not to discard (#546).
     const success = await executeTabSuspension(
       tab,
       executionProps.suspendedUrl,
       isStillCurrent,
+      false,
     );
     executionProps.resolveFn(success);
   }
@@ -564,24 +567,39 @@ export const gsTabSuspendManager = (function() {
   // window none of the caller-side checks can cover, since they all run before it, not after
   // its internal awaits. Every path of the suspension flow passes one; the default is for
   // callers outside it.
-  function executeTabSuspension(tab, suspendedUrl, isStillCurrent = () => true) {
+  // discardInPlaceOfSuspend: the decision of a caller that has read the option already, so
+  // that the two reads cannot disagree (#546); read here when it is not given.
+  // isClaimed: whether the timeout handler has claimed the job, which then owns the tab.
+  function executeTabSuspension(tab, suspendedUrl, isStillCurrent = () => true, discardInPlaceOfSuspend, isClaimed = () => false) {
     return new Promise(async (resolve) => {
       // Remove any existing queued tab checks (this can happen if we try to suspend
       // a tab immediately after it gains focus)
       gsTabCheckManager.unqueueTabCheck(tab);
 
       // If we want tabs to be discarded instead of suspending them
-      const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
+      discardInPlaceOfSuspend ??= await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
       if (discardInPlaceOfSuspend) {
         // Before the alarm is cleared: a job cancelled here must leave the tab's auto-suspend
-        // timer alone, since nothing would set it again. The clear itself awaits too; a
-        // cancellation landing in it is not seen, and the discard goes ahead as it always did.
+        // timer alone, since nothing would set it again.
         if (!isStillCurrent()) {
-          gsUtils.log(tab.id, 'Suspension cancelled just before the discard. Ignoring.');
+          gsUtils.log(tab.id, 'Suspension cancelled just before clearing the alarm for the discard. Ignoring.');
           resolve(false);
           return;
         }
         await tgs.clearAutoSuspendTimerForTabId(tab.id);
+        // The clear awaits too: a job cancelled during it gets its alarm back (#546).
+        // The alarm is set from the live tab: the queued snapshot may be of a tab closed
+        // or made active since. A job the timeout handler claimed meanwhile is not
+        // cancelled: the handler owns the tab, and the alarm is left to it.
+        if (!isStillCurrent()) {
+          gsUtils.log(tab.id, 'Suspension cancelled while clearing the alarm for the discard. Ignoring.');
+          const liveTab = isClaimed() ? null : await gsChrome.tabsGet(tab.id);
+          if (liveTab) {
+            await tgs.resetAutoSuspendTimerForTab(liveTab);
+          }
+          resolve(false);
+          return;
+        }
         gsTabDiscardManager.queueTabForDiscard(tab);
         resolve(true);
         return;

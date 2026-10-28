@@ -359,21 +359,40 @@ describe('suspension flow with discard in place of suspend', () => {
     expect(outcome).toEqual({ state: 'resolved', value: true });
   });
 
-  // The discard has an await of its own before it touches the tab; a job unqueued during
-  // it must neither clear the tab's auto-suspend alarm nor discard the tab.
-  it('does not clear the alarm or discard a tab unqueued while the discard is being prepared', async () => {
+  // The option is read once, by the executor, and the decision handed down: turned off
+  // between the executor's read and the suspension, it does not make the tab suspended
+  // without the tab info the discard path never saved (#546).
+  it('reads the discard option once and discards when it is turned off meanwhile', async () => {
     await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true });
-    const held = deferred();
     const getOption = gsStorage.getOption;
     let reads = 0;
-    // the second read of the option is the one executeTabSuspension() makes
     vi.spyOn(gsStorage, 'getOption').mockImplementation((key) => {
-      if (key === gsStorage.DISCARD_IN_PLACE_OF_SUSPEND && ++reads === 2) return held.promise;
+      if (key === gsStorage.DISCARD_IN_PLACE_OF_SUSPEND && ++reads > 1) return Promise.resolve(false);
       return getOption(key);
     });
+    const outcome = await suspend(makeTab(), 1);
+    expect(reads).toBe(1);
+    expect(gsTabDiscardManager.queueTabForDiscard).toHaveBeenCalledTimes(1);
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'resolved', value: true });
+  });
+
+  // The content script's status is judged with an await of its own before the discard; a
+  // job unqueued during it must neither clear the tab's auto-suspend alarm nor discard it.
+  it('does not clear the alarm or discard a tab unqueued while its status is judged', async () => {
+    await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true, ALWAYS_SUSPEND_LIST: 'example.com' });
+    contentScriptAnswers({ status: 'formInput', scrollPos: '0' });
+    const held = deferred();
+    const checkAlwaysSuspendList = gsUtils.checkAlwaysSuspendList;
+    let checks = 0;
+    // the second check is the one of the content script's status, the first the queue's
+    vi.spyOn(gsUtils, 'checkAlwaysSuspendList').mockImplementation((url) => {
+      if (++checks === 2) return held.promise;
+      return checkAlwaysSuspendList(url);
+    });
     const tab = makeTab();
-    const outcome = await suspend(tab, 1);
-    expect(reads).toBe(2);
+    const outcome = await suspend(tab, 2);
+    expect(checks).toBe(2);
     expect(outcome.state).toBe('pending');
 
     manager.unqueueTabForSuspension(tab);
@@ -382,6 +401,78 @@ describe('suspension flow with discard in place of suspend', () => {
     expect(chrome.alarms.clear).not.toHaveBeenCalled();
     expect(gsTabDiscardManager.queueTabForDiscard).not.toHaveBeenCalled();
     expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
+  });
+
+  // The alarm is cleared with an await of its own: a job unqueued during it is not
+  // discarded, and the tab's auto-suspend alarm is set again (#546).
+  it('sets the alarm again and does not discard a tab unqueued while its alarm is cleared', async () => {
+    await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true, SUSPEND_TIME: '60' });
+    const held = deferred();
+    chrome.alarms.clear.mockReturnValueOnce(held.promise);
+    chrome.alarms.create = vi.fn(async () => undefined);
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    expect(chrome.alarms.clear).toHaveBeenCalledWith('5');
+    expect(outcome.state).toBe('pending');
+
+    manager.unqueueTabForSuspension(tab);
+    held.resolve(true);
+    await flush();
+    expect(gsTabDiscardManager.queueTabForDiscard).not.toHaveBeenCalled();
+    expect(chrome.alarms.create).toHaveBeenCalledWith('5', expect.objectContaining({ when: expect.any(Number) }));
+    expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
+  });
+
+  // The alarm is set again from the live tab, not from the snapshot the job was queued
+  // with: a tab closed meanwhile gets no alarm, and one that has become the active tab is
+  // judged as such (#546).
+  it.each([
+    ['is gone', undefined],
+    ['has become the active tab', makeTab({ active: true })],
+  ])('does not set the alarm again for a cancelled discard when the live tab %s', async (label, liveTab) => {
+    await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true, SUSPEND_TIME: '60', IGNORE_ACTIVE_TABS: true });
+    const held = deferred();
+    chrome.alarms.clear.mockReturnValueOnce(held.promise);
+    chrome.alarms.create = vi.fn(async () => undefined);
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    expect(chrome.alarms.clear).toHaveBeenCalledWith('5');
+
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(liveTab));
+    manager.unqueueTabForSuspension(tab);
+    held.resolve(true);
+    await flush();
+    expect(chrome.tabs.get).toHaveBeenCalledWith(5, expect.any(Function));
+    expect(gsTabDiscardManager.queueTabForDiscard).not.toHaveBeenCalled();
+    expect(chrome.alarms.create).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
+  });
+
+  // The timeout handler claims the job while the executor clears the alarm: the handler
+  // owns the tab from then on and discards it itself, so the executor does not set the
+  // alarm again on a tab about to be discarded (#546).
+  it('does not set the alarm again when the timeout claims the job while its alarm is cleared', async () => {
+    await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true, SUSPEND_TIME: '60' });
+    const held = deferred();
+    chrome.alarms.clear.mockReturnValueOnce(held.promise);
+    chrome.alarms.create = vi.fn(async () => undefined);
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    expect(chrome.alarms.clear).toHaveBeenCalledTimes(1);
+    const answers = [];
+    chrome.tabs.get.mockImplementation((tabId, callback) => { answers.push(callback); });
+
+    await advance(JOB_TIMEOUT);
+    expect(exceptionSpy).toHaveBeenCalledTimes(1);
+    held.resolve(true);
+    await flush();
+    expect(manager.getQueuedTabDetails(tab)).toBeDefined();
+
+    answers.splice(0).forEach((callback) => callback(makeTab()));
+    await flush();
+    expect(gsTabDiscardManager.queueTabForDiscard).toHaveBeenCalledTimes(1);
+    expect(chrome.alarms.create).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'resolved', value: true });
   });
 
   it('does not discard a tab the content script reports as paused at level 2', async () => {
