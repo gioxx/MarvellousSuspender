@@ -393,23 +393,20 @@ export const gsTabSuspendManager = (function() {
     }
     clearTimeout(pending.renderTimeoutTimer);
     _pendingPreviewExecutionPropsByTabId.delete(tab.id);
-    const expectedExecutionProps = pending.executionProps;
+    const executionProps = pending.executionProps;
 
     // Identity, not just presence: belt-and-suspenders alongside the token check above --
     // a late preview response whose job has since been cancelled, or superseded (a
     // different executionProps object now occupies this tab id's slot), must not be
     // applied to, or resolve, anything.
-    const isStillCurrent = () => isCurrentJob(tab, expectedExecutionProps);
+    const isStillCurrent = () => isCurrentJob(tab, executionProps);
     if (!isStillCurrent()) {
       gsUtils.log(tab.id, QUEUE_ID, 'Preview response is for a cancelled or superseded suspension job. Ignoring.',);
       return;
     }
-    const executionProps = expectedExecutionProps;
-
     // Eligibility is judged on the live tab, below, not on `tab`: for a real response it is
     // the sender's tab, but for a render timeout or an injection error it is the executor's
     // snapshot, as stale as the job is old (#546).
-    const suspensionForceLevel = executionProps.forceLevel;
 
     // Temporarily change tab.url with that from the generated suspended url
     // This is because for youtube tabs we manually change the url to persist timestamp
@@ -423,18 +420,19 @@ export const gsTabSuspendManager = (function() {
       gsUtils.warning(tab.id, QUEUE_ID, 'savePreviewData reported an error: ', errorMsg,);
       const screenCaptureMethod = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_METHOD);
       if (screenCaptureMethod === 'auto' && !executionProps.nativeCaptureTried) {
-        // Judged before the capture as well: a tab that is not eligible any more is not
-        // captured only to have the capture dropped. The option read above awaited.
+        // A tab gone or navigated is not captured only to have the capture dropped. Only
+        // the url is looked at here: the full judgement runs once, after the capture. The
+        // option read above awaited.
         if (!isStillCurrent()) {
-          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled before the fallback capture. Ignoring.',);
+          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while reading the capture method. Ignoring.',);
           return;
         }
-        if (!await liveTabIfStillSuspendable(tab, executionProps.precaptureUrl, suspensionForceLevel)) {
+        if (!await liveTabIfStillOnUrl(tab, executionProps.precaptureUrl)) {
           executionProps.resolveFn(false);
           return;
         }
         if (!isStillCurrent()) {
-          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled before the fallback capture. Ignoring.',);
+          gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled while reading the live tab before the fallback capture. Ignoring.',);
           return;
         }
         previewUrl = await gsPrecapture.captureVisibleTab(tab)
@@ -452,7 +450,7 @@ export const gsTabSuspendManager = (function() {
       gsUtils.log(tab.id, QUEUE_ID, 'Suspension cancelled just before suspension. Ignoring.',);
       return;
     }
-    if (!await liveTabIfStillSuspendable(tab, executionProps.precaptureUrl, suspensionForceLevel)) {
+    if (!await liveTabIfStillSuspendable(tab, executionProps.precaptureUrl, executionProps.forceLevel)) {
       executionProps.resolveFn(false);
       return;
     }

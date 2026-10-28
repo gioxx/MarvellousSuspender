@@ -739,14 +739,22 @@ describe('renderer path with the automatic method', () => {
     expectSuspended(outcome);
   });
 
-  // The live tab is judged before the fallback capture too: a tab that is not eligible
-  // any more is not captured only to have the capture dropped (#546).
-  it('resolves false without a fallback capture when the live tab is not eligible at the response', async () => {
+  // Before the fallback capture only the cheap part of the judgement runs, the live tab's
+  // url; the full eligibility check runs once, after the capture (#546). A tab that is not
+  // eligible any more is captured, and the capture dropped.
+  it('judges the eligibility of the live tab once on the fallback path', async () => {
+    const outcome = await suspend(makeTab(), 2);
+    tgs.isCurrentFocusedTab.mockClear();
+    await respond(makeTab(), undefined, 'Failed to generate dataUrl', injectedToken());
+    expect(tgs.isCurrentFocusedTab).toHaveBeenCalledTimes(1);
+    expectSuspended(outcome);
+  });
+
+  it('resolves false, storing nothing, when the live tab is not eligible at the response', async () => {
     chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ pinned: true })));
+    gsPrecapture.captureVisibleTab.mockResolvedValue(NATIVE_PREVIEW);
     const outcome = await suspend(makeTab(), 2);
     await respond(makeTab(), undefined, 'Failed to generate dataUrl', injectedToken());
-    expect(gsPrecapture.captureVisibleTab).not.toHaveBeenCalled();
-    expect(gsPrecapture.take).not.toHaveBeenCalled();
     expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
     expect(outcome).toEqual({ state: 'resolved', value: false });
@@ -781,7 +789,9 @@ describe('renderer path with the automatic method', () => {
     gsPrecapture.captureVisibleTab.mockResolvedValue(NATIVE_PREVIEW);
     chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ url: 'https://example.com/other' })));
     await respond(makeTab(), undefined, 'Failed to generate dataUrl', injectedToken());
+    // the url read before the capture already finds the tab gone elsewhere: no capture
     expect(chrome.tabs.get).toHaveBeenCalledTimes(1);
+    expect(gsPrecapture.captureVisibleTab).not.toHaveBeenCalled();
     expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
     expect(outcome).toEqual({ state: 'resolved', value: false });
@@ -792,10 +802,30 @@ describe('renderer path with the automatic method', () => {
     gsPrecapture.captureVisibleTab.mockResolvedValue(NATIVE_PREVIEW);
     chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ pinned: true })));
     await respond(makeTab(), undefined, 'Failed to generate dataUrl', injectedToken());
-    expect(chrome.tabs.get).toHaveBeenCalledTimes(1);
+    // the url read before the capture, the full judgement after it
+    expect(chrome.tabs.get).toHaveBeenCalledTimes(2);
+    expect(gsPrecapture.captureVisibleTab).toHaveBeenCalledTimes(1);
     expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
     expect(outcome).toEqual({ state: 'resolved', value: false });
+  });
+
+  // Each cancellation check logs where the cancellation landed (#546).
+  it('names the read of the live tab when the job is unqueued during it, before the fallback capture', async () => {
+    const log = vi.spyOn(gsUtils, 'log');
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    let answer;
+    chrome.tabs.get.mockImplementation((tabId, callback) => { answer = callback; });
+    const handled = manager.handlePreviewImageResponse(makeTab(), undefined, 'Failed to generate dataUrl', injectedToken());
+    await flush();
+
+    manager.unqueueTabForSuspension(tab);
+    answer(makeTab());
+    await handled;
+    expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
+    expect(log).toHaveBeenCalledWith(5, 'suspensionQueue', 'Suspension cancelled while reading the live tab before the fallback capture. Ignoring.');
+    expect(gsPrecapture.captureVisibleTab).not.toHaveBeenCalled();
   });
 
   it('does not navigate a tab unqueued during the fallback capture', async () => {
@@ -810,7 +840,7 @@ describe('renderer path with the automatic method', () => {
     held.resolve(NATIVE_PREVIEW);
     await handled;
     expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
-    // the one read is the judgement before the capture; none after it for a cancelled job
+    // the one read is the url check before the capture; none after it for a cancelled job
     expect(chrome.tabs.get).toHaveBeenCalledTimes(1);
     expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
