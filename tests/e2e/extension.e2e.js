@@ -59,11 +59,44 @@ const PLACEHOLDER_READY = `
     && !!document.getElementById('suspendedMsg')
 `;
 
+// Resolves once the page has rendered a frame since it was asked, or after a second if
+// the browser is not producing frames for it.
+const SETTLED_FRAME = `new Promise((resolve) => {
+  setTimeout(resolve, 1000, false);
+  requestAnimationFrame(() => requestAnimationFrame(() => resolve(true)));
+})`;
+
+// How long a page-initiated navigation gets before the page asks for it again. One that
+// is going through takes well under a second. On CI, about one run in ten, the only one
+// asked never left the page, and the case timed out before its click.
+const NAVIGATION_RETRY = 3000;
+
 // Sends the tab of a web page to a placeholder url, the way any page can, and waits for
 // the placeholder to be ready for a click.
 async function navigateToPlaceholder(tab, url) {
-  await cdp.evaluate(tab.sessionId, `window.location.assign(${JSON.stringify(url)}); true`);
-  await cdp.waitForUrl(tab.targetId, 'the placeholder to load', isPlaceholder);
+  const page = await cdp.urlOf(tab.targetId);
+  await cdp.evaluate(tab.sessionId, SETTLED_FRAME);
+  // The page itself asks, and only while it is still the page: once the placeholder has
+  // committed, this session evaluates in it, and a navigation the extension's own page
+  // started would not be the one a web page can forge.
+  const ask = `location.href === ${JSON.stringify(page)} && (window.location.assign(${JSON.stringify(url)}), true)`;
+  let attempts = 0;
+  let askedAt = 0;
+  let seen;
+  try {
+    await waitFor(`the placeholder to load (target ${tab.targetId})`, async () => {
+      seen = await cdp.urlOf(tab.targetId);
+      if (seen !== undefined && isPlaceholder(seen)) return true;
+      if (Date.now() - askedAt >= NAVIGATION_RETRY) {
+        askedAt = Date.now();
+        if (await cdp.evaluate(tab.sessionId, ask)) attempts++;
+      }
+      return false;
+    });
+  }
+  catch (error) {
+    throw new Error(`${error.message}; the page asked ${attempts} time(s), the tab was last at ${seen}`, { cause: error });
+  }
   const sessionId = await cdp.attach(tab.targetId);
   await waitFor('the placeholder to be ready for a click', () => cdp.evaluate(sessionId, PLACEHOLDER_READY));
   return sessionId;
