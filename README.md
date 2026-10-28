@@ -82,6 +82,10 @@ Contributions are very welcome. Feel free to submit pull requests for new featur
 
 The rules every change has to meet are in [AGENTS.md](AGENTS.md); the practical guide (setup, branches, how review goes) is in [CONTRIBUTING.md](CONTRIBUTING.md). Security issues go through [SECURITY.md](SECURITY.md), never a public issue.
 
+### Maintainers
+
+TMS is maintained by [@gioxx](https://github.com/gioxx) (lead), [@rkodey](https://github.com/rkodey) and [@amargiovanni](https://github.com/amargiovanni). Who decides what is in [MAINTAINERS.md](MAINTAINERS.md).
+
 ### Contributing with AI tools
 
 You can use AI tools to write code, tests or docs for TMS. What is expected of the person who opens the pull request is in [AGENTS.md](AGENTS.md), under "Working with AI tools". That file is written for coding agents as well as for people, so that a tool pointed at the repository reads the same rules you do.

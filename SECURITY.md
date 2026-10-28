@@ -62,4 +62,4 @@ and local builds are not supported.
 
 ---
 
-*Last reviewed: 2026-09-26 · Owner: the maintainers listed in `.github/CODEOWNERS`*
+*Last reviewed: 2026-10-28 · Owner: the maintainers listed in `MAINTAINERS.md`*

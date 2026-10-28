@@ -8,8 +8,8 @@ change, what happens next. What the change itself has to meet is in
 
 - **Bug:** open an issue with the bug template, or comment on the existing one.
   A reproduction beats a description.
-- **Feature or behaviour change:** open an issue first and wait for a maintainer
-  to agree on the approach. A PR that lands unannounced may be closed even if the
+- **Feature or behaviour change:** open an issue first and wait for the lead
+  maintainer to agree on the approach. A PR that lands unannounced may be closed even if the
   code is fine.
 - **Translation:** through [Crowdin](https://crowdin.com/project/tms), not
   through this repo. The English source strings are the exception: see
@@ -75,10 +75,11 @@ not block. If your change is about behaviour in the browser, add a case to
 
 ## Review
 
-A maintainer reviews every PR. Expect questions about the why, requests for a
-test you did not think of, and the occasional "please split this". Review rounds
-are cheap; regressions in 100,000 browsers are not. Reply to every comment, even
-with "done".
+A maintainer reviews every PR from a contributor; how maintainers merge their
+own is in [`MAINTAINERS.md`](MAINTAINERS.md). Expect questions about the why,
+requests for a test you did not think of, and the occasional "please split
+this". Review rounds are cheap; regressions in 100,000 browsers are not. Reply
+to every comment, even with "done".
 
 ## Using AI tools
 
@@ -88,9 +89,8 @@ writes anything.
 
 ## Releases
 
-Maintainers cut releases: version bump in `src/manifest.json`, `CHANGELOG.md`
-section dated, `src/CHANGELOG_USER.md` rewritten, tag `vX.Y.Z`, store upload.
-Contributors do not need to touch any of that.
+Maintainers cut releases; the steps, and who does each, are in
+[`MAINTAINERS.md`](MAINTAINERS.md). Contributors do not need to touch any of that.
 
 ## Code of conduct
 
