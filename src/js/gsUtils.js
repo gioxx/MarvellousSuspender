@@ -417,6 +417,19 @@ export const gsUtils = {
   },
 
   /**
+   * Tab Health signature for the Chrome/Edge grouped-tab restore bug (crbug.com/522338670).
+   * Chrome 150 fixed it natively: from then on a grouped, discarded, suspended tab is just
+   * unloaded by the browser, not broken (#551). An unknown version keeps the check on.
+   *
+   * @param {chrome.tabs.Tab} tab
+   * @param {number|false} [chromeVersion]
+   */
+  isBrokenGroupedDiscardedTab(tab, chromeVersion = gsUtils.getChromeVersion()) {
+    return tab.groupId > 0 && tab.discarded && gsUtils.isSuspendedUrl(tab.url ?? '')
+      && !(chromeVersion && chromeVersion >= 150);
+  },
+
+  /**
    *
    * @param {chrome.tabs.Tab} tab
    * @returns {string | undefined}
