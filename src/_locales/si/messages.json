@@ -1,0 +1,1509 @@
+{
+  "ext_extension_name": {
+    "message": "The Marvellous Suspender"
+  },
+  "ext_extension_description": {
+    "message": "ඔබේ මතකය නිදහස් කරන්න. ඔබට අවශ්‍ය නැති ටැබ් දැන්ම අත්හිටුවන්න."
+  },
+  "ext_default_title": {
+    "message": "The Marvellous Suspender"
+  },
+  "ext_cmd_toggle_tab_suspension_description": {
+    "message": "සක්‍රීය ටැබය අත්හිටුවීම/අවලංගු කිරීම"
+  },
+  "ext_cmd_toggle_tab_pause_description": {
+    "message": "සක්‍රිය ටැබයේ විරාමය/විරාමය අත්හිටුවීම"
+  },
+  "ext_cmd_suspend_selected_tabs_description": {
+    "message": "තෝරාගත් ටැබ් අත්හිටුවන්න"
+  },
+  "ext_cmd_unsuspend_selected_tabs_description": {
+    "message": "තෝරාගත් ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "සක්‍රිය ටැබයේ සමූහයේ ඇති සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "සක්‍රිය ටැබයේ සමූහයේ ඇති සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "සක්‍රිය කවුළුවේ සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "සක්‍රිය කවුළුවේ සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "සක්‍රිය ටැබයේ සමූහය සඳහා 'කිසිවිටක අත්හිටුවන්න එපා' මාරු කරන්න"
+  },
+  "ext_cmd_soft_suspend_active_window_description": {
+    "message": "සක්‍රිය කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "ext_cmd_force_suspend_active_window_description": {
+    "message": "සක්‍රිය කවුළුව තුළ අනෙකුත් සියලුම ටැබ් අත්හිටුවීමට බල කරන්න"
+  },
+  "ext_cmd_unsuspend_active_window_description": {
+    "message": "සක්‍රිය කවුළුවේ ඇති සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "ext_cmd_soft_suspend_all_windows_description": {
+    "message": "සියලුම කවුළු වල සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "ext_cmd_force_suspend_all_windows_description": {
+    "message": "සියලුම කවුළු වල සියලුම ටැබ් බලහත්කාරයෙන් අත්හිටුවන්න"
+  },
+  "ext_cmd_unsuspend_all_windows_description": {
+    "message": "සියලුම කවුළු වල සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "js_context_open_link_in_suspended_tab": {
+    "message": "නව අත්හිටුවන ලද පටිත්තෙහි සබැඳිය විවෘත කරන්න"
+  },
+  "js_context_toggle_suspend_state": {
+    "message": "මෙම ටැබය අත්හිටුවීම/අවලංගු කිරීම"
+  },
+  "js_context_toggle_pause_suspension": {
+    "message": "මෙම ටැබයේ අත්හිටුවීම විරාම/විරාම කිරීම"
+  },
+  "js_context_never_suspend_domain": {
+    "message": "මෙම වසම කිසිවිටක අත්හිටුවන්න එපා"
+  },
+  "js_context_never_suspend_page": {
+    "message": "මෙම URL එක කිසිවිටක අත්හිටුවන්න එපා"
+  },
+  "js_context_suspend_selected_tabs": {
+    "message": "තෝරාගත් ටැබ් අත්හිටුවන්න"
+  },
+  "js_context_unsuspend_selected_tabs": {
+    "message": "තෝරාගත් ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "මෙම සමූහයේ ඇති සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "මෙම සමූහයේ ඇති සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "සමූහයකට අයත් නොවන සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "js_context_never_suspend_group": {
+    "message": "මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "මෙම සමූහය අත්හිටුවීමට ඉඩ දෙන්න"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා (නම් කළ සමූහ පමණි)"
+  },
+  "js_context_soft_suspend_other_tabs_in_window": {
+    "message": "මෙම කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "js_context_force_suspend_other_tabs_in_window": {
+    "message": "මෙම කවුළුවේ අනෙකුත් සියලුම ටැබ් අත්හිටුවීමට බල කරන්න"
+  },
+  "js_context_unsuspend_all_tabs_in_window": {
+    "message": "මෙම කවුළුවේ ඇති සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "js_context_soft_suspend_all_tabs": {
+    "message": "සියලුම කවුළු වල සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "js_context_force_suspend_all_tabs": {
+    "message": "සියලුම කවුළු වල සියලුම ටැබ් බලහත්කාරයෙන් අත්හිටුවන්න"
+  },
+  "js_context_unsuspend_all_tabs": {
+    "message": "සියලුම කවුළු වල සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "html_health_title": {
+    "message": "ටැබ් සෞඛ්‍යය (බීටා)"
+  },
+  "html_health_title_intro": {
+    "message": "ඔබේ අත්හිටුවන ලද ටැබ් සමඟ, විශේෂයෙන් favicon සමඟ ගැටලු ඇත්නම්, අපට ඒවා අලුත්වැඩියා කළ හැකිදැයි බැලීමට \"ටැබ් පරිලෝකනය කරන්න\" ක්ලික් කරන්න."
+  },
+  "html_health_all_good": {
+    "message": "ඔබේ අත්හිටුවන ලද ටැබ් සමඟ කිසිදු ගැටලුවක් අපට හමු නොවීය. තවමත් වැරදි යමක් පෙනේ නම්, පහත අපට දන්වන්න, අපි මෙම සෞඛ්‍ය පරීක්ෂාව පුළුල් කිරීමට උත්සාහ කරන්නෙමු."
+  },
+  "html_health_reload_intro": {
+    "message": "සම්පූර්ණයෙන් පූරණය නොවූ අත්හිටුවන ලද ටැබ් කිහිපයක් ඔබට ඇත. ඒවා පිරිසිදු කිරීමට අපට එම ටැබ් නැවත පූරණය කළ හැක."
+  },
+  "html_health_restore_intro": {
+    "message": "ඔබේ අත්හිටුවන ලද ටැබ් කිහිපයක් බ්‍රවුසරයේ පෙරනිමි favicon භාවිතා කරයි. එයින් අදහස් වන්නේ TMS කෑෂ් එකේ ඒවා නොමැති බවයි. අස්ථානගත වූ favicon ලබා ගැනීමට අපට අවම ටැබ් ගණනක් ප්‍රතිසාධනය කර නැවත අත්හිටුවිය හැක."
+  },
+  "html_health_scan_button": {
+    "message": "ටැබ් පරිලෝකනය කරන්න"
+  },
+  "html_health_copy_button": {
+    "message": "ප්‍රතිඵල පිටපත් කරන්න"
+  },
+  "html_health_scan_label": {
+    "message": "ටැබ් පරිලෝකනය කරමින්..."
+  },
+  "html_health_num_tms_tabs": {
+    "message": "TMS මගින් අත්හිටුවන ලද ටැබ්"
+  },
+  "html_health_num_tms_cache": {
+    "message": "TMS කෑෂ් එකේ favicon"
+  },
+  "html_health_num_tabs_empty": {
+    "message": "ටැබ් පූරණය වී නැත"
+  },
+  "html_health_num_tabs_extension": {
+    "message": "ටැබ්වලට TMS favicon ඇත"
+  },
+  "html_health_num_tabs_default": {
+    "message": "ටැබ්වලට පෙරනිමි favicon ඇත"
+  },
+  "html_health_num_hostnames": {
+    "message": "අනන්‍ය ටැබ් හෝස්ට්නාම"
+  },
+  "html_health_small_cache": {
+    "message": "ස්ථානීය TMS favicon කෑෂ් එක සියලුම ටැබ් ආවරණය නොකළ හැක. ඔබේ බ්‍රවුසර කෑෂ් එක හිස් කළහොත්, TMS හට සමහර favicon පෙන්විය නොහැකි විය හැක."
+  },
+  "html_health_reload_button": {
+    "message": "ඊළඟට: ටැබ් $count$ ක් නැවත පූරණය කරන්න",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_restore_button": {
+    "message": "ඊළඟට: favicon කෑෂ් කිරීමට ටැබ් $count$ක් ප්‍රතිසාධනය කරන්න",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_action_label": {
+    "message": "favicon ප්‍රතිසාධනය කරමින්..."
+  },
+  "html_health_after_reload": {
+    "message": "ඔබේ ටැබ් පසුබිමින් පූරණය වී අවසන් වූ පසු, තත්ත්වය වැඩිදියුණු වී ඇත්දැයි බැලීමට ඔබට නැවතත් \"ටැබ් පරිලෝකනය කරන්න\" ක්ලික් කළ හැක."
+  },
+  "html_health_after_restore": {
+    "message": "තත්ත්වය වැඩිදියුණු වී ඇත්දැයි බැලීමට ඔබට නැවතත් \"ටැබ් පරිලෝකනය කරන්න\" ක්ලික් කළ හැක."
+  },
+  "html_health_need_help1": {
+    "message": "තවමත් ටැබ් හෝ favicon ගැටලු තිබේ නම්, ඔබට \"ප්‍රතිඵල පිටපත් කරන්න\" ක්ලික් කර නව"
+  },
+  "html_health_need_help2": {
+    "message": "GitHub Issue එකකට අලවන්න."
+  },
+  "html_health_num_grouped_broken": {
+    "message": "බිඳී ඇති තත්ත්වයේ සමූහගත ටැබ් (ටැබ් සමූහ දෝෂය)"
+  },
+  "html_health_repair_intro": {
+    "message": "ටැබ් සමූහවල ඇතැම් ටැබ් බිඳී ඇති තත්ත්වයක ඇත: බ්‍රවුසරය නැවත ආරම්භ කිරීමෙන් පසු නිවැරදිව පූරණය වීමට වඩා ඒවා නව ටැබ් එකක් ලෙස පෙන්වයි. TMS හට ඒවා ප්‍රතිසාධනය කිරීමට උත්සාහ කළ හැක."
+  },
+  "html_health_repair_button": {
+    "message": "සමූහගත ටැබ් $count$ අලුත්වැඩියා කරන්න",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_after_repair": {
+    "message": "නිමයි. සමූහගත ටැබ් නැවත ඒවායේ අත්හිටුවන ලද තත්ත්වයට පැමිණ ඇත්දැයි තහවුරු කිරීමට යළි පරිලෝකනය කරන්න."
+  },
+  "html_about_title": {
+    "message": "පිළිබඳව"
+  },
+  "html_about_version_label": {
+    "message": "අනුවාදය"
+  },
+  "html_about_tagline": {
+    "message": "නවීන ටැබ් අත්හිටුවීමේ ආධ්‍යාත්මික අනුප්‍රාප්තිකයා: නිෂ්ක්‍රීය ටැබ් සැහැල්ලු නිද්‍රා පිටුවකින් ප්‍රතිස්ථාපනය කර, ඒවා අවදි වන විට ඔබට සියුම් පාලනයක් ලබා දෙයි."
+  },
+  "html_about_section_credits": {
+    "message": "ණයගැති වීම්"
+  },
+  "html_about_contributors_and": {
+    "message": " සහ "
+  },
+  "html_about_community_thanks_link": {
+    "message": "GitHub හි සියලුම දායකයින්"
+  },
+  "html_about_fork_beginning": {
+    "message": "මුල් පිටපත මත පදනම්ව"
+  },
+  "html_about_fork_mid": {
+    "message": "ADS ලුහුබැඳීමකින් තොරව GitHub මත තිබේ"
+  },
+  "html_about_fork_end": {
+    "message": "වැඩිදුර තොරතුරු ලබා ගත හැක්කේ"
+  },
+  "html_about_contributors": {
+    "message": "ඔබ වෙත ගෙන එනු ලබන්නේ"
+  },
+  "html_about_report_issues_prefix": {
+    "message": "ඔබට ප්‍රතිපෝෂණ තිබේ නම් හෝ ගැටලුවක් වාර්තා කිරීමට කැමති නම්, ඔබට එය කළ හැක"
+  },
+  "html_about_report_issues_suffix": {
+    "message": ". කරුණාකර නව එකක් සෑදීමට පෙර ඔබේ අදහස හෝ ගැටලුව දැනටමත් තිබේදැයි පරීක්ෂා කරන්න. ස්තුතියි!"
+  },
+  "html_about_debugging_prefix": {
+    "message": "ලඝු-සටහන් ලබාගෙන රෝග විනිශ්චය වාර්තාවක් ජනනය කිරීමට, "
+  },
+  "html_about_debugging_suffix": {
+    "message": "රෝග විනිශ්චය පිටුවට යන්න."
+  },
+  "html_about_the_github_issues_page": {
+    "message": "GitHub නිකුතු පිටුව"
+  },
+  "html_about_section_support": {
+    "message": "සංවර්ධනයට සහාය වන්න"
+  },
+  "html_about_support_text": {
+    "message": "The Marvellous Suspender නොමිලේ සහ විවෘත මූලාශ්‍ර වේ. එය ප්‍රයෝජනවත් යැයි ඔබට හැඟේ නම්, කුඩා දායකත්වයක් සලකා බලන්න: එය ව්‍යාපෘතිය ජීවමානව හා වර්ධනය වීමට උපකාරී වේ."
+  },
+  "html_broken_title": {
+    "message": "කැඩිලා"
+  },
+  "html_broken_ruh_roh": {
+    "message": "රුහ් රොහ්!"
+  },
+  "html_broken_line1": {
+    "message": "ආරම්භ වීමට අසමත් විය. සමහරවිට ඔබ අනුකූල නොවන බ්‍රවුසරයක් භාවිතා කරනවා විය හැකිද?"
+  },
+  "html_broken_line2": {
+    "message": "දිගුව නැවත ආරම්භ කිරීමට උත්සාහ කරන්න. ගැටලුව දිගටම පවතින්නේ නම්, උදව් සඳහා විමසන්න"
+  },
+  "html_broken_line2_github_page": {
+    "message": "GitHub ව්‍යාපෘති පිටුව"
+  },
+  "html_broken_line3": {
+    "message": "ඔබට නැතිවූ ටැබ් නැවත ලබා ගත හැක"
+  },
+  "html_broken_line3_session_management": {
+    "message": "සැසි කළමනාකරණ පිටුව"
+  },
+  "html_broken_button_restart_extension": {
+    "message": "දිගුව නැවත ආරම්භ කරන්න"
+  },
+  "html_history_title": {
+    "message": "සැසි කළමනාකරණය"
+  },
+  "html_history_page_desc": {
+    "message": "TMS ඔබේ විවෘත ටැබ්වල අඛණ්ඩ ඡායාරූපයක් තබා ගනී, කිසිදු සැකසුමක් අවශ්‍ය නොවේ. ඔබ බ්‍රවුස් කරන විට සැසි ස්වයංක්‍රීයව යාවත්කාලීන වේ, නමුත් ඒවා Chrome තුළ පමණක් පවතී: බ්‍රවුසර පැතිකඩ නැති වුවහොත් හෝ දූෂිත වුවහොත්, ඒවා ද නැති වේ."
+  },
+  "html_history_current_session": {
+    "message": "වත්මන් සැසිය"
+  },
+  "html_history_recent_sessions": {
+    "message": "මෑත සැසි"
+  },
+  "html_history_saved_sessions": {
+    "message": "සුරැකි සැසි"
+  },
+  "html_history_import_session": {
+    "message": "වාරය ආයාතය"
+  },
+  "html_history_migrate_tabs": {
+    "message": "පටිති සංක්‍රමණය"
+  },
+  "html_history_migrate_old_id": {
+    "message": "දිගුවේ හැඳුනුම්පත"
+  },
+  "html_history_migrate_section_title": {
+    "message": "ටැබ් සංක්‍රමණය"
+  },
+  "html_history_migrate_section_desc": {
+    "message": "පෙර අනුවාදයක් හෝ මෙම දිගුවේ වෙනත් fork එකක් මගින් අත්හිටුවන ලද ටැබ් ප්‍රතිසාධනය කරන්න. පහත පැරණි දිගු ID එක ඇතුළත් කර, අත්හිටුවන ලද URL පරිවර්තනය කිරීමට \"ටැබ් සංක්‍රමණය කරන්න\" ක්ලික් කරන්න."
+  },
+  "html_options_title": {
+    "message": "සැකසුම්"
+  },
+  "html_options_suspend_title": {
+    "message": "ස්වයංක්‍රීය පටිති ආරම්භය"
+  },
+  "html_options_suspended_title": {
+    "message": "ඇතිවූ පටිති"
+  },
+  "html_options_suspended_append_url_to_title": {
+    "message": "අත්හිටුවන ලද ටැබ් මාතෘකාවට මුල් URL එක එකතු කරන්න"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "සක්‍රීය කළහොත්, මුල් URL එක අත්හිටුවන ලද පිටුවල"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "බ්‍රව්සර ටැබ් මාතෘකාවට එකතු කරනු ලැබේ."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "මෙමගින් Chrome හි \"ටැබ් සොයන්න\" විශේෂාංගය (Ctrl+Shift+A)"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "භාවිතයෙන් hostname මගින් අත්හිටුවන ලද ටැබ් සොයාගත හැක."
+  },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "අත්හිටුවීමේදී YouTube වාදන පිහිටීම රඳවා ගන්න"
+  },
+  "html_options_other_title": {
+    "message": "සාමාන්‍ය"
+  },
+  "html_options_language": {
+    "message": "භාෂාව"
+  },
+  "html_options_language_auto": {
+    "message": "පද්ධති පෙරනිමිය"
+  },
+  "html_options_suspend_automatically_after": {
+    "message": "පසුව ස්වයංක්‍රීයව පටිතින්න"
+  },
+  "html_options_suspend_on_battery_after": {
+    "message": "බැටරි බලයේදී ටැබ් අත්හිටුවන්න මෙයට පසුව"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "විදුලි බලය මෙන්ම"
+  },
+  "html_options_suspend_never": {
+    "message": "කවදාවත්"
+  },
+  "html_options_suspend_seconds": {
+    "message": "තත්පර"
+  },
+  "html_options_suspend_minute": {
+    "message": "විනාඩිය"
+  },
+  "html_options_suspend_minutes": {
+    "message": "විනාඩි"
+  },
+  "html_options_suspend_hour": {
+    "message": "පැය"
+  },
+  "html_options_suspend_hours": {
+    "message": "පැය"
+  },
+  "html_options_suspend_day": {
+    "message": "දිනය"
+  },
+  "html_options_suspend_days": {
+    "message": "දින"
+  },
+  "html_options_suspend_week": {
+    "message": "සතිය"
+  },
+  "html_options_suspend_weeks": {
+    "message": "සති"
+  },
+  "html_options_suspend_no_pinned": {
+    "message": "ඇමුණූ පටිතින්න එපා"
+  },
+  "html_options_suspend_no_app_windows": {
+    "message": "යෙදුම් කවුළුවල විවෘත ටැබ් නවත්වන්න එපා"
+  },
+  "html_options_suspend_no_grouped_tabs": {
+    "message": "ටැබ් සමූහයක ඇති ටැබ් කිසිවිටෙක අත්හිටුවන්න එපා"
+  },
+  "html_options_suspend_no_forms": {
+    "message": "නොසුරකින ලද ආකෘති ආදාන අඩංගු ටැබ් කිසිවිටෙක අත්හිටුවන්න එපා"
+  },
+  "html_options_suspend_no_audio": {
+    "message": "ශ්‍රව්‍ය වාදනය කරන ටැබ් කිසිවිටෙක අත්හිටුවන්න එපා"
+  },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "ස්වයංක්‍රීය අත්හිටුවීමෙන් සහ සාමාන්‍ය තොග අත්හිටුවීම් ක්‍රියාවලින් ආරක්ෂා කරයි."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "ඔබට තවමත් ටැබයක් ඔබම හෝ \"අත්හිටුවීමට බල කරන්න\" ක්‍රියාවකින් අත්හිටුවිය හැක."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "\"සැමවිටම අත්හිටුවන්න\" ලැයිස්තුවේ URL එක ඇති ටැබයක් කෙසේ වෙතත් අත්හිටුවනු ලැබේ."
+  },
+  "html_options_suspend_only_connected": {
+    "message": "නොබැඳි විට කිසිවිටෙක ටැබ් අත්හිටුවන්න එපා"
+  },
+  "html_options_suspend_claim_by_default": {
+    "message": "පෙරනිමියෙන් හිමිකම් කියන්න"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "The Great Suspender වැනි වෙනත් අනුකූල දිගුවක් මගින් (හෝ මෙහි වෙනත් ස්ථාපනයක් මගින්)"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "දැනටමත් අත්හිටුවා ඇති ටැබ් ස්වයංක්‍රීයව භාරගනී."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "ටැබ් එකක URL එකේ 'suspended.html' අඩංගු නම් එය \"අත්හිටුවා ඇති\" ලෙස සලකනු ලැබේ."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "මෙය සක්‍රීය කිරීමෙන් ඉදිරියට TMS මගින් ටැබ් කළමනාකරණය කළ හැකි වන පරිදි"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "එම URL එක මෙම ස්ථාපනයට නැවත ලියනු ලැබේ."
+  },
+  "html_options_suspend_only_on_battery": {
+    "message": "බල ප්‍රභවයට සම්බන්ධ වූ විට කිසිවිටක ටැබ් අත්හිටුවන්න එපා"
+  },
+  "html_options_suspend_no_active_tabs": {
+    "message": "සෑම කවුළුවකම සක්‍රිය ටැබය කිසිවිටෙක අත්හිටුවන්න එපා"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "ස්වයංක්‍රීය සහ තොග අත්හිටුවීම් සඳහා \"සැමවිටම අත්හිටුවන්න\" ලැයිස්තුව මෙම විකල්පය අභිබවා නොයයි."
+  },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "අත්හිටුවූ ටැබ් සැමවිටම පිටුවේ මුදුනට නැවත විවෘත කරන්න"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "ටැබය අත්හිටුවූ ස්ථානය වෙනුවට පිටුවේ මුදුනේ සිට"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "නැවත විවෘත වේ."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "මෙය ස්වයංක්‍රීය සහ අතින් අත්හිටුවීම් දෙකටම අදාළ වන අතර,"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "පූරණය අතරතුර #කොටසකට පනින සබැඳි අභිබවා යයි."
+  },
+  "html_options_suspend_automatically_unsuspend": {
+    "message": "ටැබ් එක බලන විට ස්වයංක්‍රීයව අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "නැවත පූරණය කිරීම පසුබිම් ටැබ් වල අත්හිටුවීම ද ඉවත් කරයි (ක්‍රියාකාරී ටැබ් එක පමණක් නොව)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "සක්‍රීය කළහොත්, අත්හිටුවූ ටැබ් එකක් නැවත පූරණය කිරීම (Ctrl+R"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "හෝ දකුණු-ක්ලික් > නැවත පූරණය) එය දැනට ක්‍රියාකාරී ටැබ් එක"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "නොවුනත් නැවත ක්‍රියාත්මක කරයි."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "එකවර අත්හිටුවූ ටැබ් කිහිපයක් නැවත පූරණය කිරීමට ප්‍රයෝජනවත්,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "උදාහරණයක් ලෙස ටැබ් කිහිපයක් තෝරා Ctrl+R ඔබන විට."
+  },
+  "html_options_suspend_discard_after_suspend": {
+    "message": "අත්හිටුවීමේදී බ්‍රවුසරයේ අන්තර්ගත මතක ඉතිරි කිරීම යොදන්න"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1a": {
+    "message": "ටැබ් එකක් අත්හිටුවූ පසු, Chrome හට එය මතකයෙන්"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1b": {
+    "message": "සම්පූර්ණයෙන් ඉවත් කිරීමට ද ඉඩ දෙන්න. මෙය එක් ටැබ් එකකට"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1c": {
+    "message": "වැඩි පද්ධති සම්පත් නිදහස් කරයි (ටැබ් සිය ගණනක් විවෘතව තිබේ නම් ප්‍රයෝජනවත්)."
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line2a": {
+    "message": "මෙය ටැබ් එක නැවත පූරණය වන තෙක් එහි තත්ත්වය"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line2b": {
+    "message": "අහිමි වීමේ පිරිවැයෙන් සිදු වේ."
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line3a": {
+    "message": "ටැබ් ඉවත දැමීම පිළිබඳ වැඩිදුර තොරතුරු සඳහා බලන්න:"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line3b": {
+    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  },
+  "html_options_suspend_theme": {
+    "message": "ප්රධාන"
+  },
+  "html_options_suspend_theme_light": {
+    "message": "දීප්ත"
+  },
+  "html_options_suspend_theme_dark": {
+    "message": "අඳුරු"
+  },
+  "html_options_suspend_theme_system": {
+    "message": "පද්ධතිය"
+  },
+  "html_options_suspend_screen_capturing": {
+    "message": "තිර අල්ලා ගැනීම"
+  },
+  "html_options_suspend_screen_capturing_disabled": {
+    "message": "අබල කර ඇත"
+  },
+  "html_options_suspend_screen_capturing_screen_only": {
+    "message": "තිරයේ ඉහළ කොටස පමණක් ග්‍රහණය කරන්න"
+  },
+  "html_options_suspend_screen_capturing_entire_page": {
+    "message": "සම්පූර්ණ පිටුව ග්‍රහණය කරන්න"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line1a": {
+    "message": "අත්හිටුවන ලද පටිත්තක, දිගුවට ටැබ් එකෙහි රූප පෙරදසුනක් පෙන්විය හැක"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line1b": {
+    "message": "එය අත්හිටුවීමට පෙර මෙන් දිස් විය."
+  },
+  "html_options_suspend_screen_capturing_tooltip_line2a": {
+    "message": "තිර ග්‍රහණය කිරීමේ විශේෂාංගය පර්යේෂණාත්මක වන අතර සැලකිය යුතු CPU භාවිතයක් ඇති කළ හැක"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line2b": {
+    "message": "මෙන්ම මතක භාවිතය තරමක් වැඩි විය."
+  },
+  "html_options_suspend_screen_capturing_tooltip_line3a": {
+    "message": "ටැබ් අත්හිටුවීමට වැඩි කාලයක් ගතවීම වැනි අසාමාන්‍ය හැසිරීමක් ඔබ දුටුවහොත්, හෝ බ්‍රවුසරය"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line3b": {
+    "message": "අනපේක්ෂිත ලෙස බිඳ වැටීම, මෙම විශේෂාංගය අක්‍රිය කිරීමට උත්සාහ කරන්න."
+  },
+  "html_options_suspend_screen_capture_method": {
+    "message": "ග්‍රහණ ක්‍රමය"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "ස්වයංක්‍රීය (නිර්දේශිත)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "බ්‍රවුසර තිර රුව පමණි"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "පිටු විදැහුම්කරු පමණි"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "අත්හිටුවන පටිත්ත ඔබ දැන් බලන පටිත්ත නම්, ස්වයංක්‍රීය ක්‍රමය සැබෑ බ්‍රවුසර තිර රුවක් ගනී."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "එය ක්ෂණික වන අතර සෑම අඩවියකම ක්‍රියා කරයි. අනෙක් පටිති වඩා මන්දගාමී පිටු විදැහුම්කරු මගින් නැවත අඳිනු ලැබේ."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "බ්‍රවුසර තිර රුව පමණි යන්න කිසිවිටෙක පිටු විදැහුම්කරු ධාවනය නොකරයි, එබැවින් පසුබිමේ අත්හිටුවන පටිති සඳහා පෙරදසුනක් නොලැබේ."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "'සම්පූර්ණ පිටුව ග්‍රහණය කරන්න' තෝරා තිබුණත්, බ්‍රවුසර තිර රුවකට ඇතුළත් වන්නේ පිටුවේ දෘශ්‍යමාන කොටස පමණි."
+  },
+  "html_options_suspend_screen_capture_precapture": {
+    "message": "මම ටැබ් භාවිත කරන අතරතුර ඒවායේ මෑත තිර රුවක් තබා ගන්න"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line1": {
+    "message": "ඔබ ටැබයකට මාරු වූ විට හෝ එය පූරණය වී අවසන් වූ විට තත්පරයක් පමණ ගතවී එහි බ්‍රවුසර තිර රුවක් ගනී,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
+    "message": "එමගින් පසුව පසුබිමින් අත්හිටුවන ලද ටැබ්වලටද පෙරදසුනක් ලැබේ."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line3": {
+    "message": "ඔබ බොත්තම ක්ලික් නොකළ ටැබයක තිර රුවක් ගැනීමට දිගුවකට ඉඩ දෙන්නේ එයට සියලුම අඩවි වෙත ප්‍රවේශය ඇත්නම් පමණක් බව Chrome සලකයි,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
+    "message": "එබැවින් මෙය සක්‍රීය කිරීම එම අවසරය ඉල්ලයි. එය මෙම තිර රූ ගැනීමට පමණක් භාවිතා වන අතර, ඒවා මෙම පරිගණකයේම රැඳී පවතී."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line5": {
+    "message": "විවෘත සෑම ටැබයකම නවතම තිර රුව පමණක් තබා ගනු ලැබේ, ටැබය වසන විට එය මකා දමනු ලැබේ."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
+    "message": "අඥාත (incognito) ටැබ් සහ ඉඩ දුන් ලැයිස්තුවේ අඩවි කිසිවිටෙක ග්‍රහණය නොකෙරේ."
+  },
+  "html_options_suspend_force_screen_capture": {
+    "message": "උසස් තත්ත්වයේ තිර ග්‍රහණ මාදිලිය සබල කරන්න"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line1": {
+    "message": "අබල කළ විට, කාර්ය සාධනය සඳහා සහාය වීමට තිර ග්‍රහණවලට පහත සීමාවන් ඇත:"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line2": {
+    "message": "- අඩු ගුණාත්මක තිර ග්රහණය"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line4": {
+    "message": "- රූපය ජනනය කිරීමට මිනිත්තු 1 කට වඩා ගත වුවහොත් තිරය ග්‍රහණය නොකරයි"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line5": {
+    "message": "- තිර ග්‍රහණයේ උපරිම උස 5000px ට සීමා වේ"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line6": {
+    "message": "උසස් තත්ත්වයේ තිර ග්‍රහණ මාදිලිය සක්‍රීය කිරීම CPU භාරය සැලකිය යුතු ලෙස වැඩි කළ හැක"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line7": {
+    "message": "සහ මතකය භාවිතය."
+  },
+  "html_options_whitelist_title": {
+    "message": "පහත ලැයිස්තුවෙන් URL සහිත ටැබ් කිසි විටෙකත් අත්හිටුවන්න එපා:"
+  },
+  "html_options_always_suspend_title": {
+    "message": "පහත ලැයිස්තුවේ ඇති URL සහිත ටැබ් සැමවිටම අත්හිටුවන්න:"
+  },
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "මෙම ලැයිස්තුවට ගැළපෙන ටැබ් ශබ්දය, ෆෝම් ආදානය හෝ අමුණා ඇති තත්ත්වය නොසලකා,"
+  },
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "සාමාන්‍ය කාල සීමාවෙන් පසු සැමවිටම අත්හිටුවනු ලැබේ."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "එක් පේළියකට එක් ප්‍රවේශයක්, ඉහත ලැයිස්තුවේ ඇති ගැළපුම් නීති එකම"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(URL එකේ ඕනෑම තැනක සරල පෙළ ගැළපුම, හෝ ස්ලෑෂ් අතර /regex/)."
+  },
+  "html_options_whitelist_tooltip_line1": {
+    "message": "ඔබට ඉඩ දිය යුතු සෑම පිටුවකම URL එක නව පේළියක එක් කරන්න. උදාහරණ වශයෙන්:"
+  },
+  "html_options_whitelist_tooltip_line2": {
+    "message": "එක් පේළියක අඩවි කිහිපයක් සුදු ලැයිස්තු කිරීමට ඔබට ඒ වෙනුවට url හි කොටසක් සඳහන් කළ හැක:"
+  },
+  "html_options_whitelist_tooltip_line3": {
+    "message": "ඔබට පෙළ ඉදිරියට slashs තුළට ඇතුළත් කිරීමෙන් සාමාන්‍ය ප්‍රකාශන ද නියම කළ හැක:"
+  },
+  "html_options_changelog_modal_title": {
+    "message": "v$version$ හි නවතාවයන්",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_whitelist_close": {
+    "message": "වසන්න"
+  },
+  "html_options_whitelist_unsuspend": {
+    "message": "ගැළපෙන ටැබ් දැන් අවදි කරන්න"
+  },
+  "html_options_list_test_btn": {
+    "message": "ලැයිස්තුව පරීක්ෂා කරන්න"
+  },
+  "html_options_always_suspend_force": {
+    "message": "ගැළපෙන ටැබ් දැන් අත්හිටුවන්න"
+  },
+  "html_options_never_suspend_groups_title": {
+    "message": "පහත ටැබ් සමූහවල ඇති ටැබ් කිසිවිටක අත්හිටුවන්න එපා:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "මෙම සමූහවල ඇති ටැබ් කිසිවිටෙක ස්වයංක්‍රීයව අත්හිටුවන්නේ නැත, තොග අත්හිටුවීම් ක්‍රියාවලදීද මඟහරිනු ලැබේ."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "දකුණු-ක්ලික් මෙනුවේ ඇති \"මෙම සමූහය කිසිවිටක අත්හිටුවන්න එපා\" මගින් සමූහයක් එක් කරන්න. නමක් ඇති සමූහ පමණක් එක් කළ හැකිය."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "සමූහ නම සහ වර්ණය අනුව ගැළපේ, බ්‍රවුසරය විවෘතව පවතින තෙක් නම් වෙනස් කිරීම් අනුගමනය කරයි."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "තවම ටැබ් සමූහ එක් කර නැත."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "ඉවත් කරන්න"
+  },
+  "html_options_other_enable_context_menu": {
+    "message": "සන්දර්භය මෙනුව දකුණු-ක්ලික් කිරීමට පුදුමාකාර අත්හිටුවීම එක් කරන්න"
+  },
+  "html_options_other_enable_context_menu_tooltip_line1": {
+    "message": "වෙබ් පිටුවක දකුණු ක්ලික් මෙනුවට මෙම දිගුව සඳහා පාලන එක් කරන්න."
+  },
+  "html_options_other_enable_context_menu_tooltip_line2": {
+    "message": "මෙය ඔබට ලබා ගත නොහැකි උසස් අත්හිටුවීමේ ක්‍රියා වෙත ප්‍රවේශය ලබා දෙනු ඇත"
+  },
+  "html_options_other_enable_context_menu_tooltip_line3": {
+    "message": "දිගුවේ වෙනත් තැනක."
+  },
+  "html_options_other_enable_sync": {
+    "message": "ඔබේ බ්‍රවුසර පැතිකඩ සමඟ සැකසුම් සමමුහූර්ත කරන්න"
+  },
+  "html_options_other_enable_sync_tooltip_line1a": {
+    "message": "දිගු සැකසුම් පහත සියලුම බ්‍රවුසරවල සමමුහූර්ත වනු ඇත:"
+  },
+  "html_options_other_enable_sync_tooltip_line1b": {
+    "message": "එකම පැතිකඩකින් ලොග් වී ඇත."
+  },
+  "html_options_other_enable_sync_tooltip_line2": {
+    "message": "මෙයින් incognito ප්‍රකාරයේ සැකසුම් ද සමමුහූර්ත වේ."
+  },
+  "html_options_other_enable_sync_warning": {
+    "message": "මෙය සක්‍රීය කිරීමෙන් එකම පැතිකඩට පිවිසී ඇති අනෙකුත් සියලුම බ්‍රවුසරවල සැකසුම් උඩින් ලියවේ"
+  },
+  "html_options_suspend_on_low_memory": {
+    "message": "පද්ධති මතකය ඉතා අඩු වූ විට ක්ෂණිකව අත්හිටුවන්න"
+  },
+  "html_options_suspend_on_low_memory_tooltip_line1": {
+    "message": "මෙම විකල්පය ස්වයංක්‍රීය ටැබ් ඉවත දැමීමේ කාර්යභාරය අභිබවා යනු ඇත."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line2": {
+    "message": "සක්‍රීය කළහොත්, ටැබ් එකක් ඉවත දැමීම වෙනුවට එය බලෙන් අත්හිටුවනු ඇත."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line3": {
+    "message": "සාමාන්‍යයෙන්, පද්ධති මතකය ඉතා අඩු වූ විට පමණක් ඔබේ බ්‍රවුසරය ටැබ් ඉවත දමයි."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line4": {
+    "message": "කරුණාකර සටහන් කරන්න: මෙය ඔබට ඇති කාලයට වඩා කලින් ටැබ් අත්හිටුවීමට හේතු විය හැක"
+  },
+  "html_options_suspend_on_low_memory_tooltip_line5": {
+    "message": "ස්වයංක්‍රීය ටැබ් අත්හිටුවීමේ විකල්පවල දක්වා ඇත."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line6": {
+    "message": "ටැබ් ඉවත දැමීම පිළිබඳ වැඩිදුර තොරතුරු සඳහා බලන්න:"
+  },
+  "html_options_suspend_on_low_memory_tooltip_discarding_link": {
+    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  },
+  "html_popup_unsuspend_tab": {
+    "message": "මෙම ටැබය අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "html_popup_suspend_tab": {
+    "message": "මෙම ටැබය දැන් අත්හිටුවන්න"
+  },
+  "html_popup_never_suspend_domain": {
+    "message": "මෙම වසම කිසිවිටක අත්හිටුවන්න එපා"
+  },
+  "html_popup_never_suspend_page": {
+    "message": "මෙම URL එක කිසිවිටක අත්හිටුවන්න එපා"
+  },
+  "html_popup_suspend_other_tabs": {
+    "message": "අනෙකුත් සියලුම ටැබ් අත්හිටුවන්න"
+  },
+  "html_popup_unsuspend_all_tabs": {
+    "message": "සියලුම ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "html_popup_unsuspend_whitelisted_tabs": {
+    "message": "ගැළපෙන ටැබ් දැන් අවදි කරන්න"
+  },
+  "html_popup_suspend_selected_tabs": {
+    "message": "තෝරාගත් ටැබ් අත්හිටුවන්න"
+  },
+  "html_popup_unsuspend_selected_tabs": {
+    "message": "තෝරාගත් ටැබ් අත්හිටුවීම ඉවත් කරන්න"
+  },
+  "html_popup_settings": {
+    "message": "සැකසුම්"
+  },
+  "html_popup_backup_now_local": {
+    "message": "දැන් සැසිය උපස්ථ කරන්න (ස්ථානීය)"
+  },
+  "html_popup_backup_now_cloud": {
+    "message": "දැන් සැසිය උපස්ථ කරන්න (වලාකුළු)"
+  },
+  "html_restoring_title": {
+    "message": "කවුළුව ප්‍රත්‍යර්පණය ස්ථානයේ"
+  },
+  "html_restoring_heading": {
+    "message": "ටැබ් ප්‍රතිසාධනය කිරීම"
+  },
+  "html_restoring_detail": {
+    "message": "මම මෙම කවුළුව ප්‍රතිසාධනය කරන තෙක් කරුණාකර රැඳී සිටින්න..."
+  },
+  "html_recovery_title": {
+    "message": "ප්‍රතිසාධනය"
+  },
+  "html_recovery_ruh_roh": {
+    "message": "රුහ් රොහ්!"
+  },
+  "html_recovery_description_line1": {
+    "message": "ඔබ දිගු බිඳ වැටීමකින් සුවය ලබන බවක් පෙනේ."
+  },
+  "html_recovery_description_line2": {
+    "message": "ඔබගේ අත්හිටුවන ලද ටැබ් බිඳ වැටීමට හෝ අතුරුදහන් වී තිබිය හැක."
+  },
+  "html_recovery_restore_tabs_automatically": {
+    "message": "ටැබ් ස්වයංක්‍රීයව ප්‍රතිසාධනය කරන්න"
+  },
+  "html_recovery_go_to_session_manager": {
+    "message": "සැසි කළමනාකරු වෙත යන්න"
+  },
+  "html_recovery_important_message": {
+    "message": "ඔබ දැනට තිර ග්‍රහණ ක්‍රියාත්මක කර ඇත. මෙම දිගුව නැවත නැවතත් බිඳ වැටෙන්නේ නම්, මෙම විකල්පය අක්‍රිය කිරීම නිර්දේශ කෙරේ."
+  },
+  "html_recovery_disable_screen_capturing": {
+    "message": "තිර ග්‍රහණය අක්‍රිය කරන්න"
+  },
+  "html_recovery_tabs_to_restore": {
+    "message": "ප්‍රතිසාධනය කිරීමට ටැබ්"
+  },
+  "html_shortcuts_title": {
+    "message": "යතුරුපුවරුවේ කෙටිමං"
+  },
+  "html_shortcuts_keyboard_shortcuts": {
+    "message": "යතුරුපුවරුවේ කෙටිමං"
+  },
+  "html_shortcuts_context_menu_note": {
+    "message": "සටහන: මෙම ක්‍රියා දකුණු ක්ලික් සන්දර්භය මෙනුව හරහා ද ලබා ගත හැකිය."
+  },
+  "html_shortcuts_remap_keys": {
+    "message": "කෙටිමං වෙනස් කරන්න"
+  },
+  "html_sidebar_general_settings": {
+    "message": "සැකසුම්"
+  },
+  "html_sidebar_session_management": {
+    "message": "සැසි"
+  },
+  "html_sidebar_tab_health": {
+    "message": "ටැබ් සෞඛ්‍යය"
+  },
+  "html_sidebar_shortcuts": {
+    "message": "යතුරුපුවරු කෙටිමං"
+  },
+  "html_sidebar_support": {
+    "message": "පිළිබඳව"
+  },
+  "html_sidebar_backup": {
+    "message": "උපස්ථය"
+  },
+  "html_sidebar_news": {
+    "message": "පුවත්"
+  },
+  "html_news_title": {
+    "message": "පුවත් සහ යාවත්කාලීන"
+  },
+  "html_news_desc": {
+    "message": "Marvellous Codeworks බ්ලොග් අඩවියේ නවතම නිකුතු, දන්නා ගැටලු සහ නිවේදන පිළිබඳ යාවත්කාලීනව සිටින්න."
+  },
+  "html_news_loading": {
+    "message": "පුවත් පූරණය කරමින්…"
+  },
+  "html_news_empty": {
+    "message": "තවම පුවත් නැත. ඉක්මනින් නැවත පරීක්ෂා කරන්න!"
+  },
+  "html_news_new_pill": {
+    "message": "අලුත්"
+  },
+  "html_news_mark_all_read": {
+    "message": "සියල්ල කියවූ ලෙස සලකුණු කරන්න"
+  },
+  "html_backup_page_title": {
+    "message": "උපස්ථ සහ ප්‍රතිසාධනය"
+  },
+  "html_success_great_success": {
+    "message": "පුදුම සාර්ථකත්වයක්!"
+  },
+  "html_success_all_tabs_restored": {
+    "message": "ඔබගේ සියලුම ටැබ් ප්‍රතිසාධනය කර ඇත."
+  },
+  "html_success_goto_advanced_prefix": {
+    "message": "උසස් සැසි කළමනාකරණය සඳහා, පිවිසෙන්න"
+  },
+  "html_success_goto_advanced_suffix": {
+    "message": "පිටුව"
+  },
+  "html_session_manager": {
+    "message": "සැසි කළමනාකරණය"
+  },
+  "html_suspended_title": {
+    "message": "අත්හිටුවන ලද ටැබ්"
+  },
+  "html_suspended_click_to_reload": {
+    "message": "නැවත පූරණය කිරීමට නැවුම් කරන්න හෝ ක්ලික් කරන්න"
+  },
+  "html_suspended_toast_not_connected": {
+    "message": "ඔබ අන්තර්ජාලයට සම්බන්ධ වී නැත"
+  },
+  "html_suspended_toast_reload_disabled": {
+    "message": "ස්වයංක්‍රීය ටැබ් නැවත පූරණය කිරීම තාවකාලිකව අබල කර ඇත."
+  },
+  "html_permissions_title": {
+    "message": "අවසර"
+  },
+  "html_permissions_heading": {
+    "message": "මට ස්ථානීය ගොනු ඒ.ස.නි. වලට ප්‍රවේශය දෙන්න"
+  },
+  "html_permissions_info": {
+    "message": "\"ගොනුව\" යන වචනයෙන් ආරම්භ වන URL අත්හිටුවීමට මෙම දිගුවට දැනට අවසර නැත.\nමෙය වෙනස් කිරීමට, කරුණාකර දිගු සැකසීම් පිටුවෙන් \"ගොනු URL වෙත ප්‍රවේශයට ඉඩ දෙන්න\" ක්‍රියාත්මක කරන්න."
+  },
+  "html_permissions_backup": {
+    "message": "කරුණාකර සටහන් කරන්න: මෙම විකල්පය වෙනස් කිරීමෙන් ඔබගේ අත්හිටවූ ටැබ් සියල්ල කෙටියෙන් අතුරුදහන් වනු ඇත.\nයම් අවස්ථාවක, ඔබගේ වත්මන් ටැබ් සැසියේ උපස්ථයක් සුරැකීමට දැන් හොඳ කාලයක් විය හැක."
+  },
+  "html_permissions_return_hint": {
+    "message": "නැවත සාදරයෙන් පිළිගනිමු: දේශීය ගොනු වෙත ප්‍රවේශය ලබා දීම සම්පූර්ණ කිරීමට දැන් නැවත බොත්තම ක්ලික් කරන්න."
+  },
+  "html_update_title": {
+    "message": "යාවත්කාල කරන්න "
+  },
+  "html_update_heading2": {
+    "message": "තව <i>marvellous</i> වීමට සූදානම්"
+  },
+  "html_update_info": {
+    "message": "ඔබේ බ්‍රවුසරය මීළඟට නැවත ආරම්භ කරන විට The Marvellous Suspender හි නව අනුවාදයක් ස්ථාපනය වනු ඇත."
+  },
+  "html_update_info_withbackup": {
+    "message": "වැදගත්: ඔබේ ටැබ් සඳහා ප්‍රතිසාධන ලක්ෂ්‍යයක් සෑදීමට අපට නොහැකි විය.<br>දැන් උපස්ථයක් සුරකින්න!"
+  },
+  "html_update_info_nobackup_prefix": {
+    "message": "ඔබගේ වත්මන් සැසියේ පිටපතක් අපනයනය කිරීම තරයේ නිර්දේශ කෙරේ "
+  },
+  "html_update_info_nobackup_suffix": {
+    "message": " යාවත්කාලීන කිරීම දිගටම කරගෙන යාමට පෙර."
+  },
+  "html_updated_title": {
+    "message": "යාවත්කාල වී ඇත"
+  },
+  "html_updating_heading": {
+    "message": "යාවත්කාල ස්ථානයේ"
+  },
+  "html_updating_message": {
+    "message": "මම ඔබගේ අත්හිටුවන ලද ටැබ් ප්‍රතිසාධනය කරන තෙක් කරුණාකර රැඳී සිටින්න..."
+  },
+  "html_updated_great_suspender_updated": {
+    "message": "යාවත්කාලීන කර ඇත"
+  },
+  "html_updated_info_line1": {
+    "message": "යාවත්කාලීන කිරීමට පෙර ඔබගේ ටැබ් වලින් ස්වයංක්‍රීය උපස්ථයක් සාදන ලදී."
+  },
+  "html_updated_info_line2_prefix": {
+    "message": "යාවත්කාලීන කිරීමේදී ඔබට කිසියම් ගැටළුවක් ඇති වුවහොත්, ඔබට නැතිවූ ටැබ් නැවත ලබා ගත හැක "
+  },
+  "html_updated_info_line2_suffix": {
+    "message": " පිටුව."
+  },
+  "html_updated_patch_message": {
+    "message": "බාධාවට සමාවෙන්න. මට අවශ්‍ය වුණේ පොඩි නඩත්තුවක් කරන්න විතරයි."
+  },
+  "html_welcome_text_line1": {
+    "message": "උත්සාහ කළාට ස්තූතියි"
+  },
+  "html_welcome_text_line2": {
+    "message": "ඔබ භාවිතා නොකරන ටැබ් අත්හිටුවීමෙන් මම ඔබේ පරිගණකය සුමටව ක්‍රියාත්මක කිරීමට සලස්වන්නෙමි."
+  },
+  "html_welcome_text_line3": {
+    "message": "ඔබට පහත සැකසුම් මනාව සකස් කළ හැක."
+  },
+  "js_popup_normal": {
+    "message": "ටැබය ස්වයංක්‍රීයව අත්හිටුවනු ඇත."
+  },
+  "js_popup_normal_pause": {
+    "message": "දැන් නොවේ"
+  },
+  "js_popup_special": {
+    "message": "ටැබය අත්හිටුවිය නොහැක"
+  },
+  "js_popup_suspended": {
+    "message": "ටැබය අත්හිටුවා ඇත"
+  },
+  "js_popup_suspended_pause": {
+    "message": "අවශ්ය එපා"
+  },
+  "js_popup_whitelisted": {
+    "message": "වෙබ් අඩවියට ඉඩ දී ඇත."
+  },
+  "js_popup_whitelisted_remove": {
+    "message": "ඉඩ දුන් ලැයිස්තුවෙන් ඉවත් කරන්න"
+  },
+  "js_popup_audible": {
+    "message": "ටැබ් ඕඩියෝ වාදනය වේ."
+  },
+  "js_popup_form_input": {
+    "message": "ටැබය පෝරම ආදානය ලබමින් සිටී."
+  },
+  "js_popup_form_input_unpause": {
+    "message": "නවත්වන්න"
+  },
+  "js_popup_pinned": {
+    "message": "පටිත්ත අමුණා ඇත"
+  },
+  "js_popup_app_window": {
+    "message": "ටැබය යෙදුම් කවුළුවක විවෘතව ඇත"
+  },
+  "js_popup_grouped_tab": {
+    "message": "ටැබය ටැබ් සමූහයක ඇත"
+  },
+  "js_popup_tab_group": {
+    "message": "ටැබය කිසිවිටක අත්හිටුවන්නේ නැති සමූහයක ඇත"
+  },
+  "js_popup_temp_whitelist": {
+    "message": "ටැබ් අත්හිටුවීම විරාම කරන ලදී."
+  },
+  "js_popup_temp_whitelist_unpause": {
+    "message": "නවත්වන්න"
+  },
+  "js_popup_never": {
+    "message": "ස්වයංක්‍රීය ටැබ් අත්හිටුවීම අබල කර ඇත."
+  },
+  "js_popup_no_connectivity": {
+    "message": "ජාල සම්බන්ධතාවයක් නොමැත"
+  },
+  "js_popup_charging": {
+    "message": "බල ප්‍රභවයට සම්බන්ධයි"
+  },
+  "js_popup_blockedFile": {
+    "message": "දේශීය ගොනු අත්හිටුවිය නොහැක."
+  },
+  "js_popup_blockedFile_enable": {
+    "message": "සබල කරන්න"
+  },
+  "js_popup_unknown": {
+    "message": "ටැබය පූරණය වන තෙක් රැඳී සිටිමින්..."
+  },
+  "js_popup_initialising": {
+    "message": "දිගුව ආරම්භ කිරීම සඳහා රැඳී සිටිමින්..."
+  },
+  "js_popup_error": {
+    "message": "මෙම ටැබය සඳහා ස්වයංක්‍රීයව අත්හිටුවීම නොමැත"
+  },
+  "js_history_delete": {
+    "message": "මකා දමන්න"
+  },
+  "js_history_export": {
+    "message": "අපනයන"
+  },
+  "js_history_reload": {
+    "message": "විවෘත කර පැටවීම"
+  },
+  "js_history_resuspend": {
+    "message": "විවෘත සහ අත්හිටුවීම"
+  },
+  "js_history_save": {
+    "message": "සුරකින්න"
+  },
+  "js_history_window": {
+    "message": "කවුළුව"
+  },
+  "js_history_windows": {
+    "message": "වින්ඩෝස්"
+  },
+  "js_history_tab": {
+    "message": "ටැබ්"
+  },
+  "js_history_tabs": {
+    "message": "ටැබ්"
+  },
+  "js_history_enter_name_for_session": {
+    "message": "මෙම සැසිය සඳහා නමක් ඇතුළත් කරන්න"
+  },
+  "js_history_confirm_delete": {
+    "message": "ඔබට මෙම සැසිය මැකීමට අවශ්‍ය බව විශ්වාසද?"
+  },
+  "js_history_confirm_session_overwrite": {
+    "message": "මෙම නම සමඟ දැනටමත් සුරැකි සැසියක් ඇත. පවතින සැසිය උඩින් ලියන්නද?"
+  },
+  "js_history_import_fail": {
+    "message": "ගොනුව පූරණය කිරීමට අසමත් විය. ගොනුව සරල අකුරු සහ පේළියකට තනි url එකක් අඩංගු බව සහතික කර ගන්න."
+  },
+  "js_history_migrate_fail": {
+    "message": "සංක්‍රමණය වීමට අනුලකුණු-32 දිගු id අවශ්‍යයි"
+  },
+  "js_history_migrate_success": {
+    "message": "ටැබ් $tabcount$ක් සාර්ථකව සංක්‍රමණය කරන ලදී. සංක්‍රමණය කළ ටැබ් ස්වයංක්‍රීයව නැවත පූරණය නොවේ නම් ඔබේ බ්‍රවුසරය නැවත ආරම්භ කරන්න.",
+    "placeholders": {
+      "tabcount": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_suspended_hotkey_to_reload": {
+    "message": "යතුරුපුවරුවේ කෙටිමං සකසන්න"
+  },
+  "js_suspended_low_memory": {
+    "message": "අඩු පද්ධති මතකය හේතුවෙන් ටැබ් එක අත්හිටුවා ඇත"
+  },
+  "js_options_incognito_warning": {
+    "message": "ඔබ අප්‍රකට මාදිලියේ සිටී. සමහර විශේෂාංග ලබා ගත නොහැකි වනු ඇත."
+  },
+  "js_options_whitelist_no_matches": {
+    "message": "වත්මන් ඉඩ දුන් ලැයිස්තුවට ගැලපෙන විවෘත ටැබ් නොමැත."
+  },
+  "js_options_whitelist_matches_heading": {
+    "message": "ඉඩ දුන් ලැයිස්තුවේ විවෘත ටැබ්:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "වත්මන් සැමවිට-අත්හිටුවන ලැයිස්තුවට ගැළපෙන විවෘත ටැබ් නොමැත."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "ගැළපෙන විවෘත සමූහ ගණන: $count$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "සැමවිට-අත්හිටුවන ලැයිස්තුවට ගැළපෙන විවෘත ටැබ්:"
+  },
+  "js_options_whitelist_matches_overflow_prefix": {
+    "message": "සහ"
+  },
+  "js_options_whitelist_matches_overflow_suffix": {
+    "message": "තව."
+  },
+  "js_permissions_button_export": {
+    "message": "උපස්ථය සුරකින්න"
+  },
+  "js_permissions_button_set": {
+    "message": "දිගු සැකසුම් විවෘත කරන්න"
+  },
+  "js_update_confirm": {
+    "message": "ඔබ තවමත් උපස්ථයක් සුරැකී නැත. කෙසේ වෙතත් දිගුව යාවත්කාලීන කරන්නද?"
+  },
+  "js_update_button_export": {
+    "message": "උපස්ථය සුරකින්න"
+  },
+  "js_update_button_reload": {
+    "message": "දැන් දිගුව යාවත්කාලීන කරන්න"
+  },
+  "js_suspend_button_backup": {
+    "message": "යාවත්කාලීන කිරීමට පෙර උපස්ථයක් සුරකින්න"
+  },
+  "js_shortcuts_default_command": {
+    "message": "දිගුව සක්‍රීය කරන්න (උත්පතන කවුළුව පෙන්වන්න)"
+  },
+  "js_shortcuts_not_set": {
+    "message": "සකස් කර නැත"
+  },
+  "js_session_save_point": {
+    "message": "v සඳහා ස්වයංක්‍රීය සුරැකුම් ලක්ෂ්‍යය"
+  },
+  "html_options_backup_title": {
+    "message": "ස්වයංක්‍රීය සැසි උපස්ථය"
+  },
+  "html_backup_session_desc": {
+    "message": "සැසිවලට වඩා වෙනස්ව, උපස්ථ Chrome වලින් පිටත JSON ගොනු ලෙස: ඔබේ බාගැනීම් ෆෝල්ඩරයට හෝ Google Drive වෙත සුරකිනු ලැබේ. ඒවා බ්‍රවුසර බිඳවැටීම්, පැතිකඩ නැවත සැකසීම් සහ නව ස්ථාපනවලින් පවතී. මෙය ඔබේ සැබෑ ආරක්ෂක දැලයයි."
+  },
+  "html_options_backup_enable": {
+    "message": "ඔබේ සැසිය ස්වයංක්‍රීයව උපස්ථ කරන්න"
+  },
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "ඔබේ වත්මන් සැසියේ පිටපතක් JSON ගොනුවක් ලෙස නිහඬව සුරකියි."
+  },
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "දේශීයව සුරැකීමට (ඔබේ බාගැනීම් තුළ ඇති tms-backups බහාලුම)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "හෝ Google Drive හි 'TMS Backups' බහාලුමකට තෝරාගත හැක."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "දේශීය උපස්ථ සඳහා, Chrome ගොනු ස්වයංක්‍රීයව බාගත කිරීමට (ඇසීමකින් තොරව) සකසා තිබිය යුතුය."
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "chrome://settings/downloads පරීක්ෂා කරන්න."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Google Drive උපස්ථවලට මෙම අවශ්‍යතාවය නොමැත."
+  },
+  "html_options_backup_interval": {
+    "message": "සෑම"
+  },
+  "html_options_backup_daily_time": {
+    "message": "කුමන වේලාවකද"
+  },
+  "html_backup_interval_warning": {
+    "message": "සැලකිල්ල: මෙතරම් දිගු කාල පරතරයක් සමඟ, උපස්ථ අතර බොහෝ දේ සිදුවිය හැක. දත්ත අහිමි වීමේ අවදානම අඩු කිරීමට කෙටි කාල පරතරයක් සලකා බලන්න."
+  },
+  "html_options_backup_note": {
+    "message": "ස්ථානීය සහ Drive උපස්ථ දෙකෙහිම උපාංග හඳුනාගැනීමකි (උදා: tms-session-a3f7b2c8-2026-06-18T14-30.json), එබැවින් සෑම බ්‍රවුසර ස්ථාපනයක්ම එහි ස්වාධීන උපස්ථ සමූහයක් තබා ගනී. උපාංගයකට නවතම ස්ථානීය උපස්ථ N ක් තබා ගනී; Drive උපස්ථ ද උපාංගයකට N ක් තබා ගනී, එබැවින් විවිධ යන්ත්‍ර හෝ බ්‍රවුසරවලින් වූ සැසි කිසිවිටෙක එකිනෙකා උඩින් නොලියයි.\n\n<strong>Google Drive තෝරාගෙන ඇතත්, බ්‍රවුසරය වසන විට ස්ථානීය ආරක්ෂක ගොනුවක් තවමත් ලියැවේ, එය ඊළඟ ආරම්භයේදී Drive වෙත උඩුගත කෙරේ. මෙහි ස්ථානීය ගොනුවක් පෙනීම සාමාන්‍ය දෙයකි, දෝෂයක් නොවේ.</strong>"
+  },
+  "html_backup_max_files_label": {
+    "message": "තබා ගත යුතු උපරිම උපස්ථ ගණන"
+  },
+  "html_backup_device_name_label": {
+    "message": "උපාංග නාමය (විකල්ප)"
+  },
+  "html_backup_device_name_save": {
+    "message": "සුරකින්න"
+  },
+  "js_backup_restore_legacy_group": {
+    "message": "පැරණි උපස්ථ"
+  },
+  "html_options_backup_now": {
+    "message": "දැන් උපස්ථ කරන්න"
+  },
+  "html_options_back_to_top": {
+    "message": "↑ ඉහළට"
+  },
+  "html_history_backup_hint_prefix": {
+    "message": "සැසි Chrome තුළ පමණක් ගබඩා වේ: ඒවා බ්‍රවුසර බිඳවැටීමකින් හෝ පැතිකඩ නැවත සැකසීමකින් නොපවතිනු ඇත."
+  },
+  "html_history_backup_settings_link": {
+    "message": "ඔබේ ටැබ් බ්‍රවුසරයෙන් පිටත සුරැකීමට උපස්ථය සකසන්න →"
+  },
+  "js_options_backup_now_running": {
+    "message": "උපස්ථය ක්‍රියාත්මක වෙමින්…"
+  },
+  "js_options_backup_now_done": {
+    "message": "උපස්ථය සුරකින ලදී."
+  },
+  "js_backup_option_saved": {
+    "message": "සුරකින ලදී"
+  },
+  "js_backup_permission_denied": {
+    "message": "අවසරය ප්‍රතික්ෂේප විය: ස්වයංක්‍රීය උපස්ථ සක්‍රීය නොවීය."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "පුවත් සංග්‍රහය සක්‍රීය කරන්න"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "TMS පුවත් සඳහා marvellouscode.works වරින් වර පරීක්ෂා කර"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "පැති තීරුවේ පෙන්වයි."
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "මෙම පසුබිම් ඉල්ලීම මඟහරින්න අක්‍රීය කරන්න."
+  },
+  "html_options_other_legacy_mascot": {
+    "message": "නව රූපය වෙනුවට The Great Suspender හි සම්භාව්‍ය ග්‍රැෆික් භාවිතා කරන්න"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "පැරණි අනුවාදයක් ලද හැකි නම් නිරූපක සහ නිදර්ශන The Great Suspender"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "හි මුල් රටාවට නැවත සකසයි."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "පැරණි අනුවාදයක් නොමැති රූප නව ග්‍රැෆික් එකම දිගටම භාවිතා කරයි."
+  },
+  "html_permissions_notice_text": {
+    "message": "මෙම අනුවාදයේ සිට, ඔබ ස්ථානීය හෝ Google Drive උපස්ථ ඇත්තටම සක්‍රීය කළ විට පමණක් TMS ගොනු පද්ධතිය/Google ගිණුම් ප්‍රවේශය ඉල්ලයි, කලින් ඉල්ලීමට වඩා."
+  },
+  "html_permissions_notice_link": {
+    "message": "අවසර ගැන තව දැනගන්න."
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "තේරුණා"
+  },
+  "html_permissions_info_note": {
+    "message": "පහත ස්ථානීය හෝ Google Drive උපස්ථ සක්‍රීය කළ විට පමණක් TMS බාගැනීම් සහ Google ගිණුම් අවසර ඉල්ලයි."
+  },
+  "html_permissions_info_note_link": {
+    "message": "සම්පූර්ණ අවසර විස්තරය බලන්න"
+  },
+  "js_options_backup_now_error": {
+    "message": "Chrome ගොනු කොහේ සුරැකිය යුතුදැයි අසමින් ඇත, එබැවින් ස්වයංක්‍රීය උපස්ථ නිහඬව ක්‍රියා නොකරනු ඇත. chrome://settings/downloads හි \"සෑම ගොනුවක්ම කොහේ සුරැකිය යුතුදැයි අසන්න\" අක්‍රීය කරන්න."
+  },
+  "js_options_backup_next_run": {
+    "message": "ඊළඟ ධාවනය: $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_backup_last_local": {
+    "message": "අවසන් උපස්ථය: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_backup_destination": {
+    "message": "උපස්ථ ගමනාන්තය"
+  },
+  "html_options_backup_dest_local": {
+    "message": "ස්ථානීය (බාගැනීම් ෆෝල්ඩරය)"
+  },
+  "html_options_backup_dest_drive": {
+    "message": "Google Drive"
+  },
+  "html_options_backup_drive_connect": {
+    "message": "Google ගිණුම සම්බන්ධ කරන්න"
+  },
+  "html_options_backup_drive_disconnect": {
+    "message": "විසන්ධි කරන්න"
+  },
+  "html_popup_backup_drive_error": {
+    "message": "ස්වයංක්‍රීය උපස්ථය අසාර්ථක විය: Google ගිණුමක් සම්බන්ධ කර නැත. නිවැරදි කිරීමට මෙතන ක්ලික් කරන්න."
+  },
+  "html_popup_backup_downloads_error": {
+    "message": "ස්වයංක්‍රීය උපස්ථ අසාර්ථක විය: බාගැනීම් අවසරය අස්ථානගතය. එය නිවැරදි කිරීමට මෙතන ක්ලික් කරන්න."
+  },
+  "html_popup_backup_nudge_text": {
+    "message": "ස්වයංක්‍රීය උපස්ථ අක්‍රීයයි. ඔබේ සැසි ආරක්ෂා කරන්න."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "දින 10කින් මට මතක් කරන්න"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "ස්වයංක්‍රීය උපස්ථ අක්‍රීයයි. මෙම බ්‍රවුසර පැතිකඩ කවදා හෝ නැවත සකසන ලද හෝ දූෂිත වුවහොත් එය සක්‍රීය කිරීම ඔබේ සැසි ආරක්ෂා කරයි."
+  },
+  "html_backup_nudge_optout": {
+    "message": "මට උනන්දුවක් නැත, තවදුරටත් මතක් නොකරන්න"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "ස්වයංක්‍රීය උපස්ථ සක්‍රීයයි, නමුත් මෙම උපාංගයේ බාගැනීම් අවසරය ලබා දී නොමැත (සැකසුම් ආයාත කිරීමෙන් හෝ වෙනත් බ්‍රවුසරයකින් සමමුහුර්ත කිරීමෙන් පසු මෙය සිදුවිය හැක). ඔබ එය ලබා දෙන තෙක් උපස්ථ ක්‍රියාත්මක නොවේ."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "අවසරය ලබා දෙන්න"
+  },
+  "js_options_backup_drive_connecting": {
+    "message": "සම්බන්ධ වෙමින්…"
+  },
+  "js_options_backup_drive_auth_error": {
+    "message": "Google වෙත සම්බන්ධ විය නොහැකි විය. නැවත උත්සාහ කරන්න."
+  },
+  "html_options_settings_backup": {
+    "message": "සැකසුම් උපස්ථය"
+  },
+  "html_backup_settings_desc": {
+    "message": "සියලුම දිගු සැකසුම් JSON ගොනුවකට නිර්යාත කරන්න, උපස්ථයක් ලෙස හෝ ඔබේ වින්‍යාසය වෙනත් බ්‍රවුසර පැතිකඩකට මාරු කිරීමට ප්‍රයෝජනවත් වේ. ගොනුවක් ආයාත කිරීම වත්මන් සැකසුම් ප්‍රතිස්ථාපනය කරයි."
+  },
+  "html_backup_local_folder_hint": {
+    "message": "ස්ථානීය උපස්ථ ඔබේ බාගැනීම් තුළ ඇති tms-backups ෆෝල්ඩරයට යයි."
+  },
+  "html_backup_drive_folder_note": {
+    "message": "උපස්ථ ඔබේ Google Drive හි 'TMS Backups' ෆෝල්ඩරයට සුරැකේ."
+  },
+  "html_backup_drive_open_folder": {
+    "message": "Drive හි TMS Backups ෆෝල්ඩරය විවෘත කරන්න ↗"
+  },
+  "html_backup_drive_label_account": {
+    "message": "ගිණුම"
+  },
+  "html_backup_drive_label_folder": {
+    "message": "ෆෝල්ඩරය"
+  },
+  "html_backup_settings_local_title": {
+    "message": "ස්ථානීය"
+  },
+  "html_backup_settings_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_drive_save_settings": {
+    "message": "සැකසුම් Drive වෙත සුරකින්න"
+  },
+  "html_backup_settings_drive_restore": {
+    "message": "Drive වෙතින් සැකසුම් ප්‍රතිසාධනය කරන්න"
+  },
+  "js_backup_drive_settings_saving": {
+    "message": "Drive වෙත සුරකිමින්…"
+  },
+  "js_backup_drive_settings_saved": {
+    "message": "සැකසුම් Drive වෙත සුරකින ලදී."
+  },
+  "js_backup_drive_settings_error": {
+    "message": "සැකසුම් Drive වෙත සුරැකිය නොහැකි විය. නැවත උත්සාහ කරන්න."
+  },
+  "js_backup_cooldown": {
+    "message": "ඊළඟ උපස්ථයට පෙර තත්පර $seconds$ක් රැඳී සිටින්න.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_downloading": {
+    "message": "Drive වෙතින් සැකසුම් බාගත කරමින්…"
+  },
+  "js_backup_settings_drive_not_found": {
+    "message": "Drive හි සැකසුම් ගොනුවක් හමු නොවීය. පළමුව ඔබේ සැකසුම් Drive වෙත සුරකින්න."
+  },
+  "js_backup_settings_drive_restore_success": {
+    "message": "සැකසුම් ප්‍රතිසාධනය කරන ලදී. නැවත පූරණය කරමින්…"
+  },
+  "js_backup_settings_drive_restore_error": {
+    "message": "Drive වෙතින් සැකසුම් ප්‍රතිසාධනය කළ නොහැකි විය. නැවත උත්සාහ කරන්න."
+  },
+  "js_backup_settings_drive_last_backup": {
+    "message": "අවසන් උපස්ථය: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_overwrite_confirm": {
+    "message": "$date$ දින සිටින සැකසුම් උපස්ථයක් දැනටමත් තිබේ. උඩින් ලියන්නද?",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_settings_export": {
+    "message": "සැකසුම් නිර්යාත කරන්න"
+  },
+  "html_options_settings_import": {
+    "message": "සැකසුම් ආයාත කරන්න"
+  },
+  "js_options_settings_import_confirm": {
+    "message": "මෙය ඔබේ වත්මන් සැකසුම් උඩින් ලියනු ඇත. ඉදිරියට යන්නද?"
+  },
+  "js_options_settings_import_success": {
+    "message": "සැකසුම් ආයාත කරන ලදී. නැවත පූරණය කරමින්…"
+  },
+  "js_options_settings_import_error": {
+    "message": "අවලංගු සැකසුම් ගොනුවකි."
+  },
+  "html_history_migrate_nav": {
+    "message": "සංක්‍රමණය"
+  },
+  "html_backup_restore_title": {
+    "message": "උපස්ථයකින් ප්‍රතිසාධනය කරන්න"
+  },
+  "html_backup_restore_desc": {
+    "message": "සුරැකි සැසියක් ලෙස එය ප්‍රතිසාධනය කිරීමට උපස්ථ ගොනුවක් ආයාත කරන්න. ආයාත කිරීමෙන් පසු, ප්‍රතිසාධනය කළ යුතු කවුළු තෝරා ගැනීමට සැසි විවෘත කරන්න."
+  },
+  "html_backup_restore_local_title": {
+    "message": "ස්ථානීය ගොනුව"
+  },
+  "html_backup_restore_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_restore_from_file": {
+    "message": "උපස්ථ ගොනුව තෝරන්න"
+  },
+  "html_backup_restore_drive_select_label": {
+    "message": "Drive උපස්ථයක් තෝරන්න"
+  },
+  "html_backup_restore_import": {
+    "message": "තෝරාගත් දෑ ආයාත කරන්න"
+  },
+  "js_backup_restore_importing": {
+    "message": "ආයාත කරමින්…"
+  },
+  "js_backup_restore_success": {
+    "message": "\"$name$\" ලෙස ආයාත කරන ලදී.",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_restore_go_sessions": {
+    "message": "→ ප්‍රතිසාධනය කිරීමට සැසි විවෘත කරන්න"
+  },
+  "js_backup_restore_error_invalid": {
+    "message": "අවලංගු උපස්ථ ගොනුවකි."
+  },
+  "js_backup_restore_error_drive": {
+    "message": "Drive වෙතින් බාගත කළ නොහැකි විය. ඔබේ සම්බන්ධතාවය පරීක්ෂා කර නැවත උත්සාහ කරන්න."
+  },
+  "js_backup_restore_error_generic": {
+    "message": "ආයාතය අසාර්ථක විය. නැවත උත්සාහ කරන්න."
+  },
+  "html_backup_drive_import_modal_title": {
+    "message": "මාරු වීමට පෙර Drive උපස්ථය සුරකින්නද?"
+  },
+  "html_backup_drive_import_modal_body": {
+    "message": "ඔබේ නවතම Drive උපස්ථය $date$ දිනට අයත් වේ. Google Drive අවශ්‍ය නොවී එය ප්‍රතිසාධනය කළ හැකි වන පරිදි එය සැසි කළමනාකරු තුළ සැසියක් ලෙස සුරකින්න.",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_backup_drive_import_modal_confirm": {
+    "message": "සැසිවලට සුරකින්න"
+  },
+  "html_backup_drive_import_modal_cancel": {
+    "message": "මඟහරින්න"
+  },
+  "html_backup_drive_files_title": {
+    "message": "Drive උපස්ථ ගොනු"
+  },
+  "html_backup_drive_download_btn": {
+    "message": "බාගන්න"
+  },
+  "html_backup_drive_delete_btn": {
+    "message": "මකන්න"
+  },
+  "js_backup_drive_delete_confirm": {
+    "message": "Drive වෙතින් මෙම උපස්ථ ගොනුව මකන්නද? මෙය අහෝසි කළ නොහැක."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "සියල්ල මකන්න"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "මෙම උපාංගයේ සියලුම උපස්ථ මකන්නද?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "මෙය \"$device$\" සඳහා ඇති සියලුම $count$ උපස්ථ ගොනු Google Drive වෙතින් ස්ථිරවම මකා දමයි. මෙය අහෝසි කළ නොහැක.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "සියල්ල මකන්න"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "අවලංගු කරන්න"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "සමහර උපස්ථ ගොනු මැකීමට නොහැකි විය. නැවත උත්සාහ කරන්න."
+  },
+  "html_backup_drive_no_files": {
+    "message": "Drive හි උපස්ථ ගොනු හමු නොවීය."
+  },
+  "html_backup_drive_files_loading": {
+    "message": "පූරණය කරමින්…"
+  }
+}

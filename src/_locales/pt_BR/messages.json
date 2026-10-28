@@ -1,0 +1,1482 @@
+{
+  "ext_extension_name": {
+    "message": "The Marvellous Suspender"
+  },
+  "ext_extension_description": {
+    "message": "Libere sua memória. Suspenda agora as guias que você não precisa."
+  },
+  "ext_default_title": {
+    "message": "The Marvellous Suspender"
+  },
+  "ext_cmd_toggle_tab_suspension_description": {
+    "message": "Suspender/Recarregar a aba ativa"
+  },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Suspender todas as guias do grupo da guia ativa"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Reativar todas as guias do grupo da guia ativa"
+  },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Suspender todas as guias fora de um grupo na janela ativa"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Reativar todas as guias fora de um grupo na janela ativa"
+  },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Ativar ou desativar \"nunca suspender\" para o grupo da guia ativa"
+  },
+  "ext_cmd_soft_suspend_active_window_description": {
+    "message": "Suspender todas as outras abas na janela ativa"
+  },
+  "ext_cmd_force_suspend_active_window_description": {
+    "message": "Forçar a suspensão de todas as abas na janela ativa"
+  },
+  "ext_cmd_soft_suspend_all_windows_description": {
+    "message": "Suspender todas as abas em todas as janelas"
+  },
+  "ext_cmd_force_suspend_all_windows_description": {
+    "message": "Forçar suspensão de todas as abas em todas as janelas"
+  },
+  "js_context_toggle_pause_suspension": {
+    "message": "Pausar/Retomar a suspensão desta aba"
+  },
+  "js_context_never_suspend_domain": {
+    "message": "Nunca suspender este domínio"
+  },
+  "js_context_never_suspend_page": {
+    "message": "Nunca suspender esta URL"
+  },
+  "js_context_suspend_selected_tabs": {
+    "message": "Suspender as abas selecionadas"
+  },
+  "js_context_unsuspend_selected_tabs": {
+    "message": "Recarregar as abas selecionadas"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Suspender todas as guias deste grupo"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Reativar todas as guias deste grupo"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Suspender todas as guias fora de um grupo"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Reativar todas as guias fora de um grupo"
+  },
+  "js_context_never_suspend_group": {
+    "message": "Nunca suspender este grupo"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "Permitir a suspensão deste grupo"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "Nunca suspender este grupo (somente grupos com nome)"
+  },
+  "js_context_soft_suspend_other_tabs_in_window": {
+    "message": "Suspender todas as outras abas nessa janela"
+  },
+  "js_context_soft_suspend_all_tabs": {
+    "message": "Suspender todas as abas em todas as janelas"
+  },
+  "js_context_force_suspend_all_tabs": {
+    "message": "Forçar a suspensão de todas as abas em todas as janelas"
+  },
+  "js_context_unsuspend_all_tabs": {
+    "message": "Recarregar todas as abas em todas as janelas"
+  },
+  "html_health_title": {
+    "message": "Saúde das guias (Beta)"
+  },
+  "html_health_title_intro": {
+    "message": "Se você está tendo problemas com suas guias suspensas, principalmente com os favicons, clique em Escanear guias para ver se conseguimos corrigi-los."
+  },
+  "html_health_all_good": {
+    "message": "Não encontramos nenhum problema com suas guias suspensas. Se você ainda estiver vendo algo errado, nos avise abaixo e tentaremos expandir esta verificação."
+  },
+  "html_health_reload_intro": {
+    "message": "Você tem algumas guias suspensas que não carregaram completamente. Podemos recarregá-las para organizar tudo."
+  },
+  "html_health_restore_intro": {
+    "message": "Algumas das suas guias suspensas estão usando o favicon padrão do navegador. Isso significa que o cache do TMS não os tem. Podemos restaurar e depois suspender novamente um número mínimo de guias para buscar esses favicons ausentes."
+  },
+  "html_health_scan_button": {
+    "message": "Escanear guias"
+  },
+  "html_health_copy_button": {
+    "message": "Copiar resultados"
+  },
+  "html_health_scan_label": {
+    "message": "Escaneando guias..."
+  },
+  "html_health_num_tms_tabs": {
+    "message": "Guias suspensas pelo TMS"
+  },
+  "html_health_num_tms_cache": {
+    "message": "favicons no cache do TMS"
+  },
+  "html_health_num_tabs_empty": {
+    "message": "guias não carregadas"
+  },
+  "html_health_num_tabs_extension": {
+    "message": "guias com o favicon do TMS"
+  },
+  "html_health_num_tabs_default": {
+    "message": "guias com favicon padrão"
+  },
+  "html_health_num_hostnames": {
+    "message": "hostnames de guias únicos"
+  },
+  "html_health_small_cache": {
+    "message": "O cache local de favicons do TMS pode não cobrir todas as guias. Se o cache do navegador for limpo, o TMS pode não conseguir mostrar alguns favicons."
+  },
+  "html_health_reload_button": {
+    "message": "Avançar: recarregar $count$ guias",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_restore_button": {
+    "message": "Avançar: restaurar $count$ guias para recuperar os favicons",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_action_label": {
+    "message": "Restaurando favicons..."
+  },
+  "html_health_after_reload": {
+    "message": "Depois que suas guias terminarem de carregar em segundo plano, você pode clicar em \"Escanear guias\" novamente para ver se melhoramos as coisas."
+  },
+  "html_health_after_restore": {
+    "message": "Você pode clicar em \"Escanear guias\" novamente para ver se melhoramos as coisas."
+  },
+  "html_health_need_help1": {
+    "message": "Se você ainda tiver problemas com guias ou favicons, pode clicar em Copiar resultados e colar em uma nova"
+  },
+  "html_health_need_help2": {
+    "message": "issue no GitHub."
+  },
+  "html_health_num_grouped_broken": {
+    "message": "guias agrupadas em estado corrompido (bug de grupos de guias)"
+  },
+  "html_health_repair_intro": {
+    "message": "Algumas guias em grupos de guias estão em um estado corrompido: elas aparecem como uma nova guia em vez de carregar corretamente após o reinício do navegador. O TMS pode tentar restaurá-las."
+  },
+  "html_health_repair_button": {
+    "message": "Reparar $count$ guia(s) agrupada(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_after_repair": {
+    "message": "Pronto. Escaneie novamente para verificar se as guias agrupadas voltaram ao estado suspenso."
+  },
+  "html_about_title": {
+    "message": "Sobre"
+  },
+  "html_about_version_label": {
+    "message": "Versão"
+  },
+  "html_about_tagline": {
+    "message": "O sucessor espiritual da suspensão moderna de guias: substitui guias inativas por uma leve página de hibernação, dando a você controle granular sobre quando elas acordam."
+  },
+  "html_about_section_credits": {
+    "message": "Créditos"
+  },
+  "html_about_contributors_and": {
+    "message": " e "
+  },
+  "html_about_community_thanks_link": {
+    "message": "todos os colaboradores no GitHub"
+  },
+  "html_about_fork_beginning": {
+    "message": "Baseado no original"
+  },
+  "html_about_fork_mid": {
+    "message": "disponível no GitHub, sem rastreamento por anúncios"
+  },
+  "html_about_fork_end": {
+    "message": "Mais informações disponíveis em"
+  },
+  "html_about_contributors": {
+    "message": "Trazido a você por"
+  },
+  "html_about_report_issues_prefix": {
+    "message": "Se você tiver comentários ou quiser comunicar um problema, poderá fazer isso no"
+  },
+  "html_about_report_issues_suffix": {
+    "message": ". Verifique se sua ideia ou problema já existe antes de criar um novo. Obrigado!"
+  },
+  "html_about_debugging_prefix": {
+    "message": "Para capturar logs e gerar um relatório de diagnóstico, acesse a página "
+  },
+  "html_about_debugging_suffix": {
+    "message": "de diagnóstico."
+  },
+  "html_about_the_github_issues_page": {
+    "message": "página de issues no GitHub"
+  },
+  "html_about_section_support": {
+    "message": "Apoie o desenvolvimento"
+  },
+  "html_about_support_text": {
+    "message": "O Marvellous Suspender é gratuito e de código aberto. Se você o considera útil, pense em fazer uma pequena contribuição: isso ajuda a manter o projeto vivo e em crescimento."
+  },
+  "html_broken_title": {
+    "message": "está quebrado"
+  },
+  "html_broken_ruh_roh": {
+    "message": "Ops!"
+  },
+  "html_broken_line1": {
+    "message": "falhou ao iniciar. Talvez você esteja usando um navegador incompatível?"
+  },
+  "html_broken_line2": {
+    "message": "Tente reiniciar a extensão. Se o problema persistir, peça ajuda na"
+  },
+  "html_broken_line2_github_page": {
+    "message": "página do projeto no GitHub"
+  },
+  "html_broken_line3": {
+    "message": "Você pode recuperar guias perdidas na"
+  },
+  "html_broken_line3_session_management": {
+    "message": "página de gerenciamento de sessões"
+  },
+  "html_broken_button_restart_extension": {
+    "message": "Reiniciar extensão"
+  },
+  "html_history_title": {
+    "message": "Gerenciamento de sessões"
+  },
+  "html_history_page_desc": {
+    "message": "O TMS mantém um instantâneo contínuo das suas guias abertas, sem necessidade de configuração. As sessões são atualizadas automaticamente enquanto você navega, mas vivem dentro do Chrome: se o perfil do navegador for perdido ou corrompido, elas se perdem junto."
+  },
+  "html_history_current_session": {
+    "message": "Sessão atual"
+  },
+  "html_history_recent_sessions": {
+    "message": "Sessões recentes"
+  },
+  "html_history_saved_sessions": {
+    "message": "Sessões salvas"
+  },
+  "html_history_import_session": {
+    "message": "Importar sessão"
+  },
+  "html_history_migrate_tabs": {
+    "message": "Migrar guias"
+  },
+  "html_history_migrate_old_id": {
+    "message": "ID da extensão"
+  },
+  "html_history_migrate_section_title": {
+    "message": "Migração de guias"
+  },
+  "html_history_migrate_section_desc": {
+    "message": "Recupere guias suspensas por uma versão anterior ou outro fork desta extensão. Insira abaixo o ID antigo da extensão e clique em Migrar guias para converter as URLs suspensas."
+  },
+  "html_options_title": {
+    "message": "Configurações"
+  },
+  "html_options_suspend_title": {
+    "message": "Suspensão automática de guias"
+  },
+  "html_options_suspended_title": {
+    "message": "Guias suspensas"
+  },
+  "html_options_suspended_append_url_to_title": {
+    "message": "Adicionar a URL original ao título da guia suspensa"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Quando ativado, a URL original é adicionada ao título da guia"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "do navegador para páginas suspensas."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Isso permite encontrar guias suspensas pelo hostname usando o recurso"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "\"Pesquisar guias\" do Chrome (Ctrl+Shift+A)."
+  },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Preservar a posição de reprodução do YouTube ao suspender"
+  },
+  "html_options_other_title": {
+    "message": "Geral"
+  },
+  "html_options_language": {
+    "message": "Idioma"
+  },
+  "html_options_language_auto": {
+    "message": "Padrão do sistema"
+  },
+  "html_options_suspend_automatically_after": {
+    "message": "Suspender guias automaticamente após"
+  },
+  "html_options_suspend_on_battery_after": {
+    "message": "Suspender guias com o notebook na bateria após"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Igual à alimentação na tomada"
+  },
+  "html_options_suspend_never": {
+    "message": "Nunca"
+  },
+  "html_options_suspend_seconds": {
+    "message": "segundos"
+  },
+  "html_options_suspend_minute": {
+    "message": "min"
+  },
+  "html_options_suspend_minutes": {
+    "message": "min"
+  },
+  "html_options_suspend_hour": {
+    "message": "hora"
+  },
+  "html_options_suspend_hours": {
+    "message": "horas"
+  },
+  "html_options_suspend_day": {
+    "message": "dia"
+  },
+  "html_options_suspend_days": {
+    "message": "dias"
+  },
+  "html_options_suspend_week": {
+    "message": "semana"
+  },
+  "html_options_suspend_weeks": {
+    "message": "semanas"
+  },
+  "html_options_suspend_no_pinned": {
+    "message": "Nunca suspender guias fixadas"
+  },
+  "html_options_suspend_no_app_windows": {
+    "message": "Nunca suspender guias abertas em janelas de app"
+  },
+  "html_options_suspend_no_grouped_tabs": {
+    "message": "Nunca suspender guias que estão em um grupo"
+  },
+  "html_options_suspend_no_forms": {
+    "message": "Nunca suspender guias com dados de formulário não salvos"
+  },
+  "html_options_suspend_no_audio": {
+    "message": "Nunca suspender guias que estão reproduzindo áudio"
+  },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Protege contra a suspensão automática e as ações comuns de suspensão em massa."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Você ainda pode suspender uma guia manualmente ou com uma ação \"Forçar a suspensão\"."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Uma guia cujo URL esteja na lista \"Sempre suspender\" é suspensa mesmo assim."
+  },
+  "html_options_suspend_only_connected": {
+    "message": "Nunca suspender guias quando estiver offline"
+  },
+  "html_options_suspend_claim_by_default": {
+    "message": "Assumir guias suspensas por outras extensões"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Assume automaticamente guias já suspensas por outra extensão"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "compatível (ex.: The Great Suspender, ou outra instalação desta)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Uma guia é considerada \"suspensa\" se a URL contiver 'suspended.html'."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Ativar isso reescreve essa URL para esta instalação, para que o TMS"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "possa gerenciar a guia a partir daí."
+  },
+  "html_options_suspend_only_on_battery": {
+    "message": "Nunca suspender guias quando conectado à tomada"
+  },
+  "html_options_suspend_no_active_tabs": {
+    "message": "Nunca suspender a guia ativa em cada janela"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "A lista \"Sempre suspender\" não substitui esta opção na suspensão automática e em massa."
+  },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Sempre reabrir guias suspensas com a rolagem no topo"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "A guia reabre no topo da página em vez de na posição em que estava"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "rolada no momento da suspensão."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Aplica-se tanto à suspensão automática quanto à manual, e substitui"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "links que pulam para uma #seção ao carregar."
+  },
+  "html_options_suspend_automatically_unsuspend": {
+    "message": "Reativar automaticamente a guia quando ela for visualizada"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Recarregar também reativa guias em segundo plano (não só a guia ativa)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Quando ativado, recarregar uma guia suspensa (Ctrl+R ou clique direito"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "> Recarregar) também a reativa mesmo quando ela não é a guia"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "em foco no momento."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Útil para recarregar várias guias suspensas de uma vez, por exemplo depois"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "de selecionar várias guias e pressionar Ctrl+R."
+  },
+  "html_options_suspend_discard_after_suspend": {
+    "message": "Aplicar a economia de memória integrada do navegador ao suspender"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1a": {
+    "message": "Depois que uma guia é suspensa, permita também que o Chrome a"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1b": {
+    "message": "descarregue totalmente da memória. Isso libera mais recursos do"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1c": {
+    "message": "sistema por guia (útil se você mantiver centenas de guias abertas)."
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line2a": {
+    "message": "Isso tem o custo de perder o estado da guia até que ela seja"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line2b": {
+    "message": "recarregada."
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line3a": {
+    "message": "Para mais informações sobre o descarte de guias, consulte:"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line3b": {
+    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  },
+  "html_options_suspend_theme": {
+    "message": "Tema"
+  },
+  "html_options_suspend_theme_light": {
+    "message": "Claro"
+  },
+  "html_options_suspend_theme_dark": {
+    "message": "Escuro"
+  },
+  "html_options_suspend_theme_system": {
+    "message": "Sistema"
+  },
+  "html_options_suspend_screen_capturing": {
+    "message": "Captura de tela"
+  },
+  "html_options_suspend_screen_capturing_disabled": {
+    "message": "Desativada"
+  },
+  "html_options_suspend_screen_capturing_screen_only": {
+    "message": "Capturar somente o topo da tela"
+  },
+  "html_options_suspend_screen_capturing_entire_page": {
+    "message": "Capturar a página inteira"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line1a": {
+    "message": "Em uma guia suspensa, a extensão pode exibir uma prévia da imagem de como a guia"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line1b": {
+    "message": "estava pouco antes de ser suspensa."
+  },
+  "html_options_suspend_screen_capturing_tooltip_line2a": {
+    "message": "A captura de tela é um recurso experimental e pode causar uso significativo de CPU,"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line2b": {
+    "message": "além de um leve aumento no uso de memória."
+  },
+  "html_options_suspend_screen_capturing_tooltip_line3a": {
+    "message": "Se você notar comportamento estranho, como guias demorando muito para suspender ou o navegador"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line3b": {
+    "message": "travando inesperadamente, tente desativar este recurso."
+  },
+  "html_options_suspend_screen_capture_method": {
+    "message": "Método de captura"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "Automático (recomendado)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "Somente captura de tela do navegador"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "Somente renderizador de página"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "Automático tira uma captura de tela real do navegador quando a guia sendo suspensa é a que você está olhando."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "Isso é instantâneo e funciona em qualquer site. Qualquer outra guia é redesenhada pelo renderizador de página, que é mais lento."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "Somente captura de tela do navegador nunca executa o renderizador de página, então guias suspensas em segundo plano não têm prévia."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "Uma captura de tela do navegador cobre apenas a parte visível da página, mesmo com 'Capturar a página inteira' selecionado."
+  },
+  "html_options_suspend_screen_capture_precapture": {
+    "message": "Manter uma captura de tela recente das guias enquanto eu as uso"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line1": {
+    "message": "Tira uma captura de tela do navegador de uma guia cerca de um segundo depois que você muda para ela ou ela termina de carregar,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
+    "message": "para que guias suspensas mais tarde em segundo plano ainda tenham uma prévia."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line3": {
+    "message": "O Chrome só permite que uma extensão capture a tela de uma guia na qual você não clicou o botão dela se tiver acesso a todos os sites,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
+    "message": "então ativar isso solicita essa permissão. Ela é usada apenas para tirar essas capturas de tela, que ficam neste computador."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line5": {
+    "message": "Apenas a captura de tela mais recente de cada guia aberta é mantida, e ela é excluída quando a guia é fechada."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
+    "message": "Guias anônimas e sites na lista de permissões nunca são capturados."
+  },
+  "html_options_suspend_force_screen_capture": {
+    "message": "Ativar modo de captura de tela em alta qualidade"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line1": {
+    "message": "Quando desativado, as capturas de tela têm as seguintes limitações para ajudar no desempenho:"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line2": {
+    "message": "- Captura de tela de baixa qualidade"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line4": {
+    "message": "- Não captura a tela se demorar mais de 1 minuto para gerar a imagem"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line5": {
+    "message": "- Altura máxima da captura de tela limitada a 5000px"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line6": {
+    "message": "Ativar o modo de captura de tela em alta qualidade pode aumentar significativamente o uso da CPU"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line7": {
+    "message": "e o uso de memória."
+  },
+  "html_options_whitelist_title": {
+    "message": "Nunca suspender guias com URLs da seguinte lista:"
+  },
+  "html_options_always_suspend_title": {
+    "message": "Sempre suspender guias com URLs da seguinte lista:"
+  },
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Guias que correspondem a esta lista sempre suspendem após o tempo limite normal,"
+  },
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "independentemente de áudio, entrada de formulário ou estado de fixação."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Um item por linha, com as mesmas regras de correspondência da lista acima (texto simples"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "correspondendo em qualquer parte da URL, ou /regex/ entre barras)."
+  },
+  "html_options_whitelist_tooltip_line1": {
+    "message": "Adicione a URL de cada página que você quer permitir em uma nova linha. Por exemplo:"
+  },
+  "html_options_whitelist_tooltip_line2": {
+    "message": "Para permitir vários sites em uma linha, você pode especificar parte da URL:"
+  },
+  "html_options_whitelist_tooltip_line3": {
+    "message": "Você também pode especificar expressões regulares colocando o texto entre barras:"
+  },
+  "html_options_changelog_modal_title": {
+    "message": "Novidades na v$version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_whitelist_close": {
+    "message": "Fechar"
+  },
+  "html_options_whitelist_unsuspend": {
+    "message": "Ativar agora as guias correspondentes"
+  },
+  "html_options_list_test_btn": {
+    "message": "Testar lista"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspender agora as guias correspondentes"
+  },
+  "html_options_never_suspend_groups_title": {
+    "message": "Nunca suspender guias nos seguintes grupos:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Guias nesses grupos nunca são suspensas automaticamente, e são ignoradas pelas ações de suspensão em massa."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Adicione um grupo com \"Nunca suspender este grupo\" no menu de clique direito. Só é possível adicionar grupos com nome."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Os grupos são identificados por nome e cor, e acompanham as renomeações enquanto o navegador permanecer aberto."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Nenhum grupo de guias adicionado ainda."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Remover"
+  },
+  "html_options_other_enable_context_menu": {
+    "message": "Adicionar o The Marvellous Suspender ao menu de clique direito"
+  },
+  "html_options_other_enable_context_menu_tooltip_line1": {
+    "message": "Adiciona controles desta extensão ao menu de clique direito de uma página da web."
+  },
+  "html_options_other_enable_context_menu_tooltip_line2": {
+    "message": "Isso dará acesso a ações avançadas de suspensão não disponíveis"
+  },
+  "html_options_other_enable_context_menu_tooltip_line3": {
+    "message": "em outros lugares da extensão."
+  },
+  "html_options_other_enable_sync": {
+    "message": "Sincronizar configurações com seu perfil do navegador"
+  },
+  "html_options_other_enable_sync_tooltip_line1a": {
+    "message": "As configurações da extensão serão sincronizadas em todos os navegadores"
+  },
+  "html_options_other_enable_sync_tooltip_line1b": {
+    "message": "conectados com o mesmo perfil."
+  },
+  "html_options_other_enable_sync_tooltip_line2": {
+    "message": "Isso também sincronizará as configurações no modo anônimo."
+  },
+  "html_options_other_enable_sync_warning": {
+    "message": "Ativar isso vai sobrescrever as configurações em todos os outros navegadores conectados ao mesmo perfil"
+  },
+  "html_options_suspend_on_low_memory": {
+    "message": "Suspender instantaneamente quando a memória do sistema ficar muito baixa"
+  },
+  "html_options_suspend_on_low_memory_tooltip_line1": {
+    "message": "Esta opção substitui a funcionalidade automática de descarte de guias."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line2": {
+    "message": "Se ativada, forçará a suspensão de uma guia em vez de descartá-la."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line3": {
+    "message": "Normalmente, seu navegador só descarta guias quando a memória do sistema fica muito baixa."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line4": {
+    "message": "Atenção: isso pode fazer com que as guias suspendam antes do tempo que você"
+  },
+  "html_options_suspend_on_low_memory_tooltip_line5": {
+    "message": "especificou nas opções de suspensão automática de guias."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line6": {
+    "message": "Para mais informações sobre o descarte de guias, consulte:"
+  },
+  "html_options_suspend_on_low_memory_tooltip_discarding_link": {
+    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  },
+  "html_popup_unsuspend_tab": {
+    "message": "Reativar esta guia"
+  },
+  "html_popup_suspend_tab": {
+    "message": "Suspender esta guia agora"
+  },
+  "html_popup_never_suspend_domain": {
+    "message": "Nunca suspender este domínio"
+  },
+  "html_popup_never_suspend_page": {
+    "message": "Nunca suspender esta URL"
+  },
+  "html_popup_suspend_other_tabs": {
+    "message": "Suspender todas as outras guias"
+  },
+  "html_popup_unsuspend_all_tabs": {
+    "message": "Reativar todas as guias"
+  },
+  "html_popup_unsuspend_whitelisted_tabs": {
+    "message": "Ativar agora as guias correspondentes"
+  },
+  "html_popup_suspend_selected_tabs": {
+    "message": "Suspender as guias selecionadas"
+  },
+  "html_popup_unsuspend_selected_tabs": {
+    "message": "Reativar as guias selecionadas"
+  },
+  "html_popup_settings": {
+    "message": "Configurações"
+  },
+  "html_popup_backup_now_local": {
+    "message": "Fazer backup da sessão agora (Local)"
+  },
+  "html_popup_backup_now_cloud": {
+    "message": "Fazer backup da sessão agora (Nuvem)"
+  },
+  "html_restoring_title": {
+    "message": "Restaurando janela"
+  },
+  "html_restoring_heading": {
+    "message": "Restaurando guias"
+  },
+  "html_restoring_detail": {
+    "message": "Aguarde enquanto restauro esta janela..."
+  },
+  "html_recovery_title": {
+    "message": "Recuperação"
+  },
+  "html_recovery_ruh_roh": {
+    "message": "Ops!"
+  },
+  "html_recovery_description_line1": {
+    "message": "Parece que você está se recuperando de uma falha da extensão."
+  },
+  "html_recovery_description_line2": {
+    "message": "Suas guias suspensas podem ter travado ou desaparecido."
+  },
+  "html_recovery_restore_tabs_automatically": {
+    "message": "Restaurar guias automaticamente"
+  },
+  "html_recovery_go_to_session_manager": {
+    "message": "Ir para o gerenciador de sessões"
+  },
+  "html_recovery_important_message": {
+    "message": "Você tem a captura de tela ativada no momento. Se esta extensão estiver falhando repetidamente, recomendamos desativar essa opção."
+  },
+  "html_recovery_disable_screen_capturing": {
+    "message": "Desativar a captura de tela"
+  },
+  "html_recovery_tabs_to_restore": {
+    "message": "Guias a restaurar"
+  },
+  "html_shortcuts_title": {
+    "message": "Atalhos de teclado"
+  },
+  "html_shortcuts_keyboard_shortcuts": {
+    "message": "Atalhos de teclado"
+  },
+  "html_shortcuts_context_menu_note": {
+    "message": "Nota: essas ações também estão disponíveis pelo menu de clique direito."
+  },
+  "html_shortcuts_remap_keys": {
+    "message": "Alterar atalhos"
+  },
+  "html_sidebar_general_settings": {
+    "message": "Configurações"
+  },
+  "html_sidebar_session_management": {
+    "message": "Sessões"
+  },
+  "html_sidebar_tab_health": {
+    "message": "Saúde das guias"
+  },
+  "html_sidebar_shortcuts": {
+    "message": "Atalhos de teclado"
+  },
+  "html_sidebar_support": {
+    "message": "Sobre"
+  },
+  "html_sidebar_backup": {
+    "message": "Backup"
+  },
+  "html_sidebar_news": {
+    "message": "Novidades"
+  },
+  "html_news_title": {
+    "message": "Novidades e atualizações"
+  },
+  "html_news_desc": {
+    "message": "Fique por dentro dos últimos lançamentos, problemas conhecidos e anúncios do blog do Marvellous Codeworks."
+  },
+  "html_news_loading": {
+    "message": "Carregando novidades…"
+  },
+  "html_news_empty": {
+    "message": "Ainda não há novidades. Volte a conferir em breve!"
+  },
+  "html_news_new_pill": {
+    "message": "NOVO"
+  },
+  "html_news_mark_all_read": {
+    "message": "Marcar tudo como lido"
+  },
+  "html_backup_page_title": {
+    "message": "Backup e restauração"
+  },
+  "html_success_great_success": {
+    "message": "Sucesso marvellous!"
+  },
+  "html_success_all_tabs_restored": {
+    "message": "Todas as suas guias foram restauradas."
+  },
+  "html_success_goto_advanced_prefix": {
+    "message": "Para gerenciamento avançado de sessões, visite a página"
+  },
+  "html_success_goto_advanced_suffix": {
+    "message": ""
+  },
+  "html_session_manager": {
+    "message": "de gerenciamento de sessões"
+  },
+  "html_suspended_title": {
+    "message": "Guia suspensa"
+  },
+  "html_suspended_click_to_reload": {
+    "message": "Atualize ou clique para recarregar"
+  },
+  "html_suspended_toast_not_connected": {
+    "message": "Você não está conectado à internet"
+  },
+  "html_suspended_toast_reload_disabled": {
+    "message": "O recarregamento automático de guias está temporariamente desativado."
+  },
+  "html_permissions_title": {
+    "message": "Permissões"
+  },
+  "html_permissions_heading": {
+    "message": "Por favor, me dê acesso a URLs de arquivos locais"
+  },
+  "html_permissions_info": {
+    "message": "Esta extensão não tem permissão no momento para suspender URLs que começam com a palavra \"file\".\nPara mudar isso, ative \"Permitir acesso a URLs de arquivos\" na página de configurações da extensão."
+  },
+  "html_permissions_backup": {
+    "message": "Atenção: alterar essa opção fará com que todas as suas guias suspensas desapareçam por um instante.\nPor precaução, talvez seja um bom momento para salvar um backup da sua sessão atual."
+  },
+  "html_permissions_return_hint": {
+    "message": "Bem-vindo de volta — clique no botão novamente agora para concluir a concessão de acesso a arquivos locais."
+  },
+  "html_update_title": {
+    "message": "Atualização"
+  },
+  "html_update_heading2": {
+    "message": "está pronto para ficar ainda mais marvellous"
+  },
+  "html_update_info": {
+    "message": "Uma nova versão do The Marvellous Suspender será instalada na próxima vez que seu navegador for reiniciado."
+  },
+  "html_update_info_withbackup": {
+    "message": "IMPORTANTE: não conseguimos criar um ponto de restauração para suas guias.<br>Salve um backup AGORA!"
+  },
+  "html_update_info_nobackup_prefix": {
+    "message": "É altamente recomendável exportar uma cópia da sua sessão atual em "
+  },
+  "html_update_info_nobackup_suffix": {
+    "message": " antes de continuar com a atualização."
+  },
+  "html_updated_title": {
+    "message": "Atualizado"
+  },
+  "html_updating_heading": {
+    "message": "está atualizando"
+  },
+  "html_updating_message": {
+    "message": "Aguarde enquanto restauro suas guias suspensas..."
+  },
+  "html_updated_great_suspender_updated": {
+    "message": "foi atualizado"
+  },
+  "html_updated_info_line1": {
+    "message": "Um backup automático das suas guias foi feito antes da atualização."
+  },
+  "html_updated_info_line2_prefix": {
+    "message": "Se você teve algum problema durante a atualização, pode recuperar guias perdidas na página "
+  },
+  "html_updated_info_line2_suffix": {
+    "message": "."
+  },
+  "html_updated_patch_message": {
+    "message": "Desculpe o transtorno. Eu só precisava fazer uma pequena manutenção."
+  },
+  "html_welcome_text_line1": {
+    "message": "Obrigado por experimentar o"
+  },
+  "html_welcome_text_line2": {
+    "message": "Eu deixo seu computador rodando de forma mais fluida ao suspender as guias que você não está usando."
+  },
+  "html_welcome_text_line3": {
+    "message": "Você pode ajustar as configurações abaixo."
+  },
+  "js_popup_normal": {
+    "message": "A guia vai suspender automaticamente."
+  },
+  "js_popup_normal_pause": {
+    "message": "Agora não"
+  },
+  "js_popup_special": {
+    "message": "A guia não pode ser suspensa"
+  },
+  "js_popup_suspended": {
+    "message": "Guia suspensa"
+  },
+  "js_popup_suspended_pause": {
+    "message": "Não suspender"
+  },
+  "js_popup_whitelisted": {
+    "message": "Site permitido."
+  },
+  "js_popup_whitelisted_remove": {
+    "message": "Remover da lista de permissões"
+  },
+  "js_popup_audible": {
+    "message": "A guia está reproduzindo áudio."
+  },
+  "js_popup_form_input": {
+    "message": "A guia está recebendo dados de formulário."
+  },
+  "js_popup_form_input_unpause": {
+    "message": "Retomar"
+  },
+  "js_popup_pinned": {
+    "message": "A guia foi fixada"
+  },
+  "js_popup_app_window": {
+    "message": "A guia está aberta em uma janela de app"
+  },
+  "js_popup_grouped_tab": {
+    "message": "A guia está em um grupo de guias"
+  },
+  "js_popup_tab_group": {
+    "message": "A guia está em um grupo que nunca é suspenso"
+  },
+  "js_popup_temp_whitelist": {
+    "message": "Suspensão da guia pausada."
+  },
+  "js_popup_temp_whitelist_unpause": {
+    "message": "Retomar"
+  },
+  "js_popup_never": {
+    "message": "Suspensão automática de guias desativada."
+  },
+  "js_popup_no_connectivity": {
+    "message": "Sem conexão de rede"
+  },
+  "js_popup_charging": {
+    "message": "Conectado à fonte de alimentação"
+  },
+  "js_popup_blockedFile": {
+    "message": "Arquivos locais não podem ser suspensos."
+  },
+  "js_popup_blockedFile_enable": {
+    "message": "Ativar"
+  },
+  "js_popup_unknown": {
+    "message": "Aguardando a guia carregar..."
+  },
+  "js_popup_initialising": {
+    "message": "Aguardando a extensão inicializar..."
+  },
+  "js_popup_error": {
+    "message": "Suspensão automática indisponível para esta guia"
+  },
+  "js_history_delete": {
+    "message": "excluir"
+  },
+  "js_history_export": {
+    "message": "exportar"
+  },
+  "js_history_reload": {
+    "message": "abrir e carregar"
+  },
+  "js_history_resuspend": {
+    "message": "abrir e suspender"
+  },
+  "js_history_save": {
+    "message": "salvar"
+  },
+  "js_history_window": {
+    "message": "Janela"
+  },
+  "js_history_windows": {
+    "message": "Janelas"
+  },
+  "js_history_tab": {
+    "message": "Guia"
+  },
+  "js_history_tabs": {
+    "message": "Guias"
+  },
+  "js_history_enter_name_for_session": {
+    "message": "Digite um nome para esta sessão"
+  },
+  "js_history_confirm_delete": {
+    "message": "Tem certeza de que deseja excluir esta sessão?"
+  },
+  "js_history_confirm_session_overwrite": {
+    "message": "Já existe uma sessão salva com esse nome. Sobrescrever a sessão existente?"
+  },
+  "js_history_import_fail": {
+    "message": "Falha ao carregar o arquivo. Verifique se ele é texto simples e contém uma URL por linha."
+  },
+  "js_history_migrate_fail": {
+    "message": "É necessário um ID de extensão de 32 caracteres para migrar"
+  },
+  "js_history_migrate_success": {
+    "message": "$tabcount$ guias migradas com sucesso. Reinicie o navegador se as guias migradas não recarregarem automaticamente.",
+    "placeholders": {
+      "tabcount": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_suspended_hotkey_to_reload": {
+    "message": "Definir atalhos de teclado"
+  },
+  "js_suspended_low_memory": {
+    "message": "Guia suspensa por memória do sistema baixa"
+  },
+  "js_options_incognito_warning": {
+    "message": "Você está no modo anônimo. Alguns recursos não estarão disponíveis."
+  },
+  "js_options_whitelist_no_matches": {
+    "message": "Não há guias abertas que correspondam à lista de permissões atual."
+  },
+  "js_options_whitelist_matches_heading": {
+    "message": "Guias abertas permitidas:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "Não há guias abertas que correspondam à lista de suspensão sempre ativa."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "corresponde a $count$ grupo(s) aberto(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Guias abertas que correspondem à lista de suspensão sempre ativa:"
+  },
+  "js_options_whitelist_matches_overflow_prefix": {
+    "message": "e mais"
+  },
+  "js_options_whitelist_matches_overflow_suffix": {
+    "message": "."
+  },
+  "js_permissions_button_export": {
+    "message": "Salvar backup"
+  },
+  "js_permissions_button_set": {
+    "message": "Abrir configurações da extensão"
+  },
+  "js_update_confirm": {
+    "message": "Você ainda não salvou um backup. Atualizar a extensão mesmo assim?"
+  },
+  "js_update_button_export": {
+    "message": "Salvar backup"
+  },
+  "js_update_button_reload": {
+    "message": "Atualizar extensão agora"
+  },
+  "js_suspend_button_backup": {
+    "message": "Salvar um backup antes de atualizar"
+  },
+  "js_shortcuts_default_command": {
+    "message": "Ativar a extensão (mostrar popup)"
+  },
+  "js_shortcuts_not_set": {
+    "message": "não definido"
+  },
+  "js_session_save_point": {
+    "message": "Ponto de salvamento automático para v"
+  },
+  "html_options_backup_title": {
+    "message": "Backup automático da sessão"
+  },
+  "html_backup_session_desc": {
+    "message": "Diferente das sessões, os backups são salvos como arquivos JSON fora do Chrome: na sua pasta Downloads ou no Google Drive. Eles sobrevivem a travamentos do navegador, redefinições de perfil e instalações novas. Essa é sua verdadeira rede de segurança."
+  },
+  "html_options_backup_enable": {
+    "message": "Fazer backup automático da sua sessão"
+  },
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Salva silenciosamente uma cópia da sua sessão atual como arquivo JSON."
+  },
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Escolha salvar localmente (pasta tms-backups dentro de Downloads)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "ou em uma pasta 'TMS Backups' no Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Para backups locais, o Chrome precisa estar configurado para baixar arquivos automaticamente"
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "(sem perguntar). Confira em chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Backups no Google Drive não têm essa exigência."
+  },
+  "html_options_backup_interval": {
+    "message": "Backup a cada"
+  },
+  "html_options_backup_daily_time": {
+    "message": "A que horas"
+  },
+  "html_backup_interval_warning": {
+    "message": "Atenção: com um intervalo tão longo, muita coisa pode acontecer entre um backup e outro. Considere um intervalo mais curto para reduzir o risco de perda de dados."
+  },
+  "html_options_backup_note": {
+    "message": "Tanto os backups locais quanto os do Drive incluem um identificador de dispositivo (ex.: tms-session-a3f7b2c8-2026-06-18T14-30.json), então cada instalação do navegador mantém seu próprio conjunto independente de backups. Os N backups locais mais recentes são mantidos por dispositivo; os backups do Drive também são mantidos em N cópias por dispositivo, para que sessões de máquinas ou navegadores diferentes nunca se sobrescrevam.\n\n<strong>Mesmo com o Google Drive selecionado, um arquivo local de segurança ainda é gravado quando o navegador é fechado e enviado ao Drive na próxima inicialização. É normal ver um arquivo local aqui, não é um bug.</strong>"
+  },
+  "html_backup_max_files_label": {
+    "message": "Máximo de backups a manter"
+  },
+  "html_backup_device_name_label": {
+    "message": "Nome do dispositivo (opcional)"
+  },
+  "html_backup_device_name_save": {
+    "message": "Salvar"
+  },
+  "js_backup_restore_legacy_group": {
+    "message": "Backups antigos"
+  },
+  "html_options_backup_now": {
+    "message": "Fazer backup agora"
+  },
+  "html_options_back_to_top": {
+    "message": "↑ Topo"
+  },
+  "html_history_backup_hint_prefix": {
+    "message": "As sessões ficam armazenadas somente dentro do Chrome: elas não sobrevivem a um travamento do navegador ou a uma redefinição de perfil."
+  },
+  "html_history_backup_settings_link": {
+    "message": "Configure o Backup para salvar suas guias fora do navegador →"
+  },
+  "js_options_backup_now_running": {
+    "message": "Fazendo backup…"
+  },
+  "js_options_backup_now_done": {
+    "message": "Backup salvo."
+  },
+  "js_backup_option_saved": {
+    "message": "Salvo"
+  },
+  "js_backup_permission_denied": {
+    "message": "Permissão negada: o backup automático não foi ativado."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "Ativar feed de novidades"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Verifica periodicamente o marvellouscode.works em busca de novidades do TMS e as mostra"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "na barra lateral."
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "Desative para pular essa solicitação em segundo plano."
+  },
+  "html_options_other_legacy_mascot": {
+    "message": "Usar a arte clássica do The Great Suspender em vez do novo mascote"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Troca ícones e ilustrações de volta para o estilo original do The Great"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "Suspender, onde uma versão antiga da imagem estiver disponível."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Imagens sem um equivalente antigo continuam usando a nova arte."
+  },
+  "html_permissions_notice_text": {
+    "message": "A partir desta versão, o TMS só solicita acesso ao sistema de arquivos/conta do Google quando você realmente ativa o backup local ou no Google Drive, em vez de pedir isso antecipadamente."
+  },
+  "html_permissions_notice_link": {
+    "message": "Saiba mais sobre permissões."
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "Entendi"
+  },
+  "html_permissions_info_note": {
+    "message": "O TMS solicita as permissões de Downloads e conta do Google somente quando você ativa o backup local ou no Google Drive abaixo."
+  },
+  "html_permissions_info_note_link": {
+    "message": "Ver o detalhamento completo das permissões"
+  },
+  "js_options_backup_now_error": {
+    "message": "O Chrome está perguntando onde salvar os arquivos, então os backups automáticos não funcionarão silenciosamente. Desative \"Perguntar onde salvar cada arquivo\" em chrome://settings/downloads."
+  },
+  "js_options_backup_next_run": {
+    "message": "Próxima execução: $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_backup_last_local": {
+    "message": "Último backup: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_backup_destination": {
+    "message": "Destino do backup"
+  },
+  "html_options_backup_dest_local": {
+    "message": "Local (pasta Downloads)"
+  },
+  "html_options_backup_dest_drive": {
+    "message": "Google Drive"
+  },
+  "html_options_backup_drive_connect": {
+    "message": "Conectar conta do Google"
+  },
+  "html_options_backup_drive_disconnect": {
+    "message": "Desconectar"
+  },
+  "html_popup_backup_drive_error": {
+    "message": "Falha no backup automático: nenhuma conta do Google conectada. Clique aqui para corrigir."
+  },
+  "html_popup_backup_downloads_error": {
+    "message": "Falha no backup automático: a permissão de Downloads está ausente. Clique aqui para corrigir."
+  },
+  "html_popup_backup_nudge_text": {
+    "message": "O backup automático está desativado. Proteja suas sessões."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "Lembrar em 10 dias"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "O backup automático está desativado. Ativá-lo protege suas sessões caso este perfil do navegador seja redefinido ou corrompido algum dia."
+  },
+  "html_backup_nudge_optout": {
+    "message": "Não tenho interesse, pare de me lembrar"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "O backup automático está ativado, mas a permissão de Downloads não foi concedida neste dispositivo (isso pode acontecer após importar configurações ou sincronizar de outro navegador). Os backups não serão executados até que você conceda a permissão."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "Conceder permissão"
+  },
+  "js_options_backup_drive_connecting": {
+    "message": "Conectando…"
+  },
+  "js_options_backup_drive_auth_error": {
+    "message": "Não foi possível conectar ao Google. Tente novamente."
+  },
+  "html_options_settings_backup": {
+    "message": "Backup de configurações"
+  },
+  "html_backup_settings_desc": {
+    "message": "Exporte todas as configurações da extensão para um arquivo JSON, útil como backup ou para transferir sua configuração para outro perfil do navegador. Importar um arquivo substitui as configurações atuais."
+  },
+  "html_backup_local_folder_hint": {
+    "message": "Os backups locais vão para a pasta tms-backups dentro de Downloads."
+  },
+  "html_backup_drive_folder_note": {
+    "message": "Os backups são salvos na pasta 'TMS Backups' do seu Google Drive."
+  },
+  "html_backup_drive_open_folder": {
+    "message": "Abrir a pasta TMS Backups no Drive ↗"
+  },
+  "html_backup_drive_label_account": {
+    "message": "Conta"
+  },
+  "html_backup_drive_label_folder": {
+    "message": "Pasta"
+  },
+  "html_backup_settings_local_title": {
+    "message": "Local"
+  },
+  "html_backup_settings_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_drive_save_settings": {
+    "message": "Salvar configurações no Drive"
+  },
+  "html_backup_settings_drive_restore": {
+    "message": "Restaurar configurações do Drive"
+  },
+  "js_backup_drive_settings_saving": {
+    "message": "Salvando no Drive…"
+  },
+  "js_backup_drive_settings_saved": {
+    "message": "Configurações salvas no Drive."
+  },
+  "js_backup_drive_settings_error": {
+    "message": "Não foi possível salvar as configurações no Drive. Tente novamente."
+  },
+  "js_backup_cooldown": {
+    "message": "Aguarde $seconds$s antes do próximo backup.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_downloading": {
+    "message": "Baixando configurações do Drive…"
+  },
+  "js_backup_settings_drive_not_found": {
+    "message": "Nenhum arquivo de configurações encontrado no Drive. Salve suas configurações no Drive primeiro."
+  },
+  "js_backup_settings_drive_restore_success": {
+    "message": "Configurações restauradas. Recarregando…"
+  },
+  "js_backup_settings_drive_restore_error": {
+    "message": "Não foi possível restaurar as configurações do Drive. Tente novamente."
+  },
+  "js_backup_settings_drive_last_backup": {
+    "message": "Último backup: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_overwrite_confirm": {
+    "message": "Já existe um backup de configurações de $date$. Sobrescrever?",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_settings_export": {
+    "message": "Exportar configurações"
+  },
+  "html_options_settings_import": {
+    "message": "Importar configurações"
+  },
+  "js_options_settings_import_confirm": {
+    "message": "Isso substituirá suas configurações atuais. Continuar?"
+  },
+  "js_options_settings_import_success": {
+    "message": "Configurações importadas. Recarregando…"
+  },
+  "js_options_settings_import_error": {
+    "message": "Arquivo de configurações inválido."
+  },
+  "html_history_migrate_nav": {
+    "message": "Migrar"
+  },
+  "html_backup_restore_title": {
+    "message": "Restaurar do backup"
+  },
+  "html_backup_restore_desc": {
+    "message": "Importe um arquivo de backup para restaurá-lo como uma sessão salva. Depois de importado, abra Sessões para escolher quais janelas restaurar."
+  },
+  "html_backup_restore_local_title": {
+    "message": "Arquivo local"
+  },
+  "html_backup_restore_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_restore_from_file": {
+    "message": "Escolher arquivo de backup"
+  },
+  "html_backup_restore_drive_select_label": {
+    "message": "Selecionar um backup do Drive"
+  },
+  "html_backup_restore_import": {
+    "message": "Importar selecionado"
+  },
+  "js_backup_restore_importing": {
+    "message": "Importando…"
+  },
+  "js_backup_restore_success": {
+    "message": "Importado como \"$name$\".",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_restore_go_sessions": {
+    "message": "→ Abrir Sessões para restaurar"
+  },
+  "js_backup_restore_error_invalid": {
+    "message": "Arquivo de backup inválido."
+  },
+  "js_backup_restore_error_drive": {
+    "message": "Não foi possível baixar do Drive. Verifique sua conexão e tente novamente."
+  },
+  "js_backup_restore_error_generic": {
+    "message": "Falha na importação. Tente novamente."
+  },
+  "html_backup_drive_import_modal_title": {
+    "message": "Salvar o backup do Drive antes de trocar?"
+  },
+  "html_backup_drive_import_modal_body": {
+    "message": "Seu backup mais recente do Drive é de $date$. Salve-o como uma sessão no Gerenciador de sessões para poder restaurá-lo sem precisar do Google Drive.",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_backup_drive_import_modal_confirm": {
+    "message": "Salvar em Sessões"
+  },
+  "html_backup_drive_import_modal_cancel": {
+    "message": "Pular"
+  },
+  "html_backup_drive_files_title": {
+    "message": "Arquivos de backup no Drive"
+  },
+  "html_backup_drive_download_btn": {
+    "message": "Baixar"
+  },
+  "html_backup_drive_delete_btn": {
+    "message": "Excluir"
+  },
+  "js_backup_drive_delete_confirm": {
+    "message": "Excluir este arquivo de backup do Drive? Isso não pode ser desfeito."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Excluir todos"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Excluir todos os backups deste dispositivo?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Isso excluirá permanentemente todos os $count$ arquivo(s) de backup de \"$device$\" no Google Drive. Isso não pode ser desfeito.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Excluir todos"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancelar"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Não foi possível excluir alguns arquivos de backup. Tente novamente."
+  },
+  "html_backup_drive_no_files": {
+    "message": "Nenhum arquivo de backup encontrado no Drive."
+  },
+  "html_backup_drive_files_loading": {
+    "message": "Carregando…"
+  }
+}

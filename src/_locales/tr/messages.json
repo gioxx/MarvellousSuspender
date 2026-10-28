@@ -1,0 +1,1470 @@
+{
+  "ext_extension_name": {
+    "message": "The Marvellous Suspender"
+  },
+  "ext_extension_description": {
+    "message": "Belleğini serbest bırak. İhtiyacın olmayan sekmeleri hemen askıya al."
+  },
+  "ext_default_title": {
+    "message": "The Marvellous Suspender"
+  },
+  "ext_cmd_toggle_tab_suspension_description": {
+    "message": "Etkin sekmeyi askıya al/geri al"
+  },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Etkin sekmenin grubundaki tüm sekmeleri askıya al"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Etkin sekmenin grubundaki tüm sekmeleri geri al"
+  },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Etkin penceredeki gruba dahil olmayan tüm sekmeleri askıya al"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Etkin penceredeki gruba dahil olmayan tüm sekmeleri geri al"
+  },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Etkin sekmenin grubu için \"asla askıya alma\" seçeneğini aç/kapat"
+  },
+  "ext_cmd_soft_suspend_active_window_description": {
+    "message": "Etkin penceredeki diğer tüm sekmeleri askıya al"
+  },
+  "ext_cmd_soft_suspend_all_windows_description": {
+    "message": "Tüm pencerelerdeki tüm sekmeleri askıya al"
+  },
+  "ext_cmd_force_suspend_all_windows_description": {
+    "message": "Tüm pencerelerdeki tüm sekmelerin askıya alınmasını zorla"
+  },
+  "js_context_toggle_suspend_state": {
+    "message": "Bu sekmeyi askıya al/geri al"
+  },
+  "js_context_toggle_pause_suspension": {
+    "message": "Bu sekmenin askıya alınmasını duraklat/devam ettir"
+  },
+  "js_context_never_suspend_domain": {
+    "message": "Bu alan adını asla askıya alma"
+  },
+  "js_context_never_suspend_page": {
+    "message": "Bu URL'yi asla askıya alma"
+  },
+  "js_context_suspend_selected_tabs": {
+    "message": "Seçili sekmeleri askıya al"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Bu gruptaki tüm sekmeleri askıya al"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Bu gruptaki tüm sekmeleri geri al"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Gruba dahil olmayan tüm sekmeleri askıya al"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Gruba dahil olmayan tüm sekmeleri geri al"
+  },
+  "js_context_never_suspend_group": {
+    "message": "Bu grubu asla askıya alma"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "Bu grubun askıya alınmasına izin ver"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "Bu grubu asla askıya alma (yalnızca adlandırılmış gruplar)"
+  },
+  "js_context_soft_suspend_other_tabs_in_window": {
+    "message": "Bu penceredeki diğer tüm sekmeleri askıya al"
+  },
+  "js_context_soft_suspend_all_tabs": {
+    "message": "Tüm pencerelerdeki tüm sekmeleri askıya al"
+  },
+  "js_context_force_suspend_all_tabs": {
+    "message": "Tüm pencerelerdeki tüm sekmelerin askıya alınmasını zorla"
+  },
+  "html_health_title": {
+    "message": "Sekme Durumu (Beta)"
+  },
+  "html_health_title_intro": {
+    "message": "Askıya alınmış sekmelerinle, özellikle favicon'larla ilgili sorun yaşıyorsan, onarabilir miyiz diye görmek için Sekmeleri Tara'ya tıkla."
+  },
+  "html_health_all_good": {
+    "message": "Askıya alınmış sekmelerinde herhangi bir sorun bulamadık. Hâlâ yanlış bir şey görüyorsan aşağıdan bize bildir, bu sağlık kontrolünü genişletmeye çalışırız."
+  },
+  "html_health_reload_intro": {
+    "message": "Tamamen yüklenmemiş bazı askıya alınmış sekmelerin var. Durumu düzeltmek için bu sekmeleri yeniden yükleyebiliriz."
+  },
+  "html_health_restore_intro": {
+    "message": "Askıya alınmış sekmelerinden bazıları tarayıcının varsayılan favicon'unu kullanıyor. Bu, TMS önbelleğinde bunların bulunmadığı anlamına gelir. Eksik favicon'ları getirmek için minimum sayıda sekmeyi geri yükleyip yeniden askıya alabiliriz."
+  },
+  "html_health_scan_button": {
+    "message": "Sekmeleri Tara"
+  },
+  "html_health_copy_button": {
+    "message": "Sonuçları Kopyala"
+  },
+  "html_health_scan_label": {
+    "message": "Sekmeler taranıyor..."
+  },
+  "html_health_num_tms_tabs": {
+    "message": "TMS tarafından askıya alınmış sekme"
+  },
+  "html_health_num_tms_cache": {
+    "message": "TMS önbelleğindeki favicon"
+  },
+  "html_health_num_tabs_empty": {
+    "message": "yüklenmemiş sekme"
+  },
+  "html_health_num_tabs_extension": {
+    "message": "TMS favicon'una sahip sekme"
+  },
+  "html_health_num_tabs_default": {
+    "message": "varsayılan favicon'a sahip sekme"
+  },
+  "html_health_num_hostnames": {
+    "message": "benzersiz sekme ana bilgisayar adı"
+  },
+  "html_health_small_cache": {
+    "message": "Yerel TMS favicon önbelleği tüm sekmeleri kapsamıyor olabilir. Tarayıcı önbelleğin temizlenirse, TMS bazı favicon'ları gösteremeyebilir."
+  },
+  "html_health_reload_button": {
+    "message": "Sonraki: $count$ Sekmeyi Yeniden Yükle",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_restore_button": {
+    "message": "Sonraki: Favicon'ları önbelleğe almak için $count$ sekmeyi geri yükle",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_action_label": {
+    "message": "Favicon'lar geri yükleniyor..."
+  },
+  "html_health_after_reload": {
+    "message": "Sekmelerin arka planda yüklenmesi bittikten sonra, durumun iyileşip iyileşmediğini görmek için tekrar \"Sekmeleri Tara\"ya tıklayabilirsin."
+  },
+  "html_health_after_restore": {
+    "message": "Durumun iyileşip iyileşmediğini görmek için tekrar \"Sekmeleri Tara\"ya tıklayabilirsin."
+  },
+  "html_health_need_help1": {
+    "message": "Hâlâ sekme veya favicon sorunların varsa, Sonuçları Kopyala'ya tıklayıp yeni bir"
+  },
+  "html_health_need_help2": {
+    "message": "GitHub Issue'suna yapıştırabilirsin."
+  },
+  "html_health_num_grouped_broken": {
+    "message": "bozuk durumda gruplandırılmış sekme (Sekme Grupları hatası)"
+  },
+  "html_health_repair_intro": {
+    "message": "Sekme Gruplarındaki bazı sekmeler bozuk bir durumda: tarayıcı yeniden başlatıldıktan sonra doğru yüklenmek yerine yeni sekme olarak görünüyorlar. TMS bunları geri yüklemeyi deneyebilir."
+  },
+  "html_health_repair_button": {
+    "message": "$count$ gruplandırılmış sekmeyi onar",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_after_repair": {
+    "message": "Tamamlandı. Gruplandırılmış sekmelerin askıya alınmış durumlarına döndüğünü doğrulamak için yeniden tara."
+  },
+  "html_about_title": {
+    "message": "Hakkında"
+  },
+  "html_about_version_label": {
+    "message": "Sürüm"
+  },
+  "html_about_tagline": {
+    "message": "Modern sekme askıya almanın ruhani halefi: etkin olmayan sekmeleri hafif bir hazırda bekletme sayfasıyla değiştirerek ne zaman uyanacaklarını ayrıntılı şekilde kontrol etmeni sağlar."
+  },
+  "html_about_section_credits": {
+    "message": "Emeği Geçenler"
+  },
+  "html_about_contributors_and": {
+    "message": " ve "
+  },
+  "html_about_community_thanks_link": {
+    "message": "GitHub'daki tüm katkıda bulunanlar"
+  },
+  "html_about_fork_beginning": {
+    "message": "Orijinaline dayanmaktadır:"
+  },
+  "html_about_fork_mid": {
+    "message": "reklam takibi olmadan GitHub'da mevcuttur"
+  },
+  "html_about_fork_end": {
+    "message": "Daha fazla bilgi şurada mevcuttur:"
+  },
+  "html_about_contributors": {
+    "message": "Sana sunan:"
+  },
+  "html_about_report_issues_prefix": {
+    "message": "Geri bildiriminiz varsa veya bir sorun bildirmek istiyorsanız, bunu"
+  },
+  "html_about_debugging_prefix": {
+    "message": "Günlükleri toplayıp tanılama raporu oluşturmak için "
+  },
+  "html_about_debugging_suffix": {
+    "message": "tanılama sayfasına gidin."
+  },
+  "html_about_the_github_issues_page": {
+    "message": "GitHub sorunlar sayfasından"
+  },
+  "html_about_section_support": {
+    "message": "Geliştirmeyi Destekle"
+  },
+  "html_about_support_text": {
+    "message": "The Marvellous Suspender ücretsiz ve açık kaynaklıdır. Faydalı buluyorsan, küçük bir katkı yapmayı düşün: bu, projenin canlı kalmasına ve büyümesine yardımcı olur."
+  },
+  "html_broken_title": {
+    "message": "bozuk"
+  },
+  "html_broken_ruh_roh": {
+    "message": "Eyvah!"
+  },
+  "html_broken_line1": {
+    "message": "başlatılamadı. Belki uyumsuz bir tarayıcı kullanıyorsundur?"
+  },
+  "html_broken_line2": {
+    "message": "Uzantıyı yeniden başlatmayı dene. Sorun devam ederse,"
+  },
+  "html_broken_line2_github_page": {
+    "message": "GitHub proje sayfasından"
+  },
+  "html_broken_line3": {
+    "message": "Kayıp sekmeleri"
+  },
+  "html_broken_line3_session_management": {
+    "message": "oturum yönetimi sayfasından"
+  },
+  "html_broken_button_restart_extension": {
+    "message": "Uzantıyı yeniden başlat"
+  },
+  "html_history_title": {
+    "message": "Oturum yönetimi"
+  },
+  "html_history_page_desc": {
+    "message": "TMS, kurulum gerektirmeden açık sekmelerinin güncel bir anlık görüntüsünü tutar. Sen gezinirken oturumlar otomatik olarak güncellenir, ancak bunlar Chrome içinde yaşar: tarayıcı profili kaybolur veya bozulursa, onlar da kaybolur."
+  },
+  "html_history_current_session": {
+    "message": "Mevcut oturum"
+  },
+  "html_history_recent_sessions": {
+    "message": "Son oturumlar"
+  },
+  "html_history_saved_sessions": {
+    "message": "Kaydedilmiş oturumlar"
+  },
+  "html_history_import_session": {
+    "message": "Oturum içe aktar"
+  },
+  "html_history_migrate_tabs": {
+    "message": "Sekmeleri taşı"
+  },
+  "html_history_migrate_old_id": {
+    "message": "Uzantı Kimliği"
+  },
+  "html_history_migrate_section_title": {
+    "message": "Sekme taşıma"
+  },
+  "html_history_migrate_section_desc": {
+    "message": "Bu uzantının önceki bir sürümü veya başka bir çatalı tarafından askıya alınan sekmeleri kurtar. Askıya alınan URL'leri dönüştürmek için aşağıya eski uzantı kimliğini gir ve Sekmeleri taşı'ya tıkla."
+  },
+  "html_options_title": {
+    "message": "Ayarlar"
+  },
+  "html_options_suspend_title": {
+    "message": "Otomatik sekme askıya alma"
+  },
+  "html_options_suspended_title": {
+    "message": "Askıya alınmış sekmeler"
+  },
+  "html_options_suspended_append_url_to_title": {
+    "message": "Orijinal URL'yi askıya alınmış sekme başlığına ekle"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Etkinleştirildiğinde, orijinal URL askıya alınmış sayfaların tarayıcı"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "sekme başlığına eklenir."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Bu, Chrome'un \"Sekmeleri Ara\" özelliğini kullanarak askıya alınmış"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "sekmeleri ana bilgisayar adına göre bulmayı sağlar (Ctrl+Shift+A)."
+  },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Askıya alırken YouTube oynatma konumunu koru"
+  },
+  "html_options_other_title": {
+    "message": "Genel"
+  },
+  "html_options_language": {
+    "message": "Dil"
+  },
+  "html_options_language_auto": {
+    "message": "Sistem varsayılanı"
+  },
+  "html_options_suspend_automatically_after": {
+    "message": "Şu süre sonra sekmeleri otomatik olarak askıya al:"
+  },
+  "html_options_suspend_on_battery_after": {
+    "message": "Pil gücündeyken şu süre sonra sekmeleri askıya al:"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Prize takılıyken olduğu gibi"
+  },
+  "html_options_suspend_never": {
+    "message": "Asla"
+  },
+  "html_options_suspend_seconds": {
+    "message": "saniye"
+  },
+  "html_options_suspend_minute": {
+    "message": "dk"
+  },
+  "html_options_suspend_minutes": {
+    "message": "dk"
+  },
+  "html_options_suspend_hour": {
+    "message": "saat"
+  },
+  "html_options_suspend_hours": {
+    "message": "saat"
+  },
+  "html_options_suspend_day": {
+    "message": "gün"
+  },
+  "html_options_suspend_days": {
+    "message": "gün"
+  },
+  "html_options_suspend_week": {
+    "message": "hafta"
+  },
+  "html_options_suspend_weeks": {
+    "message": "hafta"
+  },
+  "html_options_suspend_no_pinned": {
+    "message": "Sabitlenmiş sekmeleri asla askıya alma"
+  },
+  "html_options_suspend_no_app_windows": {
+    "message": "Uygulama pencerelerinde açılan sekmeleri asla askıya alma"
+  },
+  "html_options_suspend_no_grouped_tabs": {
+    "message": "Bir sekme grubundaki sekmeleri asla askıya alma"
+  },
+  "html_options_suspend_no_forms": {
+    "message": "Kaydedilmemiş form girişi içeren sekmeleri asla askıya alma"
+  },
+  "html_options_suspend_no_audio": {
+    "message": "Ses çalan sekmeleri asla askıya alma"
+  },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Otomatik askıya almaya ve normal toplu askıya alma işlemlerine karşı korur."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Bir sekmeyi yine de kendiniz veya \"Askıya almayı zorla\" işlemiyle askıya alabilirsiniz."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "URL'si \"Her zaman askıya al\" listesinde olan bir sekme yine de askıya alınır."
+  },
+  "html_options_suspend_only_connected": {
+    "message": "Çevrimdışıyken sekmeleri asla askıya alma"
+  },
+  "html_options_suspend_claim_by_default": {
+    "message": "Diğer uzantılar tarafından askıya alınmış sekmeleri devral"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Uyumlu başka bir uzantı (ör. The Great Suspender veya bu uzantının farklı"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "bir kurulumu) tarafından zaten askıya alınmış sekmeleri otomatik olarak devralır."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "URL'sinde 'suspended.html' geçen bir sekme \"askıya alınmış\" sayılır."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Bu seçeneği etkinleştirmek, TMS'in sekmeyi bundan sonra yönetebilmesi"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "için bu URL'yi bu kuruluma göre yeniden yazar."
+  },
+  "html_options_suspend_only_on_battery": {
+    "message": "Güç kaynağına bağlıyken sekmeleri asla askıya alma"
+  },
+  "html_options_suspend_no_active_tabs": {
+    "message": "Her penceredeki etkin sekmeyi asla askıya alma"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "\"Her zaman askıya al\" listesi, otomatik ve toplu askıya almada bu seçeneği geçersiz kılmaz."
+  },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Askıya alınmış sekmeleri her zaman en üste kaydırılmış şekilde yeniden aç"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "Sekme, askıya alındığında kaydırılmış olduğu yer yerine sayfanın"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "en üstünde yeniden açılır."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Hem otomatik hem de manuel askıya almada geçerlidir ve yüklenirken"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "bir #bölüme atlayan bağlantıları geçersiz kılar."
+  },
+  "html_options_suspend_automatically_unsuspend": {
+    "message": "Görüntülendiğinde sekmeyi otomatik olarak geri al"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Yeniden yükleme, arka plandaki sekmeleri de geri alır (yalnızca etkin sekmeyi değil)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Etkinleştirildiğinde, askıya alınmış bir sekmeyi yeniden yüklemek (Ctrl+R"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "veya sağ tık > Yeniden Yükle) o an odaktaki sekme olmasa"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "bile onu geri alır."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Örneğin birden fazla sekme seçip Ctrl+R'ye basıldıktan sonra, birden fazla"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "askıya alınmış sekmeyi tek seferde yeniden yüklemek için kullanışlıdır."
+  },
+  "html_options_suspend_discard_after_suspend": {
+    "message": "Askıya alırken tarayıcının yerleşik bellek tasarrufu özelliğini uygula"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1a": {
+    "message": "Bir sekme askıya alındıktan sonra, Chrome'un onu bellekten"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1b": {
+    "message": "tamamen kaldırmasına da izin verin. Bu, sekme başına daha fazla"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1c": {
+    "message": "sistem kaynağı serbest bırakır (yüzlerce sekme açık tutuyorsanız faydalıdır)."
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line2a": {
+    "message": "Bunun bedeli, sekme yeniden yüklenene kadar sekme durumunun"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line2b": {
+    "message": "kaybolmasıdır."
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line3a": {
+    "message": "Sekme atma hakkında daha fazla bilgi için:"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line3b": {
+    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  },
+  "html_options_suspend_theme": {
+    "message": "Tema"
+  },
+  "html_options_suspend_theme_light": {
+    "message": "Aydınlık"
+  },
+  "html_options_suspend_theme_dark": {
+    "message": "Karanlık"
+  },
+  "html_options_suspend_theme_system": {
+    "message": "Sistem"
+  },
+  "html_options_suspend_screen_capturing": {
+    "message": "Ekran yakalama"
+  },
+  "html_options_suspend_screen_capturing_disabled": {
+    "message": "Devre dışı"
+  },
+  "html_options_suspend_screen_capturing_screen_only": {
+    "message": "Yalnızca ekranın üst kısmını yakala"
+  },
+  "html_options_suspend_screen_capturing_entire_page": {
+    "message": "Tüm sayfayı yakala"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line1a": {
+    "message": "Askıya alınmış bir sekmede, uzantı sekmenin askıya alınmadan hemen önceki"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line2a": {
+    "message": "Ekran yakalama özelliği deneyseldir ve önemli ölçüde CPU kullanımına ve"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line2b": {
+    "message": "hafif artmış bellek kullanımına neden olabilir."
+  },
+  "html_options_suspend_screen_capturing_tooltip_line3a": {
+    "message": "Sekmelerin askıya alınması çok uzun sürmesi veya tarayıcının beklenmedik"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line3b": {
+    "message": "şekilde çökmesi gibi garip davranışlar görürsen, bu özelliği kapatmayı dene."
+  },
+  "html_options_suspend_screen_capture_method": {
+    "message": "Yakalama yöntemi"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "Otomatik (önerilen)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "Yalnızca tarayıcı ekran görüntüsü"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "Yalnızca sayfa render'ı"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "Otomatik, askıya alınan sekme o an baktığın sekme olduğunda gerçek bir tarayıcı ekran görüntüsü alır."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "Bu anında gerçekleşir ve her sitede çalışır. Diğer tüm sekmeler, daha yavaş olan sayfa render'ı tarafından yeniden çizilir."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "Yalnızca tarayıcı ekran görüntüsü hiçbir zaman sayfa render'ını çalıştırmaz, bu yüzden arka planda askıya alınan sekmeler önizleme almaz."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "'Tüm sayfayı yakala' seçili olsa bile, bir tarayıcı ekran görüntüsü yalnızca sayfanın görünür kısmını kapsar."
+  },
+  "html_options_suspend_screen_capture_precapture": {
+    "message": "Sekmeleri kullanırken yakın zamanlı bir ekran görüntüsünü sakla"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line1": {
+    "message": "Bir sekmeye geçtikten veya sekme yüklenmeyi bitirdikten yaklaşık bir saniye sonra tarayıcı ekran görüntüsü alır,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
+    "message": "böylece daha sonra arka planda askıya alınan sekmeler de bir önizlemeye sahip olur."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line3": {
+    "message": "Chrome, bir uzantının düğmesine tıklamadığın bir sekmenin ekran görüntüsünü almasına yalnızca tüm sitelere erişimi varsa izin verir,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
+    "message": "bu yüzden bunu açmak o izni ister. Yalnızca bu ekran görüntülerini almak için kullanılır ve bunlar bu bilgisayarda kalır."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line5": {
+    "message": "Her açık sekmenin yalnızca en son ekran görüntüsü saklanır ve sekme kapatıldığında silinir."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
+    "message": "Gizli sekmeler ve izin verilen listedeki siteler asla yakalanmaz."
+  },
+  "html_options_suspend_force_screen_capture": {
+    "message": "Yüksek kaliteli ekran yakalama modunu etkinleştir"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line1": {
+    "message": "Devre dışıyken, performansa yardımcı olmak için ekran görüntülerinde şu sınırlamalar bulunur:"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line2": {
+    "message": "- Düşük kaliteli ekran yakalama"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line4": {
+    "message": "- Görüntü oluşturmak 1 dakikadan uzun sürerse ekran yakalanmaz"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line5": {
+    "message": "- Ekran yakalama en fazla 5000px yükseklikle sınırlıdır"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line6": {
+    "message": "Yüksek kaliteli ekran yakalama modunu etkinleştirmek CPU yükünü önemli ölçüde artırabilir"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line7": {
+    "message": "ve bellek kullanımını artırabilir."
+  },
+  "html_options_whitelist_title": {
+    "message": "Aşağıdaki listedeki URL'lere sahip sekmeleri asla askıya alma:"
+  },
+  "html_options_always_suspend_title": {
+    "message": "Aşağıdaki listedeki URL'lere sahip sekmeleri her zaman askıya al:"
+  },
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Bu listeyle eşleşen sekmeler, ses, form girişi veya sabitlenmiş durumdan"
+  },
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "bağımsız olarak her zaman normal zaman aşımından sonra askıya alınır."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Satır başına bir giriş, yukarıdaki listeyle aynı eşleştirme kuralları"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(URL'nin herhangi bir yerinde düz metin eşleşmesi veya eğik çizgiler arasında /regex/)."
+  },
+  "html_options_whitelist_tooltip_line1": {
+    "message": "İzin vermek istediğin her sayfanın URL'sini yeni bir satıra ekle. Örneğin:"
+  },
+  "html_options_whitelist_tooltip_line2": {
+    "message": "Bir satırda birden fazla siteye izin vermek için URL'nin bir kısmını belirtebilirsin:"
+  },
+  "html_options_whitelist_tooltip_line3": {
+    "message": "Metni eğik çizgiler arasına alarak düzenli ifadeler de belirtebilirsin:"
+  },
+  "html_options_changelog_modal_title": {
+    "message": "v$version$ sürümündeki yenilikler",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_whitelist_close": {
+    "message": "Kapat"
+  },
+  "html_options_whitelist_unsuspend": {
+    "message": "Eşleşen sekmeleri şimdi uyandır"
+  },
+  "html_options_list_test_btn": {
+    "message": "Listeyi test et"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Eşleşen sekmeleri şimdi askıya al"
+  },
+  "html_options_never_suspend_groups_title": {
+    "message": "Aşağıdaki sekme gruplarındaki sekmeleri asla askıya alma:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Bu gruplardaki sekmeler asla otomatik olarak askıya alınmaz ve toplu askıya alma eylemlerinde atlanır."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Sağ tık menüsünde \"Bu grubu asla askıya alma\" ile bir grup ekle. Yalnızca adı olan gruplar eklenebilir."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Gruplar ada ve renge göre eşleştirilir ve tarayıcı açık kaldığı sürece yeniden adlandırmaları takip eder."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Henüz eklenmiş sekme grubu yok."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Kaldır"
+  },
+  "html_options_other_enable_context_menu": {
+    "message": "The Marvellous Suspender'ı sağ tık menüsüne ekle"
+  },
+  "html_options_other_enable_context_menu_tooltip_line1": {
+    "message": "Bir web sayfasının sağ tık menüsüne bu uzantı için kontroller ekler."
+  },
+  "html_options_other_enable_context_menu_tooltip_line2": {
+    "message": "Bu, uzantının başka yerinde bulunmayan gelişmiş askıya alma eylemlerine"
+  },
+  "html_options_other_enable_context_menu_tooltip_line3": {
+    "message": "erişim sağlar."
+  },
+  "html_options_other_enable_sync": {
+    "message": "Ayarları tarayıcı profilinle senkronize et"
+  },
+  "html_options_other_enable_sync_tooltip_line1a": {
+    "message": "Uzantı ayarları, aynı profille oturum açılmış tüm tarayıcılar"
+  },
+  "html_options_other_enable_sync_tooltip_line1b": {
+    "message": "arasında senkronize edilecektir."
+  },
+  "html_options_other_enable_sync_tooltip_line2": {
+    "message": "Bu, gizli modda da ayarları senkronize eder."
+  },
+  "html_options_other_enable_sync_warning": {
+    "message": "Bunu açmak, aynı profille oturum açılmış diğer tüm tarayıcılardaki ayarların üzerine yazar"
+  },
+  "html_options_suspend_on_low_memory": {
+    "message": "Sistem belleği çok düştüğünde anında askıya al"
+  },
+  "html_options_suspend_on_low_memory_tooltip_line1": {
+    "message": "Bu seçenek, otomatik sekme atma işlevinin önüne geçer."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line2": {
+    "message": "Etkinleştirilirse, bir sekmenin atılmak yerine askıya alınmasını zorlar."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line3": {
+    "message": "Genellikle tarayıcı, sekmeleri yalnızca sistem belleği çok düştüğünde atar."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line4": {
+    "message": "Lütfen unutma: bu, sekmelerin Otomatik sekme askıya alma seçeneklerinde"
+  },
+  "html_options_suspend_on_low_memory_tooltip_line5": {
+    "message": "belirttiğin süreden daha erken askıya alınmasına neden olabilir."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line6": {
+    "message": "Sekme atma hakkında daha fazla bilgi için:"
+  },
+  "html_options_suspend_on_low_memory_tooltip_discarding_link": {
+    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  },
+  "html_popup_unsuspend_tab": {
+    "message": "Bu sekmeyi geri al"
+  },
+  "html_popup_suspend_tab": {
+    "message": "Bu sekmeyi şimdi askıya al"
+  },
+  "html_popup_never_suspend_domain": {
+    "message": "Bu alan adını asla askıya alma"
+  },
+  "html_popup_never_suspend_page": {
+    "message": "Bu URL'yi asla askıya alma"
+  },
+  "html_popup_suspend_other_tabs": {
+    "message": "Diğer tüm sekmeleri askıya al"
+  },
+  "html_popup_unsuspend_all_tabs": {
+    "message": "Tüm sekmeleri geri al"
+  },
+  "html_popup_unsuspend_whitelisted_tabs": {
+    "message": "Eşleşen sekmeleri şimdi uyandır"
+  },
+  "html_popup_suspend_selected_tabs": {
+    "message": "Seçili sekmeleri askıya al"
+  },
+  "html_popup_unsuspend_selected_tabs": {
+    "message": "Seçili sekmeleri geri al"
+  },
+  "html_popup_settings": {
+    "message": "Ayarlar"
+  },
+  "html_popup_backup_now_local": {
+    "message": "Oturumu şimdi yedekle (Yerel)"
+  },
+  "html_popup_backup_now_cloud": {
+    "message": "Oturumu şimdi yedekle (Bulut)"
+  },
+  "html_restoring_title": {
+    "message": "Pencere geri yükleniyor"
+  },
+  "html_restoring_heading": {
+    "message": "Sekmeler geri yükleniyor"
+  },
+  "html_restoring_detail": {
+    "message": "Bu pencereyi geri yüklerken lütfen bekle..."
+  },
+  "html_recovery_title": {
+    "message": "Kurtarma"
+  },
+  "html_recovery_ruh_roh": {
+    "message": "Eyvah!"
+  },
+  "html_recovery_description_line1": {
+    "message": "Görünüşe göre bir uzantı çökmesinden kurtarılıyorsun."
+  },
+  "html_recovery_description_line2": {
+    "message": "Askıya alınmış sekmelerin çökmüş veya kaybolmuş olabilir."
+  },
+  "html_recovery_restore_tabs_automatically": {
+    "message": "Sekmeleri otomatik olarak geri yükle"
+  },
+  "html_recovery_go_to_session_manager": {
+    "message": "Oturum yöneticisine git"
+  },
+  "html_recovery_important_message": {
+    "message": "Şu anda ekran yakalama açık. Bu uzantı sürekli çöküyorsa, bu seçeneği devre dışı bırakman önerilir."
+  },
+  "html_recovery_disable_screen_capturing": {
+    "message": "Ekran yakalamayı kapat"
+  },
+  "html_recovery_tabs_to_restore": {
+    "message": "Geri yüklenecek sekmeler"
+  },
+  "html_shortcuts_title": {
+    "message": "Klavye kısayolları"
+  },
+  "html_shortcuts_keyboard_shortcuts": {
+    "message": "Klavye kısayolları"
+  },
+  "html_shortcuts_context_menu_note": {
+    "message": "Not: bu eylemler sağ tık menüsünden de kullanılabilir."
+  },
+  "html_shortcuts_remap_keys": {
+    "message": "Kısayolları değiştir"
+  },
+  "html_sidebar_general_settings": {
+    "message": "Ayarlar"
+  },
+  "html_sidebar_session_management": {
+    "message": "Oturumlar"
+  },
+  "html_sidebar_tab_health": {
+    "message": "Sekme Durumu"
+  },
+  "html_sidebar_shortcuts": {
+    "message": "Klavye kısayolları"
+  },
+  "html_sidebar_support": {
+    "message": "Hakkında"
+  },
+  "html_sidebar_backup": {
+    "message": "Yedekleme"
+  },
+  "html_sidebar_news": {
+    "message": "Haberler"
+  },
+  "html_news_title": {
+    "message": "Haberler ve Güncellemeler"
+  },
+  "html_news_desc": {
+    "message": "Marvellous Codeworks blogundaki en son sürümlerden, bilinen sorunlardan ve duyurulardan haberdar ol."
+  },
+  "html_news_loading": {
+    "message": "Haberler yükleniyor…"
+  },
+  "html_news_empty": {
+    "message": "Henüz haber yok. Yakında tekrar kontrol et!"
+  },
+  "html_news_new_pill": {
+    "message": "YENİ"
+  },
+  "html_news_mark_all_read": {
+    "message": "Tümünü okundu olarak işaretle"
+  },
+  "html_backup_page_title": {
+    "message": "Yedekleme ve Geri Yükleme"
+  },
+  "html_success_great_success": {
+    "message": "Harika başarı!"
+  },
+  "html_success_all_tabs_restored": {
+    "message": "Tüm sekmelerin geri yüklendi."
+  },
+  "html_success_goto_advanced_prefix": {
+    "message": "Gelişmiş oturum yönetimi için"
+  },
+  "html_success_goto_advanced_suffix": {
+    "message": " sayfasını ziyaret et"
+  },
+  "html_session_manager": {
+    "message": "oturum yönetimi"
+  },
+  "html_suspended_title": {
+    "message": "Askıya Alınmış Sekme"
+  },
+  "html_suspended_click_to_reload": {
+    "message": "Yenile veya yeniden yüklemek için tıkla"
+  },
+  "html_suspended_toast_not_connected": {
+    "message": "İnternete bağlı değilsin"
+  },
+  "html_suspended_toast_reload_disabled": {
+    "message": "Otomatik sekme yeniden yükleme geçici olarak devre dışı."
+  },
+  "html_permissions_title": {
+    "message": "İzinler"
+  },
+  "html_permissions_heading": {
+    "message": "Lütfen bana yerel dosya URL'lerine erişim izni ver"
+  },
+  "html_permissions_info": {
+    "message": "Bu uzantının şu anda \"file\" kelimesiyle başlayan URL'leri askıya alma izni yok.\nBunu değiştirmek için lütfen uzantı ayarları sayfasından \"Dosya URL'lerine erişime izin ver\"i aç."
+  },
+  "html_permissions_backup": {
+    "message": "Lütfen unutma: bu seçeneği değiştirmek, tüm askıya alınmış sekmelerinin kısa süreliğine kaybolmasına neden olur.\nHer ihtimale karşı, şu an mevcut sekme oturumunun bir yedeğini kaydetmek için iyi bir zaman olabilir."
+  },
+  "html_permissions_return_hint": {
+    "message": "Tekrar hoş geldin — yerel dosya erişimi vermeyi tamamlamak için düğmeye şimdi tekrar tıkla."
+  },
+  "html_update_title": {
+    "message": "Güncelleme"
+  },
+  "html_update_heading2": {
+    "message": "daha da marvellous olmaya hazır"
+  },
+  "html_update_info": {
+    "message": "The Marvellous Suspender'ın yeni bir sürümü, tarayıcın bir sonraki yeniden başlatılışında kurulacak."
+  },
+  "html_update_info_withbackup": {
+    "message": "ÖNEMLİ: Sekmelerin için bir geri yükleme noktası oluşturamadık.<br>Şimdi bir yedek kaydet!"
+  },
+  "html_update_info_nobackup_prefix": {
+    "message": "Güncellemeye devam etmeden önce mevcut oturumunun bir kopyasını "
+  },
+  "html_update_info_nobackup_suffix": {
+    "message": " sayfasından dışa aktarman şiddetle tavsiye edilir."
+  },
+  "html_updated_title": {
+    "message": "Güncellendi"
+  },
+  "html_updating_heading": {
+    "message": "güncelleniyor"
+  },
+  "html_updating_message": {
+    "message": "Askıya alınmış sekmelerini geri yüklerken lütfen bekle..."
+  },
+  "html_updated_great_suspender_updated": {
+    "message": "güncellendi"
+  },
+  "html_updated_info_line1": {
+    "message": "Güncellemeden önce sekmelerinin otomatik bir yedeği alındı."
+  },
+  "html_updated_info_line2_prefix": {
+    "message": "Güncelleme sırasında herhangi bir sorunla karşılaştıysan, kayıp sekmeleri "
+  },
+  "html_updated_info_line2_suffix": {
+    "message": " sayfasından kurtarabilirsin."
+  },
+  "html_updated_patch_message": {
+    "message": "Rahatsızlık için özür dileriz. Sadece küçük bir bakım yapmam gerekiyordu."
+  },
+  "html_welcome_text_line1": {
+    "message": "Denediğin için teşekkürler:"
+  },
+  "html_welcome_text_line2": {
+    "message": "Kullanmadığın sekmeleri askıya alarak bilgisayarının sorunsuz çalışmasını sağlıyorum."
+  },
+  "html_welcome_text_line3": {
+    "message": "Aşağıdaki ayarları ince ayar yapabilirsin."
+  },
+  "js_popup_normal": {
+    "message": "Sekme otomatik olarak askıya alınacak."
+  },
+  "js_popup_normal_pause": {
+    "message": "Şimdi değil"
+  },
+  "js_popup_special": {
+    "message": "Sekme askıya alınamaz"
+  },
+  "js_popup_suspended": {
+    "message": "Sekme askıya alındı"
+  },
+  "js_popup_suspended_pause": {
+    "message": "Askıya alma"
+  },
+  "js_popup_whitelisted": {
+    "message": "Siteye izin verildi."
+  },
+  "js_popup_whitelisted_remove": {
+    "message": "İzin verilenler listesinden kaldır"
+  },
+  "js_popup_audible": {
+    "message": "Sekme ses çalıyor."
+  },
+  "js_popup_form_input": {
+    "message": "Sekme form girişi alıyor."
+  },
+  "js_popup_form_input_unpause": {
+    "message": "Devam ettir"
+  },
+  "js_popup_pinned": {
+    "message": "Sekme sabitlendi"
+  },
+  "js_popup_app_window": {
+    "message": "Sekme bir uygulama penceresinde açık"
+  },
+  "js_popup_grouped_tab": {
+    "message": "Sekme bir sekme grubunda"
+  },
+  "js_popup_tab_group": {
+    "message": "Sekme asla askıya alınmayan bir grupta"
+  },
+  "js_popup_temp_whitelist": {
+    "message": "Sekme askıya alma duraklatıldı."
+  },
+  "js_popup_temp_whitelist_unpause": {
+    "message": "Devam ettir"
+  },
+  "js_popup_never": {
+    "message": "Otomatik sekme askıya alma devre dışı."
+  },
+  "js_popup_no_connectivity": {
+    "message": "Ağ bağlantısı yok"
+  },
+  "js_popup_charging": {
+    "message": "Güç kaynağına bağlı"
+  },
+  "js_popup_blockedFile": {
+    "message": "Yerel dosyalar askıya alınamaz."
+  },
+  "js_popup_blockedFile_enable": {
+    "message": "Etkinleştir"
+  },
+  "js_popup_unknown": {
+    "message": "Sekmenin yüklenmesi bekleniyor..."
+  },
+  "js_popup_initialising": {
+    "message": "Uzantının başlatılması bekleniyor..."
+  },
+  "js_popup_error": {
+    "message": "Bu sekme için otomatik askıya alma kullanılamıyor"
+  },
+  "js_history_delete": {
+    "message": "sil"
+  },
+  "js_history_export": {
+    "message": "dışa aktar"
+  },
+  "js_history_reload": {
+    "message": "aç ve yükle"
+  },
+  "js_history_resuspend": {
+    "message": "aç ve askıya al"
+  },
+  "js_history_save": {
+    "message": "kaydet"
+  },
+  "js_history_window": {
+    "message": "Pencere"
+  },
+  "js_history_windows": {
+    "message": "Pencereler"
+  },
+  "js_history_tab": {
+    "message": "Sekme"
+  },
+  "js_history_tabs": {
+    "message": "Sekmeler"
+  },
+  "js_history_enter_name_for_session": {
+    "message": "Bu oturum için bir ad gir"
+  },
+  "js_history_confirm_delete": {
+    "message": "Bu oturumu silmek istediğinden emin misin?"
+  },
+  "js_history_confirm_session_overwrite": {
+    "message": "Bu adla kaydedilmiş bir oturum zaten var. Mevcut oturumun üzerine yazılsın mı?"
+  },
+  "js_history_import_fail": {
+    "message": "Dosya yüklenemedi. Dosyanın düz metin olduğundan ve satır başına tek bir URL içerdiğinden emin ol."
+  },
+  "js_history_migrate_fail": {
+    "message": "Taşınacak uzantının 32 karakterlik kimliği gerekli"
+  },
+  "js_history_migrate_success": {
+    "message": "$tabcount$ sekme başarıyla taşındı. Taşınan sekmeler otomatik olarak yeniden yüklenmezse tarayıcını yeniden başlat.",
+    "placeholders": {
+      "tabcount": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_suspended_hotkey_to_reload": {
+    "message": "Klavye kısayollarını ayarla"
+  },
+  "js_suspended_low_memory": {
+    "message": "Düşük sistem belleği nedeniyle sekme askıya alındı"
+  },
+  "js_options_incognito_warning": {
+    "message": "Gizli moddasın. Bazı özellikler kullanılamayacak."
+  },
+  "js_options_whitelist_no_matches": {
+    "message": "Mevcut izin verilenler listesiyle eşleşen açık sekme yok."
+  },
+  "js_options_whitelist_matches_heading": {
+    "message": "İzin verilen açık sekmeler:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "Mevcut her zaman askıya al listesiyle eşleşen açık sekme yok."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "$count$ açık gruple eşleşiyor",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Her zaman askıya al listesiyle eşleşen açık sekmeler:"
+  },
+  "js_options_whitelist_matches_overflow_prefix": {
+    "message": "ve"
+  },
+  "js_options_whitelist_matches_overflow_suffix": {
+    "message": "tane daha."
+  },
+  "js_permissions_button_export": {
+    "message": "Yedeği kaydet"
+  },
+  "js_permissions_button_set": {
+    "message": "Uzantı ayarlarını aç"
+  },
+  "js_update_confirm": {
+    "message": "Henüz bir yedek kaydetmedin. Uzantı yine de güncellensin mi?"
+  },
+  "js_update_button_export": {
+    "message": "Yedeği kaydet"
+  },
+  "js_update_button_reload": {
+    "message": "Uzantıyı şimdi güncelle"
+  },
+  "js_suspend_button_backup": {
+    "message": "Güncellemeden önce bir yedek kaydet"
+  },
+  "js_shortcuts_default_command": {
+    "message": "Uzantıyı etkinleştir (popup'ı göster)"
+  },
+  "js_shortcuts_not_set": {
+    "message": "ayarlanmadı"
+  },
+  "js_session_save_point": {
+    "message": "v için otomatik kayıt noktası"
+  },
+  "html_options_backup_title": {
+    "message": "Otomatik oturum yedekleme"
+  },
+  "html_backup_session_desc": {
+    "message": "Oturumların aksine, yedekler Chrome dışında JSON dosyaları olarak kaydedilir: İndirilenler klasörüne veya Google Drive'a. Tarayıcı çökmelerinden, profil sıfırlamalarından ve yeni kurulumlardan sağ çıkarlar. Bu senin gerçek güvenlik ağın."
+  },
+  "html_options_backup_enable": {
+    "message": "Oturumunu otomatik olarak yedekle"
+  },
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Mevcut oturumunun bir kopyasını sessizce JSON dosyası olarak kaydeder."
+  },
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Yerel olarak kaydetmeyi seç (İndirilenler içindeki tms-backups klasörü)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "veya Google Drive'daki 'TMS Backups' klasörüne kaydet."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Yerel yedekler için Chrome'un dosyaları otomatik olarak (sormadan)"
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "indirecek şekilde ayarlanmış olması gerekir. chrome://settings/downloads'ı kontrol et."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Google Drive yedeklerinde böyle bir gereklilik yoktur."
+  },
+  "html_options_backup_interval": {
+    "message": "Şu sıklıkta yedekle:"
+  },
+  "html_options_backup_daily_time": {
+    "message": "Hangi saatte"
+  },
+  "html_backup_interval_warning": {
+    "message": "Dikkat: bu kadar uzun bir aralıkla, yedekler arasında çok şey olabilir. Veri kaybı riskini azaltmak için daha kısa bir aralık düşün."
+  },
+  "html_options_backup_note": {
+    "message": "Hem yerel hem de Drive yedekleri bir cihaz kimliği içerir (ör. tms-session-a3f7b2c8-2026-06-18T14-30.json), böylece her tarayıcı kurulumu kendi bağımsız yedek havuzunu tutar. Cihaz başına en son N yerel yedek saklanır; Drive yedekleri de cihaz başına N kopya saklanır, böylece farklı makine veya tarayıcılardaki oturumlar birbirinin üzerine asla yazmaz.\n\n<strong>Google Drive seçili olsa bile, tarayıcı kapandığında yerel bir güvenlik dosyası yine de yazılır ve bir sonraki başlatmada Drive'a yüklenir. Burada yerel bir dosya görmen normaldir, hata değildir.</strong>"
+  },
+  "html_backup_max_files_label": {
+    "message": "Tutulacak maksimum yedek sayısı"
+  },
+  "html_backup_device_name_label": {
+    "message": "Cihaz adı (isteğe bağlı)"
+  },
+  "html_backup_device_name_save": {
+    "message": "Kaydet"
+  },
+  "js_backup_restore_legacy_group": {
+    "message": "Eski yedekler"
+  },
+  "html_options_backup_now": {
+    "message": "Şimdi yedekle"
+  },
+  "html_options_back_to_top": {
+    "message": "↑ Başa dön"
+  },
+  "html_history_backup_hint_prefix": {
+    "message": "Oturumlar yalnızca Chrome içinde saklanır: bir tarayıcı çökmesi veya profil sıfırlaması sonrasında kaybolurlar."
+  },
+  "html_history_backup_settings_link": {
+    "message": "Sekmelerini tarayıcı dışında kaydetmek için Yedeklemeyi ayarla →"
+  },
+  "js_options_backup_now_running": {
+    "message": "Yedekleme çalışıyor…"
+  },
+  "js_options_backup_now_done": {
+    "message": "Yedek kaydedildi."
+  },
+  "js_backup_option_saved": {
+    "message": "Kaydedildi"
+  },
+  "js_backup_permission_denied": {
+    "message": "İzin reddedildi: otomatik yedekleme etkinleştirilmedi."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "Haber akışını etkinleştir"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "TMS haberleri için periyodik olarak marvellouscode.works'ü kontrol eder"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "ve kenar çubuğunda gösterir."
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "Bu arka plan isteğini atlamak için devre dışı bırak."
+  },
+  "html_options_other_legacy_mascot": {
+    "message": "Yeni maskot yerine klasik The Great Suspender görsellerini kullan"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Eski bir sürümü mevcut olan görsellerde, simgeleri ve illüstrasyonları"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "orijinal The Great Suspender stiline geri döndürür."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Eski bir karşılığı olmayan görseller yeni tasarımı kullanmaya devam eder."
+  },
+  "html_permissions_notice_text": {
+    "message": "Bu sürümden itibaren TMS, dosya sistemi/Google hesabı erişimini önceden istemek yerine, yalnızca yerel veya Google Drive yedeklemesini gerçekten açtığında ister."
+  },
+  "html_permissions_notice_link": {
+    "message": "İzinler hakkında daha fazla bilgi edin."
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "Anladım"
+  },
+  "html_permissions_info_note": {
+    "message": "TMS, İndirilenler ve Google hesabı izinlerini yalnızca aşağıda yerel veya Google Drive yedeklemesini etkinleştirdiğinde ister."
+  },
+  "html_permissions_info_note_link": {
+    "message": "İzinlerin tam dökümünü gör"
+  },
+  "js_options_backup_now_error": {
+    "message": "Chrome dosyaları nereye kaydedeceğini soruyor, bu yüzden otomatik yedeklemeler sessizce çalışmayacak. chrome://settings/downloads'ta \"Nereye kaydedileceğini sor\"u devre dışı bırak."
+  },
+  "js_options_backup_next_run": {
+    "message": "Sonraki çalıştırma: $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_backup_last_local": {
+    "message": "Son yedek: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_backup_destination": {
+    "message": "Yedekleme hedefi"
+  },
+  "html_options_backup_dest_local": {
+    "message": "Yerel (İndirilenler klasörü)"
+  },
+  "html_options_backup_dest_drive": {
+    "message": "Google Drive"
+  },
+  "html_options_backup_drive_connect": {
+    "message": "Google Hesabını Bağla"
+  },
+  "html_options_backup_drive_disconnect": {
+    "message": "Bağlantıyı Kes"
+  },
+  "html_popup_backup_drive_error": {
+    "message": "Otomatik yedekleme başarısız oldu: bağlı bir Google hesabı yok. Düzeltmek için buraya tıkla."
+  },
+  "html_popup_backup_downloads_error": {
+    "message": "Otomatik yedekleme başarısız oldu: İndirilenler izni eksik. Düzeltmek için buraya tıkla."
+  },
+  "html_popup_backup_nudge_text": {
+    "message": "Otomatik yedekleme kapalı. Oturumlarını koru."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "10 gün sonra hatırlat"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "Otomatik yedekleme kapalı. Etkinleştirmek, bu tarayıcı profili sıfırlanırsa veya bozulursa oturumlarını korur."
+  },
+  "html_backup_nudge_optout": {
+    "message": "İlgilenmiyorum, bir daha hatırlatma"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "Otomatik yedekleme açık, ancak bu cihazda İndirilenler izni verilmemiş (ayarları içe aktardıktan veya başka bir tarayıcıdan senkronize ettikten sonra olabilir). Bunu vermeden yedeklemeler çalışmaz."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "İzin ver"
+  },
+  "js_options_backup_drive_connecting": {
+    "message": "Bağlanıyor…"
+  },
+  "js_options_backup_drive_auth_error": {
+    "message": "Google'a bağlanılamadı. Lütfen tekrar dene."
+  },
+  "html_options_settings_backup": {
+    "message": "Ayarlar yedeği"
+  },
+  "html_backup_settings_desc": {
+    "message": "Tüm uzantı ayarlarını bir JSON dosyasına aktar; yedek olarak veya yapılandırmanı başka bir tarayıcı profiline aktarmak için kullanışlıdır. Bir dosyayı içe aktarmak mevcut ayarların yerini alır."
+  },
+  "html_backup_local_folder_hint": {
+    "message": "Yerel yedekler, İndirilenler içindeki tms-backups klasörüne gider."
+  },
+  "html_backup_drive_folder_note": {
+    "message": "Yedekler, Google Drive'ındaki 'TMS Backups' klasörüne kaydedilir."
+  },
+  "html_backup_drive_open_folder": {
+    "message": "Drive'da TMS Backups klasörünü aç ↗"
+  },
+  "html_backup_drive_label_account": {
+    "message": "Hesap"
+  },
+  "html_backup_drive_label_folder": {
+    "message": "Klasör"
+  },
+  "html_backup_settings_local_title": {
+    "message": "Yerel"
+  },
+  "html_backup_settings_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_drive_save_settings": {
+    "message": "Ayarları Drive'a kaydet"
+  },
+  "html_backup_settings_drive_restore": {
+    "message": "Ayarları Drive'dan geri yükle"
+  },
+  "js_backup_drive_settings_saving": {
+    "message": "Drive'a kaydediliyor…"
+  },
+  "js_backup_drive_settings_saved": {
+    "message": "Ayarlar Drive'a kaydedildi."
+  },
+  "js_backup_drive_settings_error": {
+    "message": "Ayarlar Drive'a kaydedilemedi. Lütfen tekrar dene."
+  },
+  "js_backup_cooldown": {
+    "message": "Sonraki yedeklemeden önce $seconds$sn bekle.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_downloading": {
+    "message": "Ayarlar Drive'dan indiriliyor…"
+  },
+  "js_backup_settings_drive_not_found": {
+    "message": "Drive'da ayar dosyası bulunamadı. Önce ayarlarını Drive'a kaydet."
+  },
+  "js_backup_settings_drive_restore_success": {
+    "message": "Ayarlar geri yüklendi. Yeniden yükleniyor…"
+  },
+  "js_backup_settings_drive_restore_error": {
+    "message": "Ayarlar Drive'dan geri yüklenemedi. Lütfen tekrar dene."
+  },
+  "js_backup_settings_drive_last_backup": {
+    "message": "Son yedek: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_overwrite_confirm": {
+    "message": "$date$ tarihli mevcut bir ayarlar yedeği var. Üzerine yazılsın mı?",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_settings_export": {
+    "message": "Ayarları dışa aktar"
+  },
+  "html_options_settings_import": {
+    "message": "Ayarları içe aktar"
+  },
+  "js_options_settings_import_confirm": {
+    "message": "Bu, mevcut ayarlarının üzerine yazacak. Devam edilsin mi?"
+  },
+  "js_options_settings_import_success": {
+    "message": "Ayarlar içe aktarıldı. Yeniden yükleniyor…"
+  },
+  "js_options_settings_import_error": {
+    "message": "Geçersiz ayarlar dosyası."
+  },
+  "html_history_migrate_nav": {
+    "message": "Taşı"
+  },
+  "html_backup_restore_title": {
+    "message": "Yedekten geri yükle"
+  },
+  "html_backup_restore_desc": {
+    "message": "Kaydedilmiş bir oturum olarak geri yüklemek için bir yedek dosyası içe aktar. İçe aktardıktan sonra, hangi pencerelerin geri yükleneceğini seçmek için Oturumlar'ı aç."
+  },
+  "html_backup_restore_local_title": {
+    "message": "Yerel dosya"
+  },
+  "html_backup_restore_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_restore_from_file": {
+    "message": "Yedek dosyası seç"
+  },
+  "html_backup_restore_drive_select_label": {
+    "message": "Bir Drive yedeği seç"
+  },
+  "html_backup_restore_import": {
+    "message": "Seçileni içe aktar"
+  },
+  "js_backup_restore_importing": {
+    "message": "İçe aktarılıyor…"
+  },
+  "js_backup_restore_success": {
+    "message": "\"$name$\" olarak içe aktarıldı.",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_restore_go_sessions": {
+    "message": "→ Geri yüklemek için Oturumlar'ı aç"
+  },
+  "js_backup_restore_error_invalid": {
+    "message": "Geçersiz yedek dosyası."
+  },
+  "js_backup_restore_error_drive": {
+    "message": "Drive'dan indirilemedi. Bağlantını kontrol edip tekrar dene."
+  },
+  "js_backup_restore_error_generic": {
+    "message": "İçe aktarma başarısız oldu. Lütfen tekrar dene."
+  },
+  "html_backup_drive_import_modal_title": {
+    "message": "Değiştirmeden önce Drive yedeği kaydedilsin mi?"
+  },
+  "html_backup_drive_import_modal_body": {
+    "message": "En son Drive yedeğin $date$ tarihli. Google Drive'a ihtiyaç duymadan geri yükleyebilmen için bunu Oturumlar Yöneticisi'nde bir oturum olarak kaydet.",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_backup_drive_import_modal_confirm": {
+    "message": "Oturumlara Kaydet"
+  },
+  "html_backup_drive_import_modal_cancel": {
+    "message": "Atla"
+  },
+  "html_backup_drive_files_title": {
+    "message": "Drive yedek dosyaları"
+  },
+  "html_backup_drive_download_btn": {
+    "message": "İndir"
+  },
+  "html_backup_drive_delete_btn": {
+    "message": "Sil"
+  },
+  "js_backup_drive_delete_confirm": {
+    "message": "Bu yedek dosyası Drive'dan silinsin mi? Bu işlem geri alınamaz."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Tümünü sil"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Bu cihaza ait tüm yedekler silinsin mi?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Bu, \"$device$\" için Google Drive'daki $count$ yedek dosyasının tamamını kalıcı olarak siler. Bu işlem geri alınamaz.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Tümünü sil"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "İptal"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Bazı yedek dosyaları silinemedi. Tekrar dene."
+  },
+  "html_backup_drive_no_files": {
+    "message": "Drive'da yedek dosyası bulunamadı."
+  },
+  "html_backup_drive_files_loading": {
+    "message": "Yükleniyor…"
+  }
+}

@@ -1,0 +1,1509 @@
+{
+  "ext_extension_name": {
+    "message": "The Marvellous Suspender"
+  },
+  "ext_extension_description": {
+    "message": "Звільніть свою пам'ять. Призупиніть непотрібні вкладки прямо зараз."
+  },
+  "ext_default_title": {
+    "message": "The Marvellous Suspender"
+  },
+  "ext_cmd_toggle_tab_suspension_description": {
+    "message": "Призупинити/Відновити активну вкладку"
+  },
+  "ext_cmd_toggle_tab_pause_description": {
+    "message": "Пауза/Відновити призупинення активної вкладки"
+  },
+  "ext_cmd_suspend_selected_tabs_description": {
+    "message": "Призупинити вибрані вкладки"
+  },
+  "ext_cmd_unsuspend_selected_tabs_description": {
+    "message": "Відновити вибрані вкладки"
+  },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Призупинити всі вкладки в групі активних вкладок"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Відновити всі вкладки в групі активних вкладок"
+  },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Призупинити всі вкладки без групи в активному вікні"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Відновити всі вкладки без групи в активному вікні"
+  },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Увімкнути/вимкнути режим «ніколи не призупиняти» для групи активної вкладки."
+  },
+  "ext_cmd_soft_suspend_active_window_description": {
+    "message": "Призупинити всі інші вкладки в активному вікні"
+  },
+  "ext_cmd_force_suspend_active_window_description": {
+    "message": "Примусово призупинити всі інші вкладки в активному вікні"
+  },
+  "ext_cmd_unsuspend_active_window_description": {
+    "message": "Відновити всі вкладки в активному вікні"
+  },
+  "ext_cmd_soft_suspend_all_windows_description": {
+    "message": "Призупинити всі вкладки у всіх вікнах"
+  },
+  "ext_cmd_force_suspend_all_windows_description": {
+    "message": "Примусово призупинити всі вкладки у всіх вікнах"
+  },
+  "ext_cmd_unsuspend_all_windows_description": {
+    "message": "Відновити всі вкладки у всіх вікнах"
+  },
+  "js_context_open_link_in_suspended_tab": {
+    "message": "Відкрити посилання в новій призупиненій вкладці"
+  },
+  "js_context_toggle_suspend_state": {
+    "message": "Призупинити/Відновити цю вкладку"
+  },
+  "js_context_toggle_pause_suspension": {
+    "message": "Пауза/Відновити призупинення цієї вкладки"
+  },
+  "js_context_never_suspend_domain": {
+    "message": "Ніколи не призупиняти цей домен"
+  },
+  "js_context_never_suspend_page": {
+    "message": "Ніколи не призупиняти цю URL-адресу"
+  },
+  "js_context_suspend_selected_tabs": {
+    "message": "Призупинити вибрані вкладки"
+  },
+  "js_context_unsuspend_selected_tabs": {
+    "message": "Відновити вибрані вкладки"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Призупинити всі вкладки в цій групі"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Відновити всі вкладки в цій групі"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Призупинити всі вкладки, що не входять до групи"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Відновити всі вкладки, що не входять до групи"
+  },
+  "js_context_never_suspend_group": {
+    "message": "Ніколи не призупиняти цю групу"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "Дозволити призупиняти цю групу"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "Ніколи не призупиняти цю групу (лише назви груп)"
+  },
+  "js_context_soft_suspend_other_tabs_in_window": {
+    "message": "Призупинити всі інші вкладки в цьому вікні"
+  },
+  "js_context_force_suspend_other_tabs_in_window": {
+    "message": "Примусово призупинити всі інші вкладки в цьому вікні"
+  },
+  "js_context_unsuspend_all_tabs_in_window": {
+    "message": "Відновити всі вкладки в цьому вікні"
+  },
+  "js_context_soft_suspend_all_tabs": {
+    "message": "Призупинити всі вкладки у всіх вікнах"
+  },
+  "js_context_force_suspend_all_tabs": {
+    "message": "Примусово призупинити всі вкладки у всіх вікнах"
+  },
+  "js_context_unsuspend_all_tabs": {
+    "message": "Відновити всі вкладки у всіх вікнах"
+  },
+  "html_health_title": {
+    "message": "Стан вкладки (Бета)"
+  },
+  "html_health_title_intro": {
+    "message": "Якщо у вас виникли проблеми з призупиненими вкладками, особливо з іконками сайтів, натисніть «Сканувати вкладки», щоб перевірити, чи зможемо ми їх виправити."
+  },
+  "html_health_all_good": {
+    "message": "Ми не виявили жодних проблем із вашими призупиненими вкладками. Якщо ви все ще помічаєте якісь неполадки, повідомте нам про це нижче, і ми спробуємо розширити цю перевірку."
+  },
+  "html_health_reload_intro": {
+    "message": "Деякі призупинені вкладки завантажилися не повністю. Ми можемо перезавантажити їх, щоб виправити їх."
+  },
+  "html_health_restore_intro": {
+    "message": "Деякі з ваших призупинених вкладок використовують іконку сайту за замовчуванням браузера. Це означає, що їх немає в кеші TMS. Ми можемо відновити, а потім знову призупинити мінімальну кількість вкладок, щоб завантажити відсутні іконки сайту."
+  },
+  "html_health_scan_button": {
+    "message": "Сканувати вкладки"
+  },
+  "html_health_copy_button": {
+    "message": "Копіювати результати"
+  },
+  "html_health_scan_label": {
+    "message": "Сканування вкладок..."
+  },
+  "html_health_num_tms_tabs": {
+    "message": "Призупинені вкладки TMS"
+  },
+  "html_health_num_tms_cache": {
+    "message": "іконки у кеші TMS"
+  },
+  "html_health_num_tabs_empty": {
+    "message": "вкладки не завантажилися"
+  },
+  "html_health_num_tabs_extension": {
+    "message": "вкладки мають іконку TMS"
+  },
+  "html_health_num_tabs_default": {
+    "message": "вкладки мають іконку за замовчуванням"
+  },
+  "html_health_num_hostnames": {
+    "message": "унікальні імена хостів вкладок"
+  },
+  "html_health_small_cache": {
+    "message": "Локальний кеш іконок TMS може не охоплювати всі вкладки. Якщо кеш вашого браузера очищено, TMS може не відображати деякі іконки."
+  },
+  "html_health_reload_button": {
+    "message": "Далі: Перезавантажити $count$ вкладок",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_restore_button": {
+    "message": "Далі: Відновити $count$ вкладок для кешування іконок",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_action_label": {
+    "message": "Відновлення іконок..."
+  },
+  "html_health_after_reload": {
+    "message": "Як тільки ваші вкладки завантажаться у фоновий режим, ви зможете знову натиснути «Сканувати вкладки», щоб перевірити, чи покращили ми ситуацію."
+  },
+  "html_health_after_restore": {
+    "message": "Ви можете знову натиснути «Сканувати вкладки», щоб перевірити, чи покращили ми ситуацію."
+  },
+  "html_health_need_help1": {
+    "message": "Якщо у вас все ще виникають проблеми з вкладками або іконками, ви можете натиснути «Копіювати результати» та вставити в новий"
+  },
+  "html_health_need_help2": {
+    "message": "Проблема на GitHub."
+  },
+  "html_health_num_grouped_broken": {
+    "message": "згруповані вкладки у несправному стані (помилка групи вкладок)"
+  },
+  "html_health_repair_intro": {
+    "message": "Деякі вкладки в групах вкладок нe працюють: вони відображаються як нова вкладка, а не завантажуються коректно після перезапуску браузера. TMS може спробувати їх відновити."
+  },
+  "html_health_repair_button": {
+    "message": "Відновити $count$ згрупованих вкладок",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_after_repair": {
+    "message": "Готово. Проведіть повторне сканування, щоб переконатися, що згруповані вкладки знову перебувають у призупиненому стані."
+  },
+  "html_about_title": {
+    "message": "Про розширення"
+  },
+  "html_about_version_label": {
+    "message": "Версія"
+  },
+  "html_about_tagline": {
+    "message": "Духовний наступник сучасного призупинення вкладок: замінює неактивні вкладки, легкою сторінкою в режимі гібернації(глибокого сну), що дає вам детальний контроль над тим, коли вони прокидаються."
+  },
+  "html_about_section_credits": {
+    "message": "Подяки"
+  },
+  "html_about_contributors_and": {
+    "message": " та "
+  },
+  "html_about_community_thanks_link": {
+    "message": "всіма учасниками на GitHub"
+  },
+  "html_about_fork_beginning": {
+    "message": "На основі оригінальної"
+  },
+  "html_about_fork_mid": {
+    "message": "доступно на GitHub, без рекламних трекерів"
+  },
+  "html_about_fork_end": {
+    "message": "Більше інформації доступно на"
+  },
+  "html_about_contributors": {
+    "message": "Розроблено:"
+  },
+  "html_about_report_issues_prefix": {
+    "message": "Якщо ви бажаєте залишити відгук або повідомити про помилку, це можна зробити на"
+  },
+  "html_about_report_issues_suffix": {
+    "message": ". Будь ласка, перевірте, чи ваша ідея чи проблема вже існує, перш ніж створювати нову. Дякуємо!"
+  },
+  "html_about_debugging_prefix": {
+    "message": "Щоб записувати журнали та створювати діагностичний звіт, перейдіть до"
+  },
+  "html_about_debugging_suffix": {
+    "message": "сторінки діагностики."
+  },
+  "html_about_the_github_issues_page": {
+    "message": "сторінці GitHub \"issues\""
+  },
+  "html_about_section_support": {
+    "message": "Підтримати розробку"
+  },
+  "html_about_support_text": {
+    "message": "Програма «Marvellous Suspender» є безкоштовною та має відкритий код. Якщо вона вам здається корисною, розгляньте можливість зробити невеликий внесок: це допоможе підтримати проєкт та сприятиме його подальшому розвитку."
+  },
+  "html_broken_title": {
+    "message": "пошкоджений"
+  },
+  "html_broken_ruh_roh": {
+    "message": "От, халепа!"
+  },
+  "html_broken_line1": {
+    "message": "не вдалося запустити. Можливо, ви використовуєте несумісний браузер?"
+  },
+  "html_broken_line2": {
+    "message": "Спробуйте перезапустити розширення. Якщо проблема не зникне, зверніться за допомогою на"
+  },
+  "html_broken_line2_github_page": {
+    "message": "сторінці GitHub \"project\""
+  },
+  "html_broken_line3": {
+    "message": "Ви можете відновити втрачені вкладки з"
+  },
+  "html_broken_line3_session_management": {
+    "message": "сторінки керування сесіями"
+  },
+  "html_broken_button_restart_extension": {
+    "message": "Перезапустити розширення"
+  },
+  "html_history_title": {
+    "message": "Керування сесіями"
+  },
+  "html_history_page_desc": {
+    "message": "TMS постійно зберігає знімки ваших відкритих вкладок, і для цього не потрібно ніяких налаштувань. Сесії оновлюються автоматично під час перегляду веб-сторінок, але вони зберігаються безпосередньо в Chrome: якщо профіль браузера буде втрачено або пошкоджено, вони також будуть втрачені."
+  },
+  "html_history_current_session": {
+    "message": "Поточна сесія"
+  },
+  "html_history_recent_sessions": {
+    "message": "Нещодавні сесії"
+  },
+  "html_history_saved_sessions": {
+    "message": "Збережені сесії"
+  },
+  "html_history_import_session": {
+    "message": "Імпорт сесії"
+  },
+  "html_history_migrate_tabs": {
+    "message": "Перенести вкладки"
+  },
+  "html_history_migrate_old_id": {
+    "message": "ID розширення"
+  },
+  "html_history_migrate_section_title": {
+    "message": "Перенесення вкладок"
+  },
+  "html_history_migrate_section_desc": {
+    "message": "Відновіть вкладки, призупинені попередньою версією або іншим форком цього розширення. Введіть нижче ідентифікатор старого розширення та натисніть «Перенести вкладки», щоб перетворити призупинені URL-адреси."
+  },
+  "html_options_title": {
+    "message": "Налаштування"
+  },
+  "html_options_suspend_title": {
+    "message": "Автоматичне призупинення вкладок"
+  },
+  "html_options_suspended_title": {
+    "message": "Призупинені вкладки"
+  },
+  "html_options_suspended_append_url_to_title": {
+    "message": "Додавати оригінальну URL-адресу до заголовка призупиненої вкладки"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Якщо функцію увімкнено, оригінальну URL-адресу буде додано до"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "заголовка призупиненої вкладки."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Це дозволяє знаходити призупинені вкладки за іменем хоста за допомогою функції Chrome"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "«Пошук по вкладках» (Ctrl+Shift+A)."
+  },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Зберігати позицію відтворення YouTube при призупиненню"
+  },
+  "html_options_other_title": {
+    "message": "Загальні"
+  },
+  "html_options_language": {
+    "message": "Мова"
+  },
+  "html_options_language_auto": {
+    "message": "За замовчуванням системи"
+  },
+  "html_options_suspend_automatically_after": {
+    "message": "Автоматично призупиняти вкладки після"
+  },
+  "html_options_suspend_on_battery_after": {
+    "message": "Призупиняти вкладки у режимі роботи від акумулятора після"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Так само, як і під час живлення від мережі"
+  },
+  "html_options_suspend_never": {
+    "message": "Ніколи"
+  },
+  "html_options_suspend_seconds": {
+    "message": "сек."
+  },
+  "html_options_suspend_minute": {
+    "message": "хв."
+  },
+  "html_options_suspend_minutes": {
+    "message": "хв."
+  },
+  "html_options_suspend_hour": {
+    "message": "год."
+  },
+  "html_options_suspend_hours": {
+    "message": "год."
+  },
+  "html_options_suspend_day": {
+    "message": "День"
+  },
+  "html_options_suspend_days": {
+    "message": "Дня"
+  },
+  "html_options_suspend_week": {
+    "message": "Тиждень"
+  },
+  "html_options_suspend_weeks": {
+    "message": "Тижня"
+  },
+  "html_options_suspend_no_pinned": {
+    "message": "Ніколи не призупиняти закріплені вкладки"
+  },
+  "html_options_suspend_no_app_windows": {
+    "message": "Ніколи не призупиняти вкладки, відкриті у вікнах програм"
+  },
+  "html_options_suspend_no_grouped_tabs": {
+    "message": "Ніколи не призупиняти вкладки в групі вкладок"
+  },
+  "html_options_suspend_no_forms": {
+    "message": "Ніколи не призупиняти вкладки, що містять незбережені дані форми"
+  },
+  "html_options_suspend_no_audio": {
+    "message": "Ніколи не призупиняти вкладки, які відтворюють аудіо"
+  },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Захищає від автоматичного призупинення та звичайних дій масового призупинення."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Ви все одно можете призупинити вкладку вручну або за допомогою дії «Примусово призупинити»."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Вкладку, URL-адреса якої є у списку «Завжди призупиняти», буде призупинено в будь-якому разі."
+  },
+  "html_options_suspend_only_connected": {
+    "message": "Ніколи не призупиняти вкладки в режимі офлайн"
+  },
+  "html_options_suspend_claim_by_default": {
+    "message": "Перехоплювати вкладки, призупинені іншими розширеннями"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Автоматично перехоплює вкладки, які вже призупинені іншим сумісним"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "розширеням (наприклад, The Great Suspender або інша його версія)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Вкладка вважається «призупиненою», якщо її URL адреса містить «suspended.html»."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Увімкнення цієї опції змінює URL-адресу для поточного розширення, щоб TMS міг"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "надалі керувати цією вкладкою."
+  },
+  "html_options_suspend_only_on_battery": {
+    "message": "Ніколи не призупиняти вкладки, коли пристрій підключений до джерела живлення"
+  },
+  "html_options_suspend_no_active_tabs": {
+    "message": "Ніколи не призупиняти активну вкладку в кожному вікні"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "Список «Завжди призупиняти» не скасовує цей параметр для автоматичного й масового призупинення."
+  },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Завжди відкривати призупинені вкладки на початку сторінки"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "При відновленні вкладка відкривається на початку сторінки замість того місця,"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "де вона була прокручена під час призупинення."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Застосовується як до автоматичного, так і до ручного призупинення"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "та скасовує перехід за посиланнями на #розділ під час завантаження."
+  },
+  "html_options_suspend_automatically_unsuspend": {
+    "message": "Автоматично відновити вкладку під час її перегляду"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Перезавантаження також відновлює вкладки у фоновому режимі (не лише активну вкладку)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Якщо увімкнено, оновлення призупиненої вкладки (Ctrl+R або ПКМ"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "> Перезавантажити) також відновлює її, навіть якщо"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "вона не є активною в цей момент."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Корисно для одночасного відновлення кількох призупинених вкладок,"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "наприклад, після виділення декількох вкладок і натискання Ctrl+R."
+  },
+  "html_options_suspend_discard_after_suspend": {
+    "message": "Застосовувати вбудовану економію пам'яті браузера під час призупинення"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1a": {
+    "message": "Після призупинення вкладки дозвольте Chrome також повністю"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1b": {
+    "message": "вивантажити її з пам'яті. Це звільняє більше системних ресурсів"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1c": {
+    "message": "на вкладку (корисно, якщо у вас відкриті сотні вкладок)."
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line2a": {
+    "message": "Це відбувається за рахунок втрати стану вкладки, доки вона"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line2b": {
+    "message": "не буде перезавантажена."
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line3a": {
+    "message": "Детальніше про вивантаження вкладок див.:"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line3b": {
+    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  },
+  "html_options_suspend_theme": {
+    "message": "Тема"
+  },
+  "html_options_suspend_theme_light": {
+    "message": "Світла"
+  },
+  "html_options_suspend_theme_dark": {
+    "message": "Темна"
+  },
+  "html_options_suspend_theme_system": {
+    "message": "Система"
+  },
+  "html_options_suspend_screen_capturing": {
+    "message": "Захоплення екрана"
+  },
+  "html_options_suspend_screen_capturing_disabled": {
+    "message": "Відключено"
+  },
+  "html_options_suspend_screen_capturing_screen_only": {
+    "message": "Знімати лише верхню частину екрана"
+  },
+  "html_options_suspend_screen_capturing_entire_page": {
+    "message": "Захоплювати всю сторінку"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line1a": {
+    "message": "На призупиненій вкладці розширення може відображати попередній перегляд зображення того,"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line1b": {
+    "message": "як виглядала сторінка безпосередньо перед призупиненням."
+  },
+  "html_options_suspend_screen_capturing_tooltip_line2a": {
+    "message": "Функція створення знімків екрана є експериментальною та може спричиняти значне навантаження на процесор,"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line2b": {
+    "message": "а також незначне збільшення використання пам'яті."
+  },
+  "html_options_suspend_screen_capturing_tooltip_line3a": {
+    "message": "Якщо ви помітите незвичну поведінку, наприклад, тривалу затримку під час призупинення вкладок"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line3b": {
+    "message": "або раптовий збій у роботі браузера, спробуйте вимкнути цю функцію."
+  },
+  "html_options_suspend_screen_capture_method": {
+    "message": "Спосіб захоплення"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "Автоматично (рекомендовано)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "Лише знімок браузера"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "Тільки рендер сторінок"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "В автоматичному режимі робиться справжній знімок браузера, якщо вкладка, що призупиняється, зараз відкрита перед вами."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "Це відбувається миттєво і працює на будь-якому сайті. Решту вкладок перемальовується рендером сторінки, що повільніше."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "Режим «Лише знімок браузера» ніколи не запускає рендер сторінки, тому вкладки, призупинені у фоні, залишаються без попереднього перегляду."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "Знімок браузера охоплює лише видиму частину сторінки, навіть якщо вибрано захоплення всієї сторінки."
+  },
+  "html_options_suspend_screen_capture_precapture": {
+    "message": "Зберігати нещодавні знімки вкладок під час їх використання"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line1": {
+    "message": "Робить знімок браузера вкладки приблизно через секунду після того, як ви на неї перейдете або вона завершить завантаження,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
+    "message": "тож вкладки, які згодом буде призупинено у фоні, все одно матимуть попередній перегляд."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line3": {
+    "message": "Chrome дозволяє розширенню робити знімок вкладки, на якій ви не натискали його кнопку, лише якщо воно має доступ до всіх сайтів,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
+    "message": "тому під час увімкнення цього параметра буде запитано цей дозвіл. Він використовується лише для цих знімків, які залишаються на цьому комп'ютері."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line5": {
+    "message": "Зберігається лише останній знімок кожної відкритої вкладки, і його буде видалено, коли вкладку буде закрито."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
+    "message": "Вкладки в режимі анонімного перегляду та сайти з білого списку ніколи не захоплюються."
+  },
+  "html_options_suspend_force_screen_capture": {
+    "message": "Увімкнути режим високої якості знімків екрана"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line1": {
+    "message": "Якщо вимкнено, створення знімків екрана має такі обмеження для підвищення продуктивності:"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line2": {
+    "message": "- Низька якість знімків екрана"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line4": {
+    "message": "- Знімок екрана не створюється, якщо генерація зображення триває понад 1 хвилину"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line5": {
+    "message": "- Максимальна висота знімка екрана обмежена 5000 пікселями"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line6": {
+    "message": "Увімкнення режиму високої якості знімків екрана може значно збільшити "
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line7": {
+    "message": "навантаження на процесор і використання пам'яті."
+  },
+  "html_options_whitelist_title": {
+    "message": "Ніколи не призупиняти вкладки з URL-адресами з наступного списку:"
+  },
+  "html_options_always_suspend_title": {
+    "message": "Завжди призупиняти вкладки з URL-адресами з наведеного списку:"
+  },
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Вкладки, що відповідають цьому списку, завжди призупиняються після закінчення звичайного часу очікування,"
+  },
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "незалежно від відтворення аудіо, вводу даних у форми чи закріпленого стану вкладки."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Один запис у кожному рядку. Застосовуються ті самі правила збігу, що й для списку вище"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "(пошук звичайного тексту в будь-якому місці URL-адреси або /регулярний вираз/ між скісними рисками)."
+  },
+  "html_options_whitelist_tooltip_line1": {
+    "message": "Додайте URL-адресу кожної сторінки, яку хочете дозволити, з нового рядка. Наприклад:"
+  },
+  "html_options_whitelist_tooltip_line2": {
+    "message": "Щоб дозволити кілька сайтів одним рядком, ви можете натомість вказати частину URL-адреси:"
+  },
+  "html_options_whitelist_tooltip_line3": {
+    "message": "Ви також можете вказувати регулярні вирази, взявши текст у скісні риски:"
+  },
+  "html_options_changelog_modal_title": {
+    "message": "Що нового у v$version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_whitelist_close": {
+    "message": "Закрити"
+  },
+  "html_options_whitelist_unsuspend": {
+    "message": "Розбудити відповідні вкладки зараз"
+  },
+  "html_options_list_test_btn": {
+    "message": "Перевірити список"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Призупинити відповідні вкладки зараз"
+  },
+  "html_options_never_suspend_groups_title": {
+    "message": "Ніколи не призупиняти вкладки в таких групах вкладок:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Вкладки у цих групах ніколи не призупиняються автоматично, і пропускаються масовими призупиненнями."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Додати групу можна через контекстне меню за допомогою пункту «Ніколи не призупиняти цю групу». Додавати можна лише групи, які мають назву."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Групи порівнюються за назвою та кольором, а також відстежують зміни назви, поки браузер залишається відкритим."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Групи вкладок ще не додано."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Видалити"
+  },
+  "html_options_other_enable_context_menu": {
+    "message": "Додати The Marvellous Suspender до контекстного меню"
+  },
+  "html_options_other_enable_context_menu_tooltip_line1": {
+    "message": "Додає елементи керування цим розширенням до контекстного меню вебсторінки."
+  },
+  "html_options_other_enable_context_menu_tooltip_line2": {
+    "message": "Це надасть вам доступ до розширених дій із призупинення, недоступних "
+  },
+  "html_options_other_enable_context_menu_tooltip_line3": {
+    "message": "в інших розділах розширення."
+  },
+  "html_options_other_enable_sync": {
+    "message": "Синхронізувати налаштування з вашим профілем браузера"
+  },
+  "html_options_other_enable_sync_tooltip_line1a": {
+    "message": "Налаштування розширення будуть синхронізовані у всіх браузерах, які"
+  },
+  "html_options_other_enable_sync_tooltip_line1b": {
+    "message": "увійшли в систему під тим самим профілем."
+  },
+  "html_options_other_enable_sync_tooltip_line2": {
+    "message": "Це також синхронізує налаштування в режимі інкогніто."
+  },
+  "html_options_other_enable_sync_warning": {
+    "message": "Увімкнення цієї функції перезапише налаштування в усіх інших браузерах, у яких використовується той самий профіль"
+  },
+  "html_options_suspend_on_low_memory": {
+    "message": "Миттєво призупиняти вкладки, коли системної пам'яті стає дуже мало"
+  },
+  "html_options_suspend_on_low_memory_tooltip_line1": {
+    "message": "Ця опція перевизначає функцію автоматичного вивантаження вкладок браузером."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line2": {
+    "message": "Якщо увімкнено, вона примусово призупиняє вкладку замість її вивантаження."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line3": {
+    "message": "Зазвичай ваш браузер вивантажує вкладки лише тоді, коли рівень системної пам'яті стає дуже низьким."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line4": {
+    "message": "Зверніть увагу: це може призвести до призупинення вкладок раніше за час, "
+  },
+  "html_options_suspend_on_low_memory_tooltip_line5": {
+    "message": "вказаний у налаштуваннях автоматичного призупинення."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line6": {
+    "message": "Докладніше про вивантаження вкладок дивіться за посиланням:"
+  },
+  "html_options_suspend_on_low_memory_tooltip_discarding_link": {
+    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  },
+  "html_popup_unsuspend_tab": {
+    "message": "Відновити цю вкладку"
+  },
+  "html_popup_suspend_tab": {
+    "message": "Призупинити цю вкладку зараз"
+  },
+  "html_popup_never_suspend_domain": {
+    "message": "Ніколи не призупиняти цей домен"
+  },
+  "html_popup_never_suspend_page": {
+    "message": "Ніколи не призупиняти цю URL-адресу"
+  },
+  "html_popup_suspend_other_tabs": {
+    "message": "Призупиняти всі інші вкладки"
+  },
+  "html_popup_unsuspend_all_tabs": {
+    "message": "Відновити всі вкладки"
+  },
+  "html_popup_unsuspend_whitelisted_tabs": {
+    "message": "Розбудити відповідні вкладки зараз"
+  },
+  "html_popup_suspend_selected_tabs": {
+    "message": "Призупинити вибрані вкладки"
+  },
+  "html_popup_unsuspend_selected_tabs": {
+    "message": "Відновити вибрані вкладки"
+  },
+  "html_popup_settings": {
+    "message": "Налаштування"
+  },
+  "html_popup_backup_now_local": {
+    "message": "Створити резервну копію зараз (Локально)"
+  },
+  "html_popup_backup_now_cloud": {
+    "message": "Створити резервну копію зараз (Хмарно)"
+  },
+  "html_restoring_title": {
+    "message": "Відновлення вікна"
+  },
+  "html_restoring_heading": {
+    "message": "Відновлення вкладок"
+  },
+  "html_restoring_detail": {
+    "message": "Зачекайте, поки я відновлю це вікно..."
+  },
+  "html_recovery_title": {
+    "message": "Відновлення"
+  },
+  "html_recovery_ruh_roh": {
+    "message": "От, халепа!"
+  },
+  "html_recovery_description_line1": {
+    "message": "Схоже, ви відновлюєте роботу після збою розширення."
+  },
+  "html_recovery_description_line2": {
+    "message": "Ваші призупинені вкладки могли аварійно завершити роботу або зникнути."
+  },
+  "html_recovery_restore_tabs_automatically": {
+    "message": "Автоматичне відновлення вкладок"
+  },
+  "html_recovery_go_to_session_manager": {
+    "message": "Перейти до керування сесіями"
+  },
+  "html_recovery_important_message": {
+    "message": "Наразі у вас увімкнено запис екрана. Якщо розширення постійно аварійно завершує роботу, рекомендується вимкнути цю опцію."
+  },
+  "html_recovery_disable_screen_capturing": {
+    "message": "Вимкнути запис екрану"
+  },
+  "html_recovery_tabs_to_restore": {
+    "message": "Вкладки для відновлення"
+  },
+  "html_shortcuts_title": {
+    "message": "Комбінації клавіш"
+  },
+  "html_shortcuts_keyboard_shortcuts": {
+    "message": "Комбінації клавіш"
+  },
+  "html_shortcuts_context_menu_note": {
+    "message": "Примітка: Ці дії також доступні через контекстне меню, яке відкривається при натисканні правою кнопкою миші."
+  },
+  "html_shortcuts_remap_keys": {
+    "message": "Змінити комбінації клавіш"
+  },
+  "html_sidebar_general_settings": {
+    "message": "Налаштування"
+  },
+  "html_sidebar_session_management": {
+    "message": "Сесії"
+  },
+  "html_sidebar_tab_health": {
+    "message": "Стан вкладок"
+  },
+  "html_sidebar_shortcuts": {
+    "message": "Комбінації клавіш"
+  },
+  "html_sidebar_support": {
+    "message": "Про розширення"
+  },
+  "html_sidebar_backup": {
+    "message": "Резервне копіювання"
+  },
+  "html_sidebar_news": {
+    "message": "Новини"
+  },
+  "html_news_title": {
+    "message": "Новини та оновлення"
+  },
+  "html_news_desc": {
+    "message": "Будьте в курсі останніх випусків, відомих проблем та оголошень з блогу Marvellous Codeworks."
+  },
+  "html_news_loading": {
+    "message": "Завантаження новин…"
+  },
+  "html_news_empty": {
+    "message": "Поки що новин немає. Загляньте пізніше!"
+  },
+  "html_news_new_pill": {
+    "message": "НОВЕ"
+  },
+  "html_news_mark_all_read": {
+    "message": "Позначити всі як прочитані"
+  },
+  "html_backup_page_title": {
+    "message": "Резервне копіювання та відновлення"
+  },
+  "html_success_great_success": {
+    "message": "Чудово!"
+  },
+  "html_success_all_tabs_restored": {
+    "message": "Всі ваші вкладки були відновлені."
+  },
+  "html_success_goto_advanced_prefix": {
+    "message": "Щоб ознайомитися з розширеними можливостями керування сеансами, перейдіть на сторінку"
+  },
+  "html_success_goto_advanced_suffix": {
+    "message": "сторінка"
+  },
+  "html_session_manager": {
+    "message": "керування сесіями"
+  },
+  "html_suspended_title": {
+    "message": "Призупинена вкладка"
+  },
+  "html_suspended_click_to_reload": {
+    "message": "Оновіть або натисніть, щоб перезавантажити"
+  },
+  "html_suspended_toast_not_connected": {
+    "message": "Ви не підключені до Інтернету"
+  },
+  "html_suspended_toast_reload_disabled": {
+    "message": "Автоматичне перезавантаження вкладок тимчасово вимкнено."
+  },
+  "html_permissions_title": {
+    "message": "Дозволи"
+  },
+  "html_permissions_heading": {
+    "message": "Будь ласка, надайте мені доступ до URL-адрес локальних файлів"
+  },
+  "html_permissions_info": {
+    "message": "Цьому розширенню наразі не дозволено призупинювати URL адреси, що починаються зі слова «file». Щоб змінити це, увімкніть опцію «Дозволити доступ до URL-адрес файлів» на сторінці налаштувань розширення."
+  },
+  "html_permissions_backup": {
+    "message": "Зверніть увагу: зміна цього параметра призведе до тимчасового зникнення всіх призупинених вкладок.\nПро всяк випадок, зараз саме час зберегти резервну копію вашої поточної сесії вкладок."
+  },
+  "html_permissions_return_hint": {
+    "message": "З поверненням: натисніть кнопку ще раз, щоб завершити надання доступу до локальних файлів."
+  },
+  "html_update_title": {
+    "message": "Оновити"
+  },
+  "html_update_heading2": {
+    "message": "готовий стати ще <i>дивовижнішим</i>"
+  },
+  "html_update_info": {
+    "message": "Нова версія The Marvellous Suspender буде встановлена під час наступного перезапуску вашого браузера."
+  },
+  "html_update_info_withbackup": {
+    "message": "ВАЖЛИВО: Нам не вдалося створити точку відновлення для ваших вкладок.<br>Створіть резервну копію ЗАРАЗ!"
+  },
+  "html_update_info_nobackup_prefix": {
+    "message": "Наполегливо рекомендується експортувати копію поточного сеансу з"
+  },
+  "html_update_info_nobackup_suffix": {
+    "message": " перш ніж продовжити оновлення."
+  },
+  "html_updated_title": {
+    "message": "Оновлено"
+  },
+  "html_updating_heading": {
+    "message": "оновлюється"
+  },
+  "html_updating_message": {
+    "message": "Зачекайте, поки я відновлю ваші призупинені вкладки..."
+  },
+  "html_updated_great_suspender_updated": {
+    "message": "Успішно оновлено"
+  },
+  "html_updated_info_line1": {
+    "message": "Перед оновленням було автоматично створено резервну копію ваших вкладок."
+  },
+  "html_updated_info_line2_prefix": {
+    "message": "Якщо під час оновлення виникли проблеми, ви можете відновити втрачені вкладки з цієї сторінки"
+  },
+  "html_updated_info_line2_suffix": {
+    "message": "."
+  },
+  "html_updated_patch_message": {
+    "message": "Вибачте за незручності. Мені просто потрібно було провести невелике технічне обслуговування."
+  },
+  "html_welcome_text_line1": {
+    "message": "Дякуємо за використання"
+  },
+  "html_welcome_text_line2": {
+    "message": "Я забезпечую плавну роботу вашого комп'ютера, призупиняючи вкладки, якими ви не користуєтеся."
+  },
+  "html_welcome_text_line3": {
+    "message": "Ви можете налаштувати параметри нижче."
+  },
+  "js_popup_normal": {
+    "message": "Вкладка автоматично призупиниться."
+  },
+  "js_popup_normal_pause": {
+    "message": "Не зараз"
+  },
+  "js_popup_special": {
+    "message": "Вкладку неможливо призупинити"
+  },
+  "js_popup_suspended": {
+    "message": "Вкладка призупинена"
+  },
+  "js_popup_suspended_pause": {
+    "message": "Не призупиняти"
+  },
+  "js_popup_whitelisted": {
+    "message": "Сайт додано до списку дозволених."
+  },
+  "js_popup_whitelisted_remove": {
+    "message": "Видалити зі списку дозволених"
+  },
+  "js_popup_audible": {
+    "message": "Вкладка відтворює аудіо."
+  },
+  "js_popup_form_input": {
+    "message": "У вкладці є введення форми, які не збережено."
+  },
+  "js_popup_form_input_unpause": {
+    "message": "Скасувати паузу"
+  },
+  "js_popup_pinned": {
+    "message": "Вкладку закріплено"
+  },
+  "js_popup_app_window": {
+    "message": "Вкладка відкрита у вікні програми"
+  },
+  "js_popup_grouped_tab": {
+    "message": "Вкладка знаходиться в групі вкладок"
+  },
+  "js_popup_tab_group": {
+    "message": "Вкладка знаходиться в групі, яка ніколи не призупинятиметься"
+  },
+  "js_popup_temp_whitelist": {
+    "message": "Призупинення вкладки поставлено на паузу."
+  },
+  "js_popup_temp_whitelist_unpause": {
+    "message": "Скасувати паузу"
+  },
+  "js_popup_never": {
+    "message": "Автоматичне призупинення вкладок вимкнено."
+  },
+  "js_popup_no_connectivity": {
+    "message": "З'єднання з мережею відсутнє"
+  },
+  "js_popup_charging": {
+    "message": "Підключено до джерела живлення"
+  },
+  "js_popup_blockedFile": {
+    "message": "Локальні файли не можна призупинити."
+  },
+  "js_popup_blockedFile_enable": {
+    "message": "Увімкнути"
+  },
+  "js_popup_unknown": {
+    "message": "Очікування завантаження вкладки..."
+  },
+  "js_popup_initialising": {
+    "message": "Очікування ініціалізації розширення..."
+  },
+  "js_popup_error": {
+    "message": "Автоматичне призупинення недоступне для цієї вкладки"
+  },
+  "js_history_delete": {
+    "message": "видалити"
+  },
+  "js_history_export": {
+    "message": "експорт"
+  },
+  "js_history_reload": {
+    "message": "відкрити та завантажити"
+  },
+  "js_history_resuspend": {
+    "message": "відкрити та призупинити"
+  },
+  "js_history_save": {
+    "message": "зберегти"
+  },
+  "js_history_window": {
+    "message": "Вікно"
+  },
+  "js_history_windows": {
+    "message": "Вікна"
+  },
+  "js_history_tab": {
+    "message": "Вкладка"
+  },
+  "js_history_tabs": {
+    "message": "Вкладки"
+  },
+  "js_history_enter_name_for_session": {
+    "message": "Введіть ім'я для цієї сесії"
+  },
+  "js_history_confirm_delete": {
+    "message": "Ви дійсно бажаєте видалити цю сесію?"
+  },
+  "js_history_confirm_session_overwrite": {
+    "message": "Сесія з такою назвою вже існує. Перезаписати існуючу сесію?"
+  },
+  "js_history_import_fail": {
+    "message": "Не вдалося завантажити файл. Переконайтеся, що файл має формат простого тексту і містить одну URL-адресу в кожному рядку."
+  },
+  "js_history_migrate_fail": {
+    "message": "Для перенесення потрібен 32-символьний ідентифікатор розширення"
+  },
+  "js_history_migrate_success": {
+    "message": "Успішно перенесено $tabcount$ вкладок. Перезавантажте браузер, якщо перенесені вкладки не перезавантажуються автоматично.",
+    "placeholders": {
+      "tabcount": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_suspended_hotkey_to_reload": {
+    "message": "Призначити гарячі клавіші"
+  },
+  "js_suspended_low_memory": {
+    "message": "Вкладка призупинена через недостатній обсяг системної пам’яті"
+  },
+  "js_options_incognito_warning": {
+    "message": "Ви перебуваєте в режимі анонімного перегляду. Деякі функції будуть недоступні."
+  },
+  "js_options_whitelist_no_matches": {
+    "message": "Немає відкритих вкладок, які відповідають поточному списку дозволених."
+  },
+  "js_options_whitelist_matches_heading": {
+    "message": "Дозволені відкриті вкладки:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "Немає відкритих вкладок, які відповідають поточному списку примусово призупинених."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "$count$ збігів серед відкритих груп",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Відкриті вкладки, що відповідають списку примусово призупинених:"
+  },
+  "js_options_whitelist_matches_overflow_prefix": {
+    "message": "і"
+  },
+  "js_options_whitelist_matches_overflow_suffix": {
+    "message": "більше."
+  },
+  "js_permissions_button_export": {
+    "message": "Зберегти резервну копію"
+  },
+  "js_permissions_button_set": {
+    "message": "Відкрити налаштування розширення"
+  },
+  "js_update_confirm": {
+    "message": "Резервне копіювання ще не збережено. Оновити розширення все одно?"
+  },
+  "js_update_button_export": {
+    "message": "Зберегти резервну копію"
+  },
+  "js_update_button_reload": {
+    "message": "Оновити розширення зараз"
+  },
+  "js_suspend_button_backup": {
+    "message": "Зберегти резервну копію перед оновленням"
+  },
+  "js_shortcuts_default_command": {
+    "message": "Активувати розширення (показати спливаюче вікно)"
+  },
+  "js_shortcuts_not_set": {
+    "message": "не задано"
+  },
+  "js_session_save_point": {
+    "message": "Автоматична точка збереження для v"
+  },
+  "html_options_backup_title": {
+    "message": "Автоматичне резервне копіювання сесії"
+  },
+  "html_backup_session_desc": {
+    "message": "На відміну від сеансів, резервні копії зберігаються в вигляді файлів JSON за межами Chrome: до вашої папки Завантаження або Google Drive. Вони залишаються неушкодженими після збоїв браузера, скидання налаштувань профілю та повторного встановлення. Це ваша справжня гарантія безпеки."
+  },
+  "html_options_backup_enable": {
+    "message": "Автоматично створювати резервні копії сесії"
+  },
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Тихо зберігає копію вашого поточного сеансу у вигляді JSON-файлу."
+  },
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Виберіть для локального збереження (папка tms-backups у ваших завантаженнях)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "або у папку «TMS Backups» на Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Для створення локальних резервних копій у Chrome має бути ввімкнено автоматичне завантаження файлів (Без запитів)."
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "Перевірте chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "Для резервних копій на Google Диску це не потрібно."
+  },
+  "html_options_backup_interval": {
+    "message": "Резервне копіювання кожні"
+  },
+  "html_options_backup_daily_time": {
+    "message": "В який час"
+  },
+  "html_backup_interval_warning": {
+    "message": "Зверніть увагу: при такому тривалому інтервалі між резервними копіями може статися багато чого. Рекомендуємо скоротити інтервал, щоб зменшити ризик втрати даних."
+  },
+  "html_options_backup_note": {
+    "message": "Як локальні резервні копії, так і резервні копії на Drive містять ідентифікатор пристрою (наприклад, tms-session-a3f7b2c8-2026-06-18T14-30.json), тому кожна інсталяція браузера зберігає власний незалежний набір резервних копій. На кожному пристрої зберігаються N останніх локальних резервних копій; резервні копії на Drive також зберігаються у кількості N шт. на кожен пристрій, тому сесії з різних комп’ютерів або браузерів ніколи не перезаписують одна одну.\n\n<strong>Навіть якщо вибрано Google Drive, під час закриття браузера все одно створюється локальний файл резервної копії, який завантажується на Drive під час наступного запуску. Локальний файл, що з'являється тут, є очікуваним, а не помилкою.</strong>"
+  },
+  "html_backup_max_files_label": {
+    "message": "Максимальна кількість резервних копій для зберігання"
+  },
+  "html_backup_device_name_label": {
+    "message": "Назва пристрою (необов'язково)"
+  },
+  "html_backup_device_name_save": {
+    "message": "Зберегти"
+  },
+  "js_backup_restore_legacy_group": {
+    "message": "Старі резервні копії"
+  },
+  "html_options_backup_now": {
+    "message": "Створити резервну копію зараз"
+  },
+  "html_options_back_to_top": {
+    "message": "↑ Вгору"
+  },
+  "html_history_backup_hint_prefix": {
+    "message": "Сесії зберігаються виключно в Chrome: вони не збережуться у разі аварійного завершення роботи браузера або скидання налаштувань профілю."
+  },
+  "html_history_backup_settings_link": {
+    "message": "Налаштуйте резервне копіювання, щоб зберігати вкладки поза браузером →"
+  },
+  "js_options_backup_now_running": {
+    "message": "Виконується резервне копіювання…"
+  },
+  "js_options_backup_now_done": {
+    "message": "Резервна копія збережена."
+  },
+  "js_backup_option_saved": {
+    "message": "Збережено"
+  },
+  "js_backup_permission_denied": {
+    "message": "Немає дозволу: автоматичне резервне копіювання не ввімкнено."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "Увімкнути стрічку новин"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Періодично перевіряє marvellouscode.works на наявність новин TMS та показує їх"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "на бічній панелі."
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "Вимкніть, щоб пропустити цей фоновий запит."
+  },
+  "html_options_other_legacy_mascot": {
+    "message": "Використовувати класичну ілюстрацію «The Great Suspender» замість нового талісмана"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Повертає значки та ілюстрації до оригінального \"The Great\""
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "Стиль Suspender, якщо доступна застаріла версія зображення."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "Зображення, які не мають аналогів у застарілих версіях, продовжують використовувати нову ілюстрацію."
+  },
+  "html_permissions_notice_text": {
+    "message": "Починаючи з цієї версії, TMS запитує дозвіл на доступ до файлової системи та облікового запису Google лише тоді, коли ви фактично вмикаєте локальне резервне копіювання або резервне копіювання на Google Drive, а не вимагає його заздалегідь."
+  },
+  "html_permissions_notice_link": {
+    "message": "Дізнатися більше про дозволи."
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "Зрозуміло"
+  },
+  "html_permissions_info_note": {
+    "message": "TMS запитує дозволи на завантаження та обліковий запис Google, лише якщо ви ввімкнете локальне резервне копіювання або резервне копіювання на Google Диск нижче."
+  },
+  "html_permissions_info_note_link": {
+    "message": "Див. повний перелік дозволів"
+  },
+  "js_options_backup_now_error": {
+    "message": "Chrome запитує, куди зберігати файли, тому автоматичне резервне копіювання не працюватиме безшумно. Вимкніть опцію \"Запитувати, де зберігати...\" в chrome://settings/downloads."
+  },
+  "js_options_backup_next_run": {
+    "message": "Наступний запуск: $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_backup_last_local": {
+    "message": "Остання резервна копія: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_backup_destination": {
+    "message": "Шлях резервного копіювання"
+  },
+  "html_options_backup_dest_local": {
+    "message": "Локальна (папка \"Завантаження\")"
+  },
+  "html_options_backup_dest_drive": {
+    "message": "Google Drive"
+  },
+  "html_options_backup_drive_connect": {
+    "message": "Підключити обліковий запис Google"
+  },
+  "html_options_backup_drive_disconnect": {
+    "message": "Відключитись"
+  },
+  "html_popup_backup_drive_error": {
+    "message": "Автоматичне резервне копіювання не вдалося: не підключено обліковий запис Google. Натисніть тут, щоб виправити це."
+  },
+  "html_popup_backup_downloads_error": {
+    "message": "Автоматичне резервне копіювання не вдалося: відсутній дозвіл на доступ до папки «Завантаження». Натисніть тут, щоб виправити це."
+  },
+  "html_popup_backup_nudge_text": {
+    "message": "Автоматичне резервне копіювання вимкнено. Захистіть свої сесії."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "Нагадай мені через 10 днів"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "Автоматичне резервне копіювання вимкнено. Увімкнення цієї функції захистить ваші сесії на випадок, якщо цей профіль браузера буде скинуто або пошкоджено."
+  },
+  "html_backup_nudge_optout": {
+    "message": "Мені це не цікаво, перестань мені про це нагадувати"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "Автоматичне резервне копіювання увімкнено, але на цьому пристрої не надано дозвіл на доступ до папки «Завантаження» (така ситуація може виникнути після імпорту налаштувань або синхронізації з іншим браузером). Резервне копіювання не виконуватиметься, доки ви не надасте цей дозвіл."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "Надати дозвіл"
+  },
+  "js_options_backup_drive_connecting": {
+    "message": "Підключення…"
+  },
+  "js_options_backup_drive_auth_error": {
+    "message": "Не вдалося підключитися до Google. Спробуйте ще раз."
+  },
+  "html_options_settings_backup": {
+    "message": "Резервне копіювання налаштувань"
+  },
+  "html_backup_settings_desc": {
+    "message": "Експортувати всі налаштування розширення у файл JSON — це корисно для створення резервної копії або для перенесення конфігурації в інший профіль браузера. Імпорт файлу замінить поточні налаштування."
+  },
+  "html_backup_local_folder_hint": {
+    "message": "Локальні резервні копії зберігаються в папці tms-backups у \"Завантаження\"."
+  },
+  "html_backup_drive_folder_note": {
+    "message": "Резервні копії зберігаються в папці \"TMS Backups\" на вашому Google Диску."
+  },
+  "html_backup_drive_open_folder": {
+    "message": "Відкрити папку «TMS Backups» на Диску ↗"
+  },
+  "html_backup_drive_label_account": {
+    "message": "Обліковий запис"
+  },
+  "html_backup_drive_label_folder": {
+    "message": "Папка"
+  },
+  "html_backup_settings_local_title": {
+    "message": "Локальний"
+  },
+  "html_backup_settings_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_drive_save_settings": {
+    "message": "Зберегти налаштування на Диску"
+  },
+  "html_backup_settings_drive_restore": {
+    "message": "Відновити налаштування з Диску"
+  },
+  "js_backup_drive_settings_saving": {
+    "message": "Збереження на Диск…"
+  },
+  "js_backup_drive_settings_saved": {
+    "message": "Параметри збережено до Диску."
+  },
+  "js_backup_drive_settings_error": {
+    "message": "Не вдалося зберегти налаштування до Диску. Будь ласка, спробуйте ще раз."
+  },
+  "js_backup_cooldown": {
+    "message": "Зачекайте $seconds$с перед наступним резервним копіюванням.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_downloading": {
+    "message": "Завантаження налаштувань з Диска..."
+  },
+  "js_backup_settings_drive_not_found": {
+    "message": "На «Диску» не знайдено файл налаштувань. Спочатку збережіть налаштування на «Диску»."
+  },
+  "js_backup_settings_drive_restore_success": {
+    "message": "Налаштування відновлені. Перезавантаження…"
+  },
+  "js_backup_settings_drive_restore_error": {
+    "message": "Не вдалося зберегти налаштування до Диску. Будь ласка, спробуйте ще раз."
+  },
+  "js_backup_settings_drive_last_backup": {
+    "message": "Остання резервна копія: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_overwrite_confirm": {
+    "message": "Існує резервна копія налаштувань від $date$. Перезаписати?",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_settings_export": {
+    "message": "Експорт налаштувань"
+  },
+  "html_options_settings_import": {
+    "message": "Імпорт налаштувань"
+  },
+  "js_options_settings_import_confirm": {
+    "message": "Поточні налаштування будуть перезаписані. Продовжити?"
+  },
+  "js_options_settings_import_success": {
+    "message": "Налаштування імпортовано. Перезавантаження…"
+  },
+  "js_options_settings_import_error": {
+    "message": "Недійсний файл налаштувань."
+  },
+  "html_history_migrate_nav": {
+    "message": "Перенести"
+  },
+  "html_backup_restore_title": {
+    "message": "Відновити з резервної копії"
+  },
+  "html_backup_restore_desc": {
+    "message": "Імпортуйте файл резервної копії, щоб відновити його як збережену сесію. Після імпорту відкрийте \"Сесії\", щоб вибрати, які вікна відновити."
+  },
+  "html_backup_restore_local_title": {
+    "message": "Локальний файл"
+  },
+  "html_backup_restore_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_restore_from_file": {
+    "message": "Вибрати файл резервної копії"
+  },
+  "html_backup_restore_drive_select_label": {
+    "message": "Виберіть резервну копію з Диска"
+  },
+  "html_backup_restore_import": {
+    "message": "Імпорт вибраного"
+  },
+  "js_backup_restore_importing": {
+    "message": "Імпорт..."
+  },
+  "js_backup_restore_success": {
+    "message": "Імпортовано як \"$name$\".",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_restore_go_sessions": {
+    "message": "→ Відкрити Сесії для відновлення"
+  },
+  "js_backup_restore_error_invalid": {
+    "message": "Недійсний файл резервної копії."
+  },
+  "js_backup_restore_error_drive": {
+    "message": "He вдалося завантажити з Диска. Перевірте з'єднання та повторіть спробу."
+  },
+  "js_backup_restore_error_generic": {
+    "message": "Імпорт не вдався. Спробуйте ще раз."
+  },
+  "html_backup_drive_import_modal_title": {
+    "message": "Зберегти резервну копію диска перед переходом?"
+  },
+  "html_backup_drive_import_modal_body": {
+    "message": "Ваша найновіша резервна копія з Google Drive була створена $date$. Збережіть її як сесія у \"Керування сесіями\", щоб мати змогу відновити її без використання Google Drive.",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_backup_drive_import_modal_confirm": {
+    "message": "Зберегти до сесій"
+  },
+  "html_backup_drive_import_modal_cancel": {
+    "message": "Пропустити"
+  },
+  "html_backup_drive_files_title": {
+    "message": "Файли резервних копій диска"
+  },
+  "html_backup_drive_download_btn": {
+    "message": "Завантажити"
+  },
+  "html_backup_drive_delete_btn": {
+    "message": "Видалити"
+  },
+  "js_backup_drive_delete_confirm": {
+    "message": "Видалити цей файл резервної копії з Диска? Це не можна скасувати."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Видалити все"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Видалити всі резервні копії для цього пристрою?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Це назавжди видалить усі $count$ файлів резервних копій для \"$device$\" з Google Диска. Цю дію не можна скасувати.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Видалити все"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Скасувати"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Деякі резервні копії не вдалося видалити. Повторіть спробу."
+  },
+  "html_backup_drive_no_files": {
+    "message": "Файли резервної копії Диска не знайдено."
+  },
+  "html_backup_drive_files_loading": {
+    "message": "Завантаження…"
+  }
+}

@@ -1,0 +1,1509 @@
+{
+  "ext_extension_name": {
+    "message": "The Marvellous Suspender"
+  },
+  "ext_extension_description": {
+    "message": "Liberte a sua memória. Suspenda já os separadores de que não precisa."
+  },
+  "ext_default_title": {
+    "message": "The Marvellous Suspender"
+  },
+  "ext_cmd_toggle_tab_suspension_description": {
+    "message": "Suspender/Reativar o separador ativo"
+  },
+  "ext_cmd_toggle_tab_pause_description": {
+    "message": "Pausar/Retomar a suspensão do separador ativo"
+  },
+  "ext_cmd_suspend_selected_tabs_description": {
+    "message": "Suspender os separadores selecionados"
+  },
+  "ext_cmd_unsuspend_selected_tabs_description": {
+    "message": "Reativar os separadores selecionados"
+  },
+  "ext_cmd_suspend_tab_group_description": {
+    "message": "Suspender todos os separadores do grupo do separador ativo"
+  },
+  "ext_cmd_unsuspend_tab_group_description": {
+    "message": "Reativar todos os separadores do grupo do separador ativo"
+  },
+  "ext_cmd_suspend_ungrouped_tabs_description": {
+    "message": "Suspender todos os separadores não agrupados na janela ativa"
+  },
+  "ext_cmd_unsuspend_ungrouped_tabs_description": {
+    "message": "Reativar todos os separadores não agrupados na janela ativa"
+  },
+  "ext_cmd_toggle_never_suspend_group_description": {
+    "message": "Ativar ou desativar \"nunca suspender\" para o grupo do separador ativo"
+  },
+  "ext_cmd_soft_suspend_active_window_description": {
+    "message": "Suspender todos os outros separadores na janela ativa"
+  },
+  "ext_cmd_force_suspend_active_window_description": {
+    "message": "Forçar a suspensão dos outros separadores na janela ativa"
+  },
+  "ext_cmd_unsuspend_active_window_description": {
+    "message": "Reativar todos os separadores na janela ativa"
+  },
+  "ext_cmd_soft_suspend_all_windows_description": {
+    "message": "Suspender todos os separadores em todas as janelas"
+  },
+  "ext_cmd_force_suspend_all_windows_description": {
+    "message": "Forçar a suspensão de todos os separadores em todas as janelas"
+  },
+  "ext_cmd_unsuspend_all_windows_description": {
+    "message": "Reativar todos os separadores em todas as janelas"
+  },
+  "js_context_open_link_in_suspended_tab": {
+    "message": "Abrir ligação num novo separador suspenso"
+  },
+  "js_context_toggle_suspend_state": {
+    "message": "Suspender/Reativar este separador"
+  },
+  "js_context_toggle_pause_suspension": {
+    "message": "Pausar/Retomar a suspensão deste separador"
+  },
+  "js_context_never_suspend_domain": {
+    "message": "Nunca suspender este domínio"
+  },
+  "js_context_never_suspend_page": {
+    "message": "Nunca suspender este URL"
+  },
+  "js_context_suspend_selected_tabs": {
+    "message": "Suspender os separadores selecionados"
+  },
+  "js_context_unsuspend_selected_tabs": {
+    "message": "Reativar os separadores selecionados"
+  },
+  "js_context_suspend_tab_group": {
+    "message": "Suspender todos os separadores deste grupo"
+  },
+  "js_context_unsuspend_tab_group": {
+    "message": "Reativar todos os separadores deste grupo"
+  },
+  "js_context_suspend_ungrouped_tabs": {
+    "message": "Suspender todos os separadores não agrupados"
+  },
+  "js_context_unsuspend_ungrouped_tabs": {
+    "message": "Reativar todos os separadores não agrupados"
+  },
+  "js_context_never_suspend_group": {
+    "message": "Nunca suspender este grupo"
+  },
+  "js_context_allow_suspending_group": {
+    "message": "Permitir a suspensão deste grupo"
+  },
+  "js_context_never_suspend_group_unnamed": {
+    "message": "Nunca suspender este grupo (apenas grupos com nome)"
+  },
+  "js_context_soft_suspend_other_tabs_in_window": {
+    "message": "Suspender todos os outros separadores desta janela"
+  },
+  "js_context_force_suspend_other_tabs_in_window": {
+    "message": "Forçar a suspensão dos outros separadores desta janela"
+  },
+  "js_context_unsuspend_all_tabs_in_window": {
+    "message": "Reativar todos os separadores desta janela"
+  },
+  "js_context_soft_suspend_all_tabs": {
+    "message": "Suspender todos os separadores em todas as janelas"
+  },
+  "js_context_force_suspend_all_tabs": {
+    "message": "Forçar a suspensão de todos os separadores em todas as janelas"
+  },
+  "js_context_unsuspend_all_tabs": {
+    "message": "Reativar todos os separadores em todas as janelas"
+  },
+  "html_health_title": {
+    "message": "Estado dos separadores (Beta)"
+  },
+  "html_health_title_intro": {
+    "message": "Se está a ter problemas com os seus separadores suspensos, em particular com os favicons, clique em Analisar separadores para ver se conseguimos repará-los."
+  },
+  "html_health_all_good": {
+    "message": "Não encontrámos qualquer problema com os seus separadores suspensos. Se continuar a notar algo errado, informe-nos abaixo e tentaremos alargar esta verificação."
+  },
+  "html_health_reload_intro": {
+    "message": "Tem separadores suspensos que não carregaram por completo. Podemos recarregá-los para resolver a situação."
+  },
+  "html_health_restore_intro": {
+    "message": "Alguns dos seus separadores suspensos estão a usar o favicon predefinido do navegador. Isso significa que a cache do TMS não os tem. Podemos restaurar e voltar a suspender um número mínimo de separadores para obter esses favicons em falta."
+  },
+  "html_health_scan_button": {
+    "message": "Analisar separadores"
+  },
+  "html_health_copy_button": {
+    "message": "Copiar resultados"
+  },
+  "html_health_scan_label": {
+    "message": "A analisar separadores..."
+  },
+  "html_health_num_tms_tabs": {
+    "message": "Separadores suspensos pelo TMS"
+  },
+  "html_health_num_tms_cache": {
+    "message": "favicons na cache do TMS"
+  },
+  "html_health_num_tabs_empty": {
+    "message": "separadores não carregados"
+  },
+  "html_health_num_tabs_extension": {
+    "message": "separadores com o favicon do TMS"
+  },
+  "html_health_num_tabs_default": {
+    "message": "separadores com favicon predefinido"
+  },
+  "html_health_num_hostnames": {
+    "message": "nomes de anfitrião de separadores únicos"
+  },
+  "html_health_small_cache": {
+    "message": "A cache local de favicons do TMS pode não cobrir todos os separadores. Se a cache do navegador for limpa, o TMS poderá não conseguir mostrar alguns favicons."
+  },
+  "html_health_reload_button": {
+    "message": "Seguinte: recarregar $count$ separadores",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_restore_button": {
+    "message": "Seguinte: restaurar $count$ separadores para obter os favicons na cache",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_action_label": {
+    "message": "A restaurar favicons..."
+  },
+  "html_health_after_reload": {
+    "message": "Assim que os separadores terminarem de carregar em segundo plano, pode clicar novamente em \"Analisar separadores\" para ver se melhorámos algo."
+  },
+  "html_health_after_restore": {
+    "message": "Pode clicar novamente em \"Analisar separadores\" para ver se melhorámos algo."
+  },
+  "html_health_need_help1": {
+    "message": "Se continuar a ter problemas com separadores ou favicons, pode clicar em Copiar resultados e colar numa nova"
+  },
+  "html_health_need_help2": {
+    "message": "Issue no GitHub."
+  },
+  "html_health_num_grouped_broken": {
+    "message": "separadores agrupados em estado danificado (erro dos grupos de separadores)"
+  },
+  "html_health_repair_intro": {
+    "message": "Alguns separadores em grupos de separadores estão num estado danificado: aparecem como um novo separador em vez de carregarem corretamente após reiniciar o navegador. O TMS pode tentar restaurá-los."
+  },
+  "html_health_repair_button": {
+    "message": "Reparar $count$ separador(es) agrupado(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_health_after_repair": {
+    "message": "Concluído. Analise novamente para confirmar que os separadores agrupados voltaram ao estado suspenso."
+  },
+  "html_about_title": {
+    "message": "Acerca de"
+  },
+  "html_about_version_label": {
+    "message": "Versão"
+  },
+  "html_about_tagline": {
+    "message": "O sucessor espiritual da suspensão moderna de separadores: substitui separadores inativos por uma página de hibernação leve, dando-lhe controlo granular sobre quando reativá-los."
+  },
+  "html_about_section_credits": {
+    "message": "Créditos"
+  },
+  "html_about_contributors_and": {
+    "message": " e "
+  },
+  "html_about_community_thanks_link": {
+    "message": "todos os colaboradores no GitHub"
+  },
+  "html_about_fork_beginning": {
+    "message": "Baseado no original"
+  },
+  "html_about_fork_mid": {
+    "message": "disponível no GitHub, sem rastreio de publicidade"
+  },
+  "html_about_fork_end": {
+    "message": "Mais informações disponíveis em"
+  },
+  "html_about_contributors": {
+    "message": "Trazido até si por"
+  },
+  "html_about_report_issues_prefix": {
+    "message": "Se tiver algum comentário ou quiser reportar um problema, pode fazê-lo na"
+  },
+  "html_about_report_issues_suffix": {
+    "message": ". Verifique se a sua ideia ou problema já existe antes de criar um novo. Obrigado!"
+  },
+  "html_about_debugging_prefix": {
+    "message": "Para capturar registos e gerar um relatório de diagnóstico, aceda à página de "
+  },
+  "html_about_debugging_suffix": {
+    "message": "diagnóstico."
+  },
+  "html_about_the_github_issues_page": {
+    "message": "página de issues no GitHub"
+  },
+  "html_about_section_support": {
+    "message": "Apoiar o desenvolvimento"
+  },
+  "html_about_support_text": {
+    "message": "The Marvellous Suspender é gratuito e de código aberto. Se o considera útil, pense num pequeno contributo: ajuda a manter o projeto vivo e em crescimento."
+  },
+  "html_broken_title": {
+    "message": "está danificado"
+  },
+  "html_broken_ruh_roh": {
+    "message": "Ora bolas!"
+  },
+  "html_broken_line1": {
+    "message": "não foi possível iniciar. Talvez esteja a usar um navegador incompatível?"
+  },
+  "html_broken_line2": {
+    "message": "Tente reiniciar a extensão. Se o problema persistir, peça ajuda na"
+  },
+  "html_broken_line2_github_page": {
+    "message": "página do projeto no GitHub"
+  },
+  "html_broken_line3": {
+    "message": "Pode recuperar separadores perdidos na"
+  },
+  "html_broken_line3_session_management": {
+    "message": "página de gestão de sessões"
+  },
+  "html_broken_button_restart_extension": {
+    "message": "Reiniciar extensão"
+  },
+  "html_history_title": {
+    "message": "Gestão de sessões"
+  },
+  "html_history_page_desc": {
+    "message": "O TMS mantém um registo atualizado dos seus separadores abertos, sem necessidade de configuração. As sessões são atualizadas automaticamente enquanto navega, mas residem dentro do Chrome: se o perfil do navegador se perder ou corromper, perdem-se com ele."
+  },
+  "html_history_current_session": {
+    "message": "Sessão atual"
+  },
+  "html_history_recent_sessions": {
+    "message": "Sessões recentes"
+  },
+  "html_history_saved_sessions": {
+    "message": "Sessões guardadas"
+  },
+  "html_history_import_session": {
+    "message": "Importar sessão"
+  },
+  "html_history_migrate_tabs": {
+    "message": "Migrar separadores"
+  },
+  "html_history_migrate_old_id": {
+    "message": "ID da extensão"
+  },
+  "html_history_migrate_section_title": {
+    "message": "Migração de separadores"
+  },
+  "html_history_migrate_section_desc": {
+    "message": "Recupere separadores suspensos por uma versão anterior ou por outro fork desta extensão. Introduza abaixo o ID antigo da extensão e clique em Migrar separadores para converter os URLs suspensos."
+  },
+  "html_options_title": {
+    "message": "Definições"
+  },
+  "html_options_suspend_title": {
+    "message": "Suspensão automática de separadores"
+  },
+  "html_options_suspended_title": {
+    "message": "Separadores suspensos"
+  },
+  "html_options_suspended_append_url_to_title": {
+    "message": "Adicionar o URL original ao título do separador suspenso"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1a": {
+    "message": "Quando ativado, o URL original é adicionado ao título do separador"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line1b": {
+    "message": "do navegador para páginas suspensas."
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2a": {
+    "message": "Isto permite encontrar separadores suspensos por nome de anfitrião usando a"
+  },
+  "html_options_suspended_append_url_to_title_tooltip_line2b": {
+    "message": "\"Pesquisa de separadores\" do Chrome (Ctrl+Shift+A)."
+  },
+  "html_options_suspended_add_youtube_timestamp": {
+    "message": "Preservar a posição de reprodução do YouTube ao suspender"
+  },
+  "html_options_other_title": {
+    "message": "Geral"
+  },
+  "html_options_language": {
+    "message": "Idioma"
+  },
+  "html_options_language_auto": {
+    "message": "Predefinição do sistema"
+  },
+  "html_options_suspend_automatically_after": {
+    "message": "Suspender automaticamente os separadores após"
+  },
+  "html_options_suspend_on_battery_after": {
+    "message": "Suspender separadores com alimentação por bateria após"
+  },
+  "html_options_suspend_same_as_ac": {
+    "message": "Igual a quando ligado à corrente"
+  },
+  "html_options_suspend_never": {
+    "message": "Nunca"
+  },
+  "html_options_suspend_seconds": {
+    "message": "segundos"
+  },
+  "html_options_suspend_minute": {
+    "message": "min"
+  },
+  "html_options_suspend_minutes": {
+    "message": "min"
+  },
+  "html_options_suspend_hour": {
+    "message": "hora"
+  },
+  "html_options_suspend_hours": {
+    "message": "horas"
+  },
+  "html_options_suspend_day": {
+    "message": "dia"
+  },
+  "html_options_suspend_days": {
+    "message": "dias"
+  },
+  "html_options_suspend_week": {
+    "message": "semana"
+  },
+  "html_options_suspend_weeks": {
+    "message": "semanas"
+  },
+  "html_options_suspend_no_pinned": {
+    "message": "Nunca suspender separadores fixados"
+  },
+  "html_options_suspend_no_app_windows": {
+    "message": "Nunca suspender separadores abertos em janelas de aplicação"
+  },
+  "html_options_suspend_no_grouped_tabs": {
+    "message": "Nunca suspender separadores num grupo"
+  },
+  "html_options_suspend_no_forms": {
+    "message": "Nunca suspender separadores com dados de formulário não guardados"
+  },
+  "html_options_suspend_no_audio": {
+    "message": "Nunca suspender separadores a reproduzir áudio"
+  },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Protege contra a suspensão automática e as ações habituais de suspensão em massa."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Ainda pode suspender um separador manualmente ou com uma ação \"Forçar a suspensão\"."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Um separador cujo URL esteja na lista \"Suspender sempre\" é suspenso na mesma."
+  },
+  "html_options_suspend_only_connected": {
+    "message": "Nunca suspender separadores quando estiver offline"
+  },
+  "html_options_suspend_claim_by_default": {
+    "message": "Assumir separadores suspensos por outras extensões"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1a": {
+    "message": "Assume automaticamente separadores já suspensos por outra extensão"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line1b": {
+    "message": "compatível (por exemplo, The Great Suspender, ou outra instalação desta)."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2a": {
+    "message": "Um separador é considerado \"suspenso\" se o seu URL contiver 'suspended.html'."
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2b": {
+    "message": "Ativar esta opção reescreve esse URL para esta instalação, para que o TMS"
+  },
+  "html_options_suspend_claim_by_default_tooltip_line2c": {
+    "message": "possa gerir o separador a partir desse momento."
+  },
+  "html_options_suspend_only_on_battery": {
+    "message": "Nunca suspender separadores quando ligado à corrente"
+  },
+  "html_options_suspend_no_active_tabs": {
+    "message": "Nunca suspender o separador ativo em cada janela"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "A lista \"Suspender sempre\" não se sobrepõe a esta opção na suspensão automática e em massa."
+  },
+  "html_options_suspend_no_scroll_pos": {
+    "message": "Reabrir sempre separadores suspensos com a posição no topo"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
+    "message": "O separador reabre no topo da página, em vez do ponto"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
+    "message": "onde tinha sido deslocado ao ser suspenso."
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
+    "message": "Aplica-se tanto à suspensão automática como manual, e tem prioridade sobre"
+  },
+  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
+    "message": "ligações que saltam para uma #secção ao carregar."
+  },
+  "html_options_suspend_automatically_unsuspend": {
+    "message": "Reativar automaticamente o separador quando é visualizado"
+  },
+  "html_options_suspend_reload_unsuspend_background": {
+    "message": "Recarregar também reativa separadores em segundo plano (não só o ativo)"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
+    "message": "Quando ativado, recarregar um separador suspenso (Ctrl+R ou clique com o"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
+    "message": "botão direito > Recarregar) também o reativa mesmo quando não é o separador"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
+    "message": "atualmente em primeiro plano."
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
+    "message": "Útil para recarregar vários separadores suspensos de uma vez, por exemplo após"
+  },
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
+    "message": "selecionar vários separadores e premir Ctrl+R."
+  },
+  "html_options_suspend_discard_after_suspend": {
+    "message": "Aplicar a poupança de memória integrada do navegador ao suspender"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1a": {
+    "message": "Depois de um separador ser suspenso, permite também que o Chrome o"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1b": {
+    "message": "descarregue totalmente da memória. Isto liberta mais recursos do"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line1c": {
+    "message": "sistema por separador (útil se mantiveres centenas de separadores abertos)."
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line2a": {
+    "message": "Isto tem o custo de perder o estado do separador até este ser"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line2b": {
+    "message": "recarregado."
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line3a": {
+    "message": "Para mais informações sobre o descarte de separadores, consulte:"
+  },
+  "html_options_suspend_discard_after_suspend_tooltip_line3b": {
+    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  },
+  "html_options_suspend_theme": {
+    "message": "Tema"
+  },
+  "html_options_suspend_theme_light": {
+    "message": "Claro"
+  },
+  "html_options_suspend_theme_dark": {
+    "message": "Escuro"
+  },
+  "html_options_suspend_theme_system": {
+    "message": "Sistema"
+  },
+  "html_options_suspend_screen_capturing": {
+    "message": "Captura de ecrã"
+  },
+  "html_options_suspend_screen_capturing_disabled": {
+    "message": "Desativada"
+  },
+  "html_options_suspend_screen_capturing_screen_only": {
+    "message": "Capturar apenas o topo do ecrã"
+  },
+  "html_options_suspend_screen_capturing_entire_page": {
+    "message": "Capturar a página inteira"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line1a": {
+    "message": "Num separador suspenso, a extensão pode mostrar uma pré-visualização do aspeto que o separador tinha"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line1b": {
+    "message": "mesmo antes de ser suspenso."
+  },
+  "html_options_suspend_screen_capturing_tooltip_line2a": {
+    "message": "A captura de ecrã é uma funcionalidade experimental e pode causar um uso significativo do CPU,"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line2b": {
+    "message": "bem como um ligeiro aumento no uso de memória."
+  },
+  "html_options_suspend_screen_capturing_tooltip_line3a": {
+    "message": "Se notar comportamentos estranhos, como separadores a demorar muito tempo a suspender ou o navegador"
+  },
+  "html_options_suspend_screen_capturing_tooltip_line3b": {
+    "message": "a bloquear inesperadamente, tente desativar esta funcionalidade."
+  },
+  "html_options_suspend_screen_capture_method": {
+    "message": "Método de captura"
+  },
+  "html_options_suspend_screen_capture_method_auto": {
+    "message": "Automático (recomendado)"
+  },
+  "html_options_suspend_screen_capture_method_native": {
+    "message": "Apenas captura de ecrã do navegador"
+  },
+  "html_options_suspend_screen_capture_method_renderer": {
+    "message": "Apenas processamento da página"
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line1": {
+    "message": "Automático tira uma captura de ecrã real do navegador quando o separador a ser suspenso é aquele que está a ver."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line2": {
+    "message": "Isso é instantâneo e funciona em qualquer site. Qualquer outro separador é redesenhado pelo processador de página, que é mais lento."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line3": {
+    "message": "Apenas captura de ecrã do navegador nunca executa o processador de página, pelo que os separadores suspensos em segundo plano não têm pré-visualização."
+  },
+  "html_options_suspend_screen_capture_method_tooltip_line4": {
+    "message": "Uma captura de ecrã do navegador cobre apenas a parte visível da página, mesmo com 'Capturar a página inteira' selecionado."
+  },
+  "html_options_suspend_screen_capture_precapture": {
+    "message": "Manter uma captura de ecrã recente dos separadores enquanto os uso"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line1": {
+    "message": "Tira uma captura de ecrã do navegador de um separador cerca de um segundo depois de mudar para ele ou de terminar de carregar,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
+    "message": "para que os separadores suspensos mais tarde em segundo plano continuem a ter uma pré-visualização."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line3": {
+    "message": "O Chrome só permite que uma extensão capture o ecrã de um separador em que não clicou no seu botão se tiver acesso a todos os sites,"
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
+    "message": "por isso ativar esta opção pede essa permissão. É usada apenas para tirar estas capturas de ecrã, que permanecem neste computador."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line5": {
+    "message": "Apenas a captura de ecrã mais recente de cada separador aberto é mantida, e é eliminada quando o separador é fechado."
+  },
+  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
+    "message": "Separadores em modo anónimo e sites na lista de permissões nunca são capturados."
+  },
+  "html_options_suspend_force_screen_capture": {
+    "message": "Ativar o modo de captura de ecrã de alta qualidade"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line1": {
+    "message": "Quando desativado, as capturas de ecrã têm as seguintes limitações para melhorar o desempenho:"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line2": {
+    "message": "- Captura de ecrã de baixa qualidade"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line4": {
+    "message": "- Não captura o ecrã se demorar mais de 1 minuto a gerar a imagem"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line5": {
+    "message": "- Altura máxima da captura de ecrã limitada a 5000px"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line6": {
+    "message": "Ativar o modo de captura de ecrã de alta qualidade pode aumentar significativamente a carga do CPU"
+  },
+  "html_options_suspend_force_screen_capture_tooltip_line7": {
+    "message": "e o uso de memória."
+  },
+  "html_options_whitelist_title": {
+    "message": "Nunca suspender separadores com URLs da seguinte lista:"
+  },
+  "html_options_always_suspend_title": {
+    "message": "Suspender sempre separadores com URLs da seguinte lista:"
+  },
+  "html_options_always_suspend_tooltip_line1a": {
+    "message": "Os separadores que correspondem a esta lista suspendem sempre após o tempo limite normal,"
+  },
+  "html_options_always_suspend_tooltip_line1b": {
+    "message": "independentemente de áudio, dados de formulário ou estado de fixado."
+  },
+  "html_options_always_suspend_tooltip_line2a": {
+    "message": "Uma entrada por linha, com as mesmas regras de correspondência da lista acima (texto simples"
+  },
+  "html_options_always_suspend_tooltip_line2b": {
+    "message": "que corresponde em qualquer ponto do URL, ou /regex/ entre barras)."
+  },
+  "html_options_whitelist_tooltip_line1": {
+    "message": "Adicione o URL de cada página que pretende permitir numa nova linha. Por exemplo:"
+  },
+  "html_options_whitelist_tooltip_line2": {
+    "message": "Para permitir vários sites numa linha, pode especificar parte do URL:"
+  },
+  "html_options_whitelist_tooltip_line3": {
+    "message": "Também pode especificar expressões regulares colocando o texto entre barras:"
+  },
+  "html_options_changelog_modal_title": {
+    "message": "Novidades na v$version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_whitelist_close": {
+    "message": "Fechar"
+  },
+  "html_options_whitelist_unsuspend": {
+    "message": "Reativar agora os separadores correspondentes"
+  },
+  "html_options_list_test_btn": {
+    "message": "Testar lista"
+  },
+  "html_options_always_suspend_force": {
+    "message": "Suspender agora os separadores correspondentes"
+  },
+  "html_options_never_suspend_groups_title": {
+    "message": "Nunca suspender separadores nos seguintes grupos:"
+  },
+  "html_options_never_suspend_groups_tooltip_line1": {
+    "message": "Os separadores nestes grupos nunca são suspensos automaticamente e são ignorados pelas ações de suspensão em massa."
+  },
+  "html_options_never_suspend_groups_tooltip_line2": {
+    "message": "Adicione um grupo com \"Nunca suspender este grupo\" no menu do botão direito. Só podem ser adicionados grupos com nome."
+  },
+  "html_options_never_suspend_groups_tooltip_line3": {
+    "message": "Os grupos são associados por nome e cor, e acompanham as renomeações enquanto o navegador permanecer aberto."
+  },
+  "html_options_never_suspend_groups_empty": {
+    "message": "Ainda não foi adicionado nenhum grupo de separadores."
+  },
+  "html_options_never_suspend_groups_remove": {
+    "message": "Remover"
+  },
+  "html_options_other_enable_context_menu": {
+    "message": "Adicionar The Marvellous Suspender ao menu do botão direito"
+  },
+  "html_options_other_enable_context_menu_tooltip_line1": {
+    "message": "Adiciona controlos desta extensão ao menu do botão direito de uma página web."
+  },
+  "html_options_other_enable_context_menu_tooltip_line2": {
+    "message": "Isto dar-lhe-á acesso a ações avançadas de suspensão não disponíveis"
+  },
+  "html_options_other_enable_context_menu_tooltip_line3": {
+    "message": "noutras partes da extensão."
+  },
+  "html_options_other_enable_sync": {
+    "message": "Sincronizar definições com o seu perfil do navegador"
+  },
+  "html_options_other_enable_sync_tooltip_line1a": {
+    "message": "As definições da extensão serão sincronizadas em todos os navegadores com"
+  },
+  "html_options_other_enable_sync_tooltip_line1b": {
+    "message": "sessão iniciada com o mesmo perfil."
+  },
+  "html_options_other_enable_sync_tooltip_line2": {
+    "message": "Isto também sincronizará as definições no modo anónimo."
+  },
+  "html_options_other_enable_sync_warning": {
+    "message": "Ativar isto substituirá as definições em todos os outros navegadores com sessão iniciada no mesmo perfil"
+  },
+  "html_options_suspend_on_low_memory": {
+    "message": "Suspender instantaneamente quando a memória do sistema estiver muito baixa"
+  },
+  "html_options_suspend_on_low_memory_tooltip_line1": {
+    "message": "Esta opção substitui a funcionalidade automática de descarte de separadores."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line2": {
+    "message": "Se ativada, forçará a suspensão de um separador em vez de o descartar."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line3": {
+    "message": "Normalmente, o navegador só descarta separadores quando a memória do sistema fica muito baixa."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line4": {
+    "message": "Nota: isto pode fazer com que os separadores sejam suspensos mais cedo do que o tempo que"
+  },
+  "html_options_suspend_on_low_memory_tooltip_line5": {
+    "message": "especificou nas opções de suspensão automática de separadores."
+  },
+  "html_options_suspend_on_low_memory_tooltip_line6": {
+    "message": "Para mais informações sobre o descarte de separadores, consulte:"
+  },
+  "html_options_suspend_on_low_memory_tooltip_discarding_link": {
+    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  },
+  "html_popup_unsuspend_tab": {
+    "message": "Reativar este separador"
+  },
+  "html_popup_suspend_tab": {
+    "message": "Suspender já este separador"
+  },
+  "html_popup_never_suspend_domain": {
+    "message": "Nunca suspender este domínio"
+  },
+  "html_popup_never_suspend_page": {
+    "message": "Nunca suspender este URL"
+  },
+  "html_popup_suspend_other_tabs": {
+    "message": "Suspender todos os outros separadores"
+  },
+  "html_popup_unsuspend_all_tabs": {
+    "message": "Reativar todos os separadores"
+  },
+  "html_popup_unsuspend_whitelisted_tabs": {
+    "message": "Reativar agora os separadores correspondentes"
+  },
+  "html_popup_suspend_selected_tabs": {
+    "message": "Suspender os separadores selecionados"
+  },
+  "html_popup_unsuspend_selected_tabs": {
+    "message": "Reativar os separadores selecionados"
+  },
+  "html_popup_settings": {
+    "message": "Definições"
+  },
+  "html_popup_backup_now_local": {
+    "message": "Fazer cópia de segurança da sessão agora (Local)"
+  },
+  "html_popup_backup_now_cloud": {
+    "message": "Fazer cópia de segurança da sessão agora (Cloud)"
+  },
+  "html_restoring_title": {
+    "message": "A restaurar janela"
+  },
+  "html_restoring_heading": {
+    "message": "A restaurar separadores"
+  },
+  "html_restoring_detail": {
+    "message": "Aguarde enquanto restauro esta janela..."
+  },
+  "html_recovery_title": {
+    "message": "Recuperação"
+  },
+  "html_recovery_ruh_roh": {
+    "message": "Ora bolas!"
+  },
+  "html_recovery_description_line1": {
+    "message": "Parece que está a recuperar de uma falha da extensão."
+  },
+  "html_recovery_description_line2": {
+    "message": "Os seus separadores suspensos podem ter falhado ou desaparecido."
+  },
+  "html_recovery_restore_tabs_automatically": {
+    "message": "Restaurar separadores automaticamente"
+  },
+  "html_recovery_go_to_session_manager": {
+    "message": "Ir para o gestor de sessões"
+  },
+  "html_recovery_important_message": {
+    "message": "Atualmente tem a captura de ecrã ativada. Se esta extensão falhar repetidamente, recomenda-se que desative esta opção."
+  },
+  "html_recovery_disable_screen_capturing": {
+    "message": "Desativar a captura de ecrã"
+  },
+  "html_recovery_tabs_to_restore": {
+    "message": "Separadores a restaurar"
+  },
+  "html_shortcuts_title": {
+    "message": "Atalhos de teclado"
+  },
+  "html_shortcuts_keyboard_shortcuts": {
+    "message": "Atalhos de teclado"
+  },
+  "html_shortcuts_context_menu_note": {
+    "message": "Nota: estas ações também estão disponíveis através do menu do botão direito."
+  },
+  "html_shortcuts_remap_keys": {
+    "message": "Alterar atalhos"
+  },
+  "html_sidebar_general_settings": {
+    "message": "Definições"
+  },
+  "html_sidebar_session_management": {
+    "message": "Sessões"
+  },
+  "html_sidebar_tab_health": {
+    "message": "Estado dos separadores"
+  },
+  "html_sidebar_shortcuts": {
+    "message": "Atalhos de teclado"
+  },
+  "html_sidebar_support": {
+    "message": "Acerca de"
+  },
+  "html_sidebar_backup": {
+    "message": "Cópia de segurança"
+  },
+  "html_sidebar_news": {
+    "message": "Novidades"
+  },
+  "html_news_title": {
+    "message": "Novidades e atualizações"
+  },
+  "html_news_desc": {
+    "message": "Mantenha-se atualizado com os últimos lançamentos, problemas conhecidos e anúncios do blogue da Marvellous Codeworks."
+  },
+  "html_news_loading": {
+    "message": "A carregar novidades…"
+  },
+  "html_news_empty": {
+    "message": "Ainda não há novidades. Volte a verificar em breve!"
+  },
+  "html_news_new_pill": {
+    "message": "NOVO"
+  },
+  "html_news_mark_all_read": {
+    "message": "Marcar tudo como lido"
+  },
+  "html_backup_page_title": {
+    "message": "Cópia de segurança e restauro"
+  },
+  "html_success_great_success": {
+    "message": "Sucesso marvellous!"
+  },
+  "html_success_all_tabs_restored": {
+    "message": "Todos os seus separadores foram restaurados."
+  },
+  "html_success_goto_advanced_prefix": {
+    "message": "Para uma gestão de sessões avançada, visite a página"
+  },
+  "html_success_goto_advanced_suffix": {
+    "message": ""
+  },
+  "html_session_manager": {
+    "message": "de gestão de sessões"
+  },
+  "html_suspended_title": {
+    "message": "Separador suspenso"
+  },
+  "html_suspended_click_to_reload": {
+    "message": "Atualize ou clique para recarregar"
+  },
+  "html_suspended_toast_not_connected": {
+    "message": "Não está ligado à Internet"
+  },
+  "html_suspended_toast_reload_disabled": {
+    "message": "O recarregamento automático de separadores está temporariamente desativado."
+  },
+  "html_permissions_title": {
+    "message": "Permissões"
+  },
+  "html_permissions_heading": {
+    "message": "Dê-me acesso a URLs de ficheiros locais"
+  },
+  "html_permissions_info": {
+    "message": "Esta extensão não está atualmente autorizada a suspender URLs que comecem por \"file\".\nPara alterar isto, ative \"Permitir acesso a URLs de ficheiros\" na página de definições da extensão."
+  },
+  "html_permissions_backup": {
+    "message": "Nota: alterar esta opção fará com que todos os seus separadores suspensos desapareçam por breves instantes.\nPor precaução, este pode ser um bom momento para guardar uma cópia de segurança da sua sessão atual."
+  },
+  "html_permissions_return_hint": {
+    "message": "Bem-vindo de volta — clique novamente no botão para concluir a concessão do acesso a ficheiros locais."
+  },
+  "html_update_title": {
+    "message": "Atualização"
+  },
+  "html_update_heading2": {
+    "message": "está pronto para se tornar ainda mais marvellous"
+  },
+  "html_update_info": {
+    "message": "Uma nova versão do The Marvellous Suspender será instalada na próxima vez que o navegador for reiniciado."
+  },
+  "html_update_info_withbackup": {
+    "message": "IMPORTANTE: não foi possível criar um ponto de restauro para os seus separadores.<br>Guarde já uma cópia de segurança!"
+  },
+  "html_update_info_nobackup_prefix": {
+    "message": "É altamente recomendado que exporte uma cópia da sua sessão atual a partir de "
+  },
+  "html_update_info_nobackup_suffix": {
+    "message": " antes de continuar com a atualização."
+  },
+  "html_updated_title": {
+    "message": "Atualizado"
+  },
+  "html_updating_heading": {
+    "message": "a atualizar"
+  },
+  "html_updating_message": {
+    "message": "Aguarde enquanto restauro os seus separadores suspensos..."
+  },
+  "html_updated_great_suspender_updated": {
+    "message": "foi atualizado"
+  },
+  "html_updated_info_line1": {
+    "message": "Foi feita uma cópia de segurança automática dos seus separadores antes da atualização."
+  },
+  "html_updated_info_line2_prefix": {
+    "message": "Se teve algum problema durante a atualização, pode recuperar separadores perdidos na página "
+  },
+  "html_updated_info_line2_suffix": {
+    "message": "."
+  },
+  "html_updated_patch_message": {
+    "message": "Desculpe o incómodo. Só precisava de fazer uma pequena manutenção."
+  },
+  "html_welcome_text_line1": {
+    "message": "Obrigado por experimentar o"
+  },
+  "html_welcome_text_line2": {
+    "message": "Faço o seu computador funcionar melhor ao suspender os separadores que não está a usar."
+  },
+  "html_welcome_text_line3": {
+    "message": "Pode ajustar as definições abaixo."
+  },
+  "js_popup_normal": {
+    "message": "O separador será suspenso automaticamente."
+  },
+  "js_popup_normal_pause": {
+    "message": "Agora não"
+  },
+  "js_popup_special": {
+    "message": "O separador não pode ser suspenso"
+  },
+  "js_popup_suspended": {
+    "message": "Separador suspenso"
+  },
+  "js_popup_suspended_pause": {
+    "message": "Não suspender"
+  },
+  "js_popup_whitelisted": {
+    "message": "Site permitido."
+  },
+  "js_popup_whitelisted_remove": {
+    "message": "Remover da lista de permissões"
+  },
+  "js_popup_audible": {
+    "message": "O separador está a reproduzir áudio."
+  },
+  "js_popup_form_input": {
+    "message": "O separador está a receber dados de formulário."
+  },
+  "js_popup_form_input_unpause": {
+    "message": "Retomar"
+  },
+  "js_popup_pinned": {
+    "message": "O separador foi fixado"
+  },
+  "js_popup_app_window": {
+    "message": "O separador está aberto numa janela de aplicação"
+  },
+  "js_popup_grouped_tab": {
+    "message": "O separador está num grupo de separadores"
+  },
+  "js_popup_tab_group": {
+    "message": "O separador está num grupo que nunca é suspenso"
+  },
+  "js_popup_temp_whitelist": {
+    "message": "Suspensão do separador em pausa."
+  },
+  "js_popup_temp_whitelist_unpause": {
+    "message": "Retomar"
+  },
+  "js_popup_never": {
+    "message": "Suspensão automática de separadores desativada."
+  },
+  "js_popup_no_connectivity": {
+    "message": "Sem ligação à rede"
+  },
+  "js_popup_charging": {
+    "message": "Ligado à corrente"
+  },
+  "js_popup_blockedFile": {
+    "message": "Os ficheiros locais não podem ser suspensos."
+  },
+  "js_popup_blockedFile_enable": {
+    "message": "Ativar"
+  },
+  "js_popup_unknown": {
+    "message": "A aguardar que o separador carregue..."
+  },
+  "js_popup_initialising": {
+    "message": "A aguardar que a extensão inicie..."
+  },
+  "js_popup_error": {
+    "message": "Suspensão automática indisponível para este separador"
+  },
+  "js_history_delete": {
+    "message": "eliminar"
+  },
+  "js_history_export": {
+    "message": "exportar"
+  },
+  "js_history_reload": {
+    "message": "abrir e carregar"
+  },
+  "js_history_resuspend": {
+    "message": "abrir e suspender"
+  },
+  "js_history_save": {
+    "message": "guardar"
+  },
+  "js_history_window": {
+    "message": "Janela"
+  },
+  "js_history_windows": {
+    "message": "Janelas"
+  },
+  "js_history_tab": {
+    "message": "Separador"
+  },
+  "js_history_tabs": {
+    "message": "Separadores"
+  },
+  "js_history_enter_name_for_session": {
+    "message": "Introduza um nome para esta sessão"
+  },
+  "js_history_confirm_delete": {
+    "message": "Tem a certeza de que pretende eliminar esta sessão?"
+  },
+  "js_history_confirm_session_overwrite": {
+    "message": "Já existe uma sessão guardada com este nome. Substituir a sessão existente?"
+  },
+  "js_history_import_fail": {
+    "message": "Não foi possível carregar o ficheiro. Certifique-se de que é texto simples e contém um URL por linha."
+  },
+  "js_history_migrate_fail": {
+    "message": "É necessário um ID de extensão de 32 caracteres a partir do qual migrar"
+  },
+  "js_history_migrate_success": {
+    "message": "$tabcount$ separadores migrados com sucesso. Reinicie o navegador se os separadores migrados não recarregarem automaticamente.",
+    "placeholders": {
+      "tabcount": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_suspended_hotkey_to_reload": {
+    "message": "Definir atalhos de teclado"
+  },
+  "js_suspended_low_memory": {
+    "message": "Separador suspenso devido à memória do sistema baixa"
+  },
+  "js_options_incognito_warning": {
+    "message": "Está em modo anónimo. Algumas funcionalidades não estarão disponíveis."
+  },
+  "js_options_whitelist_no_matches": {
+    "message": "Não há separadores abertos que correspondam à lista de permissões atual."
+  },
+  "js_options_whitelist_matches_heading": {
+    "message": "Separadores abertos na lista de permissões:"
+  },
+  "js_options_always_suspend_no_matches": {
+    "message": "Não há separadores abertos que correspondam à lista de suspensão sempre ativa."
+  },
+  "js_options_never_suspend_groups_open_count": {
+    "message": "corresponde a $count$ grupo(s) aberto(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_always_suspend_matches_heading": {
+    "message": "Separadores abertos que correspondem à lista de suspensão sempre ativa:"
+  },
+  "js_options_whitelist_matches_overflow_prefix": {
+    "message": "e mais"
+  },
+  "js_options_whitelist_matches_overflow_suffix": {
+    "message": "."
+  },
+  "js_permissions_button_export": {
+    "message": "Guardar cópia de segurança"
+  },
+  "js_permissions_button_set": {
+    "message": "Abrir definições da extensão"
+  },
+  "js_update_confirm": {
+    "message": "Ainda não guardou uma cópia de segurança. Atualizar a extensão mesmo assim?"
+  },
+  "js_update_button_export": {
+    "message": "Guardar cópia de segurança"
+  },
+  "js_update_button_reload": {
+    "message": "Atualizar extensão agora"
+  },
+  "js_suspend_button_backup": {
+    "message": "Guardar uma cópia de segurança antes de atualizar"
+  },
+  "js_shortcuts_default_command": {
+    "message": "Ativar a extensão (mostrar popup)"
+  },
+  "js_shortcuts_not_set": {
+    "message": "não definido"
+  },
+  "js_session_save_point": {
+    "message": "Ponto de gravação automático para a v"
+  },
+  "html_options_backup_title": {
+    "message": "Cópia de segurança automática da sessão"
+  },
+  "html_backup_session_desc": {
+    "message": "Ao contrário das sessões, as cópias de segurança são guardadas como ficheiros JSON fora do Chrome: na sua pasta de Transferências ou no Google Drive. Sobrevivem a falhas do navegador, reposições de perfil e instalações novas. Esta é a sua verdadeira rede de segurança."
+  },
+  "html_options_backup_enable": {
+    "message": "Fazer cópia de segurança automática da sua sessão"
+  },
+  "html_options_backup_enable_tooltip_line1a": {
+    "message": "Guarda silenciosamente uma cópia da sua sessão atual como ficheiro JSON."
+  },
+  "html_options_backup_enable_tooltip_line1b": {
+    "message": "Escolha guardar localmente (pasta tms-backups dentro das Transferências)"
+  },
+  "html_options_backup_enable_tooltip_line1c": {
+    "message": "ou numa pasta 'TMS Backups' no Google Drive."
+  },
+  "html_options_backup_enable_tooltip_line2a": {
+    "message": "Para cópias de segurança locais, o Chrome tem de estar definido para transferir ficheiros automaticamente"
+  },
+  "html_options_backup_enable_tooltip_line2b": {
+    "message": "(sem perguntar). Verifique chrome://settings/downloads."
+  },
+  "html_options_backup_enable_tooltip_line2c": {
+    "message": "As cópias de segurança no Google Drive não têm este requisito."
+  },
+  "html_options_backup_interval": {
+    "message": "Fazer cópia de segurança a cada"
+  },
+  "html_options_backup_daily_time": {
+    "message": "A que horas"
+  },
+  "html_backup_interval_warning": {
+    "message": "Atenção: com um intervalo tão longo, pode acontecer muita coisa entre cópias de segurança. Considere um intervalo mais curto para reduzir o risco de perda de dados."
+  },
+  "html_options_backup_note": {
+    "message": "Tanto as cópias de segurança locais como as do Drive incluem um identificador de dispositivo (por exemplo, tms-session-a3f7b2c8-2026-06-18T14-30.json), pelo que cada instalação do navegador mantém o seu próprio conjunto independente de cópias de segurança. São mantidas as N cópias de segurança locais mais recentes por dispositivo; as cópias no Drive também são mantidas em N por dispositivo, pelo que sessões de máquinas ou navegadores diferentes nunca se sobrepõem entre si.\n\n<strong>Mesmo com o Google Drive selecionado, um ficheiro de segurança local continua a ser escrito quando o navegador fecha e é carregado para o Drive no arranque seguinte. É normal aparecer aqui um ficheiro local, não é um erro.</strong>"
+  },
+  "html_backup_max_files_label": {
+    "message": "Número máximo de cópias de segurança a manter"
+  },
+  "html_backup_device_name_label": {
+    "message": "Nome do dispositivo (opcional)"
+  },
+  "html_backup_device_name_save": {
+    "message": "Guardar"
+  },
+  "js_backup_restore_legacy_group": {
+    "message": "Cópias de segurança anteriores"
+  },
+  "html_options_backup_now": {
+    "message": "Fazer cópia de segurança agora"
+  },
+  "html_options_back_to_top": {
+    "message": "↑ Início"
+  },
+  "html_history_backup_hint_prefix": {
+    "message": "As sessões são guardadas apenas dentro do Chrome: não sobrevivem a uma falha do navegador ou reposição de perfil."
+  },
+  "html_history_backup_settings_link": {
+    "message": "Configure a Cópia de segurança para guardar os seus separadores fora do navegador →"
+  },
+  "js_options_backup_now_running": {
+    "message": "A fazer cópia de segurança…"
+  },
+  "js_options_backup_now_done": {
+    "message": "Cópia de segurança guardada."
+  },
+  "js_backup_option_saved": {
+    "message": "Guardado"
+  },
+  "js_backup_permission_denied": {
+    "message": "Permissão negada: a cópia de segurança automática não foi ativada."
+  },
+  "html_options_other_enable_news_feed": {
+    "message": "Ativar feed de novidades"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1a": {
+    "message": "Verifica periodicamente marvellouscode.works em busca de novidades do TMS e mostra-as"
+  },
+  "html_options_other_enable_news_feed_tooltip_line1b": {
+    "message": "na barra lateral."
+  },
+  "html_options_other_enable_news_feed_tooltip_line2": {
+    "message": "Desative para saltar este pedido em segundo plano."
+  },
+  "html_options_other_legacy_mascot": {
+    "message": "Usar a imagem clássica do The Great Suspender em vez da nova mascote"
+  },
+  "html_options_other_legacy_mascot_tooltip_line1": {
+    "message": "Repõe ícones e ilustrações no estilo original do The Great"
+  },
+  "html_options_other_legacy_mascot_tooltip_line2": {
+    "message": "Suspender, onde está disponível uma versão anterior da imagem."
+  },
+  "html_options_other_legacy_mascot_tooltip_line3": {
+    "message": "As imagens sem equivalente anterior continuam a usar a nova imagem."
+  },
+  "html_permissions_notice_text": {
+    "message": "A partir desta versão, o TMS só pede acesso ao sistema de ficheiros/conta Google quando ativa realmente a cópia de segurança local ou no Google Drive, em vez de o pedir antecipadamente."
+  },
+  "html_permissions_notice_link": {
+    "message": "Saiba mais sobre permissões."
+  },
+  "html_permissions_notice_dismiss": {
+    "message": "Percebi"
+  },
+  "html_permissions_info_note": {
+    "message": "O TMS pede as permissões de Transferências e conta Google apenas quando ativa a cópia de segurança local ou no Google Drive abaixo."
+  },
+  "html_permissions_info_note_link": {
+    "message": "Ver o detalhe completo das permissões"
+  },
+  "js_options_backup_now_error": {
+    "message": "O Chrome está a perguntar onde guardar os ficheiros, por isso as cópias de segurança automáticas não funcionarão silenciosamente. Desative \"Perguntar onde guardar\" em chrome://settings/downloads."
+  },
+  "js_options_backup_next_run": {
+    "message": "Próxima execução: $time$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_options_backup_last_local": {
+    "message": "Última cópia de segurança: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_backup_destination": {
+    "message": "Destino da cópia de segurança"
+  },
+  "html_options_backup_dest_local": {
+    "message": "Local (pasta Transferências)"
+  },
+  "html_options_backup_dest_drive": {
+    "message": "Google Drive"
+  },
+  "html_options_backup_drive_connect": {
+    "message": "Ligar conta Google"
+  },
+  "html_options_backup_drive_disconnect": {
+    "message": "Desligar"
+  },
+  "html_popup_backup_drive_error": {
+    "message": "Cópia de segurança automática falhou: nenhuma conta Google ligada. Clique aqui para resolver."
+  },
+  "html_popup_backup_downloads_error": {
+    "message": "Cópia de segurança automática falhou: falta a permissão de Transferências. Clique aqui para resolver."
+  },
+  "html_popup_backup_nudge_text": {
+    "message": "A cópia de segurança automática está desativada. Proteja as suas sessões."
+  },
+  "html_backup_nudge_dismiss": {
+    "message": "Lembrar-me daqui a 10 dias"
+  },
+  "html_backup_nudge_note_text": {
+    "message": "A cópia de segurança automática está desativada. Ativá-la protege as suas sessões caso este perfil do navegador seja alguma vez reposto ou corrompido."
+  },
+  "html_backup_nudge_optout": {
+    "message": "Não estou interessado, não me lembre mais"
+  },
+  "html_backup_downloads_permission_missing": {
+    "message": "A cópia de segurança automática está ativada, mas a permissão de Transferências não está concedida neste dispositivo (pode acontecer após importar definições ou sincronizar a partir de outro navegador). As cópias de segurança não serão executadas até a conceder."
+  },
+  "html_backup_downloads_permission_grant": {
+    "message": "Conceder permissão"
+  },
+  "js_options_backup_drive_connecting": {
+    "message": "A ligar…"
+  },
+  "js_options_backup_drive_auth_error": {
+    "message": "Não foi possível ligar ao Google. Tente novamente."
+  },
+  "html_options_settings_backup": {
+    "message": "Cópia de segurança das definições"
+  },
+  "html_backup_settings_desc": {
+    "message": "Exporte todas as definições da extensão para um ficheiro JSON, útil como cópia de segurança ou para transferir a sua configuração para outro perfil do navegador. Importar um ficheiro substitui as definições atuais."
+  },
+  "html_backup_local_folder_hint": {
+    "message": "As cópias de segurança locais vão para a pasta tms-backups dentro das Transferências."
+  },
+  "html_backup_drive_folder_note": {
+    "message": "As cópias de segurança são guardadas na pasta 'TMS Backups' do seu Google Drive."
+  },
+  "html_backup_drive_open_folder": {
+    "message": "Abrir a pasta TMS Backups no Drive ↗"
+  },
+  "html_backup_drive_label_account": {
+    "message": "Conta"
+  },
+  "html_backup_drive_label_folder": {
+    "message": "Pasta"
+  },
+  "html_backup_settings_local_title": {
+    "message": "Local"
+  },
+  "html_backup_settings_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_drive_save_settings": {
+    "message": "Guardar definições no Drive"
+  },
+  "html_backup_settings_drive_restore": {
+    "message": "Restaurar definições do Drive"
+  },
+  "js_backup_drive_settings_saving": {
+    "message": "A guardar no Drive…"
+  },
+  "js_backup_drive_settings_saved": {
+    "message": "Definições guardadas no Drive."
+  },
+  "js_backup_drive_settings_error": {
+    "message": "Não foi possível guardar as definições no Drive. Tente novamente."
+  },
+  "js_backup_cooldown": {
+    "message": "Aguarde $seconds$s até à próxima cópia de segurança.",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_downloading": {
+    "message": "A transferir definições do Drive…"
+  },
+  "js_backup_settings_drive_not_found": {
+    "message": "Nenhum ficheiro de definições encontrado no Drive. Guarde primeiro as suas definições no Drive."
+  },
+  "js_backup_settings_drive_restore_success": {
+    "message": "Definições restauradas. A recarregar…"
+  },
+  "js_backup_settings_drive_restore_error": {
+    "message": "Não foi possível restaurar as definições do Drive. Tente novamente."
+  },
+  "js_backup_settings_drive_last_backup": {
+    "message": "Última cópia de segurança: $date$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_settings_drive_overwrite_confirm": {
+    "message": "Já existe uma cópia de segurança das definições de $date$. Substituir?",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_options_settings_export": {
+    "message": "Exportar definições"
+  },
+  "html_options_settings_import": {
+    "message": "Importar definições"
+  },
+  "js_options_settings_import_confirm": {
+    "message": "Isto substituirá as suas definições atuais. Continuar?"
+  },
+  "js_options_settings_import_success": {
+    "message": "Definições importadas. A recarregar…"
+  },
+  "js_options_settings_import_error": {
+    "message": "Ficheiro de definições inválido."
+  },
+  "html_history_migrate_nav": {
+    "message": "Migrar"
+  },
+  "html_backup_restore_title": {
+    "message": "Restaurar a partir de cópia de segurança"
+  },
+  "html_backup_restore_desc": {
+    "message": "Importe um ficheiro de cópia de segurança para o restaurar como sessão guardada. Após importar, abra Sessões para escolher que janelas restaurar."
+  },
+  "html_backup_restore_local_title": {
+    "message": "Ficheiro local"
+  },
+  "html_backup_restore_drive_title": {
+    "message": "Google Drive"
+  },
+  "html_backup_restore_from_file": {
+    "message": "Escolher ficheiro de cópia de segurança"
+  },
+  "html_backup_restore_drive_select_label": {
+    "message": "Selecionar uma cópia de segurança do Drive"
+  },
+  "html_backup_restore_import": {
+    "message": "Importar selecionado"
+  },
+  "js_backup_restore_importing": {
+    "message": "A importar…"
+  },
+  "js_backup_restore_success": {
+    "message": "Importado como \"$name$\".",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "js_backup_restore_go_sessions": {
+    "message": "→ Abrir Sessões para restaurar"
+  },
+  "js_backup_restore_error_invalid": {
+    "message": "Ficheiro de cópia de segurança inválido."
+  },
+  "js_backup_restore_error_drive": {
+    "message": "Não foi possível transferir do Drive. Verifique a sua ligação e tente novamente."
+  },
+  "js_backup_restore_error_generic": {
+    "message": "A importação falhou. Tente novamente."
+  },
+  "html_backup_drive_import_modal_title": {
+    "message": "Guardar a cópia de segurança do Drive antes de mudar?"
+  },
+  "html_backup_drive_import_modal_body": {
+    "message": "A sua cópia de segurança mais recente no Drive é de $date$. Guarde-a como sessão no Gestor de Sessões para poder restaurá-la sem precisar do Google Drive.",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "html_backup_drive_import_modal_confirm": {
+    "message": "Guardar em Sessões"
+  },
+  "html_backup_drive_import_modal_cancel": {
+    "message": "Ignorar"
+  },
+  "html_backup_drive_files_title": {
+    "message": "Ficheiros de cópia de segurança no Drive"
+  },
+  "html_backup_drive_download_btn": {
+    "message": "Transferir"
+  },
+  "html_backup_drive_delete_btn": {
+    "message": "Eliminar"
+  },
+  "js_backup_drive_delete_confirm": {
+    "message": "Eliminar este ficheiro de cópia de segurança do Drive? Esta ação não pode ser anulada."
+  },
+  "html_backup_drive_delete_device_btn": {
+    "message": "Eliminar tudo"
+  },
+  "html_backup_drive_delete_device_modal_title": {
+    "message": "Eliminar todas as cópias de segurança deste dispositivo?"
+  },
+  "html_backup_drive_delete_device_modal_body": {
+    "message": "Isto eliminará permanentemente todos os $count$ ficheiro(s) de cópia de segurança de \"$device$\" do Google Drive. Esta ação não pode ser anulada.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "device": {
+        "content": "$2"
+      }
+    }
+  },
+  "html_backup_drive_delete_device_modal_confirm": {
+    "message": "Eliminar tudo"
+  },
+  "html_backup_drive_delete_device_modal_cancel": {
+    "message": "Cancelar"
+  },
+  "js_backup_drive_delete_device_error": {
+    "message": "Não foi possível eliminar alguns ficheiros de cópia de segurança. Tente novamente."
+  },
+  "html_backup_drive_no_files": {
+    "message": "Nenhum ficheiro de cópia de segurança encontrado no Drive."
+  },
+  "html_backup_drive_files_loading": {
+    "message": "A carregar…"
+  }
+}
