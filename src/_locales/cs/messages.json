@@ -339,16 +339,16 @@
     "message": "Zachovat pozici přehrávání YouTube při pozastavení"
   },
   "html_options_suspended_startup_tab_checks": {
-    "message": "Suspended tabs checked at a time when the browser starts"
+    "message": "Počet pozastavených karet kontrolovaných najednou při spuštění prohlížeče"
   },
   "html_options_suspended_startup_tab_checks_tooltip_line1": {
-    "message": "When the browser starts, each restored suspended tab is checked and repaired if needed."
+    "message": "Při spuštění prohlížeče se každá obnovená pozastavená karta zkontroluje a v případě potřeby opraví."
   },
   "html_options_suspended_startup_tab_checks_tooltip_line2": {
-    "message": "A higher number fills in titles and icons sooner. From 1 to 8, default 3. Takes effect at the next check of restored tabs, normally the next browser start."
+    "message": "Vyšší číslo doplní názvy a ikony dříve. Od 1 do 8, výchozí 3. Projeví se při příští kontrole obnovených karet, obvykle při příštím spuštění prohlížeče."
   },
   "html_options_suspended_startup_tab_checks_warning": {
-    "message": "Raising this above 3 can overload the browser when it restores many tabs and bring back the startup crashes the default prevents. Change it at your own risk."
+    "message": "Hodnota vyšší než 3 může přetížit prohlížeč při obnově mnoha karet a vrátit pády při spuštění, kterým výchozí hodnota brání. Měň ji na vlastní riziko."
   },
   "html_options_other_title": {
     "message": "Obecné"
@@ -609,7 +609,7 @@
     "message": "- Nízká kvalita snímku obrazovky"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Neprovede snímek obrazovky, pokud generování obrázku trvá déle než 1 minutu"
+    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Maximální výška snímku obrazovky omezena na 5000 px"
