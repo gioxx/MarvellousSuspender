@@ -142,8 +142,11 @@ import  { tgs }                   from './tgs.js';
       hotkeyEl.replaceChildren(commandEl);
     }
     else {
-      const reloadString = gsUtils.getMessage( 'js_suspended_hotkey_to_reload', );
-      hotkeyEl.innerHTML = `<a id='setKeyboardShortcut' href='#'>${reloadString}</a>`;
+      const linkEl = document.createElement('a');
+      linkEl.id = 'setKeyboardShortcut';
+      linkEl.setAttribute('href', '#');
+      gsUtils.setLocalisedContent(linkEl, gsUtils.getMessage('js_suspended_hotkey_to_reload'));
+      hotkeyEl.replaceChildren(linkEl);
     }
   }
 
@@ -168,7 +171,7 @@ import  { tgs }                   from './tgs.js';
       const containerEl = document.getElementById('suspendedMsg-instr');
       containerEl.insertBefore(reasonMsgEl, containerEl.firstChild);
     }
-    reasonMsgEl.innerHTML = reason;
+    gsUtils.setLocalisedContent(reasonMsgEl, reason);
   }
 
   function setScrollPosition(scrollPosition, previewMode) {

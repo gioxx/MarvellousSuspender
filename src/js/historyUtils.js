@@ -282,13 +282,13 @@ export const historyUtils = (() => {
           }
         }
         if (messageEl && count) {
-          messageEl.innerHTML = gsUtils.getMessage('js_history_migrate_success', '' + count);
+          gsUtils.setLocalisedContent(messageEl, gsUtils.getMessage('js_history_migrate_success', '' + count));
         }
       });
     }
     else {
       if (messageEl) {
-        messageEl.innerHTML = gsUtils.getMessage('js_history_migrate_fail');
+        gsUtils.setLocalisedContent(messageEl, gsUtils.getMessage('js_history_migrate_fail'));
       }
     }
   }

@@ -41,7 +41,14 @@ import  { gsSession }             from './gsSession.js';
    * @param {string} [status]
    */
   function log(name, num, txt, status = '') {
-    quickElemById(name).innerHTML += `<div class="center">${num}</div><div>${txt}</div><div>${status}</div><div></div>`;
+    const numEl = document.createElement('div');
+    numEl.className = 'center';
+    numEl.textContent = `${num}`;
+    const txtEl = document.createElement('div');
+    gsUtils.setLocalisedContent(txtEl, txt);
+    const statusEl = document.createElement('div');
+    statusEl.textContent = status;
+    quickElemById(name).append(numEl, txtEl, statusEl, document.createElement('div'));
   }
 
   /**
@@ -50,7 +57,13 @@ import  { gsSession }             from './gsSession.js';
    */
   function warn(name, txt) {
     // log(name, '&#9888;', txt, status);
-    quickElemById(name).innerHTML += `<div class="center">&#9888;</div><div class="span-3">${txt}</div>`;
+    const iconEl = document.createElement('div');
+    iconEl.className = 'center';
+    iconEl.textContent = '\u26A0';
+    const txtEl = document.createElement('div');
+    txtEl.className = 'span-3';
+    gsUtils.setLocalisedContent(txtEl, txt);
+    quickElemById(name).append(iconEl, txtEl);
   }
 
   function reset() {
@@ -91,7 +104,11 @@ import  { gsSession }             from './gsSession.js';
   function addProgressBar(id, fClear = false) {
     const actionProgress = document.getElementById('actionProgress');
     if (actionProgress) {
-      if(fClear) actionProgress.innerHTML = `<div>${gsUtils.getMessage('html_health_action_label')}</div>`;
+      if (fClear) {
+        const labelEl = document.createElement('div');
+        gsUtils.setLocalisedContent(labelEl, gsUtils.getMessage('html_health_action_label'));
+        actionProgress.replaceChildren(labelEl);
+      }
       const progress = document.createElement('div');
       progress.innerHTML  = '<div class="inner"></div>';
       progress.className  = 'option progress';
@@ -360,23 +377,23 @@ import  { gsSession }             from './gsSession.js';
     const brokenGrouped = tabTypes.tabGroupsDiscarded.length + tabTypes.tabGroupsNewtab.length;
 
     log(logName, tabTypes.tabSuspended.length,  gsUtils.getMessage('html_health_num_tms_tabs'));
-    log(logName, dbSize,                        `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_tms_cache')}`);
-    log(logName, tabTypes.favEmpty.length,      `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_tabs_empty')}`,      tabTypes.favEmpty.length ? '' : '✓');
-    log(logName, tabTypes.favExtension.length,  `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_tabs_extension')}`,  tabTypes.favExtension.length ? '' : '✓');
-    log(logName, tabTypes.favDefault.length,    `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_tabs_default')}`,    tabTypes.favDefault.length ? '' : '✓');
+    log(logName, dbSize,                        `\u2002\u00BB ${gsUtils.getMessage('html_health_num_tms_cache')}`);
+    log(logName, tabTypes.favEmpty.length,      `\u2002\u00BB ${gsUtils.getMessage('html_health_num_tabs_empty')}`,      tabTypes.favEmpty.length ? '' : '✓');
+    log(logName, tabTypes.favExtension.length,  `\u2002\u00BB ${gsUtils.getMessage('html_health_num_tabs_extension')}`,  tabTypes.favExtension.length ? '' : '✓');
+    log(logName, tabTypes.favDefault.length,    `\u2002\u00BB ${gsUtils.getMessage('html_health_num_tabs_default')}`,    tabTypes.favDefault.length ? '' : '✓');
     if (tabTypes.favDefault.length) {
-      log(logName, tabTypes.favHosts.length,    `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_hostnames')}`);
+      log(logName, tabTypes.favHosts.length,    `\u2002\u00BB ${gsUtils.getMessage('html_health_num_hostnames')}`);
     }
-    log(logName, brokenGrouped, `&ensp;&raquo; ${gsUtils.getMessage('html_health_num_grouped_broken')}`, brokenGrouped ? '' : '✓');
+    log(logName, brokenGrouped, `\u2002\u00BB ${gsUtils.getMessage('html_health_num_grouped_broken')}`, brokenGrouped ? '' : '✓');
     // if (dbSize < tabTypes.favHosts.length) {
     //   warn(logName, `${gsUtils.getMessage('html_health_small_cache')}`);
     // }
 
     if (brokenGrouped) {
       quickElemById('actionSection').style.display = 'block';
-      quickElemById('actionIntro').innerHTML = gsUtils.getMessage('html_health_repair_intro');
+      gsUtils.setLocalisedContent(quickElemById('actionIntro'), gsUtils.getMessage('html_health_repair_intro'));
       const button  = quickElemById('actionButton');
-      button.innerHTML = gsUtils.getMessage('html_health_repair_button', `${brokenGrouped}`);
+      gsUtils.setLocalisedContent(button, gsUtils.getMessage('html_health_repair_button', `${brokenGrouped}`));
       button.onclick = async (event) => {
         event.preventDefault();
         await repairGroupedTabs(tabTypes.tabGroupsDiscarded, tabTypes.tabGroupsNewtab, newtabUrls);
@@ -385,9 +402,9 @@ import  { gsSession }             from './gsSession.js';
     }
     else if (tabTypes.favEmpty.length) {
       quickElemById('actionSection').style.display = 'block';
-      quickElemById('actionIntro').innerHTML = gsUtils.getMessage('html_health_reload_intro');
+      gsUtils.setLocalisedContent(quickElemById('actionIntro'), gsUtils.getMessage('html_health_reload_intro'));
       const button  = quickElemById('actionButton');
-      button.innerHTML = gsUtils.getMessage('html_health_reload_button', `${tabTypes.favEmpty.length}`);
+      gsUtils.setLocalisedContent(button, gsUtils.getMessage('html_health_reload_button', `${tabTypes.favEmpty.length}`));
       button.onclick = async (event) => {
         event.preventDefault();
         // button.classList.add('btnDisabled');
@@ -398,9 +415,9 @@ import  { gsSession }             from './gsSession.js';
     }
     else if (tabTypes.favHosts.length) {
       quickElemById('actionSection').style.display = 'block';
-      quickElemById('actionIntro').innerHTML = gsUtils.getMessage('html_health_restore_intro');
+      gsUtils.setLocalisedContent(quickElemById('actionIntro'), gsUtils.getMessage('html_health_restore_intro'));
       const button  = quickElemById('actionButton');
-      button.innerHTML = gsUtils.getMessage('html_health_restore_button', `${tabTypes.favHosts.length}`);
+      gsUtils.setLocalisedContent(button, gsUtils.getMessage('html_health_restore_button', `${tabTypes.favHosts.length}`));
       button.onclick = async (event) => {
         event.preventDefault();
         await restoreTabs(tabTypes.favHosts, tabTypes.favDefault);
@@ -409,7 +426,7 @@ import  { gsSession }             from './gsSession.js';
     }
     else {
       quickElemById('actionSection').style.display = 'block';
-      quickElemById('actionIntro').innerHTML = gsUtils.getMessage('html_health_all_good');
+      gsUtils.setLocalisedContent(quickElemById('actionIntro'), gsUtils.getMessage('html_health_all_good'));
       const button  = quickElemById('actionButton');
       button.style.display = 'none';
     }

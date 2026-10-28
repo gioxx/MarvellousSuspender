@@ -113,15 +113,13 @@ import  { tgs }                   from './tgs.js';
     setSuspendCurrentVisibility(status);
 
     var statusDetail = '';
+    var statusLink = '';
     //  statusIconClass = '';
 
     // Update status icon and text
     if (status === gsUtils.STATUS_NORMAL || status === gsUtils.STATUS_ACTIVE) {
-      statusDetail =
-        gsUtils.getMessage('js_popup_normal') +
-        " <a href='#'>" +
-        gsUtils.getMessage('js_popup_normal_pause') +
-        '</a>';
+      statusDetail = gsUtils.getMessage('js_popup_normal');
+      statusLink   = gsUtils.getMessage('js_popup_normal_pause');
       //    statusIconClass = 'fa fa-clock-o';
     } else if (status === gsUtils.STATUS_SUSPENDED) {
       // statusDetail =
@@ -138,21 +136,15 @@ import  { tgs }                   from './tgs.js';
       statusDetail = gsUtils.getMessage('js_popup_special');
       //    statusIconClass = 'fa fa-remove';
     } else if (status === gsUtils.STATUS_WHITELISTED) {
-      statusDetail =
-        gsUtils.getMessage('js_popup_whitelisted') +
-        " <a href='#'>" +
-        gsUtils.getMessage('js_popup_whitelisted_remove') +
-        '</a>';
+      statusDetail = gsUtils.getMessage('js_popup_whitelisted');
+      statusLink   = gsUtils.getMessage('js_popup_whitelisted_remove');
       //    statusIconClass = 'fa fa-check';
     } else if (status === gsUtils.STATUS_AUDIBLE) {
       statusDetail = gsUtils.getMessage('js_popup_audible');
       //    statusIconClass = 'fa fa-volume-up';
     } else if (status === gsUtils.STATUS_FORMINPUT) {
-      statusDetail =
-        gsUtils.getMessage('js_popup_form_input') +
-        " <a href='#'>" +
-        gsUtils.getMessage('js_popup_form_input_unpause') +
-        '</a>';
+      statusDetail = gsUtils.getMessage('js_popup_form_input');
+      statusLink   = gsUtils.getMessage('js_popup_form_input_unpause');
       //    statusIconClass = 'fa fa-edit';
     } else if (status === gsUtils.STATUS_PINNED) {
       statusDetail = gsUtils.getMessage('js_popup_pinned'); //  statusIconClass = 'fa fa-thumb-tack';
@@ -163,11 +155,8 @@ import  { tgs }                   from './tgs.js';
     } else if (status === gsUtils.STATUS_TAB_GROUP) {
       statusDetail = gsUtils.getMessage('js_popup_tab_group');
     } else if (status === gsUtils.STATUS_TEMPWHITELIST) {
-      statusDetail =
-        gsUtils.getMessage('js_popup_temp_whitelist') +
-        " <a href='#'>" +
-        gsUtils.getMessage('js_popup_temp_whitelist_unpause') +
-        '</a>';
+      statusDetail = gsUtils.getMessage('js_popup_temp_whitelist');
+      statusLink   = gsUtils.getMessage('js_popup_temp_whitelist_unpause');
       //    statusIconClass = 'fa fa-pause';
     } else if (status === gsUtils.STATUS_NOCONNECTIVITY) {
       statusDetail = gsUtils.getMessage('js_popup_no_connectivity');
@@ -176,11 +165,8 @@ import  { tgs }                   from './tgs.js';
       statusDetail = gsUtils.getMessage('js_popup_charging');
       //    statusIconClass = 'fa fa-plug';
     } else if (status === gsUtils.STATUS_BLOCKED_FILE) {
-      statusDetail =
-        gsUtils.getMessage('js_popup_blockedFile') +
-        " <a href='#'>" +
-        gsUtils.getMessage('js_popup_blockedFile_enable') +
-        '</a>';
+      statusDetail = gsUtils.getMessage('js_popup_blockedFile');
+      statusLink   = gsUtils.getMessage('js_popup_blockedFile_enable');
       //    statusIconClass = 'fa fa-exclamation-triangle';
     } else if (
       status === gsUtils.STATUS_LOADING ||
@@ -198,7 +184,15 @@ import  { tgs }                   from './tgs.js';
     } else {
       gsUtils.warning('popup', 'Could not process tab status of: ' + status);
     }
-    document.getElementById('statusDetail').innerHTML = statusDetail;
+    const statusDetailEl = document.getElementById('statusDetail');
+    gsUtils.setLocalisedContent(statusDetailEl, statusDetail);
+    let statusLinkEl = null;
+    if (statusLink) {
+      statusLinkEl = document.createElement('a');
+      statusLinkEl.setAttribute('href', '#');
+      gsUtils.setLocalisedContent(statusLinkEl, statusLink);
+      statusDetailEl.append(' ', statusLinkEl);
+    }
     //  document.getElementById('statusIcon').className = statusIconClass;
     // if (status === gsUtils.STATUS_UNKNOWN || status === gsUtils.STATUS_LOADING) {
     //     document.getElementById('statusIcon').classList.add('fa-spin');
@@ -212,8 +206,8 @@ import  { tgs }                   from './tgs.js';
       document.getElementById('header').classList.add('blockedFile');
     }
 
-    // Update action handler
-    var actionEl = document.getElementsByTagName('a')[0];
+    // Update action handler: on the status link, when this state has one
+    var actionEl = statusLinkEl;
     if (actionEl) {
       var tgsHandlerFunc;
       if (

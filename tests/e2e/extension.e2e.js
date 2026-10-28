@@ -194,6 +194,54 @@ describe('suspending and unsuspending', () => {
   });
 });
 
+describe('the popup', () => {
+  // The status line has a link only for some states; the click handler for that state
+  // belongs on that link and on nothing else on the page.
+  it('attaches the status action to the status link only', async () => {
+    const tab = await openPage();
+    const sender = await openExtensionPage('about.html', { background: true });
+    await cdp.activate(tab);
+    await cdp.evaluate(sender.sessionId, 'chrome.runtime.sendMessage({ action: "suspendOne" }).then(() => true)');
+    await cdp.waitForUrl(tab.targetId, 'the tab to be suspended', isPlaceholder);
+    const sessionId = await cdp.attach(tab.targetId);
+    await waitFor('the placeholder to be ready', () => cdp.evaluate(sessionId, PLACEHOLDER_READY));
+
+    // opened behind the suspended tab, which stays the highlighted one; showPopupContents
+    // writes the version once setStatus has attached the status handler
+    await cdp.activate(tab);
+    const popup = await openExtensionPage('popup.html', { background: true });
+    await waitFor('the popup to show the status', () => cdp.evaluate(popup.sessionId, `
+      document.getElementById('brandVersion').textContent.startsWith('v')
+        && document.getElementById('statusDetail').textContent
+    `));
+    expect(await cdp.evaluate(popup.sessionId, 'document.querySelectorAll("#statusDetail a").length')).toBe(0);
+
+    // the suspended state has no status link: the backup reminder's Dismiss must not
+    // carry the suspended state's action, which would unsuspend the tab
+    await cdp.evaluate(popup.sessionId, 'document.getElementById("backupNudgeDismiss").click(), true');
+    const seen = await urlsDuring(tab, INERT_WINDOW);
+    expect(seen).toHaveLength(1);
+    expect(isPlaceholder(seen[0])).toBe(true);
+  });
+
+  it('attaches the status action to the status link when the state has one', async () => {
+    const tab = await openPage();
+    await cdp.activate(tab);
+    const popup = await openExtensionPage('popup.html', { background: true });
+    await waitFor('the popup to show the status', () => cdp.evaluate(popup.sessionId, `
+      document.getElementById('brandVersion').textContent.startsWith('v')
+        && document.querySelectorAll('#statusDetail a').length === 1
+    `));
+
+    const clickListeners = async (selector) => {
+      const { result } = await cdp.send('Runtime.evaluate', { expression: `document.querySelector(${JSON.stringify(selector)})` }, popup.sessionId);
+      const { listeners } = await cdp.send('DOMDebugger.getEventListeners', { objectId: result.objectId }, popup.sessionId);
+      return listeners.filter(({ type }) => type === 'click').length;
+    };
+    expect(await clickListeners('#statusDetail a')).toBe(1);
+  });
+});
+
 describe('a placeholder url forged by a web page', () => {
   it.each([
     ['chrome:', 'chrome://settings/'],
@@ -276,6 +324,37 @@ describe('text from outside the extension', () => {
       elements: document.getElementById('gsTopBarTitle').children.length,
     }))()`);
     expect(shown).toEqual({ tabTitle: title, topBar: title, elements: 0 });
+  });
+
+  // The value of data-i18n is what localiseHtml renders once the __MSG_key__ in it is
+  // replaced: a localised string goes through the same steps.
+  it('renders a localised string as text, except the few tags it allows', async () => {
+    const tab = await openExtensionPage('about.html');
+    const rendered = await cdp.evaluate(tab.sessionId, `(async () => {
+      const { gsUtils } = await import('./js/gsUtils.js');
+      const parent = document.createElement('div');
+      const el = document.createElement('span');
+      el.setAttribute('data-i18n', 'see <a id="probelink" href="https://example.org">here</a> or <strong class="x">this</strong>\\nnext');
+      parent.appendChild(el);
+      gsUtils.localiseHtml(parent);
+      return { html: el.innerHTML, links: el.querySelectorAll('a').length };
+    })()`);
+    expect(rendered).toEqual({
+      html: 'see &lt;a id="probelink" href="https://example.org"&gt;here&lt;/a&gt; or <strong>this</strong><br>next',
+      links: 0,
+    });
+  });
+
+  it('builds a localised string from elements and text nodes', async () => {
+    const tab = await openExtensionPage('about.html');
+    const rendered = await cdp.evaluate(tab.sessionId, `(async () => {
+      const { gsUtils } = await import('./js/gsUtils.js');
+      const el = document.createElement('p');
+      el.textContent = 'replaced';
+      gsUtils.setLocalisedContent(el, 'a <i>b</i><br><form><input></form> <em>c <b>d</b></em>');
+      return el.innerHTML;
+    })()`);
+    expect(rendered).toBe('a <i>b</i><br>&lt;form&gt;&lt;input&gt;&lt;/form&gt; <em>c <b>d</b></em>');
   });
 });
 
