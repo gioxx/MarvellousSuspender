@@ -226,12 +226,11 @@ import  { tgs }                   from './tgs.js';
       element.value = value;
     }
     else if (elementPrefMap[element.id] === gsStorage.STARTUP_TAB_CHECKS) {
+      // Bounded (#548): the field shows, and getOptionValue() saves, what the service worker
+      // will use, so an out-of-range or empty entry is corrected in place.
       element.value = String(gsStorage.normalizeStartupTabChecks(value));
     }
   }
-
-  // The startup tab-check concurrency is bounded (#548): the field shows and saves what the
-  // service worker will use, so an out-of-range or empty entry is corrected in place.
 
   function getOptionValue(element) {
     if (element.tagName === 'INPUT' && element.getAttribute('type') === 'checkbox') {

@@ -6,6 +6,7 @@ import { gsStorage } from '../src/js/gsStorage.js';
 import { gsUtils } from '../src/js/gsUtils.js';
 import { gsTabDiscardManager } from '../src/js/gsTabDiscardManager.js';
 import { tgs } from '../src/js/tgs.js';
+import { gsTabQueue } from '../src/js/gsTabQueue.js';
 
 const tabs = new Map();
 function suspendedTab(id, extra = {}) {
@@ -160,6 +161,11 @@ describe('startup suspended-tab checks (#523)', () => {
     expect(gsChrome.tabsGet).toHaveBeenCalledTimes(6);
     restored.forEach((tab) => gsTabCheckManager.unqueueTabCheck(tab));
     await vi.runAllTimersAsync();
+  });
+
+  it('rejects instead of staying pending when the queue cannot be built', async () => {
+    vi.spyOn(gsTabQueue, 'init').mockImplementation(() => { throw new Error('bad queue props'); });
+    await expect(gsTabCheckManager.initAsPromised()).rejects.toThrow('bad queue props');
   });
 
   it('still runs the startup pass at the default when the setting cannot be read', async () => {

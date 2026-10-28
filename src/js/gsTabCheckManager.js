@@ -50,29 +50,29 @@ export const gsTabCheckManager = (function() {
     }
   }
 
-  function initAsPromised() {
+  // async, not a Promise with an async executor: a throw after the read rejects instead
+  // of leaving init pending forever.
+  async function initAsPromised() {
     gsUtils.log('gsTabCheckManager initAsPromised', _tabCheckQueue);
-    return new Promise(async (resolve) => {
-      // Read on every init, so a service worker restarted mid-session keeps the user's limit
-      // for ordinary checks instead of falling back to the default (#548).
-      const concurrentTabChecks = await readConcurrentTabChecks();
-      const queueProps = {
-        concurrentExecutors: concurrentTabChecks,
-        jobTimeout: DEFAULT_TAB_CHECK_TIMEOUT,
-        processingDelay: DEFAULT_TAB_CHECK_PROCESSING_DELAY,
-        executorFn: handleTabCheck,
-        exceptionFn: handleTabCheckException,
-      };
-      _tabCheckQueue = gsTabQueue.init(QUEUE_ID, queueProps);
-      gsUtils.log(QUEUE_ID, 'init successful');
+    // Read on every init, so a service worker restarted mid-session keeps the user's limit
+    // for ordinary checks instead of falling back to the default (#548).
+    const concurrentTabChecks = await readConcurrentTabChecks();
+    const queueProps = {
+      concurrentExecutors: concurrentTabChecks,
+      jobTimeout: DEFAULT_TAB_CHECK_TIMEOUT,
+      processingDelay: DEFAULT_TAB_CHECK_PROCESSING_DELAY,
+      executorFn: handleTabCheck,
+      exceptionFn: handleTabCheckException,
+    };
+    _tabCheckQueue = gsTabQueue.init(QUEUE_ID, queueProps);
+    gsUtils.log(QUEUE_ID, 'init successful');
 
-      let resolveFn;
-      while ((resolveFn = INIT_RESOLVERS.pop())) {
-        resolveFn();
-      }
+    let resolveFn;
+    while ((resolveFn = INIT_RESOLVERS.pop())) {
+      resolveFn();
+    }
 
-      resolve(null);
-    });
+    return null;
   }
 
   /** @returns { Promise<void> } */
