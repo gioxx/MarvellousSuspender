@@ -105,6 +105,13 @@ export const gsStorage = {
   APPEND_URL_TO_TITLE           : 'gsAppendUrlToTitle',
   ADD_YOUTUBE_TIMESTAMP         : 'gsAddYouTubeTimestamp',
 
+  // How many suspended tabs the startup pass checks at a time (#548). Bounded on every read:
+  // the #523 startup crashes came from checking too many restored tabs at once.
+  STARTUP_TAB_CHECKS            : 'gsStartupTabChecks',
+  STARTUP_TAB_CHECKS_DEFAULT    : 3,
+  STARTUP_TAB_CHECKS_MIN        : 1,
+  STARTUP_TAB_CHECKS_MAX        : 8,
+
   noop: function() {},
 
   getSettingsDefaults: function() {
@@ -152,6 +159,7 @@ export const gsStorage = {
     defaults[gsStorage.PERMISSIONS_NOTICE_SEEN] = false;
     defaults[gsStorage.APPEND_URL_TO_TITLE] = true;
     defaults[gsStorage.ADD_YOUTUBE_TIMESTAMP] = true;
+    defaults[gsStorage.STARTUP_TAB_CHECKS] = gsStorage.STARTUP_TAB_CHECKS_DEFAULT;
 
     return defaults;
   },
@@ -321,6 +329,23 @@ export const gsStorage = {
   getOption: async (prop) => {
     const settings = await gsStorage.getSettings();
     return settings[prop] ?? gsStorage.getSettingsDefaults()[prop];
+  },
+
+  // An integer (or integer string) is clamped into MIN..MAX; anything else is the default.
+  // Never unbounded, whatever a synced device, an old build or a hand edit left in storage.
+  normalizeStartupTabChecks: (value) => {
+    let number = value;
+    if (typeof value === 'string' && /^\s*-?\d+\s*$/.test(value)) {
+      number = Number(value);
+    }
+    if (!Number.isInteger(number)) {
+      return gsStorage.STARTUP_TAB_CHECKS_DEFAULT;
+    }
+    return Math.min(gsStorage.STARTUP_TAB_CHECKS_MAX, Math.max(gsStorage.STARTUP_TAB_CHECKS_MIN, number));
+  },
+
+  getStartupTabChecks: async () => {
+    return gsStorage.normalizeStartupTabChecks(await gsStorage.getOption(gsStorage.STARTUP_TAB_CHECKS));
   },
 
   setOption: async (prop, value) => {

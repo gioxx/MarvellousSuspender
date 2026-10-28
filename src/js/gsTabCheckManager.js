@@ -10,7 +10,6 @@ import  { tgs }                   from './tgs.js';
 
 export const gsTabCheckManager = (function() {
 
-  const DEFAULT_CONCURRENT_TAB_CHECKS = 3;
   const DEFAULT_TAB_CHECK_TIMEOUT = 60 * 1000;
   const DEFAULT_TAB_CHECK_PROCESSING_DELAY = 500;
   const DEFAULT_TAB_CHECK_REQUEUE_DELAY = 3 * 1000;
@@ -39,26 +38,41 @@ export const gsTabCheckManager = (function() {
   // doesn't really matter.
   // However, when a tab gains focus, there is a check to make sure the content
   // script is responsive, as we then need to rely on the form input and scroll behavior.
-  function initAsPromised() {
+  // The user's limit (#548), bounded by gsStorage. A failed read must not stop tab checks:
+  // it falls back to the default, the value used before the setting existed.
+  async function readConcurrentTabChecks() {
+    try {
+      return await gsStorage.getStartupTabChecks();
+    }
+    catch (error) {
+      gsUtils.warning(QUEUE_ID, 'Could not read the startup tab-check setting. Using the default.', error);
+      return gsStorage.STARTUP_TAB_CHECKS_DEFAULT;
+    }
+  }
+
+  // async, not a Promise with an async executor: a throw after the read rejects instead
+  // of leaving init pending forever.
+  async function initAsPromised() {
     gsUtils.log('gsTabCheckManager initAsPromised', _tabCheckQueue);
-    return new Promise((resolve) => {
-      const queueProps = {
-        concurrentExecutors: DEFAULT_CONCURRENT_TAB_CHECKS,
-        jobTimeout: DEFAULT_TAB_CHECK_TIMEOUT,
-        processingDelay: DEFAULT_TAB_CHECK_PROCESSING_DELAY,
-        executorFn: handleTabCheck,
-        exceptionFn: handleTabCheckException,
-      };
-      _tabCheckQueue = gsTabQueue.init(QUEUE_ID, queueProps);
-      gsUtils.log(QUEUE_ID, 'init successful');
+    // Read on every init, so a service worker restarted mid-session keeps the user's limit
+    // for ordinary checks instead of falling back to the default (#548).
+    const concurrentTabChecks = await readConcurrentTabChecks();
+    const queueProps = {
+      concurrentExecutors: concurrentTabChecks,
+      jobTimeout: DEFAULT_TAB_CHECK_TIMEOUT,
+      processingDelay: DEFAULT_TAB_CHECK_PROCESSING_DELAY,
+      executorFn: handleTabCheck,
+      exceptionFn: handleTabCheckException,
+    };
+    _tabCheckQueue = gsTabQueue.init(QUEUE_ID, queueProps);
+    gsUtils.log(QUEUE_ID, 'init successful');
 
-      let resolveFn;
-      while ((resolveFn = INIT_RESOLVERS.pop())) {
-        resolveFn();
-      }
+    let resolveFn;
+    while ((resolveFn = INIT_RESOLVERS.pop())) {
+      resolveFn();
+    }
 
-      resolve(null);
-    });
+    return null;
   }
 
   /** @returns { Promise<void> } */
@@ -73,7 +87,8 @@ export const gsTabCheckManager = (function() {
   // initialisation will need to be initialised by this startup script
   async function performInitialisationTabChecks(tabs) {
     // Queue concurrency counts executing attempts, not pages waiting for a reload.
-    // Keep at most three whole checks outstanding, including their requeues (#523).
+    // Keep at most the configured number of whole checks outstanding, including their
+    // requeues (#523, #548).
     const suspendedTabs = tabs.filter((tab) => gsUtils.isSuspendedTab(tab));
     const results = new Array(suspendedTabs.length);
     const pending = suspendedTabs.map((tab, index) => ({ tab, index }));
@@ -120,7 +135,14 @@ export const gsTabCheckManager = (function() {
     const tabUpdatedListener = getTabUpdatedListener();
     chrome.tabs.onUpdated.addListener(tabUpdatedListener);
     try {
-      await Promise.all(Array.from({ length: DEFAULT_CONCURRENT_TAB_CHECKS }, checkNextTabs));
+      // Read once per pass, after the tab list is reserved above: a pass keeps the value it
+      // started with, and a change made in Options applies from the next pass, at browser
+      // start or a favicon repair pass (#548). The queue gets the same limit, so its
+      // executors never outnumber the workers.
+      const concurrentTabChecks = await readConcurrentTabChecks();
+      gsUtils.log(QUEUE_ID, 'startup pass concurrency', concurrentTabChecks);
+      _tabCheckQueue.setQueueProperties({ concurrentExecutors: concurrentTabChecks });
+      await Promise.all(Array.from({ length: concurrentTabChecks }, checkNextTabs));
     }
     finally {
       chrome.tabs.onUpdated.removeListener(tabUpdatedListener);

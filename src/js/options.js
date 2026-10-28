@@ -44,6 +44,7 @@ import  { tgs }                   from './tgs.js';
     whitelist: gsStorage.WHITELIST,
     alwaysSuspendList: gsStorage.ALWAYS_SUSPEND_LIST,
     newsFeedEnabled: gsStorage.NEWS_FEED_ENABLED,
+    startupTabChecks: gsStorage.STARTUP_TAB_CHECKS,
   };
 
 
@@ -224,6 +225,11 @@ import  { tgs }                   from './tgs.js';
     else if (element.tagName === 'TEXTAREA') {
       element.value = value;
     }
+    else if (elementPrefMap[element.id] === gsStorage.STARTUP_TAB_CHECKS) {
+      // Bounded (#548): the field shows, and getOptionValue() saves, what the service worker
+      // will use, so an out-of-range or empty entry is corrected in place.
+      element.value = String(gsStorage.normalizeStartupTabChecks(value));
+    }
   }
 
   function getOptionValue(element) {
@@ -238,6 +244,9 @@ import  { tgs }                   from './tgs.js';
     }
     if (element.tagName === 'TEXTAREA') {
       return element.value;
+    }
+    if (elementPrefMap[element.id] === gsStorage.STARTUP_TAB_CHECKS) {
+      return gsStorage.normalizeStartupTabChecks(element.value);
     }
   }
 
@@ -363,6 +372,10 @@ import  { tgs }                   from './tgs.js';
     // dedupe/sort/trim of a newline-separated list, not whitelist-specific)
     if (pref === gsStorage.WHITELIST || pref === gsStorage.ALWAYS_SUSPEND_LIST) {
       newValue = gsUtils.cleanupWhitelist(newValue);
+    }
+
+    if (pref === gsStorage.STARTUP_TAB_CHECKS) {
+      element.value = String(newValue);
     }
 
     // save option

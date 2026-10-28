@@ -6,6 +6,7 @@ import { gsStorage } from '../src/js/gsStorage.js';
 import { gsUtils } from '../src/js/gsUtils.js';
 import { gsTabDiscardManager } from '../src/js/gsTabDiscardManager.js';
 import { tgs } from '../src/js/tgs.js';
+import { gsTabQueue } from '../src/js/gsTabQueue.js';
 
 const tabs = new Map();
 function suspendedTab(id, extra = {}) {
@@ -75,6 +76,104 @@ describe('startup suspended-tab checks (#523)', () => {
     // Finish the stalled jobs too, so the temporary listener is removed.
     await vi.runAllTimersAsync();
     await result;
+  });
+
+  // #548: the number of slots is the user's setting, read through gsStorage's bounded
+  // read path when each startup pass begins.
+  function storedStartupTabChecks(value) {
+    gsStorage.getOption.mockImplementation(async (prop) =>
+      prop === gsStorage.STARTUP_TAB_CHECKS ? value : false);
+  }
+
+  async function slotsUsedByStartupPass() {
+    const restored = Array.from({ length: 12 }, (_, i) => suspendedTab(i + 1));
+    gsChrome.contextGetByTabId.mockResolvedValue(null);
+    gsUtils.resuspendSuspendedTab.mockReset();
+    gsUtils.resuspendSuspendedTab.mockImplementation(async (tab) => {
+      tabs.set(tab.id, { ...tab, status: 'loading' });
+      return true;
+    });
+    const result = gsTabCheckManager.performInitialisationTabChecks(restored);
+    await vi.advanceTimersByTimeAsync(8000);
+    const slots = gsUtils.resuspendSuspendedTab.mock.calls.length;
+    await vi.runAllTimersAsync();
+    await result;
+    return slots;
+  }
+
+  it.each([
+    [1, 1],
+    [5, 5],
+    [8, 8],
+    [20, 8],
+    [0, 1],
+    ['not a number', 3],
+  ])('uses the stored startup concurrency %s as %s slots', async (stored, expected) => {
+    storedStartupTabChecks(stored);
+    expect(await slotsUsedByStartupPass()).toBe(expected);
+  });
+
+  it('applies a changed setting at the next startup pass', async () => {
+    storedStartupTabChecks(2);
+    expect(await slotsUsedByStartupPass()).toBe(2);
+    storedStartupTabChecks(6);
+    expect(await slotsUsedByStartupPass()).toBe(6);
+  });
+
+  it('keeps a running startup pass on the value it started with', async () => {
+    storedStartupTabChecks(2);
+    const restored = Array.from({ length: 12 }, (_, i) => suspendedTab(i + 1));
+    gsChrome.contextGetByTabId.mockResolvedValue(null);
+    gsUtils.resuspendSuspendedTab.mockImplementation(async (tab) => {
+      tabs.set(tab.id, { ...tab, status: 'loading' });
+      return true;
+    });
+    const result = gsTabCheckManager.performInitialisationTabChecks(restored);
+    await vi.advanceTimersByTimeAsync(100);
+    storedStartupTabChecks(8);
+    await vi.advanceTimersByTimeAsync(8000);
+    expect(gsUtils.resuspendSuspendedTab).toHaveBeenCalledTimes(2);
+    await vi.runAllTimersAsync();
+    await result;
+  });
+
+  it('runs ordinary checks after the pass with the same concurrency', async () => {
+    storedStartupTabChecks(5);
+    await gsTabCheckManager.performInitialisationTabChecks([]);
+    // Every executing check stalls on its first browser call, so the calls made count
+    // the executors the queue runs at once.
+    const restored = Array.from({ length: 12 }, (_, i) => suspendedTab(i + 1));
+    gsChrome.tabsGet.mockImplementation(() => new Promise(() => {}));
+    restored.forEach((tab) => gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 0));
+    await vi.advanceTimersByTimeAsync(2000);
+    expect(gsChrome.tabsGet).toHaveBeenCalledTimes(5);
+    restored.forEach((tab) => gsTabCheckManager.unqueueTabCheck(tab));
+    await vi.runAllTimersAsync();
+  });
+
+  it('applies the stored value when the queue is rebuilt after a worker restart', async () => {
+    storedStartupTabChecks(6);
+    await gsTabCheckManager.initAsPromised();
+    const restored = Array.from({ length: 12 }, (_, i) => suspendedTab(i + 1));
+    gsChrome.tabsGet.mockImplementation(() => new Promise(() => {}));
+    restored.forEach((tab) => gsTabCheckManager.queueTabCheck(tab, { refetchTab: true }, 0));
+    await vi.advanceTimersByTimeAsync(2000);
+    expect(gsChrome.tabsGet).toHaveBeenCalledTimes(6);
+    restored.forEach((tab) => gsTabCheckManager.unqueueTabCheck(tab));
+    await vi.runAllTimersAsync();
+  });
+
+  it('rejects instead of staying pending when the queue cannot be built', async () => {
+    vi.spyOn(gsTabQueue, 'init').mockImplementation(() => { throw new Error('bad queue props'); });
+    await expect(gsTabCheckManager.initAsPromised()).rejects.toThrow('bad queue props');
+  });
+
+  it('still runs the startup pass at the default when the setting cannot be read', async () => {
+    gsStorage.getOption.mockImplementation(async (prop) => {
+      if (prop === gsStorage.STARTUP_TAB_CHECKS) throw new Error('storage unavailable');
+      return false;
+    });
+    expect(await slotsUsedByStartupPass()).toBe(3);
   });
 
   it('settles an unanswered message promptly without claiming the page is healthy', async () => {

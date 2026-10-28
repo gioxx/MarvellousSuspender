@@ -993,7 +993,8 @@ textarea:focus {
   outline-offset: 2px;
 }
 
-input[type='text'] {
+input[type='text'],
+input[type='number'] {
   color: var(--foreground);
   background-color: var(--background);
   border: 1px solid var(--border);
@@ -1004,9 +1005,14 @@ input[type='text'] {
   transition: border-color var(--duration-fast);
 }
 
-input[type='text']:focus {
+input[type='text']:focus,
+input[type='number']:focus {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
+}
+
+#startupTabChecks {
+  width: 80px;
 }
 
 /* ── Custom checkboxes ──────────────────────────────────────────────────── */
