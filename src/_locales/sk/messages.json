@@ -609,7 +609,7 @@
     "message": "- Nízka kvalita snímania obrazovky"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
+    "message": "- Ak generovanie obrázka trvá viac ako 20 sekúnd (45 sekúnd v režime vysokej kvality), obrazovka sa nesníma"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Maximálna výška snímky obrazovky obmedzená na 5000 px"
