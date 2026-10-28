@@ -127,13 +127,14 @@ afterEach(() => {
 
 // Holding points shared by the native and the renderer path: each holds the flow at one
 // await, returns what lets it go on, and what must not have happened afterwards (the first
-// thing the flow does past the check that follows that await).
+// thing the flow does past the check that follows that await). The order of the awaits is
+// capture, refetch of the live tab, saving of the preview, state write (#546).
 function holdPreviewSave() {
   const held = deferred();
   gsIndexedDb.addPreviewImage.mockReturnValue(held.promise);
   return {
     release: () => held.resolve(),
-    notReached: () => chrome.tabs.get,
+    notReached: () => gsTabCheckManager.unqueueTabCheck,
   };
 }
 
@@ -142,7 +143,7 @@ function holdTabRefetch() {
   chrome.tabs.get.mockImplementation((tabId, callback) => { answer = callback; });
   return {
     release: () => answer(makeTab()),
-    notReached: () => gsTabCheckManager.unqueueTabCheck,
+    notReached: () => gsIndexedDb.addPreviewImage,
   };
 }
 
@@ -206,7 +207,7 @@ describe('native capture path', () => {
     await start({ SCREEN_CAPTURE: '1', SCREEN_CAPTURE_METHOD: 'native' });
   });
 
-  it('stores the capture under the url of the tab, checks the live tab, suspends and resolves true', async () => {
+  it('checks the live tab, stores the capture under the url of the tab, suspends and resolves true', async () => {
     gsPrecapture.captureVisibleTab.mockResolvedValue(NATIVE_PREVIEW);
     const tab = makeTab();
     const outcome = await suspend(tab, 1);
@@ -216,7 +217,7 @@ describe('native capture path', () => {
     expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledTimes(1);
     expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(NORMAL_URL, NATIVE_PREVIEW);
     expect(chrome.tabs.get).toHaveBeenCalledTimes(1);
-    expect(gsIndexedDb.addPreviewImage.mock.invocationCallOrder[0]).toBeLessThan(chrome.tabs.get.mock.invocationCallOrder[0]);
+    expect(gsIndexedDb.addPreviewImage.mock.invocationCallOrder[0]).toBeGreaterThan(chrome.tabs.get.mock.invocationCallOrder[0]);
     expectSuspended(outcome);
     expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
     expect(chrome.scripting.executeScript).not.toHaveBeenCalled();
@@ -238,16 +239,16 @@ describe('native capture path', () => {
     expectSuspended(outcome);
   });
 
-  // The preview is stored before the live tab is looked at, so it stays in the store,
-  // under the url the tab has left.
+  // The live tab is looked at before the preview is stored: a capture of a page the tab
+  // has left is dropped, not stored under the url it was taken for (#546).
   it.each([
     ['has navigated', makeTab({ url: 'https://example.com/other' })],
     ['is gone', undefined],
-  ])('resolves false when the live tab %s, the preview being stored already (oddity: see comment)', async (label, liveTab) => {
+  ])('resolves false when the live tab %s, storing no preview', async (label, liveTab) => {
     gsPrecapture.captureVisibleTab.mockResolvedValue(NATIVE_PREVIEW);
     chrome.tabs.get.mockImplementation((tabId, callback) => callback(liveTab));
     const outcome = await suspend(makeTab(), 1);
-    expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(NORMAL_URL, NATIVE_PREVIEW);
+    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
     expect(outcome).toEqual({ state: 'resolved', value: false });
   });
@@ -402,6 +403,23 @@ describe('renderer path', () => {
     expect(chrome.tabs.update).not.toHaveBeenCalled();
     manager.unqueueTabForSuspension(tab);
     await flush();
+  });
+
+  // Saving the tab info awaits: a job unqueued during it injects nothing and leaves no
+  // preview request behind (#546).
+  it('does not inject the renderer for a job unqueued while its tab info is saved', async () => {
+    const held = deferred();
+    gsIndexedDb.addSuspendedTabInfo.mockReturnValueOnce(held.promise);
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    expect(gsIndexedDb.addSuspendedTabInfo).toHaveBeenCalledTimes(1);
+
+    manager.unqueueTabForSuspension(tab);
+    held.resolve();
+    await flush();
+    expect(chrome.scripting.executeScript).not.toHaveBeenCalled();
+    expect(vi.getTimerCount()).toBe(0);
+    expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
   });
 
   it('gives every request a token of its own', async () => {
@@ -565,15 +583,15 @@ describe('renderer path', () => {
     expectSuspended(outcome, suspendedUrlOf(timestamped, 'Example', '0'));
   });
 
-  // The preview is stored before the live tab is looked at, so it stays in the store.
+  // The live tab is looked at before the preview is stored (#546).
   it.each([
     ['has navigated', makeTab({ url: 'https://example.com/other' })],
     ['is gone', undefined],
-  ])('resolves false when the live tab %s, the preview being stored already (oddity: see comment)', async (label, liveTab) => {
+  ])('resolves false when the live tab %s, storing no preview', async (label, liveTab) => {
     chrome.tabs.get.mockImplementation((tabId, callback) => callback(liveTab));
     const outcome = await suspend(makeTab(), 1);
     await respond(makeTab(), PREVIEW, undefined, injectedToken());
-    expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(NORMAL_URL, PREVIEW);
+    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
     expect(outcome).toEqual({ state: 'resolved', value: false });
   });
@@ -588,44 +606,28 @@ describe('renderer path', () => {
     expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
   });
 
-  // This first eligibility check is made on the tab that came with the response. When it
-  // fails the function logs "Removing tab from suspensionQueue" and returns: it removes
-  // nothing and settles nothing. The request is forgotten, so a later response is ignored
-  // as well, and the job stays in progress until the queue times it out, 60 seconds after
-  // it started. The timeout handler then suspends the tab with no eligibility check: here
-  // the tab as queued is not eligible either by then, and chrome is not asked for the tab.
-  // Compare with the case above, where the same finding on the live tab resolves false.
-  it('leaves the job unsettled when the tab of the response is not eligible, and the job timeout then suspends the tab (defect: see comment)', async () => {
+  // The first eligibility check is made on the tab that came with the response. When it
+  // fails the job is settled, false, as the native path does on the same finding: nothing
+  // is stored, the tab is not touched, and the queue timeout has nothing left to force (#546).
+  it('resolves false when the tab of the response is not eligible, storing nothing', async () => {
     const tab = makeTab();
     const outcome = await suspend(tab, 2);
     const token = injectedToken();
     const pinned = makeTab({ pinned: true });
-    tab.pinned = true;
     await expect(manager.checkTabEligibilityForSuspension(pinned, 2)).resolves.toBe(false);
-    await expect(manager.checkTabEligibilityForSuspension(tab, 2)).resolves.toBe(false);
 
     await expect(respond(pinned, PREVIEW, undefined, token)).resolves.toBeUndefined();
-    expect(outcome.state).toBe('pending');
-    expect(manager.isSuspensionInProgress(tab)).toBe(true);
-    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
-    expect(chrome.tabs.update).not.toHaveBeenCalled();
-
-    // The render timeout was cleared and the request forgotten.
-    await respond(makeTab(), PREVIEW, undefined, token);
-    await advance(RENDER_TIMEOUT);
-    expect(outcome.state).toBe('pending');
-    expect(chrome.tabs.update).not.toHaveBeenCalled();
-
-    await advance(JOB_TIMEOUT - RENDER_TIMEOUT - 1);
-    expect(outcome.state).toBe('pending');
-    expect(chrome.tabs.update).not.toHaveBeenCalled();
-
-    await advance(1);
-    expectSuspended(outcome);
-    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'resolved', value: false });
     expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
+    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
+
+    // The request is forgotten: a second response does nothing, and no timer is left.
+    await respond(makeTab(), PREVIEW, undefined, token);
+    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
+    expect(vi.getTimerCount()).toBe(0);
+    await advance(JOB_TIMEOUT);
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
 
   // Columns: label, force level, preview of the response, arrangement.
@@ -673,10 +675,9 @@ describe('renderer path, a preview and a job cancelled at the first check', () =
     await start({ SCREEN_CAPTURE: '2', SCREEN_CAPTURE_METHOD: 'renderer' });
   });
 
-  // Nothing looks at the queue between the first eligibility check and the saving of the
-  // preview, so the preview of a job cancelled during that check is stored all the same.
-  // The check after the save then stops the flow.
-  it('stores the preview of a job unqueued during the first eligibility check (oddity: see comment)', async () => {
+  // The queue is looked at again after the first eligibility check, so the preview of a
+  // job cancelled during that check is not stored (#546).
+  it('stores nothing for a job unqueued during the first eligibility check', async () => {
     const tab = makeTab();
     const outcome = await suspend(tab, 2);
     const held = deferred();
@@ -689,8 +690,7 @@ describe('renderer path, a preview and a job cancelled at the first check', () =
     await handled;
     await flush();
     expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
-    expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledTimes(1);
-    expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(NORMAL_URL, PREVIEW);
+    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
     expect(chrome.tabs.get).not.toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
