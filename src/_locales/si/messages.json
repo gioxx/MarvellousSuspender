@@ -339,16 +339,16 @@
     "message": "අත්හිටුවීමේදී YouTube වාදන පිහිටීම රඳවා ගන්න"
   },
   "html_options_suspended_startup_tab_checks": {
-    "message": "Suspended tabs checked at a time when the browser starts"
+    "message": "බ්‍රවුසරය ආරම්භ වන විට එකවර පරීක්ෂා කරන අත්හිටුවන ලද ටැබ් ගණන"
   },
   "html_options_suspended_startup_tab_checks_tooltip_line1": {
-    "message": "When the browser starts, each restored suspended tab is checked and repaired if needed."
+    "message": "බ්‍රවුසරය ආරම්භ වන විට, ප්‍රතිසාධනය කළ සෑම අත්හිටුවන ලද ටැබයක්ම පරීක්ෂා කර අවශ්‍ය නම් අලුත්වැඩියා කෙරේ."
   },
   "html_options_suspended_startup_tab_checks_tooltip_line2": {
-    "message": "A higher number fills in titles and icons sooner. From 1 to 8, default 3. Takes effect at the next check of restored tabs, normally the next browser start."
+    "message": "වැඩි අගයක් මාතෘකා සහ අයිකන ඉක්මනින් පුරවයි. 1 සිට 8 දක්වා, පෙරනිමිය 3. ප්‍රතිසාධනය කළ ටැබ්වල ඊළඟ පරීක්ෂාවේදී, සාමාන්‍යයෙන් ඊළඟ බ්‍රවුසර ආරම්භයේදී ක්‍රියාත්මක වේ."
   },
   "html_options_suspended_startup_tab_checks_warning": {
-    "message": "Raising this above 3 can overload the browser when it restores many tabs and bring back the startup crashes the default prevents. Change it at your own risk."
+    "message": "මෙය 3ට වඩා වැඩි කිරීමෙන් බොහෝ ටැබ් ප්‍රතිසාධනය කරන විට බ්‍රවුසරය අධික ලෙස බර විය හැකි අතර පෙරනිමිය වළක්වන ආරම්භක බිඳ වැටීම් නැවත ඇති විය හැක. ඔබේ අවදානමට වෙනස් කරන්න."
   },
   "html_options_other_title": {
     "message": "සාමාන්‍ය"
@@ -609,7 +609,7 @@
     "message": "- අඩු ගුණාත්මක තිර ග්රහණය"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- රූපය ජනනය කිරීමට මිනිත්තු 1 කට වඩා ගත වුවහොත් තිරය ග්‍රහණය නොකරයි"
+    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- තිර ග්‍රහණයේ උපරිම උස 5000px ට සීමා වේ"
