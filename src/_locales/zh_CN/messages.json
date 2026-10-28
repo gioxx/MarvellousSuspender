@@ -609,7 +609,7 @@
     "message": "- 低质量截图"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
+    "message": "- 生成图片耗时超过 20 秒（高质量模式下为 45 秒）时不会截图"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- 截图最大高度限制为 5000px"
