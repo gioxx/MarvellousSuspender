@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createChromeStub } from './setup/chrome-stub.js';
 import {
   NORMAL_URL, QUEUE_CHECK_INTERVAL, JOB_TIMEOUT, CANCELLED,
-  makeTab, suspendedUrlOf, installFakeTimers, installSuspensionFakes, flush, track, advance, setOptions, queueAndRun, withLastError,
+  makeTab, suspendedUrlOf, installFakeTimers, installSuspensionFakes, flush, track, deferred, advance, setOptions, queueAndRun, withLastError,
 } from './setup/suspend-manager-harness.js';
 
 // Characterisation of the suspension flow of gsTabSuspendManager with screen capture off:
@@ -359,6 +359,31 @@ describe('suspension flow with discard in place of suspend', () => {
     expect(outcome).toEqual({ state: 'resolved', value: true });
   });
 
+  // The discard has an await of its own before it touches the tab; a job unqueued during
+  // it must neither clear the tab's auto-suspend alarm nor discard the tab.
+  it('does not clear the alarm or discard a tab unqueued while the discard is being prepared', async () => {
+    await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true });
+    const held = deferred();
+    const getOption = gsStorage.getOption;
+    let reads = 0;
+    // the second read of the option is the one executeTabSuspension() makes
+    vi.spyOn(gsStorage, 'getOption').mockImplementation((key) => {
+      if (key === gsStorage.DISCARD_IN_PLACE_OF_SUSPEND && ++reads === 2) return held.promise;
+      return getOption(key);
+    });
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    expect(reads).toBe(2);
+    expect(outcome.state).toBe('pending');
+
+    manager.unqueueTabForSuspension(tab);
+    held.resolve(true);
+    await flush();
+    expect(chrome.alarms.clear).not.toHaveBeenCalled();
+    expect(gsTabDiscardManager.queueTabForDiscard).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
+  });
+
   it('does not discard a tab the content script reports as paused at level 2', async () => {
     await setOptions(gsStorage, { DISCARD_IN_PLACE_OF_SUSPEND: true });
     contentScriptAnswers({ status: 'tempWhitelist', scrollPos: '0' });
@@ -535,7 +560,7 @@ describe('suspension flow when the queue times the job out', () => {
 
     await advance(1);
     expect(exceptionSpy).toHaveBeenCalledTimes(1);
-    expect(exceptionSpy.mock.calls[0].slice(0, 3)).toEqual([tab, { forceLevel: 2 }, 'timeout']);
+    expect(exceptionSpy.mock.calls[0].slice(0, 3)).toEqual([tab, { forceLevel: 2, precaptureUrl: NORMAL_URL }, 'timeout']);
     expect(chrome.tabs.get).toHaveBeenCalledWith(5, expect.any(Function));
     expect(tgs.isCurrentFocusedTab).toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
@@ -556,6 +581,41 @@ describe('suspension flow when the queue times the job out', () => {
     expect(exceptionSpy).toHaveBeenCalledTimes(1);
     expect(chrome.tabs.update).not.toHaveBeenCalled();
     expect(outcome).toEqual({ state: 'resolved', value: false });
+  });
+
+  // The handler's own awaits are windows too: a job unqueued while the live tab is being
+  // read must not be suspended when the read completes.
+  it('does not suspend at the timeout a job unqueued while the live tab is being read', async () => {
+    chrome.tabs.sendMessage.mockImplementation(() => {});
+    let answer;
+    chrome.tabs.get.mockImplementation((tabId, callback) => { answer = callback; });
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
+    await advance(JOB_TIMEOUT);
+    expect(exceptionSpy).toHaveBeenCalledTimes(1);
+    expect(outcome.state).toBe('pending');
+
+    manager.unqueueTabForSuspension(tab);
+    await flush();
+    expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
+    answer(makeTab());
+    await flush();
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
+  });
+
+  // A job that refetched its tab works on the url it refetched; the handler compares the
+  // live tab with that one, not with the url the job was queued with.
+  it('suspends at the timeout the page the job refetched, not the one it was queued with', async () => {
+    chrome.tabs.sendMessage.mockImplementation(() => {});
+    const refetched = 'https://example.com/after-redirect';
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ url: refetched })));
+    const outcome = await suspend(makeTab({ status: 'loading' }), 1);
+    await advance(REQUEUE_DELAY + QUEUE_CHECK_INTERVAL);
+    expect(chrome.tabs.sendMessage).toHaveBeenCalledTimes(1);
+    await advance(JOB_TIMEOUT);
+    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(refetched, 'Example', '0') }, expect.any(Function));
+    expect(outcome).toEqual({ state: 'resolved', value: true });
   });
 
   // The live tab is the one suspended: its title is the one the placeholder shows.

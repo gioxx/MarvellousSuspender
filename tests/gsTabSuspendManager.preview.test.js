@@ -422,6 +422,29 @@ describe('renderer path', () => {
     expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
   });
 
+  // The renderer request reads two options before it arms its timer and injects: a job
+  // unqueued, or claimed by the timeout handler, during those reads injects nothing (#546).
+  it.each([
+    ['unqueued', (tab) => manager.unqueueTabForSuspension(tab)],
+    ['claimed by the timeout handler', () => advance(JOB_TIMEOUT)],
+  ])('does not inject the renderer for a job %s while the capture options are read', async (label, end) => {
+    const held = deferred();
+    const getOption = gsStorage.getOption;
+    vi.spyOn(gsStorage, 'getOption').mockImplementation((key) => {
+      if (key === gsStorage.SCREEN_CAPTURE_FORCE) return held.promise;
+      return getOption(key);
+    });
+    const tab = makeTab();
+    await suspend(tab, 1);
+    expect(gsStorage.getOption).toHaveBeenCalledWith(gsStorage.SCREEN_CAPTURE_FORCE);
+
+    await end(tab);
+    held.resolve(false);
+    await flush();
+    expect(chrome.scripting.executeScript).not.toHaveBeenCalled();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
   it('gives every request a token of its own', async () => {
     const first = makeTab();
     const second = makeTab({ id: 6 });
@@ -514,23 +537,25 @@ describe('renderer path', () => {
     expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
 
-  // Reached here by building the queue a second time, which drops the first queue without
-  // touching the request that is in flight: the manager then looks for the tab in the new
-  // queue. The job of the first queue is left to its timeout.
-  it('ignores a response with the right token when the tab is not in the queue, the queue having been rebuilt', async () => {
-    const outcome = await suspend(makeTab(), 1);
+  // Building the queue a second time (a settings change) drops the first queue without
+  // touching the request in flight; the manager no longer sees the job, but the response
+  // finds it on the queue that runs it and settles it (#546).
+  it('settles the job of a replaced queue when its response arrives, the manager no longer seeing it', async () => {
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
     const token = injectedToken();
     await manager.initAsPromised();
+    expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
+
     await expect(respond(makeTab(), PREVIEW, undefined, token)).resolves.toBeUndefined();
-    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
-    expect(chrome.tabs.update).not.toHaveBeenCalled();
-    expect(outcome.state).toBe('pending');
+    expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(NORMAL_URL, PREVIEW);
+    expectSuspended(outcome);
   });
 
-  // As above, with the tab queued again in the new queue: the token is the one of the
-  // request in flight, the job found under the tab id is another one.
-  it('ignores a response with the right token when the job queued for the tab is another one, the queue having been rebuilt', async () => {
+  // As above, with the tab queued again in the new queue: the job of the old queue is the
+  // one the response belongs to, and it is the one settled; the new job keeps waiting its
+  // turn, and will find the tab suspended.
+  it('settles the job of a replaced queue when its response arrives, the tab being queued again', async () => {
     const first = await suspend(makeTab(), 1);
     const token = injectedToken();
     await manager.initAsPromised();
@@ -540,10 +565,7 @@ describe('renderer path', () => {
     expect(manager.getQueuedTabDetails(tab)).toMatchObject({ status: 'queued' });
 
     await expect(respond(makeTab(), PREVIEW, undefined, token)).resolves.toBeUndefined();
-    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
-    expect(chrome.tabs.update).not.toHaveBeenCalled();
-    expect(first.state).toBe('pending');
+    expectSuspended(first);
     expect(second.state).toBe('pending');
 
     manager.unqueueTabForSuspension(tab);
@@ -606,17 +628,19 @@ describe('renderer path', () => {
     expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
   });
 
-  // The first eligibility check is made on the tab that came with the response. When it
-  // fails the job is settled, false, as the native path does on the same finding: nothing
-  // is stored, the tab is not touched, and the queue timeout has nothing left to force (#546).
-  it('resolves false when the tab of the response is not eligible, storing nothing', async () => {
+  // Eligibility is judged on the live tab, read from chrome: the tab that comes with the
+  // response is the sender's for a real response, but the executor's stale snapshot for a
+  // render timeout or an injection error. On failure the job is settled, false, as the
+  // native path does: nothing is stored, the tab is not touched, and the queue timeout has
+  // nothing left to force (#546).
+  it('resolves false when the live tab is not eligible, storing nothing', async () => {
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ pinned: true })));
     const tab = makeTab();
     const outcome = await suspend(tab, 2);
     const token = injectedToken();
-    const pinned = makeTab({ pinned: true });
-    await expect(manager.checkTabEligibilityForSuspension(pinned, 2)).resolves.toBe(false);
 
-    await expect(respond(pinned, PREVIEW, undefined, token)).resolves.toBeUndefined();
+    await expect(respond(makeTab({ pinned: true }), PREVIEW, undefined, token)).resolves.toBeUndefined();
+    expect(chrome.tabs.get).toHaveBeenCalledTimes(1);
     expect(outcome).toEqual({ state: 'resolved', value: false });
     expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
     expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
@@ -630,6 +654,14 @@ describe('renderer path', () => {
     expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
 
+  it('suspends when the tab of the response is a stale snapshot and the live tab is eligible', async () => {
+    const tab = makeTab();
+    const outcome = await suspend(tab, 2);
+    await respond(makeTab({ audible: true }), PREVIEW, undefined, injectedToken());
+    expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(NORMAL_URL, PREVIEW);
+    expectSuspended(outcome);
+  });
+
   // Columns: label, force level, preview of the response, arrangement.
   //
   // After the saving of the preview the source checks twice, with no await in between:
@@ -638,12 +670,12 @@ describe('renderer path', () => {
   //
   // The first row sends no preview. With one, see the case after these.
   const holdingPoints = [
-    ['the first eligibility check', 2, undefined, () => {
+    ['the eligibility check', 2, undefined, () => {
       const held = deferred();
       tgs.isCurrentFocusedTab.mockReturnValueOnce(held.promise);
       return {
         release: () => held.resolve(false),
-        notReached: () => chrome.tabs.get,
+        notReached: () => gsIndexedDb.addPreviewImage,
       };
     }],
     ['the saving of the preview', 1, PREVIEW, holdPreviewSave],
@@ -675,9 +707,9 @@ describe('renderer path, a preview and a job cancelled at the first check', () =
     await start({ SCREEN_CAPTURE: '2', SCREEN_CAPTURE_METHOD: 'renderer' });
   });
 
-  // The queue is looked at again after the first eligibility check, so the preview of a
-  // job cancelled during that check is not stored (#546).
-  it('stores nothing for a job unqueued during the first eligibility check', async () => {
+  // The queue is looked at again after the eligibility check, so the preview of a job
+  // cancelled during that check is not stored (#546).
+  it('stores nothing for a job unqueued during the eligibility check', async () => {
     const tab = makeTab();
     const outcome = await suspend(tab, 2);
     const held = deferred();
@@ -691,7 +723,6 @@ describe('renderer path, a preview and a job cancelled at the first check', () =
     await flush();
     expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
     expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
 });
@@ -712,6 +743,19 @@ describe('renderer path with the automatic method', () => {
     expect(gsPrecapture.captureVisibleTab).toHaveBeenCalledWith(responseTab);
     expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(NORMAL_URL, NATIVE_PREVIEW);
     expectSuspended(outcome);
+  });
+
+  // The live tab is judged before the fallback capture too: a tab that is not eligible
+  // any more is not captured only to have the capture dropped (#546).
+  it('resolves false without a fallback capture when the live tab is not eligible at the response', async () => {
+    chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ pinned: true })));
+    const outcome = await suspend(makeTab(), 2);
+    await respond(makeTab(), undefined, 'Failed to generate dataUrl', injectedToken());
+    expect(gsPrecapture.captureVisibleTab).not.toHaveBeenCalled();
+    expect(gsPrecapture.take).not.toHaveBeenCalled();
+    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'resolved', value: false });
   });
 
   it('takes the pre-capture when the fallback capture gives nothing, and suspends without a preview when neither does', async () => {
@@ -772,7 +816,8 @@ describe('renderer path with the automatic method', () => {
     held.resolve(NATIVE_PREVIEW);
     await handled;
     expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
-    expect(chrome.tabs.get).not.toHaveBeenCalled();
+    // the one read is the judgement before the capture; none after it for a cancelled job
+    expect(chrome.tabs.get).toHaveBeenCalledTimes(1);
     expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
     expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
