@@ -9,6 +9,10 @@ Entries under "Unreleased" live on a feature branch until merged into `master`.
 
 ## [9.1.0] — 2026-10-28
 
+### Security
+- Saved session names are HTML-encoded on the History page. A saved session's name was written into the page as raw HTML, so importing a backup file whose filename contained HTML (for example `<img src=x>.json`, via Options → Backup & Restore → "Restore from local file") stored that markup as the session name, and it rendered as live elements every time the History page loaded. The extension's CSP blocked scripts, but injected forms or overlays still rendered. Encoding at display time also covers names typed when saving a session. Reported by squeeze440 (GHSA-qv22-cq95-fcqr).
+- Other extensions can no longer bypass the user's suspension protections. Any installed extension, with no permissions of its own, could ask The Marvellous Suspender to suspend a tab, and the request ran at force level 1, skipping the whitelist, pinned, audible and active tabs, protected tab groups and unsaved form input, so text typed into a form could be lost. External requests now run at force level 2, the same protections as automatic suspension. Reported by amargiovanni (GHSA-wh6f-63h6-wvq6).
+
 ### Locale folders Chrome can load
 - Ukrainian and Sinhala now load for the "auto" language. Their `_locales` folders were named `uk-UA` and `si-LK`, which are not codes Chrome recognises, so Chrome skipped them and fell back to English (checked in Chrome for Testing 154 with `--lang=uk` and `--lang=si`: `uk-UA`/`si-LK`/`uk_UA`/`si_LK` load English, `uk`/`si` load the folder). They are now `uk` and `si`. Picking them explicitly in Options → Language already worked, because that path fetches the folder by name.
 - Removed the `fr-FR` locale. Chrome never loaded it either (French users always got `fr`), Crowdin no longer writes to it, and it had drifted from `fr`. It is gone from the Options language selector and from `scripts/check-locales.js` as well.

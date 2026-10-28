@@ -29,7 +29,7 @@ export const historyItems = (() => {
     const sessionDIV    = createEl('div',   { class: 'sessionContainer', });
 
     const sessionName = (sessionType === 'saved') ? session.name : gsUtils.getHumanDate(session.date);
-    sessionTitle.innerHTML = `${sessionName} &nbsp; <small>(${winCnt} ${winText}, ${tabCnt} ${tabText})</small>`;
+    sessionTitle.innerHTML = `${gsUtils.htmlEncode(sessionName)} &nbsp; <small>(${winCnt} ${winText}, ${tabCnt} ${tabText})</small>`;
 
     sessionDIV.appendChild(sessionIcon);
     sessionDIV.appendChild(sessionTitle);

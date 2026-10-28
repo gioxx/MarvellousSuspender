@@ -17,6 +17,7 @@ For the full technical changelog (every fix, every review round, every detail), 
 
 ### Fixed
 
+- **Security fixes**: a crafted backup file could place fake links or forms on the History page, and another installed extension could suspend tabs you had protected (pinned, allowed, playing audio, with unsaved form input). Both are closed. Thanks to squeeze440 and amargiovanni for reporting them privately.
 - **Browser freezing or the extension crashing after a restart with lots of suspended tabs**, reported on Brave and Chrome on Linux. Startup now checks a few tabs at a time, the one you're looking at first, and leaves sleeping tabs asleep. Favicons and titles may take a moment longer to fill in after a restart: that's intended, and you can tune it with the new setting above.
 - **Paused tabs are easy to spot again in the toolbar**: the icon shows a small orange pause badge when a tab won't be suspended (paused, allowed, pinned and so on), and on pages that can't be suspended at all, such as Chrome's own pages. The classic artwork keeps its grey icon.
 - **Slow suspension with screen capturing on**: a tab Chrome had already put to sleep was reloaded in full just to take its preview. It isn't any more.
