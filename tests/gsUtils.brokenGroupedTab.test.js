@@ -26,3 +26,25 @@ describe('gsUtils.isBrokenGroupedDiscardedTab', () => {
     expect(gsUtils.isBrokenGroupedDiscardedTab(tab({ url: 'https://example.com/' }), 149)).toBe(false);
   });
 });
+
+describe('gsUtils.findSavedSuspendedUrls', () => {
+  const newtab   = (id, windowId, index) => ({ id, windowId, index, groupId: 7, url: 'chrome://newtab/' });
+  const sessions = [
+    { sessionId: 'current', windows: [{ id: 1, tabs: [{ index: 1, url: suspended }] }] },
+    { sessionId: 'old',     windows: [
+      { id: 50, tabs: [{ index: 0, url: 'https://example.com/' }] },
+      { id: 40, tabs: [{ index: 1, url: suspended }] },
+    ] },
+  ];
+
+  it('matches a New Tab page at a position that held a suspended tab in a saved session', () => {
+    const urls = gsUtils.findSavedSuspendedUrls([newtab(10, 3, 1)], [3, 8], sessions, 'current');
+    expect([...urls]).toEqual([[10, suspended]]);
+  });
+
+  it('skips real New Tab pages: wrong index, wrong window rank, unsuspended or current-session tab', () => {
+    const tabs = [newtab(11, 3, 2), newtab(12, 8, 1), newtab(13, 8, 0), newtab(14, 99, 1)];
+    expect(gsUtils.findSavedSuspendedUrls(tabs, [3, 8], sessions, 'current').size).toBe(0);
+    expect(gsUtils.findSavedSuspendedUrls([newtab(10, 3, 1)], [3], sessions.slice(0, 1), 'current').size).toBe(0);
+  });
+});
