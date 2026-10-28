@@ -632,12 +632,20 @@ describe('suspension flow when the executor throws', () => {
     expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
 
-  // An answer that is not an object is read as one: `'busy'.status` is undefined, which no
-  // check stops, and `'busy'.scrollPos` is undefined, which the url writes as 0.
-  it('suspends when the content script answers a string (oddity: see comment)', async () => {
-    contentScriptAnswers('busy');
+  // An answer that is not an object counts as no answer: status unknown, scroll position
+  // 0, and a warning naming what came back, so that it can be seen in the logs (#546).
+  it.each([
+    ['a string', 'busy'],
+    ['an empty string', ''],
+    ['the number 0', 0],
+    ['false', false],
+    ['an array', []],
+  ])('treats a content script answer that is %s as no answer, warns, and suspends', async (label, answer) => {
+    contentScriptAnswers(answer);
+    const warning = vi.spyOn(gsUtils, 'warning');
     const outcome = await suspend(makeTab(), 2);
     expect(exceptionSpy).not.toHaveBeenCalled();
+    expect(warning).toHaveBeenCalledWith(5, 'suspensionQueue', 'Unexpected content script answer', answer);
     expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(NORMAL_URL, 'Example', '0') }, expect.any(Function));
     expect(outcome).toEqual({ state: 'resolved', value: true });
   });
