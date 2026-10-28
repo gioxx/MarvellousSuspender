@@ -63,16 +63,28 @@ export const gsTabSuspendManager = (function() {
       // TODO: This should probably update when the screen capture mode changes
       const concurrentSuspensions = screenCaptureMode === '0' ? 5 : DEFAULT_CONCURRENT_SUSPENSIONS;
       const suspensionTimeout = forceScreenCapture ? 5 * 60 * 1000 : DEFAULT_SUSPENSION_TIMEOUT;
-      // The executor is told which queue runs it: a later init replaces _suspensionQueue
-      // while the jobs of this one run on, and a job checks that it is still current
-      // against the queue it belongs to (#546).
-      const queue = gsTabQueue.init(QUEUE_ID, {
+      const queueProps = {
         concurrentExecutors: concurrentSuspensions,
         jobTimeout: suspensionTimeout,
-        executorFn: (...args) => performSuspension(queue, ...args),
+        executorFn: performSuspension,
         exceptionFn: handleSuspensionException,
-      });
-      _suspensionQueue = queue;
+      };
+      // A later init (a capture setting changed) updates the one queue in place, as
+      // gsTabCheckManager does: a replaced queue would keep running jobs that nothing
+      // could see or cancel any more (#546).
+      // An update the queue refuses throws, and a throw here would leave init unsettled:
+      // the queue keeps the properties it had.
+      if (_suspensionQueue) {
+        try {
+          _suspensionQueue.setQueueProperties(queueProps);
+        }
+        catch (error) {
+          gsUtils.error(QUEUE_ID, 'Could not update the queue properties', error);
+        }
+      }
+      else {
+        _suspensionQueue = gsTabQueue.init(QUEUE_ID, queueProps);
+      }
       gsUtils.log(QUEUE_ID, 'init successful');
 
       let resolveFn;
@@ -135,17 +147,12 @@ export const gsTabSuspendManager = (function() {
     }
   }
 
-  // The queue each running job belongs to, recorded when its executor starts: a later init
-  // replaces _suspensionQueue while the jobs of the old one run on (#546).
-  const _queueByExecutionProps = new WeakMap();
-
   // Whether the job is still the current one of its queue for this tab. Every await of the
   // flow is a window for the job to be unqueued (the tab focused, an unsuspend-all) or
   // superseded by a newer job for the same tab; a job that is not current any more must
   // not store or navigate anything, its promise having been settled by whoever removed it.
   function isCurrentJob(tab, executionProps) {
-    const queue = _queueByExecutionProps.get(executionProps) ?? _suspensionQueue;
-    return queue?.getQueuedTabDetails(tab)?.executionProps === executionProps;
+    return _suspensionQueue?.getQueuedTabDetails(tab)?.executionProps === executionProps;
   }
 
   // The live tab, read from chrome, when it is still on `expectedUrl` and still eligible at
@@ -164,8 +171,7 @@ export const gsTabSuspendManager = (function() {
     return liveTab;
   }
 
-  async function performSuspension(queue, tab, executionProps, resolve, reject, requeue,) {
-    _queueByExecutionProps.set(executionProps, queue);
+  async function performSuspension(tab, executionProps, resolve, reject, requeue,) {
     const isStillCurrent = () => isCurrentJob(tab, executionProps);
 
     if (executionProps.refetchTab || gsUtils.isSuspendedTab(tab)) {
@@ -358,7 +364,7 @@ export const gsTabSuspendManager = (function() {
     // Identity, not just presence: belt-and-suspenders alongside the token check above --
     // a late preview response whose job has since been cancelled, or superseded (a
     // different executionProps object now occupies this tab id's slot), must not be
-    // applied to, or resolve, anything. The job's own queue is asked (#546).
+    // applied to, or resolve, anything.
     const isStillCurrent = () => isCurrentJob(tab, expectedExecutionProps);
     if (!isStillCurrent()) {
       gsUtils.log(tab.id, QUEUE_ID, 'Preview response is for a cancelled or superseded suspension job. Ignoring.',);

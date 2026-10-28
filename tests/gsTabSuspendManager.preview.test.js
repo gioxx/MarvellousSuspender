@@ -537,40 +537,34 @@ describe('renderer path', () => {
     expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
 
-  // Building the queue a second time (a settings change) drops the first queue without
-  // touching the request in flight; the manager no longer sees the job, but the response
-  // finds it on the queue that runs it and settles it (#546).
-  it('settles the job of a replaced queue when its response arrives, the manager no longer seeing it', async () => {
+  // Building the queue a second time (a capture setting changed) updates the one queue in
+  // place, so a job queued before it is still the manager's: its response settles it (#546).
+  it('settles a job queued before a second init when its response arrives', async () => {
     const tab = makeTab();
     const outcome = await suspend(tab, 1);
     const token = injectedToken();
     await manager.initAsPromised();
-    expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
+    expect(manager.getQueuedTabDetails(tab)).toMatchObject({ status: 'inProgress' });
 
     await expect(respond(makeTab(), PREVIEW, undefined, token)).resolves.toBeUndefined();
     expect(gsIndexedDb.addPreviewImage).toHaveBeenCalledWith(NORMAL_URL, PREVIEW);
     expectSuspended(outcome);
   });
 
-  // As above, with the tab queued again in the new queue: the job of the old queue is the
-  // one the response belongs to, and it is the one settled; the new job keeps waiting its
-  // turn, and will find the tab suspended.
-  it('settles the job of a replaced queue when its response arrives, the tab being queued again', async () => {
-    const first = await suspend(makeTab(), 1);
+  // The cancellation of a job queued before a second init reaches it: its late response
+  // finds nothing to settle, and nothing is stored or suspended (#546).
+  it('drops the response of a job unqueued after a second init', async () => {
+    const tab = makeTab();
+    const outcome = await suspend(tab, 1);
     const token = injectedToken();
     await manager.initAsPromised();
-    const tab = makeTab();
-    const second = track(manager.queueTabForSuspensionAsPromise(tab, 1));
-    await flush();
-    expect(manager.getQueuedTabDetails(tab)).toMatchObject({ status: 'queued' });
-
-    await expect(respond(makeTab(), PREVIEW, undefined, token)).resolves.toBeUndefined();
-    expectSuspended(first);
-    expect(second.state).toBe('pending');
-
     manager.unqueueTabForSuspension(tab);
     await flush();
-    expect(second).toEqual({ state: 'rejected', value: CANCELLED });
+    expect(outcome).toEqual({ state: 'rejected', value: CANCELLED });
+
+    await respond(makeTab(), PREVIEW, undefined, token);
+    expect(gsIndexedDb.addPreviewImage).not.toHaveBeenCalled();
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
 
   it('suspends without a preview, with a warning, when the response carries an error message', async () => {

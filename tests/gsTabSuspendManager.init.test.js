@@ -211,16 +211,34 @@ describe('gsTabSuspendManager.initAsPromised', () => {
 });
 
 describe('gsTabSuspendManager.initAsPromised called a second time', () => {
-  it('builds a new queue', async () => {
+  // A capture setting change calls init again. The queue is updated in place, the way
+  // gsTabCheckManager does it, so the jobs it holds stay the manager's (#546).
+  it('updates the existing queue with the options read now, building no second one', async () => {
     await manager.initAsPromised();
+    await gsStorage.setOption(gsStorage.SCREEN_CAPTURE, '2');
+    await gsStorage.setOption(gsStorage.SCREEN_CAPTURE_FORCE, true);
     await manager.initAsPromised();
-    expect(initSpy).toHaveBeenCalledTimes(2);
-    expect(initSpy.mock.results[1].value).not.toBe(initSpy.mock.results[0].value);
+    expect(initSpy).toHaveBeenCalledTimes(1);
+    const properties = initSpy.mock.results[0].value.getQueueProperties();
+    expect(properties).toMatchObject({ concurrentExecutors: 3, jobTimeout: 5 * 60 * 1000 });
   });
 
-  // The old queue is dropped, not drained or cancelled: the manager can no longer see or
-  // unqueue its jobs, while the timers of the old queue keep running them.
-  it('loses sight of a job of the old queue, which still suspends the tab (oddity: see comment)', async () => {
+  // An update the queue refuses throws: init settles all the same, with the queue as it
+  // was, instead of leaving its callers waiting for good (#546).
+  it('settles, keeping the queue as it was, when the queue refuses the update', async () => {
+    await manager.initAsPromised();
+    const queue = initSpy.mock.results[0].value;
+    vi.spyOn(queue, 'setQueueProperties').mockImplementation(() => { throw new Error('jobTimeout must be an integer greater than 0'); });
+    await gsStorage.setOption(gsStorage.SCREEN_CAPTURE_FORCE, true);
+    const outcome = track(manager.initAsPromised());
+    await flush();
+    expect(queue.setQueueProperties).toHaveBeenCalledTimes(1);
+    expect(outcome).toEqual({ state: 'resolved', value: undefined });
+    expect(initSpy).toHaveBeenCalledTimes(1);
+    expect(queue.getQueueProperties()).toMatchObject({ jobTimeout: 60 * 1000 });
+  });
+
+  it('keeps a job queued before it visible and cancellable', async () => {
     chrome.tabs.sendMessage.mockImplementation((tabId, message, options, callback) => {
       callback({ status: 'normal', scrollPos: '0' });
     });
@@ -228,24 +246,16 @@ describe('gsTabSuspendManager.initAsPromised called a second time', () => {
     const tab = makeTab();
     const outcome = track(manager.queueTabForSuspensionAsPromise(tab, 1));
     await flush();
-    expect(manager.getQueuedTabDetails(tab)).toBeDefined();
 
     await manager.initAsPromised();
-    const [oldQueue, newQueue] = initSpy.mock.results.map((result) => result.value);
-    expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
-    expect(manager.isSuspensionInProgress(tab)).toBe(false);
-    expect(oldQueue.getTotalQueueSize()).toBe(1);
-    expect(newQueue.getTotalQueueSize()).toBe(0);
+    expect(manager.getQueuedTabDetails(tab)).toBeDefined();
 
     manager.unqueueTabForSuspension(tab);
     await flush();
-    expect(outcome.state).toBe('pending');
-    expect(oldQueue.getTotalQueueSize()).toBe(1);
+    expect(outcome).toEqual({ state: 'rejected', value: 'Queued tab job cancelled externally' });
 
     await vi.advanceTimersByTimeAsync(QUEUE_CHECK_INTERVAL);
     await flush();
-    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: REBUILT_SUSPENDED_URL }, expect.any(Function));
-    expect(outcome).toEqual({ state: 'resolved', value: true });
-    expect(oldQueue.getTotalQueueSize()).toBe(0);
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
   });
 });
