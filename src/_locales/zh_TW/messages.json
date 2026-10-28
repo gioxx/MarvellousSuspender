@@ -609,7 +609,7 @@
     "message": "－低畫質螢幕擷取"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
+    "message": "－若產生圖片需要超過 20 秒（高品質模式下為 45 秒），則不會擷取畫面"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "－螢幕擷取的最大高度限制為 5000px"
