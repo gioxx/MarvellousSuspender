@@ -609,7 +609,7 @@
     "message": "- අඩු ගුණාත්මක තිර ග්රහණය"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
+    "message": "- රූපය ජනනය කිරීමට තත්පර 20 කට වඩා ගත වුවහොත් තිරය ග්‍රහණය නොකරයි (ඉහළ ගුණත්ව ප්‍රකාරයේදී තත්පර 45)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- තිර ග්‍රහණයේ උපරිම උස 5000px ට සීමා වේ"
