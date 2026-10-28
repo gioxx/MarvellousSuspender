@@ -609,7 +609,7 @@
     "message": "- Capture d'écran de basse qualité"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
+    "message": "- Ne capturera pas l'écran si la génération de l'image prend plus de 20 secondes (45 secondes en mode haute qualité)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Hauteur maximale de la capture d'écran limitée à 5000px"
