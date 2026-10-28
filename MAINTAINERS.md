@@ -7,6 +7,7 @@ to meet is in [`AGENTS.md`](AGENTS.md); how to send one is in
 | Role | Who |
 |---|---|
 | Lead maintainer | Giovanni F. Solone ([@gioxx](https://github.com/gioxx)) |
+| Maintainer | Rob Kodey ([@rkodey](https://github.com/rkodey)) |
 | Maintainer | Andrea Margiovanni ([@amargiovanni](https://github.com/amargiovanni)) |
 
 ## Who decides what

@@ -84,7 +84,7 @@ The rules every change has to meet are in [AGENTS.md](AGENTS.md); the practical 
 
 ### Maintainers
 
-TMS is maintained by [@gioxx](https://github.com/gioxx) (lead) and [@amargiovanni](https://github.com/amargiovanni). Who decides what is in [MAINTAINERS.md](MAINTAINERS.md).
+TMS is maintained by [@gioxx](https://github.com/gioxx) (lead), [@rkodey](https://github.com/rkodey) and [@amargiovanni](https://github.com/amargiovanni). Who decides what is in [MAINTAINERS.md](MAINTAINERS.md).
 
 ### Contributing with AI tools
 
