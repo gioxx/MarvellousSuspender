@@ -127,6 +127,19 @@ describe('gsTabQueue', () => {
     await expect(queue.queueTabAsPromise({ id: 12 })).resolves.toBe('after 3 attempts');
   });
 
+  // A job that keeps requeuing past its overall deadline is handed to exceptionFn as a
+  // timeout. An exceptionFn that rejects there must still settle the job, false, and free
+  // its slot, as the processTab() paths do (#546).
+  it('resolves false when exceptionFn rejects for a job that requeued past its deadline', async () => {
+    const queue = makeQueue({
+      jobTimeout: 20,
+      executorFn: (tab, props, resolve, reject, requeue) => requeue(10),
+      exceptionFn: async () => { throw new Error('boom'); },
+    });
+    await expect(queue.queueTabAsPromise({ id: 1 })).resolves.toBe(false);
+    expect(queue.getTotalQueueSize()).toBe(0);
+  });
+
   it('rejects a non-function executorFn at construction', () => {
     expect(() => makeQueue({ executorFn: 'nope' })).toThrow(/executorFn/);
   });

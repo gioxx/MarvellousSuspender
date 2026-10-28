@@ -428,14 +428,21 @@ export const gsTabQueue = (function() {
           gsUtils.log(tabDetails.tab.id, _queueId, `Tab exceeded ${MAX_REQUEUES} requeues or its overall deadline, treating as timed out.`);
           clearTimeout(tabDetails.timeoutTimer);
           delete tabDetails.timeoutTimer;
-          _queueProperties.exceptionFn(
-            tabDetails.tab,
-            tabDetails.executionProps,
-            EXCEPTION_TIMEOUT,
-            r => resolveTabPromise(tabDetails, r),
-            e => rejectTabPromise(tabDetails, e),
-            (delay, props) => requeueTab(tabDetails, delay, props)
-          ); // async. unhandled promise
+          // A rejecting exceptionFn settles the job false, as in processTab(): otherwise
+          // the job would hold its executor slot, in progress, for good (#546).
+          Promise.resolve()
+            .then(() => _queueProperties.exceptionFn(
+              tabDetails.tab,
+              tabDetails.executionProps,
+              EXCEPTION_TIMEOUT,
+              r => resolveTabPromise(tabDetails, r),
+              e => rejectTabPromise(tabDetails, e),
+              (delay, props) => requeueTab(tabDetails, delay, props)
+            ))
+            .catch((error) => {
+              gsUtils.log(tabDetails.tab.id, _queueId, 'exceptionFn threw unexpectedly', error);
+              resolveTabPromise(tabDetails, false);
+            });
           return;
         }
 
