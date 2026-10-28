@@ -4,39 +4,29 @@ This file only ever holds the current release's changes, written for people usin
 
 For the full technical changelog (every fix, every review round, every detail), see [CHANGELOG.md on GitHub](https://github.com/gioxx/MarvellousSuspender/blob/master/CHANGELOG.md).
 
-## [Unreleased]
+## [9.1.0]
 
 ### New
 
-- **Never suspend this group**: mark a tab group and its tabs are left alone however long you leave them, which is handy for monitoring or dashboard tabs. Only named groups can be marked, so name the group first (in the page right-click menu the items stay greyed out until you do), then pick "Never suspend this group" from either right-click menu, and "Allow suspending this group" to undo it; review the list in Options. Groups are matched by name and colour, so two groups sharing both count as one.
+- **Sharper previews of suspended tabs**: when you suspend the tab you're looking at, the extension now takes a real browser screenshot of it, in a few milliseconds. Pages that used to come out blank or broken, YouTube and GitHub among them, now get a proper preview. Choose how previews are made under Options → Screen capturing → "Capture method"; Automatic is the default and the right choice for most people.
+- **Better previews for background tabs, if you want them**: the new option "Keep a recent screenshot of tabs as I use them" (off by default) saves a picture of each tab while you're looking at it, so when it's suspended later in the background it still gets a real preview. It asks for access to all sites when you turn it on, never captures incognito or allowlisted tabs, keeps one image per open tab and deletes it when the tab closes.
+- **Never suspend a tab group**: right-click a named group and pick "Never suspend this group" to keep its tabs awake however long you leave them, handy for dashboards; "Allow suspending this group" undoes it, and Options lists them. Groups are matched by name and colour, so name the group first. A separate option, "Never suspend tabs in a tab group" (off by default), does the same for every group.
+- **Suspend or unsuspend all tabs that aren't in a group**: new right-click items and two keyboard shortcuts you can assign, for the loose tabs outside your groups.
+- **Ukrainian** is now available, and Ukrainian and Sinhala no longer show in English when the language follows the browser.
+- **Choose how many suspended tabs are checked at once after a restart**: Options → Suspended tabs, from 1 to 8 (default 3). A higher number fills in titles and icons sooner, but can bring back the startup freezes fixed in this release, so raise it only if your computer can take it.
 
 ### Fixed
 
-- **Paused tabs are easy to spot again in the toolbar**: when a tab won't be suspended (paused, allowed, pinned and so on), the extension icon now shows a small orange pause badge instead of turning a slightly different shade of grey, so you can tell at a glance without clicking. You'll also see the badge on pages that can't be suspended at all, such as Chrome's own pages (like the New Tab page) or a tab that's already suspended. The classic artwork option keeps its original grey icon.
-
-## [9.0.3]
-
-### New
-
-- **Separate auto-suspend timeout for battery power**: set tabs to suspend more aggressively when unplugged, without changing your normal (plugged-in) timeout.
-- **"Always reopen suspended tabs scrolled to the top"**: a new option if you'd rather suspended tabs always reopen at the top of the page instead of wherever you left them.
-- **Reload also unsuspends background tabs**: reloading a suspended tab you're not currently looking at (e.g. via a multi-tab selection) can now unsuspend it too, if you turn this on.
-- **Suspend/unsuspend all tabs in a tab group**: new right-click and keyboard-shortcut options.
-- **"Never suspend app windows"**: a new option (on by default) keeps tabs open in an app-mode window — installed web apps, or a site you've opened via "Create Shortcut → Open as window" — from being auto-suspended.
-- **"What's new" screen**: this very screen! Shown once after an update, so you don't have to go digging for what changed.
-
-### Fixed
-
-- **A rare but real out-of-memory crash**, reproduced live and traced all the way down to its actual cause: a lot of hardening work in how the extension manages memory across many open tabs, especially for people who use the debug page's `captureLogs` option to help us diagnose issues. If you don't use that option, this mostly won't have been visible to you — but the underlying fixes make the extension more resilient regardless.
-- **Google Drive backup disconnecting on Brave and Vivaldi** after just one or two automatic backups. If you use Drive backup on one of those browsers, you'll need to reconnect once (Options → Backup → Connect) after updating — after that, it stays connected reliably.
-- **Suspended tabs showing the extension's own icon instead of the real site favicon after restarting the browser** — mostly on Brave, Vivaldi and Dia, where it came back every restart and had to be fixed by hand. The extension now retries the favicon repair on its own after startup (and again the moment you open a suspended tab), so it recovers without you doing anything.
-- **The battery-specific timeout not reacting** when you unplugged your computer, requiring a manual trigger to take effect.
-- **A bright white flash switching between suspended tabs**, especially noticeable in dark mode/low light — reported as far back as v7.1.6.2, finally tracked down and fixed.
-- **The reload link on suspended tabs was too bright/conspicuous in dark mode** — toned down to match the rest of that page's quiet look.
-- Various smaller fixes to tab reload/unsuspend behaviour, the debug page's tab list, a spacing glitch in Options, and the auto-backup flow.
+- **Browser freezing or the extension crashing after a restart with lots of suspended tabs**, reported on Brave and Chrome on Linux. Startup now checks a few tabs at a time, the one you're looking at first, and leaves sleeping tabs asleep. Favicons and titles may take a moment longer to fill in after a restart: that's intended, and you can tune it with the new setting above.
+- **Paused tabs are easy to spot again in the toolbar**: the icon shows a small orange pause badge when a tab won't be suspended (paused, allowed, pinned and so on), and on pages that can't be suspended at all, such as Chrome's own pages. The classic artwork keeps its grey icon.
+- **Slow suspension with screen capturing on**: a tab Chrome had already put to sleep was reloaded in full just to take its preview. It isn't any more.
+- **Local files (file:// pages) could not be suspended from the popup** even with "Allow access to file URLs" turned on. The Permissions page now asks for the access the extension actually needs.
+- **The right-click menu could disappear** on some browsers (Opera GX among them) until the next update. It now comes back on its own.
+- **Tab Health flagged healthy suspended tabs in groups as broken** on recent Chrome versions.
+- **Google Drive automatic backups** now retry a few minutes later after a temporary network or server error, instead of waiting for the next scheduled backup.
+- **Translations**: every language has been reviewed for consistent wording, and a few outright mistranslations are gone.
+- Various smaller fixes to how previews, favicons and tab information are stored, to never-suspended tab groups renamed right after a restart, to the suspension queue and to the Settings page.
 
 ### Curious for more detail?
 
-- Full technical breakdown of the memory/stability work: [blog post](https://kb.marvellouscode.works/blog/tms903-stability-debug-page)
-- Full technical breakdown of the Drive fix: [blog post](https://kb.marvellouscode.works/blog/tms903-drive-pkce-refresh-token)
 - Every single change, fix-by-fix: [CHANGELOG.md on GitHub](https://github.com/gioxx/MarvellousSuspender/blob/master/CHANGELOG.md)
