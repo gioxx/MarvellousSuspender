@@ -339,16 +339,16 @@
     "message": "Preservar a posição de reprodução do YouTube ao suspender"
   },
   "html_options_suspended_startup_tab_checks": {
-    "message": "Suspended tabs checked at a time when the browser starts"
+    "message": "Guias suspensas verificadas ao mesmo tempo quando o navegador inicia"
   },
   "html_options_suspended_startup_tab_checks_tooltip_line1": {
-    "message": "When the browser starts, each restored suspended tab is checked and repaired if needed."
+    "message": "Quando o navegador inicia, cada guia suspensa restaurada é verificada e reparada, se necessário."
   },
   "html_options_suspended_startup_tab_checks_tooltip_line2": {
-    "message": "A higher number fills in titles and icons sooner. From 1 to 8, default 3. Takes effect at the next check of restored tabs, normally the next browser start."
+    "message": "Um número maior preenche títulos e ícones mais cedo. De 1 a 8, padrão 3. Entra em vigor na próxima verificação das guias restauradas, normalmente na próxima vez que o navegador iniciar."
   },
   "html_options_suspended_startup_tab_checks_warning": {
-    "message": "Raising this above 3 can overload the browser when it restores many tabs and bring back the startup crashes the default prevents. Change it at your own risk."
+    "message": "Aumentar acima de 3 pode sobrecarregar o navegador ao restaurar muitas guias e trazer de volta os travamentos na inicialização que o padrão evita. Altere por sua conta e risco."
   },
   "html_options_other_title": {
     "message": "Geral"
@@ -609,7 +609,7 @@
     "message": "- Captura de tela de baixa qualidade"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Não captura a tela se demorar mais de 1 minuto para gerar a imagem"
+    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Altura máxima da captura de tela limitada a 5000px"
