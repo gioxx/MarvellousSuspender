@@ -250,6 +250,35 @@ describe('a placeholder url forged by a web page', () => {
   });
 });
 
+describe('text from outside the extension', () => {
+  it('shows the original url as text', async () => {
+    const original = 'https://example.com/<b id=probe>shown</b><a id=probelink href=https:example.org>x</a>';
+    const tab = await openPage();
+    const sessionId = await navigateToPlaceholder(tab, `${base}suspended.html#ttl=Url&pos=0&url=${encodeURIComponent(original)}`);
+
+    const shown = await cdp.evaluate(sessionId, `(() => {
+      const el = document.getElementById('gsTopBarUrl');
+      return { text: el.textContent, elements: el.children.length, probes: document.querySelectorAll('#probe, #probelink').length };
+    })()`);
+    expect(shown).toEqual({ text: 'example.com/<b id=probe>shown</b><a id=probelink href=https:example.org>x</a>', elements: 0, probes: 0 });
+  });
+
+  it.each([
+    ['Fish &amp; Chips'],
+    ['A <b id=probe>title</b>'],
+  ])('shows the page title as text (%s)', async (title) => {
+    const tab = await openPage();
+    const sessionId = await navigateToPlaceholder(tab, placeholder(server.url('other.html'), title));
+
+    const shown = await cdp.evaluate(sessionId, `(() => ({
+      tabTitle: document.title.split(' \u00b7 ')[0],
+      topBar: document.getElementById('gsTopBarTitle').textContent,
+      elements: document.getElementById('gsTopBarTitle').children.length,
+    }))()`);
+    expect(shown).toEqual({ tabTitle: title, topBar: title, elements: 0 });
+  });
+});
+
 describe('the stores that keep one row per url', () => {
   // Run inside an extension page, against the module the package ships and the browser's
   // own IndexedDB: when a transaction commits, and what an abort rolls back, is the
