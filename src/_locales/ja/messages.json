@@ -609,7 +609,7 @@
     "message": "- 低品質な画面キャプチャ"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
+    "message": "- 画像の生成に20秒以上（高品質モードでは45秒以上）かかる場合は画面をキャプチャしない"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- 画面キャプチャの高さは最大5000pxに制限"
