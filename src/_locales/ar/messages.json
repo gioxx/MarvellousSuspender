@@ -609,7 +609,7 @@
     "message": "- التقاط شاشة بجودة منخفضة"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
+    "message": "- لن تُلتقط الشاشة إذا استغرق توليد الصورة أكثر من 20 ثانية (45 ثانية في وضع الجودة العالية)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- الحد الأقصى لارتفاع لقطة الشاشة محدود بـ 5000 بكسل"
