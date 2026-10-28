@@ -36,27 +36,42 @@ import  { tgs }                   from './tgs.js';
     const windowId   = info && info.windowId  ? info.windowId        : '?';
     const tabId      = info && info.tabId     ? info.tabId           : '?';
     const tabIndex   = info && info.tab       ? info.tab.index       : '?';
-    const tabTitle   = info && info.tab       ? gsUtils.htmlEncode(info.tab.title) : '?';
+    const tabTitle   = info && info.tab       ? info.tab.title       : '?';
     const tabStatus  = info ? info.status : '?';
     const groupName  = info && info.group     ? info.group.title     : '';
     const groupColor = info && info.group     ? info.group.color     : '';
-    const groupSpan  = groupName ? `<span class="group ${browser} ${groupColor}">${groupName}</span>` : '';
 
     let favicon = info && info.tab ? info.tab.favIconUrl : '';
     favicon = favicon && favicon.indexOf('data') === 0
       ? favicon
       : (info && info.tab ? gsFavicon.getChromeFavIconUrl(info.tab.url) : '');
 
-    return `<tr data-tab-id="${tabId}">
-      <td>${windowId}</td>
-      <td>${tabId}</td>
-      <td>${tabIndex}</td>
-      <td><img src="${favicon}"></td>
-      <td class="center">${groupSpan}</td>
-      <td>${tabTitle}</td>
-      <td title="${timerTitle}">${timerStr}</td>
-      <td>${tabStatus}</td>
-    </tr>`;
+    const row = document.createElement('tr');
+    row.setAttribute('data-tab-id', `${tabId}`);
+    const cell = (content, attributes = {}) => {
+      const td = document.createElement('td');
+      for (const [key, value] of Object.entries(attributes)) td.setAttribute(key, value);
+      if (content instanceof Node) td.appendChild(content);
+      else td.textContent = `${content}`;
+      row.appendChild(td);
+    };
+    const img = document.createElement('img');
+    img.setAttribute('src', favicon);
+    let groupSpan = '';
+    if (groupName) {
+      groupSpan = document.createElement('span');
+      groupSpan.className = `group ${browser} ${groupColor}`;
+      groupSpan.textContent = groupName;
+    }
+    cell(windowId);
+    cell(tabId);
+    cell(tabIndex);
+    cell(img);
+    cell(groupSpan, { class: 'center' });
+    cell(tabTitle);
+    cell(timerStr, { title: timerTitle });
+    cell(tabStatus);
+    return row;
   }
 
   async function promiseWithTimeout(promise, ms, ret) {
@@ -250,7 +265,7 @@ import  { tgs }                   from './tgs.js';
             if (generation !== _fetchTabInfoGeneration) return; // a newer pass has since started
             debugInfos[i] = info;
             const row = document.querySelector(`tr[data-tab-id="${info.tabId}"]`);
-            if (row) row.outerHTML = generateTabInfo(info);
+            if (row) row.replaceWith(generateTabInfo(info));
           });
           const raced = await promiseWithTimeout(infoPromise, 500, {
             windowId  : curTab.windowId,
@@ -262,8 +277,7 @@ import  { tgs }                   from './tgs.js';
           if (debugInfos[i] === undefined) debugInfos[i] = raced;
         }));
 
-        document.getElementById('gsProfilerBody').innerHTML =
-          debugInfos.map(generateTabInfo).join('\n');
+        document.getElementById('gsProfilerBody').replaceChildren(...debugInfos.map(generateTabInfo));
       } while (_fetchTabInfoPending);
     }
     finally {

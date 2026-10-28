@@ -358,6 +358,46 @@ describe('text from outside the extension', () => {
   });
 });
 
+describe('text from sessions and tabs', () => {
+  it('shows a saved session name as text', async () => {
+    const name = '<b id=probe>Saved</b> &amp; kept';
+    const setup = await openExtensionPage('about.html', { background: true });
+    await cdp.evaluate(setup.sessionId, `import('./js/gsIndexedDb.js').then(({ gsIndexedDb }) => gsIndexedDb.addToSavedSessions({
+      sessionId: '_e2eSavedName', name: ${JSON.stringify(name)}, date: new Date().toISOString(),
+      windows: [{ id: 1, tabs: [{ id: 1, url: 'https://example.com/', title: 'Example' }] }],
+    })).then(() => true)`);
+
+    const tab = await openExtensionPage('history.html');
+    const shown = await waitFor('the saved session to be listed', () => cdp.evaluate(tab.sessionId, `(() => {
+      const el = [...document.querySelectorAll('#historySessions .sessionLink')].find((link) => link.textContent.includes('Saved'));
+      return el && { text: el.textContent, small: el.querySelectorAll('small').length, elements: el.children.length, probes: document.querySelectorAll('#probe').length };
+    })()`));
+    expect(shown.text.slice(0, name.length + 4)).toBe(`${name} \u00a0 (`);
+    expect(shown).toMatchObject({ small: 1, elements: 1, probes: 0 });
+  });
+
+  it('shows a tab group title as text on the debug page', async () => {
+    const title = '<b id=probe>Group</b>';
+    const page = await openPage();
+    const setup = await openExtensionPage('about.html', { background: true });
+    await cdp.evaluate(setup.sessionId, `(async () => {
+      const [tab] = await chrome.tabs.query({ url: ${JSON.stringify(server.url('page.html'))} });
+      const groupId = await chrome.tabs.group({ tabIds: [tab.id] });
+      await chrome.tabGroups.update(groupId, { title: ${JSON.stringify(title)} });
+      return true;
+    })()`);
+
+    const tab = await openExtensionPage('debug.html');
+    const shown = await waitFor('the grouped tab to be listed', () => cdp.evaluate(tab.sessionId, `(() => {
+      const group = [...document.querySelectorAll('#gsProfilerBody .group')].find((el) => el.textContent.includes('Group'));
+      return group && { text: group.textContent, elements: group.children.length, probes: document.querySelectorAll('#probe').length };
+    })()`), { timeout: 15000 });
+    expect(shown).toEqual({ text: title, elements: 0, probes: 0 });
+    await cdp.evaluate(setup.sessionId, `chrome.tabs.query({ url: ${JSON.stringify(server.url('page.html'))} }).then((tabs) => chrome.tabs.ungroup(tabs.map(({ id }) => id))).then(() => true)`);
+    expect(page).toBeTruthy();
+  });
+});
+
 describe('the stores that keep one row per url', () => {
   // Run inside an extension page, against the module the package ships and the browser's
   // own IndexedDB: when a transaction commits, and what an abort rolls back, is the
