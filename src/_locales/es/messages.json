@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Conservar la posición de reproducción de YouTube al suspender"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "Pestañas suspendidas comprobadas a la vez al iniciar el navegador"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "Al iniciar el navegador, cada pestaña suspendida restaurada se comprueba y se repara si es necesario."
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "Un número mayor completa antes los títulos y los iconos. De 1 a 8, 3 por defecto. Se aplica en la siguiente comprobación de las pestañas restauradas, normalmente al próximo inicio del navegador."
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "Subirlo por encima de 3 puede sobrecargar el navegador cuando restaura muchas pestañas y hacer que vuelvan los bloqueos al iniciar que el valor predeterminado evita. Cámbialo bajo tu propia responsabilidad."
+  },
   "html_options_other_title": {
     "message": "General"
   },
@@ -597,7 +609,7 @@
     "message": "- Captura de pantalla de baja calidad"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- No capturará la pantalla si tarda más de 1 minuto en generar la imagen"
+    "message": "- No capturará la pantalla si tarda más de 20 segundos en generar la imagen (45 segundos en modo de alta calidad)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Altura máxima de la captura de pantalla limitada a 5000px"

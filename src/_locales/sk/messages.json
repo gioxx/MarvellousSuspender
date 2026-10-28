@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Pri uspávaní zachovať pozíciu prehrávania YouTube"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "Počet uspatých kariet kontrolovaných naraz pri spustení prehliadača"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "Pri spustení prehliadača sa každá obnovená uspatá karta skontroluje a v prípade potreby opraví."
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "Vyššie číslo doplní názvy a ikony skôr. Od 1 do 8, predvolene 3. Prejaví sa pri ďalšej kontrole obnovených kariet, zvyčajne pri ďalšom spustení prehliadača."
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "Hodnota vyššia ako 3 môže preťažiť prehliadač pri obnove mnohých kariet a vrátiť pády pri spustení, ktorým predvolená hodnota zabraňuje. Meňte ju na vlastné riziko."
+  },
   "html_options_other_title": {
     "message": "Všeobecné"
   },
@@ -597,7 +609,7 @@
     "message": "- Nízka kvalita snímania obrazovky"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Ak generovanie obrázka trvá viac ako 1 minútu, obrazovka sa nesníma"
+    "message": "- Ak generovanie obrázka trvá viac ako 20 sekúnd (45 sekúnd v režime vysokej kvality), obrazovka sa nesníma"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Maximálna výška snímky obrazovky obmedzená na 5000 px"

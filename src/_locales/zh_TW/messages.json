@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "凍結時保留 YouTube 播放位置"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "瀏覽器啟動時同時檢查的凍結分頁數量"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "瀏覽器啟動時，會檢查每個已還原的凍結分頁，並在需要時進行修復。"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "數值越大，標題和圖示會越快填入。範圍 1 到 8，預設為 3。會在下一次檢查已還原的分頁時生效，通常是下次啟動瀏覽器時。"
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "設定為大於 3 可能會在瀏覽器還原大量分頁時造成過載，並再次引發預設值所防止的啟動當機。變更風險請自行承擔。"
+  },
   "html_options_other_title": {
     "message": "一般"
   },
@@ -597,7 +609,7 @@
     "message": "－低畫質螢幕擷取"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "－若產生圖片需要超過 1 分鐘，則不會擷取畫面"
+    "message": "－若產生圖片需要超過 20 秒（高品質模式下為 45 秒），則不會擷取畫面"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "－螢幕擷取的最大高度限制為 5000px"

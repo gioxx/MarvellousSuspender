@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "අත්හිටුවීමේදී YouTube වාදන පිහිටීම රඳවා ගන්න"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "බ්‍රවුසරය ආරම්භ වන විට එකවර පරීක්ෂා කරන අත්හිටුවන ලද ටැබ් ගණන"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "බ්‍රවුසරය ආරම්භ වන විට, ප්‍රතිසාධනය කළ සෑම අත්හිටුවන ලද ටැබයක්ම පරීක්ෂා කර අවශ්‍ය නම් අලුත්වැඩියා කෙරේ."
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "වැඩි අගයක් මාතෘකා සහ අයිකන ඉක්මනින් පුරවයි. 1 සිට 8 දක්වා, පෙරනිමිය 3. ප්‍රතිසාධනය කළ ටැබ්වල ඊළඟ පරීක්ෂාවේදී, සාමාන්‍යයෙන් ඊළඟ බ්‍රවුසර ආරම්භයේදී ක්‍රියාත්මක වේ."
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "මෙය 3ට වඩා වැඩි කිරීමෙන් බොහෝ ටැබ් ප්‍රතිසාධනය කරන විට බ්‍රවුසරය අධික ලෙස බර විය හැකි අතර පෙරනිමිය වළක්වන ආරම්භක බිඳ වැටීම් නැවත ඇති විය හැක. ඔබේ අවදානමට වෙනස් කරන්න."
+  },
   "html_options_other_title": {
     "message": "සාමාන්‍ය"
   },
@@ -597,7 +609,7 @@
     "message": "- අඩු ගුණාත්මක තිර ග්රහණය"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- රූපය ජනනය කිරීමට මිනිත්තු 1 කට වඩා ගත වුවහොත් තිරය ග්‍රහණය නොකරයි"
+    "message": "- රූපය ජනනය කිරීමට තත්පර 20 කට වඩා ගත වුවහොත් තිරය ග්‍රහණය නොකරයි (ඉහළ ගුණත්ව ප්‍රකාරයේදී තත්පර 45)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- තිර ග්‍රහණයේ උපරිම උස 5000px ට සීමා වේ"

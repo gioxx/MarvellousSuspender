@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Askıya alırken YouTube oynatma konumunu koru"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "Tarayıcı başlarken aynı anda denetlenen askıya alınmış sekme sayısı"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "Tarayıcı başladığında, geri yüklenen her askıya alınmış sekme denetlenir ve gerekirse onarılır."
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "Daha yüksek bir sayı, başlıkları ve simgeleri daha erken doldurur. 1 ile 8 arası, varsayılan 3. Geri yüklenen sekmelerin bir sonraki denetiminde, genellikle tarayıcının bir sonraki başlatılışında geçerli olur."
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "Bunu 3'ün üzerine çıkarmak, çok sayıda sekme geri yüklenirken tarayıcıyı aşırı yükleyebilir ve varsayılan değerin önlediği başlangıç çökmelerini geri getirebilir. Riski sana ait olmak üzere değiştir."
+  },
   "html_options_other_title": {
     "message": "Genel"
   },
@@ -597,7 +609,7 @@
     "message": "- Düşük kaliteli ekran yakalama"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Görüntü oluşturmak 1 dakikadan uzun sürerse ekran yakalanmaz"
+    "message": "- Görüntü oluşturmak 20 saniyeden uzun sürerse ekran yakalanmaz (yüksek kalite modunda 45 saniye)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Ekran yakalama en fazla 5000px yükseklikle sınırlıdır"

@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Pertahankan posisi pemutaran YouTube saat menangguhkan"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "Tab tertangguh yang diperiksa sekaligus saat browser dimulai"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "Saat browser dimulai, setiap tab tertangguh yang dipulihkan diperiksa dan diperbaiki jika perlu."
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "Angka yang lebih tinggi mengisi judul dan ikon lebih cepat. Dari 1 hingga 8, bawaan 3. Berlaku pada pemeriksaan tab yang dipulihkan berikutnya, biasanya saat browser dimulai lagi."
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "Menaikkannya di atas 3 dapat membebani browser saat memulihkan banyak tab dan memunculkan kembali crash saat memulai yang dicegah oleh nilai bawaan. Ubah dengan risiko Anda sendiri."
+  },
   "html_options_other_title": {
     "message": "Umum"
   },
@@ -597,7 +609,7 @@
     "message": "- Penangkapan layar kualitas rendah"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Tidak akan menangkap layar jika perlu lebih dari 1 menit untuk menghasilkan gambar"
+    "message": "- Tidak akan menangkap layar jika perlu lebih dari 20 detik untuk menghasilkan gambar (45 detik dalam mode kualitas tinggi)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Tinggi maksimum penangkapan layar dibatasi hingga 5000px"
