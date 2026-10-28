@@ -134,38 +134,9 @@ import  { gsSession }             from './gsSession.js';
    *
    * @param { chrome.tabs.Tab[] } tabsDiscarded  grouped+discarded+suspended tabs (Chrome/Edge)
    * @param { chrome.tabs.Tab[] } tabsNewtab     grouped tabs showing chrome://newtab/ (Brave)
+   * @param { Map<number, string> } newtabUrls   suspended URL to restore for each tabsNewtab tab
    */
-  /**
-   * Search all saved sessions (newest-first, excluding current) for a suspended URL
-   * that matches the given broken tab by window-rank and tab index.
-   *
-   * @param { chrome.tabs.Tab }  brokenTab
-   * @param { number[] }         currentWindowIds  sorted list of current window IDs
-   * @returns { Promise<string|null> }
-   */
-  async function findSuspendedUrlForBrokenTab(brokenTab, currentWindowIds) {
-    const allSessions     = await gsIndexedDb.fetchCurrentSessions();
-    const currentSessionId = await gsSession.getSessionId();
-
-    for (const session of allSessions) {
-      if (session.sessionId === currentSessionId) continue;
-      if (!session.windows?.length) continue;
-
-      const windowsSorted = session.windows
-        .filter(w => w.tabs?.length)
-        .sort((a, b) => a.id - b.id);
-
-      const windowRank  = currentWindowIds.indexOf(brokenTab.windowId);
-      const savedWindow = windowRank !== -1 ? windowsSorted[windowRank] : null;
-      const savedTab    = savedWindow?.tabs?.find(
-        t => t.index === brokenTab.index && gsUtils.isSuspendedUrl(t.url ?? ''),
-      );
-      if (savedTab?.url) return savedTab.url;
-    }
-    return null;
-  }
-
-  async function repairGroupedTabs(tabsDiscarded, tabsNewtab) {
+  async function repairGroupedTabs(tabsDiscarded, tabsNewtab, newtabUrls) {
     logClear('actionResults');
     addProgressBar('repair1', true);
 
@@ -187,35 +158,19 @@ import  { gsSession }             from './gsSession.js';
       showProgress('repair1', ++done, total);
     }
 
-    // Brave path: the tab URL was lost; recover from saved sessions by
-    // matching window order and tab index.
-    if (tabsNewtab.length) {
-      const allCurrentTabs   = await gsChrome.tabsQuery();
-      const currentWindowIds = [...new Set(allCurrentTabs.map(t => t.windowId))].sort((a, b) => a - b);
-      let   notRecovered     = 0;
-
-      for (const brokenTab of tabsNewtab) {
-        const suspendedUrl = await findSuspendedUrlForBrokenTab(brokenTab, currentWindowIds);
-        if (suspendedUrl) {
-          const { windowId, index, pinned, active, groupId } = brokenTab;
-          const newTab = await gsChrome.tabsCreate({ windowId, index, pinned, active, url: suspendedUrl });
-          if (newTab?.id) {
-            try {
-              await gsChrome.tabsGroup(newTab.id, windowId, groupId);
-            } catch (e) {
-              gsUtils.warning('repairGroupedTabs', 'tabsGroup failed (Brave):', e?.message);
-            }
-            await gsChrome.tabsRemove(brokenTab.id);
-          }
-        } else {
-          notRecovered++;
+    // Brave path: the tab URL was lost; restore the one scan() matched in saved sessions.
+    for (const brokenTab of tabsNewtab) {
+      const { windowId, index, pinned, active, groupId } = brokenTab;
+      const newTab = await gsChrome.tabsCreate({ windowId, index, pinned, active, url: newtabUrls.get(brokenTab.id) });
+      if (newTab?.id) {
+        try {
+          await gsChrome.tabsGroup(newTab.id, windowId, groupId);
+        } catch (e) {
+          gsUtils.warning('repairGroupedTabs', 'tabsGroup failed (Brave):', e?.message);
         }
-        showProgress('repair1', ++done, total);
+        await gsChrome.tabsRemove(brokenTab.id);
       }
-
-      if (notRecovered > 0) {
-        warn('actionResults', `${notRecovered} tab(s) could not be recovered: no matching session data found.`);
-      }
+      showProgress('repair1', ++done, total);
     }
 
     log('actionResults', '', gsUtils.getMessage('html_health_after_repair'));
@@ -340,7 +295,7 @@ import  { gsSession }             from './gsSession.js';
 
       // Tab Groups bug detection (Chrome/Edge and Brave paths).
       if (tab.groupId && tab.groupId > 0) {
-        if (tab.discarded && gsUtils.isSuspendedUrl(tab.url ?? '')) {
+        if (gsUtils.isBrokenGroupedDiscardedTab(tab)) {
           tabTypes.tabGroupsDiscarded.push(tab);
         } else if (tab.url === 'chrome://newtab/') {
           tabTypes.tabGroupsNewtab.push(tab);
@@ -387,6 +342,17 @@ import  { gsSession }             from './gsSession.js';
       showProgress('scanProgress', count, tabs.length);
     }
 
+    // A grouped New Tab page is only the Brave bug when a saved session had a suspended tab
+    // at its position; otherwise it is a real New Tab page with nothing to restore (#551).
+    let newtabUrls = new Map();
+    if (tabTypes.tabGroupsNewtab.length) {
+      const currentWindowIds = [...new Set(tabs.map(t => t.windowId))].sort((a, b) => a - b);
+      const sessions         = await gsIndexedDb.fetchCurrentSessions();
+      const currentSessionId = await gsSession.getSessionId();
+      newtabUrls = gsUtils.findSavedSuspendedUrls(tabTypes.tabGroupsNewtab, currentWindowIds, sessions, currentSessionId);
+      tabTypes.tabGroupsNewtab = tabTypes.tabGroupsNewtab.filter(t => newtabUrls.has(t.id));
+    }
+
     const db      = await gsIndexedDb.getDb();
     const dbSize  = await db.count(gsIndexedDb.DB_FAVICON_META);
     // const results = await db.query(gsIndexedDb.DB_FAVICON_META, 'url').all().execute();
@@ -413,7 +379,7 @@ import  { gsSession }             from './gsSession.js';
       button.innerHTML = gsUtils.getMessage('html_health_repair_button', `${brokenGrouped}`);
       button.onclick = async (event) => {
         event.preventDefault();
-        await repairGroupedTabs(tabTypes.tabGroupsDiscarded, tabTypes.tabGroupsNewtab);
+        await repairGroupedTabs(tabTypes.tabGroupsDiscarded, tabTypes.tabGroupsNewtab, newtabUrls);
         return false;
       };
     }
