@@ -416,6 +416,53 @@ export const gsUtils = {
   },
 
   /**
+   * Tab Health signature for the Chrome/Edge grouped-tab restore bug (crbug.com/522338670).
+   * Chrome 150 fixed it natively: from then on a grouped, discarded, suspended tab is just
+   * unloaded by the browser, not broken (#551). An unknown version keeps the check on.
+   *
+   * @param {chrome.tabs.Tab} tab
+   * @param {number|false} [chromeVersion]  Chromium major from the user agent (Edge, Brave
+   *   and Opera report it too, so the gate holds on forks)
+   */
+  isBrokenGroupedDiscardedTab(tab, chromeVersion = gsUtils.getChromeVersion()) {
+    return tab.groupId > 0 && tab.discarded && gsUtils.isSuspendedUrl(tab.url ?? '')
+      && !(chromeVersion && chromeVersion >= 150);
+  },
+
+  /**
+   * Brave grouped-tab bug: a grouped New Tab page is only broken when a saved session
+   * (newest-first, excluding the current one) had a suspended tab at its window rank and
+   * index; otherwise it is a real New Tab page (#551).
+   *
+   * @param {chrome.tabs.Tab[]} newtabTabs
+   * @param {number[]} currentWindowIds  sorted list of current window IDs
+   * @param {Array<{sessionId: string, windows?: Array<{id: number, tabs?: Array<{index: number, url?: string}>}>}>} sessions
+   * @param {string} currentSessionId
+   * @returns {Map<number, string>} tab id -> suspended URL to restore, matched tabs only
+   */
+  findSavedSuspendedUrls(newtabTabs, currentWindowIds, sessions, currentSessionId) {
+    const savedSessions = sessions
+      .filter(s => s.sessionId !== currentSessionId && s.windows?.length)
+      .map(s => s.windows.filter(w => w.tabs?.length).sort((a, b) => a.id - b.id));
+
+    const urls = new Map();
+    for (const tab of newtabTabs) {
+      const windowRank = currentWindowIds.indexOf(tab.windowId);
+      if (windowRank === -1) continue;
+      for (const windowsSorted of savedSessions) {
+        const savedTab = windowsSorted[windowRank]?.tabs?.find(
+          t => t.index === tab.index && gsUtils.isSuspendedUrl(t.url ?? ''),
+        );
+        if (savedTab?.url) {
+          urls.set(tab.id, savedTab.url);
+          break;
+        }
+      }
+    }
+    return urls;
+  },
+
+  /**
    *
    * @param {chrome.tabs.Tab} tab
    * @returns {string | undefined}
