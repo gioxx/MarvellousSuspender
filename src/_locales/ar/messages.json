@@ -339,16 +339,16 @@
     "message": "الحفاظ على موضع تشغيل YouTube عند التعليق"
   },
   "html_options_suspended_startup_tab_checks": {
-    "message": "Suspended tabs checked at a time when the browser starts"
+    "message": "عدد علامات التبويب المعلّقة التي يتم فحصها في وقت واحد عند بدء تشغيل المتصفح"
   },
   "html_options_suspended_startup_tab_checks_tooltip_line1": {
-    "message": "When the browser starts, each restored suspended tab is checked and repaired if needed."
+    "message": "عند بدء تشغيل المتصفح، يتم فحص كل علامة تبويب معلّقة مستعادة وإصلاحها عند الحاجة."
   },
   "html_options_suspended_startup_tab_checks_tooltip_line2": {
-    "message": "A higher number fills in titles and icons sooner. From 1 to 8, default 3. Takes effect at the next check of restored tabs, normally the next browser start."
+    "message": "يؤدي الرقم الأعلى إلى ملء العناوين والأيقونات بشكل أسرع. من 1 إلى 8، والقيمة الافتراضية 3. يسري التغيير عند الفحص التالي لعلامات التبويب المستعادة، وعادةً عند بدء تشغيل المتصفح التالي."
   },
   "html_options_suspended_startup_tab_checks_warning": {
-    "message": "Raising this above 3 can overload the browser when it restores many tabs and bring back the startup crashes the default prevents. Change it at your own risk."
+    "message": "قد تؤدي زيادة هذه القيمة فوق 3 إلى إثقال المتصفح عند استعادة العديد من علامات التبويب وإعادة الأعطال عند بدء التشغيل التي تمنعها القيمة الافتراضية. غيّرها على مسؤوليتك الخاصة."
   },
   "html_options_other_title": {
     "message": "عام"
@@ -609,7 +609,7 @@
     "message": "- التقاط شاشة بجودة منخفضة"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- لن تُلتقط الشاشة إذا استغرق توليد الصورة أكثر من دقيقة واحدة"
+    "message": "- Will not capture screen if it takes more than 20 seconds to generate image (45 seconds in high quality mode)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- الحد الأقصى لارتفاع لقطة الشاشة محدود بـ 5000 بكسل"
