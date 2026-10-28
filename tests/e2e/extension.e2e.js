@@ -332,6 +332,61 @@ describe('the stores that keep one row per url', () => {
     expect(result).toEqual({ stored: ['kept'], read: 'kept' });
   });
 
+  // The root-hostname fallback of gsFavicon saves, for the page url, the row it read for
+  // the root url (#549). That row carries the store's own id; written again with it, the
+  // add() collides with the root url's row and the page url never gets a row of its own.
+  it('store a favicon meta row read back for one url under another one', async () => {
+    const result = await inStore('faviconMeta', `
+      await write(url, 'root');
+      const row = await gsIndexedDb.fetchFaviconMeta(url);
+      await gsIndexedDb.addFaviconMeta(other, Object.assign({}, row));
+      return { id: typeof row.id, stored: await stored(other), read: await read(other), root: await stored(url) };
+    `);
+    expect(result).toEqual({ id: 'number', stored: ['root'], read: 'root', root: ['root'] });
+  });
+
+  it('cache the favicon found through the root hostname under the page url too', async () => {
+    const page = await openExtensionPage('about.html');
+    const result = await cdp.evaluate(page.sessionId, `(async () => {
+      const { gsIndexedDb } = await import('/js/gsIndexedDb.js');
+      const { gsFavicon } = await import('/js/gsFavicon.js');
+      const { gsUtils } = await import('/js/gsUtils.js');
+      const db = await gsIndexedDb.getDb();
+      // a favicon no default icon matches: white left half, black right half
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 16;
+      const context = canvas.getContext('2d');
+      context.fillStyle = '#ffffff';
+      context.fillRect(0, 0, 8, 16);
+      context.fillStyle = '#000000';
+      context.fillRect(8, 0, 8, 16);
+      const meta = await gsFavicon.buildFaviconMeta(canvas.toDataURL('image/png'));
+      const valid = await gsFavicon.isFaviconMetaValid(meta);
+
+      // Chrome has no favicon for this host and the tab gives none, so the lookup for
+      // the page falls back to the root url, which is cached.
+      const pageUrl = 'https://favicon-fallback.e2e.invalid/watch?v=549';
+      const rootKey = gsUtils.getRootUrl(gsUtils.getRootUrlNew(pageUrl), true, false);
+      const pageKey = gsUtils.getRootUrl(pageUrl, true, false);
+      await gsIndexedDb.addFaviconMeta(rootKey, Object.assign({}, meta));
+
+      const [rootRow] = await db.getAllFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', rootKey);
+      const served = await gsFavicon.getFaviconMeta({ url: pageUrl });
+      const rows = async (key) => (await db.getAllFromIndex(gsIndexedDb.DB_FAVICON_META, 'url', key))
+        .map((row) => row.normalisedDataUrl === meta.normalisedDataUrl);
+      return {
+        valid,
+        distinctKeys: rootKey !== pageKey,
+        served: served.normalisedDataUrl === meta.normalisedDataUrl,
+        // served from the root url's row, not from Chrome's own favicon for the page
+        fromRoot: served.id === rootRow.id,
+        page: await rows(pageKey),
+        root: await rows(rootKey),
+      };
+    })()`);
+    expect(result).toEqual({ valid: true, distinctKeys: true, served: true, fromRoot: true, page: [true], root: [true] });
+  });
+
   // A query for no url at all matches every row: of the three writers, the one for
   // previews is the one that does not check its url before it gets here.
   it.each([
