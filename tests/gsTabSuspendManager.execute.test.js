@@ -88,15 +88,22 @@ describe('executeTabSuspension', () => {
     await expect(initialiseFlag(5)).resolves.toBeUndefined();
   });
 
-  // The discard branch returns before both the already-suspended check and the
-  // isStillCurrent check, and reports success without waiting for the discard itself.
-  it('discards a suspended tab of a cancelled job and still resolves true (oddity: see comment)', async () => {
+  // The discard branch has awaits of its own; a job cancelled during them is not discarded (#546).
+  it('does not discard a tab of a cancelled job, and resolves false', async () => {
     await gsStorage.setOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND, true);
     const isStillCurrent = vi.fn(() => false);
+    await expect(execute(makeTab(), undefined, isStillCurrent)).resolves.toBe(false);
+    expect(gsTabDiscardManager.queueTabForDiscard).not.toHaveBeenCalled();
+    expect(isStillCurrent).toHaveBeenCalledTimes(1);
+  });
+
+  // The discard branch returns before the already-suspended check, and reports success
+  // without waiting for the discard itself.
+  it('discards a tab that is already suspended and still resolves true (oddity: see comment)', async () => {
+    await gsStorage.setOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND, true);
     const tab = makeTab({ url: GIVEN_SUSPENDED_URL });
-    await expect(execute(tab, undefined, isStillCurrent)).resolves.toBe(true);
+    await expect(execute(tab, undefined, () => true)).resolves.toBe(true);
     expect(gsTabDiscardManager.queueTabForDiscard).toHaveBeenCalledWith(tab);
-    expect(isStillCurrent).not.toHaveBeenCalled();
   });
 
   it('resolves false for a tab that is already suspended and leaves it alone', async () => {
