@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Ne jamais suspendre les onglets qui diffusent de l'audio"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Protège contre la suspension automatique et les actions de suspension groupée habituelles."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Vous pouvez toujours suspendre un onglet vous-même ou avec une action « Forcer la suspension »."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Un onglet dont l'URL figure dans la liste « Toujours suspendre » est suspendu malgré tout."
+  },
   "html_options_suspend_only_connected": {
     "message": "Ne jamais suspendre les onglets hors ligne"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Ne jamais suspendre l'onglet actif de chaque fenêtre"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "La liste « Toujours suspendre » ne prévaut pas sur cette option pour la suspension automatique et groupée."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Toujours rouvrir les onglets suspendus défilés en haut de page"
@@ -468,19 +480,19 @@
     "message": "Appliquer l'économie de mémoire intégrée du navigateur lors de la suspension"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "Une fois un onglet suspendu, laissez aussi Chrome le décharger"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "complètement de la mémoire. Cela libère plus de ressources système par"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "onglet (utile si vous gardez des centaines d'onglets ouverts)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "Cela se fait au prix de la perte de l'état de l'onglet jusqu'à"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "son rechargement."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Pour plus d'informations sur la décharge d'onglets, consultez :"

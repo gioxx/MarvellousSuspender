@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Nikdy neuspávať karty, ktoré prehrávajú zvuk"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Chráni pred automatickým uspatím a bežnými hromadnými akciami uspatia."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Kartu môžete aj tak uspať ručne alebo akciou „Vynútiť uspatie“."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Karta, ktorej URL je v zozname „Vždy uspať“, sa aj tak uspí."
+  },
   "html_options_suspend_only_connected": {
     "message": "Nikdy neuspávať karty, keď ste offline"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Nikdy neuspávať aktívnu kartu v každom okne"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "Zoznam „Vždy uspať“ túto možnosť pri automatickom a hromadnom uspávaní neprepisuje."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Uspaté karty vždy znova otvárať posunuté na začiatok"
@@ -468,19 +480,19 @@
     "message": "Pri uspávaní použiť vstavané šetrenie pamäte prehliadača"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "Po uspaní karty nechajte Chrome, aby ju aj úplne uvoľnil"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "z pamäte. To uvoľní viac systémových prostriedkov na kartu"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "(užitočné, ak máte otvorené stovky kariet)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "To má za následok stratu stavu karty, kým nebude znova"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "načítaná."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Viac informácií o zahadzovaní kariet nájdete na:"

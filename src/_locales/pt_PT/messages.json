@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "Nunca suspender separadores a reproduzir áudio"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "Protege contra a suspensão automática e as ações habituais de suspensão em massa."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "Ainda pode suspender um separador manualmente ou com uma ação \"Forçar a suspensão\"."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "Um separador cujo URL esteja na lista \"Suspender sempre\" é suspenso na mesma."
+  },
   "html_options_suspend_only_connected": {
     "message": "Nunca suspender separadores quando estiver offline"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "Nunca suspender o separador ativo em cada janela"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "A lista \"Suspender sempre\" não se sobrepõe a esta opção na suspensão automática e em massa."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "Reabrir sempre separadores suspensos com a posição no topo"
@@ -468,19 +480,19 @@
     "message": "Aplicar a poupança de memória integrada do navegador ao suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "Depois de um separador ser suspenso, permite também que o Chrome o"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "descarregue totalmente da memória. Isto liberta mais recursos do"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "sistema por separador (útil se mantiveres centenas de separadores abertos)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "Isto tem o custo de perder o estado do separador até este ser"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "recarregado."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "Para mais informações sobre o descarte de separadores, consulte:"

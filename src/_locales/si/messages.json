@@ -401,6 +401,15 @@
   "html_options_suspend_no_audio": {
     "message": "ශ්‍රව්‍ය වාදනය කරන ටැබ් කිසිවිටෙක අත්හිටුවන්න එපා"
   },
+  "html_options_suspend_never_tooltip_line1": {
+    "message": "ස්වයංක්‍රීය අත්හිටුවීමෙන් සහ සාමාන්‍ය තොග අත්හිටුවීම් ක්‍රියාවලින් ආරක්ෂා කරයි."
+  },
+  "html_options_suspend_never_tooltip_line2": {
+    "message": "ඔබට තවමත් ටැබයක් ඔබම හෝ \"අත්හිටුවීමට බල කරන්න\" ක්‍රියාවකින් අත්හිටුවිය හැක."
+  },
+  "html_options_suspend_never_tooltip_line3": {
+    "message": "\"සැමවිටම අත්හිටුවන්න\" ලැයිස්තුවේ URL එක ඇති ටැබයක් කෙසේ වෙතත් අත්හිටුවනු ලැබේ."
+  },
   "html_options_suspend_only_connected": {
     "message": "නොබැඳි විට කිසිවිටෙක ටැබ් අත්හිටුවන්න එපා"
   },
@@ -427,6 +436,9 @@
   },
   "html_options_suspend_no_active_tabs": {
     "message": "සෑම කවුළුවකම සක්‍රිය ටැබය කිසිවිටෙක අත්හිටුවන්න එපා"
+  },
+  "html_options_suspend_no_active_tabs_tooltip_line3": {
+    "message": "ස්වයංක්‍රීය සහ තොග අත්හිටුවීම් සඳහා \"සැමවිටම අත්හිටුවන්න\" ලැයිස්තුව මෙම විකල්පය අභිබවා නොයයි."
   },
   "html_options_suspend_no_scroll_pos": {
     "message": "අත්හිටුවූ ටැබ් සැමවිටම පිටුවේ මුදුනට නැවත විවෘත කරන්න"
@@ -468,19 +480,19 @@
     "message": "අත්හිටුවීමේදී බ්‍රවුසරයේ අන්තර්ගත මතක ඉතිරි කිරීම යොදන්න"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "After a tab is suspended, also let Chrome fully unload it from"
+    "message": "ටැබ් එකක් අත්හිටුවූ පසු, Chrome හට එය මතකයෙන්"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "memory. This frees up more system resources per tab (useful if"
+    "message": "සම්පූර්ණයෙන් ඉවත් කිරීමට ද ඉඩ දෙන්න. මෙය එක් ටැබ් එකකට"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "you keep hundreds of tabs open)."
+    "message": "වැඩි පද්ධති සම්පත් නිදහස් කරයි (ටැබ් සිය ගණනක් විවෘතව තිබේ නම් ප්‍රයෝජනවත්)."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "This comes at the cost of losing tab state until the tab is"
+    "message": "මෙය ටැබ් එක නැවත පූරණය වන තෙක් එහි තත්ත්වය"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "reloaded."
+    "message": "අහිමි වීමේ පිරිවැයෙන් සිදු වේ."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3a": {
     "message": "ටැබ් ඉවත දැමීම පිළිබඳ වැඩිදුර තොරතුරු සඳහා බලන්න:"
