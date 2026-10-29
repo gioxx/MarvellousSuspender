@@ -324,10 +324,12 @@
     "message": "一時停止したタブのタイトルに元のURLを追加"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "有効にすると、一時停止したページの元のURLがブラウザのタブタイトルに追加されます。"
+    "message": "有効にすると、一時停止したページの元のURLがブラウザのタブタイトルに追加されます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "これにより、Chromeの「タブを検索」（Ctrl+Shift+A）を使ってホスト名で一時停止タブを見つけられるようになります。"
+    "message": "これにより、Chromeの「タブを検索」（Ctrl+Shift+A）を使ってホスト名で一時停止タブを見つけられるようになります。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "一時停止時にYouTubeの再生位置を保持"
@@ -423,10 +425,12 @@
     "message": "他の拡張機能によって一時停止されたタブを引き継ぐ"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "他の互換性のある拡張機能（The Great Suspenderや、この拡張機能の別のインストールなど）によってすでに一時停止されているタブを自動的に引き継ぎます。"
+    "message": "他の互換性のある拡張機能（The Great Suspenderや、この拡張機能の別のインストールなど）によってすでに一時停止されているタブを自動的に引き継ぎます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "URLに「suspended.html」が含まれているタブは「一時停止中」とみなされます。これを有効にすると、そのURLはこのインストールに書き換えられ、以後TMSがそのタブを管理できるようになります。"
+    "message": "URLに「suspended.html」が含まれているタブは「一時停止中」とみなされます。これを有効にすると、そのURLはこのインストールに書き換えられ、以後TMSがそのタブを管理できるようになります。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "電源に接続しているときはタブを一時停止しない"
@@ -441,10 +445,12 @@
     "message": "一時停止したタブを常に一番上までスクロールした状態で再度開く"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "タブは一時停止時のスクロール位置ではなく、ページの一番上で再度開きます。"
+    "message": "タブは一時停止時のスクロール位置ではなく、ページの一番上で再度開きます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "自動・手動どちらの一時停止にも適用され、読み込み時に#セクションにジャンプするリンクよりも優先されます。"
+    "message": "自動・手動どちらの一時停止にも適用され、読み込み時に#セクションにジャンプするリンクよりも優先されます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "表示されたときにタブを自動的に再開"
@@ -453,22 +459,27 @@
     "message": "再読み込みでバックグラウンドのタブも再開する（アクティブなタブのみでなく）"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "有効にすると、一時停止したタブを再読み込み（Ctrl+Rまたは右クリック>再読み込み）すると、現在フォーカスされているタブでなくても再開されます。"
+    "message": "有効にすると、一時停止したタブを再読み込み（Ctrl+Rまたは右クリック>再読み込み）すると、現在フォーカスされているタブでなくても再開されます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "複数の一時停止タブをまとめて再読み込みする場合に便利です。例えば複数のタブを選択してCtrl+Rを押した場合などです。"
+    "message": "複数の一時停止タブをまとめて再読み込みする場合に便利です。例えば複数のタブを選択してCtrl+Rを押した場合などです。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "一時停止時にブラウザ標準のメモリ節約機能を適用"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "タブが一時停止した後、Chromeにそのタブをメモリから完全に解放させます。これにより、タブごとに使用されるシステムリソースがさらに減ります(数百のタブを開いている場合に便利です)。"
+    "message": "タブが一時停止した後、Chromeにそのタブをメモリから完全に解放させます。これにより、タブごとに使用されるシステムリソースがさらに減ります(数百のタブを開いている場合に便利です)。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "この代わりに、タブが再読み込みされるまでタブの状態が失われます。"
+    "message": "この代わりに、タブが再読み込みされるまでタブの状態が失われます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "タブの破棄についての詳細は以下を参照してください:https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "タブの破棄についての詳細は以下を参照してください:https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "テーマ"
@@ -495,13 +506,16 @@
     "message": "ページ全体をキャプチャ"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "一時停止したタブでは、拡張機能が一時停止直前のタブの見た目のプレビュー画像を表示できます。"
+    "message": "一時停止したタブでは、拡張機能が一時停止直前のタブの見た目のプレビュー画像を表示できます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "画面キャプチャ機能は実験的な機能であり、CPU使用率が大幅に上昇したり、メモリ使用量がわずかに増加したりする可能性があります。"
+    "message": "画面キャプチャ機能は実験的な機能であり、CPU使用率が大幅に上昇したり、メモリ使用量がわずかに増加したりする可能性があります。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "タブの一時停止に時間がかかる、ブラウザが予期せずクラッシュする、といった異常な動作に気づいた場合は、この機能をオフにしてみてください。"
+    "message": "タブの一時停止に時間がかかる、ブラウザが予期せずクラッシュする、といった異常な動作に気づいた場合は、この機能をオフにしてみてください。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "キャプチャ方法"
@@ -516,22 +530,27 @@
     "message": "ページレンダラーのみ"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "「自動」は、一時停止対象のタブがあなたが表示しているタブである場合に、実際のブラウザのスクリーンショットを撮影します。これは瞬時に行われ、あらゆるサイトで機能します。それ以外のタブはページレンダラーによって描き直されますが、これはより低速です。"
+    "message": "「自動」は、一時停止対象のタブがあなたが表示しているタブである場合に、実際のブラウザのスクリーンショットを撮影します。これは瞬時に行われ、あらゆるサイトで機能します。それ以外のタブはページレンダラーによって描き直されますが、これはより低速です。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "「ブラウザのスクリーンショットのみ」はページレンダラーを実行しないため、バックグラウンドで一時停止されたタブにはプレビューが表示されません。「ページ全体をキャプチャ」を選択していても、ブラウザのスクリーンショットはページの表示部分のみをカバーします。"
+    "message": "「ブラウザのスクリーンショットのみ」はページレンダラーを実行しないため、バックグラウンドで一時停止されたタブにはプレビューが表示されません。「ページ全体をキャプチャ」を選択していても、ブラウザのスクリーンショットはページの表示部分のみをカバーします。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "使用中のタブの最新のスクリーンショットを保持する"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "タブに切り替えるか、タブの読み込みが完了してから約1秒後にブラウザのスクリーンショットを撮影します。これにより、後でバックグラウンドで一時停止されたタブでもプレビューが表示されます。"
+    "message": "タブに切り替えるか、タブの読み込みが完了してから約1秒後にブラウザのスクリーンショットを撮影します。これにより、後でバックグラウンドで一時停止されたタブでもプレビューが表示されます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chromeでは、ボタンをクリックしていないタブのスクリーンショットを拡張機能が撮影するには、すべてのサイトへのアクセス権が必要です。そのため、これを有効にするとその権限が要求されます。この権限はこれらのスクリーンショットの撮影のみに使用され、このコンピューター上に保存されます。"
+    "message": "Chromeでは、ボタンをクリックしていないタブのスクリーンショットを拡張機能が撮影するには、すべてのサイトへのアクセス権が必要です。そのため、これを有効にするとその権限が要求されます。この権限はこれらのスクリーンショットの撮影のみに使用され、このコンピューター上に保存されます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "各タブの最新のスクリーンショットのみが保持され、タブを閉じると削除されます。シークレットタブと許可リストのサイトはキャプチャされません。"
+    "message": "各タブの最新のスクリーンショットのみが保持され、タブを閉じると削除されます。シークレットタブと許可リストのサイトはキャプチャされません。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "高品質な画面キャプチャモードを有効にする"
@@ -549,7 +568,8 @@
     "message": "- 画面キャプチャの高さは最大5000pxに制限"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "高品質な画面キャプチャモードを有効にすると、CPU負荷とメモリ使用量が大幅に増加する可能性があります。"
+    "message": "高品質な画面キャプチャモードを有効にすると、CPU負荷とメモリ使用量が大幅に増加する可能性があります。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "次のリストにあるURLのタブは一時停止しない:"
@@ -558,10 +578,12 @@
     "message": "次のリストにあるURLのタブは常に一時停止する:"
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "このリストに一致するタブは、音声、フォーム入力、固定状態にかかわらず、常に通常のタイムアウト後に一時停止されます。"
+    "message": "このリストに一致するタブは、音声、フォーム入力、固定状態にかかわらず、常に通常のタイムアウト後に一時停止されます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "1行に1エントリ。上のリストと同じ一致ルールです（プレーンテキストはURL内のどこにでも一致、または /正規表現/ をスラッシュで囲む）。"
+    "message": "1行に1エントリ。上のリストと同じ一致ルールです（プレーンテキストはURL内のどこにでも一致、または /正規表現/ をスラッシュで囲む）。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "許可したい各ページのURLを、新しい行に追加してください。例:"
@@ -617,13 +639,15 @@
     "message": "この拡張機能のコントロールをウェブページの右クリックメニューに追加します。"
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "これにより、拡張機能の他の場所では利用できない高度な一時停止操作にアクセスできるようになります。"
+    "message": "これにより、拡張機能の他の場所では利用できない高度な一時停止操作にアクセスできるようになります。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "設定をブラウザプロファイルと同期する"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "拡張機能の設定は、同じプロファイルでログインしているすべてのブラウザ間で同期されます。"
+    "message": "拡張機能の設定は、同じプロファイルでログインしているすべてのブラウザ間で同期されます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "これにより、シークレットモードの設定も同期されます。"
@@ -635,10 +659,12 @@
     "message": "システムメモリが極端に少なくなったら即座に一時停止"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "このオプションは、自動タブ破棄機能を上書きします。有効にすると、タブを破棄する代わりに強制的に一時停止させます。通常、ブラウザはシステムメモリが極端に少なくなった場合にのみタブを破棄します。"
+    "message": "このオプションは、自動タブ破棄機能を上書きします。有効にすると、タブを破棄する代わりに強制的に一時停止させます。通常、ブラウザはシステムメモリが極端に少なくなった場合にのみタブを破棄します。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "ご注意: この設定により、タブの自動一時停止オプションで指定した時間よりも早くタブが一時停止することがあります。"
+    "message": "ご注意: この設定により、タブの自動一時停止オプションで指定した時間よりも早くタブが一時停止することがあります。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "タブの破棄についての詳細は以下を参照してください:"
@@ -1059,10 +1085,12 @@
     "message": "セッションを自動的にバックアップする"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "現在のセッションのコピーをJSONファイルとして、通知なく自動的に保存します。ローカル保存（ダウンロードフォルダ内のtms-backupsフォルダ）またはGoogleドライブの「TMS Backups」フォルダを選択できます。"
+    "message": "現在のセッションのコピーをJSONファイルとして、通知なく自動的に保存します。ローカル保存（ダウンロードフォルダ内のtms-backupsフォルダ）またはGoogleドライブの「TMS Backups」フォルダを選択できます。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "ローカルバックアップには、Chromeがファイルを自動的にダウンロードするよう設定されている必要があります（確認なしで）。chrome://settings/downloadsを確認してください。Googleドライブのバックアップにはこの要件はありません。"
+    "message": "ローカルバックアップには、Chromeがファイルを自動的にダウンロードするよう設定されている必要があります（確認なしで）。chrome://settings/downloadsを確認してください。Googleドライブのバックアップにはこの要件はありません。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "バックアップの間隔"
@@ -1116,7 +1144,8 @@
     "message": "ニュースフィードを有効にする"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "marvellouscode.worksを定期的にチェックしてTMSのニュースを取得し、サイドバーに表示します。"
+    "message": "marvellouscode.worksを定期的にチェックしてTMSのニュースを取得し、サイドバーに表示します。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "無効にすると、このバックグラウンドリクエストをスキップします。"
@@ -1125,7 +1154,8 @@
     "message": "新しいマスコットの代わりに、クラシックなThe Great Suspenderのアートワークを使用する"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "レガシー版の画像が利用可能な場合、アイコンとイラストを元のThe GreatSuspenderのスタイルに戻します。"
+    "message": "レガシー版の画像が利用可能な場合、アイコンとイラストを元のThe Great Suspenderのスタイルに戻します。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "レガシー版が存在しない画像は、引き続き新しいアートワークを使用します。"
