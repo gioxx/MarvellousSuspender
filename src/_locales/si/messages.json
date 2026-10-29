@@ -324,10 +324,12 @@
     "message": "අත්හිටුවන ලද ටැබ් මාතෘකාවට මුල් URL එක එකතු කරන්න"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "සක්‍රීය කළහොත්, මුල් URL එක අත්හිටුවන ලද පිටුවල බ්‍රව්සර ටැබ් මාතෘකාවට එකතු කරනු ලැබේ."
+    "message": "සක්‍රීය කළහොත්, මුල් URL එක අත්හිටුවන ලද පිටුවල බ්‍රව්සර ටැබ් මාතෘකාවට එකතු කරනු ලැබේ.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "මෙමගින් Chrome හි \"ටැබ් සොයන්න\" විශේෂාංගය (Ctrl+Shift+A) භාවිතයෙන් hostname මගින් අත්හිටුවන ලද ටැබ් සොයාගත හැක."
+    "message": "මෙමගින් Chrome හි \"ටැබ් සොයන්න\" විශේෂාංගය (Ctrl+Shift+A) භාවිතයෙන් hostname මගින් අත්හිටුවන ලද ටැබ් සොයාගත හැක.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "අත්හිටුවීමේදී YouTube වාදන පිහිටීම රඳවා ගන්න"
@@ -423,10 +425,12 @@
     "message": "පෙරනිමියෙන් හිමිකම් කියන්න"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "The Great Suspender වැනි වෙනත් අනුකූල දිගුවක් මගින් (හෝ මෙහි වෙනත් ස්ථාපනයක් මගින්) දැනටමත් අත්හිටුවා ඇති ටැබ් ස්වයංක්‍රීයව භාරගනී."
+    "message": "The Great Suspender වැනි වෙනත් අනුකූල දිගුවක් මගින් (හෝ මෙහි වෙනත් ස්ථාපනයක් මගින්) දැනටමත් අත්හිටුවා ඇති ටැබ් ස්වයංක්‍රීයව භාරගනී.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "ටැබ් එකක URL එකේ 'suspended.html' අඩංගු නම් එය \"අත්හිටුවා ඇති\" ලෙස සලකනු ලැබේ. මෙය සක්‍රීය කිරීමෙන් ඉදිරියට TMS මගින් ටැබ් කළමනාකරණය කළ හැකි වන පරිදි එම URL එක මෙම ස්ථාපනයට නැවත ලියනු ලැබේ."
+    "message": "ටැබ් එකක URL එකේ 'suspended.html' අඩංගු නම් එය \"අත්හිටුවා ඇති\" ලෙස සලකනු ලැබේ. මෙය සක්‍රීය කිරීමෙන් ඉදිරියට TMS මගින් ටැබ් කළමනාකරණය කළ හැකි වන පරිදි එම URL එක මෙම ස්ථාපනයට නැවත ලියනු ලැබේ.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "බල ප්‍රභවයට සම්බන්ධ වූ විට කිසිවිටක ටැබ් අත්හිටුවන්න එපා"
@@ -441,10 +445,12 @@
     "message": "අත්හිටුවූ ටැබ් සැමවිටම පිටුවේ මුදුනට නැවත විවෘත කරන්න"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "ටැබය අත්හිටුවූ ස්ථානය වෙනුවට පිටුවේ මුදුනේ සිට නැවත විවෘත වේ."
+    "message": "ටැබය අත්හිටුවූ ස්ථානය වෙනුවට පිටුවේ මුදුනේ සිට නැවත විවෘත වේ.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "මෙය ස්වයංක්‍රීය සහ අතින් අත්හිටුවීම් දෙකටම අදාළ වන අතර, පූරණය අතරතුර #කොටසකට පනින සබැඳි අභිබවා යයි."
+    "message": "මෙය ස්වයංක්‍රීය සහ අතින් අත්හිටුවීම් දෙකටම අදාළ වන අතර, පූරණය අතරතුර #කොටසකට පනින සබැඳි අභිබවා යයි.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "ටැබ් එක බලන විට ස්වයංක්‍රීයව අත්හිටුවීම ඉවත් කරන්න"
@@ -453,22 +459,27 @@
     "message": "නැවත පූරණය කිරීම පසුබිම් ටැබ් වල අත්හිටුවීම ද ඉවත් කරයි (ක්‍රියාකාරී ටැබ් එක පමණක් නොව)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "සක්‍රීය කළහොත්, අත්හිටුවූ ටැබ් එකක් නැවත පූරණය කිරීම (Ctrl+R හෝ දකුණු-ක්ලික් > නැවත පූරණය) එය දැනට ක්‍රියාකාරී ටැබ් එක නොවුනත් නැවත ක්‍රියාත්මක කරයි."
+    "message": "සක්‍රීය කළහොත්, අත්හිටුවූ ටැබ් එකක් නැවත පූරණය කිරීම (Ctrl+R හෝ දකුණු-ක්ලික් > නැවත පූරණය) එය දැනට ක්‍රියාකාරී ටැබ් එක නොවුනත් නැවත ක්‍රියාත්මක කරයි.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "එකවර අත්හිටුවූ ටැබ් කිහිපයක් නැවත පූරණය කිරීමට ප්‍රයෝජනවත්, උදාහරණයක් ලෙස ටැබ් කිහිපයක් තෝරා Ctrl+R ඔබන විට."
+    "message": "එකවර අත්හිටුවූ ටැබ් කිහිපයක් නැවත පූරණය කිරීමට ප්‍රයෝජනවත්, උදාහරණයක් ලෙස ටැබ් කිහිපයක් තෝරා Ctrl+R ඔබන විට.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "අත්හිටුවීමේදී බ්‍රවුසරයේ අන්තර්ගත මතක ඉතිරි කිරීම යොදන්න"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "ටැබ් එකක් අත්හිටුවූ පසු, Chrome හට එය මතකයෙන් සම්පූර්ණයෙන් ඉවත් කිරීමට ද ඉඩ දෙන්න. මෙය එක් ටැබ් එකකට වැඩි පද්ධති සම්පත් නිදහස් කරයි (ටැබ් සිය ගණනක් විවෘතව තිබේ නම් ප්‍රයෝජනවත්)."
+    "message": "ටැබ් එකක් අත්හිටුවූ පසු, Chrome හට එය මතකයෙන් සම්පූර්ණයෙන් ඉවත් කිරීමට ද ඉඩ දෙන්න. මෙය එක් ටැබ් එකකට වැඩි පද්ධති සම්පත් නිදහස් කරයි (ටැබ් සිය ගණනක් විවෘතව තිබේ නම් ප්‍රයෝජනවත්).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "මෙය ටැබ් එක නැවත පූරණය වන තෙක් එහි තත්ත්වය අහිමි වීමේ පිරිවැයෙන් සිදු වේ."
+    "message": "මෙය ටැබ් එක නැවත පූරණය වන තෙක් එහි තත්ත්වය අහිමි වීමේ පිරිවැයෙන් සිදු වේ.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "ටැබ් ඉවත දැමීම පිළිබඳ වැඩිදුර තොරතුරු සඳහා බලන්න: https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "ටැබ් ඉවත දැමීම පිළිබඳ වැඩිදුර තොරතුරු සඳහා බලන්න: https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "ප්රධාන"
@@ -495,13 +506,16 @@
     "message": "සම්පූර්ණ පිටුව ග්‍රහණය කරන්න"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "අත්හිටුවන ලද පටිත්තක, දිගුවට ටැබ් එකෙහි රූප පෙරදසුනක් පෙන්විය හැක එය අත්හිටුවීමට පෙර මෙන් දිස් විය."
+    "message": "අත්හිටුවන ලද පටිත්තක, දිගුවට ටැබ් එකෙහි රූප පෙරදසුනක් පෙන්විය හැක එය අත්හිටුවීමට පෙර මෙන් දිස් විය.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "තිර ග්‍රහණය කිරීමේ විශේෂාංගය පර්යේෂණාත්මක වන අතර සැලකිය යුතු CPU භාවිතයක් ඇති කළ හැක මෙන්ම මතක භාවිතය තරමක් වැඩි විය."
+    "message": "තිර ග්‍රහණය කිරීමේ විශේෂාංගය පර්යේෂණාත්මක වන අතර සැලකිය යුතු CPU භාවිතයක් ඇති කළ හැක මෙන්ම මතක භාවිතය තරමක් වැඩි විය.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "ටැබ් අත්හිටුවීමට වැඩි කාලයක් ගතවීම වැනි අසාමාන්‍ය හැසිරීමක් ඔබ දුටුවහොත්, හෝ බ්‍රවුසරය අනපේක්ෂිත ලෙස බිඳ වැටීම, මෙම විශේෂාංගය අක්‍රිය කිරීමට උත්සාහ කරන්න."
+    "message": "ටැබ් අත්හිටුවීමට වැඩි කාලයක් ගතවීම වැනි අසාමාන්‍ය හැසිරීමක් ඔබ දුටුවහොත්, හෝ බ්‍රවුසරය අනපේක්ෂිත ලෙස බිඳ වැටීම, මෙම විශේෂාංගය අක්‍රිය කිරීමට උත්සාහ කරන්න.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "ග්‍රහණ ක්‍රමය"
@@ -516,22 +530,27 @@
     "message": "පිටු විදැහුම්කරු පමණි"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "අත්හිටුවන පටිත්ත ඔබ දැන් බලන පටිත්ත නම්, ස්වයංක්‍රීය ක්‍රමය සැබෑ බ්‍රවුසර තිර රුවක් ගනී. එය ක්ෂණික වන අතර සෑම අඩවියකම ක්‍රියා කරයි. අනෙක් පටිති වඩා මන්දගාමී පිටු විදැහුම්කරු මගින් නැවත අඳිනු ලැබේ."
+    "message": "අත්හිටුවන පටිත්ත ඔබ දැන් බලන පටිත්ත නම්, ස්වයංක්‍රීය ක්‍රමය සැබෑ බ්‍රවුසර තිර රුවක් ගනී. එය ක්ෂණික වන අතර සෑම අඩවියකම ක්‍රියා කරයි. අනෙක් පටිති වඩා මන්දගාමී පිටු විදැහුම්කරු මගින් නැවත අඳිනු ලැබේ.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "බ්‍රවුසර තිර රුව පමණි යන්න කිසිවිටෙක පිටු විදැහුම්කරු ධාවනය නොකරයි, එබැවින් පසුබිමේ අත්හිටුවන පටිති සඳහා පෙරදසුනක් නොලැබේ. 'සම්පූර්ණ පිටුව ග්‍රහණය කරන්න' තෝරා තිබුණත්, බ්‍රවුසර තිර රුවකට ඇතුළත් වන්නේ පිටුවේ දෘශ්‍යමාන කොටස පමණි."
+    "message": "බ්‍රවුසර තිර රුව පමණි යන්න කිසිවිටෙක පිටු විදැහුම්කරු ධාවනය නොකරයි, එබැවින් පසුබිමේ අත්හිටුවන පටිති සඳහා පෙරදසුනක් නොලැබේ. 'සම්පූර්ණ පිටුව ග්‍රහණය කරන්න' තෝරා තිබුණත්, බ්‍රවුසර තිර රුවකට ඇතුළත් වන්නේ පිටුවේ දෘශ්‍යමාන කොටස පමණි.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "මම ටැබ් භාවිත කරන අතරතුර ඒවායේ මෑත තිර රුවක් තබා ගන්න"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "ඔබ ටැබයකට මාරු වූ විට හෝ එය පූරණය වී අවසන් වූ විට තත්පරයක් පමණ ගතවී එහි බ්‍රවුසර තිර රුවක් ගනී, එමගින් පසුව පසුබිමින් අත්හිටුවන ලද ටැබ්වලටද පෙරදසුනක් ලැබේ."
+    "message": "ඔබ ටැබයකට මාරු වූ විට හෝ එය පූරණය වී අවසන් වූ විට තත්පරයක් පමණ ගතවී එහි බ්‍රවුසර තිර රුවක් ගනී, එමගින් පසුව පසුබිමින් අත්හිටුවන ලද ටැබ්වලටද පෙරදසුනක් ලැබේ.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "ඔබ බොත්තම ක්ලික් නොකළ ටැබයක තිර රුවක් ගැනීමට දිගුවකට ඉඩ දෙන්නේ එයට සියලුම අඩවි වෙත ප්‍රවේශය ඇත්නම් පමණක් බව Chrome සලකයි, එබැවින් මෙය සක්‍රීය කිරීම එම අවසරය ඉල්ලයි. එය මෙම තිර රූ ගැනීමට පමණක් භාවිතා වන අතර, ඒවා මෙම පරිගණකයේම රැඳී පවතී."
+    "message": "ඔබ බොත්තම ක්ලික් නොකළ ටැබයක තිර රුවක් ගැනීමට දිගුවකට ඉඩ දෙන්නේ එයට සියලුම අඩවි වෙත ප්‍රවේශය ඇත්නම් පමණක් බව Chrome සලකයි, එබැවින් මෙය සක්‍රීය කිරීම එම අවසරය ඉල්ලයි. එය මෙම තිර රූ ගැනීමට පමණක් භාවිතා වන අතර, ඒවා මෙම පරිගණකයේම රැඳී පවතී.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "විවෘත සෑම ටැබයකම නවතම තිර රුව පමණක් තබා ගනු ලැබේ, ටැබය වසන විට එය මකා දමනු ලැබේ. අඥාත (incognito) ටැබ් සහ ඉඩ දුන් ලැයිස්තුවේ අඩවි කිසිවිටෙක ග්‍රහණය නොකෙරේ."
+    "message": "විවෘත සෑම ටැබයකම නවතම තිර රුව පමණක් තබා ගනු ලැබේ, ටැබය වසන විට එය මකා දමනු ලැබේ. අඥාත (incognito) ටැබ් සහ ඉඩ දුන් ලැයිස්තුවේ අඩවි කිසිවිටෙක ග්‍රහණය නොකෙරේ.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "උසස් තත්ත්වයේ තිර ග්‍රහණ මාදිලිය සබල කරන්න"
@@ -549,7 +568,8 @@
     "message": "- තිර ග්‍රහණයේ උපරිම උස 5000px ට සීමා වේ"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "උසස් තත්ත්වයේ තිර ග්‍රහණ මාදිලිය සක්‍රීය කිරීම CPU භාරය සැලකිය යුතු ලෙස වැඩි කළ හැක සහ මතකය භාවිතය."
+    "message": "උසස් තත්ත්වයේ තිර ග්‍රහණ මාදිලිය සක්‍රීය කිරීම CPU භාරය සැලකිය යුතු ලෙස වැඩි කළ හැක සහ මතකය භාවිතය.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "පහත ලැයිස්තුවෙන් URL සහිත ටැබ් කිසි විටෙකත් අත්හිටුවන්න එපා:"
@@ -558,10 +578,12 @@
     "message": "පහත ලැයිස්තුවේ ඇති URL සහිත ටැබ් සැමවිටම අත්හිටුවන්න:"
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "මෙම ලැයිස්තුවට ගැළපෙන ටැබ් ශබ්දය, ෆෝම් ආදානය හෝ අමුණා ඇති තත්ත්වය නොසලකා, සාමාන්‍ය කාල සීමාවෙන් පසු සැමවිටම අත්හිටුවනු ලැබේ."
+    "message": "මෙම ලැයිස්තුවට ගැළපෙන ටැබ් ශබ්දය, ෆෝම් ආදානය හෝ අමුණා ඇති තත්ත්වය නොසලකා, සාමාන්‍ය කාල සීමාවෙන් පසු සැමවිටම අත්හිටුවනු ලැබේ.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "එක් පේළියකට එක් ප්‍රවේශයක්, ඉහත ලැයිස්තුවේ ඇති ගැළපුම් නීති එකම (URL එකේ ඕනෑම තැනක සරල පෙළ ගැළපුම, හෝ ස්ලෑෂ් අතර /regex/)."
+    "message": "එක් පේළියකට එක් ප්‍රවේශයක්, ඉහත ලැයිස්තුවේ ඇති ගැළපුම් නීති එකම (URL එකේ ඕනෑම තැනක සරල පෙළ ගැළපුම, හෝ ස්ලෑෂ් අතර /regex/).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "ඔබට ඉඩ දිය යුතු සෑම පිටුවකම URL එක නව පේළියක එක් කරන්න. උදාහරණ වශයෙන්:"
@@ -617,13 +639,15 @@
     "message": "වෙබ් පිටුවක දකුණු ක්ලික් මෙනුවට මෙම දිගුව සඳහා පාලන එක් කරන්න."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "මෙය ඔබට ලබා ගත නොහැකි උසස් අත්හිටුවීමේ ක්‍රියා වෙත ප්‍රවේශය ලබා දෙනු ඇත දිගුවේ වෙනත් තැනක."
+    "message": "මෙය ඔබට ලබා ගත නොහැකි උසස් අත්හිටුවීමේ ක්‍රියා වෙත ප්‍රවේශය ලබා දෙනු ඇත දිගුවේ වෙනත් තැනක.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "ඔබේ බ්‍රවුසර පැතිකඩ සමඟ සැකසුම් සමමුහූර්ත කරන්න"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "දිගු සැකසුම් පහත සියලුම බ්‍රවුසරවල සමමුහූර්ත වනු ඇත: එකම පැතිකඩකින් ලොග් වී ඇත."
+    "message": "දිගු සැකසුම් පහත සියලුම බ්‍රවුසරවල සමමුහූර්ත වනු ඇත: එකම පැතිකඩකින් ලොග් වී ඇත.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "මෙයින් incognito ප්‍රකාරයේ සැකසුම් ද සමමුහූර්ත වේ."
@@ -635,10 +659,12 @@
     "message": "පද්ධති මතකය ඉතා අඩු වූ විට ක්ෂණිකව අත්හිටුවන්න"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "මෙම විකල්පය ස්වයංක්‍රීය ටැබ් ඉවත දැමීමේ කාර්යභාරය අභිබවා යනු ඇත. සක්‍රීය කළහොත්, ටැබ් එකක් ඉවත දැමීම වෙනුවට එය බලෙන් අත්හිටුවනු ඇත. සාමාන්‍යයෙන්, පද්ධති මතකය ඉතා අඩු වූ විට පමණක් ඔබේ බ්‍රවුසරය ටැබ් ඉවත දමයි."
+    "message": "මෙම විකල්පය ස්වයංක්‍රීය ටැබ් ඉවත දැමීමේ කාර්යභාරය අභිබවා යනු ඇත. සක්‍රීය කළහොත්, ටැබ් එකක් ඉවත දැමීම වෙනුවට එය බලෙන් අත්හිටුවනු ඇත. සාමාන්‍යයෙන්, පද්ධති මතකය ඉතා අඩු වූ විට පමණක් ඔබේ බ්‍රවුසරය ටැබ් ඉවත දමයි.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "කරුණාකර සටහන් කරන්න: මෙය ඔබට ඇති කාලයට වඩා කලින් ටැබ් අත්හිටුවීමට හේතු විය හැක ස්වයංක්‍රීය ටැබ් අත්හිටුවීමේ විකල්පවල දක්වා ඇත."
+    "message": "කරුණාකර සටහන් කරන්න: මෙය ඔබට ඇති කාලයට වඩා කලින් ටැබ් අත්හිටුවීමට හේතු විය හැක ස්වයංක්‍රීය ටැබ් අත්හිටුවීමේ විකල්පවල දක්වා ඇත.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "ටැබ් ඉවත දැමීම පිළිබඳ වැඩිදුර තොරතුරු සඳහා බලන්න:"
@@ -1059,10 +1085,12 @@
     "message": "ඔබේ සැසිය ස්වයංක්‍රීයව උපස්ථ කරන්න"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "ඔබේ වත්මන් සැසියේ පිටපතක් JSON ගොනුවක් ලෙස නිහඬව සුරකියි. දේශීයව සුරැකීමට (ඔබේ බාගැනීම් තුළ ඇති tms-backups බහාලුම) හෝ Google Drive හි 'TMS Backups' බහාලුමකට තෝරාගත හැක."
+    "message": "ඔබේ වත්මන් සැසියේ පිටපතක් JSON ගොනුවක් ලෙස නිහඬව සුරකියි. දේශීයව සුරැකීමට (ඔබේ බාගැනීම් තුළ ඇති tms-backups බහාලුම) හෝ Google Drive හි 'TMS Backups' බහාලුමකට තෝරාගත හැක.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "දේශීය උපස්ථ සඳහා, Chrome ගොනු ස්වයංක්‍රීයව බාගත කිරීමට (ඇසීමකින් තොරව) සකසා තිබිය යුතුය. chrome://settings/downloads පරීක්ෂා කරන්න. Google Drive උපස්ථවලට මෙම අවශ්‍යතාවය නොමැත."
+    "message": "දේශීය උපස්ථ සඳහා, Chrome ගොනු ස්වයංක්‍රීයව බාගත කිරීමට (ඇසීමකින් තොරව) සකසා තිබිය යුතුය. chrome://settings/downloads පරීක්ෂා කරන්න. Google Drive උපස්ථවලට මෙම අවශ්‍යතාවය නොමැත.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "සෑම"
@@ -1116,7 +1144,8 @@
     "message": "පුවත් සංග්‍රහය සක්‍රීය කරන්න"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "TMS පුවත් සඳහා marvellouscode.works වරින් වර පරීක්ෂා කර පැති තීරුවේ පෙන්වයි."
+    "message": "TMS පුවත් සඳහා marvellouscode.works වරින් වර පරීක්ෂා කර පැති තීරුවේ පෙන්වයි.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "මෙම පසුබිම් ඉල්ලීම මඟහරින්න අක්‍රීය කරන්න."
@@ -1125,7 +1154,8 @@
     "message": "නව රූපය වෙනුවට The Great Suspender හි සම්භාව්‍ය ග්‍රැෆික් භාවිතා කරන්න"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "පැරණි අනුවාදයක් ලද හැකි නම් නිරූපක සහ නිදර්ශන The Great Suspender හි මුල් රටාවට නැවත සකසයි."
+    "message": "පැරණි අනුවාදයක් ලද හැකි නම් නිරූපක සහ නිදර්ශන The Great Suspender හි මුල් රටාවට නැවත සකසයි.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "පැරණි අනුවාදයක් නොමැති රූප නව ග්‍රැෆික් එකම දිගටම භාවිතා කරයි."
