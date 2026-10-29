@@ -324,10 +324,12 @@
     "message": "Añadir la URL original al título de la pestaña suspendida"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Cuando está habilitado, la URL original se añade al título de la pestaña del navegador de las páginas suspendidas."
+    "message": "Cuando está habilitado, la URL original se añade al título de la pestaña del navegador de las páginas suspendidas.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Esto permite encontrar pestañas suspendidas por nombre de host usando \"Buscar pestañas\" de Chrome (Ctrl+Shift+A)."
+    "message": "Esto permite encontrar pestañas suspendidas por nombre de host usando \"Buscar pestañas\" de Chrome (Ctrl+Shift+A).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Conservar la posición de reproducción de YouTube al suspender"
@@ -423,10 +425,12 @@
     "message": "Tomar el control de las pestañas suspendidas por otras extensiones"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Toma automáticamente el control de las pestañas ya suspendidas por otra extensión compatible (p. ej. The Great Suspender, u otra instalación de esta)."
+    "message": "Toma automáticamente el control de las pestañas ya suspendidas por otra extensión compatible (p. ej. The Great Suspender, u otra instalación de esta).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Una pestaña se considera \"suspendida\" si su URL contiene 'suspended.html'. Al habilitar esta opción, esa URL se reescribe a esta instalación para que TMS pueda gestionar la pestaña de ahí en adelante."
+    "message": "Una pestaña se considera \"suspendida\" si su URL contiene 'suspended.html'. Al habilitar esta opción, esa URL se reescribe a esta instalación para que TMS pueda gestionar la pestaña de ahí en adelante.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "No suspender nunca pestañas cuando estés conectado a la corriente"
@@ -441,10 +445,12 @@
     "message": "Reabrir siempre las pestañas suspendidas desplazadas hasta arriba"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "La pestaña se reabre en la parte superior de la página en lugar de donde estaba desplazada al momento de suspenderse."
+    "message": "La pestaña se reabre en la parte superior de la página en lugar de donde estaba desplazada al momento de suspenderse.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Se aplica tanto a la suspensión automática como a la manual, y tiene prioridad sobre los enlaces que saltan a una #sección al cargar."
+    "message": "Se aplica tanto a la suspensión automática como a la manual, y tiene prioridad sobre los enlaces que saltan a una #sección al cargar.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Reactivar automáticamente la pestaña al visualizarla"
@@ -453,22 +459,27 @@
     "message": "Recargar también reactiva las pestañas en segundo plano (no solo la activa)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "Cuando está habilitado, recargar una pestaña suspendida (Ctrl+R o clic derecho > Recargar) también la reactiva aunque no sea la pestaña que tiene el foco actualmente."
+    "message": "Cuando está habilitado, recargar una pestaña suspendida (Ctrl+R o clic derecho > Recargar) también la reactiva aunque no sea la pestaña que tiene el foco actualmente.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "Útil para recargar varias pestañas suspendidas a la vez, por ejemplo tras seleccionar varias pestañas y pulsar Ctrl+R."
+    "message": "Útil para recargar varias pestañas suspendidas a la vez, por ejemplo tras seleccionar varias pestañas y pulsar Ctrl+R.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar el ahorro de memoria integrado del navegador al suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "Después de suspender una pestaña, permite también que Chrome la descargue por completo de la memoria. Esto libera más recursos del sistema por pestaña (útil si mantienes cientos de pestañas abiertas)."
+    "message": "Después de suspender una pestaña, permite también que Chrome la descargue por completo de la memoria. Esto libera más recursos del sistema por pestaña (útil si mantienes cientos de pestañas abiertas).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "Esto tiene el coste de perder el estado de la pestaña hasta que se vuelva a cargar."
+    "message": "Esto tiene el coste de perder el estado de la pestaña hasta que se vuelva a cargar.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "Para más información sobre el descarte de pestañas, consulta: https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "Para más información sobre el descarte de pestañas, consulta: https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "Tema"
@@ -495,13 +506,16 @@
     "message": "Capturar la página completa"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "En una pestaña suspendida, la extensión puede mostrar una vista previa de cómo se veía la pestaña justo antes de suspenderse."
+    "message": "En una pestaña suspendida, la extensión puede mostrar una vista previa de cómo se veía la pestaña justo antes de suspenderse.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "La captura de pantalla es una función experimental y puede causar un uso significativo de la CPU, además de un ligero aumento en el uso de memoria."
+    "message": "La captura de pantalla es una función experimental y puede causar un uso significativo de la CPU, además de un ligero aumento en el uso de memoria.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "Si notas un comportamiento extraño, como pestañas que tardan mucho en suspenderse o el navegador que se cierra inesperadamente, prueba a desactivar esta función."
+    "message": "Si notas un comportamiento extraño, como pestañas que tardan mucho en suspenderse o el navegador que se cierra inesperadamente, prueba a desactivar esta función.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Método de captura"
@@ -516,22 +530,27 @@
     "message": "Solo renderizador de página"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automático toma una captura de pantalla real del navegador cuando la pestaña que se está suspendiendo es la que estás viendo. Es instantáneo y funciona en cualquier sitio. Cualquier otra pestaña se vuelve a dibujar mediante el renderizador de página, que es más lento."
+    "message": "Automático toma una captura de pantalla real del navegador cuando la pestaña que se está suspendiendo es la que estás viendo. Es instantáneo y funciona en cualquier sitio. Cualquier otra pestaña se vuelve a dibujar mediante el renderizador de página, que es más lento.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Solo captura de pantalla del navegador nunca ejecuta el renderizador de página, así que las pestañas suspendidas en segundo plano no tienen vista previa. Una captura de pantalla del navegador solo cubre la parte visible de la página, incluso con 'Capturar la página completa' seleccionado."
+    "message": "Solo captura de pantalla del navegador nunca ejecuta el renderizador de página, así que las pestañas suspendidas en segundo plano no tienen vista previa. Una captura de pantalla del navegador solo cubre la parte visible de la página, incluso con 'Capturar la página completa' seleccionado.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Mantener una captura reciente de las pestañas mientras las uso"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Toma una captura de pantalla del navegador de una pestaña un segundo después de que cambias a ella o termina de cargarse, así las pestañas que luego se suspenden en segundo plano igual tienen una vista previa."
+    "message": "Toma una captura de pantalla del navegador de una pestaña un segundo después de que cambias a ella o termina de cargarse, así las pestañas que luego se suspenden en segundo plano igual tienen una vista previa.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome solo permite que una extensión capture una pestaña en la que no has hecho clic en su botón si tiene acceso a todos los sitios, así que activar esto solicita ese permiso. Solo se usa para tomar estas capturas, que permanecen en este equipo."
+    "message": "Chrome solo permite que una extensión capture una pestaña en la que no has hecho clic en su botón si tiene acceso a todos los sitios, así que activar esto solicita ese permiso. Solo se usa para tomar estas capturas, que permanecen en este equipo.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Solo se conserva la última captura de cada pestaña abierta, y se elimina al cerrar la pestaña. Las pestañas de incógnito y los sitios en la lista blanca nunca se capturan."
+    "message": "Solo se conserva la última captura de cada pestaña abierta, y se elimina al cerrar la pestaña. Las pestañas de incógnito y los sitios en la lista blanca nunca se capturan.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Habilitar el modo de captura de pantalla de alta calidad"
@@ -549,7 +568,8 @@
     "message": "- Altura máxima de la captura de pantalla limitada a 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Habilitar el modo de captura de pantalla de alta calidad puede aumentar significativamente la carga de la CPU y el uso de memoria."
+    "message": "Habilitar el modo de captura de pantalla de alta calidad puede aumentar significativamente la carga de la CPU y el uso de memoria.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "No suspender nunca las pestañas con URL de la siguiente lista:"
@@ -558,10 +578,12 @@
     "message": "Suspender siempre las pestañas con URL de la siguiente lista:"
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "Las pestañas que coincidan con esta lista siempre se suspenden después del tiempo normal, sin importar el audio, la entrada de formulario o el estado de fijado."
+    "message": "Las pestañas que coincidan con esta lista siempre se suspenden después del tiempo normal, sin importar el audio, la entrada de formulario o el estado de fijado.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "Una entrada por línea, con las mismas reglas de coincidencia que la lista de arriba (texto plano que coincida en cualquier parte de la URL, o /regex/ entre barras)."
+    "message": "Una entrada por línea, con las mismas reglas de coincidencia que la lista de arriba (texto plano que coincida en cualquier parte de la URL, o /regex/ entre barras).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Añade la URL de cada página que quieras permitir en una línea nueva. Por ejemplo:"
@@ -617,13 +639,15 @@
     "message": "Añade controles de esta extensión al menú del clic derecho de una página web."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Esto te dará acceso a acciones de suspensión avanzadas no disponibles en otras partes de la extensión."
+    "message": "Esto te dará acceso a acciones de suspensión avanzadas no disponibles en otras partes de la extensión.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "Sincronizar la configuración con tu perfil del navegador"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "La configuración de la extensión se sincronizará en todos los navegadores que hayan iniciado sesión con el mismo perfil."
+    "message": "La configuración de la extensión se sincronizará en todos los navegadores que hayan iniciado sesión con el mismo perfil.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Esto también sincronizará la configuración en modo incógnito."
@@ -635,10 +659,12 @@
     "message": "Suspender instantáneamente cuando la memoria del sistema esté muy baja"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Esta opción anulará la función automática de descarte de pestañas. Si está habilitada, forzará la suspensión de una pestaña en lugar de descartarla. Normalmente, tu navegador solo descarta pestañas cuando la memoria del sistema está muy baja."
+    "message": "Esta opción anulará la función automática de descarte de pestañas. Si está habilitada, forzará la suspensión de una pestaña en lugar de descartarla. Normalmente, tu navegador solo descarta pestañas cuando la memoria del sistema está muy baja.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Ten en cuenta: esto puede hacer que las pestañas se suspendan antes del tiempo que hayas especificado en las opciones de suspensión automática de pestañas."
+    "message": "Ten en cuenta: esto puede hacer que las pestañas se suspendan antes del tiempo que hayas especificado en las opciones de suspensión automática de pestañas.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Para más información sobre el descarte de pestañas, consulta:"
@@ -1059,10 +1085,12 @@
     "message": "Respaldar tu sesión automáticamente"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Guarda silenciosamente una copia de tu sesión actual como archivo JSON. Elige guardar localmente (carpeta tms-backups dentro de Descargas) o en una carpeta 'TMS Backups' en Google Drive."
+    "message": "Guarda silenciosamente una copia de tu sesión actual como archivo JSON. Elige guardar localmente (carpeta tms-backups dentro de Descargas) o en una carpeta 'TMS Backups' en Google Drive.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "Para copias de seguridad locales, Chrome debe estar configurado para descargar archivos automáticamente (sin preguntar). Revisa chrome://settings/downloads. Las copias de seguridad en Google Drive no tienen ese requisito."
+    "message": "Para copias de seguridad locales, Chrome debe estar configurado para descargar archivos automáticamente (sin preguntar). Revisa chrome://settings/downloads. Las copias de seguridad en Google Drive no tienen ese requisito.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "Respaldar cada"
@@ -1116,7 +1144,8 @@
     "message": "Habilitar feed de novedades"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Comprueba periódicamente marvellouscode.works en busca de novedades de TMS y las muestra en la barra lateral."
+    "message": "Comprueba periódicamente marvellouscode.works en busca de novedades de TMS y las muestra en la barra lateral.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Deshabilita para omitir esta solicitud en segundo plano."
@@ -1125,7 +1154,8 @@
     "message": "Usar los gráficos clásicos de The Great Suspender en lugar de la nueva mascota"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Vuelve a los iconos e ilustraciones del estilo original de The Great Suspender, donde haya disponible una versión anterior de la imagen."
+    "message": "Vuelve a los iconos e ilustraciones del estilo original de The Great Suspender, donde haya disponible una versión anterior de la imagen.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "Las imágenes sin equivalente anterior siguen usando los gráficos nuevos."
