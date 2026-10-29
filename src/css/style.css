@@ -1280,11 +1280,11 @@ svg.icon {
   border-radius: var(--radius-lg);
   padding: var(--space-5) var(--space-5) var(--space-6);
   line-height: 1.5;
-  min-width: 480px;
-  /* Keeps the line breaks in the strings, and wraps a line too long for the box (an
-     unsplit sentence, or a translation longer than the English). */
+  min-width: min(480px, 90vw);
+  /* Each paragraph is one locale string: the line breaks between them come from the
+     template, and the text wraps within the box. */
   width: max-content;
-  max-width: 680px;
+  max-width: min(680px, 90vw);
   white-space: pre-line;
   pointer-events: none;
   z-index: 99;
@@ -1294,8 +1294,35 @@ svg.icon {
   transition: opacity var(--duration-fast);
 }
 
-[data-i18n-tooltip]:hover::after {
+[data-i18n-tooltip]:hover::after,
+[data-i18n-tooltip]:focus-visible::after {
   opacity: 1;
+}
+
+/* In a settings row the tooltip opens above the row, from its left edge, instead of
+   centred on the icon: an icon near the right edge would push it off the page (and an
+   invisible tooltip off the edge still widens the page). */
+.formRow {
+  position: relative;
+}
+
+.formRow [data-i18n-tooltip] {
+  position: static;
+}
+
+.formRow [data-i18n-tooltip]::after {
+  left: 0;
+  top: auto;
+  bottom: calc(100% + 6px);
+  transform: none;
+  min-width: min(480px, 100%);
+  max-width: min(680px, 100%);
+}
+
+[data-i18n-tooltip]:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 /* ── Favicon spinner ────────────────────────────────────────────────────── */

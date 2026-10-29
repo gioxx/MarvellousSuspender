@@ -323,17 +323,11 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Aggiungi l'URL originale al titolo della scheda sospesa"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "Se abilitato, l'URL originale viene aggiunto al titolo della scheda"
+  "html_options_suspended_append_url_to_title_tooltip_line1": {
+    "message": "Se abilitato, l'URL originale viene aggiunto al titolo della scheda del browser per le pagine sospese."
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "del browser per le pagine sospese."
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "Questo permette di trovare le schede sospese per hostname usando la funzione"
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "\"Cerca schede\" di Chrome (Ctrl+Shift+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line2": {
+    "message": "Questo permette di trovare le schede sospese per hostname usando la funzione \"Cerca schede\" di Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Mantieni la posizione di riproduzione di YouTube durante la sospensione"
@@ -428,20 +422,11 @@
   "html_options_suspend_claim_by_default": {
     "message": "Prendi in carico le schede sospese da altre estensioni"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Prende automaticamente il controllo delle schede già sospese da un'altra estensione"
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Prende automaticamente il controllo delle schede già sospese da un'altra estensione compatibile (es. The Great Suspender, o un'altra installazione di questa)."
   },
-  "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "compatibile (es. The Great Suspender, o un'altra installazione di questa)."
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "Una scheda è considerata \"sospesa\" se il suo URL contiene 'suspended.html'."
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "Abilitando questa opzione, quell'URL viene riscritto per questa installazione,"
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "così TMS può gestire la scheda da quel momento in poi."
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Una scheda è considerata \"sospesa\" se il suo URL contiene 'suspended.html'. Abilitando questa opzione, quell'URL viene riscritto per questa installazione, così TMS può gestire la scheda da quel momento in poi."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Non sospendere mai le schede quando sei collegato all'alimentazione"
@@ -455,17 +440,11 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Riapri sempre le schede sospese con lo scroll all'inizio"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "La scheda si riapre all'inizio della pagina invece che nel punto"
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "La scheda si riapre all'inizio della pagina invece che nel punto in cui era scrollata al momento della sospensione."
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "in cui era scrollata al momento della sospensione."
-  },
-  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Si applica sia alla sospensione automatica che manuale, e ha la precedenza sui"
-  },
-  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "collegamenti che rimandano a una #sezione al caricamento."
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "Si applica sia alla sospensione automatica che manuale, e ha la precedenza sui collegamenti che rimandano a una #sezione al caricamento."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Riattiva automaticamente la scheda quando viene visualizzata"
@@ -473,44 +452,23 @@
   "html_options_suspend_reload_unsuspend_background": {
     "message": "Il ricaricamento riattiva anche le schede in background (non solo quella attiva)"
   },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Se abilitato, ricaricare una scheda sospesa (Ctrl+R o clic destro"
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
+    "message": "Se abilitato, ricaricare una scheda sospesa (Ctrl+R o clic destro > Ricarica) la riattiva anche quando non è la scheda attualmente in primo piano."
   },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "> Ricarica) la riattiva anche quando non è la scheda"
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "attualmente in primo piano."
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Utile per ricaricare più schede sospese in un colpo solo, ad esempio dopo"
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "aver selezionato più schede e premuto Ctrl+R."
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
+    "message": "Utile per ricaricare più schede sospese in un colpo solo, ad esempio dopo aver selezionato più schede e premuto Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Applica il risparmio di memoria integrato del browser durante la sospensione"
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Dopo che una scheda è sospesa, consenti anche a Chrome di scaricarla"
+  "html_options_suspend_discard_after_suspend_tooltip_line1": {
+    "message": "Dopo che una scheda è sospesa, consenti anche a Chrome di scaricarla completamente dalla memoria. Questo libera più risorse di sistema per scheda (utile se tieni aperte centinaia di schede)."
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "completamente dalla memoria. Questo libera più risorse di sistema per"
+  "html_options_suspend_discard_after_suspend_tooltip_line2": {
+    "message": "Questo comporta la perdita dello stato della scheda finché non viene ricaricata."
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "scheda (utile se tieni aperte centinaia di schede)."
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Questo comporta la perdita dello stato della scheda finché non viene"
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "ricaricata."
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "Per maggiori informazioni sullo scaricamento delle schede, consulta:"
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line3b": {
-    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  "html_options_suspend_discard_after_suspend_tooltip_line3": {
+    "message": "Per maggiori informazioni sullo scaricamento delle schede, consulta: https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_options_suspend_theme": {
     "message": "Tema"
@@ -536,23 +494,14 @@
   "html_options_suspend_screen_capturing_entire_page": {
     "message": "Cattura l'intera pagina"
   },
-  "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "Su una scheda sospesa, l'estensione può mostrare un'anteprima dell'aspetto della scheda"
+  "html_options_suspend_screen_capturing_tooltip_line1": {
+    "message": "Su una scheda sospesa, l'estensione può mostrare un'anteprima dell'aspetto della scheda subito prima che fosse sospesa."
   },
-  "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "subito prima che fosse sospesa."
+  "html_options_suspend_screen_capturing_tooltip_line2": {
+    "message": "La cattura dello schermo è una funzione sperimentale e può causare un uso significativo della CPU, oltre a un leggero aumento dell'uso di memoria."
   },
-  "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "La cattura dello schermo è una funzione sperimentale e può causare un uso significativo della CPU,"
-  },
-  "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "oltre a un leggero aumento dell'uso di memoria."
-  },
-  "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "Se noti comportamenti anomali, come schede che impiegano molto tempo a sospendersi o il browser"
-  },
-  "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "che si blocca inaspettatamente, prova a disattivare questa funzione."
+  "html_options_suspend_screen_capturing_tooltip_line3": {
+    "message": "Se noti comportamenti anomali, come schede che impiegano molto tempo a sospendersi o il browser che si blocca inaspettatamente, prova a disattivare questa funzione."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Metodo di cattura"
@@ -567,37 +516,22 @@
     "message": "Solo renderer di pagina"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automatico esegue uno screenshot reale del browser quando la scheda in fase di sospensione è quella che stai guardando."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "È istantaneo e funziona su ogni sito. Ogni altra scheda viene ridisegnata dal renderer di pagina, che è più lento."
+    "message": "Automatico esegue uno screenshot reale del browser quando la scheda in fase di sospensione è quella che stai guardando. È istantaneo e funziona su ogni sito. Ogni altra scheda viene ridisegnata dal renderer di pagina, che è più lento."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Solo screenshot del browser non esegue mai il renderer di pagina, quindi le schede sospese in background non hanno anteprima."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Uno screenshot del browser copre solo la parte visibile della pagina, anche con 'Cattura l'intera pagina' selezionato."
+    "message": "Solo screenshot del browser non esegue mai il renderer di pagina, quindi le schede sospese in background non hanno anteprima. Uno screenshot del browser copre solo la parte visibile della pagina, anche con 'Cattura l'intera pagina' selezionato."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Mantieni uno screenshot recente delle schede mentre le uso"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Esegue uno screenshot del browser di una scheda circa un secondo dopo che passi ad essa o che ha finito di caricarsi,"
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "così le schede sospese in seguito in background hanno comunque un'anteprima."
+    "message": "Esegue uno screenshot del browser di una scheda circa un secondo dopo che passi ad essa o che ha finito di caricarsi, così le schede sospese in seguito in background hanno comunque un'anteprima."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome permette a un'estensione di catturare lo screenshot di una scheda su cui non hai cliccato il suo pulsante solo se ha accesso a tutti i siti,"
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "quindi attivare questa opzione richiede quel permesso. Viene usato solo per acquisire questi screenshot, che restano su questo computer."
+    "message": "Chrome permette a un'estensione di catturare lo screenshot di una scheda su cui non hai cliccato il suo pulsante solo se ha accesso a tutti i siti, quindi attivare questa opzione richiede quel permesso. Viene usato solo per acquisire questi screenshot, che restano su questo computer."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Viene mantenuto solo l'ultimo screenshot di ogni scheda aperta, ed è eliminato quando la scheda si chiude."
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Le schede in incognito e i siti in whitelist non vengono mai catturati."
+    "message": "Viene mantenuto solo l'ultimo screenshot di ogni scheda aperta, ed è eliminato quando la scheda si chiude. Le schede in incognito e i siti in whitelist non vengono mai catturati."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Abilita la modalità di cattura schermo ad alta qualità"
@@ -615,10 +549,7 @@
     "message": "- Altezza massima della cattura schermo limitata a 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Abilitare la modalità di cattura schermo ad alta qualità può aumentare significativamente il carico della CPU"
-  },
-  "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "e l'uso di memoria."
+    "message": "Abilitare la modalità di cattura schermo ad alta qualità può aumentare significativamente il carico della CPU e l'uso di memoria."
   },
   "html_options_whitelist_title": {
     "message": "Non sospendere mai le schede con URL dal seguente elenco:"
@@ -626,17 +557,11 @@
   "html_options_always_suspend_title": {
     "message": "Sospendi sempre le schede con URL dal seguente elenco:"
   },
-  "html_options_always_suspend_tooltip_line1a": {
-    "message": "Le schede che corrispondono a questo elenco si sospendono sempre dopo il timeout normale,"
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Le schede che corrispondono a questo elenco si sospendono sempre dopo il timeout normale, indipendentemente da audio, dati di modulo o stato di appuntamento."
   },
-  "html_options_always_suspend_tooltip_line1b": {
-    "message": "indipendentemente da audio, dati di modulo o stato di appuntamento."
-  },
-  "html_options_always_suspend_tooltip_line2a": {
-    "message": "Una voce per riga, con le stesse regole di corrispondenza dell'elenco sopra (testo semplice"
-  },
-  "html_options_always_suspend_tooltip_line2b": {
-    "message": "che corrisponde in qualsiasi punto dell'URL, oppure /regex/ tra barre)."
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Una voce per riga, con le stesse regole di corrispondenza dell'elenco sopra (testo semplice che corrisponde in qualsiasi punto dell'URL, oppure /regex/ tra barre)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Aggiungi l'URL di ogni pagina che vuoi consentire su una nuova riga. Ad esempio:"
@@ -692,19 +617,13 @@
     "message": "Aggiunge i comandi di questa estensione al menu del clic destro di una pagina web."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Questo ti darà accesso ad azioni di sospensione avanzate non disponibili"
-  },
-  "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "altrove nell'estensione."
+    "message": "Questo ti darà accesso ad azioni di sospensione avanzate non disponibili altrove nell'estensione."
   },
   "html_options_other_enable_sync": {
     "message": "Sincronizza le impostazioni con il tuo profilo del browser"
   },
-  "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Le impostazioni dell'estensione verranno sincronizzate su tutti i browser"
-  },
-  "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "collegati con lo stesso profilo."
+  "html_options_other_enable_sync_tooltip_line1": {
+    "message": "Le impostazioni dell'estensione verranno sincronizzate su tutti i browser collegati con lo stesso profilo."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Questo sincronizzerà anche le impostazioni in modalità in incognito."
@@ -716,19 +635,10 @@
     "message": "Sospendi istantaneamente quando la memoria di sistema è molto bassa"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Questa opzione ha la precedenza sulla funzione automatica di scaricamento delle schede."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "Se abilitata, forzerà la sospensione di una scheda invece del suo scaricamento."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "In genere il browser scarica le schede solo quando la memoria di sistema diventa molto bassa."
+    "message": "Questa opzione ha la precedenza sulla funzione automatica di scaricamento delle schede. Se abilitata, forzerà la sospensione di una scheda invece del suo scaricamento. In genere il browser scarica le schede solo quando la memoria di sistema diventa molto bassa."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Nota bene: questo potrebbe far sospendere le schede prima del tempo che hai"
-  },
-  "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "specificato nelle opzioni di sospensione automatica delle schede."
+    "message": "Nota bene: questo potrebbe far sospendere le schede prima del tempo che hai specificato nelle opzioni di sospensione automatica delle schede."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Per maggiori informazioni sullo scaricamento delle schede, consulta:"
@@ -1148,23 +1058,11 @@
   "html_options_backup_enable": {
     "message": "Esegui automaticamente il backup della sessione"
   },
-  "html_options_backup_enable_tooltip_line1a": {
-    "message": "Salva silenziosamente una copia della sessione corrente come file JSON."
+  "html_options_backup_enable_tooltip_line1": {
+    "message": "Salva silenziosamente una copia della sessione corrente come file JSON. Scegli di salvare in locale (cartella tms-backups dentro Download) oppure in una cartella 'TMS Backups' su Google Drive."
   },
-  "html_options_backup_enable_tooltip_line1b": {
-    "message": "Scegli di salvare in locale (cartella tms-backups dentro Download)"
-  },
-  "html_options_backup_enable_tooltip_line1c": {
-    "message": "oppure in una cartella 'TMS Backups' su Google Drive."
-  },
-  "html_options_backup_enable_tooltip_line2a": {
-    "message": "Per i backup locali, Chrome deve essere impostato per scaricare i file automaticamente"
-  },
-  "html_options_backup_enable_tooltip_line2b": {
-    "message": "(senza chiedere conferma). Controlla chrome://settings/downloads."
-  },
-  "html_options_backup_enable_tooltip_line2c": {
-    "message": "I backup su Google Drive non hanno questo requisito."
+  "html_options_backup_enable_tooltip_line2": {
+    "message": "Per i backup locali, Chrome deve essere impostato per scaricare i file automaticamente (senza chiedere conferma). Controlla chrome://settings/downloads. I backup su Google Drive non hanno questo requisito."
   },
   "html_options_backup_interval": {
     "message": "Backup ogni"
@@ -1217,11 +1115,8 @@
   "html_options_other_enable_news_feed": {
     "message": "Abilita feed novità"
   },
-  "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "Controlla periodicamente marvellouscode.works per le novità su TMS e le mostra"
-  },
-  "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "nella barra laterale."
+  "html_options_other_enable_news_feed_tooltip_line1": {
+    "message": "Controlla periodicamente marvellouscode.works per le novità su TMS e le mostra nella barra laterale."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Disabilita per saltare questa richiesta in background."
@@ -1230,10 +1125,7 @@
     "message": "Usa la grafica classica di The Great Suspender invece della nuova mascotte"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Ripristina icone e illustrazioni allo stile originale di The Great"
-  },
-  "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "Suspender, dove è disponibile una versione precedente dell'immagine."
+    "message": "Ripristina icone e illustrazioni allo stile originale di The Great Suspender, dove è disponibile una versione precedente dell'immagine."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "Le immagini senza un equivalente precedente continuano a usare la nuova grafica."

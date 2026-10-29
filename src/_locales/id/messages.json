@@ -323,17 +323,11 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Tambahkan URL asli ke judul tab tertangguh"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "Jika diaktifkan, URL asli ditambahkan ke judul tab"
+  "html_options_suspended_append_url_to_title_tooltip_line1": {
+    "message": "Jika diaktifkan, URL asli ditambahkan ke judul tab browser untuk halaman yang ditangguhkan."
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "browser untuk halaman yang ditangguhkan."
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "Ini memungkinkan Anda menemukan tab tertangguh berdasarkan nama host menggunakan"
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "\"Cari Tab\" Chrome (Ctrl+Shift+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line2": {
+    "message": "Ini memungkinkan Anda menemukan tab tertangguh berdasarkan nama host menggunakan \"Cari Tab\" Chrome (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Pertahankan posisi pemutaran YouTube saat menangguhkan"
@@ -428,20 +422,11 @@
   "html_options_suspend_claim_by_default": {
     "message": "Ambil alih tab yang ditangguhkan oleh ekstensi lain"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Secara otomatis mengambil alih tab yang sudah ditangguhkan oleh ekstensi lain"
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Secara otomatis mengambil alih tab yang sudah ditangguhkan oleh ekstensi lain yang kompatibel (misalnya The Great Suspender, atau instalasi lain dari ekstensi ini)."
   },
-  "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "yang kompatibel (misalnya The Great Suspender, atau instalasi lain dari ekstensi ini)."
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "Sebuah tab dianggap \"tertangguh\" jika URL-nya mengandung 'suspended.html'."
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "Mengaktifkan ini menulis ulang URL tersebut ke instalasi ini agar TMS"
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "dapat mengelola tab tersebut selanjutnya."
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Sebuah tab dianggap \"tertangguh\" jika URL-nya mengandung 'suspended.html'. Mengaktifkan ini menulis ulang URL tersebut ke instalasi ini agar TMS dapat mengelola tab tersebut selanjutnya."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Jangan pernah tangguhkan tab saat terhubung ke sumber listrik"
@@ -455,17 +440,11 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Selalu buka kembali tab tertangguh tergulir ke atas"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "Tab dibuka kembali di bagian atas halaman, bukan di tempat"
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "Tab dibuka kembali di bagian atas halaman, bukan di tempat posisi gulir saat ditangguhkan."
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "posisi gulir saat ditangguhkan."
-  },
-  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Berlaku untuk penangguhan otomatis maupun manual, dan mengesampingkan"
-  },
-  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "tautan yang melompat ke #bagian saat dimuat."
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "Berlaku untuk penangguhan otomatis maupun manual, dan mengesampingkan tautan yang melompat ke #bagian saat dimuat."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Aktifkan kembali tab secara otomatis saat dilihat"
@@ -473,44 +452,23 @@
   "html_options_suspend_reload_unsuspend_background": {
     "message": "Muat ulang juga mengaktifkan kembali tab di latar belakang (tidak hanya tab aktif)"
   },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Jika diaktifkan, memuat ulang tab tertangguh (Ctrl+R atau klik kanan"
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
+    "message": "Jika diaktifkan, memuat ulang tab tertangguh (Ctrl+R atau klik kanan > Muat ulang) juga mengaktifkannya kembali meskipun bukan tab yang sedang difokuskan."
   },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "> Muat ulang) juga mengaktifkannya kembali meskipun bukan tab"
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "yang sedang difokuskan."
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Berguna untuk memuat ulang beberapa tab tertangguh sekaligus, misalnya setelah"
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "memilih beberapa tab dan menekan Ctrl+R."
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
+    "message": "Berguna untuk memuat ulang beberapa tab tertangguh sekaligus, misalnya setelah memilih beberapa tab dan menekan Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Terapkan penghematan memori bawaan browser saat menangguhkan"
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Setelah tab ditangguhkan, izinkan juga Chrome membongkarnya"
+  "html_options_suspend_discard_after_suspend_tooltip_line1": {
+    "message": "Setelah tab ditangguhkan, izinkan juga Chrome membongkarnya sepenuhnya dari memori. Ini membebaskan lebih banyak resource sistem per tab (berguna jika Anda membuka ratusan tab sekaligus)."
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "sepenuhnya dari memori. Ini membebaskan lebih banyak resource sistem"
+  "html_options_suspend_discard_after_suspend_tooltip_line2": {
+    "message": "Ini mengorbankan status tab hingga tab tersebut dimuat ulang."
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "per tab (berguna jika Anda membuka ratusan tab sekaligus)."
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Ini mengorbankan status tab hingga tab tersebut"
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "dimuat ulang."
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "Untuk informasi lebih lanjut tentang pembuangan tab, lihat:"
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line3b": {
-    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  "html_options_suspend_discard_after_suspend_tooltip_line3": {
+    "message": "Untuk informasi lebih lanjut tentang pembuangan tab, lihat: https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_options_suspend_theme": {
     "message": "Tema"
@@ -536,23 +494,14 @@
   "html_options_suspend_screen_capturing_entire_page": {
     "message": "Tangkap seluruh halaman"
   },
-  "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "Pada tab tertangguh, ekstensi dapat menampilkan pratinjau gambar tampilan tab"
+  "html_options_suspend_screen_capturing_tooltip_line1": {
+    "message": "Pada tab tertangguh, ekstensi dapat menampilkan pratinjau gambar tampilan tab tepat sebelum ditangguhkan."
   },
-  "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "tepat sebelum ditangguhkan."
+  "html_options_suspend_screen_capturing_tooltip_line2": {
+    "message": "Fitur penangkapan layar bersifat eksperimental dan dapat menyebabkan penggunaan CPU yang signifikan serta sedikit peningkatan penggunaan memori."
   },
-  "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "Fitur penangkapan layar bersifat eksperimental dan dapat menyebabkan penggunaan CPU yang signifikan"
-  },
-  "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "serta sedikit peningkatan penggunaan memori."
-  },
-  "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "Jika Anda melihat perilaku aneh seperti tab yang lama ditangguhkan, atau browser"
-  },
-  "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "mogok secara tak terduga, coba matikan fitur ini."
+  "html_options_suspend_screen_capturing_tooltip_line3": {
+    "message": "Jika Anda melihat perilaku aneh seperti tab yang lama ditangguhkan, atau browser mogok secara tak terduga, coba matikan fitur ini."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Metode penangkapan"
@@ -567,37 +516,22 @@
     "message": "Hanya perender halaman"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Otomatis mengambil screenshot browser sungguhan saat tab yang sedang ditangguhkan adalah tab yang sedang Anda lihat."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "Ini instan dan berfungsi di semua situs. Tab lainnya digambar ulang oleh perender halaman, yang lebih lambat."
+    "message": "Otomatis mengambil screenshot browser sungguhan saat tab yang sedang ditangguhkan adalah tab yang sedang Anda lihat. Ini instan dan berfungsi di semua situs. Tab lainnya digambar ulang oleh perender halaman, yang lebih lambat."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Hanya screenshot browser tidak pernah menjalankan perender halaman, sehingga tab yang ditangguhkan di latar belakang tidak mendapat pratinjau."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Screenshot browser hanya mencakup bagian halaman yang terlihat, bahkan jika 'Tangkap seluruh halaman' dipilih."
+    "message": "Hanya screenshot browser tidak pernah menjalankan perender halaman, sehingga tab yang ditangguhkan di latar belakang tidak mendapat pratinjau. Screenshot browser hanya mencakup bagian halaman yang terlihat, bahkan jika 'Tangkap seluruh halaman' dipilih."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Simpan screenshot terbaru dari tab saat saya menggunakannya"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Mengambil screenshot browser dari sebuah tab sekitar satu detik setelah Anda berpindah ke tab tersebut atau tab selesai dimuat,"
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "sehingga tab yang kemudian ditangguhkan di latar belakang tetap mendapat pratinjau."
+    "message": "Mengambil screenshot browser dari sebuah tab sekitar satu detik setelah Anda berpindah ke tab tersebut atau tab selesai dimuat, sehingga tab yang kemudian ditangguhkan di latar belakang tetap mendapat pratinjau."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome hanya mengizinkan ekstensi mengambil screenshot tab yang belum Anda klik tombolnya jika ekstensi memiliki akses ke semua situs,"
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "sehingga mengaktifkan ini meminta izin tersebut. Izin ini hanya digunakan untuk mengambil screenshot tersebut, yang tetap berada di komputer ini."
+    "message": "Chrome hanya mengizinkan ekstensi mengambil screenshot tab yang belum Anda klik tombolnya jika ekstensi memiliki akses ke semua situs, sehingga mengaktifkan ini meminta izin tersebut. Izin ini hanya digunakan untuk mengambil screenshot tersebut, yang tetap berada di komputer ini."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Hanya screenshot terbaru dari setiap tab terbuka yang disimpan, dan akan dihapus saat tab ditutup."
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Tab penyamaran dan situs dalam daftar putih tidak pernah ditangkap."
+    "message": "Hanya screenshot terbaru dari setiap tab terbuka yang disimpan, dan akan dihapus saat tab ditutup. Tab penyamaran dan situs dalam daftar putih tidak pernah ditangkap."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Aktifkan mode penangkapan layar kualitas tinggi"
@@ -615,10 +549,7 @@
     "message": "- Tinggi maksimum penangkapan layar dibatasi hingga 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Mengaktifkan mode penangkapan layar kualitas tinggi dapat meningkatkan beban CPU secara signifikan"
-  },
-  "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "dan penggunaan memori."
+    "message": "Mengaktifkan mode penangkapan layar kualitas tinggi dapat meningkatkan beban CPU secara signifikan dan penggunaan memori."
   },
   "html_options_whitelist_title": {
     "message": "Jangan pernah tangguhkan tab dengan URL dari daftar berikut:"
@@ -626,17 +557,11 @@
   "html_options_always_suspend_title": {
     "message": "Selalu tangguhkan tab dengan URL dari daftar berikut:"
   },
-  "html_options_always_suspend_tooltip_line1a": {
-    "message": "Tab yang cocok dengan daftar ini selalu ditangguhkan setelah waktu tunggu normal,"
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Tab yang cocok dengan daftar ini selalu ditangguhkan setelah waktu tunggu normal, terlepas dari audio, input formulir, atau status penyematan."
   },
-  "html_options_always_suspend_tooltip_line1b": {
-    "message": "terlepas dari audio, input formulir, atau status penyematan."
-  },
-  "html_options_always_suspend_tooltip_line2a": {
-    "message": "Satu entri per baris, dengan aturan pencocokan yang sama seperti daftar di atas (teks biasa"
-  },
-  "html_options_always_suspend_tooltip_line2b": {
-    "message": "cocok di mana saja dalam URL, atau /regex/ di antara garis miring)."
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Satu entri per baris, dengan aturan pencocokan yang sama seperti daftar di atas (teks biasa cocok di mana saja dalam URL, atau /regex/ di antara garis miring)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Tambahkan URL setiap halaman yang ingin Anda izinkan pada baris baru. Misalnya:"
@@ -692,19 +617,13 @@
     "message": "Menambahkan kontrol ekstensi ini ke menu klik kanan halaman web."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Ini akan memberi Anda akses ke tindakan penangguhan lanjutan yang tidak tersedia"
-  },
-  "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "di tempat lain dalam ekstensi."
+    "message": "Ini akan memberi Anda akses ke tindakan penangguhan lanjutan yang tidak tersedia di tempat lain dalam ekstensi."
   },
   "html_options_other_enable_sync": {
     "message": "Sinkronkan pengaturan dengan profil browser Anda"
   },
-  "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Pengaturan ekstensi akan disinkronkan di semua browser yang masuk"
-  },
-  "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "dengan profil yang sama."
+  "html_options_other_enable_sync_tooltip_line1": {
+    "message": "Pengaturan ekstensi akan disinkronkan di semua browser yang masuk dengan profil yang sama."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Ini juga akan menyinkronkan pengaturan dalam mode penyamaran."
@@ -716,19 +635,10 @@
     "message": "Tangguhkan seketika saat memori sistem sangat rendah"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Opsi ini akan mengesampingkan fungsi pembuangan tab otomatis."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "Jika diaktifkan, ini akan memaksa tab untuk ditangguhkan alih-alih dibuang."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Biasanya, browser Anda hanya membuang tab saat memori sistem sangat rendah."
+    "message": "Opsi ini akan mengesampingkan fungsi pembuangan tab otomatis. Jika diaktifkan, ini akan memaksa tab untuk ditangguhkan alih-alih dibuang. Biasanya, browser Anda hanya membuang tab saat memori sistem sangat rendah."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Harap dicatat: ini dapat menyebabkan tab ditangguhkan lebih awal dari waktu yang telah Anda"
-  },
-  "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "tentukan dalam opsi penangguhan tab otomatis."
+    "message": "Harap dicatat: ini dapat menyebabkan tab ditangguhkan lebih awal dari waktu yang telah Anda tentukan dalam opsi penangguhan tab otomatis."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Untuk informasi lebih lanjut tentang pembuangan tab, lihat:"
@@ -1148,23 +1058,11 @@
   "html_options_backup_enable": {
     "message": "Cadangkan sesi Anda secara otomatis"
   },
-  "html_options_backup_enable_tooltip_line1a": {
-    "message": "Menyimpan salinan sesi Anda saat ini secara diam-diam sebagai file JSON."
+  "html_options_backup_enable_tooltip_line1": {
+    "message": "Menyimpan salinan sesi Anda saat ini secara diam-diam sebagai file JSON. Pilih untuk menyimpan secara lokal (folder tms-backups di dalam Unduhan Anda) atau ke folder 'TMS Backups' di Google Drive."
   },
-  "html_options_backup_enable_tooltip_line1b": {
-    "message": "Pilih untuk menyimpan secara lokal (folder tms-backups di dalam Unduhan Anda)"
-  },
-  "html_options_backup_enable_tooltip_line1c": {
-    "message": "atau ke folder 'TMS Backups' di Google Drive."
-  },
-  "html_options_backup_enable_tooltip_line2a": {
-    "message": "Untuk cadangan lokal, Chrome harus diatur untuk mengunduh file secara otomatis"
-  },
-  "html_options_backup_enable_tooltip_line2b": {
-    "message": "(tanpa bertanya). Periksa chrome://settings/downloads."
-  },
-  "html_options_backup_enable_tooltip_line2c": {
-    "message": "Cadangan Google Drive tidak memiliki persyaratan tersebut."
+  "html_options_backup_enable_tooltip_line2": {
+    "message": "Untuk cadangan lokal, Chrome harus diatur untuk mengunduh file secara otomatis (tanpa bertanya). Periksa chrome://settings/downloads. Cadangan Google Drive tidak memiliki persyaratan tersebut."
   },
   "html_options_backup_interval": {
     "message": "Cadangkan setiap"
@@ -1217,11 +1115,8 @@
   "html_options_other_enable_news_feed": {
     "message": "Aktifkan feed berita"
   },
-  "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "Secara berkala memeriksa marvellouscode.works untuk berita TMS dan menampilkannya"
-  },
-  "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "di bilah sisi."
+  "html_options_other_enable_news_feed_tooltip_line1": {
+    "message": "Secara berkala memeriksa marvellouscode.works untuk berita TMS dan menampilkannya di bilah sisi."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Nonaktifkan untuk melewati permintaan latar belakang ini."
@@ -1230,10 +1125,7 @@
     "message": "Gunakan gambar klasik The Great Suspender alih-alih maskot baru"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Mengembalikan ikon dan ilustrasi ke gaya The Great Suspender"
-  },
-  "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "asli, jika versi lama gambar tersedia."
+    "message": "Mengembalikan ikon dan ilustrasi ke gaya The Great Suspender asli, jika versi lama gambar tersedia."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "Gambar tanpa padanan lama tetap menggunakan gambar baru."
