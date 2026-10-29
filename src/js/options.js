@@ -141,6 +141,7 @@ import  { tgs }                   from './tgs.js';
       setScreenCaptureOptionsVisibility(settings[gsStorage.SCREEN_CAPTURE] !== '0');
       setAutoSuspendOptionsVisibility(parseFloat(settings[gsStorage.SUSPEND_TIME]) > 0);
       setSyncNoteVisibility(!settings[gsStorage.SYNC_SETTINGS]);
+      setStartupTabChecksWarningVisibility(settings[gsStorage.STARTUP_TAB_CHECKS]);
 
       const searchParams = new URL(location.href).searchParams;
       const isFirstTime = searchParams.has('firstTime');
@@ -262,6 +263,12 @@ import  { tgs }                   from './tgs.js';
     document.getElementById('screenCapturePrecaptureContainer').classList.toggle('hidden', !usesNative);
   }
 
+  // The warning is about raising the value, so it shows only above the default.
+  function setStartupTabChecksWarningVisibility(value) {
+    const raised = gsStorage.normalizeStartupTabChecks(value) > gsStorage.STARTUP_TAB_CHECKS_DEFAULT;
+    document.getElementById('startupTabChecksWarning').classList.toggle('hidden', !raised);
+  }
+
   function setSyncNoteVisibility(visible) {
     document.getElementById('syncNote').classList.toggle('hidden', !visible);
   }
@@ -301,6 +308,9 @@ import  { tgs }                   from './tgs.js';
       else if (pref === gsStorage.SUSPEND_TIME) {
         const interval = getOptionValue(element);
         setAutoSuspendOptionsVisibility(interval > 0);
+      }
+      else if (pref === gsStorage.STARTUP_TAB_CHECKS) {
+        setStartupTabChecksWarningVisibility(getOptionValue(element));
       }
       else if (pref === gsStorage.SYNC_SETTINGS) {
         // we only really want to show this on load. not on toggle

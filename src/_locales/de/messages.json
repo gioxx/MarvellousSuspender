@@ -323,17 +323,11 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Ursprüngliche URL an den Titel des ausgesetzten Tabs anhängen"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "Wenn aktiviert, wird die ursprüngliche URL an den Titel des Browser-Tabs"
+  "html_options_suspended_append_url_to_title_tooltip_line1": {
+    "message": "Wenn aktiviert, wird die ursprüngliche URL an den Titel des Browser-Tabs ausgesetzter Seiten angehängt."
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "ausgesetzter Seiten angehängt."
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "So können ausgesetzte Tabs über den Hostnamen mit Chromes"
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "„Tabs durchsuchen“ (Strg+Umschalt+A) gefunden werden."
+  "html_options_suspended_append_url_to_title_tooltip_line2": {
+    "message": "So können ausgesetzte Tabs über den Hostnamen mit Chromes „Tabs durchsuchen“ (Strg+Umschalt+A) gefunden werden."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "YouTube-Wiedergabeposition beim Aussetzen beibehalten"
@@ -428,20 +422,11 @@
   "html_options_suspend_claim_by_default": {
     "message": "Von anderen Erweiterungen ausgesetzte Tabs übernehmen"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Übernimmt automatisch Tabs, die bereits von einer anderen kompatiblen"
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Übernimmt automatisch Tabs, die bereits von einer anderen kompatiblen Erweiterung ausgesetzt wurden (z. B. The Great Suspender oder eine andere Installation dieser)."
   },
-  "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "Erweiterung ausgesetzt wurden (z. B. The Great Suspender oder eine andere Installation dieser)."
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "Ein Tab gilt als „ausgesetzt“, wenn seine URL 'suspended.html' enthält."
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "Wenn Sie dies aktivieren, wird diese URL auf diese Installation umgeschrieben,"
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "sodass TMS den Tab künftig verwalten kann."
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Ein Tab gilt als „ausgesetzt“, wenn seine URL 'suspended.html' enthält. Wenn Sie dies aktivieren, wird diese URL auf diese Installation umgeschrieben, sodass TMS den Tab künftig verwalten kann."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Tabs bei Netzbetrieb nie aussetzen"
@@ -455,17 +440,11 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Ausgesetzte Tabs immer nach oben gescrollt wieder öffnen"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "Der Tab wird oben auf der Seite geöffnet, statt an der Stelle,"
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "Der Tab wird oben auf der Seite geöffnet, statt an der Stelle, an der beim Aussetzen gescrollt war."
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "an der beim Aussetzen gescrollt war."
-  },
-  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Gilt sowohl für automatische als auch manuelle Aussetzung und überschreibt"
-  },
-  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "Links, die beim Laden zu einem #Abschnitt springen."
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "Gilt sowohl für automatische als auch manuelle Aussetzung und überschreibt Links, die beim Laden zu einem #Abschnitt springen."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Tab automatisch reaktivieren, wenn er angezeigt wird"
@@ -473,44 +452,23 @@
   "html_options_suspend_reload_unsuspend_background": {
     "message": "Neu laden reaktiviert auch Tabs im Hintergrund (nicht nur den aktiven Tab)"
   },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Wenn aktiviert, reaktiviert das Neuladen eines ausgesetzten Tabs (Strg+R oder Rechtsklick"
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
+    "message": "Wenn aktiviert, reaktiviert das Neuladen eines ausgesetzten Tabs (Strg+R oder Rechtsklick > Neu laden) diesen auch dann, wenn er nicht der aktuell fokussierte Tab ist."
   },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "> Neu laden) diesen auch dann, wenn er nicht der aktuell"
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "fokussierte Tab ist."
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Nützlich, um mehrere ausgesetzte Tabs auf einmal neu zu laden, z. B. nachdem"
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "mehrere Tabs ausgewählt und Strg+R gedrückt wurde."
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
+    "message": "Nützlich, um mehrere ausgesetzte Tabs auf einmal neu zu laden, z. B. nachdem mehrere Tabs ausgewählt und Strg+R gedrückt wurde."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Beim Aussetzen die eingebaute Speicherersparnis des Browsers anwenden"
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Sobald ein Tab ausgesetzt wurde, lässt dies Chrome ihn zusätzlich vollständig"
+  "html_options_suspend_discard_after_suspend_tooltip_line1": {
+    "message": "Sobald ein Tab ausgesetzt wurde, lässt dies Chrome ihn zusätzlich vollständig aus dem Speicher entladen. Das gibt mehr Systemressourcen pro Tab frei (nützlich, wenn Sie Hunderte von Tabs offen halten)."
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "aus dem Speicher entladen. Das gibt mehr Systemressourcen pro Tab frei"
+  "html_options_suspend_discard_after_suspend_tooltip_line2": {
+    "message": "Das hat zur Folge, dass der Tab-Zustand verloren geht, bis der Tab neu geladen wird."
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "(nützlich, wenn Sie Hunderte von Tabs offen halten)."
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Das hat zur Folge, dass der Tab-Zustand verloren geht, bis der"
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "Tab neu geladen wird."
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "Weitere Informationen zur Tab-Entladung finden Sie hier:"
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line3b": {
-    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  "html_options_suspend_discard_after_suspend_tooltip_line3": {
+    "message": "Weitere Informationen zur Tab-Entladung finden Sie hier: https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_options_suspend_theme": {
     "message": "Design"
@@ -536,23 +494,14 @@
   "html_options_suspend_screen_capturing_entire_page": {
     "message": "Gesamte Seite aufnehmen"
   },
-  "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "Bei einem ausgesetzten Tab kann die Erweiterung eine Bildvorschau davon anzeigen, wie der Tab"
+  "html_options_suspend_screen_capturing_tooltip_line1": {
+    "message": "Bei einem ausgesetzten Tab kann die Erweiterung eine Bildvorschau davon anzeigen, wie der Tab kurz vor der Aussetzung aussah."
   },
-  "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "kurz vor der Aussetzung aussah."
+  "html_options_suspend_screen_capturing_tooltip_line2": {
+    "message": "Die Bildschirmaufnahme ist experimentell und kann eine erhebliche CPU-Auslastung sowie einen leicht erhöhten Speicherverbrauch verursachen."
   },
-  "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "Die Bildschirmaufnahme ist experimentell und kann eine erhebliche CPU-Auslastung"
-  },
-  "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "sowie einen leicht erhöhten Speicherverbrauch verursachen."
-  },
-  "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "Wenn Sie ungewöhnliches Verhalten bemerken, z. B. Tabs, die lange zum Aussetzen brauchen, oder"
-  },
-  "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "der Browser unerwartet abstürzt, versuchen Sie, diese Funktion zu deaktivieren."
+  "html_options_suspend_screen_capturing_tooltip_line3": {
+    "message": "Wenn Sie ungewöhnliches Verhalten bemerken, z. B. Tabs, die lange zum Aussetzen brauchen, oder der Browser unerwartet abstürzt, versuchen Sie, diese Funktion zu deaktivieren."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Aufnahmemethode"
@@ -567,37 +516,22 @@
     "message": "Nur Seiten-Renderer"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automatisch macht einen echten Browser-Screenshot, wenn der Tab, der ausgesetzt wird, gerade der ist, den Sie betrachten."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "Das geht sofort und funktioniert auf jeder Website. Jeder andere Tab wird vom Seiten-Renderer neu gezeichnet, was langsamer ist."
+    "message": "Automatisch macht einen echten Browser-Screenshot, wenn der Tab, der ausgesetzt wird, gerade der ist, den Sie betrachten. Das geht sofort und funktioniert auf jeder Website. Jeder andere Tab wird vom Seiten-Renderer neu gezeichnet, was langsamer ist."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Nur Browser-Screenshot führt nie den Seiten-Renderer aus, sodass im Hintergrund ausgesetzte Tabs keine Vorschau erhalten."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Ein Browser-Screenshot deckt selbst mit ausgewähltem „Gesamte Seite aufnehmen“ nur den sichtbaren Teil der Seite ab."
+    "message": "Nur Browser-Screenshot führt nie den Seiten-Renderer aus, sodass im Hintergrund ausgesetzte Tabs keine Vorschau erhalten. Ein Browser-Screenshot deckt selbst mit ausgewähltem „Gesamte Seite aufnehmen“ nur den sichtbaren Teil der Seite ab."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Einen aktuellen Screenshot der Tabs während der Nutzung vorhalten"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Macht etwa eine Sekunde, nachdem Sie zu einem Tab wechseln oder er fertig geladen ist, einen Browser-Screenshot davon,"
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "sodass Tabs, die später im Hintergrund ausgesetzt werden, trotzdem eine Vorschau erhalten."
+    "message": "Macht etwa eine Sekunde, nachdem Sie zu einem Tab wechseln oder er fertig geladen ist, einen Browser-Screenshot davon, sodass Tabs, die später im Hintergrund ausgesetzt werden, trotzdem eine Vorschau erhalten."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome erlaubt einer Erweiterung nur dann, einen Screenshot eines Tabs zu machen, dessen Button Sie nicht angeklickt haben, wenn sie Zugriff auf alle Websites hat,"
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "daher fordert das Aktivieren dieser Option diese Berechtigung an. Sie wird nur zum Erstellen dieser Screenshots genutzt, die auf diesem Computer verbleiben."
+    "message": "Chrome erlaubt einer Erweiterung nur dann, einen Screenshot eines Tabs zu machen, dessen Button Sie nicht angeklickt haben, wenn sie Zugriff auf alle Websites hat, daher fordert das Aktivieren dieser Option diese Berechtigung an. Sie wird nur zum Erstellen dieser Screenshots genutzt, die auf diesem Computer verbleiben."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Nur der neueste Screenshot jedes offenen Tabs wird behalten und beim Schließen des Tabs gelöscht."
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Inkognito-Tabs und Seiten auf der Whitelist werden nie aufgenommen."
+    "message": "Nur der neueste Screenshot jedes offenen Tabs wird behalten und beim Schließen des Tabs gelöscht. Inkognito-Tabs und Seiten auf der Whitelist werden nie aufgenommen."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Hochwertigen Bildschirmaufnahmemodus aktivieren"
@@ -615,10 +549,7 @@
     "message": "- Maximale Höhe der Bildschirmaufnahme auf 5000px begrenzt"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Die Aktivierung des hochwertigen Bildschirmaufnahmemodus kann die CPU-Auslastung"
-  },
-  "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "und den Speicherverbrauch erheblich erhöhen."
+    "message": "Die Aktivierung des hochwertigen Bildschirmaufnahmemodus kann die CPU-Auslastung und den Speicherverbrauch erheblich erhöhen."
   },
   "html_options_whitelist_title": {
     "message": "Tabs mit URLs aus der folgenden Liste nie aussetzen:"
@@ -626,17 +557,11 @@
   "html_options_always_suspend_title": {
     "message": "Tabs mit URLs aus der folgenden Liste immer aussetzen:"
   },
-  "html_options_always_suspend_tooltip_line1a": {
-    "message": "Tabs, die dieser Liste entsprechen, werden immer nach dem normalen Timeout ausgesetzt,"
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Tabs, die dieser Liste entsprechen, werden immer nach dem normalen Timeout ausgesetzt, unabhängig von Audio, Formulareingabe oder Anheftungsstatus."
   },
-  "html_options_always_suspend_tooltip_line1b": {
-    "message": "unabhängig von Audio, Formulareingabe oder Anheftungsstatus."
-  },
-  "html_options_always_suspend_tooltip_line2a": {
-    "message": "Ein Eintrag pro Zeile, mit denselben Regeln wie in der obigen Liste (einfacher Text,"
-  },
-  "html_options_always_suspend_tooltip_line2b": {
-    "message": "der irgendwo in der URL passt, oder /regex/ zwischen Schrägstrichen)."
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Ein Eintrag pro Zeile, mit denselben Regeln wie in der obigen Liste (einfacher Text, der irgendwo in der URL passt, oder /regex/ zwischen Schrägstrichen)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Fügen Sie die URL jeder Seite, die Sie zulassen möchten, in einer neuen Zeile hinzu. Zum Beispiel:"
@@ -692,19 +617,13 @@
     "message": "Fügt dem Rechtsklick-Menü einer Webseite Steuerelemente dieser Erweiterung hinzu."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Dies gibt Ihnen Zugriff auf erweiterte Aussetzungsaktionen, die"
-  },
-  "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "sonst nirgendwo in der Erweiterung verfügbar sind."
+    "message": "Dies gibt Ihnen Zugriff auf erweiterte Aussetzungsaktionen, die sonst nirgendwo in der Erweiterung verfügbar sind."
   },
   "html_options_other_enable_sync": {
     "message": "Einstellungen mit Ihrem Browserprofil synchronisieren"
   },
-  "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Die Erweiterungseinstellungen werden auf allen Browsern synchronisiert,"
-  },
-  "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "die mit demselben Profil angemeldet sind."
+  "html_options_other_enable_sync_tooltip_line1": {
+    "message": "Die Erweiterungseinstellungen werden auf allen Browsern synchronisiert, die mit demselben Profil angemeldet sind."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Dies synchronisiert die Einstellungen auch im Inkognito-Modus."
@@ -716,19 +635,10 @@
     "message": "Sofort aussetzen, wenn der Systemspeicher sehr knapp wird"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Diese Option setzt die automatische Tab-Entladung außer Kraft."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "Wenn aktiviert, wird ein Tab zwangsweise ausgesetzt statt entladen."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Normalerweise entlädt Ihr Browser Tabs erst, wenn der Systemspeicher sehr knapp wird."
+    "message": "Diese Option setzt die automatische Tab-Entladung außer Kraft. Wenn aktiviert, wird ein Tab zwangsweise ausgesetzt statt entladen. Normalerweise entlädt Ihr Browser Tabs erst, wenn der Systemspeicher sehr knapp wird."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Bitte beachten Sie: Dies kann dazu führen, dass Tabs früher ausgesetzt werden als die"
-  },
-  "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "in den Optionen zur automatischen Tab-Aussetzung angegebene Zeit."
+    "message": "Bitte beachten Sie: Dies kann dazu führen, dass Tabs früher ausgesetzt werden als die in den Optionen zur automatischen Tab-Aussetzung angegebene Zeit."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Weitere Informationen zur Tab-Entladung finden Sie hier:"
@@ -1148,23 +1058,11 @@
   "html_options_backup_enable": {
     "message": "Ihre Sitzung automatisch sichern"
   },
-  "html_options_backup_enable_tooltip_line1a": {
-    "message": "Speichert im Hintergrund still eine Kopie Ihrer aktuellen Sitzung als JSON-Datei."
+  "html_options_backup_enable_tooltip_line1": {
+    "message": "Speichert im Hintergrund still eine Kopie Ihrer aktuellen Sitzung als JSON-Datei. Wählen Sie lokale Speicherung (Ordner tms-backups in Ihren Downloads) oder einen Ordner 'TMS Backups' auf Google Drive."
   },
-  "html_options_backup_enable_tooltip_line1b": {
-    "message": "Wählen Sie lokale Speicherung (Ordner tms-backups in Ihren Downloads)"
-  },
-  "html_options_backup_enable_tooltip_line1c": {
-    "message": "oder einen Ordner 'TMS Backups' auf Google Drive."
-  },
-  "html_options_backup_enable_tooltip_line2a": {
-    "message": "Für lokale Sicherungen muss Chrome so eingestellt sein, dass Dateien automatisch"
-  },
-  "html_options_backup_enable_tooltip_line2b": {
-    "message": "heruntergeladen werden (ohne Nachfrage). Prüfen Sie chrome://settings/downloads."
-  },
-  "html_options_backup_enable_tooltip_line2c": {
-    "message": "Google Drive-Sicherungen haben diese Anforderung nicht."
+  "html_options_backup_enable_tooltip_line2": {
+    "message": "Für lokale Sicherungen muss Chrome so eingestellt sein, dass Dateien automatisch heruntergeladen werden (ohne Nachfrage). Prüfen Sie chrome://settings/downloads. Google Drive-Sicherungen haben diese Anforderung nicht."
   },
   "html_options_backup_interval": {
     "message": "Sicherung alle"
@@ -1217,11 +1115,8 @@
   "html_options_other_enable_news_feed": {
     "message": "News-Feed aktivieren"
   },
-  "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "Prüft regelmäßig marvellouscode.works auf TMS-Neuigkeiten und zeigt sie"
-  },
-  "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "in der Seitenleiste an."
+  "html_options_other_enable_news_feed_tooltip_line1": {
+    "message": "Prüft regelmäßig marvellouscode.works auf TMS-Neuigkeiten und zeigt sie in der Seitenleiste an."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Deaktivieren, um diese Hintergrundanfrage zu überspringen."
@@ -1230,10 +1125,7 @@
     "message": "Die klassische The Great Suspender-Grafik statt des neuen Maskottchens verwenden"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Stellt Symbole und Illustrationen auf den ursprünglichen The Great"
-  },
-  "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "Suspender-Stil zurück, sofern eine ältere Version des Bildes verfügbar ist."
+    "message": "Stellt Symbole und Illustrationen auf den ursprünglichen The Great Suspender-Stil zurück, sofern eine ältere Version des Bildes verfügbar ist."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "Bilder ohne ältere Entsprechung verwenden weiterhin die neue Grafik."

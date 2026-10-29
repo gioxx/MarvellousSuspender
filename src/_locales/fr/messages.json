@@ -323,17 +323,11 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Ajouter l'URL d'origine au titre de l'onglet suspendu"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "Lorsque cette option est activée, l'URL d'origine est ajoutée au titre de l'onglet"
+  "html_options_suspended_append_url_to_title_tooltip_line1": {
+    "message": "Lorsque cette option est activée, l'URL d'origine est ajoutée au titre de l'onglet du navigateur pour les pages suspendues."
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "du navigateur pour les pages suspendues."
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "Cela permet de retrouver les onglets suspendus par nom d'hôte grâce à la fonction"
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "« Rechercher des onglets » de Chrome (Ctrl+Maj+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line2": {
+    "message": "Cela permet de retrouver les onglets suspendus par nom d'hôte grâce à la fonction « Rechercher des onglets » de Chrome (Ctrl+Maj+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Conserver la position de lecture YouTube lors de la suspension"
@@ -428,20 +422,11 @@
   "html_options_suspend_claim_by_default": {
     "message": "Prendre en charge les onglets suspendus par d'autres extensions"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Prend automatiquement le contrôle des onglets déjà suspendus par une autre extension"
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Prend automatiquement le contrôle des onglets déjà suspendus par une autre extension compatible (par ex. The Great Suspender, ou une autre installation de celle-ci)."
   },
-  "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "compatible (par ex. The Great Suspender, ou une autre installation de celle-ci)."
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "Un onglet est considéré comme « suspendu » si son URL contient 'suspended.html'."
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "Activer cette option réécrit cette URL pour cette installation, afin que"
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "TMS puisse gérer l'onglet désormais."
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Un onglet est considéré comme « suspendu » si son URL contient 'suspended.html'. Activer cette option réécrit cette URL pour cette installation, afin que TMS puisse gérer l'onglet désormais."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Ne jamais suspendre les onglets lorsque branché sur secteur"
@@ -455,17 +440,11 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Toujours rouvrir les onglets suspendus défilés en haut de page"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "L'onglet se rouvre en haut de la page au lieu de l'endroit où il était"
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "L'onglet se rouvre en haut de la page au lieu de l'endroit où il était défilé au moment de la suspension."
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "défilé au moment de la suspension."
-  },
-  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "S'applique à la fois à la suspension automatique et manuelle, et prime sur"
-  },
-  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "les liens qui pointent vers une #section au chargement."
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "S'applique à la fois à la suspension automatique et manuelle, et prime sur les liens qui pointent vers une #section au chargement."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Réactiver automatiquement l'onglet lorsqu'il est consulté"
@@ -473,44 +452,23 @@
   "html_options_suspend_reload_unsuspend_background": {
     "message": "Le rechargement réactive aussi les onglets en arrière-plan (pas seulement l'onglet actif)"
   },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Lorsque cette option est activée, recharger un onglet suspendu (Ctrl+R ou clic droit"
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
+    "message": "Lorsque cette option est activée, recharger un onglet suspendu (Ctrl+R ou clic droit > Recharger) le réactive même s'il n'est pas l'onglet actuellement en focus."
   },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "> Recharger) le réactive même s'il n'est pas l'onglet"
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "actuellement en focus."
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Utile pour recharger plusieurs onglets suspendus à la fois, par exemple après"
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "avoir sélectionné plusieurs onglets et appuyé sur Ctrl+R."
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
+    "message": "Utile pour recharger plusieurs onglets suspendus à la fois, par exemple après avoir sélectionné plusieurs onglets et appuyé sur Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Appliquer l'économie de mémoire intégrée du navigateur lors de la suspension"
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Une fois un onglet suspendu, laissez aussi Chrome le décharger"
+  "html_options_suspend_discard_after_suspend_tooltip_line1": {
+    "message": "Une fois un onglet suspendu, laissez aussi Chrome le décharger complètement de la mémoire. Cela libère plus de ressources système par onglet (utile si vous gardez des centaines d'onglets ouverts)."
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "complètement de la mémoire. Cela libère plus de ressources système par"
+  "html_options_suspend_discard_after_suspend_tooltip_line2": {
+    "message": "Cela se fait au prix de la perte de l'état de l'onglet jusqu'à son rechargement."
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "onglet (utile si vous gardez des centaines d'onglets ouverts)."
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "Cela se fait au prix de la perte de l'état de l'onglet jusqu'à"
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "son rechargement."
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "Pour plus d'informations sur la décharge d'onglets, consultez :"
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line3b": {
-    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  "html_options_suspend_discard_after_suspend_tooltip_line3": {
+    "message": "Pour plus d'informations sur la décharge d'onglets, consultez : https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_options_suspend_theme": {
     "message": "Thème"
@@ -536,23 +494,14 @@
   "html_options_suspend_screen_capturing_entire_page": {
     "message": "Capturer la page entière"
   },
-  "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "Sur un onglet suspendu, l'extension peut afficher un aperçu de l'apparence de l'onglet"
+  "html_options_suspend_screen_capturing_tooltip_line1": {
+    "message": "Sur un onglet suspendu, l'extension peut afficher un aperçu de l'apparence de l'onglet juste avant sa suspension."
   },
-  "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "juste avant sa suspension."
+  "html_options_suspend_screen_capturing_tooltip_line2": {
+    "message": "La capture d'écran est une fonctionnalité expérimentale et peut entraîner une utilisation importante du processeur, ainsi qu'une légère augmentation de l'utilisation de la mémoire."
   },
-  "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "La capture d'écran est une fonctionnalité expérimentale et peut entraîner une utilisation importante du processeur,"
-  },
-  "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "ainsi qu'une légère augmentation de l'utilisation de la mémoire."
-  },
-  "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "Si vous remarquez un comportement étrange, comme des onglets qui mettent longtemps à se suspendre, ou le navigateur"
-  },
-  "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "qui plante de manière inattendue, essayez de désactiver cette fonctionnalité."
+  "html_options_suspend_screen_capturing_tooltip_line3": {
+    "message": "Si vous remarquez un comportement étrange, comme des onglets qui mettent longtemps à se suspendre, ou le navigateur qui plante de manière inattendue, essayez de désactiver cette fonctionnalité."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Méthode de capture"
@@ -567,37 +516,22 @@
     "message": "Moteur de rendu de page uniquement"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automatique prend une vraie capture d'écran du navigateur lorsque l'onglet en cours de suspension est celui que vous regardez."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "C'est instantané et fonctionne sur tous les sites. Tout autre onglet est redessiné par le moteur de rendu de page, qui est plus lent."
+    "message": "Automatique prend une vraie capture d'écran du navigateur lorsque l'onglet en cours de suspension est celui que vous regardez. C'est instantané et fonctionne sur tous les sites. Tout autre onglet est redessiné par le moteur de rendu de page, qui est plus lent."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Capture d'écran du navigateur uniquement n'exécute jamais le moteur de rendu de page, les onglets suspendus en arrière-plan n'ont donc pas d'aperçu."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Une capture d'écran du navigateur ne couvre que la partie visible de la page, même avec « Capturer la page entière » sélectionné."
+    "message": "Capture d'écran du navigateur uniquement n'exécute jamais le moteur de rendu de page, les onglets suspendus en arrière-plan n'ont donc pas d'aperçu. Une capture d'écran du navigateur ne couvre que la partie visible de la page, même avec « Capturer la page entière » sélectionné."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Conserver une capture récente des onglets pendant que je les utilise"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Prend une capture d'écran du navigateur d'un onglet environ une seconde après que vous y passez ou qu'il termine de se charger,"
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "afin que les onglets suspendus plus tard en arrière-plan aient tout de même un aperçu."
+    "message": "Prend une capture d'écran du navigateur d'un onglet environ une seconde après que vous y passez ou qu'il termine de se charger, afin que les onglets suspendus plus tard en arrière-plan aient tout de même un aperçu."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome ne permet à une extension de capturer un onglet sur lequel vous n'avez pas cliqué le bouton que si elle a accès à tous les sites,"
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "donc activer cette option demande cette autorisation. Elle sert uniquement à prendre ces captures, qui restent sur cet ordinateur."
+    "message": "Chrome ne permet à une extension de capturer un onglet sur lequel vous n'avez pas cliqué le bouton que si elle a accès à tous les sites, donc activer cette option demande cette autorisation. Elle sert uniquement à prendre ces captures, qui restent sur cet ordinateur."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Seule la dernière capture de chaque onglet ouvert est conservée, et elle est supprimée à la fermeture de l'onglet."
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Les onglets de navigation privée et les sites de la liste blanche ne sont jamais capturés."
+    "message": "Seule la dernière capture de chaque onglet ouvert est conservée, et elle est supprimée à la fermeture de l'onglet. Les onglets de navigation privée et les sites de la liste blanche ne sont jamais capturés."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Activer le mode de capture d'écran haute qualité"
@@ -615,10 +549,7 @@
     "message": "- Hauteur maximale de la capture d'écran limitée à 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Activer le mode de capture d'écran haute qualité peut augmenter significativement la charge du processeur"
-  },
-  "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "et l'utilisation de la mémoire."
+    "message": "Activer le mode de capture d'écran haute qualité peut augmenter significativement la charge du processeur et l'utilisation de la mémoire."
   },
   "html_options_whitelist_title": {
     "message": "Ne jamais suspendre les onglets dont l'URL figure dans la liste suivante :"
@@ -626,17 +557,11 @@
   "html_options_always_suspend_title": {
     "message": "Toujours suspendre les onglets dont l'URL figure dans la liste suivante :"
   },
-  "html_options_always_suspend_tooltip_line1a": {
-    "message": "Les onglets correspondant à cette liste se suspendent toujours après le délai normal,"
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Les onglets correspondant à cette liste se suspendent toujours après le délai normal, quel que soit l'audio, la saisie de formulaire ou l'état d'épinglage."
   },
-  "html_options_always_suspend_tooltip_line1b": {
-    "message": "quel que soit l'audio, la saisie de formulaire ou l'état d'épinglage."
-  },
-  "html_options_always_suspend_tooltip_line2a": {
-    "message": "Une entrée par ligne, avec les mêmes règles de correspondance que la liste ci-dessus (texte brut"
-  },
-  "html_options_always_suspend_tooltip_line2b": {
-    "message": "correspondant n'importe où dans l'URL, ou /regex/ entre barres obliques)."
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Une entrée par ligne, avec les mêmes règles de correspondance que la liste ci-dessus (texte brut correspondant n'importe où dans l'URL, ou /regex/ entre barres obliques)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Ajoutez l'URL de chaque page que vous souhaitez autoriser sur une nouvelle ligne. Par exemple :"
@@ -692,19 +617,13 @@
     "message": "Ajoute des commandes de cette extension au menu du clic droit d'une page web."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Cela vous donnera accès à des actions de suspension avancées non disponibles"
-  },
-  "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "ailleurs dans l'extension."
+    "message": "Cela vous donnera accès à des actions de suspension avancées non disponibles ailleurs dans l'extension."
   },
   "html_options_other_enable_sync": {
     "message": "Synchroniser les paramètres avec votre profil de navigateur"
   },
-  "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Les paramètres de l'extension seront synchronisés sur tous les navigateurs connectés"
-  },
-  "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "avec le même profil."
+  "html_options_other_enable_sync_tooltip_line1": {
+    "message": "Les paramètres de l'extension seront synchronisés sur tous les navigateurs connectés avec le même profil."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Cela synchronisera aussi les paramètres en mode navigation privée."
@@ -716,19 +635,10 @@
     "message": "Suspendre instantanément lorsque la mémoire système devient très faible"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Cette option remplacera la fonction automatique de décharge d'onglets."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "Si elle est activée, elle forcera la suspension d'un onglet au lieu de le décharger."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Normalement, votre navigateur ne décharge les onglets que lorsque la mémoire système devient très faible."
+    "message": "Cette option remplacera la fonction automatique de décharge d'onglets. Si elle est activée, elle forcera la suspension d'un onglet au lieu de le décharger. Normalement, votre navigateur ne décharge les onglets que lorsque la mémoire système devient très faible."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Veuillez noter : cela peut entraîner la suspension d'onglets plus tôt que le délai que vous avez"
-  },
-  "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "indiqué dans les options de suspension automatique des onglets."
+    "message": "Veuillez noter : cela peut entraîner la suspension d'onglets plus tôt que le délai que vous avez indiqué dans les options de suspension automatique des onglets."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Pour plus d'informations sur la décharge d'onglets, consultez :"
@@ -1148,23 +1058,11 @@
   "html_options_backup_enable": {
     "message": "Sauvegarder automatiquement votre session"
   },
-  "html_options_backup_enable_tooltip_line1a": {
-    "message": "Enregistre silencieusement une copie de votre session actuelle sous forme de fichier JSON."
+  "html_options_backup_enable_tooltip_line1": {
+    "message": "Enregistre silencieusement une copie de votre session actuelle sous forme de fichier JSON. Choisissez d'enregistrer en local (dossier tms-backups dans vos Téléchargements) ou dans un dossier 'TMS Backups' sur Google Drive."
   },
-  "html_options_backup_enable_tooltip_line1b": {
-    "message": "Choisissez d'enregistrer en local (dossier tms-backups dans vos Téléchargements)"
-  },
-  "html_options_backup_enable_tooltip_line1c": {
-    "message": "ou dans un dossier 'TMS Backups' sur Google Drive."
-  },
-  "html_options_backup_enable_tooltip_line2a": {
-    "message": "Pour les sauvegardes locales, Chrome doit être configuré pour télécharger les fichiers automatiquement"
-  },
-  "html_options_backup_enable_tooltip_line2b": {
-    "message": "(sans demander). Vérifiez chrome://settings/downloads."
-  },
-  "html_options_backup_enable_tooltip_line2c": {
-    "message": "Les sauvegardes Google Drive n'ont pas cette exigence."
+  "html_options_backup_enable_tooltip_line2": {
+    "message": "Pour les sauvegardes locales, Chrome doit être configuré pour télécharger les fichiers automatiquement (sans demander). Vérifiez chrome://settings/downloads. Les sauvegardes Google Drive n'ont pas cette exigence."
   },
   "html_options_backup_interval": {
     "message": "Sauvegarder toutes les"
@@ -1217,11 +1115,8 @@
   "html_options_other_enable_news_feed": {
     "message": "Activer le fil d'actualités"
   },
-  "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "Vérifie périodiquement marvellouscode.works pour les actualités TMS et les affiche"
-  },
-  "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "dans la barre latérale."
+  "html_options_other_enable_news_feed_tooltip_line1": {
+    "message": "Vérifie périodiquement marvellouscode.works pour les actualités TMS et les affiche dans la barre latérale."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Désactivez pour éviter cette requête en arrière-plan."
@@ -1230,10 +1125,7 @@
     "message": "Utiliser le graphisme classique de The Great Suspender au lieu de la nouvelle mascotte"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Rétablit les icônes et illustrations dans le style original de The Great"
-  },
-  "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "Suspender, lorsqu'une version antérieure de l'image est disponible."
+    "message": "Rétablit les icônes et illustrations dans le style original de The Great Suspender, lorsqu'une version antérieure de l'image est disponible."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "Les images sans équivalent antérieur continuent d'utiliser le nouveau graphisme."
