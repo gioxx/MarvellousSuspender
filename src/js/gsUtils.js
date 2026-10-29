@@ -955,12 +955,15 @@ export const gsUtils = {
           .replace(/\n/g, '<br />');
       }
       if (el.hasAttribute('data-i18n-tooltip')) {
-        el.setAttribute(
-          'data-i18n-tooltip',
-          el
-            .getAttribute('data-i18n-tooltip')
-            .replace(/__MSG_(\w+)__/g, replaceTagFunc),
-        );
+        const tooltip = el
+          .getAttribute('data-i18n-tooltip')
+          .replace(/__MSG_(\w+)__/g, replaceTagFunc);
+        el.setAttribute('data-i18n-tooltip', tooltip);
+        // The tooltip is a ::after on hover: focusable and labelled, it also reaches
+        // keyboard and screen reader users.
+        el.setAttribute('tabindex', '0');
+        el.setAttribute('role', 'img');
+        el.setAttribute('aria-label', tooltip);
       }
       if (el.hasAttribute('data-i18n-aria-label')) {
         el.setAttribute(

@@ -323,17 +323,11 @@
   "html_options_suspended_append_url_to_title": {
     "message": "Připojit původní adresu URL k názvu pozastavené karty"
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1a": {
-    "message": "Pokud je povoleno, původní adresa URL se připojí k názvu karty"
+  "html_options_suspended_append_url_to_title_tooltip_line1": {
+    "message": "Pokud je povoleno, původní adresa URL se připojí k názvu karty prohlížeče u pozastavených stránek."
   },
-  "html_options_suspended_append_url_to_title_tooltip_line1b": {
-    "message": "prohlížeče u pozastavených stránek."
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2a": {
-    "message": "To umožňuje najít pozastavené karty podle hostitele pomocí funkce Chromu"
-  },
-  "html_options_suspended_append_url_to_title_tooltip_line2b": {
-    "message": "„Hledat na kartách“ (Ctrl+Shift+A)."
+  "html_options_suspended_append_url_to_title_tooltip_line2": {
+    "message": "To umožňuje najít pozastavené karty podle hostitele pomocí funkce Chromu „Hledat na kartách“ (Ctrl+Shift+A)."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Zachovat pozici přehrávání YouTube při pozastavení"
@@ -428,20 +422,11 @@
   "html_options_suspend_claim_by_default": {
     "message": "Převzít karty pozastavené jinými rozšířeními"
   },
-  "html_options_suspend_claim_by_default_tooltip_line1a": {
-    "message": "Automaticky převezme karty už pozastavené jiným kompatibilním"
+  "html_options_suspend_claim_by_default_tooltip_line1": {
+    "message": "Automaticky převezme karty už pozastavené jiným kompatibilním rozšířením (např. The Great Suspender nebo jiná instalace tohoto)."
   },
-  "html_options_suspend_claim_by_default_tooltip_line1b": {
-    "message": "rozšířením (např. The Great Suspender nebo jiná instalace tohoto)."
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2a": {
-    "message": "Karta se počítá jako „pozastavená“, pokud její adresa URL obsahuje 'suspended.html'."
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2b": {
-    "message": "Povolením této volby se tato adresa URL přepíše na tuto instalaci, aby ji"
-  },
-  "html_options_suspend_claim_by_default_tooltip_line2c": {
-    "message": "TMS mohl dále spravovat."
+  "html_options_suspend_claim_by_default_tooltip_line2": {
+    "message": "Karta se počítá jako „pozastavená“, pokud její adresa URL obsahuje 'suspended.html'. Povolením této volby se tato adresa URL přepíše na tuto instalaci, aby ji TMS mohl dále spravovat."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nikdy nepozastavovat karty při připojení ke zdroji napájení"
@@ -455,17 +440,11 @@
   "html_options_suspend_no_scroll_pos": {
     "message": "Vždy znovu otevřít pozastavené karty posunuté nahoru"
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1a": {
-    "message": "Karta se znovu otevře na začátku stránky místo místa,"
+  "html_options_suspend_no_scroll_pos_tooltip_line1": {
+    "message": "Karta se znovu otevře na začátku stránky místo místa, kam byla posunuta v okamžiku pozastavení."
   },
-  "html_options_suspend_no_scroll_pos_tooltip_line1b": {
-    "message": "kam byla posunuta v okamžiku pozastavení."
-  },
-  "html_options_suspend_no_scroll_pos_tooltip_line2a": {
-    "message": "Platí pro automatické i ruční pozastavení a má přednost před"
-  },
-  "html_options_suspend_no_scroll_pos_tooltip_line2b": {
-    "message": "odkazy, které při načtení skáčou na #sekci."
+  "html_options_suspend_no_scroll_pos_tooltip_line2": {
+    "message": "Platí pro automatické i ruční pozastavení a má přednost před odkazy, které při načtení skáčou na #sekci."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automaticky obnovit kartu při zobrazení"
@@ -473,44 +452,23 @@
   "html_options_suspend_reload_unsuspend_background": {
     "message": "Znovu načtení obnoví i karty na pozadí (nejen aktivní kartu)"
   },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1a": {
-    "message": "Pokud je povoleno, opětovné načtení pozastavené karty (Ctrl+R nebo pravým"
+  "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
+    "message": "Pokud je povoleno, opětovné načtení pozastavené karty (Ctrl+R nebo pravým tlačítkem > Znovu načíst) ji obnoví i tehdy, když právě není aktivní kartou."
   },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1b": {
-    "message": "tlačítkem > Znovu načíst) ji obnoví i tehdy, když právě není"
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line1c": {
-    "message": "aktivní kartou."
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line2a": {
-    "message": "Užitečné pro opětovné načtení více pozastavených karet najednou, například po"
-  },
-  "html_options_suspend_reload_unsuspend_background_tooltip_line2b": {
-    "message": "výběru více karet a stisknutí Ctrl+R."
+  "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
+    "message": "Užitečné pro opětovné načtení více pozastavených karet najednou, například po výběru více karet a stisknutí Ctrl+R."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Při pozastavení použít vestavěné šetření pamětí prohlížeče"
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1a": {
-    "message": "Po pozastavení karty nechte Chrome, aby ji také úplně uvolnil"
+  "html_options_suspend_discard_after_suspend_tooltip_line1": {
+    "message": "Po pozastavení karty nechte Chrome, aby ji také úplně uvolnil z paměti. To uvolní více systémových prostředků na kartu (užitečné, pokud máte otevřené stovky karet)."
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1b": {
-    "message": "z paměti. To uvolní více systémových prostředků na kartu"
+  "html_options_suspend_discard_after_suspend_tooltip_line2": {
+    "message": "To má za následek ztrátu stavu karty, dokud nebude znovu načtena."
   },
-  "html_options_suspend_discard_after_suspend_tooltip_line1c": {
-    "message": "(užitečné, pokud máte otevřené stovky karet)."
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line2a": {
-    "message": "To má za následek ztrátu stavu karty, dokud nebude znovu"
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line2b": {
-    "message": "načtena."
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line3a": {
-    "message": "Více informací o uvolňování karet najdeš zde:"
-  },
-  "html_options_suspend_discard_after_suspend_tooltip_line3b": {
-    "message": "https://developers.google.com/web/updates/2015/09/tab-discarding"
+  "html_options_suspend_discard_after_suspend_tooltip_line3": {
+    "message": "Více informací o uvolňování karet najdeš zde: https://developers.google.com/web/updates/2015/09/tab-discarding"
   },
   "html_options_suspend_theme": {
     "message": "Motiv"
@@ -536,23 +494,14 @@
   "html_options_suspend_screen_capturing_entire_page": {
     "message": "Zachytit celou stránku"
   },
-  "html_options_suspend_screen_capturing_tooltip_line1a": {
-    "message": "Na pozastavené kartě může rozšíření zobrazit náhled toho, jak karta"
+  "html_options_suspend_screen_capturing_tooltip_line1": {
+    "message": "Na pozastavené kartě může rozšíření zobrazit náhled toho, jak karta vypadala těsně před pozastavením."
   },
-  "html_options_suspend_screen_capturing_tooltip_line1b": {
-    "message": "vypadala těsně před pozastavením."
+  "html_options_suspend_screen_capturing_tooltip_line2": {
+    "message": "Snímání obrazovky je experimentální funkce a může způsobit výrazné vytížení procesoru, stejně jako mírně zvýšenou spotřebu paměti."
   },
-  "html_options_suspend_screen_capturing_tooltip_line2a": {
-    "message": "Snímání obrazovky je experimentální funkce a může způsobit výrazné vytížení procesoru,"
-  },
-  "html_options_suspend_screen_capturing_tooltip_line2b": {
-    "message": "stejně jako mírně zvýšenou spotřebu paměti."
-  },
-  "html_options_suspend_screen_capturing_tooltip_line3a": {
-    "message": "Pokud zaznamenáš zvláštní chování, například dlouhé pozastavování karet nebo neočekávané"
-  },
-  "html_options_suspend_screen_capturing_tooltip_line3b": {
-    "message": "pády prohlížeče, zkus tuto funkci vypnout."
+  "html_options_suspend_screen_capturing_tooltip_line3": {
+    "message": "Pokud zaznamenáš zvláštní chování, například dlouhé pozastavování karet nebo neočekávané pády prohlížeče, zkus tuto funkci vypnout."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Metoda snímání"
@@ -567,37 +516,22 @@
     "message": "Pouze vykreslovač stránky"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automaticky pořídí skutečný snímek obrazovky prohlížeče, když je pozastavovaná karta ta, na kterou se právě díváš."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line2": {
-    "message": "To je okamžité a funguje na každém webu. Každá jiná karta je překreslena vykreslovačem stránky, což je pomalejší."
+    "message": "Automaticky pořídí skutečný snímek obrazovky prohlížeče, když je pozastavovaná karta ta, na kterou se právě díváš. To je okamžité a funguje na každém webu. Každá jiná karta je překreslena vykreslovačem stránky, což je pomalejší."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Pouze snímek obrazovky prohlížeče nikdy nespustí vykreslovač stránky, takže karty pozastavené na pozadí nezískají náhled."
-  },
-  "html_options_suspend_screen_capture_method_tooltip_line4": {
-    "message": "Snímek obrazovky prohlížeče zachytí jen viditelnou část stránky, i když je vybráno „Zachytit celou stránku“."
+    "message": "Pouze snímek obrazovky prohlížeče nikdy nespustí vykreslovač stránky, takže karty pozastavené na pozadí nezískají náhled. Snímek obrazovky prohlížeče zachytí jen viditelnou část stránky, i když je vybráno „Zachytit celou stránku“."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Udržovat nedávný snímek karet, jak je používáš"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Pořídí snímek obrazovky prohlížeče přibližně sekundu po přepnutí na kartu nebo po dokončení jejího načtení,"
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line2": {
-    "message": "takže karty pozastavené později na pozadí stále mají náhled."
+    "message": "Pořídí snímek obrazovky prohlížeče přibližně sekundu po přepnutí na kartu nebo po dokončení jejího načtení, takže karty pozastavené později na pozadí stále mají náhled."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome umožňuje rozšíření pořídit snímek karty, na jejíž tlačítko jsi neklikl, pouze pokud má přístup ke všem webům,"
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line4": {
-    "message": "takže zapnutí této volby vyžádá toto oprávnění. Používá se jen k pořizování těchto snímků, které zůstávají v tomto počítači."
+    "message": "Chrome umožňuje rozšíření pořídit snímek karty, na jejíž tlačítko jsi neklikl, pouze pokud má přístup ke všem webům, takže zapnutí této volby vyžádá toto oprávnění. Používá se jen k pořizování těchto snímků, které zůstávají v tomto počítači."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Uchovává se pouze nejnovější snímek každé otevřené karty a smaže se při jejím zavření."
-  },
-  "html_options_suspend_screen_capture_precapture_tooltip_line6": {
-    "message": "Karty v anonymním režimu a weby na seznamu výjimek se nikdy nesnímají."
+    "message": "Uchovává se pouze nejnovější snímek každé otevřené karty a smaže se při jejím zavření. Karty v anonymním režimu a weby na seznamu výjimek se nikdy nesnímají."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Povolit vysoce kvalitní režim snímání obrazovky"
@@ -615,10 +549,7 @@
     "message": "- Maximální výška snímku obrazovky omezena na 5000 px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Povolení vysoce kvalitního režimu snímání obrazovky může výrazně zvýšit zátěž procesoru"
-  },
-  "html_options_suspend_force_screen_capture_tooltip_line7": {
-    "message": "a spotřebu paměti."
+    "message": "Povolení vysoce kvalitního režimu snímání obrazovky může výrazně zvýšit zátěž procesoru a spotřebu paměti."
   },
   "html_options_whitelist_title": {
     "message": "Nikdy nepozastavovat karty s adresami URL z následujícího seznamu:"
@@ -626,17 +557,11 @@
   "html_options_always_suspend_title": {
     "message": "Vždy pozastavit karty s adresami URL z následujícího seznamu:"
   },
-  "html_options_always_suspend_tooltip_line1a": {
-    "message": "Karty odpovídající tomuto seznamu se vždy pozastaví po uplynutí běžného časového limitu,"
+  "html_options_always_suspend_tooltip_line1": {
+    "message": "Karty odpovídající tomuto seznamu se vždy pozastaví po uplynutí běžného časového limitu, bez ohledu na zvuk, vstup formuláře nebo připnutí."
   },
-  "html_options_always_suspend_tooltip_line1b": {
-    "message": "bez ohledu na zvuk, vstup formuláře nebo připnutí."
-  },
-  "html_options_always_suspend_tooltip_line2a": {
-    "message": "Jedna položka na řádek, stejná pravidla shody jako u seznamu výše (prostý text"
-  },
-  "html_options_always_suspend_tooltip_line2b": {
-    "message": "odpovídající kdekoli v adrese URL, nebo /regex/ mezi lomítky)."
+  "html_options_always_suspend_tooltip_line2": {
+    "message": "Jedna položka na řádek, stejná pravidla shody jako u seznamu výše (prostý text odpovídající kdekoli v adrese URL, nebo /regex/ mezi lomítky)."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Přidej adresu URL každé stránky, kterou chceš povolit, na nový řádek. Například:"
@@ -692,19 +617,13 @@
     "message": "Přidá ovládací prvky tohoto rozšíření do nabídky pravého tlačítka na webové stránce."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Získáš tak přístup k pokročilým akcím pozastavení, které nejsou"
-  },
-  "html_options_other_enable_context_menu_tooltip_line3": {
-    "message": "dostupné jinde v rozšíření."
+    "message": "Získáš tak přístup k pokročilým akcím pozastavení, které nejsou dostupné jinde v rozšíření."
   },
   "html_options_other_enable_sync": {
     "message": "Synchronizovat nastavení s tvým profilem prohlížeče"
   },
-  "html_options_other_enable_sync_tooltip_line1a": {
-    "message": "Nastavení rozšíření se synchronizuje napříč všemi prohlížeči přihlášenými"
-  },
-  "html_options_other_enable_sync_tooltip_line1b": {
-    "message": "stejným profilem."
+  "html_options_other_enable_sync_tooltip_line1": {
+    "message": "Nastavení rozšíření se synchronizuje napříč všemi prohlížeči přihlášenými stejným profilem."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Tím se synchronizuje i nastavení v anonymním režimu."
@@ -716,19 +635,10 @@
     "message": "Okamžitě pozastavit, když je systémová paměť velmi nízká"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Tato volba potlačí automatickou funkci uvolňování karet."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line2": {
-    "message": "Pokud je povolena, vynutí pozastavení karty místo jejího uvolnění."
-  },
-  "html_options_suspend_on_low_memory_tooltip_line3": {
-    "message": "Prohlížeč běžně uvolňuje karty jen tehdy, když je systémová paměť velmi nízká."
+    "message": "Tato volba potlačí automatickou funkci uvolňování karet. Pokud je povolena, vynutí pozastavení karty místo jejího uvolnění. Prohlížeč běžně uvolňuje karty jen tehdy, když je systémová paměť velmi nízká."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Upozornění: kvůli tomu se karty mohou pozastavit dříve, než jsi"
-  },
-  "html_options_suspend_on_low_memory_tooltip_line5": {
-    "message": "zadal(a) v možnostech automatického pozastavování karet."
+    "message": "Upozornění: kvůli tomu se karty mohou pozastavit dříve, než jsi zadal(a) v možnostech automatického pozastavování karet."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Více informací o uvolňování karet najdeš zde:"
@@ -1148,23 +1058,11 @@
   "html_options_backup_enable": {
     "message": "Automaticky zálohovat relaci"
   },
-  "html_options_backup_enable_tooltip_line1a": {
-    "message": "Tiše uloží kopii aktuální relace jako soubor JSON."
+  "html_options_backup_enable_tooltip_line1": {
+    "message": "Tiše uloží kopii aktuální relace jako soubor JSON. Vyber si ukládání místně (složka tms-backups uvnitř Stažených souborů) nebo do složky 'TMS Backups' na Google Disku."
   },
-  "html_options_backup_enable_tooltip_line1b": {
-    "message": "Vyber si ukládání místně (složka tms-backups uvnitř Stažených souborů)"
-  },
-  "html_options_backup_enable_tooltip_line1c": {
-    "message": "nebo do složky 'TMS Backups' na Google Disku."
-  },
-  "html_options_backup_enable_tooltip_line2a": {
-    "message": "Pro místní zálohy musí být Chrome nastaven na automatické stahování souborů"
-  },
-  "html_options_backup_enable_tooltip_line2b": {
-    "message": "(bez dotazování). Zkontroluj chrome://settings/downloads."
-  },
-  "html_options_backup_enable_tooltip_line2c": {
-    "message": "Zálohy na Google Disku tento požadavek nemají."
+  "html_options_backup_enable_tooltip_line2": {
+    "message": "Pro místní zálohy musí být Chrome nastaven na automatické stahování souborů (bez dotazování). Zkontroluj chrome://settings/downloads. Zálohy na Google Disku tento požadavek nemají."
   },
   "html_options_backup_interval": {
     "message": "Zálohovat každých"
@@ -1217,11 +1115,8 @@
   "html_options_other_enable_news_feed": {
     "message": "Povolit kanál novinek"
   },
-  "html_options_other_enable_news_feed_tooltip_line1a": {
-    "message": "Pravidelně kontroluje marvellouscode.works kvůli novinkám o TMS a zobrazuje je"
-  },
-  "html_options_other_enable_news_feed_tooltip_line1b": {
-    "message": "v postranním panelu."
+  "html_options_other_enable_news_feed_tooltip_line1": {
+    "message": "Pravidelně kontroluje marvellouscode.works kvůli novinkám o TMS a zobrazuje je v postranním panelu."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Vypnutím přeskočíš tento požadavek na pozadí."
@@ -1230,10 +1125,7 @@
     "message": "Použít klasickou grafiku The Great Suspender místo nového maskota"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Přepne ikony a ilustrace zpět na původní styl The Great"
-  },
-  "html_options_other_legacy_mascot_tooltip_line2": {
-    "message": "Suspender tam, kde je dostupná starší verze obrázku."
+    "message": "Přepne ikony a ilustrace zpět na původní styl The Great Suspender tam, kde je dostupná starší verze obrázku."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "Obrázky bez starší varianty dál používají novou grafiku."
