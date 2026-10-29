@@ -324,10 +324,12 @@
     "message": "在挂起标签页的标题后附加原始网址"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "启用后，挂起页面的浏览器标签页标题后会附加原始网址。"
+    "message": "启用后，挂起页面的浏览器标签页标题后会附加原始网址。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "这样便可以使用 Chrome 的“搜索标签页”（Ctrl+Shift+A）按主机名查找挂起的标签页。"
+    "message": "这样便可以使用 Chrome 的“搜索标签页”（Ctrl+Shift+A）按主机名查找挂起的标签页。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "挂起时保留 YouTube 播放进度"
@@ -423,10 +425,12 @@
     "message": "接管由其他扩展程序挂起的标签页"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "自动接管已被其他兼容扩展程序（例如The Great Suspender，或本扩展程序的另一次安装）挂起的标签页。"
+    "message": "自动接管已被其他兼容扩展程序（例如The Great Suspender，或本扩展程序的另一次安装）挂起的标签页。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "如果标签页的网址包含 “suspended.html”，则视为“已挂起”。启用此选项后，该网址会被重写为指向本次安装，以便 TMS此后可以对该标签页进行管理。"
+    "message": "如果标签页的网址包含 “suspended.html”，则视为“已挂起”。启用此选项后，该网址会被重写为指向本次安装，以便 TMS此后可以对该标签页进行管理。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "连接电源时永不挂起标签页"
@@ -441,10 +445,12 @@
     "message": "重新打开挂起标签页时始终滚动到顶部"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "标签页会在页面顶部重新打开，而不是挂起时所处的滚动位置。"
+    "message": "标签页会在页面顶部重新打开，而不是挂起时所处的滚动位置。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "此设置适用于自动和手动挂起，并会覆盖加载时跳转到某个 #锚点的链接。"
+    "message": "此设置适用于自动和手动挂起，并会覆盖加载时跳转到某个 #锚点的链接。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "查看标签页时自动恢复挂起"
@@ -453,22 +459,27 @@
     "message": "重新加载时同时恢复后台标签页（而不仅是当前活动标签页）"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "启用后，重新加载挂起的标签页（Ctrl+R 或右键菜单中的“重新加载”）会将其恢复，即使它当前并非处于活动状态。"
+    "message": "启用后，重新加载挂起的标签页（Ctrl+R 或右键菜单中的“重新加载”）会将其恢复，即使它当前并非处于活动状态。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "适用于一次性重新加载多个挂起的标签页，例如选中多个标签页后按下 Ctrl+R。"
+    "message": "适用于一次性重新加载多个挂起的标签页，例如选中多个标签页后按下 Ctrl+R。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "挂起时同时应用浏览器内置的省内存功能"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "标签页挂起后，还会让 Chrome 将其从内存中完全卸载。这会为每个标签页释放更多系统资源（如果你同时打开数百个标签页会很有用）。"
+    "message": "标签页挂起后，还会让 Chrome 将其从内存中完全卸载。这会为每个标签页释放更多系统资源（如果你同时打开数百个标签页会很有用）。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "这样做的代价是标签页的状态会丢失，直到该标签页重新加载。"
+    "message": "这样做的代价是标签页的状态会丢失，直到该标签页重新加载。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "有关标签页丢弃的更多信息，请参阅：https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "有关标签页丢弃的更多信息，请参阅：https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "主题"
@@ -495,13 +506,16 @@
     "message": "截取整个页面"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "在挂起的标签页上，扩展程序可以显示该标签页挂起前的画面预览。"
+    "message": "在挂起的标签页上，扩展程序可以显示该标签页挂起前的画面预览。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "屏幕截图功能为实验性功能，可能会显著增加 CPU 占用，并略微增加内存占用。"
+    "message": "屏幕截图功能为实验性功能，可能会显著增加 CPU 占用，并略微增加内存占用。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "如果你发现异常情况，例如标签页挂起耗时过长，或浏览器意外崩溃，请尝试关闭此功能。"
+    "message": "如果你发现异常情况，例如标签页挂起耗时过长，或浏览器意外崩溃，请尝试关闭此功能。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "截图方式"
@@ -516,22 +530,27 @@
     "message": "仅页面渲染截图"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "当被挂起的标签页正是你正在查看的标签页时，“自动”会使用真实的浏览器截图。该方式即时生成，适用于所有网站。其他标签页则由页面渲染器重新绘制，速度较慢。"
+    "message": "当被挂起的标签页正是你正在查看的标签页时，“自动”会使用真实的浏览器截图。该方式即时生成，适用于所有网站。其他标签页则由页面渲染器重新绘制，速度较慢。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "“仅浏览器截图”从不使用页面渲染器，因此在后台被挂起的标签页不会生成预览。即使选择了“截取整个页面”，浏览器截图也只能覆盖页面的可见部分。"
+    "message": "“仅浏览器截图”从不使用页面渲染器，因此在后台被挂起的标签页不会生成预览。即使选择了“截取整个页面”，浏览器截图也只能覆盖页面的可见部分。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "在使用标签页时保留其最新截图"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "在你切换到某个标签页或其加载完成大约一秒后，对其进行一次浏览器截图，这样，之后在后台被挂起的标签页仍然能够显示预览。"
+    "message": "在你切换到某个标签页或其加载完成大约一秒后，对其进行一次浏览器截图，这样，之后在后台被挂起的标签页仍然能够显示预览。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "只有在拥有访问所有网站权限的情况下，Chrome 才允许扩展程序对你未点击过其按钮的标签页进行截图，因此开启此选项会请求该权限。它仅用于获取这些截图，且截图只保存在本机上。"
+    "message": "只有在拥有访问所有网站权限的情况下，Chrome 才允许扩展程序对你未点击过其按钮的标签页进行截图，因此开启此选项会请求该权限。它仅用于获取这些截图，且截图只保存在本机上。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "系统只会保留每个打开标签页的最新一张截图，标签页关闭后该截图会被删除。隐身标签页和白名单站点永远不会被截图。"
+    "message": "系统只会保留每个打开标签页的最新一张截图，标签页关闭后该截图会被删除。隐身标签页和白名单站点永远不会被截图。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "启用高质量截图模式"
@@ -549,7 +568,8 @@
     "message": "- 截图最大高度限制为 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "启用高质量截图模式可能会显著增加 CPU 负载以及内存占用。"
+    "message": "启用高质量截图模式可能会显著增加 CPU 负载以及内存占用。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "永不挂起以下列表中网址的标签页："
@@ -558,10 +578,12 @@
     "message": "始终挂起以下列表中网址的标签页："
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "匹配此列表的标签页总是会在正常超时后挂起，无论其是否播放音频、含有表单内容或已固定。"
+    "message": "匹配此列表的标签页总是会在正常超时后挂起，无论其是否播放音频、含有表单内容或已固定。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "每行一条，匹配规则与上方列表相同（纯文本匹配网址中任意位置，或使用 /正则表达式/ 用斜杠包裹）。"
+    "message": "每行一条，匹配规则与上方列表相同（纯文本匹配网址中任意位置，或使用 /正则表达式/ 用斜杠包裹）。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "在新的一行添加你想允许的每个页面的网址。例如："
@@ -617,13 +639,15 @@
     "message": "将本扩展程序的操作添加到网页的右键菜单中。"
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "这将让你可以使用扩展程序其他地方没有提供的高级挂起操作。"
+    "message": "这将让你可以使用扩展程序其他地方没有提供的高级挂起操作。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "与浏览器配置文件同步设置"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "扩展程序的设置将在所有登录同一配置文件的浏览器之间同步。"
+    "message": "扩展程序的设置将在所有登录同一配置文件的浏览器之间同步。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "这也会同步隐身模式下的设置。"
@@ -635,10 +659,12 @@
     "message": "系统内存严重不足时立即挂起"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "此选项将覆盖自动标签页丢弃功能。启用后，会强制挂起标签页，而不是将其丢弃。通常，只有当系统内存严重不足时，浏览器才会丢弃标签页。"
+    "message": "此选项将覆盖自动标签页丢弃功能。启用后，会强制挂起标签页，而不是将其丢弃。通常，只有当系统内存严重不足时，浏览器才会丢弃标签页。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "请注意：这可能会导致标签页比你在自动挂起标签页选项中设置的时间更早地被挂起。"
+    "message": "请注意：这可能会导致标签页比你在自动挂起标签页选项中设置的时间更早地被挂起。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "有关标签页丢弃的更多信息，请参阅："
@@ -1059,10 +1085,12 @@
     "message": "自动备份你的会话"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "静默保存当前会话的副本为 JSON 文件。可以选择保存到本地（下载文件夹中的 tms-backups 文件夹）或保存到 Google 云端硬盘中的“TMS Backups”文件夹。"
+    "message": "静默保存当前会话的副本为 JSON 文件。可以选择保存到本地（下载文件夹中的 tms-backups 文件夹）或保存到 Google 云端硬盘中的“TMS Backups”文件夹。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "对于本地备份，Chrome 必须设置为自动下载文件（无需询问）。请检查 chrome://settings/downloads。Google 云端硬盘备份没有此要求。"
+    "message": "对于本地备份，Chrome 必须设置为自动下载文件（无需询问）。请检查 chrome://settings/downloads。Google 云端硬盘备份没有此要求。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "备份间隔"
@@ -1116,7 +1144,8 @@
     "message": "启用新闻推送"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "定期检查 marvellouscode.works 上的 TMS 新闻，并将其显示在侧边栏中。"
+    "message": "定期检查 marvellouscode.works 上的 TMS 新闻，并将其显示在侧边栏中。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "禁用可跳过此后台请求。"
@@ -1125,7 +1154,8 @@
     "message": "使用经典的 The Great Suspender 图案，而非新版吉祥物"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "在有旧版图片可用的情况下，将图标和插图切换回原始的 The Great Suspender 风格。"
+    "message": "在有旧版图片可用的情况下，将图标和插图切换回原始的 The Great Suspender 风格。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "没有旧版对应图片的图像将继续使用新版图案。"

@@ -324,10 +324,12 @@
     "message": "Ursprüngliche URL an den Titel des ausgesetzten Tabs anhängen"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Wenn aktiviert, wird die ursprüngliche URL an den Titel des Browser-Tabs ausgesetzter Seiten angehängt."
+    "message": "Wenn aktiviert, wird die ursprüngliche URL an den Titel des Browser-Tabs ausgesetzter Seiten angehängt.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "So können ausgesetzte Tabs über den Hostnamen mit Chromes „Tabs durchsuchen“ (Strg+Umschalt+A) gefunden werden."
+    "message": "So können ausgesetzte Tabs über den Hostnamen mit Chromes „Tabs durchsuchen“ (Strg+Umschalt+A) gefunden werden.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "YouTube-Wiedergabeposition beim Aussetzen beibehalten"
@@ -423,10 +425,12 @@
     "message": "Von anderen Erweiterungen ausgesetzte Tabs übernehmen"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Übernimmt automatisch Tabs, die bereits von einer anderen kompatiblen Erweiterung ausgesetzt wurden (z. B. The Great Suspender oder eine andere Installation dieser)."
+    "message": "Übernimmt automatisch Tabs, die bereits von einer anderen kompatiblen Erweiterung ausgesetzt wurden (z. B. The Great Suspender oder eine andere Installation dieser).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Ein Tab gilt als „ausgesetzt“, wenn seine URL 'suspended.html' enthält. Wenn Sie dies aktivieren, wird diese URL auf diese Installation umgeschrieben, sodass TMS den Tab künftig verwalten kann."
+    "message": "Ein Tab gilt als „ausgesetzt“, wenn seine URL 'suspended.html' enthält. Wenn Sie dies aktivieren, wird diese URL auf diese Installation umgeschrieben, sodass TMS den Tab künftig verwalten kann.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Tabs bei Netzbetrieb nie aussetzen"
@@ -441,10 +445,12 @@
     "message": "Ausgesetzte Tabs immer nach oben gescrollt wieder öffnen"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "Der Tab wird oben auf der Seite geöffnet, statt an der Stelle, an der beim Aussetzen gescrollt war."
+    "message": "Der Tab wird oben auf der Seite geöffnet, statt an der Stelle, an der beim Aussetzen gescrollt war.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Gilt sowohl für automatische als auch manuelle Aussetzung und überschreibt Links, die beim Laden zu einem #Abschnitt springen."
+    "message": "Gilt sowohl für automatische als auch manuelle Aussetzung und überschreibt Links, die beim Laden zu einem #Abschnitt springen.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Tab automatisch reaktivieren, wenn er angezeigt wird"
@@ -453,22 +459,27 @@
     "message": "Neu laden reaktiviert auch Tabs im Hintergrund (nicht nur den aktiven Tab)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "Wenn aktiviert, reaktiviert das Neuladen eines ausgesetzten Tabs (Strg+R oder Rechtsklick > Neu laden) diesen auch dann, wenn er nicht der aktuell fokussierte Tab ist."
+    "message": "Wenn aktiviert, reaktiviert das Neuladen eines ausgesetzten Tabs (Strg+R oder Rechtsklick > Neu laden) diesen auch dann, wenn er nicht der aktuell fokussierte Tab ist.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "Nützlich, um mehrere ausgesetzte Tabs auf einmal neu zu laden, z. B. nachdem mehrere Tabs ausgewählt und Strg+R gedrückt wurde."
+    "message": "Nützlich, um mehrere ausgesetzte Tabs auf einmal neu zu laden, z. B. nachdem mehrere Tabs ausgewählt und Strg+R gedrückt wurde.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Beim Aussetzen die eingebaute Speicherersparnis des Browsers anwenden"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "Sobald ein Tab ausgesetzt wurde, lässt dies Chrome ihn zusätzlich vollständig aus dem Speicher entladen. Das gibt mehr Systemressourcen pro Tab frei (nützlich, wenn Sie Hunderte von Tabs offen halten)."
+    "message": "Sobald ein Tab ausgesetzt wurde, lässt dies Chrome ihn zusätzlich vollständig aus dem Speicher entladen. Das gibt mehr Systemressourcen pro Tab frei (nützlich, wenn Sie Hunderte von Tabs offen halten).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "Das hat zur Folge, dass der Tab-Zustand verloren geht, bis der Tab neu geladen wird."
+    "message": "Das hat zur Folge, dass der Tab-Zustand verloren geht, bis der Tab neu geladen wird.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "Weitere Informationen zur Tab-Entladung finden Sie hier: https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "Weitere Informationen zur Tab-Entladung finden Sie hier: https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "Design"
@@ -495,13 +506,16 @@
     "message": "Gesamte Seite aufnehmen"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "Bei einem ausgesetzten Tab kann die Erweiterung eine Bildvorschau davon anzeigen, wie der Tab kurz vor der Aussetzung aussah."
+    "message": "Bei einem ausgesetzten Tab kann die Erweiterung eine Bildvorschau davon anzeigen, wie der Tab kurz vor der Aussetzung aussah.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "Die Bildschirmaufnahme ist experimentell und kann eine erhebliche CPU-Auslastung sowie einen leicht erhöhten Speicherverbrauch verursachen."
+    "message": "Die Bildschirmaufnahme ist experimentell und kann eine erhebliche CPU-Auslastung sowie einen leicht erhöhten Speicherverbrauch verursachen.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "Wenn Sie ungewöhnliches Verhalten bemerken, z. B. Tabs, die lange zum Aussetzen brauchen, oder der Browser unerwartet abstürzt, versuchen Sie, diese Funktion zu deaktivieren."
+    "message": "Wenn Sie ungewöhnliches Verhalten bemerken, z. B. Tabs, die lange zum Aussetzen brauchen, oder der Browser unerwartet abstürzt, versuchen Sie, diese Funktion zu deaktivieren.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Aufnahmemethode"
@@ -516,22 +530,27 @@
     "message": "Nur Seiten-Renderer"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automatisch macht einen echten Browser-Screenshot, wenn der Tab, der ausgesetzt wird, gerade der ist, den Sie betrachten. Das geht sofort und funktioniert auf jeder Website. Jeder andere Tab wird vom Seiten-Renderer neu gezeichnet, was langsamer ist."
+    "message": "Automatisch macht einen echten Browser-Screenshot, wenn der Tab, der ausgesetzt wird, gerade der ist, den Sie betrachten. Das geht sofort und funktioniert auf jeder Website. Jeder andere Tab wird vom Seiten-Renderer neu gezeichnet, was langsamer ist.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Nur Browser-Screenshot führt nie den Seiten-Renderer aus, sodass im Hintergrund ausgesetzte Tabs keine Vorschau erhalten. Ein Browser-Screenshot deckt selbst mit ausgewähltem „Gesamte Seite aufnehmen“ nur den sichtbaren Teil der Seite ab."
+    "message": "Nur Browser-Screenshot führt nie den Seiten-Renderer aus, sodass im Hintergrund ausgesetzte Tabs keine Vorschau erhalten. Ein Browser-Screenshot deckt selbst mit ausgewähltem „Gesamte Seite aufnehmen“ nur den sichtbaren Teil der Seite ab.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Einen aktuellen Screenshot der Tabs während der Nutzung vorhalten"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Macht etwa eine Sekunde, nachdem Sie zu einem Tab wechseln oder er fertig geladen ist, einen Browser-Screenshot davon, sodass Tabs, die später im Hintergrund ausgesetzt werden, trotzdem eine Vorschau erhalten."
+    "message": "Macht etwa eine Sekunde, nachdem Sie zu einem Tab wechseln oder er fertig geladen ist, einen Browser-Screenshot davon, sodass Tabs, die später im Hintergrund ausgesetzt werden, trotzdem eine Vorschau erhalten.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome erlaubt einer Erweiterung nur dann, einen Screenshot eines Tabs zu machen, dessen Button Sie nicht angeklickt haben, wenn sie Zugriff auf alle Websites hat, daher fordert das Aktivieren dieser Option diese Berechtigung an. Sie wird nur zum Erstellen dieser Screenshots genutzt, die auf diesem Computer verbleiben."
+    "message": "Chrome erlaubt einer Erweiterung nur dann, einen Screenshot eines Tabs zu machen, dessen Button Sie nicht angeklickt haben, wenn sie Zugriff auf alle Websites hat, daher fordert das Aktivieren dieser Option diese Berechtigung an. Sie wird nur zum Erstellen dieser Screenshots genutzt, die auf diesem Computer verbleiben.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Nur der neueste Screenshot jedes offenen Tabs wird behalten und beim Schließen des Tabs gelöscht. Inkognito-Tabs und Seiten auf der Whitelist werden nie aufgenommen."
+    "message": "Nur der neueste Screenshot jedes offenen Tabs wird behalten und beim Schließen des Tabs gelöscht. Inkognito-Tabs und Seiten auf der Whitelist werden nie aufgenommen.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Hochwertigen Bildschirmaufnahmemodus aktivieren"
@@ -549,7 +568,8 @@
     "message": "- Maximale Höhe der Bildschirmaufnahme auf 5000px begrenzt"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Die Aktivierung des hochwertigen Bildschirmaufnahmemodus kann die CPU-Auslastung und den Speicherverbrauch erheblich erhöhen."
+    "message": "Die Aktivierung des hochwertigen Bildschirmaufnahmemodus kann die CPU-Auslastung und den Speicherverbrauch erheblich erhöhen.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "Tabs mit URLs aus der folgenden Liste nie aussetzen:"
@@ -558,10 +578,12 @@
     "message": "Tabs mit URLs aus der folgenden Liste immer aussetzen:"
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "Tabs, die dieser Liste entsprechen, werden immer nach dem normalen Timeout ausgesetzt, unabhängig von Audio, Formulareingabe oder Anheftungsstatus."
+    "message": "Tabs, die dieser Liste entsprechen, werden immer nach dem normalen Timeout ausgesetzt, unabhängig von Audio, Formulareingabe oder Anheftungsstatus.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "Ein Eintrag pro Zeile, mit denselben Regeln wie in der obigen Liste (einfacher Text, der irgendwo in der URL passt, oder /regex/ zwischen Schrägstrichen)."
+    "message": "Ein Eintrag pro Zeile, mit denselben Regeln wie in der obigen Liste (einfacher Text, der irgendwo in der URL passt, oder /regex/ zwischen Schrägstrichen).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Fügen Sie die URL jeder Seite, die Sie zulassen möchten, in einer neuen Zeile hinzu. Zum Beispiel:"
@@ -617,13 +639,15 @@
     "message": "Fügt dem Rechtsklick-Menü einer Webseite Steuerelemente dieser Erweiterung hinzu."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Dies gibt Ihnen Zugriff auf erweiterte Aussetzungsaktionen, die sonst nirgendwo in der Erweiterung verfügbar sind."
+    "message": "Dies gibt Ihnen Zugriff auf erweiterte Aussetzungsaktionen, die sonst nirgendwo in der Erweiterung verfügbar sind.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "Einstellungen mit Ihrem Browserprofil synchronisieren"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "Die Erweiterungseinstellungen werden auf allen Browsern synchronisiert, die mit demselben Profil angemeldet sind."
+    "message": "Die Erweiterungseinstellungen werden auf allen Browsern synchronisiert, die mit demselben Profil angemeldet sind.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Dies synchronisiert die Einstellungen auch im Inkognito-Modus."
@@ -635,10 +659,12 @@
     "message": "Sofort aussetzen, wenn der Systemspeicher sehr knapp wird"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Diese Option setzt die automatische Tab-Entladung außer Kraft. Wenn aktiviert, wird ein Tab zwangsweise ausgesetzt statt entladen. Normalerweise entlädt Ihr Browser Tabs erst, wenn der Systemspeicher sehr knapp wird."
+    "message": "Diese Option setzt die automatische Tab-Entladung außer Kraft. Wenn aktiviert, wird ein Tab zwangsweise ausgesetzt statt entladen. Normalerweise entlädt Ihr Browser Tabs erst, wenn der Systemspeicher sehr knapp wird.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Bitte beachten Sie: Dies kann dazu führen, dass Tabs früher ausgesetzt werden als die in den Optionen zur automatischen Tab-Aussetzung angegebene Zeit."
+    "message": "Bitte beachten Sie: Dies kann dazu führen, dass Tabs früher ausgesetzt werden als die in den Optionen zur automatischen Tab-Aussetzung angegebene Zeit.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Weitere Informationen zur Tab-Entladung finden Sie hier:"
@@ -1059,10 +1085,12 @@
     "message": "Ihre Sitzung automatisch sichern"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Speichert im Hintergrund still eine Kopie Ihrer aktuellen Sitzung als JSON-Datei. Wählen Sie lokale Speicherung (Ordner tms-backups in Ihren Downloads) oder einen Ordner 'TMS Backups' auf Google Drive."
+    "message": "Speichert im Hintergrund still eine Kopie Ihrer aktuellen Sitzung als JSON-Datei. Wählen Sie lokale Speicherung (Ordner tms-backups in Ihren Downloads) oder einen Ordner 'TMS Backups' auf Google Drive.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "Für lokale Sicherungen muss Chrome so eingestellt sein, dass Dateien automatisch heruntergeladen werden (ohne Nachfrage). Prüfen Sie chrome://settings/downloads. Google Drive-Sicherungen haben diese Anforderung nicht."
+    "message": "Für lokale Sicherungen muss Chrome so eingestellt sein, dass Dateien automatisch heruntergeladen werden (ohne Nachfrage). Prüfen Sie chrome://settings/downloads. Google Drive-Sicherungen haben diese Anforderung nicht.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "Sicherung alle"
@@ -1116,7 +1144,8 @@
     "message": "News-Feed aktivieren"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Prüft regelmäßig marvellouscode.works auf TMS-Neuigkeiten und zeigt sie in der Seitenleiste an."
+    "message": "Prüft regelmäßig marvellouscode.works auf TMS-Neuigkeiten und zeigt sie in der Seitenleiste an.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Deaktivieren, um diese Hintergrundanfrage zu überspringen."
@@ -1125,7 +1154,8 @@
     "message": "Die klassische The Great Suspender-Grafik statt des neuen Maskottchens verwenden"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Stellt Symbole und Illustrationen auf den ursprünglichen The Great Suspender-Stil zurück, sofern eine ältere Version des Bildes verfügbar ist."
+    "message": "Stellt Symbole und Illustrationen auf den ursprünglichen The Great Suspender-Stil zurück, sofern eine ältere Version des Bildes verfügbar ist.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "Bilder ohne ältere Entsprechung verwenden weiterhin die neue Grafik."

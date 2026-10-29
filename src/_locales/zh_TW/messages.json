@@ -324,10 +324,12 @@
     "message": "在凍結分頁的標題附加原始網址"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "啟用後，凍結頁面的瀏覽器分頁標題會附加原始網址。"
+    "message": "啟用後，凍結頁面的瀏覽器分頁標題會附加原始網址。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "這樣就能使用 Chrome 的「搜尋分頁」（Ctrl+Shift+A）依主機名稱找到凍結的分頁。"
+    "message": "這樣就能使用 Chrome 的「搜尋分頁」（Ctrl+Shift+A）依主機名稱找到凍結的分頁。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "凍結時保留 YouTube 播放位置"
@@ -423,10 +425,12 @@
     "message": "接管由其他擴充功能凍結的分頁"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "自動接管已由其他相容擴充功能凍結的分頁（例如 The Great Suspender，或另一個安裝的本擴充功能）。"
+    "message": "自動接管已由其他相容擴充功能凍結的分頁（例如 The Great Suspender，或另一個安裝的本擴充功能）。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "如果分頁網址包含「suspended.html」，就會被視為「已凍結」。啟用此選項會將該網址改寫為本次安裝的網址，讓 TMS之後可以管理這個分頁。"
+    "message": "如果分頁網址包含「suspended.html」，就會被視為「已凍結」。啟用此選項會將該網址改寫為本次安裝的網址，讓 TMS之後可以管理這個分頁。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "連接電源時永不凍結分頁"
@@ -441,10 +445,12 @@
     "message": "重新開啟凍結分頁時一律捲動到頁面頂端"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "分頁重新開啟時會顯示在頁面頂端，而不是凍結時所在的捲動位置。"
+    "message": "分頁重新開啟時會顯示在頁面頂端，而不是凍結時所在的捲動位置。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "此設定同時適用於自動與手動凍結，並會覆寫載入時跳至 #章節 的連結。"
+    "message": "此設定同時適用於自動與手動凍結，並會覆寫載入時跳至 #章節 的連結。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "檢視分頁時自動解除凍結"
@@ -453,22 +459,27 @@
     "message": "重新載入也會解除凍結背景中的分頁（不只是使用中的分頁）"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "啟用後，重新載入凍結的分頁（按 Ctrl+R 或按右鍵選擇「重新載入」）也會解除其凍結，即使該分頁目前並非使用中的分頁。"
+    "message": "啟用後，重新載入凍結的分頁（按 Ctrl+R 或按右鍵選擇「重新載入」）也會解除其凍結，即使該分頁目前並非使用中的分頁。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "適用於一次重新載入多個凍結分頁的情況，例如選取多個分頁後按下 Ctrl+R。"
+    "message": "適用於一次重新載入多個凍結分頁的情況，例如選取多個分頁後按下 Ctrl+R。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "凍結時套用瀏覽器內建的省記憶體功能"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "分頁凍結後，也讓 Chrome 將其從記憶體中完全卸載。這會為每個分頁釋放更多系統資源（如果你同時開啟數百個分頁會很有用）。"
+    "message": "分頁凍結後，也讓 Chrome 將其從記憶體中完全卸載。這會為每個分頁釋放更多系統資源（如果你同時開啟數百個分頁會很有用）。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "這樣做的代價是分頁的狀態會遺失，直到該分頁重新載入。"
+    "message": "這樣做的代價是分頁的狀態會遺失，直到該分頁重新載入。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "如需更多關於分頁捨棄的資訊，請參閱：https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "如需更多關於分頁捨棄的資訊，請參閱：https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "主題"
@@ -495,13 +506,16 @@
     "message": "擷取整個頁面"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "在凍結的分頁上，本擴充功能可以顯示分頁凍結前畫面的預覽圖。"
+    "message": "在凍結的分頁上，本擴充功能可以顯示分頁凍結前畫面的預覽圖。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "螢幕擷取功能為實驗性功能，可能會顯著增加 CPU 使用率，並略微增加記憶體用量。"
+    "message": "螢幕擷取功能為實驗性功能，可能會顯著增加 CPU 使用率，並略微增加記憶體用量。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "如果你發現異常狀況，例如分頁凍結需要很長時間，或瀏覽器意外當機，請嘗試關閉此功能。"
+    "message": "如果你發現異常狀況，例如分頁凍結需要很長時間，或瀏覽器意外當機，請嘗試關閉此功能。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "擷取方式"
@@ -516,22 +530,27 @@
     "message": "僅限頁面重繪"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "「自動」會在你正在檢視即將凍結的分頁時，拍攝一張真實的瀏覽器截圖。這個方式是即時的，且適用於所有網站。其他分頁則由頁面重繪功能重新繪製，速度較慢。"
+    "message": "「自動」會在你正在檢視即將凍結的分頁時，拍攝一張真實的瀏覽器截圖。這個方式是即時的，且適用於所有網站。其他分頁則由頁面重繪功能重新繪製，速度較慢。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "「僅限瀏覽器截圖」永遠不會執行頁面重繪，因此在背景凍結的分頁不會有預覽圖。即使選擇了「擷取整個頁面」，瀏覽器截圖也只會涵蓋頁面可見的部分。"
+    "message": "「僅限瀏覽器截圖」永遠不會執行頁面重繪，因此在背景凍結的分頁不會有預覽圖。即使選擇了「擷取整個頁面」，瀏覽器截圖也只會涵蓋頁面可見的部分。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "在使用分頁時保留其最新的螢幕截圖"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "在你切換到某個分頁或該分頁載入完成後約一秒，拍攝一張瀏覽器截圖，這樣之後在背景被凍結的分頁仍然會有預覽圖。"
+    "message": "在你切換到某個分頁或該分頁載入完成後約一秒，拍攝一張瀏覽器截圖，這樣之後在背景被凍結的分頁仍然會有預覽圖。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "只有在擴充功能擁有存取所有網站的權限時，Chrome 才允許擴充功能對你尚未點擊過按鈕的分頁進行截圖，因此開啟此選項需要要求該權限。此權限僅用於拍攝這些截圖，且截圖只會保留在這台電腦上。"
+    "message": "只有在擴充功能擁有存取所有網站的權限時，Chrome 才允許擴充功能對你尚未點擊過按鈕的分頁進行截圖，因此開啟此選項需要要求該權限。此權限僅用於拍攝這些截圖，且截圖只會保留在這台電腦上。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "每個開啟中的分頁只會保留最新一張截圖，分頁關閉時該截圖也會一併刪除。無痕分頁與允許清單中的網站永遠不會被擷取。"
+    "message": "每個開啟中的分頁只會保留最新一張截圖，分頁關閉時該截圖也會一併刪除。無痕分頁與允許清單中的網站永遠不會被擷取。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "啟用高品質螢幕擷取模式"
@@ -549,7 +568,8 @@
     "message": "－螢幕擷取的最大高度限制為 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "啟用高品質螢幕擷取模式可能會大幅增加 CPU 負載與記憶體用量。"
+    "message": "啟用高品質螢幕擷取模式可能會大幅增加 CPU 負載與記憶體用量。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "永不凍結網址符合以下清單的分頁："
@@ -558,10 +578,12 @@
     "message": "一律凍結網址符合以下清單的分頁："
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "符合此清單的分頁，過了一般逾時時間後一律會被凍結，不論是否有音訊、表單輸入或釘選狀態。"
+    "message": "符合此清單的分頁，過了一般逾時時間後一律會被凍結，不論是否有音訊、表單輸入或釘選狀態。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "每行一個項目，比對規則與上方清單相同（純文字比對網址中任何位置，或以斜線包住的 /正規表示式/）。"
+    "message": "每行一個項目，比對規則與上方清單相同（純文字比對網址中任何位置，或以斜線包住的 /正規表示式/）。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "在新的一行新增你想允許的每個頁面網址。例如："
@@ -617,13 +639,15 @@
     "message": "在網頁的右鍵選單中加入本擴充功能的控制項目。"
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "這樣你就能使用擴充功能其他地方沒有提供的進階凍結操作。"
+    "message": "這樣你就能使用擴充功能其他地方沒有提供的進階凍結操作。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "與瀏覽器設定檔同步設定"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "擴充功能設定會在所有以同一個設定檔登入的瀏覽器之間同步。"
+    "message": "擴充功能設定會在所有以同一個設定檔登入的瀏覽器之間同步。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "這也會同步無痕模式中的設定。"
@@ -635,10 +659,12 @@
     "message": "系統記憶體嚴重不足時立即凍結"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "此選項會覆寫自動捨棄分頁的功能。啟用後，分頁會被強制凍結，而不是被捨棄。一般來說，瀏覽器只會在系統記憶體嚴重不足時才捨棄分頁。"
+    "message": "此選項會覆寫自動捨棄分頁的功能。啟用後，分頁會被強制凍結，而不是被捨棄。一般來說，瀏覽器只會在系統記憶體嚴重不足時才捨棄分頁。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "請注意：此選項可能會讓分頁比你在「自動凍結分頁」選項中設定的時間更早凍結。"
+    "message": "請注意：此選項可能會讓分頁比你在「自動凍結分頁」選項中設定的時間更早凍結。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "如需更多關於分頁捨棄的資訊，請參閱："
@@ -1059,10 +1085,12 @@
     "message": "自動備份你的工作階段"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "以無聲方式將目前工作階段的副本儲存為 JSON 檔案。你可以選擇儲存至本機（下載資料夾中的 tms-backups 資料夾）或儲存至 Google 雲端硬碟中的「TMS Backups」資料夾。"
+    "message": "以無聲方式將目前工作階段的副本儲存為 JSON 檔案。你可以選擇儲存至本機（下載資料夾中的 tms-backups 資料夾）或儲存至 Google 雲端硬碟中的「TMS Backups」資料夾。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "若要使用本機備份，Chrome 必須設定為自動下載檔案（不詢問）。請檢查 chrome://settings/downloads。Google 雲端硬碟備份則沒有此需求。"
+    "message": "若要使用本機備份，Chrome 必須設定為自動下載檔案（不詢問）。請檢查 chrome://settings/downloads。Google 雲端硬碟備份則沒有此需求。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "備份頻率"
@@ -1116,7 +1144,8 @@
     "message": "啟用消息動態"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "定期檢查 marvellouscode.works 上的 TMS 消息，並顯示在側邊欄中。"
+    "message": "定期檢查 marvellouscode.works 上的 TMS 消息，並顯示在側邊欄中。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "停用可跳過此背景要求。"
@@ -1125,7 +1154,8 @@
     "message": "使用經典的 The Great Suspender 圖像，而非新版吉祥物"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "在有舊版圖像可用的情況下，將圖示與插圖切換回原本的 The Great Suspender 風格。"
+    "message": "在有舊版圖像可用的情況下，將圖示與插圖切換回原本的 The Great Suspender 風格。",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "沒有舊版對應圖像的圖片會繼續使用新版圖像。"
