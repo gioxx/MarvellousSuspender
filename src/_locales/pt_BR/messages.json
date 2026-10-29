@@ -324,10 +324,12 @@
     "message": "Adicionar a URL original ao título da guia suspensa"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Quando ativado, a URL original é adicionada ao título da guia do navegador para páginas suspensas."
+    "message": "Quando ativado, a URL original é adicionada ao título da guia do navegador para páginas suspensas.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Isso permite encontrar guias suspensas pelo hostname usando o recurso \"Pesquisar guias\" do Chrome (Ctrl+Shift+A)."
+    "message": "Isso permite encontrar guias suspensas pelo hostname usando o recurso \"Pesquisar guias\" do Chrome (Ctrl+Shift+A).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Preservar a posição de reprodução do YouTube ao suspender"
@@ -423,10 +425,12 @@
     "message": "Assumir guias suspensas por outras extensões"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Assume automaticamente guias já suspensas por outra extensão compatível (ex.: The Great Suspender, ou outra instalação desta)."
+    "message": "Assume automaticamente guias já suspensas por outra extensão compatível (ex.: The Great Suspender, ou outra instalação desta).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Uma guia é considerada \"suspensa\" se a URL contiver 'suspended.html'. Ativar isso reescreve essa URL para esta instalação, para que o TMS possa gerenciar a guia a partir daí."
+    "message": "Uma guia é considerada \"suspensa\" se a URL contiver 'suspended.html'. Ativar isso reescreve essa URL para esta instalação, para que o TMS possa gerenciar a guia a partir daí.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nunca suspender guias quando conectado à tomada"
@@ -441,10 +445,12 @@
     "message": "Sempre reabrir guias suspensas com a rolagem no topo"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "A guia reabre no topo da página em vez de na posição em que estava rolada no momento da suspensão."
+    "message": "A guia reabre no topo da página em vez de na posição em que estava rolada no momento da suspensão.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Aplica-se tanto à suspensão automática quanto à manual, e substitui links que pulam para uma #seção ao carregar."
+    "message": "Aplica-se tanto à suspensão automática quanto à manual, e substitui links que pulam para uma #seção ao carregar.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Reativar automaticamente a guia quando ela for visualizada"
@@ -453,22 +459,27 @@
     "message": "Recarregar também reativa guias em segundo plano (não só a guia ativa)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "Quando ativado, recarregar uma guia suspensa (Ctrl+R ou clique direito > Recarregar) também a reativa mesmo quando ela não é a guia em foco no momento."
+    "message": "Quando ativado, recarregar uma guia suspensa (Ctrl+R ou clique direito > Recarregar) também a reativa mesmo quando ela não é a guia em foco no momento.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "Útil para recarregar várias guias suspensas de uma vez, por exemplo depois de selecionar várias guias e pressionar Ctrl+R."
+    "message": "Útil para recarregar várias guias suspensas de uma vez, por exemplo depois de selecionar várias guias e pressionar Ctrl+R.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar a economia de memória integrada do navegador ao suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "Depois que uma guia é suspensa, permita também que o Chrome a descarregue totalmente da memória. Isso libera mais recursos do sistema por guia (útil se você mantiver centenas de guias abertas)."
+    "message": "Depois que uma guia é suspensa, permita também que o Chrome a descarregue totalmente da memória. Isso libera mais recursos do sistema por guia (útil se você mantiver centenas de guias abertas).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "Isso tem o custo de perder o estado da guia até que ela seja recarregada."
+    "message": "Isso tem o custo de perder o estado da guia até que ela seja recarregada.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "Para mais informações sobre o descarte de guias, consulte: https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "Para mais informações sobre o descarte de guias, consulte: https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "Tema"
@@ -495,13 +506,16 @@
     "message": "Capturar a página inteira"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "Em uma guia suspensa, a extensão pode exibir uma prévia da imagem de como a guia estava pouco antes de ser suspensa."
+    "message": "Em uma guia suspensa, a extensão pode exibir uma prévia da imagem de como a guia estava pouco antes de ser suspensa.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "A captura de tela é um recurso experimental e pode causar uso significativo de CPU, além de um leve aumento no uso de memória."
+    "message": "A captura de tela é um recurso experimental e pode causar uso significativo de CPU, além de um leve aumento no uso de memória.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "Se você notar comportamento estranho, como guias demorando muito para suspender ou o navegador travando inesperadamente, tente desativar este recurso."
+    "message": "Se você notar comportamento estranho, como guias demorando muito para suspender ou o navegador travando inesperadamente, tente desativar este recurso.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Método de captura"
@@ -516,22 +530,27 @@
     "message": "Somente renderizador de página"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automático tira uma captura de tela real do navegador quando a guia sendo suspensa é a que você está olhando. Isso é instantâneo e funciona em qualquer site. Qualquer outra guia é redesenhada pelo renderizador de página, que é mais lento."
+    "message": "Automático tira uma captura de tela real do navegador quando a guia sendo suspensa é a que você está olhando. Isso é instantâneo e funciona em qualquer site. Qualquer outra guia é redesenhada pelo renderizador de página, que é mais lento.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Somente captura de tela do navegador nunca executa o renderizador de página, então guias suspensas em segundo plano não têm prévia. Uma captura de tela do navegador cobre apenas a parte visível da página, mesmo com 'Capturar a página inteira' selecionado."
+    "message": "Somente captura de tela do navegador nunca executa o renderizador de página, então guias suspensas em segundo plano não têm prévia. Uma captura de tela do navegador cobre apenas a parte visível da página, mesmo com 'Capturar a página inteira' selecionado.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Manter uma captura de tela recente das guias enquanto eu as uso"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Tira uma captura de tela do navegador de uma guia cerca de um segundo depois que você muda para ela ou ela termina de carregar, para que guias suspensas mais tarde em segundo plano ainda tenham uma prévia."
+    "message": "Tira uma captura de tela do navegador de uma guia cerca de um segundo depois que você muda para ela ou ela termina de carregar, para que guias suspensas mais tarde em segundo plano ainda tenham uma prévia.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "O Chrome só permite que uma extensão capture a tela de uma guia na qual você não clicou o botão dela se tiver acesso a todos os sites, então ativar isso solicita essa permissão. Ela é usada apenas para tirar essas capturas de tela, que ficam neste computador."
+    "message": "O Chrome só permite que uma extensão capture a tela de uma guia na qual você não clicou o botão dela se tiver acesso a todos os sites, então ativar isso solicita essa permissão. Ela é usada apenas para tirar essas capturas de tela, que ficam neste computador.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Apenas a captura de tela mais recente de cada guia aberta é mantida, e ela é excluída quando a guia é fechada. Guias anônimas e sites na lista de permissões nunca são capturados."
+    "message": "Apenas a captura de tela mais recente de cada guia aberta é mantida, e ela é excluída quando a guia é fechada. Guias anônimas e sites na lista de permissões nunca são capturados.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Ativar modo de captura de tela em alta qualidade"
@@ -549,7 +568,8 @@
     "message": "- Altura máxima da captura de tela limitada a 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Ativar o modo de captura de tela em alta qualidade pode aumentar significativamente o uso da CPU e o uso de memória."
+    "message": "Ativar o modo de captura de tela em alta qualidade pode aumentar significativamente o uso da CPU e o uso de memória.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "Nunca suspender guias com URLs da seguinte lista:"
@@ -558,10 +578,12 @@
     "message": "Sempre suspender guias com URLs da seguinte lista:"
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "Guias que correspondem a esta lista sempre suspendem após o tempo limite normal, independentemente de áudio, entrada de formulário ou estado de fixação."
+    "message": "Guias que correspondem a esta lista sempre suspendem após o tempo limite normal, independentemente de áudio, entrada de formulário ou estado de fixação.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "Um item por linha, com as mesmas regras de correspondência da lista acima (texto simples correspondendo em qualquer parte da URL, ou /regex/ entre barras)."
+    "message": "Um item por linha, com as mesmas regras de correspondência da lista acima (texto simples correspondendo em qualquer parte da URL, ou /regex/ entre barras).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Adicione a URL de cada página que você quer permitir em uma nova linha. Por exemplo:"
@@ -617,13 +639,15 @@
     "message": "Adiciona controles desta extensão ao menu de clique direito de uma página da web."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Isso dará acesso a ações avançadas de suspensão não disponíveis em outros lugares da extensão."
+    "message": "Isso dará acesso a ações avançadas de suspensão não disponíveis em outros lugares da extensão.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "Sincronizar configurações com seu perfil do navegador"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "As configurações da extensão serão sincronizadas em todos os navegadores conectados com o mesmo perfil."
+    "message": "As configurações da extensão serão sincronizadas em todos os navegadores conectados com o mesmo perfil.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Isso também sincronizará as configurações no modo anônimo."
@@ -635,10 +659,12 @@
     "message": "Suspender instantaneamente quando a memória do sistema ficar muito baixa"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Esta opção substitui a funcionalidade automática de descarte de guias. Se ativada, forçará a suspensão de uma guia em vez de descartá-la. Normalmente, seu navegador só descarta guias quando a memória do sistema fica muito baixa."
+    "message": "Esta opção substitui a funcionalidade automática de descarte de guias. Se ativada, forçará a suspensão de uma guia em vez de descartá-la. Normalmente, seu navegador só descarta guias quando a memória do sistema fica muito baixa.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Atenção: isso pode fazer com que as guias suspendam antes do tempo que você especificou nas opções de suspensão automática de guias."
+    "message": "Atenção: isso pode fazer com que as guias suspendam antes do tempo que você especificou nas opções de suspensão automática de guias.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Para mais informações sobre o descarte de guias, consulte:"
@@ -1059,10 +1085,12 @@
     "message": "Fazer backup automático da sua sessão"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Salva silenciosamente uma cópia da sua sessão atual como arquivo JSON. Escolha salvar localmente (pasta tms-backups dentro de Downloads) ou em uma pasta 'TMS Backups' no Google Drive."
+    "message": "Salva silenciosamente uma cópia da sua sessão atual como arquivo JSON. Escolha salvar localmente (pasta tms-backups dentro de Downloads) ou em uma pasta 'TMS Backups' no Google Drive.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "Para backups locais, o Chrome precisa estar configurado para baixar arquivos automaticamente (sem perguntar). Confira em chrome://settings/downloads. Backups no Google Drive não têm essa exigência."
+    "message": "Para backups locais, o Chrome precisa estar configurado para baixar arquivos automaticamente (sem perguntar). Confira em chrome://settings/downloads. Backups no Google Drive não têm essa exigência.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "Backup a cada"
@@ -1116,7 +1144,8 @@
     "message": "Ativar feed de novidades"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Verifica periodicamente o marvellouscode.works em busca de novidades do TMS e as mostra na barra lateral."
+    "message": "Verifica periodicamente o marvellouscode.works em busca de novidades do TMS e as mostra na barra lateral.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Desative para pular essa solicitação em segundo plano."
@@ -1125,7 +1154,8 @@
     "message": "Usar a arte clássica do The Great Suspender em vez do novo mascote"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Troca ícones e ilustrações de volta para o estilo original do The Great Suspender, onde uma versão antiga da imagem estiver disponível."
+    "message": "Troca ícones e ilustrações de volta para o estilo original do The Great Suspender, onde uma versão antiga da imagem estiver disponível.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "Imagens sem um equivalente antigo continuam usando a nova arte."

@@ -324,10 +324,12 @@
     "message": "Добавлять исходный URL к заголовку приостановленной вкладки"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Если включено, исходный URL добавляется к заголовку вкладки браузера для приостановленных страниц."
+    "message": "Если включено, исходный URL добавляется к заголовку вкладки браузера для приостановленных страниц.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Это позволяет находить приостановленные вкладки по имени хоста через «Поиск по вкладкам» в Chrome (Ctrl+Shift+A)."
+    "message": "Это позволяет находить приостановленные вкладки по имени хоста через «Поиск по вкладкам» в Chrome (Ctrl+Shift+A).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Сохранять позицию воспроизведения YouTube при приостановке"
@@ -423,10 +425,12 @@
     "message": "Перехватывать вкладки, приостановленные другими расширениями"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Автоматически берёт под контроль вкладки, уже приостановленные другим совместимым расширением (например, The Great Suspender или другой установкой этого расширения)."
+    "message": "Автоматически берёт под контроль вкладки, уже приостановленные другим совместимым расширением (например, The Great Suspender или другой установкой этого расширения).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Вкладка считается «приостановленной», если её URL содержит 'suspended.html'. Включение этой опции переписывает URL на эту установку, чтобы TMS могло управлять вкладкой в дальнейшем."
+    "message": "Вкладка считается «приостановленной», если её URL содержит 'suspended.html'. Включение этой опции переписывает URL на эту установку, чтобы TMS могло управлять вкладкой в дальнейшем.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Никогда не приостанавливать вкладки при подключении к питанию"
@@ -441,10 +445,12 @@
     "message": "Всегда открывать приостановленные вкладки прокрученными в начало"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "Вкладка открывается в начале страницы, а не там, где была прокрутка на момент приостановки."
+    "message": "Вкладка открывается в начале страницы, а не там, где была прокрутка на момент приостановки.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Применяется как к автоматической, так и к ручной приостановке, и имеет приоритет над ссылками, ведущими к #разделу при загрузке."
+    "message": "Применяется как к автоматической, так и к ручной приостановке, и имеет приоритет над ссылками, ведущими к #разделу при загрузке.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Автоматически возобновлять вкладку при её просмотре"
@@ -453,22 +459,27 @@
     "message": "Перезагрузка также возобновляет вкладки в фоне (не только активную)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "Если включено, перезагрузка приостановленной вкладки (Ctrl+R или правый клик > Перезагрузить) также возобновляет её, даже если она не активна в данный момент."
+    "message": "Если включено, перезагрузка приостановленной вкладки (Ctrl+R или правый клик > Перезагрузить) также возобновляет её, даже если она не активна в данный момент.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "Полезно для перезагрузки нескольких приостановленных вкладок сразу, например после выделения нескольких вкладок и нажатия Ctrl+R."
+    "message": "Полезно для перезагрузки нескольких приостановленных вкладок сразу, например после выделения нескольких вкладок и нажатия Ctrl+R.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Применять встроенное в браузер сбережение памяти при приостановке"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "После того как вкладка приостановлена, разрешите Chrome полностью выгрузить её из памяти. Это освобождает больше системных ресурсов на вкладку (полезно, если у вас открыты сотни вкладок)."
+    "message": "После того как вкладка приостановлена, разрешите Chrome полностью выгрузить её из памяти. Это освобождает больше системных ресурсов на вкладку (полезно, если у вас открыты сотни вкладок).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "Это происходит за счёт потери состояния вкладки до её перезагрузки."
+    "message": "Это происходит за счёт потери состояния вкладки до её перезагрузки.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "Подробнее о выгрузке вкладок читайте здесь: https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "Подробнее о выгрузке вкладок читайте здесь: https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "Тема"
@@ -495,13 +506,16 @@
     "message": "Захватывать всю страницу"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "На приостановленной вкладке расширение может показать превью того, как выглядела вкладка непосредственно перед приостановкой."
+    "message": "На приостановленной вкладке расширение может показать превью того, как выглядела вкладка непосредственно перед приостановкой.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "Захват экрана — экспериментальная функция и может значительно нагружать процессор, а также немного увеличивать использование памяти."
+    "message": "Захват экрана — экспериментальная функция и может значительно нагружать процессор, а также немного увеличивать использование памяти.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "Если вы заметили странности, например долгую приостановку вкладок или неожиданные сбои браузера, попробуйте отключить эту функцию."
+    "message": "Если вы заметили странности, например долгую приостановку вкладок или неожиданные сбои браузера, попробуйте отключить эту функцию.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Метод захвата"
@@ -516,22 +530,27 @@
     "message": "Только рендерер страницы"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Автоматически делает настоящий скриншот браузера, если приостанавливаемая вкладка — та, на которую вы сейчас смотрите. Это происходит мгновенно и работает на любом сайте. Любая другая вкладка перерисовывается рендерером страницы, что медленнее."
+    "message": "Автоматически делает настоящий скриншот браузера, если приостанавливаемая вкладка — та, на которую вы сейчас смотрите. Это происходит мгновенно и работает на любом сайте. Любая другая вкладка перерисовывается рендерером страницы, что медленнее.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "«Только скриншот браузера» никогда не использует рендерер страницы, поэтому вкладки, приостановленные в фоне, не получают превью. Скриншот браузера захватывает только видимую часть страницы, даже если выбрано «Захватывать всю страницу»."
+    "message": "«Только скриншот браузера» никогда не использует рендерер страницы, поэтому вкладки, приостановленные в фоне, не получают превью. Скриншот браузера захватывает только видимую часть страницы, даже если выбрано «Захватывать всю страницу».",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Хранить свежий скриншот вкладок по мере их использования"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Делает скриншот браузера вкладки примерно через секунду после переключения на неё или завершения загрузки, чтобы вкладки, позже приостановленные в фоне, всё равно получили превью."
+    "message": "Делает скриншот браузера вкладки примерно через секунду после переключения на неё или завершения загрузки, чтобы вкладки, позже приостановленные в фоне, всё равно получили превью.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome разрешает расширению делать скриншот вкладки, по которой вы не нажимали его кнопку, только если у расширения есть доступ ко всем сайтам, поэтому включение этой опции запрашивает такое разрешение. Оно используется только для съёмки этих скриншотов, которые остаются на этом компьютере."
+    "message": "Chrome разрешает расширению делать скриншот вкладки, по которой вы не нажимали его кнопку, только если у расширения есть доступ ко всем сайтам, поэтому включение этой опции запрашивает такое разрешение. Оно используется только для съёмки этих скриншотов, которые остаются на этом компьютере.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Хранится только последний скриншот каждой открытой вкладки, и он удаляется при её закрытии. Вкладки в режиме инкогнито и сайты из белого списка никогда не захватываются."
+    "message": "Хранится только последний скриншот каждой открытой вкладки, и он удаляется при её закрытии. Вкладки в режиме инкогнито и сайты из белого списка никогда не захватываются.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Включить режим захвата экрана в высоком качестве"
@@ -549,7 +568,8 @@
     "message": "- Максимальная высота захвата экрана ограничена 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Включение режима захвата экрана в высоком качестве может значительно увеличить нагрузку на процессор и использование памяти."
+    "message": "Включение режима захвата экрана в высоком качестве может значительно увеличить нагрузку на процессор и использование памяти.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "Никогда не приостанавливать вкладки с URL из следующего списка:"
@@ -558,10 +578,12 @@
     "message": "Всегда приостанавливать вкладки с URL из следующего списка:"
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "Вкладки, соответствующие этому списку, всегда приостанавливаются по истечении обычного тайм-аута, независимо от звука, ввода в формы или закреплённого состояния."
+    "message": "Вкладки, соответствующие этому списку, всегда приостанавливаются по истечении обычного тайм-аута, независимо от звука, ввода в формы или закреплённого состояния.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "По одной записи на строку, те же правила сопоставления, что и в списке выше (обычный текст совпадает в любом месте URL, либо /регулярное выражение/ между слэшами)."
+    "message": "По одной записи на строку, те же правила сопоставления, что и в списке выше (обычный текст совпадает в любом месте URL, либо /регулярное выражение/ между слэшами).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Добавьте URL каждой страницы, которую хотите разрешить, на новой строке. Например:"
@@ -617,13 +639,15 @@
     "message": "Добавляет элементы управления этим расширением в контекстное меню веб-страницы."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Это даст доступ к расширенным действиям приостановки, недоступным в других местах расширения."
+    "message": "Это даст доступ к расширенным действиям приостановки, недоступным в других местах расширения.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "Синхронизировать настройки с профилем браузера"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "Настройки расширения будут синхронизированы на всех браузерах, где выполнен вход с тем же профилем."
+    "message": "Настройки расширения будут синхронизированы на всех браузерах, где выполнен вход с тем же профилем.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Это также синхронизирует настройки в режиме инкогнито."
@@ -635,10 +659,12 @@
     "message": "Мгновенно приостанавливать при очень низком уровне памяти системы"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Эта опция переопределяет автоматическую выгрузку вкладок. Если включено, вкладка будет принудительно приостановлена вместо выгрузки. Обычно браузер выгружает вкладки только при очень низком уровне памяти системы."
+    "message": "Эта опция переопределяет автоматическую выгрузку вкладок. Если включено, вкладка будет принудительно приостановлена вместо выгрузки. Обычно браузер выгружает вкладки только при очень низком уровне памяти системы.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Обратите внимание: это может привести к более ранней приостановке вкладок, чем указано в настройках автоматической приостановки вкладок."
+    "message": "Обратите внимание: это может привести к более ранней приостановке вкладок, чем указано в настройках автоматической приостановки вкладок.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Подробнее о выгрузке вкладок читайте здесь:"
@@ -1059,10 +1085,12 @@
     "message": "Автоматически создавать резервную копию сессии"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Незаметно сохраняет копию текущей сессии в виде JSON-файла. Выберите сохранение локально (папка tms-backups внутри «Загрузок») или в папку «TMS Backups» на Google Диске."
+    "message": "Незаметно сохраняет копию текущей сессии в виде JSON-файла. Выберите сохранение локально (папка tms-backups внутри «Загрузок») или в папку «TMS Backups» на Google Диске.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "Для локальных резервных копий в Chrome должна быть включена автоматическая загрузка файлов (без запроса подтверждения). Проверьте chrome://settings/downloads. Для резервных копий на Google Диске такое требование не нужно."
+    "message": "Для локальных резервных копий в Chrome должна быть включена автоматическая загрузка файлов (без запроса подтверждения). Проверьте chrome://settings/downloads. Для резервных копий на Google Диске такое требование не нужно.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "Резервное копирование каждые"
@@ -1116,7 +1144,8 @@
     "message": "Включить ленту новостей"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Периодически проверяет marvellouscode.works на наличие новостей TMS и показывает их в боковой панели."
+    "message": "Периодически проверяет marvellouscode.works на наличие новостей TMS и показывает их в боковой панели.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Отключите, чтобы пропустить этот фоновый запрос."
@@ -1125,7 +1154,8 @@
     "message": "Использовать классическую графику The Great Suspender вместо нового маскота"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Возвращает значки и иллюстрации к оригинальному стилю The Great Suspender там, где доступна классическая версия изображения."
+    "message": "Возвращает значки и иллюстрации к оригинальному стилю The Great Suspender там, где доступна классическая версия изображения.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "Изображения без классического аналога по-прежнему используют новую графику."

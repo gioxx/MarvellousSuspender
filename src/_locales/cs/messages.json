@@ -324,10 +324,12 @@
     "message": "Připojit původní adresu URL k názvu pozastavené karty"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Pokud je povoleno, původní adresa URL se připojí k názvu karty prohlížeče u pozastavených stránek."
+    "message": "Pokud je povoleno, původní adresa URL se připojí k názvu karty prohlížeče u pozastavených stránek.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "To umožňuje najít pozastavené karty podle hostitele pomocí funkce Chromu „Hledat na kartách“ (Ctrl+Shift+A)."
+    "message": "To umožňuje najít pozastavené karty podle hostitele pomocí funkce Chromu „Hledat na kartách“ (Ctrl+Shift+A).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Zachovat pozici přehrávání YouTube při pozastavení"
@@ -423,10 +425,12 @@
     "message": "Převzít karty pozastavené jinými rozšířeními"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Automaticky převezme karty už pozastavené jiným kompatibilním rozšířením (např. The Great Suspender nebo jiná instalace tohoto)."
+    "message": "Automaticky převezme karty už pozastavené jiným kompatibilním rozšířením (např. The Great Suspender nebo jiná instalace tohoto).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Karta se počítá jako „pozastavená“, pokud její adresa URL obsahuje 'suspended.html'. Povolením této volby se tato adresa URL přepíše na tuto instalaci, aby ji TMS mohl dále spravovat."
+    "message": "Karta se počítá jako „pozastavená“, pokud její adresa URL obsahuje 'suspended.html'. Povolením této volby se tato adresa URL přepíše na tuto instalaci, aby ji TMS mohl dále spravovat.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nikdy nepozastavovat karty při připojení ke zdroji napájení"
@@ -441,10 +445,12 @@
     "message": "Vždy znovu otevřít pozastavené karty posunuté nahoru"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "Karta se znovu otevře na začátku stránky místo místa, kam byla posunuta v okamžiku pozastavení."
+    "message": "Karta se znovu otevře na začátku stránky místo místa, kam byla posunuta v okamžiku pozastavení.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Platí pro automatické i ruční pozastavení a má přednost před odkazy, které při načtení skáčou na #sekci."
+    "message": "Platí pro automatické i ruční pozastavení a má přednost před odkazy, které při načtení skáčou na #sekci.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Automaticky obnovit kartu při zobrazení"
@@ -453,22 +459,27 @@
     "message": "Znovu načtení obnoví i karty na pozadí (nejen aktivní kartu)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "Pokud je povoleno, opětovné načtení pozastavené karty (Ctrl+R nebo pravým tlačítkem > Znovu načíst) ji obnoví i tehdy, když právě není aktivní kartou."
+    "message": "Pokud je povoleno, opětovné načtení pozastavené karty (Ctrl+R nebo pravým tlačítkem > Znovu načíst) ji obnoví i tehdy, když právě není aktivní kartou.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "Užitečné pro opětovné načtení více pozastavených karet najednou, například po výběru více karet a stisknutí Ctrl+R."
+    "message": "Užitečné pro opětovné načtení více pozastavených karet najednou, například po výběru více karet a stisknutí Ctrl+R.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Při pozastavení použít vestavěné šetření pamětí prohlížeče"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "Po pozastavení karty nechte Chrome, aby ji také úplně uvolnil z paměti. To uvolní více systémových prostředků na kartu (užitečné, pokud máte otevřené stovky karet)."
+    "message": "Po pozastavení karty nechte Chrome, aby ji také úplně uvolnil z paměti. To uvolní více systémových prostředků na kartu (užitečné, pokud máte otevřené stovky karet).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "To má za následek ztrátu stavu karty, dokud nebude znovu načtena."
+    "message": "To má za následek ztrátu stavu karty, dokud nebude znovu načtena.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "Více informací o uvolňování karet najdeš zde: https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "Více informací o uvolňování karet najdeš zde: https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "Motiv"
@@ -495,13 +506,16 @@
     "message": "Zachytit celou stránku"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "Na pozastavené kartě může rozšíření zobrazit náhled toho, jak karta vypadala těsně před pozastavením."
+    "message": "Na pozastavené kartě může rozšíření zobrazit náhled toho, jak karta vypadala těsně před pozastavením.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "Snímání obrazovky je experimentální funkce a může způsobit výrazné vytížení procesoru, stejně jako mírně zvýšenou spotřebu paměti."
+    "message": "Snímání obrazovky je experimentální funkce a může způsobit výrazné vytížení procesoru, stejně jako mírně zvýšenou spotřebu paměti.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "Pokud zaznamenáš zvláštní chování, například dlouhé pozastavování karet nebo neočekávané pády prohlížeče, zkus tuto funkci vypnout."
+    "message": "Pokud zaznamenáš zvláštní chování, například dlouhé pozastavování karet nebo neočekávané pády prohlížeče, zkus tuto funkci vypnout.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Metoda snímání"
@@ -516,22 +530,27 @@
     "message": "Pouze vykreslovač stránky"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automaticky pořídí skutečný snímek obrazovky prohlížeče, když je pozastavovaná karta ta, na kterou se právě díváš. To je okamžité a funguje na každém webu. Každá jiná karta je překreslena vykreslovačem stránky, což je pomalejší."
+    "message": "Automaticky pořídí skutečný snímek obrazovky prohlížeče, když je pozastavovaná karta ta, na kterou se právě díváš. To je okamžité a funguje na každém webu. Každá jiná karta je překreslena vykreslovačem stránky, což je pomalejší.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Pouze snímek obrazovky prohlížeče nikdy nespustí vykreslovač stránky, takže karty pozastavené na pozadí nezískají náhled. Snímek obrazovky prohlížeče zachytí jen viditelnou část stránky, i když je vybráno „Zachytit celou stránku“."
+    "message": "Pouze snímek obrazovky prohlížeče nikdy nespustí vykreslovač stránky, takže karty pozastavené na pozadí nezískají náhled. Snímek obrazovky prohlížeče zachytí jen viditelnou část stránky, i když je vybráno „Zachytit celou stránku“.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Udržovat nedávný snímek karet, jak je používáš"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Pořídí snímek obrazovky prohlížeče přibližně sekundu po přepnutí na kartu nebo po dokončení jejího načtení, takže karty pozastavené později na pozadí stále mají náhled."
+    "message": "Pořídí snímek obrazovky prohlížeče přibližně sekundu po přepnutí na kartu nebo po dokončení jejího načtení, takže karty pozastavené později na pozadí stále mají náhled.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome umožňuje rozšíření pořídit snímek karty, na jejíž tlačítko jsi neklikl, pouze pokud má přístup ke všem webům, takže zapnutí této volby vyžádá toto oprávnění. Používá se jen k pořizování těchto snímků, které zůstávají v tomto počítači."
+    "message": "Chrome umožňuje rozšíření pořídit snímek karty, na jejíž tlačítko jsi neklikl, pouze pokud má přístup ke všem webům, takže zapnutí této volby vyžádá toto oprávnění. Používá se jen k pořizování těchto snímků, které zůstávají v tomto počítači.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Uchovává se pouze nejnovější snímek každé otevřené karty a smaže se při jejím zavření. Karty v anonymním režimu a weby na seznamu výjimek se nikdy nesnímají."
+    "message": "Uchovává se pouze nejnovější snímek každé otevřené karty a smaže se při jejím zavření. Karty v anonymním režimu a weby na seznamu výjimek se nikdy nesnímají.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Povolit vysoce kvalitní režim snímání obrazovky"
@@ -549,7 +568,8 @@
     "message": "- Maximální výška snímku obrazovky omezena na 5000 px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Povolení vysoce kvalitního režimu snímání obrazovky může výrazně zvýšit zátěž procesoru a spotřebu paměti."
+    "message": "Povolení vysoce kvalitního režimu snímání obrazovky může výrazně zvýšit zátěž procesoru a spotřebu paměti.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "Nikdy nepozastavovat karty s adresami URL z následujícího seznamu:"
@@ -558,10 +578,12 @@
     "message": "Vždy pozastavit karty s adresami URL z následujícího seznamu:"
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "Karty odpovídající tomuto seznamu se vždy pozastaví po uplynutí běžného časového limitu, bez ohledu na zvuk, vstup formuláře nebo připnutí."
+    "message": "Karty odpovídající tomuto seznamu se vždy pozastaví po uplynutí běžného časového limitu, bez ohledu na zvuk, vstup formuláře nebo připnutí.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "Jedna položka na řádek, stejná pravidla shody jako u seznamu výše (prostý text odpovídající kdekoli v adrese URL, nebo /regex/ mezi lomítky)."
+    "message": "Jedna položka na řádek, stejná pravidla shody jako u seznamu výše (prostý text odpovídající kdekoli v adrese URL, nebo /regex/ mezi lomítky).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Přidej adresu URL každé stránky, kterou chceš povolit, na nový řádek. Například:"
@@ -617,13 +639,15 @@
     "message": "Přidá ovládací prvky tohoto rozšíření do nabídky pravého tlačítka na webové stránce."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Získáš tak přístup k pokročilým akcím pozastavení, které nejsou dostupné jinde v rozšíření."
+    "message": "Získáš tak přístup k pokročilým akcím pozastavení, které nejsou dostupné jinde v rozšíření.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "Synchronizovat nastavení s tvým profilem prohlížeče"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "Nastavení rozšíření se synchronizuje napříč všemi prohlížeči přihlášenými stejným profilem."
+    "message": "Nastavení rozšíření se synchronizuje napříč všemi prohlížeči přihlášenými stejným profilem.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Tím se synchronizuje i nastavení v anonymním režimu."
@@ -635,10 +659,12 @@
     "message": "Okamžitě pozastavit, když je systémová paměť velmi nízká"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Tato volba potlačí automatickou funkci uvolňování karet. Pokud je povolena, vynutí pozastavení karty místo jejího uvolnění. Prohlížeč běžně uvolňuje karty jen tehdy, když je systémová paměť velmi nízká."
+    "message": "Tato volba potlačí automatickou funkci uvolňování karet. Pokud je povolena, vynutí pozastavení karty místo jejího uvolnění. Prohlížeč běžně uvolňuje karty jen tehdy, když je systémová paměť velmi nízká.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Upozornění: kvůli tomu se karty mohou pozastavit dříve, než jsi zadal(a) v možnostech automatického pozastavování karet."
+    "message": "Upozornění: kvůli tomu se karty mohou pozastavit dříve, než jsi zadal(a) v možnostech automatického pozastavování karet.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Více informací o uvolňování karet najdeš zde:"
@@ -1059,10 +1085,12 @@
     "message": "Automaticky zálohovat relaci"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Tiše uloží kopii aktuální relace jako soubor JSON. Vyber si ukládání místně (složka tms-backups uvnitř Stažených souborů) nebo do složky 'TMS Backups' na Google Disku."
+    "message": "Tiše uloží kopii aktuální relace jako soubor JSON. Vyber si ukládání místně (složka tms-backups uvnitř Stažených souborů) nebo do složky 'TMS Backups' na Google Disku.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "Pro místní zálohy musí být Chrome nastaven na automatické stahování souborů (bez dotazování). Zkontroluj chrome://settings/downloads. Zálohy na Google Disku tento požadavek nemají."
+    "message": "Pro místní zálohy musí být Chrome nastaven na automatické stahování souborů (bez dotazování). Zkontroluj chrome://settings/downloads. Zálohy na Google Disku tento požadavek nemají.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "Zálohovat každých"
@@ -1116,7 +1144,8 @@
     "message": "Povolit kanál novinek"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Pravidelně kontroluje marvellouscode.works kvůli novinkám o TMS a zobrazuje je v postranním panelu."
+    "message": "Pravidelně kontroluje marvellouscode.works kvůli novinkám o TMS a zobrazuje je v postranním panelu.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Vypnutím přeskočíš tento požadavek na pozadí."
@@ -1125,7 +1154,8 @@
     "message": "Použít klasickou grafiku The Great Suspender místo nového maskota"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Přepne ikony a ilustrace zpět na původní styl The Great Suspender tam, kde je dostupná starší verze obrázku."
+    "message": "Přepne ikony a ilustrace zpět na původní styl The Great Suspender tam, kde je dostupná starší verze obrázku.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "Obrázky bez starší varianty dál používají novou grafiku."

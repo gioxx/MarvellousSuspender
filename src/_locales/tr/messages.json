@@ -324,10 +324,12 @@
     "message": "Orijinal URL'yi askıya alınmış sekme başlığına ekle"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Etkinleştirildiğinde, orijinal URL askıya alınmış sayfaların tarayıcı sekme başlığına eklenir."
+    "message": "Etkinleştirildiğinde, orijinal URL askıya alınmış sayfaların tarayıcı sekme başlığına eklenir.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Bu, Chrome'un \"Sekmeleri Ara\" özelliğini kullanarak askıya alınmış sekmeleri ana bilgisayar adına göre bulmayı sağlar (Ctrl+Shift+A)."
+    "message": "Bu, Chrome'un \"Sekmeleri Ara\" özelliğini kullanarak askıya alınmış sekmeleri ana bilgisayar adına göre bulmayı sağlar (Ctrl+Shift+A).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Askıya alırken YouTube oynatma konumunu koru"
@@ -423,10 +425,12 @@
     "message": "Diğer uzantılar tarafından askıya alınmış sekmeleri devral"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Uyumlu başka bir uzantı (ör. The Great Suspender veya bu uzantının farklı bir kurulumu) tarafından zaten askıya alınmış sekmeleri otomatik olarak devralır."
+    "message": "Uyumlu başka bir uzantı (ör. The Great Suspender veya bu uzantının farklı bir kurulumu) tarafından zaten askıya alınmış sekmeleri otomatik olarak devralır.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "URL'sinde 'suspended.html' geçen bir sekme \"askıya alınmış\" sayılır. Bu seçeneği etkinleştirmek, TMS'in sekmeyi bundan sonra yönetebilmesi için bu URL'yi bu kuruluma göre yeniden yazar."
+    "message": "URL'sinde 'suspended.html' geçen bir sekme \"askıya alınmış\" sayılır. Bu seçeneği etkinleştirmek, TMS'in sekmeyi bundan sonra yönetebilmesi için bu URL'yi bu kuruluma göre yeniden yazar.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Güç kaynağına bağlıyken sekmeleri asla askıya alma"
@@ -441,10 +445,12 @@
     "message": "Askıya alınmış sekmeleri her zaman en üste kaydırılmış şekilde yeniden aç"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "Sekme, askıya alındığında kaydırılmış olduğu yer yerine sayfanın en üstünde yeniden açılır."
+    "message": "Sekme, askıya alındığında kaydırılmış olduğu yer yerine sayfanın en üstünde yeniden açılır.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Hem otomatik hem de manuel askıya almada geçerlidir ve yüklenirken bir #bölüme atlayan bağlantıları geçersiz kılar."
+    "message": "Hem otomatik hem de manuel askıya almada geçerlidir ve yüklenirken bir #bölüme atlayan bağlantıları geçersiz kılar.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Görüntülendiğinde sekmeyi otomatik olarak geri al"
@@ -453,22 +459,27 @@
     "message": "Yeniden yükleme, arka plandaki sekmeleri de geri alır (yalnızca etkin sekmeyi değil)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "Etkinleştirildiğinde, askıya alınmış bir sekmeyi yeniden yüklemek (Ctrl+R veya sağ tık > Yeniden Yükle) o an odaktaki sekme olmasa bile onu geri alır."
+    "message": "Etkinleştirildiğinde, askıya alınmış bir sekmeyi yeniden yüklemek (Ctrl+R veya sağ tık > Yeniden Yükle) o an odaktaki sekme olmasa bile onu geri alır.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "Örneğin birden fazla sekme seçip Ctrl+R'ye basıldıktan sonra, birden fazla askıya alınmış sekmeyi tek seferde yeniden yüklemek için kullanışlıdır."
+    "message": "Örneğin birden fazla sekme seçip Ctrl+R'ye basıldıktan sonra, birden fazla askıya alınmış sekmeyi tek seferde yeniden yüklemek için kullanışlıdır.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Askıya alırken tarayıcının yerleşik bellek tasarrufu özelliğini uygula"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "Bir sekme askıya alındıktan sonra, Chrome'un onu bellekten tamamen kaldırmasına da izin verin. Bu, sekme başına daha fazla sistem kaynağı serbest bırakır (yüzlerce sekme açık tutuyorsanız faydalıdır)."
+    "message": "Bir sekme askıya alındıktan sonra, Chrome'un onu bellekten tamamen kaldırmasına da izin verin. Bu, sekme başına daha fazla sistem kaynağı serbest bırakır (yüzlerce sekme açık tutuyorsanız faydalıdır).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "Bunun bedeli, sekme yeniden yüklenene kadar sekme durumunun kaybolmasıdır."
+    "message": "Bunun bedeli, sekme yeniden yüklenene kadar sekme durumunun kaybolmasıdır.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "Sekme atma hakkında daha fazla bilgi için: https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "Sekme atma hakkında daha fazla bilgi için: https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "Tema"
@@ -495,13 +506,16 @@
     "message": "Tüm sayfayı yakala"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "Askıya alınmış bir sekmede, uzantı sekmenin askıya alınmadan hemen önceki görünümünün bir önizleme görüntüsünü gösterebilir."
+    "message": "Askıya alınmış bir sekmede, uzantı sekmenin askıya alınmadan hemen önceki görünümünün bir önizleme görüntüsünü gösterebilir.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "Ekran yakalama özelliği deneyseldir ve önemli ölçüde CPU kullanımına ve hafif artmış bellek kullanımına neden olabilir."
+    "message": "Ekran yakalama özelliği deneyseldir ve önemli ölçüde CPU kullanımına ve hafif artmış bellek kullanımına neden olabilir.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "Sekmelerin askıya alınması çok uzun sürmesi veya tarayıcının beklenmedik şekilde çökmesi gibi garip davranışlar görürsen, bu özelliği kapatmayı dene."
+    "message": "Sekmelerin askıya alınması çok uzun sürmesi veya tarayıcının beklenmedik şekilde çökmesi gibi garip davranışlar görürsen, bu özelliği kapatmayı dene.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Yakalama yöntemi"
@@ -516,22 +530,27 @@
     "message": "Yalnızca sayfa render'ı"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Otomatik, askıya alınan sekme o an baktığın sekme olduğunda gerçek bir tarayıcı ekran görüntüsü alır. Bu anında gerçekleşir ve her sitede çalışır. Diğer tüm sekmeler, daha yavaş olan sayfa render'ı tarafından yeniden çizilir."
+    "message": "Otomatik, askıya alınan sekme o an baktığın sekme olduğunda gerçek bir tarayıcı ekran görüntüsü alır. Bu anında gerçekleşir ve her sitede çalışır. Diğer tüm sekmeler, daha yavaş olan sayfa render'ı tarafından yeniden çizilir.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Yalnızca tarayıcı ekran görüntüsü hiçbir zaman sayfa render'ını çalıştırmaz, bu yüzden arka planda askıya alınan sekmeler önizleme almaz. 'Tüm sayfayı yakala' seçili olsa bile, bir tarayıcı ekran görüntüsü yalnızca sayfanın görünür kısmını kapsar."
+    "message": "Yalnızca tarayıcı ekran görüntüsü hiçbir zaman sayfa render'ını çalıştırmaz, bu yüzden arka planda askıya alınan sekmeler önizleme almaz. 'Tüm sayfayı yakala' seçili olsa bile, bir tarayıcı ekran görüntüsü yalnızca sayfanın görünür kısmını kapsar.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Sekmeleri kullanırken yakın zamanlı bir ekran görüntüsünü sakla"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Bir sekmeye geçtikten veya sekme yüklenmeyi bitirdikten yaklaşık bir saniye sonra tarayıcı ekran görüntüsü alır, böylece daha sonra arka planda askıya alınan sekmeler de bir önizlemeye sahip olur."
+    "message": "Bir sekmeye geçtikten veya sekme yüklenmeyi bitirdikten yaklaşık bir saniye sonra tarayıcı ekran görüntüsü alır, böylece daha sonra arka planda askıya alınan sekmeler de bir önizlemeye sahip olur.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "Chrome, bir uzantının düğmesine tıklamadığın bir sekmenin ekran görüntüsünü almasına yalnızca tüm sitelere erişimi varsa izin verir, bu yüzden bunu açmak o izni ister. Yalnızca bu ekran görüntülerini almak için kullanılır ve bunlar bu bilgisayarda kalır."
+    "message": "Chrome, bir uzantının düğmesine tıklamadığın bir sekmenin ekran görüntüsünü almasına yalnızca tüm sitelere erişimi varsa izin verir, bu yüzden bunu açmak o izni ister. Yalnızca bu ekran görüntülerini almak için kullanılır ve bunlar bu bilgisayarda kalır.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Her açık sekmenin yalnızca en son ekran görüntüsü saklanır ve sekme kapatıldığında silinir. Gizli sekmeler ve izin verilen listedeki siteler asla yakalanmaz."
+    "message": "Her açık sekmenin yalnızca en son ekran görüntüsü saklanır ve sekme kapatıldığında silinir. Gizli sekmeler ve izin verilen listedeki siteler asla yakalanmaz.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Yüksek kaliteli ekran yakalama modunu etkinleştir"
@@ -549,7 +568,8 @@
     "message": "- Ekran yakalama en fazla 5000px yükseklikle sınırlıdır"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Yüksek kaliteli ekran yakalama modunu etkinleştirmek CPU yükünü önemli ölçüde artırabilir ve bellek kullanımını artırabilir."
+    "message": "Yüksek kaliteli ekran yakalama modunu etkinleştirmek CPU yükünü önemli ölçüde artırabilir ve bellek kullanımını artırabilir.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "Aşağıdaki listedeki URL'lere sahip sekmeleri asla askıya alma:"
@@ -558,10 +578,12 @@
     "message": "Aşağıdaki listedeki URL'lere sahip sekmeleri her zaman askıya al:"
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "Bu listeyle eşleşen sekmeler, ses, form girişi veya sabitlenmiş durumdan bağımsız olarak her zaman normal zaman aşımından sonra askıya alınır."
+    "message": "Bu listeyle eşleşen sekmeler, ses, form girişi veya sabitlenmiş durumdan bağımsız olarak her zaman normal zaman aşımından sonra askıya alınır.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "Satır başına bir giriş, yukarıdaki listeyle aynı eşleştirme kuralları (URL'nin herhangi bir yerinde düz metin eşleşmesi veya eğik çizgiler arasında /regex/)."
+    "message": "Satır başına bir giriş, yukarıdaki listeyle aynı eşleştirme kuralları (URL'nin herhangi bir yerinde düz metin eşleşmesi veya eğik çizgiler arasında /regex/).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "İzin vermek istediğin her sayfanın URL'sini yeni bir satıra ekle. Örneğin:"
@@ -617,13 +639,15 @@
     "message": "Bir web sayfasının sağ tık menüsüne bu uzantı için kontroller ekler."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Bu, uzantının başka yerinde bulunmayan gelişmiş askıya alma eylemlerine erişim sağlar."
+    "message": "Bu, uzantının başka yerinde bulunmayan gelişmiş askıya alma eylemlerine erişim sağlar.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "Ayarları tarayıcı profilinle senkronize et"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "Uzantı ayarları, aynı profille oturum açılmış tüm tarayıcılar arasında senkronize edilecektir."
+    "message": "Uzantı ayarları, aynı profille oturum açılmış tüm tarayıcılar arasında senkronize edilecektir.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Bu, gizli modda da ayarları senkronize eder."
@@ -635,10 +659,12 @@
     "message": "Sistem belleği çok düştüğünde anında askıya al"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Bu seçenek, otomatik sekme atma işlevinin önüne geçer. Etkinleştirilirse, bir sekmenin atılmak yerine askıya alınmasını zorlar. Genellikle tarayıcı, sekmeleri yalnızca sistem belleği çok düştüğünde atar."
+    "message": "Bu seçenek, otomatik sekme atma işlevinin önüne geçer. Etkinleştirilirse, bir sekmenin atılmak yerine askıya alınmasını zorlar. Genellikle tarayıcı, sekmeleri yalnızca sistem belleği çok düştüğünde atar.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Lütfen unutma: bu, sekmelerin Otomatik sekme askıya alma seçeneklerinde belirttiğin süreden daha erken askıya alınmasına neden olabilir."
+    "message": "Lütfen unutma: bu, sekmelerin Otomatik sekme askıya alma seçeneklerinde belirttiğin süreden daha erken askıya alınmasına neden olabilir.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Sekme atma hakkında daha fazla bilgi için:"
@@ -1059,10 +1085,12 @@
     "message": "Oturumunu otomatik olarak yedekle"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Mevcut oturumunun bir kopyasını sessizce JSON dosyası olarak kaydeder. Yerel olarak kaydetmeyi seç (İndirilenler içindeki tms-backups klasörü) veya Google Drive'daki 'TMS Backups' klasörüne kaydet."
+    "message": "Mevcut oturumunun bir kopyasını sessizce JSON dosyası olarak kaydeder. Yerel olarak kaydetmeyi seç (İndirilenler içindeki tms-backups klasörü) veya Google Drive'daki 'TMS Backups' klasörüne kaydet.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "Yerel yedekler için Chrome'un dosyaları otomatik olarak (sormadan) indirecek şekilde ayarlanmış olması gerekir. chrome://settings/downloads'ı kontrol et. Google Drive yedeklerinde böyle bir gereklilik yoktur."
+    "message": "Yerel yedekler için Chrome'un dosyaları otomatik olarak (sormadan) indirecek şekilde ayarlanmış olması gerekir. chrome://settings/downloads'ı kontrol et. Google Drive yedeklerinde böyle bir gereklilik yoktur.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "Şu sıklıkta yedekle:"
@@ -1116,7 +1144,8 @@
     "message": "Haber akışını etkinleştir"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "TMS haberleri için periyodik olarak marvellouscode.works'ü kontrol eder ve kenar çubuğunda gösterir."
+    "message": "TMS haberleri için periyodik olarak marvellouscode.works'ü kontrol eder ve kenar çubuğunda gösterir.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Bu arka plan isteğini atlamak için devre dışı bırak."
@@ -1125,7 +1154,8 @@
     "message": "Yeni maskot yerine klasik The Great Suspender görsellerini kullan"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Eski bir sürümü mevcut olan görsellerde, simgeleri ve illüstrasyonları orijinal The Great Suspender stiline geri döndürür."
+    "message": "Eski bir sürümü mevcut olan görsellerde, simgeleri ve illüstrasyonları orijinal The Great Suspender stiline geri döndürür.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "Eski bir karşılığı olmayan görseller yeni tasarımı kullanmaya devam eder."

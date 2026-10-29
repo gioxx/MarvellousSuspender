@@ -324,10 +324,12 @@
     "message": "Adicionar o URL original ao título do separador suspenso"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "Quando ativado, o URL original é adicionado ao título do separador do navegador para páginas suspensas."
+    "message": "Quando ativado, o URL original é adicionado ao título do separador do navegador para páginas suspensas.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "Isto permite encontrar separadores suspensos por nome de anfitrião usando a \"Pesquisa de separadores\" do Chrome (Ctrl+Shift+A)."
+    "message": "Isto permite encontrar separadores suspensos por nome de anfitrião usando a \"Pesquisa de separadores\" do Chrome (Ctrl+Shift+A).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Preservar a posição de reprodução do YouTube ao suspender"
@@ -423,10 +425,12 @@
     "message": "Assumir separadores suspensos por outras extensões"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "Assume automaticamente separadores já suspensos por outra extensão compatível (por exemplo, The Great Suspender, ou outra instalação desta)."
+    "message": "Assume automaticamente separadores já suspensos por outra extensão compatível (por exemplo, The Great Suspender, ou outra instalação desta).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "Um separador é considerado \"suspenso\" se o seu URL contiver 'suspended.html'. Ativar esta opção reescreve esse URL para esta instalação, para que o TMS possa gerir o separador a partir desse momento."
+    "message": "Um separador é considerado \"suspenso\" se o seu URL contiver 'suspended.html'. Ativar esta opção reescreve esse URL para esta instalação, para que o TMS possa gerir o separador a partir desse momento.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "Nunca suspender separadores quando ligado à corrente"
@@ -441,10 +445,12 @@
     "message": "Reabrir sempre separadores suspensos com a posição no topo"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "O separador reabre no topo da página, em vez do ponto onde tinha sido deslocado ao ser suspenso."
+    "message": "O separador reabre no topo da página, em vez do ponto onde tinha sido deslocado ao ser suspenso.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "Aplica-se tanto à suspensão automática como manual, e tem prioridade sobre ligações que saltam para uma #secção ao carregar."
+    "message": "Aplica-se tanto à suspensão automática como manual, e tem prioridade sobre ligações que saltam para uma #secção ao carregar.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "Reativar automaticamente o separador quando é visualizado"
@@ -453,22 +459,27 @@
     "message": "Recarregar também reativa separadores em segundo plano (não só o ativo)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "Quando ativado, recarregar um separador suspenso (Ctrl+R ou clique com o botão direito > Recarregar) também o reativa mesmo quando não é o separador atualmente em primeiro plano."
+    "message": "Quando ativado, recarregar um separador suspenso (Ctrl+R ou clique com o botão direito > Recarregar) também o reativa mesmo quando não é o separador atualmente em primeiro plano.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "Útil para recarregar vários separadores suspensos de uma vez, por exemplo após selecionar vários separadores e premir Ctrl+R."
+    "message": "Útil para recarregar vários separadores suspensos de uma vez, por exemplo após selecionar vários separadores e premir Ctrl+R.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "Aplicar a poupança de memória integrada do navegador ao suspender"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "Depois de um separador ser suspenso, permite também que o Chrome o descarregue totalmente da memória. Isto liberta mais recursos do sistema por separador (útil se mantiveres centenas de separadores abertos)."
+    "message": "Depois de um separador ser suspenso, permite também que o Chrome o descarregue totalmente da memória. Isto liberta mais recursos do sistema por separador (útil se mantiveres centenas de separadores abertos).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "Isto tem o custo de perder o estado do separador até este ser recarregado."
+    "message": "Isto tem o custo de perder o estado do separador até este ser recarregado.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "Para mais informações sobre o descarte de separadores, consulte: https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "Para mais informações sobre o descarte de separadores, consulte: https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "Tema"
@@ -495,13 +506,16 @@
     "message": "Capturar a página inteira"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "Num separador suspenso, a extensão pode mostrar uma pré-visualização do aspeto que o separador tinha mesmo antes de ser suspenso."
+    "message": "Num separador suspenso, a extensão pode mostrar uma pré-visualização do aspeto que o separador tinha mesmo antes de ser suspenso.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "A captura de ecrã é uma funcionalidade experimental e pode causar um uso significativo do CPU, bem como um ligeiro aumento no uso de memória."
+    "message": "A captura de ecrã é uma funcionalidade experimental e pode causar um uso significativo do CPU, bem como um ligeiro aumento no uso de memória.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "Se notar comportamentos estranhos, como separadores a demorar muito tempo a suspender ou o navegador a bloquear inesperadamente, tente desativar esta funcionalidade."
+    "message": "Se notar comportamentos estranhos, como separadores a demorar muito tempo a suspender ou o navegador a bloquear inesperadamente, tente desativar esta funcionalidade.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "Método de captura"
@@ -516,22 +530,27 @@
     "message": "Apenas processamento da página"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "Automático tira uma captura de ecrã real do navegador quando o separador a ser suspenso é aquele que está a ver. Isso é instantâneo e funciona em qualquer site. Qualquer outro separador é redesenhado pelo processador de página, que é mais lento."
+    "message": "Automático tira uma captura de ecrã real do navegador quando o separador a ser suspenso é aquele que está a ver. Isso é instantâneo e funciona em qualquer site. Qualquer outro separador é redesenhado pelo processador de página, que é mais lento.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "Apenas captura de ecrã do navegador nunca executa o processador de página, pelo que os separadores suspensos em segundo plano não têm pré-visualização. Uma captura de ecrã do navegador cobre apenas a parte visível da página, mesmo com 'Capturar a página inteira' selecionado."
+    "message": "Apenas captura de ecrã do navegador nunca executa o processador de página, pelo que os separadores suspensos em segundo plano não têm pré-visualização. Uma captura de ecrã do navegador cobre apenas a parte visível da página, mesmo com 'Capturar a página inteira' selecionado.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "Manter uma captura de ecrã recente dos separadores enquanto os uso"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "Tira uma captura de ecrã do navegador de um separador cerca de um segundo depois de mudar para ele ou de terminar de carregar, para que os separadores suspensos mais tarde em segundo plano continuem a ter uma pré-visualização."
+    "message": "Tira uma captura de ecrã do navegador de um separador cerca de um segundo depois de mudar para ele ou de terminar de carregar, para que os separadores suspensos mais tarde em segundo plano continuem a ter uma pré-visualização.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "O Chrome só permite que uma extensão capture o ecrã de um separador em que não clicou no seu botão se tiver acesso a todos os sites, por isso ativar esta opção pede essa permissão. É usada apenas para tirar estas capturas de ecrã, que permanecem neste computador."
+    "message": "O Chrome só permite que uma extensão capture o ecrã de um separador em que não clicou no seu botão se tiver acesso a todos os sites, por isso ativar esta opção pede essa permissão. É usada apenas para tirar estas capturas de ecrã, que permanecem neste computador.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "Apenas a captura de ecrã mais recente de cada separador aberto é mantida, e é eliminada quando o separador é fechado. Separadores em modo anónimo e sites na lista de permissões nunca são capturados."
+    "message": "Apenas a captura de ecrã mais recente de cada separador aberto é mantida, e é eliminada quando o separador é fechado. Separadores em modo anónimo e sites na lista de permissões nunca são capturados.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "Ativar o modo de captura de ecrã de alta qualidade"
@@ -549,7 +568,8 @@
     "message": "- Altura máxima da captura de ecrã limitada a 5000px"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "Ativar o modo de captura de ecrã de alta qualidade pode aumentar significativamente a carga do CPU e o uso de memória."
+    "message": "Ativar o modo de captura de ecrã de alta qualidade pode aumentar significativamente a carga do CPU e o uso de memória.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "Nunca suspender separadores com URLs da seguinte lista:"
@@ -558,10 +578,12 @@
     "message": "Suspender sempre separadores com URLs da seguinte lista:"
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "Os separadores que correspondem a esta lista suspendem sempre após o tempo limite normal, independentemente de áudio, dados de formulário ou estado de fixado."
+    "message": "Os separadores que correspondem a esta lista suspendem sempre após o tempo limite normal, independentemente de áudio, dados de formulário ou estado de fixado.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "Uma entrada por linha, com as mesmas regras de correspondência da lista acima (texto simples que corresponde em qualquer ponto do URL, ou /regex/ entre barras)."
+    "message": "Uma entrada por linha, com as mesmas regras de correspondência da lista acima (texto simples que corresponde em qualquer ponto do URL, ou /regex/ entre barras).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "Adicione o URL de cada página que pretende permitir numa nova linha. Por exemplo:"
@@ -617,13 +639,15 @@
     "message": "Adiciona controlos desta extensão ao menu do botão direito de uma página web."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "Isto dar-lhe-á acesso a ações avançadas de suspensão não disponíveis noutras partes da extensão."
+    "message": "Isto dar-lhe-á acesso a ações avançadas de suspensão não disponíveis noutras partes da extensão.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "Sincronizar definições com o seu perfil do navegador"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "As definições da extensão serão sincronizadas em todos os navegadores com sessão iniciada com o mesmo perfil."
+    "message": "As definições da extensão serão sincronizadas em todos os navegadores com sessão iniciada com o mesmo perfil.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "Isto também sincronizará as definições no modo anónimo."
@@ -635,10 +659,12 @@
     "message": "Suspender instantaneamente quando a memória do sistema estiver muito baixa"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "Esta opção substitui a funcionalidade automática de descarte de separadores. Se ativada, forçará a suspensão de um separador em vez de o descartar. Normalmente, o navegador só descarta separadores quando a memória do sistema fica muito baixa."
+    "message": "Esta opção substitui a funcionalidade automática de descarte de separadores. Se ativada, forçará a suspensão de um separador em vez de o descartar. Normalmente, o navegador só descarta separadores quando a memória do sistema fica muito baixa.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "Nota: isto pode fazer com que os separadores sejam suspensos mais cedo do que o tempo que especificou nas opções de suspensão automática de separadores."
+    "message": "Nota: isto pode fazer com que os separadores sejam suspensos mais cedo do que o tempo que especificou nas opções de suspensão automática de separadores.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "Para mais informações sobre o descarte de separadores, consulte:"
@@ -1059,10 +1085,12 @@
     "message": "Fazer cópia de segurança automática da sua sessão"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "Guarda silenciosamente uma cópia da sua sessão atual como ficheiro JSON. Escolha guardar localmente (pasta tms-backups dentro das Transferências) ou numa pasta 'TMS Backups' no Google Drive."
+    "message": "Guarda silenciosamente uma cópia da sua sessão atual como ficheiro JSON. Escolha guardar localmente (pasta tms-backups dentro das Transferências) ou numa pasta 'TMS Backups' no Google Drive.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "Para cópias de segurança locais, o Chrome tem de estar definido para transferir ficheiros automaticamente (sem perguntar). Verifique chrome://settings/downloads. As cópias de segurança no Google Drive não têm este requisito."
+    "message": "Para cópias de segurança locais, o Chrome tem de estar definido para transferir ficheiros automaticamente (sem perguntar). Verifique chrome://settings/downloads. As cópias de segurança no Google Drive não têm este requisito.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "Fazer cópia de segurança a cada"
@@ -1116,7 +1144,8 @@
     "message": "Ativar feed de novidades"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "Verifica periodicamente marvellouscode.works em busca de novidades do TMS e mostra-as na barra lateral."
+    "message": "Verifica periodicamente marvellouscode.works em busca de novidades do TMS e mostra-as na barra lateral.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "Desative para saltar este pedido em segundo plano."
@@ -1125,7 +1154,8 @@
     "message": "Usar a imagem clássica do The Great Suspender em vez da nova mascote"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "Repõe ícones e ilustrações no estilo original do The Great Suspender, onde está disponível uma versão anterior da imagem."
+    "message": "Repõe ícones e ilustrações no estilo original do The Great Suspender, onde está disponível uma versão anterior da imagem.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "As imagens sem equivalente anterior continuam a usar a nova imagem."
