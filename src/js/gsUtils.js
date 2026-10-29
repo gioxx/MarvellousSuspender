@@ -1111,7 +1111,11 @@ export const gsUtils = {
     if (win.document?.body) {
       const theme = await gsStorage.getOption(gsStorage.THEME);
       this.setPageTheme(win, theme);
-      // Unhide the body
+      // Unhide the body. On suspended.html this is also the fallback for an initTab() that
+      // is late or never comes, so the page is not left blank. It can therefore show the
+      // page before initTab() has set the url and attached the click handlers, and a click
+      // in that gap does nothing. Gating it on initTab() needs a timeout fallback of its own,
+      // which changes startup behaviour with many suspended tabs (#320, #473).
       setTimeout(() => {
         win.document.body.classList.add('visible');
       }, 100);

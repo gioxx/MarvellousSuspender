@@ -52,11 +52,14 @@ async function openExtensionPage(name, options) {
   return tab;
 }
 
-// suspended.js attaches the click handlers, then reveals the page by adding 'visible' to
-// the body. Before that a click lands on nothing.
+// suspended.js attaches the click handlers in initTab(), and before that a click lands on
+// nothing. 'visible' alone does not say initTab() has run: localisation also adds it, as a
+// fallback, and on a slow machine it gets there first. The url link is set after the
+// handlers, so its href does.
 const PLACEHOLDER_READY = `
   document.readyState === 'complete' && document.body.classList.contains('visible')
     && !!document.getElementById('suspendedMsg')
+    && document.getElementById('gsTopBarUrl').hasAttribute('href')
 `;
 
 // Sends the tab of a web page to a placeholder url, the way any page can, and waits for
