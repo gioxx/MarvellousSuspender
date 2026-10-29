@@ -19,7 +19,7 @@ const SKIP_LOCALES = new Set([SOURCE_LOCALE, REFERENCE_LOCALE]);
 // against native usage elsewhere in each file. Not caught by the IT-based
 // cognate check since Italian happened to translate these differently.
 const KNOWN_COGNATES = {
-  de: new Set(["html_about_version_label", "html_options_suspend_theme_system", "js_history_tab", "js_history_tabs"]),
+  de: new Set(["html_about_version_label", "html_options_suspend_theme_system", "js_history_tab", "js_history_tabs", "html_update_title"]),
   es: new Set(["html_options_other_title", "html_options_suspend_minute", "html_backup_settings_local_title"]),
   fr: new Set([
     "html_about_version_label",
@@ -29,6 +29,7 @@ const KNOWN_COGNATES = {
     "html_backup_settings_local_title",
   ]),
   id: new Set(["js_history_tab", "html_backup_drive_label_folder"]),
+  ja: new Set(["html_news_new_pill"]),
   pt_BR: new Set(["html_options_suspend_minute", "html_backup_settings_local_title"]),
   pt_PT: new Set(["html_options_suspend_minute", "html_backup_settings_local_title"]),
   cs: new Set(["html_options_suspend_minute"]),
