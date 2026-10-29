@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Preservar a posição de reprodução do YouTube ao suspender"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "Separadores suspensos verificados em simultâneo ao iniciar o navegador"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "Ao iniciar o navegador, cada separador suspenso restaurado é verificado e reparado, se necessário."
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "Um número mais alto preenche os títulos e os ícones mais cedo. De 1 a 8, predefinição 3. Entra em vigor na próxima verificação dos separadores restaurados, normalmente no próximo arranque do navegador."
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "Aumentar acima de 3 pode sobrecarregar o navegador quando restaura muitos separadores e fazer voltar as falhas no arranque que a predefinição evita. Altere por sua conta e risco."
+  },
   "html_options_other_title": {
     "message": "Geral"
   },
@@ -597,7 +609,7 @@
     "message": "- Captura de ecrã de baixa qualidade"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Não captura o ecrã se demorar mais de 1 minuto a gerar a imagem"
+    "message": "- Não captura o ecrã se demorar mais de 20 segundos a gerar a imagem (45 segundos no modo de alta qualidade)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Altura máxima da captura de ecrã limitada a 5000px"

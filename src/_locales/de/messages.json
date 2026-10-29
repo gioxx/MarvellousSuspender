@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "YouTube-Wiedergabeposition beim Aussetzen beibehalten"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "Gleichzeitig geprüfte ausgesetzte Tabs beim Browserstart"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "Beim Start des Browsers wird jeder wiederhergestellte ausgesetzte Tab geprüft und bei Bedarf repariert."
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "Ein höherer Wert füllt Titel und Symbole schneller aus. Von 1 bis 8, Standard 3. Gilt ab der nächsten Prüfung wiederhergestellter Tabs, normalerweise beim nächsten Browserstart."
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "Ein Wert über 3 kann den Browser überlasten, wenn er viele Tabs wiederherstellt, und die Abstürze beim Start zurückbringen, die der Standardwert verhindert. Ändern Sie ihn auf eigenes Risiko."
+  },
   "html_options_other_title": {
     "message": "Allgemein"
   },
@@ -597,7 +609,7 @@
     "message": "- Bildschirmaufnahme in niedriger Qualität"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Nimmt den Bildschirm nicht auf, wenn die Bilderzeugung mehr als 1 Minute dauert"
+    "message": "- Nimmt den Bildschirm nicht auf, wenn die Bilderzeugung mehr als 20 Sekunden dauert (45 Sekunden im Modus für hohe Qualität)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Maximale Höhe der Bildschirmaufnahme auf 5000px begrenzt"

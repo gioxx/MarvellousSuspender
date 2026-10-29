@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Conserver la position de lecture YouTube lors de la suspension"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "Onglets suspendus vérifiés simultanément au démarrage du navigateur"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "Au démarrage du navigateur, chaque onglet suspendu restauré est vérifié et réparé si nécessaire."
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "Un nombre plus élevé affiche plus tôt les titres et les icônes. De 1 à 8, 3 par défaut. Prend effet à la prochaine vérification des onglets restaurés, normalement au prochain démarrage du navigateur."
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "Au-delà de 3, le navigateur peut être surchargé lorsqu'il restaure de nombreux onglets, et les plantages au démarrage que la valeur par défaut évite peuvent revenir. Modifiez-le à vos risques et périls."
+  },
   "html_options_other_title": {
     "message": "Général"
   },
@@ -597,7 +609,7 @@
     "message": "- Capture d'écran de basse qualité"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Ne capturera pas l'écran si la génération de l'image prend plus d'1 minute"
+    "message": "- Ne capturera pas l'écran si la génération de l'image prend plus de 20 secondes (45 secondes en mode haute qualité)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Hauteur maximale de la capture d'écran limitée à 5000px"

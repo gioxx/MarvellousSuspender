@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "挂起时保留 YouTube 播放进度"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "浏览器启动时同时检查的已挂起标签页数量"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "浏览器启动时，会检查每个已恢复的挂起标签页，并在需要时进行修复。"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "数值越大，标题和图标填充得越快。范围 1 到 8，默认 3。在下一次检查已恢复的标签页时生效，通常是下次启动浏览器时。"
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "将其设为大于 3 可能会在浏览器恢复大量标签页时造成过载，并重新引发默认值所防止的启动崩溃。更改风险自负。"
+  },
   "html_options_other_title": {
     "message": "常规"
   },
@@ -597,7 +609,7 @@
     "message": "- 低质量截图"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- 生成图片耗时超过 1 分钟时不会截图"
+    "message": "- 生成图片耗时超过 20 秒（高质量模式下为 45 秒）时不会截图"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- 截图最大高度限制为 5000px"

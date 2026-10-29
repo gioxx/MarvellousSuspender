@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "Mantieni la posizione di riproduzione di YouTube durante la sospensione"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "Schede sospese controllate contemporaneamente all'avvio del browser"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "All'avvio del browser, ogni scheda sospesa ripristinata viene controllata e, se necessario, riparata."
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "Un numero più alto completa prima titoli e icone. Da 1 a 8, predefinito 3. Ha effetto al successivo controllo delle schede ripristinate, di solito al prossimo avvio del browser."
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "Superare 3 può sovraccaricare il browser quando ripristina molte schede e riportare i crash all'avvio che il valore predefinito evita. Modificalo a tuo rischio."
+  },
   "html_options_other_title": {
     "message": "Generali"
   },
@@ -597,7 +609,7 @@
     "message": "- Cattura dello schermo a bassa qualità"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- Non cattura lo schermo se impiega più di 1 minuto per generare l'immagine"
+    "message": "- Non cattura lo schermo se impiega più di 20 secondi per generare l'immagine (45 secondi in modalità alta qualità)"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- Altezza massima della cattura schermo limitata a 5000px"

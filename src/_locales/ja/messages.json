@@ -338,6 +338,18 @@
   "html_options_suspended_add_youtube_timestamp": {
     "message": "一時停止時にYouTubeの再生位置を保持"
   },
+  "html_options_suspended_startup_tab_checks": {
+    "message": "ブラウザ起動時に同時にチェックする一時停止タブの数"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line1": {
+    "message": "ブラウザの起動時に、復元された各一時停止タブをチェックし、必要に応じて修復します。"
+  },
+  "html_options_suspended_startup_tab_checks_tooltip_line2": {
+    "message": "数値を大きくすると、タイトルとアイコンが早く表示されます。1〜8、既定値は3です。復元されたタブの次回のチェック時（通常は次回のブラウザ起動時）に反映されます。"
+  },
+  "html_options_suspended_startup_tab_checks_warning": {
+    "message": "3より大きくすると、多数のタブを復元する際にブラウザに過負荷がかかり、既定値で防いでいる起動時のクラッシュが再発するおそれがあります。変更は自己責任で行ってください。"
+  },
   "html_options_other_title": {
     "message": "一般"
   },
@@ -597,7 +609,7 @@
     "message": "- 低品質な画面キャプチャ"
   },
   "html_options_suspend_force_screen_capture_tooltip_line4": {
-    "message": "- 画像の生成に1分以上かかる場合は画面をキャプチャしない"
+    "message": "- 画像の生成に20秒以上（高品質モードでは45秒以上）かかる場合は画面をキャプチャしない"
   },
   "html_options_suspend_force_screen_capture_tooltip_line5": {
     "message": "- 画面キャプチャの高さは最大5000pxに制限"
