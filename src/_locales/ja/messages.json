@@ -1125,7 +1125,7 @@
     "message": "新しいマスコットの代わりに、クラシックなThe Great Suspenderのアートワークを使用する"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "レガシー版の画像が利用可能な場合、アイコンとイラストを元のThe GreatSuspenderのスタイルに戻します。"
+    "message": "レガシー版の画像が利用可能な場合、アイコンとイラストを元のThe Great Suspenderのスタイルに戻します。"
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "レガシー版が存在しない画像は、引き続き新しいアートワークを使用します。"
