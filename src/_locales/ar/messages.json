@@ -324,10 +324,12 @@
     "message": "إضافة الرابط الأصلي إلى عنوان علامة التبويب المعلّقة"
   },
   "html_options_suspended_append_url_to_title_tooltip_line1": {
-    "message": "عند التفعيل، يُضاف الرابط الأصلي إلى عنوان علامة تبويب المتصفح للصفحات المعلّقة."
+    "message": "عند التفعيل، يُضاف الرابط الأصلي إلى عنوان علامة تبويب المتصفح للصفحات المعلّقة.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_append_url_to_title_tooltip_line2": {
-    "message": "يتيح هذا العثور على علامات التبويب المعلّقة حسب اسم المضيف باستخدام ميزة \"البحث في علامات التبويب\" في Chrome (Ctrl+Shift+A)."
+    "message": "يتيح هذا العثور على علامات التبويب المعلّقة حسب اسم المضيف باستخدام ميزة \"البحث في علامات التبويب\" في Chrome (Ctrl+Shift+A).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspended_add_youtube_timestamp": {
     "message": "الحفاظ على موضع تشغيل YouTube عند التعليق"
@@ -423,10 +425,12 @@
     "message": "الاستحواذ على علامات التبويب المعلّقة بواسطة إضافات أخرى"
   },
   "html_options_suspend_claim_by_default_tooltip_line1": {
-    "message": "يتولى تلقائيًا التحكم في علامات التبويب المعلّقة بالفعل بواسطة إضافة متوافقة أخرى (مثل The Great Suspender، أو تثبيت مختلف لهذه الإضافة)."
+    "message": "يتولى تلقائيًا التحكم في علامات التبويب المعلّقة بالفعل بواسطة إضافة متوافقة أخرى (مثل The Great Suspender، أو تثبيت مختلف لهذه الإضافة).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_claim_by_default_tooltip_line2": {
-    "message": "تُعتبر علامة التبويب \"معلّقة\" إذا كان رابطها يحتوي على 'suspended.html'. تفعيل هذا الخيار يعيد كتابة ذلك الرابط ليتبع هذا التثبيت، حتى يتمكن TMS من إدارة علامة التبويب من الآن فصاعدًا."
+    "message": "تُعتبر علامة التبويب \"معلّقة\" إذا كان رابطها يحتوي على 'suspended.html'. تفعيل هذا الخيار يعيد كتابة ذلك الرابط ليتبع هذا التثبيت، حتى يتمكن TMS من إدارة علامة التبويب من الآن فصاعدًا.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_only_on_battery": {
     "message": "عدم تعليق علامات التبويب عند الاتصال بمصدر طاقة أبدًا"
@@ -441,10 +445,12 @@
     "message": "إعادة فتح علامات التبويب المعلّقة دائمًا مع التمرير إلى الأعلى"
   },
   "html_options_suspend_no_scroll_pos_tooltip_line1": {
-    "message": "تُعاد علامة التبويب إلى أعلى الصفحة بدلًا من موضع التمرير عند التعليق."
+    "message": "تُعاد علامة التبويب إلى أعلى الصفحة بدلًا من موضع التمرير عند التعليق.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_no_scroll_pos_tooltip_line2": {
-    "message": "ينطبق هذا على التعليق التلقائي واليدوي معًا، ويتجاوز الروابط التي تنتقل إلى #قسم عند التحميل."
+    "message": "ينطبق هذا على التعليق التلقائي واليدوي معًا، ويتجاوز الروابط التي تنتقل إلى #قسم عند التحميل.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_automatically_unsuspend": {
     "message": "إلغاء تعليق علامة التبويب تلقائيًا عند عرضها"
@@ -453,22 +459,27 @@
     "message": "إعادة التحميل تُلغي أيضًا تعليق علامات التبويب في الخلفية (وليس فقط النشطة)"
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line1": {
-    "message": "عند التفعيل، إعادة تحميل علامة تبويب معلّقة (Ctrl+R أو النقر بزر الماوس الأيمن > إعادة تحميل) تُلغي تعليقها أيضًا حتى عندما لا تكون علامة التبويب النشطة حاليًا."
+    "message": "عند التفعيل، إعادة تحميل علامة تبويب معلّقة (Ctrl+R أو النقر بزر الماوس الأيمن > إعادة تحميل) تُلغي تعليقها أيضًا حتى عندما لا تكون علامة التبويب النشطة حاليًا.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_reload_unsuspend_background_tooltip_line2": {
-    "message": "مفيد لإعادة تحميل عدة علامات تبويب معلّقة مرة واحدة، مثلًا بعد تحديد عدة علامات تبويب والضغط على Ctrl+R."
+    "message": "مفيد لإعادة تحميل عدة علامات تبويب معلّقة مرة واحدة، مثلًا بعد تحديد عدة علامات تبويب والضغط على Ctrl+R.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend": {
     "message": "تطبيق ميزة توفير الذاكرة المدمجة في المتصفح عند التعليق"
   },
   "html_options_suspend_discard_after_suspend_tooltip_line1": {
-    "message": "بعد تعليق علامة التبويب، اسمح أيضًا لمتصفح Chrome بإلغاء تحميلها بالكامل من الذاكرة. هذا يوفر مزيدًا من موارد النظام لكل علامة تبويب (مفيد إذا كنت تحتفظ بمئات علامات التبويب مفتوحة)."
+    "message": "بعد تعليق علامة التبويب، اسمح أيضًا لمتصفح Chrome بإلغاء تحميلها بالكامل من الذاكرة. هذا يوفر مزيدًا من موارد النظام لكل علامة تبويب (مفيد إذا كنت تحتفظ بمئات علامات التبويب مفتوحة).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line2": {
-    "message": "هذا يأتي على حساب فقدان حالة علامة التبويب حتى يتم إعادة تحميلها."
+    "message": "هذا يأتي على حساب فقدان حالة علامة التبويب حتى يتم إعادة تحميلها.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_discard_after_suspend_tooltip_line3": {
-    "message": "لمزيد من المعلومات حول إلغاء تحميل علامات التبويب، راجع: https://developers.google.com/web/updates/2015/09/tab-discarding"
+    "message": "لمزيد من المعلومات حول إلغاء تحميل علامات التبويب، راجع: https://developers.google.com/web/updates/2015/09/tab-discarding",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_theme": {
     "message": "السمة"
@@ -495,13 +506,16 @@
     "message": "التقاط الصفحة كاملة"
   },
   "html_options_suspend_screen_capturing_tooltip_line1": {
-    "message": "على علامة تبويب معلّقة، يمكن للإضافة عرض معاينة صورية لشكل علامة التبويب قبل تعليقها مباشرة."
+    "message": "على علامة تبويب معلّقة، يمكن للإضافة عرض معاينة صورية لشكل علامة التبويب قبل تعليقها مباشرة.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line2": {
-    "message": "ميزة التقاط الشاشة تجريبية وقد تتسبب في استهلاك ملحوظ للمعالج، بالإضافة إلى زيادة طفيفة في استهلاك الذاكرة."
+    "message": "ميزة التقاط الشاشة تجريبية وقد تتسبب في استهلاك ملحوظ للمعالج، بالإضافة إلى زيادة طفيفة في استهلاك الذاكرة.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capturing_tooltip_line3": {
-    "message": "إذا لاحظت سلوكًا غريبًا، مثل تأخر تعليق علامات التبويب أو تعطّل المتصفح بشكل غير متوقع، جرّب إيقاف تشغيل هذه الميزة."
+    "message": "إذا لاحظت سلوكًا غريبًا، مثل تأخر تعليق علامات التبويب أو تعطّل المتصفح بشكل غير متوقع، جرّب إيقاف تشغيل هذه الميزة.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method": {
     "message": "طريقة الالتقاط"
@@ -516,22 +530,27 @@
     "message": "أداة عرض الصفحة فقط"
   },
   "html_options_suspend_screen_capture_method_tooltip_line1": {
-    "message": "الطريقة التلقائية تلتقط لقطة شاشة حقيقية من المتصفح عندما تكون علامة التبويب قيد التعليق هي التي تنظر إليها. هذا فوري ويعمل على كل موقع. أي علامة تبويب أخرى تُعاد رسمها بواسطة أداة عرض الصفحة، وهي أبطأ."
+    "message": "الطريقة التلقائية تلتقط لقطة شاشة حقيقية من المتصفح عندما تكون علامة التبويب قيد التعليق هي التي تنظر إليها. هذا فوري ويعمل على كل موقع. أي علامة تبويب أخرى تُعاد رسمها بواسطة أداة عرض الصفحة، وهي أبطأ.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_method_tooltip_line3": {
-    "message": "لقطة شاشة من المتصفح فقط لا تُشغّل أداة عرض الصفحة أبدًا، لذا علامات التبويب المعلّقة في الخلفية لا تحصل على معاينة. لقطة شاشة المتصفح تغطي فقط الجزء المرئي من الصفحة، حتى مع تحديد 'التقاط الصفحة كاملة'."
+    "message": "لقطة شاشة من المتصفح فقط لا تُشغّل أداة عرض الصفحة أبدًا، لذا علامات التبويب المعلّقة في الخلفية لا تحصل على معاينة. لقطة شاشة المتصفح تغطي فقط الجزء المرئي من الصفحة، حتى مع تحديد 'التقاط الصفحة كاملة'.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture": {
     "message": "الاحتفاظ بلقطة شاشة حديثة لعلامات التبويب أثناء استخدامها"
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line1": {
-    "message": "يلتقط لقطة شاشة من المتصفح لعلامة تبويب بعد حوالي ثانية من التبديل إليها أو انتهاء تحميلها، بحيث تحصل علامات التبويب التي تُعلَّق لاحقًا في الخلفية على معاينة."
+    "message": "يلتقط لقطة شاشة من المتصفح لعلامة تبويب بعد حوالي ثانية من التبديل إليها أو انتهاء تحميلها، بحيث تحصل علامات التبويب التي تُعلَّق لاحقًا في الخلفية على معاينة.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line3": {
-    "message": "يسمح Chrome للإضافة بالتقاط لقطة شاشة لعلامة تبويب لم تنقر على زرها إلا إذا كانت تملك صلاحية الوصول لجميع المواقع، لذا فإن تفعيل هذا الخيار يطلب تلك الصلاحية. تُستخدم فقط لالتقاط هذه اللقطات، التي تبقى على هذا الجهاز."
+    "message": "يسمح Chrome للإضافة بالتقاط لقطة شاشة لعلامة تبويب لم تنقر على زرها إلا إذا كانت تملك صلاحية الوصول لجميع المواقع، لذا فإن تفعيل هذا الخيار يطلب تلك الصلاحية. تُستخدم فقط لالتقاط هذه اللقطات، التي تبقى على هذا الجهاز.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_screen_capture_precapture_tooltip_line5": {
-    "message": "يُحتفظ فقط بأحدث لقطة شاشة لكل علامة تبويب مفتوحة، وتُحذف عند إغلاق علامة التبويب. لا يتم التقاط علامات التبويب في وضع التصفح المتخفي أو المواقع المدرجة في القائمة البيضاء أبدًا."
+    "message": "يُحتفظ فقط بأحدث لقطة شاشة لكل علامة تبويب مفتوحة، وتُحذف عند إغلاق علامة التبويب. لا يتم التقاط علامات التبويب في وضع التصفح المتخفي أو المواقع المدرجة في القائمة البيضاء أبدًا.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_force_screen_capture": {
     "message": "تفعيل وضع التقاط الشاشة عالي الجودة"
@@ -549,7 +568,8 @@
     "message": "- الحد الأقصى لارتفاع لقطة الشاشة محدود بـ 5000 بكسل"
   },
   "html_options_suspend_force_screen_capture_tooltip_line6": {
-    "message": "قد يؤدي تفعيل وضع التقاط الشاشة عالي الجودة إلى زيادة كبيرة في استهلاك المعالج واستهلاك الذاكرة."
+    "message": "قد يؤدي تفعيل وضع التقاط الشاشة عالي الجودة إلى زيادة كبيرة في استهلاك المعالج واستهلاك الذاكرة.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_title": {
     "message": "عدم تعليق علامات التبويب التي تحتوي روابطها على أي مما يلي أبدًا:"
@@ -558,10 +578,12 @@
     "message": "تعليق علامات التبويب التي تحتوي روابطها على أي مما يلي دائمًا:"
   },
   "html_options_always_suspend_tooltip_line1": {
-    "message": "علامات التبويب المطابقة لهذه القائمة تُعلَّق دائمًا بعد المهلة العادية، بغضّ النظر عن الصوت أو بيانات النماذج أو حالة التثبيت."
+    "message": "علامات التبويب المطابقة لهذه القائمة تُعلَّق دائمًا بعد المهلة العادية، بغضّ النظر عن الصوت أو بيانات النماذج أو حالة التثبيت.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_always_suspend_tooltip_line2": {
-    "message": "إدخال واحد لكل سطر، بنفس قواعد المطابقة الخاصة بالقائمة أعلاه (نص عادي يطابق أي مكان في الرابط، أو /تعبير نمطي/ بين شرطتين مائلتين)."
+    "message": "إدخال واحد لكل سطر، بنفس قواعد المطابقة الخاصة بالقائمة أعلاه (نص عادي يطابق أي مكان في الرابط، أو /تعبير نمطي/ بين شرطتين مائلتين).",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_whitelist_tooltip_line1": {
     "message": "أضف رابط كل صفحة تريد السماح بها في سطر جديد. على سبيل المثال:"
@@ -617,13 +639,15 @@
     "message": "إضافة عناصر تحكم لهذه الإضافة إلى قائمة النقر بزر الماوس الأيمن لصفحة الويب."
   },
   "html_options_other_enable_context_menu_tooltip_line2": {
-    "message": "سيمنحك هذا وصولًا إلى إجراءات تعليق متقدمة غير متوفرة في أي مكان آخر في الإضافة."
+    "message": "سيمنحك هذا وصولًا إلى إجراءات تعليق متقدمة غير متوفرة في أي مكان آخر في الإضافة.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync": {
     "message": "مزامنة الإعدادات مع ملف تعريف المتصفح الخاص بك"
   },
   "html_options_other_enable_sync_tooltip_line1": {
-    "message": "ستتم مزامنة إعدادات الإضافة عبر جميع المتصفحات المسجّل الدخول بها بنفس ملف التعريف."
+    "message": "ستتم مزامنة إعدادات الإضافة عبر جميع المتصفحات المسجّل الدخول بها بنفس ملف التعريف.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_sync_tooltip_line2": {
     "message": "سيؤدي هذا أيضًا إلى مزامنة الإعدادات في وضع التصفح المتخفي."
@@ -635,10 +659,12 @@
     "message": "تعليق فوري عند انخفاض ذاكرة النظام بشدة"
   },
   "html_options_suspend_on_low_memory_tooltip_line1": {
-    "message": "سيتجاوز هذا الخيار وظيفة إلغاء تحميل علامات التبويب التلقائية. عند التفعيل، سيفرض تعليق علامة التبويب بدلًا من إلغاء تحميلها. عادةً، يُلغي المتصفح تحميل علامات التبويب فقط عندما تنخفض ذاكرة النظام بشدة."
+    "message": "سيتجاوز هذا الخيار وظيفة إلغاء تحميل علامات التبويب التلقائية. عند التفعيل، سيفرض تعليق علامة التبويب بدلًا من إلغاء تحميلها. عادةً، يُلغي المتصفح تحميل علامات التبويب فقط عندما تنخفض ذاكرة النظام بشدة.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line4": {
-    "message": "ملاحظة: قد يتسبب هذا في تعليق علامات التبويب في وقت أبكر مما حددته في خيارات تعليق علامات التبويب التلقائي."
+    "message": "ملاحظة: قد يتسبب هذا في تعليق علامات التبويب في وقت أبكر مما حددته في خيارات تعليق علامات التبويب التلقائي.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_suspend_on_low_memory_tooltip_line6": {
     "message": "لمزيد من المعلومات حول إلغاء تحميل علامات التبويب، راجع:"
@@ -1059,10 +1085,12 @@
     "message": "نسخ الجلسة احتياطيًا تلقائيًا"
   },
   "html_options_backup_enable_tooltip_line1": {
-    "message": "يحفظ بصمت نسخة من جلستك الحالية كملف JSON. اختر الحفظ محليًا (مجلد tms-backups داخل التنزيلات) أو في مجلد 'TMS Backups' على Google Drive."
+    "message": "يحفظ بصمت نسخة من جلستك الحالية كملف JSON. اختر الحفظ محليًا (مجلد tms-backups داخل التنزيلات) أو في مجلد 'TMS Backups' على Google Drive.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_enable_tooltip_line2": {
-    "message": "بالنسبة للنسخ الاحتياطية المحلية، يجب ضبط Chrome لتنزيل الملفات تلقائيًا (دون طلب التأكيد). تحقق من chrome://settings/downloads. النسخ الاحتياطية على Google Drive لا تتطلب ذلك."
+    "message": "بالنسبة للنسخ الاحتياطية المحلية، يجب ضبط Chrome لتنزيل الملفات تلقائيًا (دون طلب التأكيد). تحقق من chrome://settings/downloads. النسخ الاحتياطية على Google Drive لا تتطلب ذلك.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_backup_interval": {
     "message": "نسخ احتياطي كل"
@@ -1116,7 +1144,8 @@
     "message": "تفعيل تغذية الأخبار"
   },
   "html_options_other_enable_news_feed_tooltip_line1": {
-    "message": "يتحقق بشكل دوري من marvellouscode.works للحصول على أخبار TMS ويعرضها في الشريط الجانبي."
+    "message": "يتحقق بشكل دوري من marvellouscode.works للحصول على أخبار TMS ويعرضها في الشريط الجانبي.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_enable_news_feed_tooltip_line2": {
     "message": "عطّل هذا الخيار لتخطي هذا الطلب في الخلفية."
@@ -1125,7 +1154,8 @@
     "message": "استخدام رسومات The Great Suspender الكلاسيكية بدلًا من الشخصية الجديدة"
   },
   "html_options_other_legacy_mascot_tooltip_line1": {
-    "message": "يعيد الأيقونات والرسوم التوضيحية إلى نمط The Great Suspender الأصلي، حيث تتوفر نسخة قديمة من الصورة."
+    "message": "يعيد الأيقونات والرسوم التوضيحية إلى نمط The Great Suspender الأصلي، حيث تتوفر نسخة قديمة من الصورة.",
+    "description": "Paragraph of a help tooltip. The text wraps by itself: don't split it or add line breaks."
   },
   "html_options_other_legacy_mascot_tooltip_line3": {
     "message": "الصور التي لا تملك مكافئًا قديمًا تستمر باستخدام الرسومات الجديدة."
