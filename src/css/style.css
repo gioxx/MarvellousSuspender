@@ -104,7 +104,10 @@ a.active {
 
 /* Elements that must collapse (not just turn invisible) when hidden via JS.
    The base .hidden only flips visibility, which would leave an empty gap. */
+#screenCaptureMethodContainer.hidden,
+#screenCapturePrecaptureContainer.hidden,
 #forceScreenCaptureContainer.hidden,
+#startupTabChecksWarning.hidden,
 #syncNote.hidden,
 .autoSuspendOption.hidden,
 #permissionsNoticeBanner.hidden,
@@ -1278,7 +1281,11 @@ svg.icon {
   padding: var(--space-5) var(--space-5) var(--space-6);
   line-height: 1.5;
   min-width: 480px;
-  white-space: pre;
+  /* Keeps the line breaks in the strings, and wraps a line too long for the box (an
+     unsplit sentence, or a translation longer than the English). */
+  width: max-content;
+  max-width: 680px;
+  white-space: pre-line;
   pointer-events: none;
   z-index: 99;
   opacity: 0;
