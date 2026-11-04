@@ -7,7 +7,7 @@ The project adheres (pragmatically) to [Semantic Versioning](https://semver.org/
 
 Entries under "Unreleased" live on a feature branch until merged into `master`.
 
-## [9.1.0] — 2026-10-28
+## [9.1.0] — 2026-11-04
 
 ### Security
 - Saved session names are rendered as text on the History page. A saved session's name was written into the page as raw HTML, so importing a backup file whose filename contained HTML (for example `<img src=x>.json`, via Options → Backup & Restore → "Restore from local file") stored that markup as the session name, and it rendered as live elements every time the History page loaded. The extension's CSP blocked scripts, but injected forms or overlays still rendered. Rendering them as text also covers names typed when saving a session. Reported by squeeze440 (GHSA-qv22-cq95-fcqr).
