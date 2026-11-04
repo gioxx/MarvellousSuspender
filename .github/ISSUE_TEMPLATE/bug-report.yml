@@ -28,7 +28,6 @@ body:
     attributes:
       label: TMS version
       description: Shown on the extension's About page (Options → About).
-      placeholder: "9.0.2"
     validations:
       required: true
 
@@ -50,7 +49,7 @@ body:
     id: browser-version
     attributes:
       label: Browser version
-      placeholder: "140.0.7259.5"
+      description: Shown on your browser's About page (in Chrome, `chrome://version`).
     validations:
       required: true
 
