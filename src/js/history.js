@@ -303,7 +303,7 @@ import  { historyUtils }          from './historyUtils.js';
         messageEl.innerHTML = '';
         if (key && val) {
           migrateIdEl.value   = key;
-          migrateNameEl.innerHTML = `${val.name}: ${val.count} tabs`;
+          migrateNameEl.textContent = `${val.name}: ${val.count} tabs`;
         }
       }
     }

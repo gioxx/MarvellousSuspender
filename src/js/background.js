@@ -514,7 +514,8 @@ import  { tgs }                   from './tgs.js';
         return;
       }
 
-      gsTabSuspendManager.queueTabForSuspension(tab, 1);
+      // Another extension must not override the protections the user set (GHSA-wh6f-63h6-wvq6).
+      gsTabSuspendManager.queueTabForSuspension(tab, 2);
       sendResponse();
       return;
     }

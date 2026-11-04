@@ -46,10 +46,13 @@ import  { gsUtils }               from './gsUtils.js';
         const addMarginBottom = groupingKeys.includes(command.name);
         const descriptionKey  = commandMessageKeys[command.name];
         const description     = (descriptionKey && gsUtils.getMessage(descriptionKey)) || command.description || gsUtils.getMessage('js_shortcuts_default_command'); // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
-        shortcutsEl.innerHTML += `
-          <div ${ addMarginBottom ? ' class="bottomMargin"' : '' }>${description}</div>
-          <div class="${ command.shortcut ? 'hotkeyCommand' : 'lesserText' }">${shortcut}</div>
-          `;
+        const descriptionEl = document.createElement('div');
+        if (addMarginBottom) descriptionEl.className = 'bottomMargin';
+        gsUtils.setLocalisedContent(descriptionEl, description);
+        const shortcutEl = document.createElement('div');
+        shortcutEl.className = command.shortcut ? 'hotkeyCommand' : 'lesserText';
+        shortcutEl.textContent = shortcut;
+        shortcutsEl.append(descriptionEl, shortcutEl);
       });
     });
   }

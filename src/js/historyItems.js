@@ -29,7 +29,9 @@ export const historyItems = (() => {
     const sessionDIV    = createEl('div',   { class: 'sessionContainer', });
 
     const sessionName = (sessionType === 'saved') ? session.name : gsUtils.getHumanDate(session.date);
-    sessionTitle.innerHTML = `${sessionName} &nbsp; <small>(${winCnt} ${winText}, ${tabCnt} ${tabText})</small>`;
+    const sessionCounts = document.createElement('small');
+    sessionCounts.textContent = `(${winCnt} ${winText}, ${tabCnt} ${tabText})`;
+    sessionTitle.append(`${sessionName} \u00A0 `, sessionCounts);
 
     sessionDIV.appendChild(sessionIcon);
     sessionDIV.appendChild(sessionTitle);
@@ -130,7 +132,7 @@ export const historyItems = (() => {
     var el = document.createElement(elType);
     attributes = attributes || {};
     el = setElAttributes(el, attributes);
-    el.innerHTML = gsUtils.htmlEncode(text || '');
+    el.textContent = text || '';
     return el;
   }
 

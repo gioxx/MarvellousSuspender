@@ -14,6 +14,13 @@ import  { tgs }                   from './tgs.js';
 
 let _localeMessages = null;
 
+// The only tags a locale message may use. Anything else in it is shown as text.
+const LOCALISED_TAGS = ['b', 'br', 'em', 'i', 'strong'];
+// Elements whose text is read only from their own text nodes, like the tab label of a
+// <title>: they get the text of the message, without its tags.
+const TEXT_ONLY_ELEMENTS = ['title'];
+const LOCALISED_TAG_OR_NEWLINE = /<(\/?)([a-z]+)(?:[\s/][^<>]*)?>|\n/gi;
+
 // ── Log buffer ────────────────────────────────────────────────────────────────
 // Persisted in IndexedDB (gsIndexedDb.js's DB_LOG_ENTRIES store), one record per entry,
 // not one shared chrome.storage.local blob. Every context (every suspended tab included)
@@ -949,10 +956,11 @@ export const gsUtils = {
     };
     for (const el of parentEl.getElementsByTagName('*')) {
       if (el.hasAttribute('data-i18n')) {
-        el.innerHTML = el
-          .getAttribute('data-i18n')
-          .replace(/__MSG_(\w+)__/g, replaceTagFunc)
-          .replace(/\n/g, '<br />');
+        gsUtils.setLocalisedContent(
+          el,
+          el.getAttribute('data-i18n').replace(/__MSG_(\w+)__/g, replaceTagFunc),
+          { newlines: true },
+        );
       }
       if (el.hasAttribute('data-i18n-tooltip')) {
         const tooltip = el
@@ -974,6 +982,91 @@ export const gsUtils = {
         );
       }
     }
+  },
+
+  /**
+   * Reads a locale message into nodes: a string for text, { tag, children } for one of
+   * LOCALISED_TAGS, without its attributes. Any other tag stays in the text as written.
+   * Like the HTML parser, a closing tag closes up to the open tag it matches, </br> is a
+   * line break, and a closing tag that closes nothing is dropped.
+   * @param {string|null|undefined} text
+   * @param {{newlines?: boolean}} [options] newlines: a newline becomes a line break, as
+   *   localiseHtml has always done; otherwise it stays in the text.
+   * @returns {Array<string|{tag: string, children: Array}>}
+   */
+  parseLocalisedMarkup(text, { newlines = false } = {}) {
+    const source = text ?? '';
+    const root = { tag: null, children: [] };
+    const open = [root];
+    const current = () => open[open.length - 1];
+    const appendText = (chunk) => {
+      if (!chunk) return;
+      const { children } = current();
+      if (typeof children[children.length - 1] === 'string') children[children.length - 1] += chunk;
+      else children.push(chunk);
+    };
+    let last = 0;
+    for (const match of source.matchAll(LOCALISED_TAG_OR_NEWLINE)) {
+      appendText(source.slice(last, match.index));
+      last = match.index + match[0].length;
+      if (match[0] === '\n' && !newlines) {
+        appendText(match[0]);
+        continue;
+      }
+      const tag = match[0] === '\n' ? 'br' : match[2].toLowerCase();
+      const closing = match[1] === '/' && tag !== 'br';
+      if (!LOCALISED_TAGS.includes(tag)) {
+        appendText(match[0]);
+      }
+      else if (closing) {
+        const at = open.findLastIndex((node) => node.tag === tag);
+        if (at > 0) open.length = at;
+      }
+      else if (tag === 'br') {
+        current().children.push({ tag, children: [] });
+      }
+      else {
+        const node = { tag, children: [] };
+        current().children.push(node);
+        open.push(node);
+      }
+    }
+    appendText(source.slice(last));
+    return root.children;
+  },
+
+  /**
+   * Replaces the content of el with a locale message, built from elements and text
+   * nodes as parseLocalisedMarkup reads it. An element in TEXT_ONLY_ELEMENTS gets the
+   * text alone, a line break read as a space.
+   * @param {HTMLElement} el
+   * @param {string|null|undefined} text
+   * @param {{newlines?: boolean}} [options] passed to parseLocalisedMarkup
+   */
+  setLocalisedContent(el, text, options) {
+    const nodes = gsUtils.parseLocalisedMarkup(text, options);
+    if (TEXT_ONLY_ELEMENTS.includes(el.localName)) {
+      const textOf = (list) => list
+        .map((node) => (typeof node === 'string' ? node : node.tag === 'br' ? ' ' : textOf(node.children)))
+        .join('');
+      el.textContent = textOf(nodes);
+      return;
+    }
+    const doc = el.ownerDocument;
+    const build = (parent, nodes) => {
+      for (const node of nodes) {
+        if (typeof node === 'string') {
+          parent.appendChild(doc.createTextNode(node));
+        }
+        else {
+          const child = doc.createElement(node.tag);
+          build(child, node.children);
+          parent.appendChild(child);
+        }
+      }
+    };
+    el.replaceChildren();
+    build(el, nodes);
   },
 
   setPageTheme(win, theme) {
@@ -1021,7 +1114,11 @@ export const gsUtils = {
     if (win.document?.body) {
       const theme = await gsStorage.getOption(gsStorage.THEME);
       this.setPageTheme(win, theme);
-      // Unhide the body
+      // Unhide the body. On suspended.html this is also the fallback for an initTab() that
+      // is late or never comes, so the page is not left blank. It can therefore show the
+      // page before initTab() has set the url and attached the click handlers, and a click
+      // in that gap does nothing. Gating it on initTab() needs a timeout fallback of its own,
+      // which changes startup behaviour with many suspended tabs (#320, #473).
       setTimeout(() => {
         win.document.body.classList.add('visible');
       }, 100);

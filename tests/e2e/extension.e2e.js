@@ -52,11 +52,14 @@ async function openExtensionPage(name, options) {
   return tab;
 }
 
-// suspended.js attaches the click handlers, then reveals the page by adding 'visible' to
-// the body. Before that a click lands on nothing.
+// suspended.js attaches the click handlers in initTab(), and before that a click lands on
+// nothing. 'visible' alone does not say initTab() has run: localisation also adds it, as a
+// fallback, and on a slow machine it gets there first. The url link is set after the
+// handlers, so its href does.
 const PLACEHOLDER_READY = `
   document.readyState === 'complete' && document.body.classList.contains('visible')
     && !!document.getElementById('suspendedMsg')
+    && document.getElementById('gsTopBarUrl').hasAttribute('href')
 `;
 
 // Resolves once the page has rendered a frame since it was asked, or after a second if
@@ -227,6 +230,54 @@ describe('suspending and unsuspending', () => {
   });
 });
 
+describe('the popup', () => {
+  // The status line has a link only for some states; the click handler for that state
+  // belongs on that link and on nothing else on the page.
+  it('attaches the status action to the status link only', async () => {
+    const tab = await openPage();
+    const sender = await openExtensionPage('about.html', { background: true });
+    await cdp.activate(tab);
+    await cdp.evaluate(sender.sessionId, 'chrome.runtime.sendMessage({ action: "suspendOne" }).then(() => true)');
+    await cdp.waitForUrl(tab.targetId, 'the tab to be suspended', isPlaceholder);
+    const sessionId = await cdp.attach(tab.targetId);
+    await waitFor('the placeholder to be ready', () => cdp.evaluate(sessionId, PLACEHOLDER_READY));
+
+    // opened behind the suspended tab, which stays the highlighted one; showPopupContents
+    // writes the version once setStatus has attached the status handler
+    await cdp.activate(tab);
+    const popup = await openExtensionPage('popup.html', { background: true });
+    await waitFor('the popup to show the status', () => cdp.evaluate(popup.sessionId, `
+      document.getElementById('brandVersion').textContent.startsWith('v')
+        && document.getElementById('statusDetail').textContent
+    `));
+    expect(await cdp.evaluate(popup.sessionId, 'document.querySelectorAll("#statusDetail a").length')).toBe(0);
+
+    // the suspended state has no status link: the backup reminder's Dismiss must not
+    // carry the suspended state's action, which would unsuspend the tab
+    await cdp.evaluate(popup.sessionId, 'document.getElementById("backupNudgeDismiss").click(), true');
+    const seen = await urlsDuring(tab, INERT_WINDOW);
+    expect(seen).toHaveLength(1);
+    expect(isPlaceholder(seen[0])).toBe(true);
+  });
+
+  it('attaches the status action to the status link when the state has one', async () => {
+    const tab = await openPage();
+    await cdp.activate(tab);
+    const popup = await openExtensionPage('popup.html', { background: true });
+    await waitFor('the popup to show the status', () => cdp.evaluate(popup.sessionId, `
+      document.getElementById('brandVersion').textContent.startsWith('v')
+        && document.querySelectorAll('#statusDetail a').length === 1
+    `));
+
+    const clickListeners = async (selector) => {
+      const { result } = await cdp.send('Runtime.evaluate', { expression: `document.querySelector(${JSON.stringify(selector)})` }, popup.sessionId);
+      const { listeners } = await cdp.send('DOMDebugger.getEventListeners', { objectId: result.objectId }, popup.sessionId);
+      return listeners.filter(({ type }) => type === 'click').length;
+    };
+    expect(await clickListeners('#statusDetail a')).toBe(1);
+  });
+});
+
 describe('a placeholder url forged by a web page', () => {
   it.each([
     ['chrome:', 'chrome://settings/'],
@@ -280,6 +331,106 @@ describe('a placeholder url forged by a web page', () => {
     `));
     expect(loaded.href).toBe('chrome-error://chromewebdata/');
     expect(loaded.placeholder).toBe(false);
+  });
+});
+
+describe('text from outside the extension', () => {
+  it('shows the original url as text', async () => {
+    const original = 'https://example.com/<b id=probe>shown</b><a id=probelink href=https:example.org>x</a>';
+    const tab = await openPage();
+    const sessionId = await navigateToPlaceholder(tab, `${base}suspended.html#ttl=Url&pos=0&url=${encodeURIComponent(original)}`);
+
+    const shown = await cdp.evaluate(sessionId, `(() => {
+      const el = document.getElementById('gsTopBarUrl');
+      return { text: el.textContent, elements: el.children.length, probes: document.querySelectorAll('#probe, #probelink').length };
+    })()`);
+    expect(shown).toEqual({ text: 'example.com/<b id=probe>shown</b><a id=probelink href=https:example.org>x</a>', elements: 0, probes: 0 });
+  });
+
+  it.each([
+    ['Fish &amp; Chips'],
+    ['A <b id=probe>title</b>'],
+  ])('shows the page title as text (%s)', async (title) => {
+    const tab = await openPage();
+    const sessionId = await navigateToPlaceholder(tab, placeholder(server.url('other.html'), title));
+
+    const shown = await cdp.evaluate(sessionId, `(() => ({
+      tabTitle: document.title.split(' \u00b7 ')[0],
+      topBar: document.getElementById('gsTopBarTitle').textContent,
+      elements: document.getElementById('gsTopBarTitle').children.length,
+    }))()`);
+    expect(shown).toEqual({ tabTitle: title, topBar: title, elements: 0 });
+  });
+
+  // The value of data-i18n is what localiseHtml renders once the __MSG_key__ in it is
+  // replaced: a localised string goes through the same steps.
+  it('renders a localised string as text, except the few tags it allows', async () => {
+    const tab = await openExtensionPage('about.html');
+    const rendered = await cdp.evaluate(tab.sessionId, `(async () => {
+      const { gsUtils } = await import('./js/gsUtils.js');
+      const parent = document.createElement('div');
+      const el = document.createElement('span');
+      el.setAttribute('data-i18n', 'see <a id="probelink" href="https://example.org">here</a> or <strong class="x">this</strong>\\nnext');
+      parent.appendChild(el);
+      gsUtils.localiseHtml(parent);
+      return { html: el.innerHTML, links: el.querySelectorAll('a').length };
+    })()`);
+    expect(rendered).toEqual({
+      html: 'see &lt;a id="probelink" href="https://example.org"&gt;here&lt;/a&gt; or <strong>this</strong><br>next',
+      links: 0,
+    });
+  });
+
+  it('builds a localised string from elements and text nodes', async () => {
+    const tab = await openExtensionPage('about.html');
+    const rendered = await cdp.evaluate(tab.sessionId, `(async () => {
+      const { gsUtils } = await import('./js/gsUtils.js');
+      const el = document.createElement('p');
+      el.textContent = 'replaced';
+      gsUtils.setLocalisedContent(el, 'a <i>b</i><br><form><input></form> <em>c <b>d</b></em>');
+      return el.innerHTML;
+    })()`);
+    expect(rendered).toBe('a <i>b</i><br>&lt;form&gt;&lt;input&gt;&lt;/form&gt; <em>c <b>d</b></em>');
+  });
+});
+
+describe('text from sessions and tabs', () => {
+  it('shows a saved session name as text', async () => {
+    const name = '<b id=probe>Saved</b> &amp; kept';
+    const setup = await openExtensionPage('about.html', { background: true });
+    await cdp.evaluate(setup.sessionId, `import('./js/gsIndexedDb.js').then(({ gsIndexedDb }) => gsIndexedDb.addToSavedSessions({
+      sessionId: '_e2eSavedName', name: ${JSON.stringify(name)}, date: new Date().toISOString(),
+      windows: [{ id: 1, tabs: [{ id: 1, url: 'https://example.com/', title: 'Example' }] }],
+    })).then(() => true)`);
+
+    const tab = await openExtensionPage('history.html');
+    const shown = await waitFor('the saved session to be listed', () => cdp.evaluate(tab.sessionId, `(() => {
+      const el = [...document.querySelectorAll('#historySessions .sessionLink')].find((link) => link.textContent.includes('Saved'));
+      return el && { text: el.textContent, small: el.querySelectorAll('small').length, elements: el.children.length, probes: document.querySelectorAll('#probe').length };
+    })()`));
+    expect(shown.text.slice(0, name.length + 4)).toBe(`${name} \u00a0 (`);
+    expect(shown).toMatchObject({ small: 1, elements: 1, probes: 0 });
+  });
+
+  it('shows a tab group title as text on the debug page', async () => {
+    const title = '<b id=probe>Group</b>';
+    const page = await openPage();
+    const setup = await openExtensionPage('about.html', { background: true });
+    await cdp.evaluate(setup.sessionId, `(async () => {
+      const [tab] = await chrome.tabs.query({ url: ${JSON.stringify(server.url('page.html'))} });
+      const groupId = await chrome.tabs.group({ tabIds: [tab.id] });
+      await chrome.tabGroups.update(groupId, { title: ${JSON.stringify(title)} });
+      return true;
+    })()`);
+
+    const tab = await openExtensionPage('debug.html');
+    const shown = await waitFor('the grouped tab to be listed', () => cdp.evaluate(tab.sessionId, `(() => {
+      const group = [...document.querySelectorAll('#gsProfilerBody .group')].find((el) => el.textContent.includes('Group'));
+      return group && { text: group.textContent, elements: group.children.length, probes: document.querySelectorAll('#probe').length };
+    })()`), { timeout: 15000 });
+    expect(shown).toEqual({ text: title, elements: 0, probes: 0 });
+    await cdp.evaluate(setup.sessionId, `chrome.tabs.query({ url: ${JSON.stringify(server.url('page.html'))} }).then((tabs) => chrome.tabs.ungroup(tabs.map(({ id }) => id))).then(() => true)`);
+    expect(page).toBeTruthy();
   });
 });
 

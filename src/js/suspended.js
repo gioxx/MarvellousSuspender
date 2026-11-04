@@ -76,7 +76,7 @@ import  { tgs }                   from './tgs.js';
 
   function setUrl(url) {
     const gsTopBarUrl = document.getElementById('gsTopBarUrl');
-    gsTopBarUrl.innerHTML = cleanUrl(url);
+    gsTopBarUrl.textContent = cleanUrl(url);
     gsTopBarUrl.setAttribute('href', url);
     gsTopBarUrl.onmousedown = function(event) { event.stopPropagation(); };
   }
@@ -136,11 +136,17 @@ import  { tgs }                   from './tgs.js';
   function setCommand(command) {
     const hotkeyEl = document.getElementById('hotkeyWrapper');
     if (command) {
-      hotkeyEl.innerHTML = '<span class="hotkeyCommand">(' + command + ')</span>';
+      const commandEl = document.createElement('span');
+      commandEl.className = 'hotkeyCommand';
+      commandEl.textContent = '(' + command + ')';
+      hotkeyEl.replaceChildren(commandEl);
     }
     else {
-      const reloadString = gsUtils.getMessage( 'js_suspended_hotkey_to_reload', );
-      hotkeyEl.innerHTML = `<a id='setKeyboardShortcut' href='#'>${reloadString}</a>`;
+      const linkEl = document.createElement('a');
+      linkEl.id = 'setKeyboardShortcut';
+      linkEl.setAttribute('href', '#');
+      gsUtils.setLocalisedContent(linkEl, gsUtils.getMessage('js_suspended_hotkey_to_reload'));
+      hotkeyEl.replaceChildren(linkEl);
     }
   }
 
@@ -165,7 +171,7 @@ import  { tgs }                   from './tgs.js';
       const containerEl = document.getElementById('suspendedMsg-instr');
       containerEl.insertBefore(reasonMsgEl, containerEl.firstChild);
     }
-    reasonMsgEl.innerHTML = reason;
+    gsUtils.setLocalisedContent(reasonMsgEl, reason);
   }
 
   function setScrollPosition(scrollPosition, previewMode) {
@@ -198,9 +204,9 @@ import  { tgs }                   from './tgs.js';
 
   function setTitle(title) {
     document.title = title;
-    document.getElementById('gsTitle').innerHTML = title;
+    document.getElementById('gsTitle').textContent = title;
     const gsTopBarTitle = document.getElementById('gsTopBarTitle');
-    gsTopBarTitle.innerHTML = title;
+    gsTopBarTitle.textContent = title;
     // Prevent unsuspend by parent container
     // Using mousedown event otherwise click can still be triggered if
     // mouse is released outside of this element
@@ -288,7 +294,7 @@ import  { tgs }                   from './tgs.js';
   function setWatermark() {
     const div = document.getElementById('watermark');
     if (div) {
-      div.innerHTML = `${chrome.runtime.getManifest().name} v${chrome.runtime.getManifest().version}`;
+      div.textContent = `${chrome.runtime.getManifest().name} v${chrome.runtime.getManifest().version}`;
     }
   }
 
@@ -308,11 +314,7 @@ import  { tgs }                   from './tgs.js';
     document.sessionId = sessionId;
 
     // Set title
-    let title = gsUtils.getSuspendedTitle(suspendedUrl);
-    if (title.indexOf('<') >= 0) {
-      // Encode any raw html tags that might be used in the title
-      title = gsUtils.htmlEncode(title);
-    }
+    const title = gsUtils.getSuspendedTitle(suspendedUrl);
     setTitle(title);
 
     const optionsPromise  = gsStorage.getSettings();
