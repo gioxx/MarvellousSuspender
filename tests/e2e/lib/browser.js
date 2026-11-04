@@ -16,17 +16,24 @@ const CACHES = [
   join(homedir(), '.cache', 'puppeteer', 'chrome'),
   join(homedir(), 'Library', 'Caches', 'ms-playwright'),
   join(homedir(), '.cache', 'ms-playwright'),
+  ...(process.env.LOCALAPPDATA ? [join(process.env.LOCALAPPDATA, 'ms-playwright')] : []),
 ];
 
-// [154, 0, 8037, 57] for "Google Chrome for Testing 154.0.8037.57", [] when it will not say.
-function versionOf(executable) {
+const VERSION = /(\d+)\.(\d+)\.(\d+)\.(\d+)/;
+
+// [154, 0, 8037, 57] for "Google Chrome for Testing 154.0.8037.57". chrome.exe prints
+// nothing for --version on Windows, so the cache folder's name is read instead
+// (Puppeteer names it win64-154.0.8037.57); [] when neither says.
+function versionOf(executable, buildName) {
   try {
     const output = execFileSync(executable, ['--version'], { encoding: 'utf8', timeout: 10000 });
-    return (/(\d+)\.(\d+)\.(\d+)\.(\d+)/.exec(output) ?? []).slice(1).map(Number);
+    const fromBinary = VERSION.exec(output);
+    if (fromBinary) return fromBinary.slice(1).map(Number);
   }
   catch {
-    return [];
+    // fall through to the folder name
   }
+  return (VERSION.exec(buildName) ?? []).slice(1).map(Number);
 }
 
 function newerFirst(a, b) {
@@ -48,13 +55,13 @@ function findInCaches() {
         if (!platformDir.isDirectory()) continue;
         for (const binary of BINARIES) {
           const candidate = join(buildDir, platformDir.name, binary);
-          if (existsSync(candidate)) found.push(candidate);
+          if (existsSync(candidate)) found.push({ executable: candidate, buildName: build.name });
         }
       }
     }
   }
   return found
-    .map((executable) => ({ executable, version: versionOf(executable) }))
+    .map(({ executable, buildName }) => ({ executable, version: versionOf(executable, buildName) }))
     .filter(({ version }) => version.length === 4)
     .sort(newerFirst)[0]?.executable;
 }
