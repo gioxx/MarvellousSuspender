@@ -167,10 +167,18 @@ export const gsTabSuspendManager = (function() {
     const screenCaptureMethod = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_METHOD);
     if (tab.status === 'loading') {
       const savedTabInfo = await gsIndexedDb.fetchTabInfo(tab.url);
-      if (screenCaptureMode === '0' && savedTabInfo) {
+      let title = savedTabInfo && savedTabInfo.title;
+      // An explicit suspension request must not wait for a page that may never finish
+      // loading. With screen capture off there is nothing to capture, so use the live tab
+      // snapshot when no earlier suspension saved a title, and persist it for history.
+      if (screenCaptureMode === '0' && executionProps.forceLevel === 1 && !title) {
+        title = tab.title || tab.url;
+        await saveSuspendData({ ...tab, title });
+      }
+      if (screenCaptureMode === '0' && title) {
         const suspendedUrl = gsUtils.generateSuspendedUrl(
           tab.url,
-          savedTabInfo.title,
+          title,
           0,
         );
         gsUtils.log(tab.id, QUEUE_ID, 'Interrupting tab loading to resuspend tab');

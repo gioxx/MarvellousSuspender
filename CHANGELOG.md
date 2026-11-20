@@ -7,6 +7,11 @@ The project adheres (pragmatically) to [Semantic Versioning](https://semver.org/
 
 Entries under "Unreleased" live on a feature branch until merged into `master`.
 
+## [Unreleased]
+
+### Fixed
+- An explicit suspension request from the tab menu, context menu, selected tabs or a keyboard shortcut now suspends a loading tab immediately when screen capture is off, using the live tab title when no earlier suspension saved one. Requests at force level 2 still wait for the page to finish loading.
+
 ## [9.1.0] — 2026-11-04
 
 ### Security
