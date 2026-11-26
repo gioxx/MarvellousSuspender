@@ -188,16 +188,30 @@ describe('which capture is tried first', () => {
   });
 
   // With capture off the same tab is suspended at once: see the flow test file.
-  it('waits 3 seconds for a loading tab even when tab info was saved for its url', async () => {
+  it('waits 3 seconds at level 2 for a loading tab even when tab info was saved for its url', async () => {
     await start({ SCREEN_CAPTURE: '1', SCREEN_CAPTURE_METHOD: 'native' });
     gsIndexedDb.fetchTabInfo.mockResolvedValue({ title: 'Saved title', url: NORMAL_URL });
     const tab = makeTab({ status: 'loading' });
-    const outcome = await suspend(tab, 1);
+    const outcome = await suspend(tab, 2);
     expect(outcome.state).toBe('pending');
     expect(manager.getQueuedTabDetails(tab)).toMatchObject({ status: 'sleeping', executionProps: { refetchTab: true } });
     expect(chrome.tabs.update).not.toHaveBeenCalled();
     manager.unqueueTabForSuspension(tab);
     await flush();
+  });
+
+  // An explicit request does not wait for a capture: a page that never finishes loading
+  // never yields a usable one, so it is suspended at once from the saved title.
+  it('suspends an explicit loading-tab request at once with capture on, attempting no capture', async () => {
+    await start({ SCREEN_CAPTURE: '1', SCREEN_CAPTURE_METHOD: 'native' });
+    gsIndexedDb.fetchTabInfo.mockResolvedValue({ title: 'Saved title', url: NORMAL_URL });
+    const tab = makeTab({ status: 'loading' });
+    const outcome = await suspend(tab, 1);
+    expectSuspended(outcome, suspendedUrlOf(NORMAL_URL, 'Saved%20title', '0'));
+    expect(gsPrecapture.captureVisibleTab).not.toHaveBeenCalled();
+    expect(gsPrecapture.take).not.toHaveBeenCalled();
+    expect(chrome.scripting.executeScript).not.toHaveBeenCalled();
+    expect(manager.getQueuedTabDetails(tab)).toBeUndefined();
   });
 });
 

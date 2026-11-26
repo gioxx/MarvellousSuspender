@@ -162,20 +162,30 @@ export const gsTabSuspendManager = (function() {
     // - It may lose any scrollPos value
     // Although if the tab is still loading then pause and scroll pos should
     // not be set?
-    // Do not bypass loading state if screen capture is required
+    // Do not bypass loading state if screen capture is required, unless the suspension
+    // was explicitly requested: a page that never finishes loading never yields a usable
+    // capture either.
     let screenCaptureMode = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE);
     const screenCaptureMethod = await gsStorage.getOption(gsStorage.SCREEN_CAPTURE_METHOD);
+    // "Discard in place of suspend" turns every suspension capture-free, so it is read
+    // before the loading-state block: a loading tab discarded in place of a suspension
+    // takes the same fast path as one with screen capture off.
+    const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
+    if (discardInPlaceOfSuspend) {
+      screenCaptureMode = '0';
+    }
     if (tab.status === 'loading') {
       const savedTabInfo = await gsIndexedDb.fetchTabInfo(tab.url);
       let title = savedTabInfo && savedTabInfo.title;
       // An explicit suspension request must not wait for a page that may never finish
-      // loading. With screen capture off there is nothing to capture, so use the live tab
-      // snapshot when no earlier suspension saved a title, and persist it for history.
-      if (screenCaptureMode === '0' && executionProps.forceLevel === 1 && !title) {
+      // loading, whatever the capture mode. Use the live tab snapshot when no earlier
+      // suspension saved a title, and persist it for history.
+      const explicitRequest = executionProps.forceLevel === 1;
+      if (explicitRequest && !title) {
         title = tab.title || tab.url;
         await saveSuspendData({ ...tab, title });
       }
-      if (screenCaptureMode === '0' && title) {
+      if (title && (explicitRequest || screenCaptureMode === '0')) {
         const suspendedUrl = gsUtils.generateSuspendedUrl(
           tab.url,
           title,
@@ -189,11 +199,6 @@ export const gsTabSuspendManager = (function() {
         requeue(3000, { refetchTab: true });
       }
       return;
-    }
-
-    const discardInPlaceOfSuspend = await gsStorage.getOption(gsStorage.DISCARD_IN_PLACE_OF_SUSPEND);
-    if (discardInPlaceOfSuspend) {
-      screenCaptureMode = '0';
     }
 
     let tabInfo = await getContentScriptTabInfo(tab);
