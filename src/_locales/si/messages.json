@@ -1327,40 +1327,40 @@
     "message": "මෙය ඔබේ වත්මන් සැකසුම් උඩින් ලියනු ඇත. ඉදිරියට යන්නද?"
   },
   "js_options_settings_import_success": {
-    "message": "සැකසුම් ආයාත කරන ලදී. නැවත පූරණය කරමින්…"
+    "message": "සැකසුම් ආයාත කෙරිණි. යළි පූරණය වෙමින්…"
   },
   "js_options_settings_import_error": {
-    "message": "අවලංගු සැකසුම් ගොනුවකි."
+    "message": "සැකසුම් ගොනුව වලංගු නොවේ."
   },
   "html_history_migrate_nav": {
     "message": "සංක්‍රමණය"
   },
   "html_backup_restore_title": {
-    "message": "උපස්ථයකින් ප්‍රතිසාධනය කරන්න"
+    "message": "උපස්ථයකින් ප්‍රත්‍යර්පණය"
   },
   "html_backup_restore_desc": {
-    "message": "සුරැකි සැසියක් ලෙස එය ප්‍රතිසාධනය කිරීමට උපස්ථ ගොනුවක් ආයාත කරන්න. ආයාත කිරීමෙන් පසු, ප්‍රතිසාධනය කළ යුතු කවුළු තෝරා ගැනීමට සැසි විවෘත කරන්න."
+    "message": "සුරැකි වාරයක් ලෙස ප්‍රත්‍යර්පණයට උපස්ථ ගොනුවක් ආයාත කරන්න. ආයාතයෙන් පසු, ප්‍රත්‍යර්පණය කළ යුතු කවුළු තේරීමට වාර විවෘත කරන්න."
   },
   "html_backup_restore_local_title": {
     "message": "ස්ථානීය ගොනුව"
   },
   "html_backup_restore_drive_title": {
-    "message": "Google Drive"
+    "message": "ගූගල් ඩ්‍රයිව්"
   },
   "html_backup_restore_from_file": {
     "message": "උපස්ථ ගොනුව තෝරන්න"
   },
   "html_backup_restore_drive_select_label": {
-    "message": "Drive උපස්ථයක් තෝරන්න"
+    "message": "ඩ්‍රයිව් උපස්ථයක් තෝරන්න"
   },
   "html_backup_restore_import": {
-    "message": "තෝරාගත් දෑ ආයාත කරන්න"
+    "message": "තේරීම් ආයාත කරන්න"
   },
   "js_backup_restore_importing": {
-    "message": "ආයාත කරමින්…"
+    "message": "ආයාත වෙමින්…"
   },
   "js_backup_restore_success": {
-    "message": "\"$name$\" ලෙස ආයාත කරන ලදී.",
+    "message": "\"$name$\" ලෙස ආයාත කෙරිණි.",
     "placeholders": {
       "name": {
         "content": "$1"
@@ -1368,22 +1368,22 @@
     }
   },
   "js_backup_restore_go_sessions": {
-    "message": "→ ප්‍රතිසාධනය කිරීමට සැසි විවෘත කරන්න"
+    "message": "→ ප්‍රත්‍යර්පණයට වාරය අරින්න"
   },
   "js_backup_restore_error_invalid": {
-    "message": "අවලංගු උපස්ථ ගොනුවකි."
+    "message": "උපස්ථ ගොනුව වලංගු නොවේ."
   },
   "js_backup_restore_error_drive": {
-    "message": "Drive වෙතින් බාගත කළ නොහැකි විය. ඔබේ සම්බන්ධතාවය පරීක්ෂා කර නැවත උත්සාහ කරන්න."
+    "message": "ඩ්‍රයිව් වෙතින් බාගැනීමට නොහැකි විය. ඔබගේ සම්බන්‍ධතාව පරීක්‍ෂා කර නැවත උත්සාහ කරන්න."
   },
   "js_backup_restore_error_generic": {
-    "message": "ආයාතය අසාර්ථක විය. නැවත උත්සාහ කරන්න."
+    "message": "ආයාතයට අසමත් විය. නැවත උත්සාහ කරන්න."
   },
   "html_backup_drive_import_modal_title": {
-    "message": "මාරු වීමට පෙර Drive උපස්ථය සුරකින්නද?"
+    "message": "මාරු වීමට පෙර ඩ්‍රයිව් උපස්ථය සුරකින්නද?"
   },
   "html_backup_drive_import_modal_body": {
-    "message": "ඔබේ නවතම Drive උපස්ථය $date$ දිනට අයත් වේ. Google Drive අවශ්‍ය නොවී එය ප්‍රතිසාධනය කළ හැකි වන පරිදි එය සැසි කළමනාකරු තුළ සැසියක් ලෙස සුරකින්න.",
+    "message": "ඔබගේ මෑත ඩ්‍රයිව් උපස්ථය $date$ ට අයත් වේ. එය වාර කළමනාකරු තුළ වාරයක් ලෙස සුරකින්න, එවිට ප්‍රත්‍යර්පණයට ඔබට ගූගල් ඩ්‍රයිව් වුවමනා නොවේ.",
     "placeholders": {
       "date": {
         "content": "$1"
@@ -1391,13 +1391,13 @@
     }
   },
   "html_backup_drive_import_modal_confirm": {
-    "message": "සැසිවලට සුරකින්න"
+    "message": "වාරයට සුරකින්න"
   },
   "html_backup_drive_import_modal_cancel": {
     "message": "මඟහරින්න"
   },
   "html_backup_drive_files_title": {
-    "message": "Drive උපස්ථ ගොනු"
+    "message": "ඩ්‍රයිව් උපස්ථ ගොනු"
   },
   "html_backup_drive_download_btn": {
     "message": "බාගන්න"
@@ -1406,7 +1406,7 @@
     "message": "මකන්න"
   },
   "js_backup_drive_delete_confirm": {
-    "message": "Drive වෙතින් මෙම උපස්ථ ගොනුව මකන්නද? මෙය අහෝසි කළ නොහැක."
+    "message": "ඩ්‍රයිව් වෙතින් මෙම උපස්ථ ගොනුව මකන්නද? මෙය ප්‍රත්‍යර්පණයට නොහැකිය."
   },
   "html_backup_drive_delete_device_btn": {
     "message": "සියල්ල මකන්න"
@@ -1415,7 +1415,7 @@
     "message": "මෙම උපාංගයේ සියලුම උපස්ථ මකන්නද?"
   },
   "html_backup_drive_delete_device_modal_body": {
-    "message": "මෙය \"$device$\" සඳහා ඇති සියලුම $count$ උපස්ථ ගොනු Google Drive වෙතින් ස්ථිරවම මකා දමයි. මෙය අහෝසි කළ නොහැක.",
+    "message": "මෙය ගූගල් ඩ්‍රයිව් වෙතින් \"$device$\" සඳහා වන සියලුම උපස්ථ ගොනු $count$ සදහටම මකා දමයි. මෙය ප්‍රත්‍යර්පණයට නොහැකිය.",
     "placeholders": {
       "count": {
         "content": "$1"
