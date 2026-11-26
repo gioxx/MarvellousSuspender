@@ -2,12 +2,17 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 
 const FIXTURES = new URL('../fixtures/', import.meta.url);
-const PAGES = new Set(['page.html', 'other.html']);
+const PAGES = new Set(['page.html', 'other.html', 'loading.html']);
 
 // Serves the fixture pages on 127.0.0.1, on a port the system picks.
 export async function startFixtureServer() {
   const server = createServer((request, response) => {
     const name = new URL(request.url, 'http://127.0.0.1').pathname.slice(1);
+    if (name === 'slow.png') {
+      // The loading fixture references this image without answering it. That keeps the
+      // tab status at "loading" until a test closes the tab.
+      return;
+    }
     if (!PAGES.has(name)) {
       response.writeHead(404, { 'content-type': 'text/plain' }).end('not found');
       return;

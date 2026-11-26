@@ -223,6 +223,26 @@ describe('suspension flow and the status the content script reports', () => {
 });
 
 describe('suspension flow for a tab that is loading', () => {
+  it('suspends at once from the current tab when an explicit request has no saved info', async () => {
+    const tab = makeTab({ status: 'loading', title: 'Loading title' });
+    const outcome = await suspend(tab, 1);
+    expect(gsIndexedDb.fetchTabInfo).toHaveBeenCalledWith(NORMAL_URL);
+    expect(gsIndexedDb.addSuspendedTabInfo).toHaveBeenCalledWith({
+      date: new Date(START_TIME.getTime() + QUEUE_CHECK_INTERVAL),
+      title: 'Loading title',
+      url: NORMAL_URL,
+      favIconUrl: 'https://example.com/favicon.ico',
+      pinned: false,
+      index: 3,
+      windowId: 1,
+    });
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(NORMAL_URL, 'Loading%20title', '0') }, expect.any(Function));
+    expect(gsIndexedDb.addSuspendedTabInfo.mock.invocationCallOrder[0]).toBeLessThan(chrome.tabs.update.mock.invocationCallOrder[0]);
+    expect(outcome).toEqual({ state: 'resolved', value: true });
+    expect(chrome.tabs.sendMessage).not.toHaveBeenCalled();
+  });
+
   // The content script is not asked and no tab info is saved: the title comes from the tab
   // info saved by an earlier suspension, and the scroll position is given up.
   it('suspends at once with the saved title and scroll position 0 when tab info was saved for the url', async () => {
@@ -236,15 +256,56 @@ describe('suspension flow for a tab that is loading', () => {
     expect(gsIndexedDb.addSuspendedTabInfo).not.toHaveBeenCalled();
   });
 
-  it('waits 3 seconds, refetches the tab and suspends it once loaded when no tab info was saved', async () => {
-    const tab = makeTab({ status: 'loading', title: 'example.com/page' });
-    tabsGetGives(makeTab({ title: 'Loaded title' }));
+  // A page that never finishes loading never yields a usable capture either, so an
+  // explicit request does not wait for one whatever the capture mode.
+  it('suspends an explicit request at once with screen capture on too', async () => {
+    await setOptions(gsStorage, { SCREEN_CAPTURE: '1' });
+    const tab = makeTab({ status: 'loading', title: 'Loading title' });
     const outcome = await suspend(tab, 1);
+    expect(gsIndexedDb.addSuspendedTabInfo).toHaveBeenCalledWith(expect.objectContaining({ title: 'Loading title', url: NORMAL_URL }));
+    expect(chrome.tabs.update).toHaveBeenCalledTimes(1);
+    expect(chrome.tabs.update).toHaveBeenCalledWith(5, { url: suspendedUrlOf(NORMAL_URL, 'Loading%20title', '0') }, expect.any(Function));
+    expect(outcome).toEqual({ state: 'resolved', value: true });
+    expect(chrome.tabs.sendMessage).not.toHaveBeenCalled();
+  });
+
+  // "Discard in place of suspend" turns every suspension capture-free, so a loading tab
+  // with the option on takes the fast path from the start instead of waiting.
+  it('discards a level-2 loading tab at once with discard in place of suspend and capture on', async () => {
+    await setOptions(gsStorage, { SCREEN_CAPTURE: '1', DISCARD_IN_PLACE_OF_SUSPEND: true });
+    gsIndexedDb.fetchTabInfo.mockResolvedValue({ title: 'Saved title', url: NORMAL_URL });
+    const tab = makeTab({ status: 'loading', title: 'example.com/page' });
+    const outcome = await suspend(tab, 2);
+    expect(gsTabDiscardManager.queueTabForDiscard).toHaveBeenCalledTimes(1);
+    expect(gsTabDiscardManager.queueTabForDiscard).toHaveBeenCalledWith(tab);
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
+    expect(gsIndexedDb.addSuspendedTabInfo).not.toHaveBeenCalled();
+    expect(outcome).toEqual({ state: 'resolved', value: true });
+    expect(chrome.tabs.sendMessage).not.toHaveBeenCalled();
+  });
+
+  it('still waits at level 2 with screen capture on when no tab info was saved', async () => {
+    await setOptions(gsStorage, { SCREEN_CAPTURE: '1' });
+    const tab = makeTab({ status: 'loading', title: 'example.com/page' });
+    const outcome = await suspend(tab, 2);
     expect(outcome.state).toBe('pending');
     expect(manager.getQueuedTabDetails(tab)).toMatchObject({
       status: 'sleeping',
       requeues: 1,
-      executionProps: { forceLevel: 1, refetchTab: true },
+      executionProps: { forceLevel: 2, refetchTab: true },
+    });
+    expect(chrome.tabs.update).not.toHaveBeenCalled();
+  });
+
+  it('waits at level 2, refetches the tab and suspends it once loaded when no tab info was saved', async () => {
+    const tab = makeTab({ status: 'loading', title: 'example.com/page' });
+    tabsGetGives(makeTab({ title: 'Loaded title' }));
+    const outcome = await suspend(tab, 2);
+    expect(outcome.state).toBe('pending');
+    expect(manager.getQueuedTabDetails(tab)).toMatchObject({
+      status: 'sleeping',
+      requeues: 1,
+      executionProps: { forceLevel: 2, refetchTab: true },
     });
     expect(chrome.tabs.get).not.toHaveBeenCalled();
 
@@ -263,10 +324,10 @@ describe('suspension flow for a tab that is loading', () => {
   // from the tab as it was queued. The queue's other bound, 100 requeues, falls one cycle
   // later with the source's 3 s requeue delay: the case pins when the tab is suspended,
   // not which of the two bounds does it.
-  it('suspends a tab that never stops loading after 5 job timeouts (oddity: see comment)', async () => {
+  it('suspends a level-2 request for a tab that never stops loading after 5 job timeouts', async () => {
     const tab = makeTab({ status: 'loading', title: 'As queued' });
     chrome.tabs.get.mockImplementation((tabId, callback) => callback(makeTab({ status: 'loading', title: 'As refetched' })));
-    const outcome = await suspend(tab, 1);
+    const outcome = await suspend(tab, 2);
 
     // The deadline is 5 job timeouts after the first run. The job is still sleeping when it
     // passes; the next run is the one the queue refuses to requeue.
@@ -332,7 +393,7 @@ describe('suspension flow for a tab that is already suspended', () => {
 
   it('resolves false when a loading tab is gone by the time it is refetched', async () => {
     tabsGetGives(undefined);
-    const outcome = await suspend(makeTab({ status: 'loading' }), 1);
+    const outcome = await suspend(makeTab({ status: 'loading' }), 2);
     await advance(REQUEUE_DELAY + QUEUE_CHECK_INTERVAL);
     expect(chrome.tabs.get).toHaveBeenCalledTimes(1);
     expect(outcome).toEqual({ state: 'resolved', value: false });

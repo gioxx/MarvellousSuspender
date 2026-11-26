@@ -228,6 +228,32 @@ describe('suspending and unsuspending', () => {
     await cdp.waitForUrl(tab.targetId, 'the tab to be unsuspended', (url) => url === server.url('page.html'));
 
   });
+
+  it('suspends an explicitly requested loading tab before its page finishes', async () => {
+    const tab = await openTab(server.url('loading.html'));
+    await cdp.waitForUrl(tab.targetId, 'loading.html to commit', (url) => url === server.url('loading.html'));
+    await waitFor('loading.html to still be loading', () => cdp.evaluate(worker, `
+      chrome.tabs.query({ url: ${JSON.stringify(server.url('loading.html'))} })
+        .then(([tab]) => tab?.status === 'loading')
+    `));
+
+    const sender = await openExtensionPage('about.html', { background: true });
+    await cdp.activate(tab);
+    await waitFor('loading.html to be the active tab', () => cdp.evaluate(worker, `
+      chrome.tabs.query({ active: true, currentWindow: true })
+        .then(([tab]) => tab?.url === ${JSON.stringify(server.url('loading.html'))})
+    `));
+    await cdp.evaluate(sender.sessionId, 'chrome.runtime.sendMessage({ action: "suspendOne" }).then(() => true)');
+
+    const suspended = await cdp.waitForUrl(
+      tab.targetId,
+      'the loading tab to be suspended',
+      isPlaceholder,
+      { timeout: 5000 },
+    );
+    expect(suspended).toContain(`uri=${server.url('loading.html')}`);
+    expect(suspended).toContain(`ttl=${encodeURIComponent('Loading fixture page')}`);
+  });
 });
 
 describe('the popup', () => {
