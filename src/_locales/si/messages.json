@@ -1318,10 +1318,10 @@
     }
   },
   "html_options_settings_export": {
-    "message": "සැකසුම් නිර්යාත කරන්න"
+    "message": "නිර්යාත කරන්න"
   },
   "html_options_settings_import": {
-    "message": "සැකසුම් ආයාත කරන්න"
+    "message": "ආයාත කරන්න"
   },
   "js_options_settings_import_confirm": {
     "message": "මෙය ඔබේ වත්මන් සැකසුම් උඩින් ලියනු ඇත. ඉදිරියට යන්නද?"
@@ -1429,15 +1429,15 @@
     "message": "සියල්ල මකන්න"
   },
   "html_backup_drive_delete_device_modal_cancel": {
-    "message": "අවලංගු කරන්න"
+    "message": "අවලංගු"
   },
   "js_backup_drive_delete_device_error": {
     "message": "සමහර උපස්ථ ගොනු මැකීමට නොහැකි විය. නැවත උත්සාහ කරන්න."
   },
   "html_backup_drive_no_files": {
-    "message": "Drive හි උපස්ථ ගොනු හමු නොවීය."
+    "message": "ඩ්‍රයිව් උපස්ථ ගොනු හමු නොවිණි."
   },
   "html_backup_drive_files_loading": {
-    "message": "පූරණය කරමින්…"
+    "message": "පූරණය වෙමින්…"
   }
 }
